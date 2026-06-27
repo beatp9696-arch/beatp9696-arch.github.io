@@ -1,0 +1,7 @@
+# ไฟล์ขยะของ macOS — ไม่ต้องขึ้นเว็บ
+.DS_Store
+._*
+
+# editor
+.vscode/
+*.swp

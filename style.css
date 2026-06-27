@@ -1,0 +1,135 @@
+/* ===========================================================
+   ผ่าธุรกิจ — stylesheet หลัก (ใช้ร่วมทุกหน้า)
+   ออกแบบให้อ่านง่าย เน้นตัวหนังสือ ไม่รก รองรับภาษาไทย + มือถือ
+   =========================================================== */
+
+:root {
+  --bg: #fbfaf7;          /* พื้นหลังครีมอ่อน อ่านสบายตากว่าขาวจัด */
+  --text: #1f2328;        /* สีตัวอักษรหลัก */
+  --muted: #6b7280;       /* สีตัวอักษรรอง (footer, คำอธิบาย) */
+  --accent: #0f766e;      /* สีเน้น (teal เข้ม) */
+  --border: #e5e1d8;      /* เส้นขอบจางๆ */
+  --table-head: #f1efe8;  /* พื้นหลังหัวตาราง */
+  --max: 720px;           /* ความกว้างเนื้อหา — แคบไว้เพื่ออ่านง่าย */
+}
+
+* { box-sizing: border-box; }
+
+html { -webkit-text-size-adjust: 100%; }
+
+body {
+  margin: 0;
+  font-family: -apple-system, "Helvetica Neue", "Sarabun",
+               "Noto Sans Thai", "Segoe UI", sans-serif;
+  font-size: 18px;
+  line-height: 1.75;
+  color: var(--text);
+  background: var(--bg);
+}
+
+/* ---- โครง layout กลางหน้า ---- */
+.container {
+  max-width: var(--max);
+  margin: 0 auto;
+  padding: 0 20px;
+}
+
+/* ---- Header / เมนู ---- */
+.site-header {
+  border-bottom: 1px solid var(--border);
+  padding: 22px 0;
+  margin-bottom: 40px;
+}
+.site-header .container {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+.site-title {
+  font-size: 22px;
+  font-weight: 700;
+  color: var(--text);
+  text-decoration: none;
+  letter-spacing: 0.5px;
+}
+.site-nav a {
+  color: var(--muted);
+  text-decoration: none;
+  margin-left: 18px;
+  font-size: 16px;
+}
+.site-nav a:hover { color: var(--accent); }
+
+/* ---- เนื้อหา ---- */
+main { padding-bottom: 60px; }
+
+h1 { font-size: 30px; line-height: 1.35; margin: 0 0 8px; }
+h2 { font-size: 23px; margin: 40px 0 12px; }
+h3 { font-size: 19px; margin: 28px 0 8px; }
+
+a { color: var(--accent); }
+
+.lead { font-size: 19px; color: var(--muted); margin-top: 0; }
+
+.meta { color: var(--muted); font-size: 15px; margin-bottom: 32px; }
+
+/* callout สำหรับประโยคหลักคิด */
+blockquote {
+  margin: 24px 0;
+  padding: 14px 20px;
+  border-left: 4px solid var(--accent);
+  background: #fff;
+  border-radius: 0 8px 8px 0;
+  font-weight: 600;
+}
+
+/* ---- ตาราง ---- */
+table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 20px 0;
+  font-size: 16px;
+}
+th, td {
+  padding: 9px 12px;
+  border: 1px solid var(--border);
+  text-align: left;
+}
+th { background: var(--table-head); }
+td.num, th.num { text-align: right; font-variant-numeric: tabular-nums; }
+tr.total td { font-weight: 700; background: #fff; }
+
+/* ---- รายการบทความหน้าแรก ---- */
+.post-list { list-style: none; padding: 0; }
+.post-list li {
+  padding: 18px 0;
+  border-bottom: 1px solid var(--border);
+}
+.post-list a { font-size: 20px; font-weight: 600; text-decoration: none; }
+.post-list .excerpt { color: var(--muted); font-size: 16px; margin-top: 4px; }
+.post-list .tag {
+  display: inline-block; font-size: 13px; color: var(--accent);
+  border: 1px solid var(--accent); border-radius: 999px;
+  padding: 1px 10px; margin-bottom: 6px;
+}
+
+/* ---- Footer / disclaimer ---- */
+.site-footer {
+  border-top: 1px solid var(--border);
+  padding: 28px 0 50px;
+  color: var(--muted);
+  font-size: 14px;
+}
+.site-footer p { margin: 6px 0; }
+
+/* ปุ่มกลับ */
+.back { font-size: 15px; }
+
+/* ---- มือถือ ---- */
+@media (max-width: 600px) {
+  body { font-size: 17px; }
+  h1 { font-size: 26px; }
+  table { font-size: 15px; }
+}
