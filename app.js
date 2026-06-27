@@ -92,4 +92,31 @@
   document.querySelectorAll(".site-nav a").forEach(function (a) {
     if (a.getAttribute("href").split("/").pop() === here) a.classList.add("active");
   });
+
+  // ---- tag แยกสีตามหมวด (หน้าแรก) ----
+  document.querySelectorAll(".post-list .tag").forEach(function (t) {
+    if (t.textContent.indexOf("Deep-dive") !== -1) t.classList.add("tag-deepdive");
+  });
+
+  // ---- header หดตอนเลื่อน ----
+  var headerEl = document.querySelector(".site-header");
+  if (headerEl) {
+    var condense = function () {
+      if (window.scrollY > 40) headerEl.classList.add("condensed");
+      else headerEl.classList.remove("condensed");
+    };
+    document.addEventListener("scroll", condense, { passive: true });
+    condense();
+  }
+
+  // ---- scroll-reveal เนียนๆ (เฉพาะ block element) ----
+  if ("IntersectionObserver" in window) {
+    var revealEls = document.querySelectorAll(".post-list li, main table, main blockquote, .author-card, .toc");
+    var io = new IntersectionObserver(function (entries, obs) {
+      entries.forEach(function (e) {
+        if (e.isIntersecting) { e.target.classList.add("is-visible"); obs.unobserve(e.target); }
+      });
+    }, { rootMargin: "0px 0px -8% 0px", threshold: 0.05 });
+    revealEls.forEach(function (el) { el.classList.add("reveal"); io.observe(el); });
+  }
 })();

@@ -496,3 +496,47 @@ h2 { scroll-margin-top: 84px; }   /* กันหัวข้อโดน sticky
 
 .site-nav a.active { color: var(--accent); }
 .site-nav a.active::after { transform: scaleX(1); }
+
+/* ============================================================
+   UX/UI polish — reveal, header condense, hero, tags, details
+   ============================================================ */
+
+/* ข้อความไล่สี (gradient text) */
+.grad-text {
+  background: var(--grad);
+  -webkit-background-clip: text; background-clip: text;
+  color: transparent;
+}
+
+/* scroll-reveal: fade ขึ้นเนียนๆ (เฉพาะ block ไม่ใช่ทุก paragraph) */
+.reveal { opacity: 0; transform: translateY(16px); transition: opacity .6s ease, transform .6s cubic-bezier(.2,.7,.3,1); }
+.reveal.is-visible { opacity: 1; transform: none; }
+@media (prefers-reduced-motion: reduce) {
+  .reveal { opacity: 1 !important; transform: none !important; transition: none !important; }
+}
+
+/* header หดตอนเลื่อน */
+.site-header { transition: padding .25s ease, box-shadow .25s ease; }
+.site-header.condensed { padding: 9px 0; box-shadow: 0 4px 22px rgba(20,22,24,0.07); }
+.site-header.condensed .site-title { font-size: 19px; }
+@media (prefers-color-scheme: dark) {
+  .site-header.condensed { box-shadow: 0 4px 22px rgba(0,0,0,0.35); }
+}
+
+/* tag แยกสีตามหมวด: Deep-dive = ป้ายทึบ */
+.tag.tag-deepdive { background: var(--accent); color: #fff; }
+
+/* เครื่องหมายคำพูดจางๆ บน callout */
+blockquote { position: relative; }
+blockquote::before {
+  content: "\201D";
+  position: absolute; top: 0; right: 16px;
+  font-size: 52px; line-height: 1;
+  color: var(--accent); opacity: 0.10;
+  font-family: Georgia, "Times New Roman", serif;
+  pointer-events: none;
+}
+
+/* ไฮไลต์แถวตารางตอน hover */
+tbody tr { transition: background .12s ease; }
+tbody tr:hover td { background: var(--accent-tint); }
