@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <script>try{var t=localStorage.getItem('theme');if(t)document.documentElement.setAttribute('data-theme',t);}catch(e){}</script>
+  <title>ผ่าธุรกิจ AXP (American Express) — Deep-dive | Moatrices</title>
+  <meta name="description" content="ผ่าธุรกิจ American Express (AXP) — closed-loop network, โมเดล spend-centric, moat, bull/bear และ Kill Conditions อ้างอิงงบ FY2025 + Q1 2026">
+  <meta property="og:type" content="article">
+  <meta property="og:site_name" content="Moatrices">
+  <meta property="og:title" content="ผ่าธุรกิจ AXP (American Express) — Deep-dive">
+  <meta property="og:description" content="closed-loop network, โมเดล spend-centric, moat, bull/bear และ Kill Conditions อ้างอิงงบจริง">
+  <meta property="og:url" content="https://beatp9696-arch.github.io/articles/deep-dive-axp.html">
+  <meta property="og:locale" content="th_TH">
+  <meta name="twitter:card" content="summary">
+  <link rel="icon" href="../favicon.svg" type="image/svg+xml">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Thai:wght@500;600;700&family=Sarabun:wght@400;500;600;700&display=swap">
+  <link rel="stylesheet" href="../style.css">
+</head>
+<body>
+
+  <div class="reading-progress"></div>
+  <div class="top-accent"></div>
+
+  <header class="site-header">
+    <div class="container">
+      <a href="../index.html" class="site-title">Moatrices</a>
+      <nav class="site-nav">
+        <a href="../index.html">หน้าแรก</a>
+        <a href="../dashboard.html">Dashboard</a>
+        <a href="../about.html">เกี่ยวกับ</a>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <div class="container">
+
+      <span class="kicker">Deep-dive · หุ้นจริง</span>
+      <h1>ผ่าธุรกิจ AXP (American Express) — โมเดล "spend-centric" กับคูเมืองที่คนมองข้าม</h1>
+      <div class="byline">
+        <span class="byline-avatar">M</span>
+        <div>
+          <div class="byline-author">Moatrices</div>
+          <div class="byline-info">27 มิ.ย. 2026 · อ่าน ~12 นาที</div>
+        </div>
+      </div>
+
+      <p class="lead">
+        คนส่วนใหญ่คิดว่า American Express คือ "บริษัทบัตรเครดิต" — แต่ถ้าหยุดแค่นั้น
+        คุณจะมองข้ามสิ่งที่ทำให้มันเป็นธุรกิจคุณภาพระดับที่ Warren Buffett ถือยาวหลายสิบปี
+        นี่คือ deep-dive ตัวแรกของซีรีส์ "หุ้นจริง" — เอากรอบจาก
+        <a href="financials-01-income-statement.html">ซีรีส์อ่านงบ</a> มาใช้กับบริษัทจริง
+      </p>
+
+      <blockquote>
+        ตัวเลขทั้งหมดในบทความนี้อ้างอิงงบ FY2025 (10-K) และ earnings call ไตรมาส 1 ปี 2026
+        เป็นการวิเคราะห์เพื่อการศึกษา ไม่ใช่คำแนะนำซื้อขาย
+      </blockquote>
+
+      <h2>1. ธุรกิจนี้หาเงินจากอะไร</h2>
+      <p>
+        หัวใจที่ทำให้ AXP ต่างจากคนอื่นคือมันเป็น <strong>closed-loop network</strong> —
+        ทำหน้าที่เป็นทั้ง <em>ผู้ออกบัตร</em> (issuer), <em>ผู้รับร้านค้า</em> (acquirer)
+        และ <em>เครือข่ายชำระเงิน</em> ในระบบเดียว ต่างจาก Visa/Mastercard ที่เป็น open-loop
+        (แยกให้ธนาคารอื่นออกบัตรและรับร้านค้า) ผลคือ AXP เห็นข้อมูลธุรกรรม<strong>ทั้งสองฝั่ง</strong>
+        — ทั้งคนรูดและร้านค้า
+      </p>
+      <p>รายได้มาจาก 3 ขาหลัก (FY2025):</p>
+      <table>
+        <thead><tr><th>แหล่งรายได้</th><th class="num">สัดส่วน</th><th>คืออะไร</th></tr></thead>
+        <tbody>
+          <tr><td>Discount revenue</td><td class="num">~52%</td><td>ค่าธรรมเนียมที่เก็บจากร้านค้าทุกครั้งที่มีการรูด</td></tr>
+          <tr><td>Net interest income</td><td class="num">~24%</td><td>ดอกเบี้ยจากยอดที่ลูกค้าผ่อน (loan book)</td></tr>
+          <tr><td>Net card fees</td><td class="num">~14%</td><td>ค่าธรรมเนียมรายปีของบัตร (Platinum, Gold ฯลฯ)</td></tr>
+        </tbody>
+      </table>
+      <blockquote>
+        จุดสำคัญ: AXP เป็น <strong>"spend-centric" ไม่ใช่ "lend-centric"</strong> —
+        รายได้ก้อนใหญ่สุดมาจาก "การใช้จ่าย" (รูดบัตร) ไม่ใช่ "ดอกเบี้ย" ต่างจากผู้ออกบัตรทั่วไป
+        นี่คือเหตุผลที่ฐานลูกค้าระดับพรีเมียมสำคัญมาก — เขารูดเยอะและเบี้ยวหนี้น้อย
+      </blockquote>
+      <p>
+        สเกลของธุรกิจ: ปี 2025 มี <strong>billed business รวม ~$1.67 ล้านล้าน</strong>
+        จากบัตรในมือ <strong>86.6 ล้านใบ</strong> แบ่งเป็น 4 segment — U.S. Consumer (~$34.8B),
+        Commercial (~$16.9B), International (~$13.0B) และ Global Merchant &amp; Network (~$7.8B)
+      </p>
+
+      <h2>2. ใครคือลูกค้า และทำไมเขาต้องใช้</h2>
+      <p>
+        ลูกค้าหลักคือ<strong>ผู้บริโภคและธุรกิจระดับพรีเมียม</strong>ที่มีกำลังใช้จ่ายสูง
+        เหตุผลที่เขายอมจ่ายค่าธรรมเนียมรายปีแพงๆ ไม่ใช่เพราะ "บัตร" แต่เพราะ
+        <strong>ecosystem ของสิทธิประโยชน์</strong> — Membership Rewards, Centurion Lounge,
+        ดีลกับ Delta/Marriott/Amazon และสถานะทางสังคมที่บัตรพรีเมียมให้
+      </p>
+      <p>
+        ฐานลูกค้านี้คือ <em>moat ในตัวเอง</em>: คนรวยรูดเยอะ (รายได้ discount สูง),
+        เบี้ยวหนี้น้อย (credit loss ต่ำ) และทนทานต่อภาวะเศรษฐกิจได้ดีกว่าลูกค้า subprime
+        สัญญาณล่าสุด Q1 2026: <strong>Card Member spending +9%</strong> (FX-adj) —
+        โตเร็วที่สุดในรอบ 3 ปี แม้ผ่านช่วงความไม่แน่นอนจาก tariffs
+      </p>
+
+      <h2>3. Moat: คูเมืองอยู่ตรงไหน</h2>
+      <ul>
+        <li><strong>Counter-Positioning จาก closed-loop</strong> — การเห็นข้อมูลทั้งสองฝั่ง
+          (คนรูด + ร้านค้า) ทำให้ targeted marketing, การกัน fraud และการต่อรอง discount rate
+          แม่นกว่า Visa/Mastercard ที่ไม่มีข้อมูลนี้ และเป็นสิ่งที่คู่แข่งลอกตามยากเพราะโมเดลธุรกิจต่างกันโดยโครงสร้าง</li>
+        <li><strong>Brand Power ข้ามรุ่น</strong> — Amex ผูก emotional connection และสถานะ
+          ที่เงินซื้อ brand ใหม่ไม่ได้ในเวลาสั้น</li>
+        <li><strong>Switching Costs จาก Membership Rewards</strong> — แต้มและสิทธิที่สะสมผูกกับ
+          พาร์ทเนอร์ ทำให้ย้ายค่ายแล้ว "เสียของ"</li>
+      </ul>
+      <p>
+        หลักฐานว่า moat ยัง <em>compound</em> อยู่: ค่าธรรมเนียมเฉลี่ยต่อบัตรปี 2025 อยู่ที่
+        <strong>$117 (+14% YoY)</strong> และ net card fees โต <strong>+18%</strong> —
+        ขึ้นราคาได้โดยลูกค้าไม่หนี คือสัญญาณ pricing power ที่แท้จริง
+      </p>
+
+      <h2>4. ตัวเลขบอกอะไร (เอาซีรีส์อ่านงบมาใช้จริง)</h2>
+      <ul>
+        <li><strong>รายได้โตสม่ำเสมอ 3 ปีติด:</strong> $60.5B (2023) → $65.9B (2024) → $72.2B (2025) ≈ +9-10%/ปี</li>
+        <li><strong>EPS เร่งกว่ารายได้:</strong> $11.21 → $14.01 → $15.38 — ส่วนหนึ่งเพราะ buyback ลดจำนวนหุ้น</li>
+        <li><strong>ROE สูงมาก ~34%</strong> (33.9% ปี 2025 vs 34.6% ปีก่อน) — ใช้ทุนเก่งระดับท็อป</li>
+        <li><strong>Capital allocation มีวินัย:</strong> ปี 2025 คืนทุน $7.6B (buyback $5.3B + ปันผล $2.3B) ≈ 71% ของกำไรสุทธิ ปันผล +17% และเพิ่มอีก ~16% ตั้งแต่ Q1 2026</li>
+        <li><strong>Credit ยังแข็ง:</strong> net write-off rate Q1 2026 = 2.0% (ดีขึ้นจาก 2.1%)</li>
+      </ul>
+      <p>
+        มีจุดที่ต้องอ่านเป็น — <strong>FCF ผันผวน</strong>: $17.0B (2023) → $12.1B (2024, −29%)
+        → $16.0B (2025, +32%) ความผันผวนนี้<strong>ไม่ใช่กำไรแย่ลง</strong> แต่มาจากการขยาย loan book
+        (ปล่อยกู้เพิ่ม เงินสดหายเข้าไปจมใน receivables ชั่วคราว) — เป็นเคสคลาสสิกที่
+        <a href="financials-02-cash-flow-statement.html">งบกระแสเงินสด</a> สอนเราว่าต้องแยก
+        "เงินจมเพื่อโต" ออกจาก "ธุรกิจแย่ลง"
+      </p>
+
+      <h2>5. Bull Case</h2>
+      <ul>
+        <li><strong>Data advantage ของ closed-loop ยิ่ง compound</strong> — network ใหญ่ขึ้น → data ดีขึ้น → ดึงพาร์ทเนอร์คุณภาพ → ขึ้น card fee ได้เรื่อยๆ</li>
+        <li><strong>Agentic commerce เป็น tailwind</strong> — ถ้า AI agent เริ่มทำธุรกรรมแทนคน บริษัทที่มี data + trust + premium merchant จะได้เปรียบ AXP ลงทุนล่วงหน้า (developer kit, Agent Purchase Protection)</li>
+        <li><strong>Guidance FY2026 ยืนยันแข็ง</strong> — Revenue +9-10%, EPS $17.30-$17.90 โดยไม่ hedge แถมยังเพิ่มลงทุน marketing/tech (สื่อถึง internal confidence)</li>
+      </ul>
+
+      <h2>6. Bear Case / จุดเปราะ</h2>
+      <ul>
+        <li><strong>Delta concentration</strong> — พาร์ทเนอร์รายเดียวคิดเป็น ~13% ของ billed business
+          และ ~21% ของ Card Member loans สัญญาหมดปลายปี 2029 ถ้าต่อด้วยเงื่อนไขแย่ลง
+          (Delta เรียก economics กลับ แบบที่ Amazon ทำกับ Chase) ผลกระทบทันทีและมีนัยสำคัญ</li>
+        <li><strong>Hybrid bank+network = credit cycle ทำร้ายแรงกว่า Visa/MA</strong> — AXP แบกความเสี่ยงเครดิตเอง
+          ถ้า recession จริง write-off ที่ปกติ 2.0-2.3% อาจพุ่งถึง 4-5%+ กำไรร่วงแรง
+          ขณะที่ Visa/Mastercard ไม่มี credit risk เลย — นี่คือราคาที่จ่ายแลกกับโมเดล spend+lend</li>
+        <li><strong>เพดาน regulatory</strong> — cross-jurisdictional activity ใกล้ threshold Category II
+          (~$73B เทียบเพดาน $75B) ถ้าข้ามต้องเจอ capital requirement สูงขึ้น กระทบ ROE และความสามารถ buyback</li>
+      </ul>
+
+      <h2>7. Kill Conditions — อะไรจะทำให้ thesis พัง</h2>
+      <p>วินัยสำคัญ: ต้องรู้ก่อนว่า "เหตุการณ์แบบไหนจะบอกว่าผมคิดผิด" สำหรับ AXP คือ:</p>
+      <ul>
+        <li><strong>Net write-off rate ทะลุ 3.5% ติดกัน 2 ไตรมาส</strong> → ฐานลูกค้าพรีเมียมเสื่อมคุณภาพเชิงระบบ (หักล้างสมมติฐานหลักว่าลูกค้าคือ HNW ที่ทนทาน)</li>
+        <li><strong>Delta ไม่ต่อสัญญา หรือต่อด้วย economics แย่ลงมากก่อนปี 2028</strong> → กระทบ revenue ~13% และ loan book ~21% ที่แทนไม่ได้ในระยะสั้น</li>
+        <li><strong>Card Member spending โตติดลบ YoY ติดกัน 2 ไตรมาส</strong> → revenue driver หลัก (spend-centric) กำลัง break แม้ credit ยังดี</li>
+      </ul>
+
+      <h2>8. สิ่งที่ยังต้องขุดต่อ (What to ask)</h2>
+      <ol>
+        <li>ถ้า Delta ต่อสัญญาแบบเรียก economics คืนมากขึ้น AXP จะ protect margin ยังไง มี fallback ไหม?</li>
+        <li>FCF ที่ผันผวนมาจาก receivables growth เท่าไหร่ vs. earnings จริง — ต้อง normalize ยังไงเพื่อดู earnings power แท้จริง?</li>
+        <li>Agentic commerce เป็น revenue driver จริงใน 3 ปี หรือเป็นแค่ marketing narrative ที่ยังไม่มี unit economics ชัดเจน?</li>
+        <li>card fee ที่โต มาจากลูกค้า Gen Z/Millennial หน้าใหม่จริง หรือฐานเดิม upgrade tier?</li>
+      </ol>
+
+      <h2>9. Valuation — ประเมินเอง อย่าให้ใครบอก</h2>
+      <p>
+        ณ กลางเดือน พ.ค. 2026 AXP เทรดราว <strong>$313/หุ้น</strong> (market cap ~$211B)
+        คิดเป็น FCF yield ~8% ขณะที่ guidance EPS ยังโต 9-10% —
+        ถูกหรือแพง <strong>ขึ้นกับว่าคุณเชื่อว่า credit จะไม่เสื่อมแค่ไหน</strong>
+        เพราะนั่นคือตัวแปรที่สวิงมูลค่ามากที่สุด
+        <em>ราคาเปลี่ยนทุกวัน — ก่อนตัดสินใจจริงต้องเช็คราคาปัจจุบันและคำนวณ margin of safety เอง</em>
+      </p>
+
+      <h2>สรุป</h2>
+      <p>
+        AXP เป็นตัวอย่างของ "wonderful business" ที่ moat ไม่ได้อยู่ที่ตัวบัตร แต่อยู่ที่
+        <strong>closed-loop + ฐานลูกค้าพรีเมียม + ecosystem</strong> ที่ทำให้ขึ้นราคาได้และเก็บเงินจาก
+        การใช้จ่ายมากกว่าดอกเบี้ย จุดเปราะที่ใหญ่สุดคือ <strong>ความเสี่ยงเครดิตในวัฏจักรเศรษฐกิจ</strong>
+        และ <strong>การพึ่ง Delta</strong> — ซึ่งทั้งคู่มี Kill Condition ที่วัดได้ชัด ใครจะถือต้องตอบให้ได้ว่า
+        ถ้าตัวเลขพวกนี้พลิก จะทำยังไง
+      </p>
+
+      <div class="author-card">
+        <span class="byline-avatar">M</span>
+        <div>
+          <strong>Moatrices</strong>
+          <p>บันทึกการเรียนวิเคราะห์หุ้น US เชิงลึก สาย fundamental — เน้นพื้นฐานธุรกิจ ไม่ใช่ราคา <a href="../about.html">เกี่ยวกับเว็บนี้ →</a></p>
+        </div>
+      </div>
+
+      <p class="back"><a href="../index.html">← กลับหน้าแรก</a></p>
+
+    </div>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container footer-grid">
+      <div class="footer-brand">
+        <a href="../index.html" class="site-title">Moatrices</a>
+        <p>บันทึกการเรียนวิเคราะห์หุ้น US เชิงลึก ภาษาไทย — เน้นพื้นฐานธุรกิจ ไม่ใช่ราคา</p>
+      </div>
+      <nav class="footer-nav">
+        <a href="../index.html">หน้าแรก</a>
+        <a href="../dashboard.html">Dashboard</a>
+        <a href="../about.html">เกี่ยวกับ</a>
+      </nav>
+    </div>
+    <div class="container footer-legal">
+      <p><strong>คำเตือน:</strong> เนื้อหาทั้งหมดเป็นบันทึกการเรียนและความเห็นส่วนตัว
+         เพื่อการศึกษาเท่านั้น <strong>ไม่ใช่คำแนะนำการลงทุน</strong> ไม่ใช่การชี้นำให้ซื้อหรือขายหลักทรัพย์ใดๆ
+         ตัวเลขอ้างอิงงบที่เผยแพร่ ณ ช่วงเวลาหนึ่งและอาจล้าสมัย การตัดสินใจลงทุนเป็นความรับผิดชอบของผู้อ่านเอง</p>
+      <p>© 2026 Moatrices · เผยแพร่ผ่าน GitHub Pages</p>
+    </div>
+  </footer>
+
+  <button class="to-top" aria-label="กลับขึ้นด้านบน">↑</button>
+  <script src="../app.js"></script>
+
+</body>
+</html>
