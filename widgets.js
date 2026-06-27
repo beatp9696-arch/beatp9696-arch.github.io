@@ -33,9 +33,9 @@
   // --- แถบราคาเลื่อนผ่าน (ดัชนี + MAG 7) ---
   inject("tv-ticker", TICKER, {
     symbols: [
-      { proName: "TVC:DJI",      title: "Dow" },
-      { proName: "SP:SPX",       title: "S&P 500" },
-      { proName: "NASDAQ:IXIC",  title: "Nasdaq" },
+      { proName: "FOREXCOM:DJI",    title: "Dow" },
+      { proName: "FOREXCOM:SPXUSD", title: "S&P 500" },
+      { proName: "FOREXCOM:NSXUSD", title: "Nasdaq 100" },
       { proName: "NASDAQ:AAPL",  title: "Apple" },
       { proName: "NASDAQ:MSFT",  title: "Microsoft" },
       { proName: "NASDAQ:GOOGL", title: "Alphabet" },
@@ -63,9 +63,9 @@
       {
         title: "Indices",
         symbols: [
-          { s: "TVC:DJI",     d: "Dow Jones" },
-          { s: "SP:SPX",      d: "S&P 500" },
-          { s: "NASDAQ:IXIC", d: "Nasdaq Composite" }
+          { s: "FOREXCOM:DJI",    d: "Dow Jones" },
+          { s: "FOREXCOM:SPXUSD", d: "S&P 500" },
+          { s: "FOREXCOM:NSXUSD", d: "Nasdaq 100" }
         ]
       },
       {
