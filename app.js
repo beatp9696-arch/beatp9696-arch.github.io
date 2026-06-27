@@ -67,4 +67,29 @@
       if (window.renderTradingViewWidgets) window.renderTradingViewWidgets();
     });
   }
+
+  // ---- สารบัญอัตโนมัติ (เฉพาะหน้าบทความที่มีหัวข้อหลายอัน) ----
+  var bylineEl = document.querySelector(".byline");
+  var mainCol = document.querySelector("main .container");
+  if (bylineEl && mainCol) {
+    var hs = mainCol.querySelectorAll("h2");
+    if (hs.length >= 4) {
+      var toc = document.createElement("nav");
+      toc.className = "toc";
+      var inner = '<div class="toc-title">ในบทความนี้</div><ol>';
+      hs.forEach(function (h, i) {
+        if (!h.id) h.id = "sec-" + (i + 1);
+        inner += '<li><a href="#' + h.id + '">' + h.textContent + "</a></li>";
+      });
+      inner += "</ol>";
+      toc.innerHTML = inner;
+      bylineEl.insertAdjacentElement("afterend", toc);
+    }
+  }
+
+  // ---- ไฮไลต์เมนูของหน้าปัจจุบัน ----
+  var here = location.pathname.split("/").pop() || "index.html";
+  document.querySelectorAll(".site-nav a").forEach(function (a) {
+    if (a.getAttribute("href").split("/").pop() === here) a.classList.add("active");
+  });
 })();

@@ -473,3 +473,26 @@ main p a:hover, main li a:hover { text-decoration-color: var(--accent); }
 .theme-toggle[data-mode="dark"] .ic-moon { display: none; }
 .theme-toggle[data-mode="dark"] .ic-sun { display: block; } /* โหมดมืด โชว์ดวงอาทิตย์ = กดไป light */
 @media (max-width: 600px) { .theme-toggle { margin-left: 12px; } }
+
+/* ===== สารบัญ (TOC) + active nav + anchor offset ===== */
+h2 { scroll-margin-top: 84px; }   /* กันหัวข้อโดน sticky header บังตอนกระโดด */
+.toc {
+  margin: 0 0 38px;
+  padding: 18px 22px;
+  background: var(--surface-2);
+  border: 1px solid var(--border);
+  border-left: 4px solid var(--accent);
+  border-radius: 0 var(--radius) var(--radius) 0;
+}
+.toc-title {
+  font-family: var(--font-head); font-weight: 600; font-size: 13px;
+  color: var(--muted); text-transform: uppercase; letter-spacing: 0.04em;
+  margin-bottom: 8px;
+}
+.toc ol { margin: 0; padding-left: 22px; }
+.toc li { margin: 5px 0; }
+.toc a { color: var(--text); text-decoration: none; }
+.toc a:hover { color: var(--accent); text-decoration: underline; }
+
+.site-nav a.active { color: var(--accent); }
+.site-nav a.active::after { transform: scaleX(1); }
