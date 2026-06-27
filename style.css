@@ -426,3 +426,18 @@ main p a:hover, main li a:hover { text-decoration-color: var(--accent); }
   .to-top { right: 16px; bottom: 16px; }
   .footer-grid { gap: 16px; }
 }
+
+/* ============================================================
+   Dashboard / ticker (TradingView widgets)
+   ============================================================ */
+#tv-ticker { border-bottom: 1px solid var(--border); margin-bottom: 8px; }
+.dash-section { margin: 36px 0; }
+.tv-frame {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 10px;
+  box-shadow: var(--shadow-sm);
+  overflow: hidden;
+}
+.tv-note { font-size: 13px; color: var(--muted); margin-top: 12px; }
