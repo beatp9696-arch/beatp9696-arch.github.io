@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>งบกระแสเงินสด — ตอนที่ 2 | Moatrices</title>
+  <meta name="description" content="กำไรคือความเห็น เงินสดคือความจริง — อ่านงบกระแสเงินสด เคสกำไรบวกแต่เงินสดติดลบ และกฎเช็คคุณภาพกำไร">
+  <meta property="og:type" content="article">
+  <meta property="og:site_name" content="Moatrices">
+  <meta property="og:title" content="งบกระแสเงินสด — ตอนที่ 2: กำไรคือความเห็น เงินสดคือความจริง">
+  <meta property="og:description" content="อ่านงบกระแสเงินสด เคสกำไรบวกแต่เงินสดติดลบ และกฎเช็คคุณภาพกำไร">
+  <meta property="og:url" content="https://beatp9696-arch.github.io/articles/financials-02-cash-flow-statement.html">
+  <meta property="og:locale" content="th_TH">
+  <meta name="twitter:card" content="summary">
+  <link rel="icon" href="../favicon.svg" type="image/svg+xml">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Thai:wght@500;600;700&family=Sarabun:wght@400;500;600;700&display=swap">
+  <link rel="stylesheet" href="../style.css">
+</head>
+<body>
+
+  <div class="reading-progress"></div>
+  <div class="top-accent"></div>
+
+  <header class="site-header">
+    <div class="container">
+      <a href="../index.html" class="site-title">Moatrices</a>
+      <nav class="site-nav">
+        <a href="../index.html">หน้าแรก</a>
+        <a href="../dashboard.html">Dashboard</a>
+        <a href="../about.html">เกี่ยวกับ</a>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <div class="container">
+
+      <span class="kicker">ซีรีส์ · อ่านงบแบบลงมือทำ</span>
+      <h1>ตอนที่ 2: งบกระแสเงินสด — "กำไรคือความเห็น เงินสดคือความจริง"</h1>
+      <div class="byline">
+        <span class="byline-avatar">M</span>
+        <div>
+          <div class="byline-author">Moatrices</div>
+          <div class="byline-info">27 มิ.ย. 2026 · อ่าน ~7 นาที</div>
+        </div>
+      </div>
+
+      <p class="lead">
+        ตอนที่แล้วเราอ่าน <a href="financials-01-income-statement.html">งบกำไรขาดทุน</a> จบไป
+        ทิ้งท้ายด้วยคำถามว่า "กำไรที่เห็นกลายเป็นเงินสดจริงไหม" ตอนนี้เราจะตอบคำถามนั้น —
+        และมันคือบทเรียนที่แพงที่สุดบทหนึ่งในการลงทุน
+      </p>
+
+      <blockquote>
+        กำไรคือความเห็น เงินสดคือความจริง (Profit is an opinion, cash is a fact)
+        บริษัทแต่งตัวเลขกำไรได้หลายวิธี แต่แต่งเงินสดในธนาคารยากกว่ามาก
+      </blockquote>
+
+      <h2>ทำไมกำไรไม่เท่ากับเงินสด</h2>
+      <p>
+        งบกำไรขาดทุนบันทึกตาม "เกณฑ์คงค้าง" (accrual) — แปลว่าพอ<strong>ขายของได้</strong>
+        ก็บันทึกเป็นรายได้ทันที <em>ถึงแม้ลูกค้ายังไม่จ่ายเงิน</em> และบางค่าใช้จ่าย (เช่น ค่าเสื่อม)
+        ก็ถูกหักออกจากกำไร <em>ทั้งที่ไม่มีเงินสดไหลออกจริงในปีนั้น</em>
+        งบกระแสเงินสดจึงมีไว้ตอบคำถามเดียว: <strong>ปีนี้เงินสดเข้า-ออกจริงเท่าไหร่กันแน่</strong>
+      </p>
+
+      <h2>งบกระแสเงินสดแบ่งเป็น 3 กระเป๋า</h2>
+      <ul>
+        <li><strong>CFO — จากการดำเนินงาน</strong>: เงินสดที่ธุรกิจหลักสร้างได้จริง ← หัวใจที่สำคัญสุด</li>
+        <li><strong>CFI — จากการลงทุน</strong>: ซื้อ/ขายสินทรัพย์ถาวร โรงงาน เครื่องจักร (รายจ่ายลงทุน หรือ CapEx อยู่ตรงนี้)</li>
+        <li><strong>CFF — จากการจัดหาเงิน</strong>: กู้เพิ่ม คืนหนี้ จ่ายปันผล ซื้อหุ้นคืน หรือออกหุ้นใหม่</li>
+      </ul>
+      <p>
+        เวลาดูธุรกิจดีๆ เราอยากเห็นภาพนี้: <strong>CFO เป็นบวกหนาๆ</strong> (ธุรกิจปั๊มเงินสดเอง),
+        เอาเงินนั้นไปลงทุน (CFI ติดลบเพราะลงทุนขยาย) และคืนส่วนเกินให้เจ้าของ
+        (CFF ติดลบเพราะจ่ายปันผล/ซื้อหุ้นคืน) — ไม่ใช่ธุรกิจที่ต้อง<strong>กู้เงินมาประคอง</strong>ตัวเองตลอด
+      </p>
+
+      <h2>เคสจริง: "กำไรบวก แต่เงินสดติดลบ"</h2>
+      <p>
+        กลับมาที่ร้านกาแฟจากตอนที่แล้ว — สมมติปีนี้ขยายไปขายส่งให้ออฟฟิศแบบ "ขายเชื่อ"
+        งบกำไรขาดทุนรายงาน <strong>กำไรสุทธิ 184,000 บาท</strong> ดูดีมาก
+        แต่พอเปิดงบกระแสเงินสดดู (วิธีทางอ้อม เริ่มจากกำไรแล้วปรับกลับเป็นเงินสด):
+      </p>
+
+      <table>
+        <thead>
+          <tr><th>รายการ</th><th class="num">บาท</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>กำไรสุทธิ (จากงบกำไรขาดทุน)</td><td class="num">184,000</td></tr>
+          <tr><td>+ ค่าเสื่อม/ตัดจำหน่าย (D&amp;A — ไม่ใช่เงินสดออกจริง บวกกลับ)</td><td class="num">+50,000</td></tr>
+          <tr><td>− ลูกหนี้การค้าเพิ่ม (ขายแล้วแต่ยังไม่ได้รับเงิน)</td><td class="num">−180,000</td></tr>
+          <tr><td>− สินค้าคงคลังเพิ่ม (เอาเงินไปจมในสต็อก)</td><td class="num">−90,000</td></tr>
+          <tr class="total"><td>= เงินสดจากการดำเนินงาน (CFO)</td><td class="num">−36,000</td></tr>
+        </tbody>
+      </table>
+
+      <p>
+        บนกระดาษกำไร 184,000 แต่<strong>เงินสดจริงติดลบ 36,000</strong> —
+        เพราะขายเชื่อแล้วเก็บเงินไม่ได้ (ลูกหนี้พอง) บวกกับของค้างในสต็อก (เงินจม)
+        ร้านนี้ "กำไร" แต่กระเป๋าแฟบลง ถ้าเป็นแบบนี้ต่อเนื่อง สุดท้ายต้องไปกู้มาหมุน
+        ทั้งที่งบกำไรขาดทุนยังเขียนว่ากำไรสวยอยู่เลย นี่คือเหตุผลที่ต้องเปิดงบกระแสเงินสด
+        <strong>ก่อน</strong>เชื่อตัวเลขกำไร
+      </p>
+
+      <h2>กฎเช็คเร็ว: CFO ต้องวิ่งตามกำไร</h2>
+      <blockquote>
+        ในธุรกิจคุณภาพดี CFO ควร "ใกล้เคียงหรือมากกว่า" กำไรสุทธิ อย่างสม่ำเสมอหลายปี
+      </blockquote>
+      <p>
+        ถ้า <strong>กำไรสุทธิโตขึ้นเรื่อยๆ แต่ CFO ไม่โตตาม (หรือติดลบ)</strong> = ธงแดงใหญ่
+        อาจแปลว่ากำไรนั้นเป็นแค่ตัวเลขบัญชี ไม่ได้กลายเป็นเงินจริง — หรือแย่กว่านั้นคือมีการตกแต่งบัญชี
+        กลับกัน บางบริษัท CFO มากกว่ากำไรเสมอ (เพราะมีค่าเสื่อมเยอะแต่ไม่ต้องลงเงินใหม่มาก)
+        แบบนั้นมักเป็นสัญญาณคุณภาพกำไรที่ดี
+      </p>
+
+      <h2>ก้าวต่อไป: Free Cash Flow (เงินสดอิสระ)</h2>
+      <p>
+        เมื่อได้ CFO แล้ว ตัวเลขที่นักลงทุนสาย Fundamental สนใจที่สุดคือ
+        <strong>Free Cash Flow (FCF) = CFO − CapEx</strong> หรือ
+        "เงินสดที่เหลือจริงหลังจ่ายค่าลงทุนที่จำเป็นเพื่อให้ธุรกิจอยู่ได้"
+        FCF คือเงินที่เจ้าของเอาไปทำอย่างอื่นได้จริง — จ่ายปันผล ซื้อหุ้นคืน หรือลดหนี้
+      </p>
+      <p>
+        ธุรกิจที่ยอดเยี่ยมคือธุรกิจที่ <strong>FCF เป็นบวกหนาๆ และโตขึ้นเรื่อยๆ</strong>
+        ส่วนธุรกิจที่ FCF ติดลบเรื้อรัง (โดยไม่ใช่เพราะกำลังลงทุนขยายที่ให้ผลตอบแทนชัดเจน)
+        คือธุรกิจที่กินเงินสดไม่หยุด ต้องระวัง
+      </p>
+
+      <h2>สรุป: 3 คำถามที่ต้องตอบจากงบกระแสเงินสด</h2>
+      <ol>
+        <li>CFO เป็นบวกและ "วิ่งตาม" กำไรสุทธิอย่างสม่ำเสมอไหม?</li>
+        <li>ลูกหนี้/สต็อกพองจนกินเงินสดหรือเปล่า (กำไรกลายเป็นเงินจริงไหม)?</li>
+        <li>FCF (CFO − CapEx) เป็นบวกและโตขึ้น หรือธุรกิจกินเงินสดตลอด?</li>
+      </ol>
+
+      <h2>Kill Conditions — อะไรจะทำให้ผมไม่ไว้ใจคุณภาพกำไร</h2>
+      <ul>
+        <li>กำไรสุทธิโต แต่ CFO แบนหรือติดลบ ต่อเนื่องหลายไตรมาส</li>
+        <li>ลูกหนี้การค้า หรือ สินค้าคงคลัง โตเร็วกว่ายอดขายติดต่อกันหลายปี (เงินจม)</li>
+        <li>CFO เป็นบวกเพราะ "ยืดเวลาจ่ายเจ้าหนี้" (เล่นกับ working capital) ไม่ใช่เพราะธุรกิจสร้างเงินสดจริง</li>
+        <li>FCF ติดลบเรื้อรังโดยไม่มีเหตุผลการลงทุนที่ให้ผลตอบแทนชัดเจน</li>
+      </ul>
+
+      <p>
+        <strong>ตอนหน้า (ตอนที่ 3):</strong> งบดุล (งบแสดงฐานะการเงิน) —
+        เราจะดูว่า ณ วันนี้บริษัทมีอะไร เป็นหนี้ใคร แข็งแรงแค่ไหน
+        และที่สำคัญคือเอางบทั้ง 3 ชุดมา <em>เชื่อมโยงกัน</em> ให้เห็นเรื่องเดียวที่มันเล่าจาก 3 มุม
+      </p>
+
+      <div class="author-card">
+        <span class="byline-avatar">M</span>
+        <div>
+          <strong>Moatrices</strong>
+          <p>บันทึกการเรียนวิเคราะห์หุ้น US เชิงลึก สาย fundamental — เน้นพื้นฐานธุรกิจ ไม่ใช่ราคา <a href="../about.html">เกี่ยวกับเว็บนี้ →</a></p>
+        </div>
+      </div>
+
+      <p class="back"><a href="../index.html">← กลับหน้าแรก</a></p>
+
+    </div>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container footer-grid">
+      <div class="footer-brand">
+        <a href="../index.html" class="site-title">Moatrices</a>
+        <p>บันทึกการเรียนวิเคราะห์หุ้น US เชิงลึก ภาษาไทย — เน้นพื้นฐานธุรกิจ ไม่ใช่ราคา</p>
+      </div>
+      <nav class="footer-nav">
+        <a href="../index.html">หน้าแรก</a>
+        <a href="../dashboard.html">Dashboard</a>
+        <a href="../about.html">เกี่ยวกับ</a>
+      </nav>
+    </div>
+    <div class="container footer-legal">
+      <p><strong>คำเตือน:</strong> เนื้อหาทั้งหมดเป็นบันทึกการเรียนและความเห็นส่วนตัว
+         เพื่อการศึกษาเท่านั้น <strong>ไม่ใช่คำแนะนำการลงทุน</strong>
+         ตัวเลขร้านกาแฟเป็นตัวอย่างสมมติเพื่อการสอน การตัดสินใจลงทุนเป็นความรับผิดชอบของผู้อ่านเอง</p>
+      <p>© 2026 Moatrices · เผยแพร่ผ่าน GitHub Pages</p>
+    </div>
+  </footer>
+
+  <button class="to-top" aria-label="กลับขึ้นด้านบน">↑</button>
+  <script src="../app.js"></script>
+
+</body>
+</html>
