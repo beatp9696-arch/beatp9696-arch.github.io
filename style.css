@@ -26,9 +26,10 @@
   --max: 760px;
 }
 
-/* ---------- โหมดมืดอัตโนมัติ (ตามระบบเครื่อง) ---------- */
+/* ---------- โหมดมืด: อัตโนมัติตามเครื่อง + เลือกเองผ่านปุ่มได้ ---------- */
+/* (ก) เครื่องตั้ง dark และยังไม่กดเลือกเป็น light */
 @media (prefers-color-scheme: dark) {
-  :root {
+  :root:not([data-theme="light"]) {
     --bg: #121417;
     --surface: #1a1d21;
     --surface-2: #20242a;
@@ -42,6 +43,21 @@
     --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.3);
     --shadow-md: 0 8px 30px rgba(0, 0, 0, 0.45);
   }
+}
+/* (ข) ผู้ใช้กดเลือก dark เอง (ใช้ได้แม้เครื่องตั้ง light) */
+:root[data-theme="dark"] {
+  --bg: #121417;
+  --surface: #1a1d21;
+  --surface-2: #20242a;
+  --text: #e8eaed;
+  --muted: #969ba2;
+  --accent: #4ecaa0;
+  --accent-strong: #6fd9b4;
+  --accent-tint: #16302a;
+  --border: #2b2f36;
+  --header-bg: rgba(18, 20, 23, 0.82);
+  --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.3);
+  --shadow-md: 0 8px 30px rgba(0, 0, 0, 0.45);
 }
 
 /* ---------- Base ---------- */
@@ -330,7 +346,8 @@ tr.total td {
 
 /* gradient ของแบรนด์ */
 :root { --accent-bright: #19a178; --grad: linear-gradient(90deg, var(--accent), var(--accent-bright)); }
-@media (prefers-color-scheme: dark) { :root { --accent-bright: #66dbb4; } }
+@media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) { --accent-bright: #66dbb4; } }
+:root[data-theme="dark"] { --accent-bright: #66dbb4; }
 
 /* แถบ accent บางด้านบนสุด */
 .top-accent { height: 3px; background: var(--grad); }
@@ -441,3 +458,18 @@ main p a:hover, main li a:hover { text-decoration-color: var(--accent); }
   overflow: hidden;
 }
 .tv-note { font-size: 13px; color: var(--muted); margin-top: 12px; }
+
+/* ===== ปุ่มสลับโหมดสว่าง/มืด ===== */
+.theme-toggle {
+  background: none; border: none; cursor: pointer;
+  color: var(--muted); padding: 6px; margin-left: 20px;
+  display: inline-flex; align-items: center; vertical-align: middle;
+  border-radius: 8px; line-height: 0;
+  transition: color 0.15s ease, background 0.15s ease;
+}
+.theme-toggle:hover { color: var(--accent); background: var(--accent-tint); }
+.theme-toggle .ic { display: none; }
+.theme-toggle .ic-moon { display: block; }                 /* ค่าเริ่มต้น (สว่าง) โชว์จันทร์ = กดไป dark */
+.theme-toggle[data-mode="dark"] .ic-moon { display: none; }
+.theme-toggle[data-mode="dark"] .ic-sun { display: block; } /* โหมดมืด โชว์ดวงอาทิตย์ = กดไป light */
+@media (max-width: 600px) { .theme-toggle { margin-left: 12px; } }
