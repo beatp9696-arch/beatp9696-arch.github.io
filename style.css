@@ -540,3 +540,81 @@ blockquote::before {
 /* ไฮไลต์แถวตารางตอน hover */
 tbody tr { transition: background .12s ease; }
 tbody tr:hover td { background: var(--accent-tint); }
+
+/* ============================================================
+   Refine โทนเดิม — hero band + เลขลำดับการ์ด + accent spine
+   (เพิ่มเติม additive · ไม่แตะของเดิม)
+   ============================================================ */
+
+/* ---------- Hero band (หน้าแรก + dashboard) ---------- */
+.hero {
+  position: relative;
+  margin: 0 -22px 46px;
+  padding: 6px 22px 30px;
+}
+.hero::before {                       /* dot-grid จางๆ ค่อยๆ จางลงด้านล่าง */
+  content: "";
+  position: absolute;
+  inset: 0;
+  background-image: radial-gradient(var(--border) 1px, transparent 1.4px);
+  background-size: 22px 22px;
+  -webkit-mask-image: linear-gradient(to bottom, #000 0%, transparent 82%);
+  mask-image: linear-gradient(to bottom, #000 0%, transparent 82%);
+  opacity: 0.55;
+  pointer-events: none;
+  z-index: 0;
+}
+.hero > * { position: relative; z-index: 1; }
+.hero .kicker { margin-bottom: 16px; }
+.hero h1 { margin-bottom: 0; }
+.hero h1::after {                     /* เส้น accent สั้นๆ ใต้หัวข้อ */
+  content: "";
+  display: block;
+  width: 60px;
+  height: 4px;
+  margin: 18px 0 20px;
+  border-radius: 4px;
+  background: var(--grad);
+}
+.hero .lead { margin-bottom: 0; }
+
+/* ---------- การ์ดบทความ: เลขลำดับ + accent spine ---------- */
+.post-list { counter-reset: post; }
+.post-list li {
+  counter-increment: post;
+  position: relative;                 /* ยึดตำแหน่งให้เลข + spine */
+  padding-left: 58px;                 /* เว้นช่องเลขด้านซ้าย */
+}
+.post-list li::before {               /* เลขลำดับ 01, 02, ... */
+  content: counter(post, decimal-leading-zero);
+  position: absolute;
+  left: 22px;
+  top: 24px;
+  font-family: var(--font-head);
+  font-weight: 700;
+  font-size: 16px;
+  line-height: 1;
+  color: var(--accent);
+  font-variant-numeric: tabular-nums;
+}
+.post-list li::after {                /* แถบ accent แนวตั้งด้านซ้าย */
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 16px;
+  bottom: 16px;
+  width: 3px;
+  border-radius: 0 3px 3px 0;
+  background: color-mix(in srgb, var(--accent) 28%, transparent);
+  transition: background 0.18s ease;
+}
+.post-list li:hover::after { background: var(--accent); }
+
+/* ---------- มือถือ: ลดช่องเลขลง (ต้องอยู่ท้ายสุดเพื่อ override) ---------- */
+@media (max-width: 600px) {
+  .hero { margin: 0 -22px 36px; }
+  .hero h1::after { margin: 14px 0 16px; }
+  .post-list li { padding-left: 46px; }
+  .post-list li::before { left: 16px; top: 21px; font-size: 15px; }
+  .post-list li::after { top: 14px; bottom: 14px; }
+}
