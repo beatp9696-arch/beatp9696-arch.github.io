@@ -2,6 +2,18 @@
 (function () {
   "use strict";
 
+  // ---- skip to content (a11y): ลิงก์ซ่อน โผล่ตอนกด Tab ----
+  var mainForSkip = document.querySelector("main");
+  if (mainForSkip) {
+    if (!mainForSkip.id) mainForSkip.id = "main-content";
+    mainForSkip.setAttribute("tabindex", "-1");
+    var skip = document.createElement("a");
+    skip.className = "skip-link";
+    skip.href = "#" + mainForSkip.id;
+    skip.textContent = "ข้ามไปเนื้อหาหลัก";
+    document.body.insertBefore(skip, document.body.firstChild);
+  }
+
   var progressBar = document.querySelector(".reading-progress");
   var btn = document.querySelector(".to-top");
 

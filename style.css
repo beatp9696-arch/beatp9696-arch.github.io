@@ -1058,11 +1058,32 @@ tbody tr:hover td { background: var(--accent-tint); }
   .clk-sec    { font-size: 14px; }
   .clock-divider { display: none; }
 }
+/* ============================================================
+   Skip to content (a11y) — ลิงก์ซ่อน โผล่ตอน focus ด้วยคีย์บอร์ด
+   ============================================================ */
+.skip-link {
+  position: fixed;
+  left: 12px;
+  top: -64px;
+  z-index: 200;
+  background: var(--accent);
+  color: #fff;
+  font-family: var(--font-head);
+  font-weight: 600;
+  font-size: 14px;
+  padding: 10px 16px;
+  border-radius: 0 0 10px 10px;
+  box-shadow: var(--shadow-md);
+  transition: top 0.18s ease;
+}
+.skip-link:focus { top: 0; color: #fff; outline: none; }
+main:focus { outline: none; }
 
 /* ============================================================
    Print — เซฟ PDF / สั่งพิมพ์บทความให้สะอาด
    ============================================================ */
 @media print {
+  .skip-link,
   .top-accent,
   .reading-progress,
   .market-clock,
