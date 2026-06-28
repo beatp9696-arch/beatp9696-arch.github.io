@@ -66,7 +66,7 @@
       locale: "en"
     });
 
-    // --- Market overview (แท็บ Indices / Magnificent 7 + กราฟเล็ก) ---
+    // --- Market overview (แท็บ Indices / Magnificent 7 / Watchlist / Commodities + กราฟเล็ก) ---
     inject("tv-overview", OVERVIEW, {
       title: "Markets",
       width: "100%",
@@ -94,6 +94,30 @@
             { s: "NASDAQ:NVDA",  d: "Nvidia" },
             { s: "NASDAQ:META",  d: "Meta" },
             { s: "NASDAQ:TSLA",  d: "Tesla" }
+          ]
+        },
+        {
+          title: "Watchlist",
+          symbols: [
+            { s: "NASDAQ:SPCX",  d: "SpaceX" },
+            { s: "NASDAQ:COST",  d: "Costco" },
+            { s: "NYSE:LLY",     d: "Eli Lilly" },
+            { s: "NYSE:UNH",     d: "UnitedHealth" },
+            { s: "NYSE:SPGI",    d: "S&P Global" },
+            { s: "NASDAQ:MELI",  d: "MercadoLibre" },
+            { s: "NASDAQ:SNPS",  d: "Synopsys" },
+            { s: "NYSE:AXP",     d: "American Express" },
+            { s: "NASDAQ:NFLX",  d: "Netflix" },
+            { s: "NYSE:TSM",     d: "TSMC" }
+          ]
+        },
+        {
+          title: "Commodities",
+          symbols: [
+            { s: "TVC:GOLD",     d: "Gold" },
+            { s: "TVC:SILVER",   d: "Silver" },
+            { s: "TVC:USOIL",    d: "Crude Oil (WTI)" },
+            { s: "TVC:UKOIL",    d: "Brent" }
           ]
         }
       ]

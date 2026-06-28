@@ -1169,6 +1169,68 @@ main:focus { outline: none; }
 }
 .read-time::before { content: "\B7  "; opacity: 0.6; }
 
+.post-date {
+  font-family: var(--font-head);
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--muted);
+}
+.post-date::before { content: "\B7  "; opacity: 0.6; }
+
+/* --- หน้าแรก: การ์ดหุ้นที่กำลังศึกษา (watchlist / เร็วๆ นี้) --- */
+.coming-soon { margin-top: 48px; }
+.coming-soon .cs-note {
+  color: var(--muted);
+  margin: 0 0 18px;
+  font-size: 15px;
+}
+.cs-grid {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+  gap: 12px;
+}
+.cs-card {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  padding: 16px 18px;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow-sm);
+  transition: border-color 0.18s ease, transform 0.18s ease, box-shadow 0.18s ease;
+}
+.cs-card:hover {
+  border-color: var(--accent);
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-md);
+}
+.cs-ticker {
+  font-family: var(--font-head);
+  font-weight: 700;
+  font-size: 18px;
+  letter-spacing: 0.3px;
+  color: var(--text);
+}
+.cs-name {
+  font-size: 13px;
+  color: var(--muted);
+}
+.cs-badge {
+  margin-top: 8px;
+  align-self: flex-start;
+  font-family: var(--font-head);
+  font-size: 11px;
+  font-weight: 600;
+  color: var(--accent);
+  background: var(--accent-tint);
+  padding: 2px 9px;
+  border-radius: 999px;
+}
+
 .tag.tag-financials { color: #7a5200; background: #fff4d6; }
 :root[data-theme="dark"] .tag.tag-financials { color: #f0c86a; background: #2a1e00; }
 @media (prefers-color-scheme: dark) {
