@@ -27,7 +27,9 @@
   <link rel="manifest" href="/site.webmanifest">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Thai:wght@500;600;700&family=Sarabun:wght@400;500;600;700&display=swap">
+  <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Thai:wght@500;600;700&family=Sarabun:wght@400;500;600;700&display=swap">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Thai:wght@500;600;700&family=Sarabun:wght@400;500;600;700&display=swap" media="print" onload="this.media='all'">
+  <noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Thai:wght@500;600;700&family=Sarabun:wght@400;500;600;700&display=swap"></noscript>
   <link rel="stylesheet" href="../style.css">
   <script type="application/ld+json">
   {"@context": "https://schema.org", "@type": "BlogPosting", "headline": "ผ่าธุรกิจ MELI (MercadoLibre) — โตเร็วที่สุด แต่ margin กำลังร่วง", "description": "ผ่าธุรกิจ MercadoLibre (MELI) — ecosystem e-commerce + fintech ของลาตินอเมริกา, ความตึงเครียดระหว่างโตเร็วกับ margin ที่ร่วง, moat และ Kill Conditions อ้างอิงงบ FY2025 + Q1 2026", "author": {"@type": "Person", "name": "Moatrices"}, "publisher": {"@type": "Organization", "name": "Moatrices", "logo": {"@type": "ImageObject", "url": "https://beatp9696-arch.github.io/favicon.svg"}}, "mainEntityOfPage": {"@type": "WebPage", "@id": "https://beatp9696-arch.github.io/articles/deep-dive-meli.html"}, "inLanguage": "th", "datePublished": "2026-06-28", "dateModified": "2026-06-28"}
@@ -215,7 +217,7 @@
   </footer>
 
   <button class="to-top" aria-label="กลับขึ้นด้านบน">↑</button>
-  <script src="../app.js"></script>
+  <script defer src="../app.js"></script>
 
 </body>
 </html>

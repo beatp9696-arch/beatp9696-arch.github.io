@@ -1369,3 +1369,14 @@ h2:hover > .heading-anchor, h3:hover > .heading-anchor { opacity: 0.45; }
 .heading-anchor.copied { opacity: 1; color: var(--accent); }
 .heading-anchor.copied::after { content: " คัดลอกแล้ว"; font-size: 0.62em; color: var(--accent); white-space: nowrap; }
 @media print { .heading-anchor { display: none; } }
+
+/* ============================================================
+   A11y contrast fixes (จาก Lighthouse)
+   ============================================================ */
+/* chip.active: ใน dark mode accent เป็นเขียวอ่อน → ใช้ตัวอักษรเข้มแทนขาว */
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) .chip.active { color: #0e1f1a; }
+}
+:root[data-theme="dark"] .chip.active { color: #0e1f1a; }
+/* วินาทีนาฬิกา: เพิ่ม contrast ให้ผ่านเกณฑ์ */
+.clk-sec { opacity: 0.85; }
