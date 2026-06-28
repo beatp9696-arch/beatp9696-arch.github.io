@@ -1427,3 +1427,14 @@ h2:hover > .heading-anchor, h3:hover > .heading-anchor { opacity: 0.45; }
   letter-spacing: 0.04em;
 }
 .company-name { font-size: 14px; color: var(--muted); }
+
+/* โลโก้เล็กในการ์ดหน้าแรก (ticker badge) */
+.ticker-badge { display: inline-flex; align-items: center; gap: 5px; }
+.ticker-logo {
+  width: 15px; height: 15px;
+  object-fit: contain;
+  border-radius: 3px;
+  background: #fff;
+  padding: 1px;
+  flex: none;
+}
