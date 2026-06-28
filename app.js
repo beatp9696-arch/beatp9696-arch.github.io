@@ -119,4 +119,107 @@
     }, { rootMargin: "0px 0px -8% 0px", threshold: 0.05 });
     revealEls.forEach(function (el) { el.classList.add("reveal"); io.observe(el); });
   }
+
+  // ---- แท็บกรองบทความ (หน้าแรก) ----
+  var postList = document.querySelector(".post-list");
+  if (postList) {
+    var items = Array.prototype.slice.call(postList.querySelectorAll("li"));
+    items.forEach(function (li) {
+      var tagEl = li.querySelector(".tag");
+      var txt = tagEl ? tagEl.textContent : "";
+      var cat = "other";
+      if (txt.indexOf("Deep-dive") !== -1) cat = "deepdive";
+      else if (txt.indexOf("ซีรีส์") !== -1 || txt.indexOf("งบ") !== -1) cat = "financials";
+      li.setAttribute("data-cat", cat);
+    });
+
+    var filters = [
+      { key: "all", label: "ทั้งหมด" },
+      { key: "deepdive", label: "Deep-dive" },
+      { key: "financials", label: "อ่านงบ" }
+    ];
+    var bar = document.createElement("div");
+    bar.className = "filter-bar";
+    filters.forEach(function (f, i) {
+      var c = document.createElement("button");
+      c.type = "button";
+      c.className = "chip" + (i === 0 ? " active" : "");
+      c.textContent = f.label;
+      c.setAttribute("data-key", f.key);
+      bar.appendChild(c);
+    });
+    postList.parentNode.insertBefore(bar, postList);
+
+    bar.addEventListener("click", function (e) {
+      var c = e.target.closest ? e.target.closest(".chip") : null;
+      if (!c) return;
+      var key = c.getAttribute("data-key");
+      bar.querySelectorAll(".chip").forEach(function (x) { x.classList.toggle("active", x === c); });
+      items.forEach(function (li) {
+        var show = key === "all" || li.getAttribute("data-cat") === key;
+        li.style.display = show ? "" : "none";
+        if (show) li.classList.add("is-visible");   // กันค้าง opacity 0 จาก scroll-reveal
+      });
+    });
+  }
+
+  // ---- TOC scroll-spy: ไฮไลต์หัวข้อที่กำลังอ่าน ----
+  var tocLinks = document.querySelectorAll(".toc a");
+  if (tocLinks.length && "IntersectionObserver" in window) {
+    var linkFor = {};
+    tocLinks.forEach(function (a) { linkFor[a.getAttribute("href").slice(1)] = a; });
+    var activeLink = null;
+    var spy = new IntersectionObserver(function (entries) {
+      entries.forEach(function (en) {
+        if (en.isIntersecting) {
+          var a = linkFor[en.target.id];
+          if (a && a !== activeLink) {
+            if (activeLink) activeLink.classList.remove("active");
+            a.classList.add("active");
+            activeLink = a;
+          }
+        }
+      });
+    }, { rootMargin: "-84px 0px -68% 0px", threshold: 0 });
+    Object.keys(linkFor).forEach(function (id) {
+      var el = document.getElementById(id);
+      if (el) spy.observe(el);
+    });
+  }
+
+  // ---- Prev / Next ท้ายบทความ ----
+  var ARTICLES = [
+    { f: "financials-01-income-statement.html", t: "ตอนที่ 1: งบกำไรขาดทุน" },
+    { f: "financials-02-cash-flow-statement.html", t: "ตอนที่ 2: งบกระแสเงินสด" },
+    { f: "financials-03-balance-sheet.html", t: "ตอนที่ 3: งบดุล + เชื่อม 3 งบ" },
+    { f: "deep-dive-nflx.html", t: "ผ่าธุรกิจ NFLX (Netflix)" },
+    { f: "deep-dive-meli.html", t: "ผ่าธุรกิจ MELI (MercadoLibre)" },
+    { f: "deep-dive-cost.html", t: "ผ่าธุรกิจ COST (Costco)" },
+    { f: "deep-dive-snps.html", t: "ผ่าธุรกิจ SNPS (Synopsys)" },
+    { f: "deep-dive-axp.html", t: "ผ่าธุรกิจ AXP (American Express)" }
+  ];
+  var file = location.pathname.split("/").pop();
+  var idx = -1;
+  ARTICLES.forEach(function (a, i) { if (a.f === file) idx = i; });
+  if (idx !== -1) {
+    var anchor = document.querySelector(".author-card") || document.querySelector(".back");
+    if (anchor) {
+      var prev = idx > 0 ? ARTICLES[idx - 1] : null;
+      var next = idx < ARTICLES.length - 1 ? ARTICLES[idx + 1] : null;
+      var html = "";
+      if (prev) html += '<a class="article-nav-link prev" href="' + prev.f + '">' +
+        '<span class="article-nav-label">← บทก่อนหน้า</span>' +
+        '<span class="article-nav-title">' + prev.t + '</span></a>';
+      if (next) html += '<a class="article-nav-link next" href="' + next.f + '">' +
+        '<span class="article-nav-label">บทถัดไป →</span>' +
+        '<span class="article-nav-title">' + next.t + '</span></a>';
+      if (html) {
+        var navEl = document.createElement("nav");
+        navEl.className = "article-nav";
+        navEl.setAttribute("aria-label", "บทความก่อนหน้า/ถัดไป");
+        navEl.innerHTML = html;
+        anchor.insertAdjacentElement("afterend", navEl);
+      }
+    }
+  }
 })();

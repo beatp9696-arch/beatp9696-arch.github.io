@@ -618,3 +618,90 @@ tbody tr:hover td { background: var(--accent-tint); }
   .post-list li::before { left: 16px; top: 21px; font-size: 15px; }
   .post-list li::after { top: 14px; bottom: 14px; }
 }
+
+/* ============================================================
+   Filter chips (หน้าแรก) + TOC scroll-spy + Prev/Next (บทความ)
+   ============================================================ */
+
+/* ---------- แท็บกรองบทความ ---------- */
+.filter-bar {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 9px;
+  margin: 0 0 24px;
+}
+.chip {
+  font-family: var(--font-head);
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--muted);
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 999px;
+  padding: 6px 16px;
+  cursor: pointer;
+  transition: color 0.15s ease, background 0.15s ease, border-color 0.15s ease;
+}
+.chip:hover { color: var(--accent); border-color: var(--accent); }
+.chip.active { color: #fff; background: var(--accent); border-color: var(--accent); }
+
+/* ---------- TOC: ไฮไลต์หัวข้อที่กำลังอ่าน ---------- */
+.toc a {
+  display: inline-block;
+  border-left: 2px solid transparent;
+  margin-left: -10px;
+  padding-left: 8px;
+  transition: color 0.15s ease, border-color 0.15s ease;
+}
+.toc a.active {
+  color: var(--accent);
+  font-weight: 600;
+  border-left-color: var(--accent);
+}
+
+/* ---------- Prev / Next ท้ายบทความ ---------- */
+.article-nav {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 14px;
+  margin: 44px 0 0;
+}
+.article-nav-link {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  padding: 16px 18px;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow-sm);
+  transition: transform 0.18s ease, box-shadow 0.18s ease, border-color 0.18s ease;
+}
+.article-nav-link:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-md);
+  border-color: var(--accent);
+}
+.article-nav-link.next { text-align: right; }
+.article-nav-link.prev:only-child { grid-column: 1; }
+.article-nav-link.next:only-child { grid-column: 2; }
+.article-nav-label {
+  font-family: var(--font-head);
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--accent);
+}
+.article-nav-title {
+  font-family: var(--font-head);
+  font-size: 16px;
+  font-weight: 600;
+  color: var(--text);
+  line-height: 1.4;
+}
+.article-nav-link:hover .article-nav-title { color: var(--accent); }
+
+@media (max-width: 600px) {
+  .article-nav { grid-template-columns: 1fr; }
+  .article-nav-link.next { text-align: left; }
+  .article-nav-link.next:only-child { grid-column: 1; }
+}
