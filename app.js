@@ -2,18 +2,16 @@
 (function () {
   "use strict";
 
-  var bar = document.querySelector(".reading-progress");
+  var progressBar = document.querySelector(".reading-progress");
   var btn = document.querySelector(".to-top");
 
   function onScroll() {
-    // แถบความคืบหน้าการอ่าน
-    if (bar) {
+    if (progressBar) {
       var h = document.documentElement;
       var max = h.scrollHeight - h.clientHeight;
       var pct = max > 0 ? (h.scrollTop / max) * 100 : 0;
-      bar.style.width = pct + "%";
+      progressBar.style.width = pct + "%";
     }
-    // ปุ่มกลับขึ้นบน — โผล่เมื่อเลื่อนลงพอสมควร
     if (btn) {
       if (window.scrollY > 400) btn.classList.add("show");
       else btn.classList.remove("show");
@@ -35,7 +33,7 @@
     if (attr === "light" || attr === "dark") return attr;
     return (window.matchMedia && window.matchMedia("(prefers-color-scheme: dark)").matches) ? "dark" : "light";
   }
-  window.effectiveTheme = effectiveTheme; // ให้ widgets.js ใช้ตั้ง theme ของ TradingView
+  window.effectiveTheme = effectiveTheme;
 
   var nav = document.querySelector(".site-nav");
   if (nav) {
@@ -68,7 +66,7 @@
     });
   }
 
-  // ---- สารบัญอัตโนมัติ (เฉพาะหน้าบทความที่มีหัวข้อหลายอัน) ----
+  // ---- สารบัญอัตโนมัติ ----
   var bylineEl = document.querySelector(".byline");
   var mainCol = document.querySelector("main .container");
   if (bylineEl && mainCol) {
@@ -93,9 +91,10 @@
     if (a.getAttribute("href").split("/").pop() === here) a.classList.add("active");
   });
 
-  // ---- tag แยกสีตามหมวด (หน้าแรก) ----
+  // ---- tag แยกสีตามหมวด ----
   document.querySelectorAll(".post-list .tag").forEach(function (t) {
     if (t.textContent.indexOf("Deep-dive") !== -1) t.classList.add("tag-deepdive");
+    if (t.textContent.indexOf("ซีรีส์") !== -1) t.classList.add("tag-financials");
   });
 
   // ---- header หดตอนเลื่อน ----
@@ -109,7 +108,7 @@
     condense();
   }
 
-  // ---- scroll-reveal เนียนๆ (เฉพาะ block element) ----
+  // ---- scroll-reveal ----
   if ("IntersectionObserver" in window) {
     var revealEls = document.querySelectorAll(".post-list li, main table, main blockquote, .author-card, .toc");
     var io = new IntersectionObserver(function (entries, obs) {
@@ -120,7 +119,7 @@
     revealEls.forEach(function (el) { el.classList.add("reveal"); io.observe(el); });
   }
 
-  // ---- แท็บกรองบทความ (หน้าแรก) ----
+  // ---- แท็บกรองบทความ ----
   var postList = document.querySelector(".post-list");
   if (postList) {
     var items = Array.prototype.slice.call(postList.querySelectorAll("li"));
@@ -133,37 +132,43 @@
       li.setAttribute("data-cat", cat);
     });
 
+    var counts = { all: items.length, deepdive: 0, financials: 0 };
+    items.forEach(function (li) {
+      var cat = li.getAttribute("data-cat");
+      if (counts.hasOwnProperty(cat)) counts[cat]++;
+    });
+
     var filters = [
       { key: "all", label: "ทั้งหมด" },
       { key: "deepdive", label: "Deep-dive" },
       { key: "financials", label: "อ่านงบ" }
     ];
-    var bar = document.createElement("div");
-    bar.className = "filter-bar";
+    var filterBar = document.createElement("div");
+    filterBar.className = "filter-bar";
     filters.forEach(function (f, i) {
       var c = document.createElement("button");
       c.type = "button";
       c.className = "chip" + (i === 0 ? " active" : "");
-      c.textContent = f.label;
       c.setAttribute("data-key", f.key);
-      bar.appendChild(c);
+      c.innerHTML = f.label + '<span class="chip-count">' + (counts[f.key] || 0) + '</span>';
+      filterBar.appendChild(c);
     });
-    postList.parentNode.insertBefore(bar, postList);
+    postList.parentNode.insertBefore(filterBar, postList);
 
-    bar.addEventListener("click", function (e) {
+    filterBar.addEventListener("click", function (e) {
       var c = e.target.closest ? e.target.closest(".chip") : null;
       if (!c) return;
       var key = c.getAttribute("data-key");
-      bar.querySelectorAll(".chip").forEach(function (x) { x.classList.toggle("active", x === c); });
+      filterBar.querySelectorAll(".chip").forEach(function (x) { x.classList.toggle("active", x === c); });
       items.forEach(function (li) {
         var show = key === "all" || li.getAttribute("data-cat") === key;
         li.style.display = show ? "" : "none";
-        if (show) li.classList.add("is-visible");   // กันค้าง opacity 0 จาก scroll-reveal
+        if (show) li.classList.add("is-visible");
       });
     });
   }
 
-  // ---- TOC scroll-spy: ไฮไลต์หัวข้อที่กำลังอ่าน ----
+  // ---- TOC scroll-spy ----
   var tocLinks = document.querySelectorAll(".toc a");
   if (tocLinks.length && "IntersectionObserver" in window) {
     var linkFor = {};

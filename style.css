@@ -27,7 +27,6 @@
 }
 
 /* ---------- โหมดมืด: อัตโนมัติตามเครื่อง + เลือกเองผ่านปุ่มได้ ---------- */
-/* (ก) เครื่องตั้ง dark และยังไม่กดเลือกเป็น light */
 @media (prefers-color-scheme: dark) {
   :root:not([data-theme="light"]) {
     --bg: #121417;
@@ -44,7 +43,6 @@
     --shadow-md: 0 8px 30px rgba(0, 0, 0, 0.45);
   }
 }
-/* (ข) ผู้ใช้กดเลือก dark เอง (ใช้ได้แม้เครื่องตั้ง light) */
 :root[data-theme="dark"] {
   --bg: #121417;
   --surface: #1a1d21;
@@ -72,7 +70,7 @@ body {
   margin: 0;
   font-family: var(--font-body);
   font-size: 18px;
-  line-height: 1.85;          /* เผื่อวรรณยุกต์ไทย */
+  line-height: 1.85;
   color: var(--text);
   background: var(--bg);
   -webkit-font-smoothing: antialiased;
@@ -127,7 +125,7 @@ a:hover { color: var(--accent-strong); }
   align-items: center;
   gap: 9px;
 }
-.site-title::before {            /* โลโก้กราฟแท่งเล็กหน้าชื่อ */
+.site-title::before {
   content: "";
   width: 22px; height: 22px;
   background: url("favicon.svg") center / contain no-repeat;
@@ -341,18 +339,15 @@ tr.total td {
 }
 
 /* ============================================================
-   Professional polish (เพิ่มเติม)
+   Professional polish
    ============================================================ */
 
-/* gradient ของแบรนด์ */
 :root { --accent-bright: #19a178; --grad: linear-gradient(90deg, var(--accent), var(--accent-bright)); }
 @media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) { --accent-bright: #66dbb4; } }
 :root[data-theme="dark"] { --accent-bright: #66dbb4; }
 
-/* แถบ accent บางด้านบนสุด */
 .top-accent { height: 3px; background: var(--grad); }
 
-/* แถบความคืบหน้าการอ่าน (หน้าบทความ) */
 .reading-progress {
   position: fixed; top: 0; left: 0;
   height: 3px; width: 0;
@@ -361,7 +356,6 @@ tr.total td {
   transition: width 0.1s linear;
 }
 
-/* ป้ายหมวดเล็กเหนือหัวข้อ */
 .kicker {
   display: inline-block;
   font-family: var(--font-head);
@@ -372,7 +366,6 @@ tr.total td {
   margin-bottom: 14px;
 }
 
-/* byline หน้าบทความ */
 .byline {
   display: flex; align-items: center; gap: 13px;
   margin-bottom: 34px; padding-bottom: 22px;
@@ -389,7 +382,6 @@ tr.total td {
 .byline-author { font-family: var(--font-head); font-weight: 600; color: var(--text); line-height: 1.3; }
 .byline-info { font-size: 14px; color: var(--muted); line-height: 1.4; }
 
-/* การ์ดผู้เขียนท้ายบทความ */
 .author-card {
   display: flex; gap: 16px; align-items: flex-start;
   margin: 48px 0 0; padding: 22px;
@@ -401,7 +393,6 @@ tr.total td {
 .author-card strong { font-family: var(--font-head); font-size: 17px; }
 .author-card p { margin: 4px 0 0; font-size: 15px; color: var(--muted); }
 
-/* ลิงก์ในเนื้อบทความ ขีดเส้นใต้ให้เห็นชัด */
 main p a, main li a {
   text-decoration: underline;
   text-decoration-color: color-mix(in srgb, var(--accent) 40%, transparent);
@@ -409,7 +400,6 @@ main p a, main li a {
 }
 main p a:hover, main li a:hover { text-decoration-color: var(--accent); }
 
-/* ปุ่มกลับขึ้นบน */
 .to-top {
   position: fixed; right: 22px; bottom: 22px;
   width: 44px; height: 44px; border-radius: 50%;
@@ -424,7 +414,6 @@ main p a:hover, main li a:hover { text-decoration-color: var(--accent); }
 .to-top.show { opacity: 1; visibility: visible; transform: translateY(0); }
 .to-top:hover { background: var(--accent-strong); }
 
-/* footer มืออาชีพ */
 .site-footer .footer-grid {
   display: flex; justify-content: space-between; align-items: flex-start;
   gap: 24px; flex-wrap: wrap;
@@ -445,7 +434,7 @@ main p a:hover, main li a:hover { text-decoration-color: var(--accent); }
 }
 
 /* ============================================================
-   Dashboard / ticker (TradingView widgets)
+   Dashboard / ticker
    ============================================================ */
 #tv-ticker { border-bottom: 1px solid var(--border); margin-bottom: 8px; }
 .dash-section { margin: 36px 0; }
@@ -459,7 +448,7 @@ main p a:hover, main li a:hover { text-decoration-color: var(--accent); }
 }
 .tv-note { font-size: 13px; color: var(--muted); margin-top: 12px; }
 
-/* ===== ปุ่มสลับโหมดสว่าง/มืด ===== */
+/* ===== ปุ่มสลับโหมด ===== */
 .theme-toggle {
   background: none; border: none; cursor: pointer;
   color: var(--muted); padding: 6px; margin-left: 20px;
@@ -469,13 +458,13 @@ main p a:hover, main li a:hover { text-decoration-color: var(--accent); }
 }
 .theme-toggle:hover { color: var(--accent); background: var(--accent-tint); }
 .theme-toggle .ic { display: none; }
-.theme-toggle .ic-moon { display: block; }                 /* ค่าเริ่มต้น (สว่าง) โชว์จันทร์ = กดไป dark */
+.theme-toggle .ic-moon { display: block; }
 .theme-toggle[data-mode="dark"] .ic-moon { display: none; }
-.theme-toggle[data-mode="dark"] .ic-sun { display: block; } /* โหมดมืด โชว์ดวงอาทิตย์ = กดไป light */
+.theme-toggle[data-mode="dark"] .ic-sun { display: block; }
 @media (max-width: 600px) { .theme-toggle { margin-left: 12px; } }
 
-/* ===== สารบัญ (TOC) + active nav + anchor offset ===== */
-h2 { scroll-margin-top: 84px; }   /* กันหัวข้อโดน sticky header บังตอนกระโดด */
+/* ===== TOC ===== */
+h2 { scroll-margin-top: 84px; }
 .toc {
   margin: 0 0 38px;
   padding: 18px 22px;
@@ -498,24 +487,21 @@ h2 { scroll-margin-top: 84px; }   /* กันหัวข้อโดน sticky
 .site-nav a.active::after { transform: scaleX(1); }
 
 /* ============================================================
-   UX/UI polish — reveal, header condense, hero, tags, details
+   UX/UI polish
    ============================================================ */
 
-/* ข้อความไล่สี (gradient text) */
 .grad-text {
   background: var(--grad);
   -webkit-background-clip: text; background-clip: text;
   color: transparent;
 }
 
-/* scroll-reveal: fade ขึ้นเนียนๆ (เฉพาะ block ไม่ใช่ทุก paragraph) */
 .reveal { opacity: 0; transform: translateY(16px); transition: opacity .6s ease, transform .6s cubic-bezier(.2,.7,.3,1); }
 .reveal.is-visible { opacity: 1; transform: none; }
 @media (prefers-reduced-motion: reduce) {
   .reveal { opacity: 1 !important; transform: none !important; transition: none !important; }
 }
 
-/* header หดตอนเลื่อน */
 .site-header { transition: padding .25s ease, box-shadow .25s ease; }
 .site-header.condensed { padding: 9px 0; box-shadow: 0 4px 22px rgba(20,22,24,0.07); }
 .site-header.condensed .site-title { font-size: 19px; }
@@ -523,10 +509,8 @@ h2 { scroll-margin-top: 84px; }   /* กันหัวข้อโดน sticky
   .site-header.condensed { box-shadow: 0 4px 22px rgba(0,0,0,0.35); }
 }
 
-/* tag แยกสีตามหมวด: Deep-dive = ป้ายทึบ */
 .tag.tag-deepdive { background: var(--accent); color: #fff; }
 
-/* เครื่องหมายคำพูดจางๆ บน callout */
 blockquote { position: relative; }
 blockquote::before {
   content: "\201D";
@@ -537,22 +521,19 @@ blockquote::before {
   pointer-events: none;
 }
 
-/* ไฮไลต์แถวตารางตอน hover */
 tbody tr { transition: background .12s ease; }
 tbody tr:hover td { background: var(--accent-tint); }
 
 /* ============================================================
-   Refine โทนเดิม — hero band + เลขลำดับการ์ด + accent spine
-   (เพิ่มเติม additive · ไม่แตะของเดิม)
+   Hero band + เลขลำดับการ์ด + accent spine
    ============================================================ */
 
-/* ---------- Hero band (หน้าแรก + dashboard) ---------- */
 .hero {
   position: relative;
   margin: 0 -22px 46px;
   padding: 6px 22px 30px;
 }
-.hero::before {                       /* dot-grid จางๆ ค่อยๆ จางลงด้านล่าง */
+.hero::before {
   content: "";
   position: absolute;
   inset: 0;
@@ -567,7 +548,7 @@ tbody tr:hover td { background: var(--accent-tint); }
 .hero > * { position: relative; z-index: 1; }
 .hero .kicker { margin-bottom: 16px; }
 .hero h1 { margin-bottom: 0; }
-.hero h1::after {                     /* เส้น accent สั้นๆ ใต้หัวข้อ */
+.hero h1::after {
   content: "";
   display: block;
   width: 60px;
@@ -578,14 +559,13 @@ tbody tr:hover td { background: var(--accent-tint); }
 }
 .hero .lead { margin-bottom: 0; }
 
-/* ---------- การ์ดบทความ: เลขลำดับ + accent spine ---------- */
 .post-list { counter-reset: post; }
 .post-list li {
   counter-increment: post;
-  position: relative;                 /* ยึดตำแหน่งให้เลข + spine */
-  padding-left: 58px;                 /* เว้นช่องเลขด้านซ้าย */
+  position: relative;
+  padding-left: 58px;
 }
-.post-list li::before {               /* เลขลำดับ 01, 02, ... */
+.post-list li::before {
   content: counter(post, decimal-leading-zero);
   position: absolute;
   left: 22px;
@@ -597,7 +577,7 @@ tbody tr:hover td { background: var(--accent-tint); }
   color: var(--accent);
   font-variant-numeric: tabular-nums;
 }
-.post-list li::after {                /* แถบ accent แนวตั้งด้านซ้าย */
+.post-list li::after {
   content: "";
   position: absolute;
   left: 0;
@@ -610,7 +590,6 @@ tbody tr:hover td { background: var(--accent-tint); }
 }
 .post-list li:hover::after { background: var(--accent); }
 
-/* ---------- มือถือ: ลดช่องเลขลง (ต้องอยู่ท้ายสุดเพื่อ override) ---------- */
 @media (max-width: 600px) {
   .hero { margin: 0 -22px 36px; }
   .hero h1::after { margin: 14px 0 16px; }
@@ -620,10 +599,9 @@ tbody tr:hover td { background: var(--accent-tint); }
 }
 
 /* ============================================================
-   Filter chips (หน้าแรก) + TOC scroll-spy + Prev/Next (บทความ)
+   Filter chips + TOC scroll-spy + Prev/Next
    ============================================================ */
 
-/* ---------- แท็บกรองบทความ ---------- */
 .filter-bar {
   display: flex;
   flex-wrap: wrap;
@@ -645,7 +623,6 @@ tbody tr:hover td { background: var(--accent-tint); }
 .chip:hover { color: var(--accent); border-color: var(--accent); }
 .chip.active { color: #fff; background: var(--accent); border-color: var(--accent); }
 
-/* ---------- TOC: ไฮไลต์หัวข้อที่กำลังอ่าน ---------- */
 .toc a {
   display: inline-block;
   border-left: 2px solid transparent;
@@ -659,7 +636,6 @@ tbody tr:hover td { background: var(--accent-tint); }
   border-left-color: var(--accent);
 }
 
-/* ---------- Prev / Next ท้ายบทความ ---------- */
 .article-nav {
   display: grid;
   grid-template-columns: 1fr 1fr;
@@ -707,8 +683,7 @@ tbody tr:hover td { background: var(--accent-tint); }
 }
 
 /* ============================================================
-   Print — เซฟ PDF / สั่งพิมพ์บทความให้สะอาด
-   ซ่อน chrome ที่โต้ตอบได้ เหลือแต่เนื้อหา
+   Print
    ============================================================ */
 @media print {
   .top-accent,
@@ -733,7 +708,6 @@ tbody tr:hover td { background: var(--accent-tint); }
 
   a { color: #000 !important; text-decoration: none !important; }
 
-  /* การ์ด/กล่อง: ตัดเงา ใช้เส้นขอบเรียบ กันโดนตัดกลางหน้า */
   .post-list li,
   .author-card,
   blockquote,
@@ -744,9 +718,160 @@ tbody tr:hover td { background: var(--accent-tint); }
     break-inside: avoid;
   }
   h1, h2, h3 { break-after: avoid; }
-  .hero::before { display: none !important; }   /* dot-grid ไม่ต้องพิมพ์ */
+  .hero::before { display: none !important; }
 
-  /* footer: เก็บแค่คำเตือน ตัดส่วน nav */
   .site-footer { background: #fff !important; border-top: 1px solid #ccc; }
   .site-footer .footer-grid { display: none !important; }
+}
+
+/* ============================================================
+   UI Enhancement — ticker badges, hero stats, profile card
+   ============================================================ */
+
+.article-meta-row .tag { margin-bottom: 0; }
+
+.ticker-badge {
+  display: inline-flex;
+  align-items: center;
+  font-family: var(--font-head);
+  font-size: 11.5px;
+  font-weight: 700;
+  letter-spacing: 0.07em;
+  padding: 2px 9px;
+  border-radius: 6px;
+  background: var(--accent-tint);
+  border: 1px solid color-mix(in srgb, var(--accent) 40%, transparent);
+  color: var(--accent);
+  transition: background 0.15s ease, color 0.15s ease, border-color 0.15s ease;
+}
+.post-list li:hover .ticker-badge {
+  background: var(--accent);
+  color: #fff;
+  border-color: var(--accent);
+}
+
+.article-meta-row {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-wrap: wrap;
+  margin-bottom: 10px;
+}
+.read-time {
+  font-family: var(--font-head);
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--muted);
+}
+.read-time::before { content: "\B7  "; opacity: 0.6; }
+
+.tag.tag-financials { color: #7a5200; background: #fff4d6; }
+:root[data-theme="dark"] .tag.tag-financials { color: #f0c86a; background: #2a1e00; }
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) .tag.tag-financials { color: #f0c86a; background: #2a1e00; }
+}
+
+.hero-stats {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px 36px;
+  margin-top: 28px;
+  padding-top: 22px;
+  border-top: 1px solid var(--border);
+}
+.hero-stat { display: flex; flex-direction: column; gap: 2px; }
+.hero-stat-num {
+  font-family: var(--font-head);
+  font-size: 30px;
+  font-weight: 700;
+  line-height: 1.1;
+  background: var(--grad);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+.hero-stat-label {
+  font-family: var(--font-head);
+  font-size: 13px;
+  color: var(--muted);
+  font-weight: 500;
+}
+@media (max-width: 600px) {
+  .hero-stats { gap: 10px 24px; }
+  .hero-stat-num { font-size: 24px; }
+}
+
+.profile-card {
+  display: flex;
+  align-items: center;
+  gap: 22px;
+  margin: 0 0 40px;
+  padding: 22px 26px;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-left: 4px solid var(--accent);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow-sm);
+}
+.profile-avatar {
+  flex: none;
+  width: 68px; height: 68px;
+  border-radius: 50%;
+  background: var(--grad);
+  color: #fff;
+  font-family: var(--font-head);
+  font-weight: 700;
+  font-size: 28px;
+  display: grid;
+  place-items: center;
+  box-shadow: 0 4px 16px color-mix(in srgb, var(--accent) 28%, transparent);
+}
+.profile-info { flex: 1; min-width: 0; }
+.profile-name {
+  font-family: var(--font-head);
+  font-size: 19px;
+  font-weight: 700;
+  color: var(--text);
+  margin: 0 0 4px;
+}
+.profile-bio {
+  font-size: 15px;
+  color: var(--muted);
+  margin: 0 0 12px;
+  line-height: 1.6;
+}
+.profile-tags { display: flex; flex-wrap: wrap; gap: 6px; }
+.profile-tag {
+  font-family: var(--font-head);
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--accent);
+  background: var(--accent-tint);
+  border-radius: 999px;
+  padding: 2px 10px;
+}
+@media (max-width: 600px) {
+  .profile-card { flex-direction: column; text-align: center; align-items: center; gap: 14px; }
+  .profile-tags { justify-content: center; }
+}
+
+.chip-count {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 11px;
+  font-weight: 700;
+  min-width: 18px;
+  height: 18px;
+  border-radius: 999px;
+  padding: 0 5px;
+  margin-left: 4px;
+  background: color-mix(in srgb, var(--muted) 18%, transparent);
+  color: var(--muted);
+  line-height: 1;
+  vertical-align: middle;
+}
+.chip.active .chip-count {
+  background: rgba(255, 255, 255, 0.22);
+  color: #fff;
 }
