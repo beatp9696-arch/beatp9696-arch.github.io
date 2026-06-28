@@ -923,11 +923,149 @@ tbody tr:hover td { background: var(--accent-tint); }
 }
 
 /* ============================================================
+   Market Clock Bar — นาฬิกา + สถานะตลาด US
+   ============================================================ */
+.market-clock {
+  background: var(--surface);
+  border-bottom: 1px solid var(--border);
+  overflow: hidden;
+}
+.market-clock-inner {
+  max-width: var(--max);
+  margin: 0 auto;
+  padding: 10px 22px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+}
+.clock-date {
+  font-family: var(--font-head);
+  font-size: 12.5px;
+  font-weight: 500;
+  color: var(--muted);
+  flex: none;
+  white-space: nowrap;
+}
+.clock-mid {
+  display: flex;
+  align-items: baseline;
+  gap: 7px;
+  flex: 1;
+  justify-content: center;
+}
+.clock-zone-badge {
+  font-family: var(--font-head);
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  color: var(--accent);
+  background: var(--accent-tint);
+  border: 1px solid color-mix(in srgb, var(--accent) 25%, transparent);
+  border-radius: 5px;
+  padding: 2px 6px;
+  line-height: 1;
+  flex: none;
+  vertical-align: baseline;
+}
+.clock-bkk {
+  font-family: var(--font-head);
+  font-size: 26px;
+  font-weight: 700;
+  color: var(--accent);
+  font-variant-numeric: tabular-nums;
+  letter-spacing: 0.02em;
+  line-height: 1;
+}
+.clk-sep { display: inline; transition: opacity 0.08s ease; }
+.clk-sep-off { opacity: 0.18; }
+.clk-sec {
+  font-size: 17px;
+  font-weight: 600;
+  opacity: 0.5;
+  margin-left: 2px;
+  font-variant-numeric: tabular-nums;
+}
+.clock-right {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  flex: none;
+}
+.clock-ny {
+  font-family: var(--font-head);
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--text);
+  font-variant-numeric: tabular-nums;
+  white-space: nowrap;
+}
+.clock-divider {
+  width: 1px;
+  height: 16px;
+  background: var(--border);
+  flex: none;
+}
+.clock-mkt {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  font-family: var(--font-head);
+  font-size: 12px;
+  font-weight: 600;
+  padding: 4px 10px 4px 7px;
+  border-radius: 999px;
+  white-space: nowrap;
+  line-height: 1;
+  transition: background 0.3s ease, color 0.3s ease;
+}
+.clock-mkt-dot {
+  width: 6px; height: 6px;
+  border-radius: 50%;
+  flex: none;
+}
+.clock-mkt.open  { background: rgba(34,197,94,0.13);  color: #15803d; }
+.clock-mkt.pre   { background: rgba(245,158,11,0.13); color: #b45309; }
+.clock-mkt.after { background: rgba(245,158,11,0.13); color: #b45309; }
+.clock-mkt.closed { background: color-mix(in srgb, var(--muted) 10%, transparent); color: var(--muted); }
+.clock-mkt.open  .clock-mkt-dot { background: #22c55e; animation: mkt-pulse 2.5s ease-in-out infinite; }
+.clock-mkt.pre   .clock-mkt-dot { background: #f59e0b; }
+.clock-mkt.after .clock-mkt-dot { background: #f59e0b; }
+.clock-mkt.closed .clock-mkt-dot { background: var(--muted); opacity: 0.4; }
+@keyframes mkt-pulse {
+  0%,100% { box-shadow: 0 0 0 0 rgba(34,197,94,0.55); }
+  60%      { box-shadow: 0 0 0 5px rgba(34,197,94,0);  }
+}
+:root[data-theme="dark"] .clock-mkt.open  { background: rgba(34,197,94,0.10);  color: #4ade80; }
+:root[data-theme="dark"] .clock-mkt.pre,
+:root[data-theme="dark"] .clock-mkt.after { background: rgba(245,158,11,0.10); color: #fbbf24; }
+:root[data-theme="dark"] .clock-bkk {
+  text-shadow: 0 0 22px color-mix(in srgb, var(--accent) 50%, transparent);
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) .clock-mkt.open  { background: rgba(34,197,94,0.10);  color: #4ade80; }
+  :root:not([data-theme="light"]) .clock-mkt.pre,
+  :root:not([data-theme="light"]) .clock-mkt.after { background: rgba(245,158,11,0.10); color: #fbbf24; }
+  :root:not([data-theme="light"]) .clock-bkk {
+    text-shadow: 0 0 22px color-mix(in srgb, var(--accent) 50%, transparent);
+  }
+}
+@media (max-width: 600px) {
+  .market-clock-inner { padding: 9px 16px; gap: 8px; }
+  .clock-date { display: none; }
+  .clock-mid  { justify-content: flex-start; flex: none; gap: 5px; }
+  .clock-bkk  { font-size: 22px; }
+  .clk-sec    { font-size: 14px; }
+  .clock-divider { display: none; }
+}
+
+/* ============================================================
    Print — เซฟ PDF / สั่งพิมพ์บทความให้สะอาด
    ============================================================ */
 @media print {
   .top-accent,
   .reading-progress,
+  .market-clock,
   .site-header,
   #tv-ticker,
   .to-top,

@@ -433,4 +433,76 @@
     });
   }
 
+  // ---- Market Clock — นาฬิกา BKK + NY + สถานะตลาด US ----
+  var TH_DAYS_CLK = ["อา.", "จ.", "อ.", "พ.", "พฤ.", "ศ.", "ส."];
+  var TH_MONTHS_CLK = ["ม.ค.","ก.พ.","มี.ค.","เม.ย.","พ.ค.","มิ.ย.","ก.ค.","ส.ค.","ก.ย.","ต.ค.","พ.ย.","ธ.ค."];
+
+  function pad2(n) { return n < 10 ? "0" + n : "" + n; }
+
+  function getMktStatus(now) {
+    var nyStr = now.toLocaleString("en-US", { timeZone: "America/New_York" });
+    var et = new Date(nyStr);
+    var day = et.getDay();
+    var mins = et.getHours() * 60 + et.getMinutes();
+    if (day === 0 || day === 6) return { cls: "closed", label: "ปิดสุดสัปดาห์" };
+    if (mins >= 570  && mins < 960)  return { cls: "open",   label: "US: เปิด" };
+    if (mins >= 240  && mins < 570)  return { cls: "pre",    label: "Pre-market" };
+    if (mins >= 960  && mins < 1200) return { cls: "after",  label: "After-hours" };
+    return { cls: "closed", label: "US: ปิด" };
+  }
+
+  var clkBar = document.createElement("div");
+  clkBar.className = "market-clock";
+  clkBar.innerHTML =
+    '<div class="market-clock-inner">' +
+      '<span class="clock-date" id="clk-date"></span>' +
+      '<div class="clock-mid">' +
+        '<span class="clock-zone-badge">BKK</span>' +
+        '<span class="clock-bkk" id="clk-bkk"></span>' +
+      '</div>' +
+      '<div class="clock-right">' +
+        '<span class="clock-zone-badge">NY</span>' +
+        '<span class="clock-ny" id="clk-ny"></span>' +
+        '<span class="clock-divider"></span>' +
+        '<span class="clock-mkt closed" id="clk-mkt">' +
+          '<span class="clock-mkt-dot"></span>' +
+          '<span id="clk-mkt-txt"></span>' +
+        '</span>' +
+      '</div>' +
+    '</div>';
+
+  var clkAnchor = document.getElementById("tv-ticker") || document.querySelector("main");
+  if (clkAnchor) clkAnchor.parentNode.insertBefore(clkBar, clkAnchor);
+
+  var clkDate = document.getElementById("clk-date");
+  var clkBkk  = document.getElementById("clk-bkk");
+  var clkNy   = document.getElementById("clk-ny");
+  var clkMkt  = document.getElementById("clk-mkt");
+  var clkTxt  = document.getElementById("clk-mkt-txt");
+
+  function clockTick() {
+    if (!clkDate) return;
+    var now = new Date();
+    var wd = now.getDay(), dt = now.getDate(), mo = now.getMonth(), yr = now.getFullYear();
+    var hh = now.getHours(), mm = now.getMinutes(), ss = now.getSeconds();
+
+    clkDate.textContent = TH_DAYS_CLK[wd] + " " + dt + " " + TH_MONTHS_CLK[mo] + " " + yr;
+
+    var sep = ss % 2 === 0
+      ? '<span class="clk-sep">:</span>'
+      : '<span class="clk-sep clk-sep-off">:</span>';
+    clkBkk.innerHTML = pad2(hh) + sep + pad2(mm) + '<span class="clk-sec">' + pad2(ss) + '</span>';
+
+    clkNy.textContent = now.toLocaleTimeString("en-US", {
+      timeZone: "America/New_York", hour12: false, hour: "2-digit", minute: "2-digit"
+    });
+
+    var ms = getMktStatus(now);
+    clkMkt.className = "clock-mkt " + ms.cls;
+    clkTxt.textContent = ms.label;
+  }
+
+  clockTick();
+  setInterval(clockTick, 1000);
+
 })();
