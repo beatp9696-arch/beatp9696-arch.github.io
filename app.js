@@ -278,4 +278,71 @@
     });
   }
 
+  // ---- Hamburger + slide-out drawer (มือถือ) ----
+  var headerContainer = document.querySelector(".site-header .container");
+  var siteTitle = document.querySelector(".site-title");
+  if (headerContainer && siteTitle) {
+    var hamBtn = document.createElement("button");
+    hamBtn.className = "hamburger-btn";
+    hamBtn.setAttribute("aria-label", "เปิดเมนู");
+    hamBtn.setAttribute("aria-expanded", "false");
+    hamBtn.innerHTML =
+      '<svg width="22" height="22" viewBox="0 0 22 22" fill="none" ' +
+      'stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true">' +
+      '<line x1="3" y1="6" x2="19" y2="6"/>' +
+      '<line x1="3" y1="11" x2="19" y2="11"/>' +
+      '<line x1="3" y1="16" x2="19" y2="16"/>' +
+      '</svg>';
+    headerContainer.insertBefore(hamBtn, siteTitle);
+
+    var overlay = document.createElement("div");
+    overlay.className = "nav-overlay";
+    document.body.appendChild(overlay);
+
+    var isInArticles = location.pathname.indexOf("/articles/") !== -1;
+    var base = isInArticles ? "../" : "";
+    var NAV_LINKS = [
+      { href: base + "index.html", label: "หน้าแรก" },
+      { href: base + "dashboard.html", label: "Dashboard" },
+      { href: base + "about.html", label: "เกี่ยวกับ" }
+    ];
+
+    var drawer = document.createElement("div");
+    drawer.className = "nav-drawer";
+    drawer.setAttribute("role", "navigation");
+    drawer.setAttribute("aria-label", "เมนูหลัก");
+
+    var dHtml = '<div class="nav-drawer-header">' +
+      '<a class="nav-drawer-brand" href="' + base + 'index.html">Moatrices</a>' +
+      '<button class="nav-drawer-close" aria-label="ปิดเมนู">✕</button>' +
+      '</div><nav>';
+    NAV_LINKS.forEach(function (link) {
+      var active = link.href.split("/").pop() === here;
+      dHtml += '<a href="' + link.href + '"' + (active ? ' class="active"' : '') + '>' + link.label + '</a>';
+    });
+    dHtml += '</nav>';
+    drawer.innerHTML = dHtml;
+    document.body.appendChild(drawer);
+
+    function openDrawer() {
+      drawer.classList.add("open");
+      overlay.classList.add("open");
+      hamBtn.setAttribute("aria-expanded", "true");
+      document.body.style.overflow = "hidden";
+    }
+    function closeDrawer() {
+      drawer.classList.remove("open");
+      overlay.classList.remove("open");
+      hamBtn.setAttribute("aria-expanded", "false");
+      document.body.style.overflow = "";
+    }
+
+    hamBtn.addEventListener("click", openDrawer);
+    overlay.addEventListener("click", closeDrawer);
+    drawer.querySelector(".nav-drawer-close").addEventListener("click", closeDrawer);
+    document.addEventListener("keydown", function (e) {
+      if (e.key === "Escape" && drawer.classList.contains("open")) closeDrawer();
+    });
+  }
+
 })();

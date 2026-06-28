@@ -679,7 +679,120 @@ tbody tr:hover td { background: var(--accent-tint); }
 }
 
 /* ============================================================
-   Print
+   Hamburger + Drawer Navigation (มือถือ)
+   ============================================================ */
+
+.hamburger-btn {
+  display: none;
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 5px 6px;
+  color: var(--text);
+  border-radius: 8px;
+  flex: none;
+  line-height: 0;
+  transition: background 0.15s ease, color 0.15s ease;
+}
+.hamburger-btn:hover { background: var(--accent-tint); color: var(--accent); }
+
+.nav-overlay {
+  display: none;
+  position: fixed; inset: 0;
+  background: rgba(0, 0, 0, 0.45);
+  z-index: 200;
+}
+.nav-overlay.open { display: block; }
+
+.nav-drawer {
+  position: fixed;
+  top: 0; left: 0; bottom: 0;
+  width: min(280px, 82vw);
+  background: var(--surface);
+  z-index: 201;
+  display: flex;
+  flex-direction: column;
+  overflow-y: auto;
+  box-shadow: 4px 0 32px rgba(0, 0, 0, 0.18);
+  transform: translateX(-100%);
+  transition: transform 0.28s cubic-bezier(0.4, 0, 0.2, 1);
+}
+.nav-drawer.open { transform: translateX(0); }
+
+.nav-drawer-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 16px 20px;
+  border-bottom: 1px solid var(--border);
+  flex: none;
+}
+.nav-drawer-brand {
+  font-family: var(--font-head);
+  font-size: 18px;
+  font-weight: 700;
+  color: var(--text);
+  text-decoration: none;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+}
+.nav-drawer-brand::before {
+  content: "";
+  width: 20px; height: 20px;
+  background: url("favicon.svg") center / contain no-repeat;
+  flex: none;
+}
+
+.nav-drawer-close {
+  background: none;
+  border: none;
+  cursor: pointer;
+  color: var(--muted);
+  font-size: 20px;
+  line-height: 1;
+  width: 34px; height: 34px;
+  border-radius: 8px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  transition: background 0.15s ease, color 0.15s ease;
+  flex: none;
+}
+.nav-drawer-close:hover { background: var(--accent-tint); color: var(--accent); }
+
+.nav-drawer nav { padding: 6px 0; flex: 1; }
+.nav-drawer nav a {
+  display: flex;
+  align-items: center;
+  font-family: var(--font-head);
+  font-size: 16px;
+  font-weight: 500;
+  color: var(--text);
+  text-decoration: none;
+  padding: 13px 20px;
+  border-left: 3px solid transparent;
+  transition: background 0.15s ease, color 0.15s ease, border-color 0.15s ease;
+}
+.nav-drawer nav a:hover {
+  background: var(--accent-tint);
+  color: var(--accent);
+  border-left-color: var(--accent);
+}
+.nav-drawer nav a.active {
+  background: var(--accent-tint);
+  color: var(--accent);
+  border-left-color: var(--accent);
+  font-weight: 600;
+}
+
+@media (max-width: 600px) {
+  .hamburger-btn { display: inline-flex; align-items: center; }
+  .site-nav a { display: none; }
+}
+
+/* ============================================================
+   Print — เซฟ PDF / สั่งพิมพ์บทความให้สะอาด
    ============================================================ */
 @media print {
   .top-accent,
@@ -691,6 +804,8 @@ tbody tr:hover td { background: var(--accent-tint); }
   .filter-bar,
   .article-nav,
   .share-bar,
+  .nav-overlay,
+  .nav-drawer,
   .toc,
   .back { display: none !important; }
 
