@@ -1719,3 +1719,16 @@ h2:hover > .heading-anchor, h3:hover > .heading-anchor { opacity: 0.45; }
   .pf-donut { width: 230px; height: 230px; }
   .pf-legend { grid-template-columns: 1fr; width: 100%; }
 }
+
+/* ===== Portfolio donut — pointed labels (desktop) + legend fallback (mobile) ===== */
+.pf-chart { display: block; }
+.pf-pointed-svg { width: 100%; height: auto; display: block; }
+.pf2-name { font-family: var(--font-head); font-weight: 600; font-size: 18px; fill: var(--text); }
+.pf2-pct { fill: var(--muted); font-weight: 700; }
+.pf2-line { fill: none; stroke: var(--border); stroke-width: 1.5; }
+.pf-fallback { display: none; }
+.pf-fb-donut { width: 220px; height: 220px; display: block; margin: 0 auto 20px; }
+@media (max-width: 680px) {
+  .pf-pointed { display: none; }
+  .pf-fallback { display: block; }
+}
