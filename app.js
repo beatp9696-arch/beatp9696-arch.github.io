@@ -228,7 +228,7 @@
     }
   }
 
-  // ---- Share bar (บทความเท่านั้น ไม่แสดงที่หน้าแรก) ----
+  // ---- Share bar (บทความเท่านั้น) ----
   var articleH1 = document.querySelector("h1");
   var backEl = document.querySelector(".back");
   if (articleH1 && backEl && document.querySelector(".byline")) {
@@ -274,6 +274,94 @@
         try { document.execCommand("copy"); } catch (e) {}
         document.body.removeChild(ta);
         onCopied();
+      }
+    });
+  }
+
+  // ---- Search modal ----
+  var themeToggleBtn = document.getElementById("theme-toggle");
+  if (themeToggleBtn) {
+    var ICON_SEARCH = '<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>';
+
+    var sb = document.createElement("button");
+    sb.className = "search-btn";
+    sb.setAttribute("aria-label", "ค้นหาหุ้น");
+    sb.setAttribute("title", "ค้นหาหุ้น  /");
+    sb.innerHTML = ICON_SEARCH;
+    themeToggleBtn.parentNode.insertBefore(sb, themeToggleBtn);
+
+    var TICKERS = ["NFLX", "MELI", "COST", "SNPS", "AXP"];
+    var chipsHtml = TICKERS.map(function (t) {
+      return '<button type="button" class="search-chip" data-ticker="' + t + '">' + t + '</button>';
+    }).join("");
+
+    var sOverlay = document.createElement("div");
+    sOverlay.className = "search-overlay";
+    sOverlay.setAttribute("role", "dialog");
+    sOverlay.setAttribute("aria-modal", "true");
+    sOverlay.setAttribute("aria-label", "ค้นหาหุ้น");
+    sOverlay.innerHTML =
+      '<div class="search-box">' +
+        '<form class="search-form" id="search-form">' +
+          '<span class="search-form-icon">' + ICON_SEARCH + '</span>' +
+          '<input class="search-input" id="search-input" type="text"' +
+          ' placeholder="ค้นหาหุ้น เช่น AAPL, TSLA, NVDA..."' +
+          ' autocomplete="off" autocorrect="off" autocapitalize="characters" spellcheck="false">' +
+          '<button type="button" class="search-esc" id="search-close-btn">ESC</button>' +
+        '</form>' +
+        '<div class="search-footer">' +
+          '<span class="search-footer-label">หุ้นที่วิเคราะห์แล้ว</span>' +
+          '<div class="search-chips">' + chipsHtml + '</div>' +
+        '</div>' +
+        '<div class="search-kbd-hint">' +
+          '<kbd>/</kbd>&nbsp;หรือ&nbsp;<kbd>&#8984;K</kbd>&nbsp;เปิดได้เสมอ' +
+          '&nbsp;&middot;&nbsp;กด Enter เพื่อค้นหาบน Yahoo Finance' +
+        '</div>' +
+      '</div>';
+    document.body.appendChild(sOverlay);
+
+    function openSearch() {
+      sOverlay.classList.add("open");
+      document.body.style.overflow = "hidden";
+      setTimeout(function () {
+        var inp = document.getElementById("search-input");
+        if (inp) { inp.focus(); inp.select(); }
+      }, 40);
+    }
+    function closeSearch() {
+      sOverlay.classList.remove("open");
+      document.body.style.overflow = "";
+    }
+    function doSearch(ticker) {
+      if (!ticker) return;
+      window.open("https://finance.yahoo.com/quote/" + ticker.toUpperCase() + "/", "_blank", "noopener,noreferrer");
+      closeSearch();
+    }
+
+    sb.addEventListener("click", openSearch);
+    document.getElementById("search-close-btn").addEventListener("click", closeSearch);
+    sOverlay.addEventListener("click", function (e) {
+      if (e.target === sOverlay) closeSearch();
+    });
+    document.getElementById("search-form").addEventListener("submit", function (e) {
+      e.preventDefault();
+      var val = document.getElementById("search-input").value.trim();
+      if (val) doSearch(val);
+    });
+    sOverlay.querySelectorAll(".search-chip").forEach(function (chip) {
+      chip.addEventListener("click", function () {
+        doSearch(this.getAttribute("data-ticker"));
+      });
+    });
+    document.addEventListener("keydown", function (e) {
+      var isOpen = sOverlay.classList.contains("open");
+      if (isOpen && e.key === "Escape") { closeSearch(); return; }
+      if (!isOpen && (e.key === "/" || ((e.metaKey || e.ctrlKey) && e.key === "k"))) {
+        var tag = document.activeElement ? document.activeElement.tagName : "";
+        if (tag !== "INPUT" && tag !== "TEXTAREA") {
+          e.preventDefault();
+          openSearch();
+        }
       }
     });
   }

@@ -447,7 +447,7 @@ main p a:hover, main li a:hover { text-decoration-color: var(--accent); }
 /* ===== ปุ่มสลับโหมด ===== */
 .theme-toggle {
   background: none; border: none; cursor: pointer;
-  color: var(--muted); padding: 6px; margin-left: 20px;
+  color: var(--muted); padding: 6px; margin-left: 8px;
   display: inline-flex; align-items: center; vertical-align: middle;
   border-radius: 8px; line-height: 0;
   transition: color 0.15s ease, background 0.15s ease;
@@ -457,7 +457,138 @@ main p a:hover, main li a:hover { text-decoration-color: var(--accent); }
 .theme-toggle .ic-moon { display: block; }
 .theme-toggle[data-mode="dark"] .ic-moon { display: none; }
 .theme-toggle[data-mode="dark"] .ic-sun { display: block; }
-@media (max-width: 600px) { .theme-toggle { margin-left: 12px; } }
+
+/* ===== Search button ===== */
+.search-btn {
+  background: none; border: none; cursor: pointer;
+  color: var(--muted); padding: 6px; margin-left: 8px;
+  display: inline-flex; align-items: center; vertical-align: middle;
+  border-radius: 8px; line-height: 0;
+  transition: color 0.15s ease, background 0.15s ease;
+}
+.search-btn:hover { color: var(--accent); background: var(--accent-tint); }
+
+/* ===== Search modal ===== */
+.search-overlay {
+  display: none;
+  position: fixed; inset: 0;
+  background: rgba(0, 0, 0, 0.55);
+  z-index: 300;
+  align-items: flex-start;
+  justify-content: center;
+  padding: clamp(60px, 12vh, 120px) 16px 0;
+}
+.search-overlay.open { display: flex; }
+
+.search-box {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  box-shadow: 0 24px 64px rgba(0, 0, 0, 0.22);
+  width: 100%;
+  max-width: 520px;
+  overflow: hidden;
+  animation: search-drop 0.18s ease;
+}
+@keyframes search-drop {
+  from { opacity: 0; transform: translateY(-10px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+.search-form {
+  display: flex;
+  align-items: center;
+  padding: 0 16px;
+  gap: 10px;
+  border-bottom: 1px solid var(--border);
+}
+.search-form-icon { color: var(--muted); flex: none; line-height: 0; }
+.search-input {
+  flex: 1;
+  border: none;
+  background: transparent;
+  font-family: var(--font-head);
+  font-size: 17px;
+  font-weight: 500;
+  color: var(--text);
+  padding: 18px 0;
+  outline: none;
+  min-width: 0;
+}
+.search-input::placeholder { color: var(--muted); font-weight: 400; }
+.search-esc {
+  background: var(--surface-2); border: 1px solid var(--border); cursor: pointer;
+  color: var(--muted); padding: 3px 9px; border-radius: 6px;
+  font-family: var(--font-head); font-size: 11px; font-weight: 700;
+  flex: none; letter-spacing: 0.04em;
+  transition: color 0.15s ease, background 0.15s ease;
+}
+.search-esc:hover { color: var(--text); background: var(--border); }
+
+.search-footer {
+  padding: 12px 16px 14px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  border-bottom: 1px solid var(--border);
+}
+.search-footer-label {
+  font-family: var(--font-head);
+  font-size: 11px;
+  font-weight: 700;
+  color: var(--muted);
+  text-transform: uppercase;
+  letter-spacing: 0.07em;
+}
+.search-chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 7px;
+}
+.search-chip {
+  display: inline-flex;
+  align-items: center;
+  font-family: var(--font-head);
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--accent);
+  background: var(--accent-tint);
+  border: 1px solid color-mix(in srgb, var(--accent) 30%, transparent);
+  border-radius: 8px;
+  padding: 5px 13px;
+  cursor: pointer;
+  letter-spacing: 0.04em;
+  transition: background 0.15s ease, color 0.15s ease, border-color 0.15s ease, transform 0.1s ease;
+}
+.search-chip:hover {
+  background: var(--accent);
+  color: #fff;
+  border-color: var(--accent);
+  transform: translateY(-1px);
+}
+
+.search-kbd-hint {
+  padding: 9px 16px 11px;
+  font-family: var(--font-head);
+  font-size: 12px;
+  color: var(--muted);
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  flex-wrap: wrap;
+}
+.search-kbd-hint kbd {
+  display: inline-flex;
+  align-items: center;
+  background: var(--surface-2);
+  border: 1px solid var(--border);
+  border-radius: 4px;
+  padding: 1px 6px;
+  font-size: 11px;
+  font-family: var(--font-head);
+  font-weight: 700;
+  color: var(--text);
+}
 
 /* ===== TOC ===== */
 h2 { scroll-margin-top: 84px; }
@@ -801,11 +932,13 @@ tbody tr:hover td { background: var(--accent-tint); }
   #tv-ticker,
   .to-top,
   .theme-toggle,
+  .search-btn,
   .filter-bar,
   .article-nav,
   .share-bar,
   .nav-overlay,
   .nav-drawer,
+  .search-overlay,
   .toc,
   .back { display: none !important; }
 
