@@ -705,3 +705,48 @@ tbody tr:hover td { background: var(--accent-tint); }
   .article-nav-link.next { text-align: left; }
   .article-nav-link.next:only-child { grid-column: 1; }
 }
+
+/* ============================================================
+   Print — เซฟ PDF / สั่งพิมพ์บทความให้สะอาด
+   ซ่อน chrome ที่โต้ตอบได้ เหลือแต่เนื้อหา
+   ============================================================ */
+@media print {
+  .top-accent,
+  .reading-progress,
+  .site-header,
+  #tv-ticker,
+  .to-top,
+  .theme-toggle,
+  .filter-bar,
+  .article-nav,
+  .toc,
+  .back { display: none !important; }
+
+  html, body {
+    background: #fff !important;
+    color: #000 !important;
+    font-size: 12pt;
+    line-height: 1.6;
+  }
+  .container { max-width: 100%; padding: 0; }
+  main { padding-bottom: 0; }
+
+  a { color: #000 !important; text-decoration: none !important; }
+
+  /* การ์ด/กล่อง: ตัดเงา ใช้เส้นขอบเรียบ กันโดนตัดกลางหน้า */
+  .post-list li,
+  .author-card,
+  blockquote,
+  table,
+  .tv-frame {
+    box-shadow: none !important;
+    border-color: #ccc !important;
+    break-inside: avoid;
+  }
+  h1, h2, h3 { break-after: avoid; }
+  .hero::before { display: none !important; }   /* dot-grid ไม่ต้องพิมพ์ */
+
+  /* footer: เก็บแค่คำเตือน ตัดส่วน nav */
+  .site-footer { background: #fff !important; border-top: 1px solid #ccc; }
+  .site-footer .footer-grid { display: none !important; }
+}
