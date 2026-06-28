@@ -1690,3 +1690,14 @@ h2:hover > .heading-anchor, h3:hover > .heading-anchor { opacity: 0.45; }
   .pillar-num { font-size: 40px; }
   .pillar-head { gap: 12px; }
 }
+
+/* ปกหนังสือใน pillar-head */
+.book-cover {
+  width: 116px;
+  height: auto;
+  flex: none;
+  border-radius: 6px;
+  border: 1px solid var(--border);
+  box-shadow: var(--shadow-md);
+}
+@media (max-width: 600px) { .book-cover { width: 88px; } }
