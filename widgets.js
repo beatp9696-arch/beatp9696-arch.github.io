@@ -34,7 +34,7 @@
   var OVERVIEW = "https://s3.tradingview.com/external-embedding/embed-widget-market-overview.js";
 
   function renderAll() {
-    // --- แถบราคาเลื่อนผ่าน (ดัชนี + MAG 7) ---
+    // --- แถบราคาเลื่อนผ่าน (ดัชนี + MAG 7 + ทอง/น้ำมัน + หุ้นที่ติดตาม) ---
     inject("tv-ticker", TICKER, {
       symbols: [
         { proName: "FOREXCOM:DJI",    title: "Dow" },
@@ -46,7 +46,19 @@
         { proName: "NASDAQ:AMZN",  title: "Amazon" },
         { proName: "NASDAQ:NVDA",  title: "Nvidia" },
         { proName: "NASDAQ:META",  title: "Meta" },
-        { proName: "NASDAQ:TSLA",  title: "Tesla" }
+        { proName: "NASDAQ:TSLA",  title: "Tesla" },
+        { proName: "TVC:GOLD",     title: "Gold" },
+        { proName: "TVC:USOIL",    title: "Crude Oil" },
+        { proName: "NASDAQ:SPCX",  title: "SpaceX" },
+        { proName: "NASDAQ:COST",  title: "Costco" },
+        { proName: "NYSE:LLY",     title: "Eli Lilly" },
+        { proName: "NYSE:UNH",     title: "UnitedHealth" },
+        { proName: "NYSE:SPGI",    title: "S&P Global" },
+        { proName: "NASDAQ:MELI",  title: "MercadoLibre" },
+        { proName: "NASDAQ:SNPS",  title: "Synopsys" },
+        { proName: "NYSE:AXP",     title: "Amex" },
+        { proName: "NASDAQ:NFLX",  title: "Netflix" },
+        { proName: "NYSE:TSM",     title: "TSMC" }
       ],
       showSymbolLogo: true,
       isTransparent: true,
