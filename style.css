@@ -9,14 +9,14 @@
   --font-head: "IBM Plex Sans Thai", -apple-system, "Segoe UI", sans-serif;
   --font-body: "Sarabun", -apple-system, "Segoe UI", sans-serif;
 
-  --bg: #f7f5f0;            /* พื้นหลังกระดาษอุ่น */
-  --surface: #ffffff;       /* การ์ด/กล่อง */
+  --bg: #f7f5f0;
+  --surface: #ffffff;
   --surface-2: #fbfaf7;
-  --text: #1b1d1f;          /* หมึกหลัก */
-  --muted: #6c7177;         /* ตัวอักษรรอง */
-  --accent: #0c6b52;        /* เขียวมรกตเข้ม */
+  --text: #1b1d1f;
+  --muted: #6c7177;
+  --accent: #0c6b52;
   --accent-strong: #095842;
-  --accent-tint: #e7f1ec;   /* พื้นอ่อนของ accent */
+  --accent-tint: #e7f1ec;
   --border: #e7e3da;
   --header-bg: rgba(247, 245, 240, 0.82);
 
@@ -26,7 +26,6 @@
   --max: 760px;
 }
 
-/* ---------- โหมดมืด: อัตโนมัติตามเครื่อง + เลือกเองผ่านปุ่มได้ ---------- */
 @media (prefers-color-scheme: dark) {
   :root:not([data-theme="light"]) {
     --bg: #121417;
@@ -98,7 +97,7 @@ a:hover { color: var(--accent-strong); }
   padding: 0 22px;
 }
 
-/* ---------- Header (sticky + เบลอ) ---------- */
+/* ---------- Header ---------- */
 .site-header {
   position: sticky;
   top: 0;
@@ -204,7 +203,6 @@ li::marker { color: var(--accent); }
 
 strong { font-weight: 700; }
 
-/* ---------- Callout / blockquote ---------- */
 blockquote {
   margin: 28px 0;
   padding: 18px 22px;
@@ -248,7 +246,7 @@ tr.total td {
   background: var(--accent-tint);
 }
 
-/* ---------- รายการบทความ (การ์ด) ---------- */
+/* ---------- รายการบทความ ---------- */
 .post-list { list-style: none; padding: 0; margin: 0; }
 .post-list li {
   background: var(--surface);
@@ -288,7 +286,6 @@ tr.total td {
 .post-list li:hover .read-more { transform: translateX(3px); }
 .post-list .read-more { transition: transform 0.18s ease; }
 
-/* ป้าย tag */
 .tag {
   display: inline-block;
   font-family: var(--font-head);
@@ -301,7 +298,6 @@ tr.total td {
   margin-bottom: 12px;
 }
 
-/* ปุ่มกลับ */
 .back {
   display: inline-block;
   margin-top: 40px;
@@ -310,7 +306,7 @@ tr.total td {
   font-size: 15px;
 }
 
-/* ---------- Footer / disclaimer ---------- */
+/* ---------- Footer ---------- */
 .site-footer {
   border-top: 1px solid var(--border);
   background: var(--surface-2);
@@ -694,6 +690,7 @@ tbody tr:hover td { background: var(--accent-tint); }
   .theme-toggle,
   .filter-bar,
   .article-nav,
+  .share-bar,
   .toc,
   .back { display: none !important; }
 
@@ -874,4 +871,56 @@ tbody tr:hover td { background: var(--accent-tint); }
 .chip.active .chip-count {
   background: rgba(255, 255, 255, 0.22);
   color: #fff;
+}
+
+/* ============================================================
+   Share bar
+   ============================================================ */
+.share-bar {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-wrap: wrap;
+  margin: 24px 0 0;
+  padding: 16px 20px;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow-sm);
+}
+.share-label {
+  font-family: var(--font-head);
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--muted);
+  flex: none;
+}
+.share-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-family: var(--font-head);
+  font-size: 13px;
+  font-weight: 600;
+  padding: 7px 14px;
+  border-radius: 8px;
+  border: 1px solid var(--border);
+  background: var(--surface);
+  color: var(--text);
+  cursor: pointer;
+  text-decoration: none;
+  line-height: 1;
+  transition: background 0.15s ease, border-color 0.15s ease, color 0.15s ease, transform 0.15s ease;
+}
+.share-btn:hover { transform: translateY(-1px); color: var(--text); }
+.share-btn.share-x { background: #000; color: #fff; border-color: #000; }
+.share-btn.share-x:hover { background: #333; border-color: #333; color: #fff; }
+.share-btn.share-line { background: #06C755; color: #fff; border-color: #06C755; }
+.share-btn.share-line:hover { background: #05a847; border-color: #05a847; color: #fff; }
+.share-btn.share-copy { color: var(--accent); border-color: color-mix(in srgb, var(--accent) 40%, transparent); }
+.share-btn.share-copy:hover { background: var(--accent-tint); border-color: var(--accent); }
+.share-btn.share-copy.copied { background: var(--accent); color: #fff; border-color: var(--accent); }
+@media (max-width: 600px) {
+  .share-bar { gap: 8px; padding: 14px 16px; }
+  .share-label { width: 100%; }
 }
