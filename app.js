@@ -213,7 +213,8 @@
     { f: "deep-dive-meli.html", t: "ผ่าธุรกิจ MELI (MercadoLibre)" },
     { f: "deep-dive-cost.html", t: "ผ่าธุรกิจ COST (Costco)" },
     { f: "deep-dive-snps.html", t: "ผ่าธุรกิจ SNPS (Synopsys)" },
-    { f: "deep-dive-axp.html", t: "ผ่าธุรกิจ AXP (American Express)" }
+    { f: "deep-dive-axp.html", t: "ผ่าธุรกิจ AXP (American Express)" },
+    { f: "deep-dive-tsm.html", t: "ผ่าธุรกิจ TSM (TSMC)" }
   ];
   var file = location.pathname.split("/").pop();
   var idx = -1;

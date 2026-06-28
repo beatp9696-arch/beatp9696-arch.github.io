@@ -1,0 +1,307 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <script>try{var t=localStorage.getItem('theme');if(t)document.documentElement.setAttribute('data-theme',t);}catch(e){}</script>
+  <title>ผ่าธุรกิจ TSM (TSMC) — Deep-dive | Moatrices</title>
+  <meta name="description" content="ผ่าธุรกิจ TSMC (TSM) — โรงหล่อชิปผูกขาด leading-edge (≤7nm 74%), ROIC ~48%, operating leverage, AI เป็น engine, valuation และ Kill Conditions อ้างอิง 20-F FY2025 + Q1 FY2026">
+  <meta property="og:type" content="article">
+  <meta property="og:site_name" content="Moatrices">
+  <meta property="og:title" content="ผ่าธุรกิจ TSM (TSMC) — โรงหล่อของโลก AI กับคูเมืองที่ลอกไม่ได้">
+  <meta property="og:description" content="Foundry ผูกขาด leading-edge, ROIC ~48%, operating leverage มหาศาล — แต่ถือหางเสี่ยงชื่อ Taiwan ที่ hedge ไม่ได้">
+  <meta property="og:url" content="https://beatp9696-arch.github.io/articles/deep-dive-tsm.html">
+  <meta property="og:locale" content="th_TH">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta property="og:image" content="https://beatp9696-arch.github.io/og-deep-dive-tsm.png">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta name="twitter:image" content="https://beatp9696-arch.github.io/og-deep-dive-tsm.png">
+  <meta name="author" content="Moatrices">
+  <link rel="canonical" href="https://beatp9696-arch.github.io/articles/deep-dive-tsm.html">
+  <link rel="alternate" type="application/rss+xml" title="Moatrices RSS" href="/feed.xml">
+  <meta name="theme-color" media="(prefers-color-scheme: light)" content="#f7f5f0">
+  <meta name="theme-color" media="(prefers-color-scheme: dark)" content="#121417">
+  <link rel="icon" href="../favicon.svg" type="image/svg+xml">
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png">
+  <link rel="manifest" href="/site.webmanifest">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Thai:wght@500;600;700&family=Sarabun:wght@400;500;600;700&display=swap">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Thai:wght@500;600;700&family=Sarabun:wght@400;500;600;700&display=swap" media="print" onload="this.media='all'">
+  <noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Thai:wght@500;600;700&family=Sarabun:wght@400;500;600;700&display=swap"></noscript>
+  <link rel="stylesheet" href="../style.css">
+  <script type="application/ld+json">
+  {"@context": "https://schema.org", "@type": "BlogPosting", "headline": "ผ่าธุรกิจ TSM (TSMC) — โรงหล่อของโลก AI กับคูเมืองที่ลอกไม่ได้", "description": "ผ่าธุรกิจ TSMC (TSM) — foundry ผูกขาด leading-edge, ROIC ~48%, operating leverage, AI เป็น engine, valuation และ Kill Conditions อ้างอิง 20-F FY2025 + Q1 FY2026", "author": {"@type": "Person", "name": "Moatrices"}, "publisher": {"@type": "Organization", "name": "Moatrices", "logo": {"@type": "ImageObject", "url": "https://beatp9696-arch.github.io/favicon.svg"}}, "mainEntityOfPage": {"@type": "WebPage", "@id": "https://beatp9696-arch.github.io/articles/deep-dive-tsm.html"}, "inLanguage": "th", "datePublished": "2026-06-28", "dateModified": "2026-06-28"}
+  </script>
+</head>
+<body>
+
+  <div class="reading-progress"></div>
+  <div class="top-accent"></div>
+
+  <header class="site-header">
+    <div class="container">
+      <a href="../index.html" class="site-title">Moatrices</a>
+      <nav class="site-nav">
+        <a href="../index.html">หน้าแรก</a>
+        <a href="../dashboard.html">Dashboard</a>
+        <a href="../about.html">เกี่ยวกับ</a>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <div class="container">
+
+      <span class="kicker">Deep-dive · หุ้นจริง</span>
+      <h1>ผ่าธุรกิจ TSM (TSMC) — โรงหล่อของโลก AI, คูเมืองที่ลอกไม่ได้ และหางเสี่ยงชื่อ Taiwan</h1>
+      <div class="company-header">
+        <span class="company-logo"><img src="../logos/TSM.png" alt="Taiwan Semiconductor (TSMC) logo" width="44" height="44"></span>
+        <span class="company-meta">
+          <span class="company-ticker">TSM <span class="company-exch">NYSE</span></span>
+          <span class="company-name">Taiwan Semiconductor Mfg. (TSMC)</span>
+        </span>
+      </div>
+      <div class="byline">
+        <span class="byline-avatar">M</span>
+        <div>
+          <div class="byline-author">Moatrices</div>
+          <div class="byline-info">28 มิ.ย. 2026 · อ่าน ~14 นาที</div>
+        </div>
+      </div>
+
+      <p class="lead">
+        ถ้าจะมีบริษัทเดียวที่ "โลก AI ขาดไม่ได้จริงๆ" บริษัทนั้นไม่ใช่คนออกแบบชิป แต่คือคนที่
+        <strong>ผลิต</strong>ชิปให้ทุกคน — TSMC คือโรงหล่อ (foundry) ที่ล้ำหน้าที่สุดในโลก
+        ที่ทุก AI accelerator ของ Nvidia, ทุกชิปของ Apple ต้องวิ่งผ่าน นี่คือ deep-dive ของธุรกิจ
+        คุณภาพหายาก ที่มาพร้อมหางความเสี่ยงหนึ่งเดียวที่ hedge ไม่ได้
+      </p>
+
+      <blockquote>
+        ตัวเลขอ้างอิง 20-F FY2025 (ปีปฏิทิน, สกุล NT$ แปลงที่ NT$31.37 = US$1) และ earnings call
+        ไตรมาส 1 ปี 2026 (สิ้นสุด มี.ค. 2026); ส่วนราคา/valuation อ้างอิง ณ 9 มิ.ย. 2026
+        เป็นบันทึกการเรียนเพื่อการศึกษา ไม่ใช่คำแนะนำซื้อขาย
+      </blockquote>
+
+      <h2>1. ธุรกิจนี้หาเงินจากอะไร</h2>
+      <p>
+        TSMC เป็น <strong>dedicated foundry</strong> — รับจ้างผลิตชิปตามดีไซน์ของลูกค้า โดย
+        <em>ไม่ออกแบบชิปเอง ไม่แข่งกับลูกค้า</em> โมเดลนี้สำคัญมาก เพราะมันทำให้ Apple, Nvidia, AMD
+        กล้าเอาดีไซน์ลับสุดยอดมาให้ผลิตโดยไม่กลัวโดนก๊อป TSMC จึงกลายเป็น "โรงงานกลาง" ของ
+        อุตสาหกรรมชิปทั้งโลก
+      </p>
+      <p>
+        จุดที่ทำให้ต่างจากโรงงานทั่วไปคือ TSMC ครอง <strong>leading-edge</strong> (โหนดเล็กสุด ล้ำสุด)
+        เกือบเบ็ดเสร็จ — โหนด ≤7nm คิดเป็น <strong>74% ของรายได้ wafer</strong> (3nm 24%, 5nm 36%, 7nm 14%)
+        และ 2nm เพิ่งเข้า volume ปลายปี 2025 พอเป็นเจ้าเดียวที่ทำชิปแรงสุดได้ในปริมาณมาก ใครอยากได้ชิป
+        ที่ดีที่สุดก็ต้องมาที่นี่ — เป็น <strong>toll bridge (ด่านเก็บค่าผ่านทาง) ของยุค AI</strong>
+      </p>
+      <p>รายได้แยกตาม platform (FY2025):</p>
+      <ul>
+        <li><strong>HPC รวม AI (~58% ของรายได้, +48% YoY)</strong> — เครื่องยนต์หลักและโตแรงสุด</li>
+        <li><strong>Smartphone (~29%, +11%)</strong> — ฐานเดิมที่ยังโตเรื่อยๆ</li>
+        <li>IoT ~5% · Automotive ~5% · ที่เหลือ ~3%</li>
+      </ul>
+
+      <h2>2. Moat: คูเมืองอยู่ตรงไหน (และทำไมลอกไม่ได้)</h2>
+      <p>
+        นี่คือธุรกิจที่ moat แข็งระดับหายาก — ไม่ได้มาจากอย่างเดียว แต่ซ้อนกันหลายชั้น:
+      </p>
+      <ul>
+        <li><strong>Process power + scale ที่ลอกไม่ได้ใน 5–10 ปี</strong> — การทำโหนดเล็กลงเรื่อยๆ
+          ต้องสะสม know-how + yield จากการผลิตจริงปริมาณมหาศาล คู่แข่ง (Intel, Samsung) มีเงินแต่ตามไม่ทัน
+          เพราะ lead มันทบต้น ยิ่งผลิตเยอะยิ่ง yield ดี ยิ่ง yield ดียิ่งได้ลูกค้า</li>
+        <li><strong>Switching cost สูงมาก</strong> — ลูกค้าฝัง design flow ลึกกับกระบวนการของ TSMC
+          การย้ายโรงงานกลางโปรเจกต์ = ต้อง re-validate ทั้ง flow + เสี่ยงพลาดตอน tape-out
+          (ต้นทุนพลาดหลายล้านดอลลาร์ต่อรอบ) ลูกค้าจึงไม่ค่อยกล้าเปลี่ยน</li>
+        <li><strong>Scale economies</strong> — ยิ่งชิปซับซ้อน (AI accelerator, chiplet, 2nm, 3DIC)
+          ยิ่งต้องพึ่ง automation + capacity ที่มีแต่ TSMC ลงทุนไหว (capex $40B+/ปี)</li>
+      </ul>
+      <p>
+        ผลลัพธ์ที่พิสูจน์ว่า moat จริง: <strong>ROIC ~48%</strong> (เทียบ WACC ~9–10% = สร้าง economic
+        value มหาศาล) ทั้งที่เป็นธุรกิจ capital-intensive และที่สำคัญ — โตมาแบบ <strong>organic ล้วน</strong>
+        (goodwill เพียง ~NT$5.9B หรือ ~$188M = แทบไม่ซื้อใครมาต่อ) ต่างจากบริษัทที่โตด้วยการไล่ซื้อกิจการ
+      </p>
+
+      <h2>3. ตัวเลขบอกอะไร — operating leverage ระดับโลก</h2>
+      <p>
+        จุดที่สวยที่สุดของงบ TSMC คือ <strong>margin ขยายขึ้นพร้อมกับรายได้ที่โตแรง</strong> —
+        เป็นสัญญาณของ pricing power + scale ที่ของจริง:
+      </p>
+      <table>
+        <thead>
+          <tr><th>ตัวชี้วัด</th><th class="num">FY2023</th><th class="num">FY2024</th><th class="num">FY2025</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>รายได้ (NT$ พันล้าน)</td><td class="num">2,161.7</td><td class="num">2,894.3</td><td class="num">3,809.1</td></tr>
+          <tr><td>เติบโต YoY</td><td class="num">—</td><td class="num">+33.9%</td><td class="num">+31.6%</td></tr>
+          <tr><td>Gross margin</td><td class="num">54.4%</td><td class="num">56.1%</td><td class="num">59.9%</td></tr>
+          <tr><td>Operating margin</td><td class="num">42.6%</td><td class="num">45.7%</td><td class="num">50.8%</td></tr>
+          <tr><td>Net margin</td><td class="num">39.4%</td><td class="num">40.0%</td><td class="num">44.6%</td></tr>
+          <tr><td>EPS (NT$)</td><td class="num">32.85</td><td class="num">44.67</td><td class="num">65.47</td></tr>
+          <tr class="total"><td>FCF (NT$ พันล้าน)</td><td class="num">292</td><td class="num">870</td><td class="num">1,003</td></tr>
+        </tbody>
+      </table>
+      <p>
+        FY2025 รายได้ <strong>US$121.4B (+31.6%)</strong>, กำไรสุทธิ <strong>US$54.1B</strong>,
+        FCF <strong>~US$32B</strong> — และทั้งหมดนี้เกิด<em>ทั้งที่</em>ลงทุน capex สูงถึง ~33% ของรายได้
+        ($40.6B ในปี 2025) ยังมีเงินสดสุทธิ (net cash) เหลือ <strong>~$65B</strong> งบดุลแกร่งมาก
+        D/E แค่ 0.18x
+      </p>
+      <p>
+        ไตรมาสล่าสุด (Q1 FY2026) ยิ่งโชว์ของ: รายได้ $35.9B, <strong>gross margin 66.2% ทำสถิติสูงสุด</strong>,
+        operating margin 58.1%, ROE 40.5% โดย HPC ขึ้นเป็น 61% ของรายได้ จุดที่ต้องระวัง (จะพูดในข้อ 6)
+        คือ 66% นี้คือ margin ที่ utilization peak + FX เอื้อ — ไม่ใช่ระดับที่ยืนได้ตลอด
+      </p>
+
+      <h2>4. AI คือ engine จริงแค่ไหน</h2>
+      <p>
+        คำว่า "หุ้น AI" ถูกใช้เกร่อจนเฝือ แต่กับ TSMC มัน<em>วัดได้จากงบจริง</em> ไม่ใช่แค่เล่าฝัน:
+        HPC (ที่รวม AI) โต <strong>+48% YoY</strong> และเป็น 58% ของรายได้แล้ว ผู้บริหารระบุว่า
+        <strong>AI accelerator จะโต CAGR ระดับ 50 กว่า% ไปถึงปี 2029</strong> และ guide รายได้ทั้งปี FY2026
+        โต <strong>&gt;30% (สกุล USD)</strong> — ปรับขึ้นจากเดิม
+      </p>
+      <p>
+        สัญญาณยืนยันความต้องการ: N3 ขยาย capacity ผิดปกติ (ปกติโหนดที่เริ่มแก่จะไม่เพิ่ม) เพื่อรับงาน AI,
+        N2 ramp ดี, capex ปี 2026 guide $52–56B (ขยับไปฝั่งสูง) Q2 guide รายได้ $39.0–40.2B (+32% YoY)
+        gross margin 65.5–67.5% เครื่องยนต์ AI ยังเร่งเต็มที่
+      </p>
+
+      <h2>5. Bull Case</h2>
+      <ul>
+        <li><strong>Toll bridge ของ compute ทั้งโลก</strong> — leading-edge เกือบผูกขาด ทุก AI chip
+          ต้องผ่าน TSMC; demand "extremely robust" + สัญญาณ capex จาก hyperscaler ยังบวก</li>
+        <li><strong>Operating leverage + pricing power ของจริง</strong> — ดัน gross margin ทะลุ 60%
+          ทั้งที่ "ไม่ได้ขึ้นราคาแรง"; roadmap 2nm/A14 ต่อ technology lead ออกไปอีก</li>
+        <li><strong>คุณภาพหายากครบชุด</strong> — ROIC ~48%, organic (goodwill ~0), net cash ~$65B,
+          ปันผลเพิ่มต่อเนื่อง (NT$22/share FY2025), R&D 6.5% รายได้, SBC แทบเป็นศูนย์ (~0.03%)
+          นี่คือ wonderful business ตัวจริง ไม่ใช่ growth ที่เผาเงิน</li>
+      </ul>
+
+      <h2>6. Bear Case / จุดเปราะ</h2>
+      <p>
+        ความจริงที่ต้องพูดให้ชัด: bear ของ TSMC <strong>ไม่ใช่ "ธุรกิจแย่"</strong> (ธุรกิจดีที่สุดใน
+        อุตสาหกรรม) — แต่เป็น bear เรื่อง <strong>หางความเสี่ยง + ราคา + วัฏจักร</strong>:
+      </p>
+      <ul>
+        <li><strong>Taiwan = หางเสี่ยงแบบ binary ที่ hedge ไม่ได้</strong> — ฐานการผลิตหลักกระจุกในไต้หวัน
+          เหตุการณ์ทางภูมิรัฐศาสตร์ที่กระทบ fab = thesis-breaker ถาวร ประเมินความน่าจะเป็นไม่ได้
+          และไม่มีสัญญาณเตือนล่วงหน้าทางการเงิน การกระจายไป Arizona/Japan/Germany ช่วยได้แต่ช้าและกด margin</li>
+        <li><strong>ลูกค้ากระจุก 78% (top-10)</strong> — รายใหญ่สุด 19%, อันดับสอง 17% หาก Apple ทำชิปเอง
+          มากขึ้น หรือ hyperscaler ออกแบบ ASIC เอง/หันไป dual-source กับ Samsung/Intel = กระทบรายได้</li>
+        <li><strong>Capital intensity ~33% + เป็นวัฏจักร</strong> — semiconductor "highly cyclical"
+          (คำของบริษัทเองใน 20-F) ต้นทุนคงที่สูง ถ้า utilization ตก margin จะตกแรงตาม</li>
+        <li><strong>Margin มี downside mean-reversion</strong> — 66% คือจุดพีค; ผู้บริหารเองบอกว่า
+          fab ต่างประเทศจะ dilute 2–4% + N2 dilute 2–3% — margin ระดับนี้ยืนยาก</li>
+        <li><strong>ASP deflation เชิงโครงสร้าง + ราคาไม่มี buffer</strong> — FCF yield แค่ ~1.45%,
+          earnings yield ~2.5% เทียบ bond 10 ปี ~4.3% ราคาให้ premium คุณภาพเต็มแล้ว</li>
+      </ul>
+
+      <h2>7. Kill Conditions</h2>
+      <p>
+        นี่คือส่วนที่ผมถือว่าสำคัญที่สุด — ถ้าตอบไม่ได้ว่าอะไรจะทำให้รู้ว่า "คิดผิด" แปลว่ายังเข้าใจไม่พอ
+        สำหรับ TSMC ผมจะขาย/หลีกเลี่ยงเมื่อ:
+      </p>
+      <ul>
+        <li><strong>Leading-edge lead หลุดจริง</strong> — Intel/Samsung แย่ง design win โหนด 2nm/A16
+          ของลูกค้า top-5 ได้จริง <em>หรือ</em> gross margin หลุดต่ำกว่า 50% สองไตรมาสติดโดยไม่ใช่เพราะ FX
+          → moat/pricing กำลัง erode</li>
+        <li><strong>เกิด geopolitical event กระทบ fab ในไต้หวัน</strong> — อันนี้คือ thesis-breaker
+          แบบ binary → ขาย/หลีกเลี่ยงทันที ไม่รอดูงบ</li>
+        <li><strong>AI/HPC พลิกเป็น digestion + utilization ตก</strong> จน operating margin หลุดต่ำกว่า 40%
+          → ยืนยัน cyclical downturn ของจริง ไม่ใช่สะดุดชั่วคราว</li>
+      </ul>
+
+      <h2>8. สิ่งที่ยังต้องขุดต่อ (What to ask)</h2>
+      <ul>
+        <li>หางเสี่ยงไต้หวัน: ในกรอบ 10 ปี รับได้ไหมที่ thesis-breaker เป็น binary และอยู่นอกการควบคุม?</li>
+        <li>capital intensity ~33% ถาวร — ธุรกิจนี้ "capital light" ไม่ผ่าน; ROIC 48% ชดเชยได้พอไหม?</li>
+        <li>ลูกค้ากระจุก 78%: ถ้า Apple/Nvidia vertical-integrate หรือ dual-source downside เท่าไหร่?</li>
+        <li>วัฏจักร: AI เป็น secular แต่ semi เป็น cyclical — ถ้าเจอ down-cycle จะถือผ่านได้ไหม?</li>
+        <li>ที่ราคาปัจจุบัน margin of safety พอชดเชยหางเสี่ยงที่ hedge ไม่ได้หรือยัง?</li>
+      </ul>
+
+      <h2>9. Valuation — ประเมินเอง</h2>
+      <p>
+        <em>(ราคาและ valuation อ้างอิง ณ 9 มิ.ย. 2026 — ราคาเคลื่อนไหวตลอด ตัวเลขนี้เพื่อเป็นกรอบคิด ไม่ใช่ target)</em>
+      </p>
+      <p>
+        ที่ ADS <strong>$426.80</strong> คิดเป็น P/E ~40.9x (trailing) / ~31x (forward) ลอง reverse-DCF
+        (WACC 10%, terminal 4%, ฐาน earnings เพราะ FCF ถูก capex กดต่ำชั่วคราว) ราคาปัจจุบัน
+        <strong>imply ว่าตลาดคาดกำไรโต ~17–18% ต่อปี เป็นเวลา 5 ปี</strong>
+      </p>
+      <p>
+        ประเด็นคือ ~17–18% นี้ <strong>ต่ำกว่า</strong>ที่ TSMC เพิ่งทำได้ (EPS โต +36%/+46% สองปีหลัง)
+        และต่ำกว่า guide FY2026 (&gt;30%) — แปลว่าราคา<em>ไม่ได้</em> price-in อนาคตเพ้อฝัน เป็น assumption
+        ที่ conservative/ทำได้จริง (ต่างจากหุ้นที่ตลาด imply การโตแบบ heroic):
+      </p>
+      <table>
+        <thead>
+          <tr><th>ฉากทัศน์</th><th class="num">EPS CAGR (5y)</th><th class="num">มูลค่า/ADS</th><th class="num">vs $426.80</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>Bear (AI digestion + cyclical)</td><td class="num">8%</td><td class="num">~$300</td><td class="num">−30%</td></tr>
+          <tr><td>Base (decelerate ตาม law of large numbers)</td><td class="num">15%</td><td class="num">~$420</td><td class="num">~0%</td></tr>
+          <tr><td>Bull (AI supercycle + 2nm pricing)</td><td class="num">22%</td><td class="num">~$580</td><td class="num">+36%</td></tr>
+        </tbody>
+      </table>
+      <p>
+        สรุปคือ <strong>wonderful business ที่ราคา "ยุติธรรม" (fair)</strong> — ไม่ใช่ bargain ไม่ใช่ bubble.
+        margin of safety แทบเป็นศูนย์ และหางเสี่ยงไต้หวันยิ่งทำให้ความเสี่ยงเอียงซ้าย ตามวินัยของผม
+        (ซื้อต่ำกว่ามูลค่า ไม่ยอมลดคุณภาพ) — ที่ fair value แบบนี้ <strong>การทยอยสะสมตอนย่อ</strong>
+        (เช่นต่ำกว่า ~$360 ที่เริ่มมี MoS ~15%) เหมาะกว่าการทุ่มซื้อก้อนใหญ่ที่ราคาเต็ม
+      </p>
+
+      <h2>10. สรุป</h2>
+      <p>
+        TSMC คือหนึ่งในธุรกิจที่ดีที่สุดในโลกแบบที่เถียงยาก — โรงหล่อที่ผูกขาด leading-edge,
+        ROIC ~48%, operating leverage มหาศาล, งบดุล net cash, โตเอง ไม่ซื้อใครมาต่อ และเป็น
+        toll bridge ของยุค AI ที่วัดได้จากงบจริง
+      </p>
+      <p>
+        แต่บทเรียนของหุ้นตัวนี้ไม่ได้อยู่ที่ "ดีหรือไม่" (ดีแน่นอน) — มันอยู่ที่ <strong>"ราคาที่จ่าย"
+        กับ "หางเสี่ยงที่ hedge ไม่ได้"</strong> ที่ fair value การจ่ายเต็มเพื่อคุณภาพระดับนี้พอเข้าใจได้
+        แต่ไม่มี buffer มาชดเชยหางเสี่ยงไต้หวัน คำตอบจึงไม่ใช่ "ดีก็ซื้อเลย" แต่คือ
+        <strong>"รู้ว่าดี แล้วรอจังหวะ/ราคาที่ให้ margin of safety"</strong> — และต้องตอบตัวเองให้ได้ก่อนว่า
+        ถ้าหางเสี่ยงเกิดจริง เราพร้อมรับผลของมันไหม
+      </p>
+
+      <div class="author-card">
+        <span class="byline-avatar">M</span>
+        <div>
+          <strong>Moatrices</strong>
+          <p>บันทึกการเรียนวิเคราะห์หุ้น US เชิงลึก สาย fundamental — เน้นพื้นฐานธุรกิจ ไม่ใช่ราคา <a href="../about.html">เกี่ยวกับเว็บนี้ →</a></p>
+        </div>
+      </div>
+
+      <p class="back"><a href="../index.html">← กลับหน้าแรก</a></p>
+
+    </div>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container footer-grid">
+      <div class="footer-brand">
+        <a href="../index.html" class="site-title">Moatrices</a>
+        <p>บันทึกการเรียนวิเคราะห์หุ้น US เชิงลึก ภาษาไทย — เน้นพื้นฐานธุรกิจ ไม่ใช่ราคา</p>
+      </div>
+      <nav class="footer-nav">
+        <a href="../index.html">หน้าแรก</a>
+        <a href="../dashboard.html">Dashboard</a>
+        <a href="../about.html">เกี่ยวกับ</a>
+      </nav>
+    </div>
+    <div class="container footer-legal">
+      <p><strong>คำเตือน:</strong> เนื้อหาทั้งหมดเป็นบันทึกการเรียนและความเห็นส่วนตัว
+         เพื่อการศึกษาเท่านั้น <strong>ไม่ใช่คำแนะนำการลงทุน</strong> ไม่ใช่การชี้นำให้ซื้อหรือขายหลักทรัพย์ใดๆ
+         ตัวเลขอ้างอิงงบที่เผยแพร่ ณ ช่วงเวลาหนึ่งและอาจล้าสมัย การตัดสินใจลงทุนเป็นความรับผิดชอบของผู้อ่านเอง</p>
+      <p>© 2026 Moatrices · เผยแพร่ผ่าน GitHub Pages</p>
+    </div>
+  </footer>
+
+  <button class="to-top" aria-label="กลับขึ้นด้านบน">↑</button>
+  <script defer src="../app.js"></script>
+
+</body>
+</html>
