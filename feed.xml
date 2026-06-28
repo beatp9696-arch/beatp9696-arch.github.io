@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+<channel>
+<title>Moatrices — บันทึกการเรียนวิเคราะห์หุ้น</title>
+<link>https://beatp9696-arch.github.io/</link>
+<description>บันทึกการเรียนวิเคราะห์หุ้น US เชิงลึก เน้นพื้นฐานธุรกิจ ไม่ใช่ราคา</description>
+<language>th</language>
+<lastBuildDate>Sun, 28 Jun 2026 17:18:08 +0700</lastBuildDate>
+<atom:link href="https://beatp9696-arch.github.io/feed.xml" rel="self" type="application/rss+xml"/>
+<item>
+<title>ผ่าธุรกิจ NFLX (Netflix) — operating leverage สวย แต่ moat เปราะสุดในกลุ่ม</title>
+<link>https://beatp9696-arch.github.io/articles/deep-dive-nflx.html</link>
+<guid isPermaLink="true">https://beatp9696-arch.github.io/articles/deep-dive-nflx.html</guid>
+<pubDate>Sun, 28 Jun 2026 09:00:00 +0700</pubDate>
+<description>ผ่าธุรกิจ Netflix (NFLX) — scale economy ของ content, operating leverage ที่ทำงานจริง, ขาโฆษณาใหม่ และจุดเปราะเรื่อง moat ที่บางและ valuation ที่แพง</description>
+</item>
+<item>
+<title>ผ่าธุรกิจ COST (Costco) — ทำเงินจากค่าสมาชิก ไม่ใช่จากของที่ขาย</title>
+<link>https://beatp9696-arch.github.io/articles/deep-dive-cost.html</link>
+<guid isPermaLink="true">https://beatp9696-arch.github.io/articles/deep-dive-cost.html</guid>
+<pubDate>Sun, 28 Jun 2026 09:00:00 +0700</pubDate>
+<description>ผ่าธุรกิจ Costco (COST) — โมเดล 'ขายของไม่เอากำไร ทำเงินจากค่าสมาชิก', flywheel, moat, valuation ที่แพง และ Kill Conditions</description>
+</item>
+<item>
+<title>ผ่าธุรกิจ MELI (MercadoLibre) — โตเร็วที่สุด แต่ margin กำลังร่วง</title>
+<link>https://beatp9696-arch.github.io/articles/deep-dive-meli.html</link>
+<guid isPermaLink="true">https://beatp9696-arch.github.io/articles/deep-dive-meli.html</guid>
+<pubDate>Sun, 28 Jun 2026 09:00:00 +0700</pubDate>
+<description>ผ่าธุรกิจ MercadoLibre (MELI) — ecosystem e-commerce + fintech ของลาตินอเมริกา, ความตึงเครียดระหว่างโตเร็วกับ margin ที่ร่วง, moat และ Kill Conditions อ้างอิงงบ FY2025 + Q1 2026</description>
+</item>
+<item>
+<title>งบกำไรขาดทุน — ตอนที่ 1: เงินเข้าเท่าไหร่ เหลือเท่าไหร่</title>
+<link>https://beatp9696-arch.github.io/articles/financials-01-income-statement.html</link>
+<guid isPermaLink="true">https://beatp9696-arch.github.io/articles/financials-01-income-statement.html</guid>
+<pubDate>Sat, 27 Jun 2026 09:00:00 +0700</pubDate>
+<description>อ่านงบกำไรขาดทุนจากบนลงล่างผ่านตัวอย่างร้านกาแฟ และดูว่า margin บอกอะไรเรื่องอำนาจตั้งราคา</description>
+</item>
+<item>
+<title>งบดุล + เชื่อม 3 งบ — ตอนที่ 3</title>
+<link>https://beatp9696-arch.github.io/articles/financials-03-balance-sheet.html</link>
+<guid isPermaLink="true">https://beatp9696-arch.github.io/articles/financials-03-balance-sheet.html</guid>
+<pubDate>Sat, 27 Jun 2026 09:00:00 +0700</pubDate>
+<description>อ่านงบดุล (ฐานะการเงิน ณ วันนี้) และเอางบทั้ง 3 ชุดมาเชื่อมกันให้เห็นว่ามันเล่าเรื่องเดียวจาก 3 มุม</description>
+</item>
+<item>
+<title>ผ่าธุรกิจ AXP (American Express) — Deep-dive</title>
+<link>https://beatp9696-arch.github.io/articles/deep-dive-axp.html</link>
+<guid isPermaLink="true">https://beatp9696-arch.github.io/articles/deep-dive-axp.html</guid>
+<pubDate>Sat, 27 Jun 2026 09:00:00 +0700</pubDate>
+<description>ผ่าธุรกิจ American Express (AXP) — closed-loop network, โมเดล spend-centric, moat, bull/bear และ Kill Conditions อ้างอิงงบ FY2025 + Q1 2026</description>
+</item>
+<item>
+<title>งบกระแสเงินสด — ตอนที่ 2: กำไรคือความเห็น เงินสดคือความจริง</title>
+<link>https://beatp9696-arch.github.io/articles/financials-02-cash-flow-statement.html</link>
+<guid isPermaLink="true">https://beatp9696-arch.github.io/articles/financials-02-cash-flow-statement.html</guid>
+<pubDate>Sat, 27 Jun 2026 09:00:00 +0700</pubDate>
+<description>กำไรคือความเห็น เงินสดคือความจริง — อ่านงบกระแสเงินสด เคสกำไรบวกแต่เงินสดติดลบ และกฎเช็คคุณภาพกำไร</description>
+</item>
+<item>
+<title>ผ่าธุรกิจ SNPS (Synopsys) — EDA, ดีล Ansys $35B และ Physical AI</title>
+<link>https://beatp9696-arch.github.io/articles/deep-dive-snps.html</link>
+<guid isPermaLink="true">https://beatp9696-arch.github.io/articles/deep-dive-snps.html</guid>
+<pubDate>Sat, 27 Jun 2026 09:00:00 +0700</pubDate>
+<description>ผ่าธุรกิจ Synopsys (SNPS) — EDA duopoly, ดีล Ansys $35B, ความหวัง Physical AI, GAAP vs adjusted margin, dilution และ Kill Conditions อ้างอิงงบ FY2025 + Q2 2026</description>
+</item>
+</channel>
+</rss>
