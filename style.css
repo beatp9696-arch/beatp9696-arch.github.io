@@ -1331,3 +1331,41 @@ main:focus { outline: none; }
   .share-bar { gap: 8px; padding: 14px 16px; }
   .share-label { width: 100%; }
 }
+
+/* ============================================================
+   Related articles (หมวดเดียวกัน) + heading anchor links
+   ============================================================ */
+.related { margin: 44px 0 0; }
+.related-title { font-family: var(--font-head); font-size: 18px; font-weight: 600; margin: 0 0 14px; }
+.related-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; }
+.related-card {
+  display: block;
+  font-family: var(--font-head);
+  font-size: 15px;
+  font-weight: 600;
+  line-height: 1.45;
+  color: var(--text);
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 14px 16px;
+  box-shadow: var(--shadow-sm);
+  transition: transform .18s ease, box-shadow .18s ease, border-color .18s ease, color .18s ease;
+}
+.related-card:hover { transform: translateY(-2px); box-shadow: var(--shadow-md); border-color: var(--accent); color: var(--accent); }
+@media (max-width: 600px) { .related-grid { grid-template-columns: 1fr; } }
+
+/* heading anchor links — โผล่ตอน hover หัวข้อ */
+.heading-anchor {
+  margin-left: 0.4em;
+  color: var(--muted);
+  font-weight: 400;
+  text-decoration: none;
+  opacity: 0;
+  transition: opacity .15s ease, color .15s ease;
+}
+h2:hover > .heading-anchor, h3:hover > .heading-anchor { opacity: 0.45; }
+.heading-anchor:hover { opacity: 1; color: var(--accent); }
+.heading-anchor.copied { opacity: 1; color: var(--accent); }
+.heading-anchor.copied::after { content: " คัดลอกแล้ว"; font-size: 0.62em; color: var(--accent); white-space: nowrap; }
+@media print { .heading-anchor { display: none; } }

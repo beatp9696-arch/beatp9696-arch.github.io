@@ -240,6 +240,52 @@
     }
   }
 
+  // ---- Related: บทความหมวดเดียวกัน ----
+  if (idx !== -1) {
+    var curDeep = file.indexOf("deep-dive") === 0;
+    var related = ARTICLES.filter(function (a) {
+      return a.f !== file && (a.f.indexOf("deep-dive") === 0) === curDeep;
+    }).slice(0, 3);
+    var relAnchor = document.querySelector(".article-nav") || document.querySelector(".author-card");
+    if (related.length && relAnchor) {
+      var relHtml = '<h3 class="related-title">บทความที่เกี่ยวข้อง</h3><div class="related-grid">';
+      related.forEach(function (a) {
+        relHtml += '<a class="related-card" href="' + a.f + '">' + a.t + '</a>';
+      });
+      relHtml += '</div>';
+      var relEl = document.createElement("section");
+      relEl.className = "related";
+      relEl.setAttribute("aria-label", "บทความที่เกี่ยวข้อง");
+      relEl.innerHTML = relHtml;
+      relAnchor.insertAdjacentElement("afterend", relEl);
+    }
+  }
+
+  // ---- Heading anchor links (บทความ): hover หัวข้อ → # คัดลอกลิงก์ ----
+  var artContainer = document.querySelector("main .container");
+  if (artContainer && document.querySelector(".byline")) {
+    artContainer.querySelectorAll("h2, h3").forEach(function (h, i) {
+      if (h.classList.contains("related-title") || h.closest(".toc")) return;
+      if (!h.id) h.id = "h-" + (i + 1);
+      var a = document.createElement("a");
+      a.className = "heading-anchor";
+      a.href = "#" + h.id;
+      a.setAttribute("aria-label", "คัดลอกลิงก์หัวข้อนี้");
+      a.textContent = "#";
+      a.addEventListener("click", function (e) {
+        e.preventDefault();
+        history.replaceState(null, "", "#" + h.id);
+        var url = location.origin + location.pathname + "#" + h.id;
+        if (navigator.clipboard) {
+          navigator.clipboard.writeText(url);
+          a.classList.add("copied");
+          setTimeout(function () { a.classList.remove("copied"); }, 1400);
+        }
+      });
+      h.appendChild(a);
+    });
+  }
+
   // ---- Share bar (บทความเท่านั้น) ----
   var articleH1 = document.querySelector("h1");
   var backEl = document.querySelector(".back");
