@@ -1837,3 +1837,21 @@ h2:hover > .heading-anchor, h3:hover > .heading-anchor { opacity: 0.45; }
 @media (prefers-reduced-motion: reduce) { .lr-pulse,.wg-light,.ph-det,.ph-sine,.ph-hand,.ph-tsine { animation: none !important; } }
 
 /* IBM Plex Mono เฉพาะ photonics (โหลดเพิ่มในบท COHR) */
+
+/* ============================================================
+   AXP business-model animations (closed-loop / spend / flywheel / network)
+   ============================================================ */
+.axp-svg { width: 100%; height: auto; display: block; }
+.axp-node { fill: #1a1d22; stroke: #2d323a; stroke-width: 1.5; }
+.axp-node.hot { fill: rgba(45,107,170,.20); stroke: #4d8fd6; stroke-width: 2.5; }
+.axp-nt { font-family: var(--font-head); font-size: 13px; fill: #c7ccd2; font-weight: 600; text-anchor: middle; }
+.axp-nt.sm { font-size: 11.5px; fill: #9aa0a7; }
+.axp-conn { stroke: #3a4049; stroke-width: 2; fill: none; }
+.axp-conn.amex { stroke: #4d8fd6; }
+.axp-see { stroke: #4d8fd6; stroke-width: 1.5; stroke-dasharray: 5 5; fill: none; opacity: .6; }
+.axp-mono { font-family: "IBM Plex Mono", ui-monospace, monospace; fill: #7c8189; font-size: 12px; }
+.axp-gold { fill: #e3b778; }
+.axp-flow { stroke-dasharray: 8 8; animation: axpfl 1s linear infinite; }
+@keyframes axpfl { to { stroke-dashoffset: -32 } }
+.ph-eyebrow.axp { color: #5a8fc0; }
+@media (prefers-reduced-motion: reduce) { .axp-flow { animation: none } }
