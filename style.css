@@ -1839,22 +1839,51 @@ h2:hover > .heading-anchor, h3:hover > .heading-anchor { opacity: 0.45; }
 /* IBM Plex Mono เฉพาะ photonics (โหลดเพิ่มในบท COHR) */
 
 /* ============================================================
-   AXP business-model animations (closed-loop / spend / flywheel / network)
+   AXP — premium business-model simulations (spend / flywheel / closed-loop / network)
+   theme: AmEx navy + platinum gold
    ============================================================ */
+.axp-panel { background: radial-gradient(120% 140% at 50% 0%, #0c1a30 0%, #070a12 70%); border-color: #15315a; }
+.ph-eyebrow.axp { color: #e0b878; }
 .axp-svg { width: 100%; height: auto; display: block; }
-.axp-node { fill: #1a1d22; stroke: #2d323a; stroke-width: 1.5; }
-.axp-node.hot { fill: rgba(45,107,170,.20); stroke: #4d8fd6; stroke-width: 2.5; }
-.axp-nt { font-family: var(--font-head); font-size: 13px; fill: #c7ccd2; font-weight: 600; text-anchor: middle; }
-.axp-nt.sm { font-size: 11.5px; fill: #9aa0a7; }
-.axp-conn { stroke: #3a4049; stroke-width: 2; fill: none; }
-.axp-conn.amex { stroke: #4d8fd6; }
-.axp-see { stroke: #4d8fd6; stroke-width: 1.5; stroke-dasharray: 5 5; fill: none; opacity: .6; }
-.axp-mono { font-family: "IBM Plex Mono", ui-monospace, monospace; fill: #7c8189; font-size: 12px; }
-.axp-gold { fill: #e3b778; }
+.axp-t { font-family: var(--font-head); fill: #cdd8e6; font-size: 13px; text-anchor: middle; font-weight: 600; }
+.axp-t.sm { font-size: 11px; fill: #8ea3bd; }
+.axp-mono { font-family: "IBM Plex Mono", ui-monospace, monospace; fill: #6f88a8; font-size: 11px; }
+.axp-node { fill: #0e1c30; stroke: #234363; stroke-width: 1.5; }
+.axp-hub { fill: #102844; stroke: #4d9fe0; stroke-width: 2.4; filter: drop-shadow(0 0 11px rgba(77,159,224,.55)); }
+.axp-base { fill: none; stroke: #1c3450; stroke-width: 3; stroke-linecap: round; }
+.axp-conn { stroke: #234363; stroke-width: 2; fill: none; }
+.axp-see { stroke: #e3b778; stroke-width: 1.4; stroke-dasharray: 5 5; fill: none; opacity: .5; }
+.axp-gold { fill: #f0cf8e; filter: drop-shadow(0 0 5px #e3b778); }
+.axp-comet { fill: #dbeeff; filter: drop-shadow(0 0 6px #4d9fe0); }
+.axp-lit { fill: none; stroke-width: 3; stroke-linecap: round; animation: axpreveal 3s linear infinite; }
+@keyframes axpreveal { 0%{stroke-dashoffset:var(--len);opacity:1} 80%{stroke-dashoffset:0;opacity:1} 100%{stroke-dashoffset:0;opacity:0} }
+.axp-lp { animation: axplp 3s ease-in-out infinite; }
+@keyframes axplp { 0%,100%{stroke:#234363;filter:none} 16%{stroke:#7cc0ff;filter:drop-shadow(0 0 9px #4d9fe0)} 38%{stroke:#234363;filter:none} }
+.axp-ring { fill: none; stroke: #e3b778; stroke-width: 1.4; transform-box: fill-box; transform-origin: center; animation: axpring 2.8s ease-out infinite; }
+@keyframes axpring { 0%{transform:scale(.3);opacity:.85} 100%{transform:scale(1.7);opacity:0} }
+.axp-fw { fill: none; stroke-width: 4; stroke-linecap: round; filter: drop-shadow(0 0 6px rgba(227,183,120,.5)); animation: axpfwrot 4.5s linear infinite; transform-origin: 300px 210px; }
+@keyframes axpfwrot { to { transform: rotate(360deg) } }
 .axp-flow { stroke-dasharray: 8 8; animation: axpfl 1s linear infinite; }
 @keyframes axpfl { to { stroke-dashoffset: -32 } }
-.ph-eyebrow.axp { color: #5a8fc0; }
-@media (prefers-reduced-motion: reduce) { .axp-flow { animation: none } }
+@media (prefers-reduced-motion: reduce) { .axp-lit,.axp-lp,.axp-ring,.axp-fw,.axp-flow { animation: none } .axp-lit { stroke-dashoffset: 0; opacity: 1 } }
+
+/* AXP — premium metal card (Platinum showpiece) */
+.axp-cardfig { margin: 26px 0 30px; }
+.axp-cardwrap { display: flex; justify-content: center; padding: 6px 0; perspective: 1300px; }
+.axp-card { width: 100%; max-width: 470px; height: auto; display: block; transform-style: preserve-3d; animation: axpfloat 6.5s ease-in-out infinite; filter: drop-shadow(0 20px 44px rgba(8,16,32,.55)); }
+@keyframes axpfloat { 0%,100% { transform: translateY(0) rotateZ(-.5deg) rotateY(-3deg) } 50% { transform: translateY(-11px) rotateZ(.5deg) rotateY(3deg) } }
+.axp-sheen { animation: axpsheen 5s ease-in-out infinite; }
+@keyframes axpsheen { 0% { transform: translateX(-420px) } 60%,100% { transform: translateX(700px) } }
+.axp-cardwm { font-family: var(--font-head); fill: #dde1e7; font-size: 18px; font-weight: 700; }
+.axp-cardpt { font-family: "IBM Plex Mono", ui-monospace, monospace; fill: #b6bcc6; letter-spacing: .46em; font-size: 12.5px; font-weight: 600; }
+.axp-cardno { font-family: "IBM Plex Mono", ui-monospace, monospace; fill: #ccd1da; font-size: 25px; letter-spacing: .04em; }
+.axp-cardname { font-family: "IBM Plex Mono", ui-monospace, monospace; fill: #ccd1da; font-size: 14.5px; letter-spacing: .1em; }
+.axp-cardlbl { font-family: "IBM Plex Mono", ui-monospace, monospace; fill: #868c96; font-size: 8.5px; letter-spacing: .2em; }
+.axp-cardhi { fill: #04060a; fill-opacity: .6; }
+.axp-cent { fill: #c3c8d1; opacity: .82; }
+.axp-cent-eng { fill: none; stroke: #14171d; stroke-width: 1.4; stroke-opacity: .5; stroke-linecap: round; }
+.axp-cent-hi { fill: none; stroke: #eef1f6; stroke-opacity: .4; stroke-width: 1; stroke-linecap: round; }
+@media (prefers-reduced-motion: reduce) { .axp-card { animation: none } .axp-sheen { animation: none; opacity: 0 } }
 
 /* ============================================================
    NFLX animations (operating leverage / switching / ad / flywheel / FCF)
@@ -1986,6 +2015,26 @@ h2:hover > .heading-anchor, h3:hover > .heading-anchor { opacity: 0.45; }
 .rg-fill { stroke-dasharray: 289; stroke-dashoffset: var(--off); animation: rgfill 3.2s ease-out infinite; }
 @keyframes rgfill { 0%{stroke-dashoffset:289} 38%{stroke-dashoffset:var(--off)} 90%{stroke-dashoffset:var(--off)} 100%{stroke-dashoffset:289} }
 @media (prefers-reduced-motion: reduce) { .eco-pulse,.lg-pkg,.mfw-ring,.rg-fill{animation:none} .rg-fill{stroke-dashoffset:var(--off)} }
+
+/* MELI — premium super-app ecosystem (lit spokes + comets + icon badges + hub aura) */
+.sae-orbit { fill: none; stroke: #3a2f10; stroke-width: 1.4; stroke-dasharray: 3 8; }
+.sae-spoke { fill: none; stroke: #3a2f10; stroke-width: 2; stroke-linecap: round; }
+.sae-lit { fill: none; stroke-width: 2.6; stroke-linecap: round; animation: saereveal 3s ease-in-out infinite; }
+@keyframes saereveal { 0%{stroke-dashoffset:var(--len);opacity:1} 70%{stroke-dashoffset:0;opacity:1} 100%{stroke-dashoffset:0;opacity:0} }
+.sae-hub { fill: #2a2009; stroke: #facc15; stroke-width: 2.4; filter: drop-shadow(0 0 12px rgba(250,204,21,.55)); }
+.sae-comet { fill: #fff6cc; filter: drop-shadow(0 0 6px #facc15); }
+.sae-aura { transform-box: fill-box; transform-origin: center; animation: saeaura 3s ease-in-out infinite; }
+@keyframes saeaura { 0%,100%{opacity:.4;transform:scale(.82)} 50%{opacity:.85;transform:scale(1.12)} }
+.sae-badge { fill: #1c1606; stroke: #6a5618; stroke-width: 1.6; }
+.sae-ico { fill: none; stroke: #fde047; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
+.sae-ico-f { fill: #fde047; stroke: none; }
+.sae-svc { transform-box: fill-box; transform-origin: center; animation: saeglow 2s ease-in-out infinite; }
+@keyframes saeglow { 0%,80%{filter:none} 90%{filter:drop-shadow(0 0 10px #facc15)} 100%{filter:none} }
+.sae-wheel { transform-box: fill-box; transform-origin: center; animation: saewheel 2.2s linear infinite; }
+@keyframes saewheel { to{transform:rotate(360deg)} }
+.sae-bar { transform-box: fill-box; transform-origin: bottom; animation: saebar 3s ease-in-out infinite; }
+@keyframes saebar { 0%{transform:scaleY(.35)} 40%{transform:scaleY(1)} 90%{transform:scaleY(1)} 100%{transform:scaleY(.35)} }
+@media (prefers-reduced-motion: reduce) { .sae-lit,.sae-svc,.sae-comet,.sae-aura,.sae-wheel,.sae-bar{animation:none} .sae-lit{stroke-dashoffset:0;opacity:1} }
 
 /* ============================================================
    COST — membership engine / flywheel / renewal / loyalty / SKU / fee
