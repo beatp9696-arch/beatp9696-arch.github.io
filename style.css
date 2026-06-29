@@ -2037,6 +2037,57 @@ h2:hover > .heading-anchor, h3:hover > .heading-anchor { opacity: 0.45; }
 @media (prefers-reduced-motion: reduce) { .sae-lit,.sae-svc,.sae-comet,.sae-aura,.sae-wheel,.sae-bar{animation:none} .sae-lit{stroke-dashoffset:0;opacity:1} }
 
 /* ============================================================
+   NVDA — premium GPU/AI simulations (parallel compute / CUDA / training / AI factory)
+   theme: NVIDIA green
+   ============================================================ */
+.nv-panel { background: radial-gradient(120% 140% at 50% 0%, #0f1a09 0%, #07090a 70%); border-color: #203a12; }
+.ph-eyebrow.nv { color: #9fdb3a; }
+.nv-panel .s-t { fill: #d6e8c2; }
+.nv-panel .s-t.sm { fill: #93a883; }
+.nv-panel .sim-mono { fill: #6f8a54; }
+.nv-t { font-family: var(--font-head); fill: #d6e8c2; font-size: 13px; text-anchor: middle; font-weight: 600; }
+.nv-t.sm { font-size: 11px; fill: #93a883; }
+.nv-mono { font-family: "IBM Plex Mono", ui-monospace, monospace; fill: #6f8a54; font-size: 11px; }
+.nv-node { fill: #12200a; stroke: #2f5018; stroke-width: 1.4; }
+.nv-hub { fill: #16280c; stroke: #76b900; stroke-width: 2.2; filter: drop-shadow(0 0 10px rgba(118,185,0,.5)); }
+.nv-comet { fill: #e6ffbf; filter: drop-shadow(0 0 6px #76b900); }
+.nv-flow { fill: none; stroke-width: 2.4; stroke-linecap: round; stroke-dasharray: 14 10; animation: nvflow 1s linear infinite; }
+@keyframes nvflow { to { stroke-dashoffset: -24 } }
+.nv-lit { fill: none; stroke-width: 2.6; stroke-linecap: round; animation: nvreveal 3s ease-in-out infinite; }
+@keyframes nvreveal { 0%{stroke-dashoffset:var(--len);opacity:1} 70%{stroke-dashoffset:0;opacity:1} 100%{stroke-dashoffset:0;opacity:0} }
+/* parallel compute cores */
+.nv-core { fill: #14240c; stroke: #2a4716; stroke-width: .7; }
+.nv-core.on { animation: nvcore 2.4s ease-in-out infinite; }
+@keyframes nvcore { 0%,100%{fill:#14240c} 45%{fill:#9fe53a} }
+.nv-cpu { fill: #1c1610; stroke: #5a4a2a; stroke-width: 1.4; }
+.nv-cpu.on { animation: nvcpu 2.4s ease-in-out infinite; }
+@keyframes nvcpu { 0%,18%{fill:#e3a13a} 30%,100%{fill:#1c1610} }
+/* neural net */
+.nv-neu { fill: #14240c; stroke: #3f6a1f; stroke-width: 1.2; animation: nvneu 2.6s ease-in-out infinite; }
+@keyframes nvneu { 0%,100%{fill:#14240c;stroke:#3f6a1f;filter:none} 50%{fill:#2c4d14;stroke:#9fe53a;filter:drop-shadow(0 0 5px #76b900)} }
+.nv-edge { stroke: #24401440; stroke-width: 1; fill: none; }
+/* CUDA moat */
+.nv-cuda { fill: #1c3a0c; stroke: #76b900; stroke-width: 2; animation: nvpulse 2.6s ease-in-out infinite; }
+@keyframes nvpulse { 0%,100%{filter:drop-shadow(0 0 6px rgba(118,185,0,.35))} 50%{filter:drop-shadow(0 0 15px rgba(118,185,0,.75))} }
+.nv-block { stroke: #f87171; stroke-width: 2; stroke-dasharray: 5 5; fill: none; opacity: .65; }
+/* AI factory fabric */
+.nv-gpu { fill: #14240c; stroke: #3f6a1f; stroke-width: 1.4; }
+.nv-link { stroke: #2f5018; stroke-width: 1.5; fill: none; }
+/* inference token stream */
+.nv-tok { animation: nvtok 4s ease-in-out infinite; }
+@keyframes nvtok { 0%{opacity:0} 9%{opacity:1} 80%{opacity:1} 90%{opacity:0} 100%{opacity:0} }
+/* generational perf bars */
+.nv-bar { transform-box: fill-box; transform-origin: bottom; animation: nvbar 3.4s ease-in-out infinite; }
+@keyframes nvbar { 0%{transform:scaleY(.06)} 38%{transform:scaleY(1)} 90%{transform:scaleY(1)} 100%{transform:scaleY(.06)} }
+.nv-chip { fill: #16280c; stroke: #76b900; stroke-width: 1.8; }
+.nv-chip.lit { animation: nvchip 3.4s ease-in-out infinite; }
+@keyframes nvchip { 0%,100%{filter:none} 44%{filter:drop-shadow(0 0 9px #76b900)} }
+/* custom-chip threat (bear) */
+.nv-threat { fill: #2a1410; stroke: #ef4444; stroke-width: 1.6; }
+.nv-red { fill: #fca5a5; filter: drop-shadow(0 0 5px #ef4444); }
+@media (prefers-reduced-motion: reduce) { .nv-core.on,.nv-cpu.on,.nv-flow,.nv-lit,.nv-neu,.nv-cuda,.nv-tok,.nv-bar,.nv-chip.lit{animation:none} .nv-lit{stroke-dashoffset:0;opacity:1} .nv-tok{opacity:1} }
+
+/* ============================================================
    COST — membership engine / flywheel / renewal / loyalty / SKU / fee
    ============================================================ */
 .cost-panel { background: radial-gradient(120% 140% at 50% 0%, #1a1012 0%, #0d0809 70%); border-color: #331a1d; }

@@ -8,6 +8,13 @@
 <lastBuildDate>Mon, 29 Jun 2026 10:30:02 +0700</lastBuildDate>
 <atom:link href="https://beatp9696-arch.github.io/feed.xml" rel="self" type="application/rss+xml"/>
 <item>
+<title>ผ่าธุรกิจ NVDA (NVIDIA) — GPU, คูเมือง CUDA และการขาย "โรงงาน AI"</title>
+<link>https://beatp9696-arch.github.io/articles/deep-dive-nvda.html</link>
+<guid isPermaLink="true">https://beatp9696-arch.github.io/articles/deep-dive-nvda.html</guid>
+<pubDate>Mon, 29 Jun 2026 14:00:00 +0700</pubDate>
+<description>ผ่าธุรกิจ NVIDIA (NVDA) — ทำไมโลก AI ขาด GPU ไม่ได้: ประมวลผลขนาน, คูเมืองซอฟต์แวร์ CUDA, การเชื่อม GPU เป็น AI factory (NVLink), ตัวเลข, bull/bear และ Kill Conditions อธิบายด้วยภาพเคลื่อนไหว</description>
+</item>
+<item>
 <title>ผ่าธุรกิจ COHR (Coherent) — ทำไม AI ต้องส่งข้อมูลด้วยแสง</title>
 <link>https://beatp9696-arch.github.io/articles/deep-dive-cohr.html</link>
 <guid isPermaLink="true">https://beatp9696-arch.github.io/articles/deep-dive-cohr.html</guid>
