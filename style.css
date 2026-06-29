@@ -1906,3 +1906,28 @@ h2:hover > .heading-anchor, h3:hover > .heading-anchor { opacity: 0.45; }
 .sim-sensor { fill: #e9d5ff; filter: drop-shadow(0 0 4px #a855f7); animation: simsense 1.9s ease-in-out infinite; }
 @keyframes simsense { 0%,100%{opacity:.25} 50%{opacity:1} }
 @media (prefers-reduced-motion: reduce) { .sim-flow, .sim-press, .sim-sensor { animation: none } }
+
+/* ============================================================
+   SNPS — Place&Route / Thermal / Signal simulations
+   ============================================================ */
+.pr-die { fill: #120d1e; stroke: #3b2d57; stroke-width: 1.5; }
+.pr-blk { fill: #1c1536; stroke: #5b3fa8; stroke-width: 1.4; }
+.pr-blk.ai { fill: #2a1f47; stroke: #c084fc; stroke-width: 2; }
+.pr-trace { fill: none; stroke: url(#prg); stroke-width: 2.2; stroke-dasharray: 340; stroke-dashoffset: 340; animation: prdraw 4s ease-in-out infinite; }
+@keyframes prdraw { 0%{stroke-dashoffset:340} 40%{stroke-dashoffset:0} 90%{stroke-dashoffset:0} 100%{stroke-dashoffset:340} }
+.pr-pin { fill: #a855f7; }
+.pr-pulse { fill: #e9d5ff; filter: drop-shadow(0 0 4px #c084fc); }
+.th-blk { fill: none; stroke: #6b5a9a; stroke-width: 1; opacity: .5; }
+.th-hot { transform-box: fill-box; transform-origin: center; animation: thpulse 1.8s ease-in-out infinite; }
+@keyframes thpulse { 0%,100%{opacity:.6;transform:scale(.9)} 50%{opacity:1;transform:scale(1.1)} }
+.th-ring { fill: none; stroke: #fca5a5; stroke-width: 1.5; transform-box: fill-box; transform-origin: center; animation: thring 2.6s ease-out infinite; }
+@keyframes thring { 0%{transform:scale(.3);opacity:.9} 100%{transform:scale(1.6);opacity:0} }
+.wf-screen { fill: #0a0810; stroke: #2a2342; stroke-width: 1.5; }
+.wf-grid { stroke: #1c1730; stroke-width: 1; }
+.wf-scroll { animation: wfscroll 2.4s linear infinite; }
+@keyframes wfscroll { to{transform:translateX(-240px)} }
+.wf-clk { fill: none; stroke: #22d3ee; stroke-width: 2; }
+.wf-data { fill: none; stroke: #c084fc; stroke-width: 2; }
+.wf-ana { fill: none; stroke: #fbbf24; stroke-width: 2; }
+.wf-eye { fill: none; stroke: #22d3ee; stroke-width: 1.4; opacity: .4; }
+@media (prefers-reduced-motion: reduce) { .pr-trace,.th-hot,.th-ring,.wf-scroll{animation:none} .pr-trace{stroke-dashoffset:0} }

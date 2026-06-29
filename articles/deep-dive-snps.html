@@ -124,6 +124,22 @@
       </p>
 
       <h2>2. Moat: คูเมืองอยู่ตรงไหน</h2>
+      <figure class="ph-fig"><div class="ph-panel eda-panel"><div class="ph-eyebrow snps">EDA · Place &amp; Route (วางผังชิป)</div>
+        <svg viewBox="0 0 840 300" role="img" aria-label="chip place and route">
+          <defs><linearGradient id="prg" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#22d3ee"/><stop offset="1" stop-color="#a855f7"/></linearGradient></defs>
+          <rect class="pr-die" x="80" y="40" width="680" height="232" rx="14"/><path d="M80,62 L102,40" stroke="#3b2d57" stroke-width="1.5" fill="none"/>
+          <rect class="pr-blk" x="110" y="70" width="150" height="76" rx="6"/><text class="s-t" x="185" y="113">CPU</text>
+          <rect class="pr-blk ai" x="290" y="70" width="180" height="76" rx="6"/><text class="s-t" x="380" y="113" fill="#e9d5ff">AI core</text>
+          <rect class="pr-blk" x="500" y="70" width="240" height="76" rx="6"/><text class="s-t" x="620" y="113">Cache</text>
+          <rect class="pr-blk" x="110" y="190" width="130" height="62" rx="6"/><text class="s-t sm" x="175" y="225">I/O</text>
+          <rect class="pr-blk" x="270" y="184" width="230" height="74" rx="6"/><text class="s-t" x="385" y="225">NoC interconnect</text>
+          <rect class="pr-blk" x="530" y="190" width="210" height="62" rx="6"/><text class="s-t sm" x="635" y="225">PHY</text>
+          <path class="pr-trace" d="M185,146 V164 H320 V184" style="animation-delay:0s"/><path class="pr-trace" d="M380,146 V184" style="animation-delay:.5s"/><path class="pr-trace" d="M620,146 V164 H460 V184" style="animation-delay:1s"/><path class="pr-trace" d="M330,258 V268 H175 V252" style="animation-delay:1.4s"/><path class="pr-trace" d="M440,258 V268 H635 V252" style="animation-delay:.8s"/>
+          <g class="pr-pin"><circle cx="185" cy="146" r="3"/><circle cx="380" cy="146" r="3"/><circle cx="620" cy="146" r="3"/><circle cx="175" cy="252" r="3"/><circle cx="635" cy="252" r="3"/></g>
+          <circle r="4" class="pr-pulse"><animateMotion dur="2s" repeatCount="indefinite" path="M380,146 V184"/></circle><circle r="4" class="pr-pulse"><animateMotion dur="2.6s" begin=".4s" repeatCount="indefinite" path="M185,146 V164 H320 V184"/></circle><circle r="4" class="pr-pulse"><animateMotion dur="2.6s" begin="1.1s" repeatCount="indefinite" path="M620,146 V164 H460 V184"/></circle>
+          <text class="sim-mono" x="100" y="32" style="text-anchor:start" fill="#86efac">✓ 100% routed · 8.4B transistors</text>
+        </svg>
+      </div><figcaption>นี่คือสิ่งที่เครื่องมือ Synopsys ทำจริง — <strong>วางผังบล็อกพันล้านชิ้นและเดินสายไฟ</strong>ให้สั้น/เร็ว/ไม่ชนกันโดยอัตโนมัติ มนุษย์ทำมือไม่ได้ การฝัง flow นี้ลึกคือที่มาของ <strong>switching cost</strong></figcaption></figure>
       <ul>
         <li><strong>EDA เป็น duopoly</strong> กับ Cadence — ตลาดที่ผู้เล่นหลักมีแค่ 2 ราย</li>
         <li><strong>Switching cost สูงมาก</strong> — ลูกค้าฝัง design flow ลึก ย้ายเครื่องมือกลางโปรเจค
@@ -133,7 +149,36 @@
           ยิ่งต้องพึ่ง automation สะท้อนใน backlog ที่ผูกล่วงหน้า 2-3 ปี</li>
       </ul>
 
+      
+      <figure class="ph-fig"><div class="ph-panel eda-panel"><div class="ph-eyebrow snps">Circuit Sim · Signal integrity (จำลองสัญญาณ)</div>
+        <svg viewBox="0 0 840 300" role="img" aria-label="signal integrity simulation">
+          <defs><clipPath id="scope"><rect x="60" y="56" width="486" height="208" rx="8"/></clipPath></defs>
+          <rect class="wf-screen" x="60" y="56" width="486" height="208" rx="8"/>
+          <g class="wf-grid" clip-path="url(#scope)"><line x1="60" y1="108" x2="546" y2="108"/><line x1="60" y1="160" x2="546" y2="160"/><line x1="60" y1="212" x2="546" y2="212"/><line x1="158" y1="56" x2="158" y2="264"/><line x1="256" y1="56" x2="256" y2="264"/><line x1="354" y1="56" x2="354" y2="264"/><line x1="452" y1="56" x2="452" y2="264"/></g>
+          <g clip-path="url(#scope)"><g class="wf-scroll" transform="translate(70,0)"><path class="wf-clk" d="M0,74 H40 V112 H80 V74 H120 V112 H160 V74 H200 V112 H240 V74 H280 V112 H320 V74 H360 V112 H400 V74 H440 V112 H480 V74 H520 V112 H560 V74 H600 V112 H640 V74 H680 V112 H720 V74 H760 V112 H800 V74 H840 V112 H880 V74 H920 V112 H960 V74 H1000 V112 H1040 V74"/><path class="wf-data" d="M0,130 H60 V170 H120 H180 H240 V130 H300 H360 V170 H420 V130 H480 H540 V170 H600 H660 V130 H720 H780 H840 V170 H900 H960 V130 H1020"/><path class="wf-ana" d="M0,206.0 L4,199.5 L8,194.1 L12,190.8 L16,190.1 L20,192.1 L24,196.6 L28,202.7 L32,209.3 L36,215.4 L40,219.9 L44,221.9 L48,221.2 L52,217.9 L56,212.5 L60,206.0 L64,199.5 L68,194.1 L72,190.8 L76,190.1 L80,192.1 L84,196.6 L88,202.7 L92,209.3 L96,215.4 L100,219.9 L104,221.9 L108,221.2 L112,217.9 L116,212.5 L120,206.0 L124,199.5 L128,194.1 L132,190.8 L136,190.1 L140,192.1 L144,196.6 L148,202.7 L152,209.3 L156,215.4 L160,219.9 L164,221.9 L168,221.2 L172,217.9 L176,212.5 L180,206.0 L184,199.5 L188,194.1 L192,190.8 L196,190.1 L200,192.1 L204,196.6 L208,202.7 L212,209.3 L216,215.4 L220,219.9 L224,221.9 L228,221.2 L232,217.9 L236,212.5 L240,206.0 L244,199.5 L248,194.1 L252,190.8 L256,190.1 L260,192.1 L264,196.6 L268,202.7 L272,209.3 L276,215.4 L280,219.9 L284,221.9 L288,221.2 L292,217.9 L296,212.5 L300,206.0 L304,199.5 L308,194.1 L312,190.8 L316,190.1 L320,192.1 L324,196.6 L328,202.7 L332,209.3 L336,215.4 L340,219.9 L344,221.9 L348,221.2 L352,217.9 L356,212.5 L360,206.0 L364,199.5 L368,194.1 L372,190.8 L376,190.1 L380,192.1 L384,196.6 L388,202.7 L392,209.3 L396,215.4 L400,219.9 L404,221.9 L408,221.2 L412,217.9 L416,212.5 L420,206.0 L424,199.5 L428,194.1 L432,190.8 L436,190.1 L440,192.1 L444,196.6 L448,202.7 L452,209.3 L456,215.4 L460,219.9 L464,221.9 L468,221.2 L472,217.9 L476,212.5 L480,206.0 L484,199.5 L488,194.1 L492,190.8 L496,190.1 L500,192.1 L504,196.6 L508,202.7 L512,209.3 L516,215.4 L520,219.9 L524,221.9 L528,221.2 L532,217.9 L536,212.5 L540,206.0 L544,199.5 L548,194.1 L552,190.8 L556,190.1 L560,192.1 L564,196.6 L568,202.7 L572,209.3 L576,215.4 L580,219.9 L584,221.9 L588,221.2 L592,217.9 L596,212.5 L600,206.0 L604,199.5 L608,194.1 L612,190.8 L616,190.1 L620,192.1 L624,196.6 L628,202.7 L632,209.3 L636,215.4 L640,219.9 L644,221.9 L648,221.2 L652,217.9 L656,212.5 L660,206.0 L664,199.5 L668,194.1 L672,190.8 L676,190.1 L680,192.1 L684,196.6 L688,202.7 L692,209.3 L696,215.4 L700,219.9 L704,221.9 L708,221.2 L712,217.9 L716,212.5 L720,206.0 L724,199.5 L728,194.1 L732,190.8 L736,190.1 L740,192.1 L744,196.6 L748,202.7 L752,209.3 L756,215.4 L760,219.9 L764,221.9 L768,221.2 L772,217.9 L776,212.5 L780,206.0 L784,199.5 L788,194.1 L792,190.8 L796,190.1 L800,192.1 L804,196.6 L808,202.7 L812,209.3 L816,215.4 L820,219.9 L824,221.9 L828,221.2 L832,217.9 L836,212.5 L840,206.0 L844,199.5 L848,194.1 L852,190.8 L856,190.1 L860,192.1 L864,196.6 L868,202.7 L872,209.3 L876,215.4 L880,219.9 L884,221.9 L888,221.2 L892,217.9 L896,212.5 L900,206.0 L904,199.5 L908,194.1 L912,190.8 L916,190.1 L920,192.1 L924,196.6 L928,202.7 L932,209.3 L936,215.4 L940,219.9 L944,221.9 L948,221.2 L952,217.9 L956,212.5 L960,206.0 L964,199.5 L968,194.1 L972,190.8 L976,190.1 L980,192.1 L984,196.6 L988,202.7 L992,209.3 L996,215.4 L1000,219.9"/></g></g>
+          <text class="sim-mono" x="70" y="74" style="text-anchor:start" fill="#22d3ee">CLK</text><text class="sim-mono" x="70" y="150" style="text-anchor:start" fill="#c084fc">DATA</text><text class="sim-mono" x="70" y="222" style="text-anchor:start" fill="#fbbf24">Vout</text>
+          <rect x="586" y="80" width="190" height="150" rx="8" fill="#0a0810" stroke="#2a2342" stroke-width="1.5"/><line x1="586" y1="108" x2="776" y2="108" stroke="#1c1730"/><line x1="586" y1="200" x2="776" y2="200" stroke="#1c1730"/>
+          <path class="wf-eye" d="M596.0,210.0 C613,210.0 622,90.0 766.0,90.0"/><path class="wf-eye" d="M596.0,90.0 C698,90.0 706,210.0 766.0,210.0"/><path class="wf-eye" d="M596.0,210.0 C625,210.0 634,90.0 766.0,90.0"/><path class="wf-eye" d="M596.0,90.0 C686,90.0 694,210.0 766.0,210.0"/><path class="wf-eye" d="M596.0,210.0 C637,210.0 646,90.0 766.0,90.0"/><path class="wf-eye" d="M596.0,90.0 C674,90.0 682,210.0 766.0,210.0"/><path class="wf-eye" d="M596.0,210.0 C649,210.0 658,90.0 766.0,90.0"/><path class="wf-eye" d="M596.0,90.0 C662,90.0 670,210.0 766.0,210.0"/><path class="wf-eye" d="M596.0,210.0 C662,210.0 670,90.0 766.0,90.0"/><path class="wf-eye" d="M596.0,90.0 C649,90.0 658,210.0 766.0,210.0"/><path class="wf-eye" d="M596.0,210.0 C674,210.0 682,90.0 766.0,90.0"/><path class="wf-eye" d="M596.0,90.0 C637,90.0 646,210.0 766.0,210.0"/><path class="wf-eye" d="M596.0,210.0 C686,210.0 694,90.0 766.0,90.0"/><path class="wf-eye" d="M596.0,90.0 C625,90.0 634,210.0 766.0,210.0"/><text class="sim-mono" x="681" y="222" fill="#7c7490" text-anchor="middle">eye diagram</text>
+        </svg>
+      </div><figcaption>ก่อนผลิต ต้องจำลองว่า<strong>สัญญาณไฟฟ้า</strong>วิ่งในวงจรถูกต้องไหม — timing, สัญญาณรบกวน, "ตา" (eye) เปิดพอไหม Synopsys (HSPICE/PrimeSim) จำลองระดับทรานซิสเตอร์ให้เห็นปัญหา<strong>ก่อนเสียเงินจริง</strong></figcaption></figure>
       <h2>3. ดีล Ansys — เดิมพันที่ใหญ่ที่สุด</h2>
+      <figure class="ph-fig"><div class="ph-panel eda-panel"><div class="ph-eyebrow snps">Multiphysics · Thermal (จำลองความร้อนบนชิป)</div>
+        <svg viewBox="0 0 840 290" role="img" aria-label="chip thermal simulation">
+          <defs>
+            <radialGradient id="thmap" cx="42%" cy="45%" r="70%"><stop offset="0" stop-color="#fca5a5"/><stop offset=".22" stop-color="#fbbf24"/><stop offset=".5" stop-color="#a855f7"/><stop offset=".8" stop-color="#3b82f6"/><stop offset="1" stop-color="#1e3a8a"/></radialGradient>
+            <radialGradient id="thglow"><stop offset="0" stop-color="#fde68a"/><stop offset=".4" stop-color="#f87171" stop-opacity=".7"/><stop offset="1" stop-color="#f87171" stop-opacity="0"/></radialGradient>
+          </defs>
+          <rect x="250" y="50" width="340" height="190" rx="10" fill="url(#thmap)" opacity=".92"/>
+          <g class="th-blk"><rect x="270" y="70" width="120" height="70" rx="4"/><rect x="400" y="70" width="170" height="70" rx="4"/><rect x="270" y="150" width="150" height="72" rx="4"/><rect x="430" y="150" width="140" height="72" rx="4"/></g>
+          <circle class="th-ring" cx="332" cy="118" r="40"/><circle class="th-ring" cx="332" cy="118" r="40" style="animation-delay:1.3s"/>
+          <circle class="th-hot" cx="332" cy="118" r="34" fill="url(#thglow)"/><circle class="th-hot" cx="500" cy="180" r="22" fill="url(#thglow)" style="animation-delay:.7s"/>
+          <text class="s-t sm" x="332" y="122" fill="#3b0a0a" style="font-weight:700">AI core 105°C</text>
+          <text class="sim-mono" x="250" y="42" style="text-anchor:start">SIMULATION · thermal hotspot</text>
+          <text class="sim-mono" x="620" y="90" style="text-anchor:start">อุณหภูมิ</text>
+          <rect x="620" y="100" width="20" height="130" rx="4" fill="url(#thmap)" transform="rotate(180 630 165)"/>
+          <text class="sim-mono" x="648" y="108" style="text-anchor:start" fill="#fca5a5">105°C</text><text class="sim-mono" x="648" y="228" style="text-anchor:start" fill="#93c5fd">30°C</text>
+        </svg>
+      </div><figcaption>ชิป AI ร้อนจัด — ถ้าไม่จำลอง<strong>ความร้อน</strong>ก่อน อาจไหม้/ลดอายุ Synopsys+Ansys จำลอง hotspot, การไหลของความร้อน, แรงเค้น <strong>ก่อนสร้างจริง</strong> (multiphysics) ลดรอบ tape-out ที่พลาดทีละหลายล้าน</figcaption></figure>
       <p>
         Synopsys จ่าย <strong>~$35,000 ล้าน</strong> ซื้อ Ansys ที่มีรายได้ ~$2.9bn —
         คิดเป็น <strong>~12 เท่าของยอดขาย (12x sales)</strong> ซึ่งแพงมาก โครงสร้างดีลคือ
