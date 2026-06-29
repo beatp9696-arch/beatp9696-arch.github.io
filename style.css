@@ -1961,3 +1961,28 @@ h2:hover > .heading-anchor, h3:hover > .heading-anchor { opacity: 0.45; }
 .euv-flash { fill: #fde68a; animation: euvflash 2.2s ease-in-out infinite; }
 @keyframes euvflash { 0%,100%{opacity:.08} 50%{opacity:.75} }
 @media (prefers-reduced-motion: reduce) { .ns-dot,.wy-scan,.euv-beam,.euv-src,.euv-flash{animation:none} }
+
+/* ============================================================
+   MELI — ecosystem / logistics / fintech flywheel / growth-margin
+   ============================================================ */
+.meli-panel { background: radial-gradient(120% 140% at 50% 0%, #1a160a 0%, #0c0a06 70%); border-color: #2e2812; }
+.ph-eyebrow.meli { color: #facc15; }
+.meli-panel .s-t { fill: #e8e0c8; }
+.meli-panel .s-t.sm { fill: #b8ab84; }
+.meli-panel .sim-mono { fill: #8a7d52; }
+.eco-node { fill: #1c1606; stroke: #4a3d12; stroke-width: 1.4; }
+.eco-hub { fill: #2a2009; stroke: #facc15; stroke-width: 2.2; filter: drop-shadow(0 0 9px rgba(250,204,21,.45)); }
+.eco-line { stroke: #3a2f10; stroke-width: 1.5; }
+.eco-pulse { fill: #fde047; filter: drop-shadow(0 0 4px #facc15); }
+.lg-grid { stroke: #231d0d; stroke-width: 1; }
+.lg-hub { fill: #2a2009; stroke: #facc15; stroke-width: 2; filter: drop-shadow(0 0 6px rgba(250,204,21,.4)); }
+.lg-dest { fill: #1c1606; stroke: #60a5fa; stroke-width: 1.4; }
+.lg-route { stroke: #4a3d12; stroke-width: 1.5; stroke-dasharray: 5 5; fill: none; }
+.lg-pkg { fill: #fde047; filter: drop-shadow(0 0 4px #facc15); }
+.mfw-ring { fill: none; stroke: #facc15; stroke-width: 3; stroke-dasharray: 60 880; opacity: .9; animation: mfwrot 5s linear infinite; transform-origin: 300px 205px; }
+@keyframes mfwrot { to{transform:rotate(360deg)} }
+.mfw-node { fill: #1c1606; stroke: #4a3d12; stroke-width: 1.4; }
+.mfw-hub { fill: #2a2009; stroke: #facc15; stroke-width: 2; }
+.rg-fill { stroke-dasharray: 289; stroke-dashoffset: var(--off); animation: rgfill 3.2s ease-out infinite; }
+@keyframes rgfill { 0%{stroke-dashoffset:289} 38%{stroke-dashoffset:var(--off)} 90%{stroke-dashoffset:var(--off)} 100%{stroke-dashoffset:289} }
+@media (prefers-reduced-motion: reduce) { .eco-pulse,.lg-pkg,.mfw-ring,.rg-fill{animation:none} .rg-fill{stroke-dashoffset:var(--off)} }
