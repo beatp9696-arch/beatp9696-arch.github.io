@@ -122,7 +122,7 @@
 
   // ---- scroll-reveal ----
   if ("IntersectionObserver" in window) {
-    var revealEls = document.querySelectorAll(".post-list li, main table, main blockquote, .author-card, .toc");
+    var revealEls = document.querySelectorAll(".post-list li, main table, main blockquote, .author-card, .toc, .pf-chart");
     var io = new IntersectionObserver(function (entries, obs) {
       entries.forEach(function (e) {
         if (e.isIntersecting) { e.target.classList.add("is-visible"); obs.unobserve(e.target); }
