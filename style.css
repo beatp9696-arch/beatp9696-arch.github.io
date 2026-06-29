@@ -2018,3 +2018,10 @@ h2:hover > .heading-anchor, h3:hover > .heading-anchor { opacity: 0.45; }
 .hd-pulse { transform-box: fill-box; transform-origin: center; animation: hdp 1.8s ease-in-out infinite; }
 @keyframes hdp { 0%,100%{transform:scale(1)} 50%{transform:scale(1.06)} }
 @media (prefers-reduced-motion: reduce) { .coin-g,.coin-r,.coin-b,.fw2-ring,.rn-fill,.pe-fill,.fee-knob,.fee-bar,.hd-pulse{animation:none} .rn-fill{stroke-dashoffset:29} }
+
+/* COST renewal + SKU — เพิ่ม motion ให้เด่นขึ้น */
+.rn-mem { transform-box: fill-box; transform-origin: center; animation: rnmem 1.8s ease-in-out infinite; }
+@keyframes rnmem { 0%,100%{opacity:.4;transform:scale(.7)} 50%{opacity:1;transform:scale(1.25)} }
+.sku-grow { transform-box: fill-box; transform-origin: bottom; filter: drop-shadow(0 0 6px rgba(232,72,85,.4)); animation: skugrow 3.4s ease-in-out infinite; }
+@keyframes skugrow { 0%{transform:scaleY(.18)} 30%{transform:scaleY(1)} 88%{transform:scaleY(1)} 100%{transform:scaleY(.18)} }
+@media (prefers-reduced-motion: reduce) { .rn-mem,.sku-grow{animation:none;transform:none} }
