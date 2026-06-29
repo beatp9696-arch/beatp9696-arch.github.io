@@ -1732,3 +1732,14 @@ h2:hover > .heading-anchor, h3:hover > .heading-anchor { opacity: 0.45; }
   .pf-pointed { display: none; }
   .pf-fallback { display: block; }
 }
+
+/* donut polish: center text + hover */
+.pf2-c-top { font-family: var(--font-head); font-size: 15px; font-weight: 600; fill: var(--muted); }
+.pf2-c-num { font-family: var(--font-head); font-size: 42px; font-weight: 700; fill: var(--text); }
+.pf2-c-sub { font-family: var(--font-head); font-size: 16px; font-weight: 600; fill: var(--muted); }
+.pf-pointed-svg .pf-slice { transition: opacity 0.16s ease; }
+.pf-slices:hover .pf-slice { opacity: 0.3; }
+.pf-slices .pf-slice:hover { opacity: 1; }
+.pf-pointed-svg.dim .pf-slice { opacity: 0.3; }
+.pf-pointed-svg.dim .pf-slice.on { opacity: 1; }
+.pf-lbl { cursor: pointer; }
