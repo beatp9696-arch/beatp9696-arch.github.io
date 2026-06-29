@@ -1931,3 +1931,33 @@ h2:hover > .heading-anchor, h3:hover > .heading-anchor { opacity: 0.45; }
 .wf-ana { fill: none; stroke: #fbbf24; stroke-width: 2; }
 .wf-eye { fill: none; stroke: #22d3ee; stroke-width: 1.4; opacity: .4; }
 @media (prefers-reduced-motion: reduce) { .pr-trace,.th-hot,.th-ring,.wf-scroll{animation:none} .pr-trace{stroke-dashoffset:0} }
+
+/* ============================================================
+   TSM — foundry simulations (toll bridge / node shrink / wafer / EUV)
+   ============================================================ */
+.tsm-panel { background: radial-gradient(120% 140% at 50% 0%, #0c1a1f 0%, #08110f 70%); border-color: #16332f; }
+.ph-eyebrow.tsm { color: #5eead4; }
+.tsm-panel .s-t { fill: #cdd6d4; }
+.tsm-panel .s-t.sm { fill: #8aa39c; }
+.tsm-panel .sim-mono { fill: #6e8a83; }
+.tb-node { fill: #0f1a1d; stroke: #1f4a44; stroke-width: 1.5; }
+.tb-hub { fill: #0e2b28; stroke: #2dd4bf; stroke-width: 2.2; filter: drop-shadow(0 0 9px rgba(45,212,191,.55)); }
+.tb-line { stroke: #1f4a44; stroke-width: 1.5; fill: none; }
+.tb-pulse { fill: #5eead4; filter: drop-shadow(0 0 4px #2dd4bf); }
+.tb-chip { fill: #0e2b28; stroke: #5eead4; stroke-width: 1.4; }
+.ns-cell { fill: #0a1518; stroke: #1f4a44; stroke-width: 1.4; }
+.ns-cell.lead { stroke: #2dd4bf; stroke-width: 2.2; filter: drop-shadow(0 0 8px rgba(45,212,191,.45)); }
+.ns-dot { fill: #5eead4; animation: nsdot 2.4s ease-in-out infinite; }
+@keyframes nsdot { 0%,100%{opacity:.3} 50%{opacity:1} }
+.wy-wafer { fill: #0a1518; stroke: #2dd4bf; stroke-width: 2; }
+.wy-pass { fill: #15463a; stroke: #2dd4bf; stroke-width: .5; }
+.wy-fail { fill: #4a1d1d; stroke: #f87171; stroke-width: .6; }
+.wy-scan { fill: url(#scang); animation: wyscan 3.2s linear infinite; }
+@keyframes wyscan { 0%{transform:translateX(-30px)} 100%{transform:translateX(270px)} }
+.euv-beam { fill: none; stroke: url(#euvg); stroke-width: 3.4; stroke-linecap: round; stroke-dasharray: 11 8; animation: euvflow .8s linear infinite; }
+@keyframes euvflow { to{stroke-dashoffset:-19} }
+.euv-src { transform-box: fill-box; transform-origin: center; animation: euvsrc 1.5s ease-in-out infinite; }
+@keyframes euvsrc { 0%,100%{opacity:.55;transform:scale(.92)} 50%{opacity:1;transform:scale(1.08)} }
+.euv-flash { fill: #fde68a; animation: euvflash 2.2s ease-in-out infinite; }
+@keyframes euvflash { 0%,100%{opacity:.08} 50%{opacity:.75} }
+@media (prefers-reduced-motion: reduce) { .ns-dot,.wy-scan,.euv-beam,.euv-src,.euv-flash{animation:none} }
