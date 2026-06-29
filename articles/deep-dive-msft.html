@@ -1,0 +1,251 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <script>try{var t=localStorage.getItem('theme');if(t)document.documentElement.setAttribute('data-theme',t);}catch(e){}</script>
+  <title>ผ่าธุรกิจ MSFT (Microsoft) — Deep-dive | Moatrices</title>
+  <meta name="description" content="ผ่าธุรกิจ Microsoft (MSFT) — 3 เครื่องยนต์รายได้, Azure, ecosystem lock-in, Copilot AI, cash flywheel, bull/bear และ Kill Conditions">
+  <meta property="og:type" content="article">
+  <meta property="og:site_name" content="Moatrices">
+  <meta property="og:title" content="ผ่าธุรกิจ MSFT (Microsoft) — 3 เครื่องยนต์, Azure และ Copilot">
+  <meta property="og:description" content="3 เครื่องยนต์รายได้, Azure, ecosystem lock-in, Copilot AI, cash flywheel, bull/bear และ Kill Conditions">
+  <meta property="og:url" content="https://beatp9696-arch.github.io/articles/deep-dive-msft.html">
+  <meta property="og:locale" content="th_TH">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta property="og:image" content="https://beatp9696-arch.github.io/og-image.png">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta name="twitter:image" content="https://beatp9696-arch.github.io/og-image.png">
+  <meta name="author" content="Moatrices">
+  <link rel="canonical" href="https://beatp9696-arch.github.io/articles/deep-dive-msft.html">
+  <link rel="alternate" type="application/rss+xml" title="Moatrices RSS" href="/feed.xml">
+  <meta name="theme-color" media="(prefers-color-scheme: light)" content="#f7f5f0">
+  <meta name="theme-color" media="(prefers-color-scheme: dark)" content="#121417">
+  <link rel="icon" href="../favicon.svg" type="image/svg+xml">
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png">
+  <link rel="manifest" href="/site.webmanifest">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Thai:wght@500;600;700&family=Sarabun:wght@400;500;600;700&display=swap">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Thai:wght@500;600;700&family=Sarabun:wght@400;500;600;700&display=swap" media="print" onload="this.media='all'">
+  <noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Thai:wght@500;600;700&family=Sarabun:wght@400;500;600;700&display=swap"></noscript>
+  <link rel="stylesheet" href="../style.css">
+  <script type="application/ld+json">
+  {"@context": "https://schema.org", "@type": "BlogPosting", "headline": "ผ่าธุรกิจ MSFT (Microsoft) — 3 เครื่องยนต์, Azure และ Copilot", "description": "ผ่าธุรกิจ Microsoft (MSFT) — 3 เครื่องยนต์รายได้, Azure, ecosystem lock-in, Copilot AI, cash flywheel, bull/bear และ Kill Conditions", "author": {"@type": "Person", "name": "Moatrices"}, "publisher": {"@type": "Organization", "name": "Moatrices", "logo": {"@type": "ImageObject", "url": "https://beatp9696-arch.github.io/favicon.svg"}}, "mainEntityOfPage": {"@type": "WebPage", "@id": "https://beatp9696-arch.github.io/articles/deep-dive-msft.html"}, "inLanguage": "th", "datePublished": "2026-06-30", "dateModified": "2026-06-30"}
+  </script>
+</head>
+<body>
+
+  <div class="reading-progress"></div>
+  <div class="top-accent"></div>
+
+  <header class="site-header">
+    <div class="container">
+      <a href="../index.html" class="site-title">Moatrices</a>
+      <nav class="site-nav">
+        <a href="../index.html">หน้าแรก</a>
+        <a href="../dashboard.html">Dashboard</a>
+        <a href="../about.html">เกี่ยวกับ</a>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <div class="container">
+
+      <span class="kicker">Deep-dive · หุ้นจริง</span>
+      <h1>ผ่าธุรกิจ MSFT (Microsoft) — 3 เครื่องยนต์, Azure และเดิมพัน AI</h1>
+      <div class="company-header">
+        <span class="company-logo"><img src="../logos/MSFT.png" alt="Microsoft Corporation logo" width="44" height="44"></span>
+        <span class="company-meta">
+          <span class="company-ticker">MSFT <span class="company-exch">NASDAQ</span></span>
+          <span class="company-name">Microsoft Corporation</span>
+        </span>
+      </div>
+      <div class="byline">
+        <span class="byline-avatar">M</span>
+        <div>
+          <div class="byline-author">Moatrices</div>
+          <div class="byline-info">30 มิ.ย. 2026 · อ่าน ~15 นาที</div>
+        </div>
+      </div>
+
+      <p class="lead">
+        Microsoft เป็นบริษัทที่ "น่าเบื่อ" ในแง่ดีที่สุด — รายได้ <strong>$281.7 พันล้าน</strong>
+        กระจายอยู่บน 3 เครื่องยนต์ที่ต่างก็แข็งแรง ไม่มีตัวไหนล้มแล้วบริษัทพัง บทนี้อธิบายว่า
+        มันหาเงินจากอะไร ทำไมองค์กรถึงย้ายหนียาก (คูเมือง) เดิมพัน AI/Copilot ไปถึงไหน
+        และจุดที่ต้องจับตา
+      </p>
+
+      <blockquote>
+        ตัวเลขอ้างอิงงบ FY2025 (สิ้นสุด 30 มิ.ย. 2025, 10-K) ควรตรวจสอบกับ filing ล่าสุดก่อนใช้ตัดสินใจ
+        เป็นการวิเคราะห์เพื่อการศึกษา ไม่ใช่คำแนะนำซื้อขาย — เน้นอธิบายโครงสร้างธุรกิจมากกว่ามูลค่า/ราคาเป้า
+      </blockquote>
+
+      <h2>1. ธุรกิจนี้หาเงินจากอะไร</h2>
+      <p>
+        จุดแข็งแรกของ Microsoft คือ <strong>มันไม่ได้พึ่งอะไรอันเดียว</strong> — รายงานเป็น 3 segment
+        ที่ต่างก็เป็นธุรกิจระดับแสนล้าน:
+      </p>
+      <figure class="ph-fig"><div class="ph-panel ms-panel"><div class="ph-eyebrow ms">3 เครื่องยนต์ · รายได้ที่ทนทาน</div>
+        <svg viewBox="0 0 840 330" role="img" aria-label="Microsoft three revenue engines"><rect class="ms-node" x="114" y="72" width="132" height="190" rx="10" stroke="#00a4ef"/><rect class="ms-rise" x="150" y="248" width="8" height="8" rx="2" fill="#00a4ef" style="animation-delay:0.2s"/><rect class="ms-rise" x="172" y="248" width="8" height="8" rx="2" fill="#00a4ef" style="animation-delay:0.7s"/><rect class="ms-rise" x="194" y="248" width="8" height="8" rx="2" fill="#00a4ef" style="animation-delay:1.2s"/><text class="ms-t" x="180" y="96" fill="#cbd8e8" style="font-size:18px">$120.8B</text><text class="ms-mono" x="180" y="116" fill="#00a4ef">+13% YoY</text><text class="ms-t sm" x="180" y="284">Productivity &amp;</text><text class="ms-t sm" x="180" y="299">Business</text><text class="ms-mono" x="180" y="318">M365 · Teams · LinkedIn</text><rect class="ms-node" x="354" y="95" width="132" height="167" rx="10" stroke="#37c2f0"/><rect class="ms-rise" x="390" y="248" width="8" height="8" rx="2" fill="#37c2f0" style="animation-delay:0.47s"/><rect class="ms-rise" x="412" y="248" width="8" height="8" rx="2" fill="#37c2f0" style="animation-delay:0.97s"/><rect class="ms-rise" x="434" y="248" width="8" height="8" rx="2" fill="#37c2f0" style="animation-delay:1.47s"/><text class="ms-t" x="420" y="119" fill="#cbd8e8" style="font-size:18px">$106.3B</text><text class="ms-mono" x="420" y="139" fill="#37c2f0">+21% YoY</text><text class="ms-t sm" x="420" y="284">Intelligent Cloud</text><text class="ms-mono" x="420" y="303">Azure · Server</text><rect class="ms-node" x="594" y="176" width="132" height="86" rx="10" stroke="#6aa0d0"/><rect class="ms-rise" x="630" y="248" width="8" height="8" rx="2" fill="#6aa0d0" style="animation-delay:0.73s"/><rect class="ms-rise" x="652" y="248" width="8" height="8" rx="2" fill="#6aa0d0" style="animation-delay:1.23s"/><rect class="ms-rise" x="674" y="248" width="8" height="8" rx="2" fill="#6aa0d0" style="animation-delay:1.73s"/><text class="ms-t" x="660" y="200" fill="#cbd8e8" style="font-size:18px">$54.6B</text><text class="ms-mono" x="660" y="220" fill="#6aa0d0">+7% YoY</text><text class="ms-t sm" x="660" y="284">More Personal</text><text class="ms-t sm" x="660" y="299">Computing</text><text class="ms-mono" x="660" y="318">Windows · Xbox · Search</text><text class="ms-mono" x="60" y="40" style="text-anchor:start" fill="#5aa9f0">รายได้ FY2025 รวม $281.7B — กระจาย 3 เครื่องยนต์</text><text class="ms-mono" x="420" y="318" fill="#6680a0">ไม่พึ่งขาเดียว = ความทนทานของรายได้</text></svg>
+      </div><figcaption>Microsoft ไม่ได้พึ่งอะไรอันเดียว — รายได้ FY2025 <strong>$281.7B</strong> มาจาก 3 ขา: Productivity (M365/Teams/LinkedIn <strong>$120.8B</strong>), Intelligent Cloud (Azure <strong>$106.3B</strong>) และ Personal Computing (Windows/Xbox <strong>$54.6B</strong>) — ความหลากหลายนี้คือ <strong>revenue durability</strong></figcaption></figure>
+      <ul>
+        <li><strong>Productivity &amp; Business Processes ($120.8B, +13%)</strong> — Microsoft 365 (Office),
+          Teams, LinkedIn, Dynamics</li>
+        <li><strong>Intelligent Cloud ($106.3B, +21%)</strong> — Azure + server products (เครื่องยนต์โตหลัก)</li>
+        <li><strong>More Personal Computing ($54.6B, +7%)</strong> — Windows, Xbox/Gaming (รวม Activision),
+          Search</li>
+      </ul>
+      <p>
+        ความหลากหลายนี้คือ <strong>revenue durability</strong> — ต่อให้ขาใดขาหนึ่งสะดุด อีก 2 ขายังหมุนต่อได้
+      </p>
+
+      <h2>2. Azure — เครื่องยนต์ที่ตลาดจับตา</h2>
+      <p>
+        ถ้าให้เลือกเครื่องยนต์เดียวที่สำคัญต่ออนาคต คือ <strong>Azure</strong> — บริการคลาวด์ที่องค์กรเช่าใช้
+        compute/storage/AI แบบจ่ายตามการใช้งาน (consumption):
+      </p>
+      <figure class="ph-fig"><div class="ph-panel ms-panel"><div class="ph-eyebrow ms">Azure · เครื่องยนต์โต</div>
+        <svg viewBox="0 0 840 320" role="img" aria-label="Azure cloud growth"><defs><radialGradient id="msc2"><stop offset="0" stop-color="#cfe6ff"/><stop offset=".4" stop-color="#2b88d8" stop-opacity=".5"/><stop offset="1" stop-color="#2b88d8" stop-opacity="0"/></radialGradient></defs><text class="ms-mono" x="40" y="40" style="text-anchor:start" fill="#5aa9f0">องค์กรย้าย workload ขึ้นคลาวด์</text><rect class="ms-node" x="40" y="72" width="116" height="36" rx="8"/><text class="ms-t sm" x="98" y="95">enterprise</text><line class="ms-flow" stroke="#243a5a" x1="156" y1="90" x2="330" y2="160"/><circle r="4" class="ms-comet"><animateMotion dur="1.8s" begin="0.0s" repeatCount="indefinite" path="M156,90 L330,160"/></circle><rect class="ms-node" x="40" y="142" width="116" height="36" rx="8"/><text class="ms-t sm" x="98" y="165">enterprise</text><line class="ms-flow" stroke="#243a5a" x1="156" y1="160" x2="330" y2="160"/><circle r="4" class="ms-comet"><animateMotion dur="1.8s" begin="0.4s" repeatCount="indefinite" path="M156,160 L330,160"/></circle><rect class="ms-node" x="40" y="212" width="116" height="36" rx="8"/><text class="ms-t sm" x="98" y="235">enterprise</text><line class="ms-flow" stroke="#243a5a" x1="156" y1="230" x2="330" y2="160"/><circle r="4" class="ms-comet"><animateMotion dur="1.8s" begin="0.8s" repeatCount="indefinite" path="M156,230 L330,160"/></circle><circle cx="420" cy="160" r="34" fill="url(#msc2)"/><path class="ms-hub" d="M356,176 a30,30 0 0 1 12,-58 a34,34 0 0 1 64,4 a26,26 0 0 1 14,54 Z"/><text class="ms-t" x="416" y="158" fill="#7cc0f5">Azure</text><text class="ms-t sm" x="416" y="176">datacenter</text><circle cx="396" cy="150" r="2.6" fill="#7cc0f5"><animate attributeName="opacity" values="0.3;1;0.3" dur="1.8s" begin="0.0s" repeatCount="indefinite"/></circle><circle cx="440" cy="150" r="2.6" fill="#7cc0f5"><animate attributeName="opacity" values="0.3;1;0.3" dur="1.8s" begin="0.3s" repeatCount="indefinite"/></circle><circle cx="418" cy="170" r="2.6" fill="#7cc0f5"><animate attributeName="opacity" values="0.3;1;0.3" dur="1.8s" begin="0.6s" repeatCount="indefinite"/></circle><circle cx="404" cy="166" r="2.6" fill="#7cc0f5"><animate attributeName="opacity" values="0.3;1;0.3" dur="1.8s" begin="0.9s" repeatCount="indefinite"/></circle><circle cx="434" cy="168" r="2.6" fill="#7cc0f5"><animate attributeName="opacity" values="0.3;1;0.3" dur="1.8s" begin="1.2s" repeatCount="indefinite"/></circle><text class="ms-mono" x="540" y="120" style="text-anchor:start" fill="#7cc0f5">consumption (ใช้เท่าไรจ่ายเท่านั้น)</text><rect x="540" y="132" width="240" height="16" rx="8" fill="#0e1a2e" stroke="#243a5a"/><rect class="ms-meter" x="542" y="134" width="236" height="12" rx="6" fill="#2b88d8"/><text class="ms-t" x="660" y="186" text-anchor="middle" fill="#37c2f0" style="font-size:22px">Azure +34%</text><text class="ms-mono" x="660" y="208" text-anchor="middle" fill="#6680a0">Microsoft Cloud $168.9B (+23%)</text><text class="ms-mono" x="420" y="300" fill="#6680a0">เครื่องยนต์โต — รายได้ตามการใช้งาน ยิ่งใช้ยิ่งจ่าย</text></svg>
+      </div><figcaption>องค์กรย้าย workload ขึ้น Azure แล้วจ่ายตามการใช้ (consumption) — <strong>Azure +34%</strong>, Microsoft Cloud รวม <strong>$168.9B (+23%)</strong> ยิ่งองค์กรใช้มาก รายได้ยิ่งโต และ AI ยิ่งดันการใช้ compute ขึ้นอีก</figcaption></figure>
+      <p>
+        FY2025 <strong>Azure โต +34%</strong> และ Microsoft Cloud รวมแตะ <strong>$168.9B (+23%)</strong>
+        โมเดล consumption มีข้อดีคือ <em>ยิ่งลูกค้าใช้มากยิ่งจ่ายมาก</em> — และคลื่น AI ยิ่งดันการใช้ compute
+        บน Azure ขึ้นไปอีก (ลูกค้ารัน AI workload บน Azure OpenAI)
+      </p>
+
+      <h2>3. คูเมือง: ทำไมองค์กรย้ายหนียาก</h2>
+      <p>
+        คูเมืองที่แท้จริงของ Microsoft ไม่ใช่ผลิตภัณฑ์ตัวใดตัวหนึ่ง แต่คือ <strong>การที่ทุกอย่างผูกกัน</strong>
+        ผ่าน identity และ data เดียว:
+      </p>
+      <figure class="ph-fig"><div class="ph-panel ms-panel"><div class="ph-eyebrow ms">Ecosystem · คูเมือง switching cost</div>
+        <svg viewBox="0 0 840 400" role="img" aria-label="Microsoft enterprise ecosystem lock-in"><defs><radialGradient id="msc3"><stop offset="0" stop-color="#cfe6ff"/><stop offset=".4" stop-color="#2b88d8" stop-opacity=".5"/><stop offset="1" stop-color="#2b88d8" stop-opacity="0"/></radialGradient></defs><circle cx="420" cy="200" r="150" fill="none" stroke="#172a44" stroke-width="1.2" stroke-dasharray="3 8"/><line class="ms-spoke" x1="420" y1="200" x2="420" y2="50"/><circle r="4" class="ms-comet"><animateMotion dur="2s" begin="0.0s" repeatCount="indefinite" path="M420,50 L420,200"/></circle><line class="ms-spoke" x1="420" y1="200" x2="526" y2="94"/><circle r="4" class="ms-comet"><animateMotion dur="2s" begin="0.28s" repeatCount="indefinite" path="M526,94 L420,200"/></circle><line class="ms-spoke" x1="420" y1="200" x2="570" y2="200"/><circle r="4" class="ms-comet"><animateMotion dur="2s" begin="0.56s" repeatCount="indefinite" path="M570,200 L420,200"/></circle><line class="ms-spoke" x1="420" y1="200" x2="526" y2="306"/><circle r="4" class="ms-comet"><animateMotion dur="2s" begin="0.84s" repeatCount="indefinite" path="M526,306 L420,200"/></circle><line class="ms-spoke" x1="420" y1="200" x2="420" y2="350"/><circle r="4" class="ms-comet"><animateMotion dur="2s" begin="1.12s" repeatCount="indefinite" path="M420,350 L420,200"/></circle><line class="ms-spoke" x1="420" y1="200" x2="314" y2="306"/><circle r="4" class="ms-comet"><animateMotion dur="2s" begin="1.4s" repeatCount="indefinite" path="M314,306 L420,200"/></circle><line class="ms-spoke" x1="420" y1="200" x2="270" y2="200"/><circle r="4" class="ms-comet"><animateMotion dur="2s" begin="1.68s" repeatCount="indefinite" path="M270,200 L420,200"/></circle><line class="ms-spoke" x1="420" y1="200" x2="314" y2="94"/><circle r="4" class="ms-comet"><animateMotion dur="2s" begin="1.96s" repeatCount="indefinite" path="M314,94 L420,200"/></circle><circle cx="420" cy="200" r="42" fill="url(#msc3)"/><rect class="ms-hub" x="348" y="170" width="144" height="60" rx="14"/><text class="ms-t" x="420" y="196" fill="#7cc0f5">องค์กร</text><text class="ms-t sm" x="420" y="216">identity เดียว · ผูกทุกอย่าง</text><g class="ms-svc" style="animation-delay:0.0s"><rect class="ms-node" x="394" y="24" width="52" height="52" rx="13"/><rect class="ms-red" x="409" y="39" width="9" height="9" rx="1"/><rect class="ms-green" x="422" y="39" width="9" height="9" rx="1"/><rect class="ms-blue" x="409" y="52" width="9" height="9" rx="1"/><rect class="ms-yellow" x="422" y="52" width="9" height="9" rx="1"/></g><text class="ms-t sm" x="420" y="14">Windows</text><g class="ms-svc" style="animation-delay:0.28s"><rect class="ms-node" x="500" y="68" width="52" height="52" rx="13"/><rect x="514" y="80" width="24" height="26" rx="3" fill="none" stroke="#2b88d8" stroke-width="2"/><text x="526" y="97" text-anchor="middle" fill="#7cc0f5" style="font:700 9px IBM Plex Mono">365</text></g><text class="ms-t sm" x="526" y="58">Microsoft 365</text><g class="ms-svc" style="animation-delay:0.56s"><rect class="ms-node" x="544" y="174" width="52" height="52" rx="13"/><rect x="558" y="188" width="24" height="24" rx="6" fill="none" stroke="#8b8cc7" stroke-width="2"/><circle cx="567" cy="197" r="3" fill="#8b8cc7"/><circle cx="575" cy="199" r="2.4" fill="#8b8cc7"/><path d="M562,208 a5,5 0 0 1 10,0" fill="none" stroke="#8b8cc7" stroke-width="2"/></g><text class="ms-t sm" x="570" y="244">Teams</text><g class="ms-svc" style="animation-delay:0.84s"><rect class="ms-node" x="500" y="280" width="52" height="52" rx="13"/><path d="M524,293 L537,317 L524,317 L529,308 L523,308 Z" fill="none" stroke="#37c2f0" stroke-width="2"/><path d="M524,293 L514,317 L523,317" fill="none" stroke="#37c2f0" stroke-width="2"/></g><text class="ms-t sm" x="526" y="350">Azure</text><g class="ms-svc" style="animation-delay:1.12s"><rect class="ms-node" x="394" y="324" width="52" height="52" rx="13"/><circle cx="413" cy="343" r="3.4" fill="none" stroke="#c8d6e8" stroke-width="2"/><circle cx="413" cy="358" r="3.4" fill="none" stroke="#c8d6e8" stroke-width="2"/><circle cx="428" cy="343" r="3.4" fill="none" stroke="#c8d6e8" stroke-width="2"/><path d="M413,347 L413,354 M413,347 q0,7 15,7 v3" fill="none" stroke="#c8d6e8" stroke-width="1.8"/></g><text class="ms-t sm" x="420" y="394">GitHub</text><g class="ms-svc" style="animation-delay:1.4s"><rect class="ms-node" x="288" y="280" width="52" height="52" rx="13"/><rect x="301" y="294" width="24" height="24" rx="4" fill="none" stroke="#3a9fe0" stroke-width="2"/><circle cx="307" cy="301" r="1.8" fill="#5ab2ee"/><rect x="305.6" y="305" width="3" height="9" fill="#5ab2ee"/><path d="M313,314 v-9 h3 v1.5 a4,4 0 0 1 7,2.5 v5 h-3 v-4.4 a1.6,1.6 0 0 0 -3.2,0 v4.4 Z" fill="#5ab2ee"/></g><text class="ms-t sm" x="314" y="350">LinkedIn</text><g class="ms-svc" style="animation-delay:1.68s"><rect class="ms-node" x="244" y="174" width="52" height="52" rx="13"/><circle cx="270" cy="200" r="13" fill="none" stroke="#5bbf2e" stroke-width="2"/><path d="M262,209 Q270,194 278,209" fill="none" stroke="#5bbf2e" stroke-width="2"/><path d="M262,191 Q270,206 278,191" fill="none" stroke="#5bbf2e" stroke-width="2"/></g><text class="ms-t sm" x="270" y="244">Xbox</text><g class="ms-svc" style="animation-delay:1.96s"><rect class="ms-node" x="288" y="68" width="52" height="52" rx="13"/><rect x="300" y="84" width="26" height="18" rx="2.5" fill="none" stroke="#2b88d8" stroke-width="2"/><path d="M300,85 L313,96 L326,85" fill="none" stroke="#2b88d8" stroke-width="1.6"/></g><text class="ms-t sm" x="314" y="58">Outlook</text></svg>
+      </div><figcaption>พลังที่แท้จริง — ทุกผลิตภัณฑ์ผูกกันด้วย <strong>identity เดียว</strong> (Windows/M365/Teams/Azure/GitHub) องค์กรที่ฝังลึกแล้ว<strong>ย้ายค่ายยากมาก</strong> ต้อง retrain คนทั้งบริษัท = switching cost มหาศาล</figcaption></figure>
+      <p>
+        องค์กรที่ใช้ Windows + Microsoft 365 + Teams + Azure + Active Directory ฝังลึกแล้ว การจะย้ายค่าย
+        หมายถึง <strong>retrain พนักงานทั้งบริษัท + ย้าย data + เสี่ยง downtime</strong> — switching cost
+        ที่สูงจน CIO ส่วนใหญ่เลือกอยู่ต่อ นี่คือ <strong>Switching Costs + Scale Economies</strong> แบบ Helmer
+      </p>
+
+      <h2>4. Copilot — วาง AI ทับฐานลูกค้าเดิม</h2>
+      <p>
+        กลยุทธ์ AI ของ Microsoft ฉลาดตรงที่ไม่ได้เริ่มจากศูนย์ — มันเอา <strong>OpenAI/GPT</strong> มาวางเป็น
+        ชั้น <strong>Copilot</strong> ทับผลิตภัณฑ์ที่องค์กรใช้อยู่แล้ว:
+      </p>
+      <figure class="ph-fig"><div class="ph-panel ms-panel"><div class="ph-eyebrow ms">Copilot · วาง AI ทับทุกอย่าง</div>
+        <svg viewBox="0 0 840 320" role="img" aria-label="Copilot AI layer across products"><defs><radialGradient id="msc4"><stop offset="0" stop-color="#e6f0ff"/><stop offset=".4" stop-color="#2b88d8" stop-opacity=".5"/><stop offset="1" stop-color="#2b88d8" stop-opacity="0"/></radialGradient></defs><rect class="ms-node" x="350" y="34" width="140" height="44" rx="10" stroke="#37c2f0"/><text class="ms-t sm" x="420" y="55" fill="#7cc0f5">OpenAI · GPT</text><text class="ms-mono" x="420" y="71">โมเดล AI</text><line class="ms-flow" stroke="#243a5a" x1="420" y1="78" x2="420" y2="120"/><circle r="4" class="ms-comet"><animateMotion dur="1.3s" repeatCount="indefinite" path="M420,78 V120"/></circle><rect x="100" y="120" width="640" height="50" rx="13" fill="url(#msc4)"/><rect class="ms-hub" x="100" y="122" width="640" height="46" rx="13"/><text class="ms-t" x="420" y="150" fill="#7cc0f5" style="letter-spacing:.12em">Copilot (AI ทับทุกผลิตภัณฑ์)</text><line class="ms-flow" stroke="#243a5a" x1="150" y1="168" x2="150" y2="222"/><circle r="3.6" class="ms-comet"><animateMotion dur="1.6s" begin="0.0s" repeatCount="indefinite" path="M150,168 V222"/></circle><rect class="ms-node" x="94" y="222" width="112" height="42" rx="9"/><text class="ms-t sm" x="150" y="248">M365 Copilot</text><line class="ms-flow" stroke="#243a5a" x1="290" y1="168" x2="290" y2="222"/><circle r="3.6" class="ms-comet"><animateMotion dur="1.6s" begin="0.0s" repeatCount="indefinite" path="M290,168 V222"/></circle><rect class="ms-node" x="234" y="222" width="112" height="42" rx="9"/><text class="ms-t sm" x="290" y="248">Teams Copilot</text><line class="ms-flow" stroke="#243a5a" x1="420" y1="168" x2="420" y2="222"/><circle r="3.6" class="ms-comet"><animateMotion dur="1.6s" begin="0.0s" repeatCount="indefinite" path="M420,168 V222"/></circle><rect class="ms-node" x="364" y="222" width="112" height="42" rx="9"/><text class="ms-t sm" x="420" y="248">GitHub Copilot</text><line class="ms-flow" stroke="#243a5a" x1="550" y1="168" x2="550" y2="222"/><circle r="3.6" class="ms-comet"><animateMotion dur="1.6s" begin="0.0s" repeatCount="indefinite" path="M550,168 V222"/></circle><rect class="ms-node" x="494" y="222" width="112" height="42" rx="9"/><text class="ms-t sm" x="550" y="248">Azure Copilot</text><line class="ms-flow" stroke="#243a5a" x1="690" y1="168" x2="690" y2="222"/><circle r="3.6" class="ms-comet"><animateMotion dur="1.6s" begin="0.0s" repeatCount="indefinite" path="M690,168 V222"/></circle><rect class="ms-node" x="634" y="222" width="112" height="42" rx="9"/><text class="ms-t sm" x="690" y="248">Windows Copilot</text><text class="ms-mono" x="420" y="300" fill="#6680a0">ขาย AI เพิ่มบนฐานลูกค้าองค์กรเดิม — ไม่ต้องหาลูกค้าใหม่</text></svg>
+      </div><figcaption>Microsoft เอา <strong>OpenAI/GPT</strong> มาวางเป็นชั้น <strong>Copilot ทับทุกผลิตภัณฑ์</strong> (M365/GitHub/Azure/Windows) — ขาย AI เพิ่มบนฐานลูกค้าองค์กรเดิมที่มีอยู่แล้ว ไม่ต้องหาลูกค้าใหม่</figcaption></figure>
+      <p>
+        ผลคือ Microsoft <strong>ขาย AI เพิ่มบนฐานลูกค้าองค์กรเดิม</strong> (M365 Copilot, GitHub Copilot,
+        Azure AI) โดยไม่ต้องหาลูกค้าใหม่ — เป็น distribution advantage ที่สตาร์ทอัพ AI ไม่มี
+      </p>
+
+      <h2>5. ตัวเลขบอกอะไร</h2>
+      <ul>
+        <li><strong>รายได้ใหญ่และโตสม่ำเสมอ</strong> — $211.9B (2023) → $245.1B (2024) → $281.7B (2025, +15%)</li>
+        <li><strong>Margin ระดับสูงมาก</strong> — operating income $128.5B = operating margin ~45.6%;
+          net income $101.8B (~36%); diluted EPS $13.64</li>
+        <li><strong>เครื่องจักรเงินสด + ลงทุน AI หนัก</strong> — cash from operations $136.2B (FY2025),
+          อนุมัติ buyback ใหม่ $60B (ก.ย. 2024) — แต่ capex ก็พุ่งแรงเพื่อสร้าง datacenter รองรับ AI</li>
+      </ul>
+      <blockquote>
+        ตัวเลขจากงบ FY2025 — โฟกัสที่ "ทำไมมันทนทานและคูเมืองอยู่ตรงไหน" มากกว่ามูลค่า/ราคาเป้า
+        (บทนี้ไม่ทำ valuation)
+      </blockquote>
+
+      <h2>6. เครื่องจักรเงินสด: Cash Flywheel</h2>
+      <figure class="ph-fig"><div class="ph-panel ms-panel"><div class="ph-eyebrow ms">Cash Flywheel</div>
+        <svg viewBox="0 0 600 440" style="max-width:520px;margin:0 auto" role="img" aria-label="Microsoft recurring revenue flywheel"><defs><linearGradient id="msfw" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#2b88d8"/><stop offset=".5" stop-color="#37c2f0"/><stop offset="1" stop-color="#7cc0f5"/></linearGradient><radialGradient id="msfwc"><stop offset="0" stop-color="#fff" stop-opacity=".9"/><stop offset=".4" stop-color="#7cc0f5" stop-opacity=".5"/><stop offset="1" stop-color="#7cc0f5" stop-opacity="0"/></radialGradient></defs><circle cx="300" cy="210" r="150" fill="none" stroke="#172a44" stroke-width="2"/><circle class="ms-fw" cx="300" cy="210" r="150" stroke="url(#msfw)" stroke-dasharray="120 822"/><rect class="ms-node" x="195" y="32" width="210" height="44" rx="11"/><text class="ms-t" x="300" y="59">subscription + consumption</text><rect class="ms-node" x="425" y="188" width="160" height="44" rx="11"/><text class="ms-t" x="505" y="215">กระแสเงินสด $136B</text><rect class="ms-node" x="195" y="348" width="210" height="44" rx="11"/><text class="ms-t" x="300" y="375">ลงทุน AI capex + R&amp;D + M&amp;A</text><rect class="ms-node" x="5" y="188" width="180" height="44" rx="11"/><text class="ms-t" x="95" y="215">ผลิตภัณฑ์/lock-in มากขึ้น</text><circle r="14" fill="url(#msfwc)"><animateMotion dur="5s" repeatCount="indefinite" path="M300,60 A150,150 0 1 1 299.9,60"/></circle><circle r="6" class="ms-comet"><animateMotion dur="5s" repeatCount="indefinite" path="M300,60 A150,150 0 1 1 299.9,60"/></circle><text class="ms-mono" x="300" y="206" text-anchor="middle" fill="#5aa9f0" style="font-size:13px;letter-spacing:.18em">CASH FLYWHEEL</text><text class="ms-t sm" x="300" y="228">ยิ่งหมุนยิ่งแข็ง</text></svg>
+      </div><figcaption>subscription + consumption → <strong>กระแสเงินสดมหาศาล (CFO $136B)</strong> → ลงทุน AI capex + R&amp;D + ซื้อกิจการ → ผลิตภัณฑ์/lock-in มากขึ้น → subscription เพิ่ม วงล้อที่หมุนด้วยรายได้ประจำ</figcaption></figure>
+      <p>
+        รายได้ส่วนใหญ่เป็น <strong>subscription + consumption</strong> ที่คาดการณ์ได้ → สร้างกระแสเงินสด
+        มหาศาล → เอาไปลงทุน AI capex + R&amp;D + ซื้อกิจการ (เช่น Activision) → ผลิตภัณฑ์แข็งขึ้นและ lock-in
+        ลึกขึ้น → subscription เพิ่ม วงล้อนี้หมุนมาหลายปีและเป็นเหตุผลที่ Microsoft จ่ายปันผล + buyback
+        ได้พร้อมกับลงทุนหนัก
+      </p>
+
+      <h2>7. Bull Case</h2>
+      <ul>
+        <li><strong>คูเมือง switching cost + การกระจาย 3 ขา</strong> — รายได้ทนทาน ลูกค้าองค์กรเหนียว</li>
+        <li><strong>Azure + AI ยังมี runway</strong> — องค์กรยังย้ายขึ้นคลาวด์ไม่หมด และ AI ดันการใช้ compute เพิ่ม
+          Microsoft อยู่ในตำแหน่งเก็บเกี่ยวทั้งสองคลื่น</li>
+        <li><strong>Distribution advantage ของ Copilot</strong> — ขาย AI บนฐานลูกค้าเดิมได้เลย
+          + เครื่องจักรเงินสดที่ fund การลงทุนได้โดยไม่ต้องกู้เยอะ</li>
+      </ul>
+
+      <h2>8. Bear Case / จุดเปราะ</h2>
+      <p>
+        แม้ธุรกิจแกร่งมาก แต่มี 3 เรื่องที่ต้องจับตา:
+      </p>
+      <figure class="ph-fig"><div class="ph-panel ms-panel"><div class="ph-eyebrow ms">Bear · เดิมพัน AI + การแข่ง</div>
+        <svg viewBox="0 0 840 320" role="img" aria-label="Microsoft risks"><rect class="ms-hub" x="350" y="142" width="140" height="52" rx="13"/><text class="ms-t" x="420" y="166" fill="#7cc0f5">Microsoft</text><text class="ms-mono" x="420" y="183" fill="#8aa0bd">valuation สูง</text><line class="ms-block" x1="168" y1="64" x2="420" y2="168"/><circle r="3.4" class="ms-rd"><animateMotion dur="2s" begin="0.0s" repeatCount="indefinite" path="M168,64 L420,168"/></circle><g class="ms-warn" style="animation-delay:0.0s"><rect class="ms-threat" x="62" y="44" width="212" height="40" rx="9"/><path d="M75,70 L84,55 L93,70 Z" fill="none" stroke="#ef4444" stroke-width="1.6"/><line x1="84" y1="61" x2="84" y2="65" stroke="#ef4444" stroke-width="1.6"/><circle cx="84" cy="68" r="1" fill="#ef4444"/><text class="ms-t sm" x="186" y="68" fill="#f0a8a8">AI capex มหาศาล · คืนทุนไหม?</text></g><line class="ms-block" x1="672" y1="64" x2="420" y2="168"/><circle r="3.4" class="ms-rd"><animateMotion dur="2s" begin="0.5s" repeatCount="indefinite" path="M672,64 L420,168"/></circle><g class="ms-warn" style="animation-delay:0.4s"><rect class="ms-threat" x="566" y="39" width="212" height="50" rx="9"/><path d="M579,70 L588,55 L597,70 Z" fill="none" stroke="#ef4444" stroke-width="1.6"/><line x1="588" y1="61" x2="588" y2="65" stroke="#ef4444" stroke-width="1.6"/><circle cx="588" cy="68" r="1" fill="#ef4444"/><text class="ms-t sm" x="690" y="60" fill="#f0a8a8">Azure โตช้าลง</text><text class="ms-t sm" x="690" y="76" fill="#f0a8a8">vs AWS/Google</text></g><line class="ms-block" x1="168" y1="256" x2="420" y2="168"/><circle r="3.4" class="ms-rd"><animateMotion dur="2s" begin="1.0s" repeatCount="indefinite" path="M168,256 L420,168"/></circle><g class="ms-warn" style="animation-delay:0.8s"><rect class="ms-threat" x="62" y="236" width="212" height="40" rx="9"/><path d="M75,262 L84,247 L93,262 Z" fill="none" stroke="#ef4444" stroke-width="1.6"/><line x1="84" y1="253" x2="84" y2="257" stroke="#ef4444" stroke-width="1.6"/><circle cx="84" cy="260" r="1" fill="#ef4444"/><text class="ms-t sm" x="186" y="260" fill="#f0a8a8">antitrust · Teams/Activision</text></g><line class="ms-block" x1="672" y1="256" x2="420" y2="168"/><circle r="3.4" class="ms-rd"><animateMotion dur="2s" begin="1.5s" repeatCount="indefinite" path="M672,256 L420,168"/></circle><g class="ms-warn" style="animation-delay:1.2s"><rect class="ms-threat" x="566" y="236" width="212" height="40" rx="9"/><path d="M579,262 L588,247 L597,262 Z" fill="none" stroke="#ef4444" stroke-width="1.6"/><line x1="588" y1="253" x2="588" y2="257" stroke="#ef4444" stroke-width="1.6"/><circle cx="588" cy="260" r="1" fill="#ef4444"/><text class="ms-t sm" x="690" y="260" fill="#f0a8a8">ลูกค้าองค์กรอิ่มตัว</text></g><text class="ms-mono" x="420" y="310" fill="#c98a8a">ธุรกิจแกร่ง แต่เดิมพัน AI capex หนัก + การแข่ง/กำกับ = จุดต้องจับตา</text></svg>
+      </div><figcaption>จุดต้องจับตา: <strong>AI capex มหาศาล</strong> (คืนทุนตามคาดไหม), Azure ที่อาจ<strong>โตช้าลง</strong>เทียบ AWS/Google, <strong>antitrust</strong> (Teams bundling/Activision) และ valuation ที่ไม่ถูก</figcaption></figure>
+      <ul>
+        <li><strong>AI capex มหาศาล — return ตามคาดไหม</strong> — การลงทุน datacenter หลักแสนล้าน
+          ถ้ารายได้ AI ไม่ scale ทันหรือถูก commoditize ROIC จะน่าผิดหวังและกด margin</li>
+        <li><strong>Azure อาจโตช้าลง</strong> — ฐานใหญ่ขึ้น + แข่งกับ AWS/Google ถ้า growth decel ชัด
+          thesis ที่สองสะเทือน</li>
+        <li><strong>Regulatory</strong> — antitrust เรื่อง bundling (เช่น Teams) และดีล M&A ใหญ่ (Activision)
+          ถูกจับตาทั่วโลก อาจจำกัดการขยาย</li>
+      </ul>
+
+      <h2>9. Kill Conditions — อะไรจะทำให้ thesis พัง</h2>
+      <p>วินัยสำคัญ: ต้องรู้ก่อนว่า "เหตุการณ์แบบไหนจะบอกว่าผมคิดผิด" สำหรับ MSFT คือ:</p>
+      <ul>
+        <li><strong>Azure growth ชะลอต่ำกว่า ~20% ติดกันหลายไตรมาส ขณะ capex ยังสูง</strong> →
+          เดิมพัน AI capex ไม่ได้แปลงเป็นการเติบโต operating margin จะถูกกดจาก depreciation</li>
+        <li><strong>Operating margin หดต่อเนื่อง</strong> จากต้นทุน AI/datacenter ที่รายได้ตามไม่ทัน →
+          เศรษฐศาสตร์ของการลงทุน AI เริ่มไม่คุ้ม</li>
+        <li><strong>Ecosystem lock-in เริ่มแตก</strong> — องค์กรย้ายออกจาก M365/Windows ไปคู่แข่ง
+          (Google Workspace ฯลฯ) ในวงกว้าง หรือ regulatory บังคับแยก bundling → คูเมืองหลักเสื่อม</li>
+      </ul>
+
+      <h2>สรุป</h2>
+      <p>
+        MSFT เป็นตัวอย่างของธุรกิจคุณภาพที่คูเมืองมาจาก <strong>switching cost ขององค์กร + การกระจายรายได้
+        3 ขา + เครื่องจักรเงินสด</strong> และกำลังต่อยอดด้วย AI/Copilot บนฐานลูกค้าเดิม จุดที่ต้องจับตาคือ
+        <strong>เดิมพัน AI capex ที่หนักมาก</strong> ว่าจะให้ผลตอบแทนคุ้มไหม และ <strong>การแข่งขัน/กำกับดูแล</strong>
+        ใครจะถือต้องตอบให้ได้ว่า ถ้า Azure โตช้าลงหรือ margin ถูกกดจาก capex จะคิดยังไง
+      </p>
+
+      <div class="author-card">
+        <span class="byline-avatar">M</span>
+        <div>
+          <strong>Moatrices</strong>
+          <p>บันทึกการเรียนวิเคราะห์หุ้น US เชิงลึก สาย fundamental — เน้นพื้นฐานธุรกิจ ไม่ใช่ราคา <a href="../about.html">เกี่ยวกับเว็บนี้ →</a></p>
+        </div>
+      </div>
+
+      <p class="back"><a href="../index.html">← กลับหน้าแรก</a></p>
+
+    </div>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container footer-grid">
+      <div class="footer-brand">
+        <a href="../index.html" class="site-title">Moatrices</a>
+        <p>บันทึกการเรียนวิเคราะห์หุ้น US เชิงลึก ภาษาไทย — เน้นพื้นฐานธุรกิจ ไม่ใช่ราคา</p>
+      </div>
+      <nav class="footer-nav">
+        <a href="../index.html">หน้าแรก</a>
+        <a href="../dashboard.html">Dashboard</a>
+        <a href="../about.html">เกี่ยวกับ</a>
+      </nav>
+    </div>
+    <div class="container footer-legal">
+      <p><strong>คำเตือน:</strong> เนื้อหาทั้งหมดเป็นบันทึกการเรียนและความเห็นส่วนตัว
+         เพื่อการศึกษาเท่านั้น <strong>ไม่ใช่คำแนะนำการลงทุน</strong> ไม่ใช่การชี้นำให้ซื้อหรือขายหลักทรัพย์ใดๆ
+         ตัวเลขอ้างอิงงบที่เผยแพร่ ณ ช่วงเวลาหนึ่งและอาจล้าสมัย การตัดสินใจลงทุนเป็นความรับผิดชอบของผู้อ่านเอง</p>
+      <p>© 2026 Moatrices · เผยแพร่ผ่าน GitHub Pages</p>
+    </div>
+  </footer>
+
+  <button class="to-top" aria-label="กลับขึ้นด้านบน">↑</button>
+  <script defer src="../app.js"></script>
+
+</body>
+</html>

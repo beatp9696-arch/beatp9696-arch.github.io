@@ -2218,6 +2218,42 @@ h2:hover > .heading-anchor, h3:hover > .heading-anchor { opacity: 0.45; }
 @media (prefers-reduced-motion: reduce) { .ly-recept-on,.ly-flow,.ly-lit,.ly-cell,.ly-gate,.ly-bar,.ly-warn{animation:none} .ly-lit{stroke-dashoffset:0;opacity:1} }
 
 /* ============================================================
+   MSFT (Microsoft) — premium sims (3 engines / Azure / ecosystem / Copilot / flywheel / bear)
+   theme: enterprise cloud blue (Azure) + MS 4-square accents
+   ============================================================ */
+.ms-panel { background: radial-gradient(140% 120% at 50% 0%, #0c1422 0%, #060a12 72%); border-color: #1a2c44; }
+.ph-eyebrow.ms { color: #5aa9f0; }
+.ms-panel .s-t { fill: #cbd8e8; }
+.ms-panel .s-t.sm { fill: #87a0bd; }
+.ms-t { font-family: var(--font-head); fill: #cbd8e8; font-size: 13px; text-anchor: middle; font-weight: 600; }
+.ms-t.sm { font-size: 11px; fill: #87a0bd; }
+.ms-mono { font-family: "IBM Plex Mono", ui-monospace, monospace; fill: #6680a0; font-size: 11px; }
+.ms-node { fill: #0e1a2e; stroke: #243a5a; stroke-width: 1.4; }
+.ms-hub { fill: #112742; stroke: #2b88d8; stroke-width: 2.2; filter: drop-shadow(0 0 11px rgba(43,136,216,.5)); }
+.ms-spoke { fill: none; stroke: #243a5a; stroke-width: 2; stroke-linecap: round; }
+.ms-red { fill: #f25022; } .ms-green { fill: #7fba00; } .ms-blue { fill: #00a4ef; } .ms-yellow { fill: #ffb900; }
+.ms-comet { fill: #cfe6ff; filter: drop-shadow(0 0 6px #2b88d8); }
+.ms-ico { fill: none; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
+.ms-flow { fill: none; stroke-width: 2.4; stroke-linecap: round; stroke-dasharray: 14 10; animation: msflow 1s linear infinite; }
+@keyframes msflow { to { stroke-dashoffset: -24 } }
+.ms-lit { fill: none; stroke-width: 2.6; stroke-linecap: round; animation: msreveal 3s ease-in-out infinite; }
+@keyframes msreveal { 0%{stroke-dashoffset:var(--len);opacity:1} 70%{stroke-dashoffset:0;opacity:1} 100%{stroke-dashoffset:0;opacity:.9} }
+.ms-rise { animation: msrise 3.2s linear infinite; }
+@keyframes msrise { 0%{opacity:0;transform:translateY(0)} 12%{opacity:1} 88%{opacity:1} 100%{opacity:0;transform:translateY(-90px)} }
+.ms-svc { transform-box: fill-box; transform-origin: center; animation: msglow 2.4s ease-in-out infinite; }
+@keyframes msglow { 0%,82%{filter:none} 91%{filter:drop-shadow(0 0 10px rgba(90,169,240,.7))} 100%{filter:none} }
+.ms-fw { fill: none; stroke-width: 4; stroke-linecap: round; filter: drop-shadow(0 0 6px rgba(43,136,216,.5)); animation: msfwrot 5s linear infinite; transform-origin: 300px 210px; }
+@keyframes msfwrot { to { transform: rotate(360deg) } }
+.ms-meter { transform-box: fill-box; transform-origin: left; animation: msmeter 3.4s ease-in-out infinite; }
+@keyframes msmeter { 0%{transform:scaleX(.05)} 60%{transform:scaleX(1)} 90%{transform:scaleX(1)} 100%{transform:scaleX(.05)} }
+.ms-warn { animation: mswarn 1.7s ease-in-out infinite; }
+@keyframes mswarn { 0%,100%{opacity:.82} 50%{opacity:1; filter:drop-shadow(0 0 7px #ef4444)} }
+.ms-threat { fill: #2a1414; stroke: #ef4444; stroke-width: 1.6; }
+.ms-block { stroke: #f87171; stroke-width: 2; stroke-dasharray: 5 5; fill: none; }
+.ms-rd { fill: #fca5a5; filter: drop-shadow(0 0 5px #ef4444); }
+@media (prefers-reduced-motion: reduce) { .ms-flow,.ms-lit,.ms-rise,.ms-svc,.ms-fw,.ms-meter,.ms-warn{animation:none} .ms-lit{stroke-dashoffset:0;opacity:1} }
+
+/* ============================================================
    COST — membership engine / flywheel / renewal / loyalty / SKU / fee
    ============================================================ */
 .cost-panel { background: radial-gradient(120% 140% at 50% 0%, #1a1012 0%, #0d0809 70%); border-color: #331a1d; }
