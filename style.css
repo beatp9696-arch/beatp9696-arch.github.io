@@ -1759,3 +1759,81 @@ h2:hover > .heading-anchor, h3:hover > .heading-anchor { opacity: 0.45; }
   .pf-chart.reveal .pf-pointed-svg,
   .pf-chart.reveal .pf-fb-donut { opacity: 1; transform: none; transition: none; }
 }
+
+/* ============================================================
+   Photonics animations (บท COHR) — แผง dark ฝังในบทความ
+   ============================================================ */
+.ph-fig { margin: 32px 0; }
+.ph-panel { background: #0e1013; border: 1px solid #20242a; border-radius: var(--radius); padding: 26px 22px; }
+.ph-eyebrow { font-family: "IBM Plex Mono", ui-monospace, monospace; text-align: center; letter-spacing: 0.28em; font-size: 12.5px; color: #8a8f96; text-transform: uppercase; margin-bottom: 20px; }
+.ph-fig figcaption { font-size: 15.5px; color: var(--muted); line-height: 1.7; margin-top: 14px; padding-left: 14px; border-left: 3px solid var(--accent); }
+.ph-fig figcaption strong { color: var(--text); font-family: var(--font-head); }
+.ph-svg { width: 100%; height: auto; display: block; }
+
+/* light race (copper vs optical) */
+.lr { display: flex; flex-direction: column; gap: 16px; }
+.lr-lane { background: #16181c; border: 1px solid #262a30; border-radius: 12px; padding: 14px 16px; }
+.lr-head { display: flex; align-items: center; justify-content: space-between; gap: 10px; margin-bottom: 12px; flex-wrap: wrap; }
+.lr-title { font-family: var(--font-head); font-weight: 700; font-size: 14.5px; color: #e8eaed; display: flex; align-items: center; gap: 8px; }
+.lr-badge { font-family: "IBM Plex Mono", monospace; font-size: 11px; font-weight: 700; padding: 3px 9px; border-radius: 999px; }
+.lr-sub { font-size: 12.5px; color: #9aa0a7; }
+.lr-row { display: flex; align-items: center; gap: 12px; }
+.lr-node { flex: none; width: 48px; height: 48px; border-radius: 11px; display: grid; place-items: center; font-family: var(--font-head); font-weight: 700; font-size: 11px; border: 1px solid #2d323a; background: #1c2026; color: #9aa0a7; }
+.lr-track { position: relative; flex: 1; height: 9px; border-radius: 999px; overflow: hidden; }
+.lr-pulse { position: absolute; top: 50%; border-radius: 50%; }
+.lr-elec .lr-track { background: linear-gradient(90deg,#3a2a18,#241a10); }
+.lr-elec .lr-pulse { width: 9px; height: 9px; background: #f59e0b; box-shadow: 0 0 6px #f59e0b; animation: lrE 2.8s linear infinite; }
+@keyframes lrE { 0%{left:0;opacity:0;transform:translate(-50%,-50%) scale(1)} 8%{opacity:1} 82%{opacity:.55} 100%{left:100%;opacity:0;transform:translate(-50%,-50%) scale(.55)} }
+.lr-opt .lr-track { background: linear-gradient(90deg,rgba(34,211,238,.14),rgba(59,130,246,.14)); }
+.lr-opt .lr-pulse { width: 10px; height: 10px; background: #22d3ee; box-shadow: 0 0 10px #22d3ee, 0 0 20px rgba(34,211,238,.6); animation: lrO 1.15s linear infinite; }
+@keyframes lrO { 0%{left:0;opacity:0;transform:translate(-50%,-50%)} 6%{opacity:1} 94%{opacity:1} 100%{left:100%;opacity:0;transform:translate(-50%,-50%)} }
+
+/* siph waveguide */
+.wg-base { fill: none; stroke: #2c2820; stroke-width: 15; stroke-linecap: round; stroke-linejoin: round; }
+.wg-light { fill: none; stroke: #e3b778; stroke-width: 7; stroke-linecap: round; stroke-dasharray: 24 22; animation: wgflow .9s linear infinite; filter: drop-shadow(0 0 4px rgba(227,183,120,.7)); }
+@keyframes wgflow { to { stroke-dashoffset: -92 } }
+.ph-coupler { fill: #e3b778; opacity: .9; }
+.ph-ray { stroke: #c9a06a; stroke-width: 3; stroke-linecap: round; opacity: .8; }
+.ph-det { fill: rgba(123,168,116,.16); stroke: #7ba874; stroke-width: 2; animation: detpulse 1.8s ease-in-out infinite; }
+@keyframes detpulse { 0%,100%{filter:drop-shadow(0 0 3px rgba(123,168,116,.4))} 50%{filter:drop-shadow(0 0 12px rgba(123,168,116,.9))} }
+.ph-lbl { font-family: "IBM Plex Mono", monospace; font-size: 14px; fill: #9aa0a7; }
+.ph-lbl-th { font-family: var(--font-head); font-size: 15px; fill: #c7ccd2; font-weight: 600; }
+.ph-soi { fill: rgba(111,143,106,.10); stroke: rgba(111,143,106,.45); stroke-width: 1; }
+.ph-soi-txt { font-family: "IBM Plex Mono", monospace; font-size: 14px; fill: #9fb59a; letter-spacing: .06em; }
+
+/* coherent vs imdd */
+.ph-cards { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+.pcard { background: #16181c; border: 1px solid #262a30; border-radius: 14px; padding: 18px; text-align: center; }
+.pcard h3 { font-family: var(--font-head); font-weight: 700; font-size: 22px; margin: 0 0 12px; }
+.pcard.imdd h3 { color: #d9a566; } .pcard.coh h3 { color: #7ba874; }
+.pcard svg { width: 100%; height: 84px; }
+.pcard-sub { font-size: 13.5px; color: #c7ccd2; margin-top: 10px; }
+.pcard-foot { font-family: "IBM Plex Mono", monospace; font-size: 11px; color: #7c8189; margin-top: 5px; letter-spacing: .04em; }
+.ph-sq { fill: none; stroke: #d9a566; stroke-width: 3; stroke-linejoin: round; }
+.ph-sine { fill: none; stroke: #7ba874; stroke-width: 3; stroke-linecap: round; stroke-dasharray: 14 10; animation: phflow 1.1s linear infinite; }
+@keyframes phflow { to { stroke-dashoffset: -48 } }
+.ph-dial { fill: none; stroke: #3a4d3a; stroke-width: 2; }
+.ph-hand { stroke: #7ba874; stroke-width: 2.5; stroke-linecap: round; transform-origin: center; animation: phspin 3s linear infinite; }
+@keyframes phspin { to { transform: rotate(360deg) } }
+
+/* inp pic */
+.ph-wafer { fill: rgba(154,106,63,.06); stroke: rgba(154,106,63,.25); stroke-width: 1; }
+.ph-cell { fill: #1a1714; stroke: #2a2520; stroke-width: 1; }
+.ph-cell-hot { fill: rgba(214,124,74,.14); stroke: #d67c4a; stroke-width: 1.5; }
+.ph-cell-lbl { font-family: "IBM Plex Mono", monospace; font-size: 11px; fill: #e0b89a; }
+.ph-big { font-family: "IBM Plex Mono", monospace; font-size: 44px; font-weight: 500; fill: #d67c4a; }
+.ph-stat { font-family: "IBM Plex Mono", monospace; font-size: 13px; fill: #8a8f96; letter-spacing: .12em; }
+
+/* tfln stack */
+.ph-tsine { fill: none; stroke: #d9a566; stroke-width: 3; stroke-linecap: round; stroke-dasharray: 16 12; animation: phflow2 1.2s linear infinite; }
+@keyframes phflow2 { to { stroke-dashoffset: -56 } }
+.ph-cards3 { display: grid; grid-template-columns: repeat(3,1fr); gap: 12px; margin-top: 4px; }
+.tcard { background: #16181c; border: 1px solid #262a30; border-radius: 12px; padding: 15px; text-align: center; }
+.tcard b { font-family: var(--font-head); font-size: 19px; display: block; margin-bottom: 4px; }
+.tcard.inp b { color: #7ba874; } .tcard.siph b { color: #6f9fd8; } .tcard.tfln b { color: #d9a566; }
+.tcard span { font-size: 13px; color: #9aa0a7; }
+
+@media (max-width: 600px) { .ph-cards { grid-template-columns: 1fr; } .ph-cards3 { grid-template-columns: 1fr; } }
+@media (prefers-reduced-motion: reduce) { .lr-pulse,.wg-light,.ph-det,.ph-sine,.ph-hand,.ph-tsine { animation: none !important; } }
+
+/* IBM Plex Mono เฉพาะ photonics (โหลดเพิ่มในบท COHR) */

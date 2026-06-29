@@ -1,0 +1,300 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <script>try{var t=localStorage.getItem('theme');if(t)document.documentElement.setAttribute('data-theme',t);}catch(e){}</script>
+  <title>ผ่าธุรกิจ COHR (Coherent) — ทำไม AI ต้องส่งข้อมูลด้วยแสง | Moatrices</title>
+  <meta name="description" content="ผ่าธุรกิจ Coherent (COHR) — ทำไม AI datacenter ต้องเปลี่ยนจากทองแดงมาเป็นแสง: IMDD vs Coherent, SiPh waveguide, InP PIC, TFLN และจุดที่ COHR ได้เปรียบ อธิบายด้วยภาพเคลื่อนไหว">
+  <meta property="og:type" content="article">
+  <meta property="og:site_name" content="Moatrices">
+  <meta property="og:title" content="ผ่าธุรกิจ COHR (Coherent) — ทำไม AI ต้องส่งข้อมูลด้วยแสง">
+  <meta property="og:description" content="คอขวดของ AI คือการย้ายข้อมูลระหว่างชิป — ทองแดงไปไม่ไหว ต้องใช้แสง อธิบายเทคโนโลยี optical ของ COHR ด้วยภาพเคลื่อนไหว">
+  <meta property="og:url" content="https://beatp9696-arch.github.io/articles/deep-dive-cohr.html">
+  <meta property="og:locale" content="th_TH">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta property="og:image" content="https://beatp9696-arch.github.io/og-deep-dive-cohr.png">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta name="twitter:image" content="https://beatp9696-arch.github.io/og-deep-dive-cohr.png">
+  <meta name="author" content="Moatrices">
+  <link rel="canonical" href="https://beatp9696-arch.github.io/articles/deep-dive-cohr.html">
+  <link rel="alternate" type="application/rss+xml" title="Moatrices RSS" href="/feed.xml">
+  <meta name="theme-color" media="(prefers-color-scheme: light)" content="#f7f5f0">
+  <meta name="theme-color" media="(prefers-color-scheme: dark)" content="#121417">
+  <link rel="icon" href="../favicon.svg" type="image/svg+xml">
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png">
+  <link rel="manifest" href="/site.webmanifest">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@500&family=IBM+Plex+Sans+Thai:wght@500;600;700&family=Sarabun:wght@400;500;600;700&display=swap">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@500&family=IBM+Plex+Sans+Thai:wght@500;600;700&family=Sarabun:wght@400;500;600;700&display=swap" media="print" onload="this.media='all'">
+  <noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@500&family=IBM+Plex+Sans+Thai:wght@500;600;700&family=Sarabun:wght@400;500;600;700&display=swap"></noscript>
+  <link rel="stylesheet" href="../style.css">
+  <script type="application/ld+json">
+  {"@context": "https://schema.org", "@type": "BlogPosting", "headline": "ผ่าธุรกิจ COHR (Coherent) — ทำไม AI ต้องส่งข้อมูลด้วยแสง", "description": "ผ่าธุรกิจ Coherent (COHR) — ทำไม AI datacenter ต้องเปลี่ยนจากทองแดงมาเป็นแสง อธิบายเทคโนโลยี optical ด้วยภาพเคลื่อนไหว", "author": {"@type": "Person", "name": "Moatrices"}, "publisher": {"@type": "Organization", "name": "Moatrices", "logo": {"@type": "ImageObject", "url": "https://beatp9696-arch.github.io/favicon.svg"}}, "mainEntityOfPage": {"@type": "WebPage", "@id": "https://beatp9696-arch.github.io/articles/deep-dive-cohr.html"}, "inLanguage": "th", "datePublished": "2026-06-29", "dateModified": "2026-06-29"}
+  </script>
+</head>
+<body>
+
+  <div class="reading-progress"></div>
+  <div class="top-accent"></div>
+
+  <header class="site-header">
+    <div class="container">
+      <a href="../index.html" class="site-title">Moatrices</a>
+      <nav class="site-nav">
+        <a href="../index.html">หน้าแรก</a>
+        <a href="../dashboard.html">Dashboard</a>
+        <a href="../about.html">เกี่ยวกับ</a>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <div class="container">
+
+      <span class="kicker">Deep-dive · หุ้นจริง</span>
+      <h1>ผ่าธุรกิจ COHR (Coherent) — ทำไม AI ต้องส่งข้อมูลด้วย "แสง"</h1>
+      <div class="company-header">
+        <span class="company-logo"><img src="../logos/COHR.png" alt="Coherent Corp. logo" width="44" height="44"></span>
+        <span class="company-meta">
+          <span class="company-ticker">COHR <span class="company-exch">NYSE</span></span>
+          <span class="company-name">Coherent Corp.</span>
+        </span>
+      </div>
+      <div class="byline">
+        <span class="byline-avatar">M</span>
+        <div>
+          <div class="byline-author">Moatrices</div>
+          <div class="byline-info">29 มิ.ย. 2026 · อ่าน ~13 นาที</div>
+        </div>
+      </div>
+
+      <p class="lead">
+        เบื้องหลังการบูม AI มีปัญหาที่คนพูดถึงน้อย — เราเก่งเรื่องสร้าง GPU ที่แรงขึ้นเรื่อยๆ
+        แต่การ "ย้ายข้อมูล" ระหว่าง GPU จำนวนมหาศาลกลับกลายเป็นคอขวด และทางออกคือการเลิกส่งด้วยไฟฟ้า
+        แล้วหันมาส่งด้วย <strong>แสง</strong> — บทนี้พาไปดูว่าเทคโนโลยีนั้นทำงานยังไง (ด้วยภาพเคลื่อนไหว)
+        และ Coherent อยู่ตรงไหนของเรื่องนี้
+      </p>
+
+      <blockquote>
+        ตัวเลขอ้างอิง 10-K (FY2025) + 10-Q และ earnings call ไตรมาส 3 ปี FY2026 (สิ้นสุด มี.ค. 2026)
+        บทนี้เน้น<strong>อธิบายธุรกิจและเทคโนโลยีให้เข้าใจง่าย</strong> ไม่ได้ประเมินราคา/มูลค่า — เพื่อการศึกษาเท่านั้น
+      </blockquote>
+
+      <h2>1. ธุรกิจนี้หาเงินจากอะไร</h2>
+      <p>
+        Coherent ขาย <strong>ชิ้นส่วนเชิงแสง (optical/photonics)</strong> — เลเซอร์, optical component
+        และ optical transceiver ที่ใช้รับส่งข้อมูลด้วยแสง ปัจจุบันธุรกิจถูกปรับโฉมรอบ AI datacenter ชัดเจน แบ่งเป็น 2 ขา:
+      </p>
+      <ul>
+        <li><strong>Datacenter &amp; Communications (~75% ของรายได้, +41% YoY)</strong> — ขาโตหลัก ขาย optical
+          ให้ผู้สร้าง AI datacenter และ networking โดยมี <strong>NVIDIA</strong> เป็นทั้งพันธมิตรเทคโนโลยีและผู้ลงทุน ($2,000 ล้าน)</li>
+        <li><strong>Industrial (~25%)</strong> — เลเซอร์/ออปติกงานอุตสาหกรรม (กลุ่มนี้หดตัวต่อเนื่อง ถ่วงภาพรวม)</li>
+      </ul>
+      <p>
+        ไตรมาสล่าสุด (Q3 FY2026) รายได้ <strong>$1.81 พันล้าน (+27% YoY pro forma)</strong>; Datacenter &amp; Comms
+        $1,362M (+41%). บริษัทเพิ่งเข้า <strong>S&amp;P 500</strong> ตัวธุรกิจสร้างขึ้นจากการควบรวม (Finisar 2019,
+        Coherent Inc. 2022) จึงมีงบที่หนักด้วย goodwill/intangibles (กลับมาที่ข้อ 7)
+      </p>
+
+      <h2>2. คอขวดของ AI: ทำไม "ทองแดง" ไปไม่ไหว</h2>
+      <p>
+        ใน AI datacenter ต้องย้ายข้อมูลระหว่างชิปปริมาณมหาศาลที่ความเร็ว 800G/1.6T ขึ้นไป —
+        สายทองแดง (copper) เริ่มไปไม่ไหว: ยิ่งเร็วยิ่งไกลสัญญาณยิ่งอ่อน ร้อน และกินไฟ ทางออกคือส่งด้วย
+        <strong>แสงผ่านไฟเบอร์</strong> ที่อัดข้อมูลได้มากกว่า ไปได้ไกลกว่า และเย็นกว่า — ลองดูเทียบกัน:
+      </p>
+      <figure class="ph-fig">
+        <div class="ph-panel">
+          <div class="lr">
+            <div class="lr-lane lr-elec">
+              <div class="lr-head"><span class="lr-title">⚡ ทองแดง <span class="lr-badge" style="background:#3a2a18;color:#f59e0b">electrical</span></span><span class="lr-sub">ช้ากว่า · ร้อน · แบนด์วิดท์ตัน</span></div>
+              <div class="lr-row"><span class="lr-node">GPU</span><span class="lr-track"><span class="lr-pulse" style="animation-delay:0s"></span><span class="lr-pulse" style="animation-delay:.93s"></span><span class="lr-pulse" style="animation-delay:1.86s"></span></span><span class="lr-node">GPU</span></div>
+            </div>
+            <div class="lr-lane lr-opt">
+              <div class="lr-head"><span class="lr-title">✦ แสง / ไฟเบอร์ <span class="lr-badge" style="background:rgba(34,211,238,.16);color:#22d3ee">optical · COHR</span></span><span class="lr-sub">เร็ว · เย็นกว่า · แบนด์วิดท์มหาศาล</span></div>
+              <div class="lr-row"><span class="lr-node">GPU</span><span class="lr-track"><span class="lr-pulse" style="animation-delay:0s"></span><span class="lr-pulse" style="animation-delay:.19s"></span><span class="lr-pulse" style="animation-delay:.38s"></span><span class="lr-pulse" style="animation-delay:.57s"></span><span class="lr-pulse" style="animation-delay:.76s"></span><span class="lr-pulse" style="animation-delay:.95s"></span></span><span class="lr-node">GPU</span></div>
+            </div>
+          </div>
+        </div>
+        <figcaption>เลนแสงปล่อย pulse ถี่และเร็วกว่ามาก = <strong>แบนด์วิดท์สูงกว่า</strong> ส่วนเลนทองแดงน้อย/ช้า และจางลงเมื่อไกล (สูญเสีย+ร้อน) — นี่คือเหตุผลที่ AI ดันความต้องการ optical interconnect แบบก้าวกระโดด</figcaption>
+      </figure>
+
+      <h2>3. อ่านแสง 2 แบบ: IMDD vs Coherent</h2>
+      <p>
+        ชื่อบริษัท "Coherent" มาจากเทคนิคการอ่านแสงแบบหนึ่ง วิธีที่ง่ายสุดคือ <strong>IMDD</strong> —
+        ดูแค่ว่าแสง "สว่างหรือดับ" (1 กับ 0) ส่วน <strong>Coherent detection</strong> อ่านทั้งรูปคลื่นและ
+        "มุมเฟส" ของแสงด้วยเลเซอร์อ้างอิง จึงอัดข้อมูลได้หลายมิติต่อหนึ่งช่องและทนการสูญเสียได้ดีกว่า
+      </p>
+      <figure class="ph-fig">
+        <div class="ph-panel">
+          <div class="ph-eyebrow">Coherent vs IMDD</div>
+          <div class="ph-cards">
+            <div class="pcard imdd">
+              <h3>IMDD</h3>
+              <svg viewBox="0 0 200 84"><path class="ph-sq" d="M10,60 H40 V24 H75 V60 H110 V24 H145 V60 H190"/></svg>
+              <div class="pcard-sub">อ่านแค่ความสว่าง · สว่าง/ดับ</div>
+              <div class="pcard-foot">1 มิติ · เฟสถูกทิ้ง</div>
+            </div>
+            <div class="pcard coh">
+              <h3>Coherent</h3>
+              <svg viewBox="0 0 200 84"><path class="ph-sine" d="M8,42 C24,8 40,8 56,42 S88,76 104,42 S136,8 152,42"/><circle class="ph-dial" cx="178" cy="42" r="13"/><line class="ph-hand" x1="178" y1="42" x2="178" y2="31"/></svg>
+              <div class="pcard-sub">อ่านความสว่าง + มุมเฟส</div>
+              <div class="pcard-foot">2 มิติ · เลเซอร์อ้างอิงขยาย</div>
+            </div>
+          </div>
+        </div>
+        <figcaption>IMDD เห็นแค่ <strong>สว่าง/ดับ</strong> ส่วน coherent อ่าน <strong>รูปคลื่นทั้งหมด + มุมเฟส</strong> จึงอัดข้อมูลต่อช่องได้มากกว่า — เป็นเทรนด์ที่กำลังลามจากสายส่งระยะไกลเข้ามาในระยะสั้นของ datacenter</figcaption>
+      </figure>
+
+      <h2>4. แสงวิ่งบนชิปได้ยังไง: SiPh Waveguide</h2>
+      <p>
+        แล้วเราพาแสงวิ่ง "บนชิป" ได้ยังไง? คำตอบคือ <strong>Silicon Photonics (SiPh)</strong> — ทำท่อนำแสง
+        (waveguide) ลงบนแผ่นซิลิคอน รับแสงเข้ามาแล้วนำไปยังตัวตรวจจับ ทำบน SOI wafer ด้วยต้นทุนสเกลแบบเซมิคอนดักเตอร์
+      </p>
+      <figure class="ph-fig">
+        <div class="ph-panel">
+          <div class="ph-eyebrow">SiPh · Waveguide</div>
+          <svg class="ph-svg" viewBox="0 0 820 350" role="img" aria-label="SiPh waveguide">
+            <rect class="ph-soi" x="150" y="298" width="520" height="34" rx="8"/>
+            <text class="ph-soi-txt" x="410" y="320" text-anchor="middle">SOI wafer · Soitec</text>
+            <text class="ph-lbl-th" x="118" y="118" text-anchor="middle">แสงเข้า</text>
+            <line class="ph-ray" x1="68" y1="150" x2="150" y2="185"/><line class="ph-ray" x1="62" y1="185" x2="150" y2="185"/><line class="ph-ray" x1="68" y1="220" x2="150" y2="185"/>
+            <polygon class="ph-coupler" points="150,158 150,212 210,185"/>
+            <path class="wg-base" d="M205,185 H470 C520,185 525,235 560,250 C585,261 600,262 650,262"/>
+            <path class="wg-light" d="M205,185 H470 C520,185 525,235 560,250 C585,261 600,262 650,262"/>
+            <text class="ph-lbl" x="350" y="165" text-anchor="middle">waveguide</text>
+            <rect class="ph-det" x="648" y="234" width="56" height="56" rx="12"/>
+            <text class="ph-lbl" x="676" y="312" text-anchor="middle">detector</text>
+          </svg>
+        </div>
+        <figcaption><strong>SiPh</strong> = ท่อนำแสงบนซิลิคอน — แสงไหลตาม waveguide ไปเข้า detector ทำบน <strong>SOI wafer</strong> (Soitec เป็นเจ้าตลาด) จุดเด่นคือผลิตได้ด้วยโครงสร้างต้นทุนแบบชิป</figcaption>
+      </figure>
+
+      <h2>5. รวมทุกอย่างไว้บนชิปเดียว: InP PIC</h2>
+      <p>
+        จุดเปลี่ยนสำคัญคือ <strong>InP PIC</strong> (Indium Phosphide Photonic IC) — รวมทั้ง "เครื่องยนต์แสง"
+        (laser, modulator, amplifier, detector, optical mixer) ไว้บนชิปเดียว แต่แลกมาด้วยพื้นที่ die ที่ใหญ่ขึ้น
+        ~100× เทียบ EML แบบเดิม ทำให้ผลิตยากขึ้น (ได้ชิปดีต่อเวเฟอร์น้อยลง) — ใครทำ InP ได้ครบและสเกลได้ก่อนจึงได้เปรียบ
+      </p>
+      <figure class="ph-fig">
+        <div class="ph-panel">
+          <div class="ph-eyebrow">InP PIC · The Key Inflection</div>
+          <svg class="ph-svg" viewBox="0 0 820 330" role="img" aria-label="InP PIC">
+            <circle class="ph-wafer" cx="400" cy="150" r="140"/>
+            <rect class="ph-cell" x="320" y="70" width="50" height="50" rx="6"/><rect class="ph-cell" x="430" y="70" width="50" height="50" rx="6"/>
+            <rect class="ph-cell" x="290" y="180" width="50" height="50" rx="6"/><rect class="ph-cell" x="460" y="180" width="50" height="50" rx="6"/>
+            <rect class="ph-cell" x="345" y="20" width="50" height="50" rx="6"/><rect class="ph-cell" x="405" y="20" width="50" height="50" rx="6"/>
+            <rect class="ph-cell-hot" x="340" y="95" width="120" height="58" rx="8"/>
+            <text class="ph-cell-lbl" x="368" y="119" text-anchor="middle">laser</text><text class="ph-cell-lbl" x="432" y="119" text-anchor="middle">mod</text>
+            <rect class="ph-cell-hot" x="340" y="158" width="120" height="58" rx="8"/>
+            <text class="ph-cell-lbl" x="368" y="182" text-anchor="middle">amp</text><text class="ph-cell-lbl" x="432" y="182" text-anchor="middle">detector</text>
+            <rect class="ph-cell-hot" x="340" y="221" width="120" height="40" rx="8"/>
+            <text class="ph-cell-lbl" x="400" y="246" text-anchor="middle">optical mixer</text>
+            <text class="ph-big" x="600" y="150">~100×</text>
+            <text class="ph-stat" x="600" y="178">DIE AREA vs EML</text>
+            <text class="ph-stat" x="600" y="198" fill="#d67c4a">YIELD ↓</text>
+          </svg>
+        </div>
+        <figcaption><strong>InP PIC</strong> รวมทั้ง engine ไว้บนชิปเดียว — die ใหญ่ขึ้น <strong>~100×</strong> ผลิตยากขึ้น นี่คือเดิมพันเชิงเทคนิคที่ COHR ลงทุน double กำลังผลิต InP บน platform 6 นิ้ว</figcaption>
+      </figure>
+
+      <h2>6. วัสดุ 3 ค่าย: ไม่มีผู้ชนะรายเดียว</h2>
+      <p>
+        ในโลก optical ไม่มีวัสดุเดียวที่เก่งทุกอย่าง — แต่ละค่ายถือคนละหน้าที่: <strong>InP</strong> เปล่งแสงได้
+        (ทำ laser), <strong>SiPh</strong> เด่นเรื่องรับ/ต่อแสงด้วยต้นทุนชิป, <strong>TFLN</strong> เป็นวัสดุมอดูเลตรุ่นใหม่
+        ที่ "ปั้นสัญญาณ" ได้เร็วมากแต่ไม่เปล่งแสงเอง
+      </p>
+      <figure class="ph-fig">
+        <div class="ph-panel">
+          <div class="ph-eyebrow">InP · SiPh · TFLN</div>
+          <svg viewBox="0 0 620 80" style="width:100%;max-width:620px;display:block;margin:0 auto 14px"><path class="ph-tsine" d="M10,40 C40,5 70,5 100,40 S160,75 190,40 S250,5 280,40 S340,75 370,40 S430,5 460,40 S520,75 550,40 S610,5 610,40"/></svg>
+          <div class="ph-cards3">
+            <div class="tcard inp"><b>InP</b><span>ส่ง + เปล่งแสง</span></div>
+            <div class="tcard siph"><b>SiPh</b><span>รับ + coupler</span></div>
+            <div class="tcard tfln"><b>TFLN</b><span>มอดูเลตเร็วสูง</span></div>
+          </div>
+        </div>
+        <figcaption>แต่ละวัสดุถือคนละหน้าที่ ไม่มีใครชนะคนเดียว — ข้อได้เปรียบของ COHR คือทำ <strong>InP ครบวงจร</strong> (materials → wafer → laser → transceiver) ในบ้านตัวเอง ซึ่งคู่แข่งส่วนใหญ่ต้องซื้อ InP จากข้างนอก</figcaption>
+      </figure>
+
+      <h2>7. แล้ว COHR ได้เปรียบตรงไหน (และไม่ได้เปรียบตรงไหน)</h2>
+      <p><strong>ที่ได้เปรียบ:</strong></p>
+      <ul>
+        <li><strong>Vertical integration ใน InP</strong> — ทำครบตั้งแต่ materials → InP wafer → laser → transceiver
+          สะสมมา 20+ ปีผ่าน Finisar + Coherent Inc. กำลัง double กำลังผลิต InP บน platform 6 นิ้ว yield ดีกว่า</li>
+        <li><strong>Scale</strong> — เป็น pure-play optical รายใหญ่สุดในกลุ่ม (รายได้ ~$7B เทียบ Lumentum ~$2.7B) + มี NVIDIA เป็น anchor demand/ผู้ลงทุน</li>
+        <li><strong>Margin กำลังขยาย</strong> — Non-GAAP gross margin 39.6%, operating margin ขยับขึ้น = operating leverage เริ่มทำงาน</li>
+      </ul>
+      <p><strong>ที่ต้องเข้าใจตามจริง (moat แค่ "ปานกลาง"):</strong></p>
+      <ul>
+        <li><strong>เป็น price-taker มากกว่า price-maker</strong> — gross margin ยังต่ำกว่าคู่แข่ง (Lumentum 47.9%, MACOM 58.5%)
+          และ second-source ทำได้ใน 1–2 ปี ไม่ใช่ lock-in ถาวร; ลูกค้า hyperscaler มีอำนาจต่อรองสูง</li>
+        <li><strong>ทุนหนัก + เป็นวัฏจักร</strong> — capex พุ่ง (FCF ติดลบใน FY2026), พึ่ง demand จาก hyperscaler ไม่กี่ราย (2 ราย &gt;10% ของรายได้) = concentration risk</li>
+        <li><strong>โตจาก M&amp;A เป็นหลัก</strong> — goodwill $4.4B + intangibles ~$3.0B (~40% ของสินทรัพย์) = impairment risk ถ้า cycle พลิก; และ<strong>หุ้นเพิ่มทุนเยอะ</strong> (share count ~155M → ~190M จาก preferred conversion + NVIDIA placement)</li>
+        <li><strong>GAAP vs Non-GAAP ห่างกันมาก</strong> — GAAP เพิ่งกลับมาบวก ($0.97) ขณะ Non-GAAP $1.41 ต่างกันเพราะ amortization ของ intangibles ~$71M/ไตรมาส + restructuring</li>
+      </ul>
+      <blockquote>
+        วิธีคิดสั้นๆ: COHR คือ "picks-and-shovels" ของยุค AI — แต่เป็นแบบ <strong>ทุนหนัก เป็นวัฏจักร และแข่งดุ</strong>
+        ไม่ใช่ toll-bridge ที่ผูกขาด เก็บค่าผ่านทางสบายๆ
+      </blockquote>
+
+      <h2>8. จุดที่ต้องระวัง (Kill Conditions)</h2>
+      <p>วินัยของผมคือกำหนดไว้ก่อนว่า "อะไรจะบอกว่าคิดผิด" — สำหรับ COHR ผมจะระวังเมื่อ:</p>
+      <ul>
+        <li><strong>Datacenter &amp; Comms โตช้าลงต่ำกว่า +15% YoY สองไตรมาสติด</strong> → secular AI-optical thesis เริ่มสะดุด</li>
+        <li><strong>Inventory ยัง build ต่อขณะรายได้โตช้าลง</strong> (สต๊อก $2.13B อยู่แล้ว) → สัญญาณ demand miss + เสี่ยง write-down</li>
+        <li><strong>Non-GAAP operating margin หยุดขยายหรือถอยสองไตรมาสติด</strong> → operating leverage ไม่จริง / โดนบีบราคา (ดู gap กับ Lumentum ถ้ากว้างขึ้นเรื่อยๆ = price-taker)</li>
+      </ul>
+
+      <h2>9. สรุป</h2>
+      <p>
+        เรื่องของ COHR คือเรื่องของ "แสง" ที่กำลังเข้ามาแก้คอขวดที่แท้จริงของ AI — การย้ายข้อมูลระหว่างชิป
+        และ Coherent เป็นหนึ่งในผู้เล่นหัวแถวที่ทำชิ้นส่วนหัวใจนั้น (โดยเฉพาะ InP แบบครบวงจร) เทคโนโลยีน่าตื่นเต้นจริง
+      </p>
+      <p>
+        แต่บทเรียนของหุ้นแบบนี้คือ <strong>"เข้าใจให้ชัดว่ากำลังถืออะไร"</strong> — มันไม่ใช่ธุรกิจผูกขาดกำไรงาม
+        แต่เป็น picks-and-shovels ที่ <em>ทุนหนัก เป็นวัฏจักร แข่งดุ พึ่งลูกค้าน้อยราย และเพิ่มทุนบ่อย</em>
+        ส่วนเรื่อง "ราคาเท่าไหร่ถึงน่าซื้อ" ผมขอไม่ฟันธง — ต่างคนต่างมีกรอบของตัวเอง สิ่งที่บทนี้อยากให้ได้กลับไปคือ
+        <strong>เข้าใจเทคโนโลยีและโครงสร้างความเสี่ยงของธุรกิจ</strong> เพื่อให้ตัดสินใจเองได้บนพื้นฐานที่แน่น
+      </p>
+
+      <div class="author-card">
+        <span class="byline-avatar">M</span>
+        <div>
+          <strong>Moatrices</strong>
+          <p>บันทึกการเรียนวิเคราะห์หุ้น US เชิงลึก สาย fundamental — เน้นพื้นฐานธุรกิจ ไม่ใช่ราคา <a href="../about.html">เกี่ยวกับเว็บนี้ →</a></p>
+        </div>
+      </div>
+
+      <p class="back"><a href="../index.html">← กลับหน้าแรก</a></p>
+
+    </div>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container footer-grid">
+      <div class="footer-brand">
+        <a href="../index.html" class="site-title">Moatrices</a>
+        <p>บันทึกการเรียนวิเคราะห์หุ้น US เชิงลึก ภาษาไทย — เน้นพื้นฐานธุรกิจ ไม่ใช่ราคา</p>
+      </div>
+      <nav class="footer-nav">
+        <a href="../index.html">หน้าแรก</a>
+        <a href="../dashboard.html">Dashboard</a>
+        <a href="../about.html">เกี่ยวกับ</a>
+      </nav>
+    </div>
+    <div class="container footer-legal">
+      <p><strong>คำเตือน:</strong> เนื้อหาทั้งหมดเป็นบันทึกการเรียนและความเห็นส่วนตัว
+         เพื่อการศึกษาเท่านั้น <strong>ไม่ใช่คำแนะนำการลงทุน</strong> ไม่ใช่การชี้นำให้ซื้อหรือขายหลักทรัพย์ใดๆ
+         ตัวเลขอ้างอิงงบที่เผยแพร่ ณ ช่วงเวลาหนึ่งและอาจล้าสมัย การตัดสินใจลงทุนเป็นความรับผิดชอบของผู้อ่านเอง</p>
+      <p>© 2026 Moatrices · เผยแพร่ผ่าน GitHub Pages</p>
+    </div>
+  </footer>
+
+  <button class="to-top" aria-label="กลับขึ้นด้านบน">↑</button>
+  <script defer src="../app.js"></script>
+
+</body>
+</html>

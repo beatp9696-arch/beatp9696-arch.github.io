@@ -5,8 +5,15 @@
 <link>https://beatp9696-arch.github.io/</link>
 <description>บันทึกการเรียนวิเคราะห์หุ้น US เชิงลึก เน้นพื้นฐานธุรกิจ ไม่ใช่ราคา</description>
 <language>th</language>
-<lastBuildDate>Sun, 28 Jun 2026 23:09:11 +0700</lastBuildDate>
+<lastBuildDate>Mon, 29 Jun 2026 10:30:02 +0700</lastBuildDate>
 <atom:link href="https://beatp9696-arch.github.io/feed.xml" rel="self" type="application/rss+xml"/>
+<item>
+<title>ผ่าธุรกิจ COHR (Coherent) — ทำไม AI ต้องส่งข้อมูลด้วยแสง</title>
+<link>https://beatp9696-arch.github.io/articles/deep-dive-cohr.html</link>
+<guid isPermaLink="true">https://beatp9696-arch.github.io/articles/deep-dive-cohr.html</guid>
+<pubDate>Mon, 29 Jun 2026 09:00:00 +0700</pubDate>
+<description>ผ่าธุรกิจ Coherent (COHR) — ทำไม AI datacenter ต้องเปลี่ยนจากทองแดงมาเป็นแสง: IMDD vs Coherent, SiPh waveguide, InP PIC, TFLN และจุดที่ COHR ได้เปรียบ อธิบายด้วยภาพเคลื่อนไหว</description>
+</item>
 <item>
 <title>ผ่าธุรกิจ TSM (TSMC) — โรงหล่อของโลก AI กับคูเมืองที่ลอกไม่ได้</title>
 <link>https://beatp9696-arch.github.io/articles/deep-dive-tsm.html</link>
