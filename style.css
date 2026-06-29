@@ -2088,6 +2088,44 @@ h2:hover > .heading-anchor, h3:hover > .heading-anchor { opacity: 0.45; }
 @media (prefers-reduced-motion: reduce) { .nv-core.on,.nv-cpu.on,.nv-flow,.nv-lit,.nv-neu,.nv-cuda,.nv-tok,.nv-bar,.nv-chip.lit{animation:none} .nv-lit{stroke-dashoffset:0;opacity:1} .nv-tok{opacity:1} }
 
 /* ============================================================
+   GOOGL — premium Alphabet sims (ad auction / ecosystem / flywheel / cloud / waymo / bear)
+   theme: Google 4-color (blue/red/yellow/green)
+   ============================================================ */
+.gl-panel { background: radial-gradient(120% 140% at 50% 0%, #11151c 0%, #07080b 70%); border-color: #1e2636; }
+.ph-eyebrow.gl { color: #7aa7ff; }
+.gl-panel .s-t { fill: #d4dbe8; }
+.gl-panel .s-t.sm { fill: #8a93a6; }
+.gl-t { font-family: var(--font-head); fill: #d4dbe8; font-size: 13px; text-anchor: middle; font-weight: 600; }
+.gl-t.sm { font-size: 11px; fill: #8a93a6; }
+.gl-mono { font-family: "IBM Plex Mono", ui-monospace, monospace; fill: #6f7a90; font-size: 11px; }
+.gl-node { fill: #141925; stroke: #2b3650; stroke-width: 1.4; }
+.gl-hub { fill: #16203a; stroke: #4285f4; stroke-width: 2.2; filter: drop-shadow(0 0 11px rgba(66,133,244,.5)); }
+.gl-spoke { fill: none; stroke: #2b3650; stroke-width: 2; stroke-linecap: round; }
+.gl-blue { fill: #4285f4; } .gl-red { fill: #ea4335; } .gl-yellow { fill: #fbbc05; } .gl-green { fill: #34a853; }
+.gl-comet { fill: #cfe0ff; filter: drop-shadow(0 0 6px #4285f4); }
+.gl-comet-g { fill: #bff5cf; filter: drop-shadow(0 0 6px #34a853); }
+.gl-comet-r { fill: #ffc9c4; filter: drop-shadow(0 0 6px #ea4335); }
+.gl-flow { fill: none; stroke-width: 2.4; stroke-linecap: round; stroke-dasharray: 14 10; animation: glflow 1s linear infinite; }
+@keyframes glflow { to { stroke-dashoffset: -24 } }
+.gl-lit { fill: none; stroke-width: 2.6; stroke-linecap: round; animation: glreveal 3s ease-in-out infinite; }
+@keyframes glreveal { 0%{stroke-dashoffset:var(--len);opacity:1} 70%{stroke-dashoffset:0;opacity:1} 100%{stroke-dashoffset:0;opacity:0} }
+.gl-svc { transform-box: fill-box; transform-origin: center; animation: glglow 2.4s ease-in-out infinite; }
+@keyframes glglow { 0%,82%{filter:none} 91%{filter:drop-shadow(0 0 10px rgba(122,167,255,.7))} 100%{filter:none} }
+.gl-ico { fill: none; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
+.gl-fw { fill: none; stroke-width: 4; stroke-linecap: round; filter: drop-shadow(0 0 6px rgba(66,133,244,.5)); animation: glfwrot 5s linear infinite; transform-origin: 300px 210px; }
+@keyframes glfwrot { to { transform: rotate(360deg) } }
+.gl-lidar { transform-box: fill-box; transform-origin: center; animation: gllidar 3s linear infinite; }
+@keyframes gllidar { to { transform: rotate(360deg) } }
+.gl-ping { transform-box: fill-box; transform-origin: center; animation: glping 2s ease-out infinite; }
+@keyframes glping { 0%{transform:scale(.3);opacity:.9} 100%{transform:scale(1.5);opacity:0} }
+.gl-block { stroke: #ea4335; stroke-width: 2; stroke-dasharray: 5 5; fill: none; }
+.gl-win { animation: glwin 2.8s ease-in-out infinite; }
+@keyframes glwin { 0%,55%,100%{filter:none} 70%{filter:drop-shadow(0 0 9px #fbbc05)} }
+.gl-bar { transform-box: fill-box; transform-origin: bottom; animation: glbar 3.4s ease-in-out infinite; }
+@keyframes glbar { 0%{transform:scaleY(.1)} 40%{transform:scaleY(1)} 90%{transform:scaleY(1)} 100%{transform:scaleY(.1)} }
+@media (prefers-reduced-motion: reduce) { .gl-flow,.gl-lit,.gl-svc,.gl-fw,.gl-lidar,.gl-ping,.gl-win,.gl-bar{animation:none} .gl-lit{stroke-dashoffset:0;opacity:1} }
+
+/* ============================================================
    COST — membership engine / flywheel / renewal / loyalty / SKU / fee
    ============================================================ */
 .cost-panel { background: radial-gradient(120% 140% at 50% 0%, #1a1012 0%, #0d0809 70%); border-color: #331a1d; }
