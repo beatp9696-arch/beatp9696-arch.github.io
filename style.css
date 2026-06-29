@@ -1986,3 +1986,35 @@ h2:hover > .heading-anchor, h3:hover > .heading-anchor { opacity: 0.45; }
 .rg-fill { stroke-dasharray: 289; stroke-dashoffset: var(--off); animation: rgfill 3.2s ease-out infinite; }
 @keyframes rgfill { 0%{stroke-dashoffset:289} 38%{stroke-dashoffset:var(--off)} 90%{stroke-dashoffset:var(--off)} 100%{stroke-dashoffset:289} }
 @media (prefers-reduced-motion: reduce) { .eco-pulse,.lg-pkg,.mfw-ring,.rg-fill{animation:none} .rg-fill{stroke-dashoffset:var(--off)} }
+
+/* ============================================================
+   COST — membership engine / flywheel / renewal / loyalty / SKU / fee
+   ============================================================ */
+.cost-panel { background: radial-gradient(120% 140% at 50% 0%, #1a1012 0%, #0d0809 70%); border-color: #331a1d; }
+.ph-eyebrow.cost { color: #f0758a; }
+.cost-panel .s-t { fill: #e6d8da; }
+.cost-panel .s-t.sm { fill: #b89aa0; }
+.cost-panel .sim-mono { fill: #9a7a80; }
+.cost-node { fill: #1c1416; stroke: #4a2e33; stroke-width: 1.4; }
+.cost-hub { fill: #2a1418; stroke: #e84855; stroke-width: 2.2; filter: drop-shadow(0 0 9px rgba(232,72,85,.45)); }
+.cost-line { stroke: #3a2428; stroke-width: 1.5; fill: none; }
+.cost-blue { fill: #1c1620; stroke: #3b82f6; stroke-width: 1.5; }
+.coin-g { fill: #34d399; filter: drop-shadow(0 0 4px #34d399); }
+.coin-r { fill: #f0758a; filter: drop-shadow(0 0 4px #e84855); }
+.coin-b { fill: #60a5fa; filter: drop-shadow(0 0 4px #3b82f6); }
+.fw2-ring { fill: none; stroke: #e84855; stroke-width: 3; stroke-dasharray: 60 880; opacity: .9; animation: fw2rot 5s linear infinite; transform-origin: 300px 205px; }
+@keyframes fw2rot { to{transform:rotate(360deg)} }
+.rn-track { fill: none; stroke: #2a1418; stroke-width: 13; }
+.rn-fill { fill: none; stroke: #34d399; stroke-width: 13; stroke-linecap: round; stroke-dasharray: 289; stroke-dashoffset: 29; transform: rotate(-90deg); transform-origin: center; animation: rndraw 3s ease-out infinite; }
+@keyframes rndraw { 0%{stroke-dashoffset:289} 45%{stroke-dashoffset:29} 100%{stroke-dashoffset:29} }
+.sku-big { fill: #2a1418; stroke: #e84855; stroke-width: 1.5; }
+.sku-small { fill: #1c1620; stroke: #3a4458; stroke-width: .6; }
+.pe-fill { fill: #34d399; transform-box: fill-box; transform-origin: bottom; animation: pefill 3.4s ease-in-out infinite; }
+@keyframes pefill { 0%{transform:scaleY(.1)} 40%{transform:scaleY(1)} 90%{transform:scaleY(1)} 100%{transform:scaleY(.1)} }
+.fee-knob { animation: feeknob 3.4s ease-in-out infinite; }
+@keyframes feeknob { 0%,30%{transform:translateX(0)} 55%,100%{transform:translateX(150px)} }
+.fee-bar { fill: #34d399; transform-box: fill-box; transform-origin: bottom; animation: feebar 3.4s ease-in-out infinite; }
+@keyframes feebar { 0%,40%{transform:scaleY(.45)} 65%,100%{transform:scaleY(1)} }
+.hd-pulse { transform-box: fill-box; transform-origin: center; animation: hdp 1.8s ease-in-out infinite; }
+@keyframes hdp { 0%,100%{transform:scale(1)} 50%{transform:scale(1.06)} }
+@media (prefers-reduced-motion: reduce) { .coin-g,.coin-r,.coin-b,.fw2-ring,.rn-fill,.pe-fill,.fee-knob,.fee-bar,.hd-pulse{animation:none} .rn-fill{stroke-dashoffset:29} }
