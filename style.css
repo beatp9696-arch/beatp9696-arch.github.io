@@ -2178,6 +2178,46 @@ h2:hover > .heading-anchor, h3:hover > .heading-anchor { opacity: 0.45; }
 @media (prefers-reduced-motion: reduce) { .sx-star,.sx-flame,.sx-catch,.sx-beam,.sx-flow,.sx-fw,.sx-bar,.sx-barx,.sx-lit,.sx-mark,.sx-tick,.sx-warn,.sx-alert{animation:none} .sx-lit{stroke-dashoffset:0;opacity:1} }
 
 /* ============================================================
+   LLY (Eli Lilly) — premium biopharma sims (GLP-1 mechanism / pipeline / manufacturing / TAM / cliff / bear)
+   theme: clinical teal-navy + Lilly red drug + gold signal
+   ============================================================ */
+.ly-panel { background: radial-gradient(140% 120% at 50% 0%, #0a1716 0%, #050a0a 72%); border-color: #173430; }
+.ph-eyebrow.ly { color: #5eead4; }
+.ly-panel .s-t { fill: #cfe3df; }
+.ly-panel .s-t.sm { fill: #7fa49c; }
+.ly-t { font-family: var(--font-head); fill: #cfe3df; font-size: 13px; text-anchor: middle; font-weight: 600; }
+.ly-t.sm { font-size: 11px; fill: #7fa49c; }
+.ly-mono { font-family: "IBM Plex Mono", ui-monospace, monospace; fill: #5f8a80; font-size: 11px; }
+.ly-node { fill: #0c1c1a; stroke: #1f463f; stroke-width: 1.4; }
+.ly-hub { fill: #10241f; stroke: #2dd4bf; stroke-width: 2.2; filter: drop-shadow(0 0 11px rgba(45,212,191,.5)); }
+.ly-head { fill: #2dd4bf; }
+.ly-tail { stroke: #1f6b60; stroke-width: 1.4; }
+.ly-recept { fill: #0e2a26; stroke: #2dd4bf; stroke-width: 2; }
+.ly-recept-on { animation: lyon 5s ease-in-out infinite; }
+@keyframes lyon { 0%,46%{filter:none} 56%,82%{filter:drop-shadow(0 0 11px #2dd4bf)} 100%{filter:none} }
+.ly-drug { fill: #ef4444; stroke: #fca5a5; stroke-width: 1.2; filter: drop-shadow(0 0 5px rgba(239,68,68,.6)); }
+.ly-sig { fill: #fbbf24; filter: drop-shadow(0 0 5px #f59e0b); }
+.ly-spoke { fill: none; stroke: #1f463f; stroke-width: 2; stroke-linecap: round; }
+.ly-flow { fill: none; stroke-width: 2.4; stroke-linecap: round; stroke-dasharray: 14 10; animation: lyflow 1s linear infinite; }
+@keyframes lyflow { to { stroke-dashoffset: -24 } }
+.ly-comet { fill: #a7f3d0; filter: drop-shadow(0 0 6px #2dd4bf); }
+.ly-comet-r { fill: #fecaca; filter: drop-shadow(0 0 6px #ef4444); }
+.ly-lit { fill: none; stroke-width: 3; stroke-linecap: round; animation: lyreveal 3.8s ease-in-out infinite; }
+@keyframes lyreveal { 0%{stroke-dashoffset:var(--len);opacity:1} 66%{stroke-dashoffset:0;opacity:1} 100%{stroke-dashoffset:0;opacity:.9} }
+.ly-cell { animation: lycell 3.6s ease-in-out infinite; }
+@keyframes lycell { 0%{fill:#16332e} 50%,100%{fill:#34d399} }
+.ly-gate { animation: lygate 3.4s ease-in-out infinite; }
+@keyframes lygate { 0%,100%{stroke:#1f463f;filter:none} 50%{stroke:#5eead4;filter:drop-shadow(0 0 7px #2dd4bf)} }
+.ly-bar { transform-box: fill-box; transform-origin: bottom; animation: lybar 3.4s ease-in-out infinite; }
+@keyframes lybar { 0%{transform:scaleY(.1)} 40%{transform:scaleY(1)} 90%{transform:scaleY(1)} 100%{transform:scaleY(.1)} }
+.ly-warn { animation: lywarn 1.7s ease-in-out infinite; }
+@keyframes lywarn { 0%,100%{opacity:.82} 50%{opacity:1; filter:drop-shadow(0 0 7px #ef4444)} }
+.ly-threat { fill: #2a1414; stroke: #ef4444; stroke-width: 1.6; }
+.ly-block { stroke: #f87171; stroke-width: 2; stroke-dasharray: 5 5; fill: none; }
+.ly-red { fill: #fca5a5; filter: drop-shadow(0 0 5px #ef4444); }
+@media (prefers-reduced-motion: reduce) { .ly-recept-on,.ly-flow,.ly-lit,.ly-cell,.ly-gate,.ly-bar,.ly-warn{animation:none} .ly-lit{stroke-dashoffset:0;opacity:1} }
+
+/* ============================================================
    COST — membership engine / flywheel / renewal / loyalty / SKU / fee
    ============================================================ */
 .cost-panel { background: radial-gradient(120% 140% at 50% 0%, #1a1012 0%, #0d0809 70%); border-color: #331a1d; }
