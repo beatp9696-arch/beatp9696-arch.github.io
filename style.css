@@ -1875,18 +1875,17 @@ h2:hover > .heading-anchor, h3:hover > .heading-anchor { opacity: 0.45; }
 @media (prefers-reduced-motion: reduce) { .nf-bar,.ad-grow{animation:none;transform:none} .fcf-line{animation:none;stroke-dashoffset:0} }
 
 /* ============================================================
-   SNPS animations (EDA flow / duopoly / switching / dilution / chip→system)
+   SNPS — EDA design flow (premium, pulse + stage-light)
    ============================================================ */
 .ph-eyebrow.snps { color: #a98fd6; }
+.eda-panel { background: radial-gradient(120% 140% at 50% 0%, #15101f 0%, #0b0c11 70%); border-color: #271d38; }
 .s-t { font-family: var(--font-head); fill: #cdc4e0; font-size: 13px; text-anchor: middle; font-weight: 600; }
-.s-t.sm { font-size: 11px; fill: #9088a8; }
-.s-mono { font-family: "IBM Plex Mono", ui-monospace, monospace; fill: #7c7490; font-size: 11px; }
-.s-node { fill: #171423; stroke: #2e2640; stroke-width: 1.5; }
-.s-stage { fill: #1a1530; stroke: #5b3fa8; stroke-width: 1.5; }
-.s-glow { filter: drop-shadow(0 0 6px #a855f7); }
-.s-line { stroke: url(#pg); stroke-width: 3; fill: none; opacity: .5; }
-.s-bar { transform-box: fill-box; transform-origin: bottom; animation: snpsg 3.6s ease-in-out infinite; }
-@keyframes snpsg { 0%{transform:scaleY(.06)} 18%{transform:scaleY(1)} 86%{transform:scaleY(1)} 100%{transform:scaleY(.06)} }
-.s-rev { transform-box: fill-box; transform-origin: left; animation: snpsrev 3.8s ease-in-out infinite; }
-@keyframes snpsrev { 0%{transform:scaleX(.1)} 40%{transform:scaleX(1)} 88%{transform:scaleX(1)} 100%{transform:scaleX(.1)} }
-@media (prefers-reduced-motion: reduce) { .s-bar,.s-rev { animation: none; transform: none } }
+.s-t.sm { font-size: 10.5px; fill: #7c7490; letter-spacing: .02em; }
+.eda-base { stroke: #241b35; stroke-width: 4; fill: none; stroke-linecap: round; }
+.eda-lit { stroke: url(#eg); stroke-width: 4; fill: none; stroke-linecap: round; stroke-dasharray: 668; stroke-dashoffset: 668; animation: edareveal 3.6s linear infinite; }
+@keyframes edareveal { 0%{stroke-dashoffset:668;opacity:1} 90%{stroke-dashoffset:0;opacity:1} 100%{stroke-dashoffset:0;opacity:0} }
+.stg { fill: #140f1e; stroke: #3b2d57; stroke-width: 1.5; animation: edalit 3.6s linear infinite; }
+@keyframes edalit { 0%{stroke:#3b2d57;fill:#140f1e;filter:none} 5%{stroke:#d8b4fe;fill:#2a1f47;filter:drop-shadow(0 0 10px #a855f7)} 22%{stroke:#3b2d57;fill:#140f1e;filter:none} 100%{stroke:#3b2d57;fill:#140f1e;filter:none} }
+.stg-final { stroke: #7c3aed; filter: drop-shadow(0 0 6px rgba(168,85,247,.5)); }
+.eda-comet { filter: drop-shadow(0 0 6px #c084fc); }
+@media (prefers-reduced-motion: reduce) { .eda-lit, .stg { animation: none } .eda-lit { stroke-dashoffset: 0; opacity: 1 } }

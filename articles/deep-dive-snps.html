@@ -83,23 +83,26 @@
       </blockquote>
 
       <h2>1. ธุรกิจนี้หาเงินจากอะไร</h2>
-      <figure class="ph-fig"><div class="ph-panel"><div class="ph-eyebrow snps">EDA · เส้นทางออกแบบชิป</div>
-      <svg viewBox="0 0 820 200" role="img" aria-label="EDA design flow">
-        <defs>
-          <linearGradient id="pg" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#7c3aed"/><stop offset="1" stop-color="#c084fc"/></linearGradient>
-          <radialGradient id="pglow"><stop offset="0" stop-color="#c084fc"/><stop offset="1" stop-color="#7c3aed" stop-opacity="0"/></radialGradient>
-        </defs>
-        <line class="s-line" x1="80" y1="95" x2="745" y2="95"/>
-        <rect class="s-stage" x="40" y="75" width="84" height="40" rx="9"/><text class="s-t" x="82" y="100">RTL</text><text class="s-t sm" x="82" y="140">โค้ดวงจร</text>
-        <rect class="s-stage" x="173" y="75" width="84" height="40" rx="9"/><text class="s-t" x="215" y="100" style="font-size:11.5px">Synthesis</text><text class="s-t sm" x="215" y="140">สังเคราะห์</text>
-        <rect class="s-stage" x="306" y="75" width="84" height="40" rx="9"/><text class="s-t" x="348" y="100" style="font-size:11px">P&amp;R</text><text class="s-t sm" x="348" y="140">วางวงจร</text>
-        <rect class="s-stage" x="439" y="75" width="84" height="40" rx="9"/><text class="s-t" x="481" y="100" style="font-size:11px">Verify</text><text class="s-t sm" x="481" y="140">ตรวจสอบ</text>
-        <rect class="s-stage" x="572" y="75" width="84" height="40" rx="9"/><text class="s-t" x="614" y="100" style="font-size:11px">Tape-out</text><text class="s-t sm" x="614" y="140">ส่งผลิต</text>
-        <rect class="s-stage s-glow" x="705" y="73" width="84" height="44" rx="9" fill="#2a1f47"/><text class="s-t" x="747" y="100" fill="#c084fc">Silicon</text><text class="s-t sm" x="747" y="140">ชิปจริง</text>
-        <circle r="8" fill="url(#pglow)"><animateMotion dur="3.6s" repeatCount="indefinite" path="M82,95 H747"/></circle>
-        <circle r="5" fill="#c084fc" class="s-glow"><animateMotion dur="3.6s" repeatCount="indefinite" path="M82,95 H747"/></circle>
-      </svg>
-      </div><figcaption>ชิปสมัยใหม่มีทรานซิสเตอร์<strong>หลายพันล้านตัว</strong> — ออกแบบมือไม่ได้ ต้องใช้ซอฟต์แวร์ EDA ของ Synopsys พา design วิ่งครบ flow ตั้งแต่โค้ดจนถึงชิปจริง</figcaption></figure>
+      <figure class="ph-fig"><div class="ph-panel eda-panel"><div class="ph-eyebrow snps">EDA · เส้นทางออกแบบชิป</div>
+        <svg viewBox="0 0 840 210" role="img" aria-label="EDA design flow">
+          <defs>
+            <linearGradient id="eg" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#7c3aed"/><stop offset=".5" stop-color="#a855f7"/><stop offset="1" stop-color="#e9d5ff"/></linearGradient>
+            <radialGradient id="pglow"><stop offset="0" stop-color="#e9d5ff"/><stop offset=".4" stop-color="#a855f7" stop-opacity=".7"/><stop offset="1" stop-color="#a855f7" stop-opacity="0"/></radialGradient>
+          </defs>
+          <line class="eda-base" x1="82" y1="92" x2="750" y2="92"/>
+          <line class="eda-lit" x1="82" y1="92" x2="750" y2="92"/>
+          <g><rect class="stg" x="40" y="72" width="84" height="40" rx="10" style="animation-delay:0s"/><text class="s-t" x="82" y="97">RTL</text><text class="s-t sm" x="82" y="140">โค้ดวงจร</text></g>
+          <g><rect class="stg" x="173" y="72" width="84" height="40" rx="10" style="animation-delay:.72s"/><text class="s-t" x="215" y="97" style="font-size:11.5px">Synthesis</text><text class="s-t sm" x="215" y="140">สังเคราะห์</text></g>
+          <g><rect class="stg" x="306" y="72" width="84" height="40" rx="10" style="animation-delay:1.43s"/><text class="s-t" x="348" y="97" style="font-size:12px">P&amp;R</text><text class="s-t sm" x="348" y="140">วางวงจร</text></g>
+          <g><rect class="stg" x="439" y="72" width="84" height="40" rx="10" style="animation-delay:2.15s"/><text class="s-t" x="481" y="97" style="font-size:12px">Verify</text><text class="s-t sm" x="481" y="140">ตรวจสอบ</text></g>
+          <g><rect class="stg" x="572" y="72" width="84" height="40" rx="10" style="animation-delay:2.87s"/><text class="s-t" x="614" y="97" style="font-size:11px">Tape-out</text><text class="s-t sm" x="614" y="140">ส่งผลิต</text></g>
+          <g><rect class="stg stg-final" x="708" y="70" width="86" height="44" rx="10" style="animation-delay:3.55s"/><text class="s-t" x="751" y="97" fill="#e9d5ff">Silicon</text><text class="s-t sm" x="751" y="140" fill="#a98fd6">ชิปจริง</text></g>
+          <circle r="3" fill="#a855f7" opacity=".4"><animateMotion dur="3.6s" begin=".18s" repeatCount="indefinite" path="M82,92 H750"/></circle>
+          <circle r="4" fill="#c084fc" opacity=".6"><animateMotion dur="3.6s" begin=".09s" repeatCount="indefinite" path="M82,92 H750"/></circle>
+          <circle r="13" fill="url(#pglow)"><animateMotion dur="3.6s" repeatCount="indefinite" path="M82,92 H750"/></circle>
+          <circle r="5.5" fill="#f3e8ff" class="eda-comet"><animateMotion dur="3.6s" repeatCount="indefinite" path="M82,92 H750"/></circle>
+        </svg>
+      </div><figcaption>ชิปสมัยใหม่มีทรานซิสเตอร์<strong>หลายพันล้านตัว</strong> — ออกแบบมือไม่ได้ ต้องใช้ซอฟต์แวร์ EDA ของ Synopsys พา design วิ่งครบ flow ตั้งแต่โค้ดจนถึงชิปจริง แต่ละขั้นคือเครื่องมือคนละชุดที่ผูกกันเป็นสายการผลิตเดียว — นี่คือคูเมืองของ Synopsys</figcaption></figure>
       <p>
         Synopsys ขายซอฟต์แวร์ <strong>EDA (Electronic Design Automation)</strong> —
         เครื่องมือที่วิศวกรทั่วโลกใช้ออกแบบ ตรวจสอบ และทดสอบชิปก่อนผลิตจริง
@@ -121,26 +124,6 @@
       </p>
 
       <h2>2. Moat: คูเมืองอยู่ตรงไหน</h2>
-      <figure class="ph-fig"><div class="ph-panel"><div class="ph-eyebrow snps">EDA Duopoly · ผู้เล่นแค่ 2 ราย</div>
-      <svg viewBox="0 0 820 220" role="img" aria-label="EDA duopoly">
-        <rect class="s-stage s-glow" x="70" y="60" width="300" height="90" rx="12"/><text class="s-t" x="220" y="100" style="font-size:18px" fill="#c084fc">Synopsys</text><text class="s-t sm" x="220" y="125">+ Cadence = แทบทั้งตลาด EDA</text>
-        <rect class="s-node" x="390" y="60" width="270" height="90" rx="12" stroke="#5b3fa8"/><text class="s-t" x="525" y="105" style="font-size:18px">Cadence</text>
-        <rect class="s-node" x="680" y="95" width="70" height="55" rx="8"/><text class="s-t sm" x="715" y="127">อื่นๆ</text>
-        <text class="s-mono" x="70" y="185" style="text-anchor:start">ตลาดที่ขึ้นกับ know-how + yield สะสม — เงินอย่างเดียวซื้อไม่ได้ คู่แข่งใหม่แทบเกิดไม่ได้</text>
-      </svg>
-      </div><figcaption>EDA เป็น <strong>duopoly</strong> — Synopsys กับ Cadence คุมตลาดเกือบเบ็ดเสร็จ เพราะต้องสะสม know-how และความเชื่อมั่นจากการ tape-out จริงหลายสิบปี เป็นโครงสร้างตลาดที่ทนทานมาก</figcaption></figure>
-      <figure class="ph-fig"><div class="ph-panel"><div class="ph-eyebrow snps">Switching Cost สูงมาก · คูเมือง</div>
-      <svg viewBox="0 0 820 230" role="img" aria-label="switching cost">
-        <rect class="s-stage" x="60" y="80" width="150" height="70" rx="12"/><text class="s-t" x="135" y="112">design ลูกค้า</text><text class="s-t sm" x="135" y="132">ฝังใน flow</text>
-        <rect class="s-stage s-glow" x="310" y="70" width="170" height="90" rx="12"/><text class="s-t" x="395" y="110" fill="#c084fc" style="font-size:16px">Synopsys flow</text><text class="s-t sm" x="395" y="135">ผูกลึกหลายปี</text>
-        <line x1="210" y1="100" x2="310" y2="100" stroke="#a855f7" stroke-width="2.5"/><line x1="210" y1="130" x2="310" y2="130" stroke="#a855f7" stroke-width="2.5"/>
-        <rect class="s-node" x="600" y="85" width="150" height="60" rx="12" stroke="#3a3340" opacity=".55"/><text class="s-t sm" x="675" y="120" fill="#7c7490">เครื่องมืออื่น</text>
-        <path d="M480,128 H600" stroke="#5a4a3a" stroke-width="2" stroke-dasharray="6 6"/>
-        <text x="540" y="100" class="s-mono" text-anchor="middle" fill="#d98a5a">⚠ ย้าย =</text>
-        <text x="540" y="165" class="s-mono" text-anchor="middle" fill="#d98a5a">re-validate ทั้ง flow</text>
-        <text x="540" y="183" class="s-mono" text-anchor="middle" fill="#d98a5a">เสี่ยง tape-out $หลายล้าน</text>
-      </svg>
-      </div><figcaption>ลูกค้าฝัง design flow ลึกกับเครื่องมือ Synopsys — ย้ายกลางโปรเจกต์ = ต้อง <strong>re-validate ทั้ง flow</strong> + เสี่ยง tape-out พลาด (เสียหลายล้าน/รอบ) จึงแทบไม่มีใครย้าย = <strong>switching cost สูงมาก</strong> (ตรงข้ามกับ NFLX)</figcaption></figure>
       <ul>
         <li><strong>EDA เป็น duopoly</strong> กับ Cadence — ตลาดที่ผู้เล่นหลักมีแค่ 2 ราย</li>
         <li><strong>Switching cost สูงมาก</strong> — ลูกค้าฝัง design flow ลึก ย้ายเครื่องมือกลางโปรเจค
@@ -163,15 +146,6 @@
       </ul>
 
       <h2>4. ตัวเลขบอกอะไร — และกับดักที่มือใหม่ติด</h2>
-      <figure class="ph-fig"><div class="ph-panel"><div class="ph-eyebrow snps">กับดักที่มือใหม่ติด · Dilution</div>
-      <svg viewBox="0 0 820 230" role="img" aria-label="dilution trap">
-        <text class="s-t sm" x="70" y="50" style="text-anchor:start">รายได้ (Q2 FY26)</text>
-        <rect class="s-rev" x="70" y="62" width="560" height="40" rx="6" fill="#3a7d5a"/><text class="s-t" x="350" y="88">Revenue +41.9% YoY</text>
-        <text class="s-mono" x="70" y="135" style="text-anchor:start" fill="#a98fd6">÷ จำนวนหุ้น +23% (จ่ายดีล Ansys ด้วยหุ้น)</text>
-        <text class="s-t sm" x="70" y="178" style="text-anchor:start">ผลต่อหุ้น</text>
-        <rect class="s-node" x="70" y="190" width="220" height="30" rx="6" fill="#5a2a30" stroke="#a33340"/><text class="s-t" x="180" y="210" fill="#e0888f" style="font-size:12px">non-GAAP EPS $3.35 (−8.7%)</text>
-      </svg>
-      </div><figcaption>กับดักคลาสสิก: <strong>รายได้ +42% แต่กำไรต่อหุ้นกลับติดลบ</strong> เพราะจ่ายซื้อ Ansys ด้วยหุ้น → หุ้นเพิ่ม +23% เจือจางทุกอย่าง (และ GAAP โดน amortization $404m/ไตรมาสกดอีก) — โตจริงไหมต้องดูต่อหุ้น</figcaption></figure>
       <p>
         รายได้โตแรง: FY23 $5.32bn → FY25 $7.05bn และ Q2 FY2026
         <strong>$2.276bn (+41.9% YoY)</strong> — แต่การโตนี้ <em>พึ่ง Ansys เป็นหลัก</em>
@@ -206,16 +180,6 @@
       </p>
 
       <h2>5. ความหวัง "Physical AI" — จริงแค่ไหน?</h2>
-      <figure class="ph-fig"><div class="ph-panel"><div class="ph-eyebrow snps">Ansys · จากชิป → ทั้งระบบ (Physical AI)</div>
-      <svg viewBox="0 0 820 230" role="img" aria-label="chip to system">
-        <rect class="s-stage" x="50" y="95" width="70" height="40" rx="8"/><text class="s-t sm" x="85" y="120">ทรานซิสเตอร์</text>
-        <rect class="s-stage" x="200" y="90" width="80" height="50" rx="8"/><text class="s-t sm" x="240" y="120">ชิป</text>
-        <rect class="s-stage" x="360" y="82" width="100" height="66" rx="8"/><text class="s-t sm" x="410" y="120">บอร์ด/อุปกรณ์</text>
-        <rect class="s-stage s-glow" x="540" y="62" width="230" height="106" rx="12" fill="#2a1f47"/><text class="s-t" x="655" y="105" fill="#c084fc" style="font-size:15px">ทั้งระบบ (รถ/หุ่นยนต์)</text><text class="s-t sm" x="655" y="132">digital twin · Ansys simulation</text>
-        <path d="M120,115 H200 M280,115 H360 M460,115 H540" stroke="#a855f7" stroke-width="2.5"/>
-        <text class="s-mono" x="200" y="200" text-anchor="middle" fill="#a98fd6">zoom out — ขอบเขตที่จำลองใหญ่ขึ้นเรื่อยๆ</text>
-      </svg>
-      </div><figcaption>เดิม Synopsys ออกแบบแค่ "ชิป" — ดีล Ansys ขยายไปสู่การ<strong>จำลองทั้งระบบ</strong> (รถ เครื่องบิน หุ่นยนต์) ซึ่งคือหัวใจของ <strong>Physical AI</strong> (หุ่นยนต์/AV ฝึกใน simulation) = TAM ใหญ่ขึ้นมาก — แต่เป็น "ความหวัง" ที่ต้องพิสูจน์</figcaption></figure>
       <p>
         เรื่องเล่ายอดนิยมคือ "Physical AI คือคลื่นลูกถัดไป ยิ่ง physical มา Ansys ยิ่งได้เปรียบ TAM ระเบิด"
         ทิศทางมีเหตุผล — Physical AI (หุ่นยนต์ รถยนต์ไร้คนขับ digital twin) ฝึกกันใน simulation
