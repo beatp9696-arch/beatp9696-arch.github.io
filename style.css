@@ -2379,6 +2379,55 @@ h2:hover > .heading-anchor, h3:hover > .heading-anchor { opacity: 0.45; }
 @media (prefers-reduced-motion: reduce) { .sp-flow,.sp-wave,.sp-steady,.sp-ig,.sp-glow,.sp-warn,.sp-pulse{animation:none} }
 
 /* ============================================================
+   MU — silicon / memory: DRAM cell · NAND · HBM stack/TSV · oligopoly · cycle
+   palette: navy + electric cyan (#22d3ee) + bit-green + amber cycle-heat + violet HBM
+   ============================================================ */
+.mu-panel { background: radial-gradient(140% 120% at 50% 0%, #081628 0%, #03070f 74%); border-color: #112844; }
+.ph-eyebrow.mu { color: #22d3ee; }
+.mu-screen { fill: #050d1a; stroke: #11233d; stroke-width: 1.5; }
+.mu-t { font-family: var(--font-head); fill: #cfe0f2; font-size: 13px; text-anchor: middle; font-weight: 600; }
+.mu-t.sm { font-size: 11px; fill: #8aa0bb; }
+.mu-mono { font-family: "IBM Plex Mono", ui-monospace, monospace; fill: #6f879f; font-size: 11px; }
+.mu-grid { stroke: #13263d; stroke-width: 1; }
+.mu-axis { stroke: #294063; stroke-width: 1.4; }
+.mu-cyan-c { fill: #67e8f9; filter: drop-shadow(0 0 5px #22d3ee); }
+.mu-green-c { fill: #6ee7b7; filter: drop-shadow(0 0 5px #10b981); }
+.mu-amber-c { fill: #fcd34d; filter: drop-shadow(0 0 5px #f59e0b); }
+.mu-violet-c { fill: #c4b5fd; filter: drop-shadow(0 0 5px #8b5cf6); }
+.mu-red-c { fill: #fca5a5; filter: drop-shadow(0 0 5px #ef4444); }
+.mu-die { fill: #0d2138; stroke: #38bdf8; stroke-width: 1.6; }
+.mu-die.v { fill: #1a1430; stroke: #a78bfa; }
+.mu-cell { fill: #0c1c30; stroke: #294063; stroke-width: 1.3; }
+.mu-cap { fill: #0a2a3a; stroke: #22d3ee; stroke-width: 1.6; }
+.mu-tile { fill: #0c1a2c; stroke: #294063; stroke-width: 1.4; }
+.mu-tile.cyan { stroke: #38bdf8; }
+.mu-tile.violet { stroke: #a78bfa; }
+.mu-tile.amber { stroke: #f59e0b; }
+.mu-fillc { fill: #123a52; }
+.mu-fillv { fill: #2a2150; }
+.mu-filla { fill: #5a4112; }
+.mu-line { fill: none; stroke: #38bdf8; stroke-width: 2.4; stroke-linecap: round; }
+.mu-line-up { fill: none; stroke: #34d399; stroke-width: 2.6; stroke-linecap: round; filter: drop-shadow(0 0 4px rgba(16,185,129,.5)); }
+.mu-line-amber { fill: none; stroke: #f59e0b; stroke-width: 2.6; stroke-linecap: round; }
+.mu-flow { fill: none; stroke-width: 2.4; stroke-linecap: round; stroke-dasharray: 13 10; animation: muflow 1s linear infinite; }
+@keyframes muflow { to { stroke-dashoffset: -23 } }
+.mu-tsv { stroke: #22d3ee; stroke-width: 2; stroke-dasharray: 4 8; animation: muflow 1.2s linear infinite; }
+.mu-zero { stroke: #6f879f; stroke-width: 1.4; stroke-dasharray: 6 5; }
+.mu-block { stroke: #f87171; stroke-width: 2; stroke-dasharray: 5 5; fill: none; }
+.mu-threat { fill: #14202e; stroke: #38bdf8; stroke-width: 1.5; }
+.mu-threat.warn { fill: #2a1414; stroke: #ef4444; }
+.mu-tape { font-family: "IBM Plex Mono", ui-monospace, monospace; fill: #67e8f9; font-size: 12px; letter-spacing: .04em; }
+.mu-glow { animation: muglow 2.6s ease-in-out infinite; }
+@keyframes muglow { 0%,82%{filter:none} 91%{filter:drop-shadow(0 0 10px rgba(34,211,238,.7))} 100%{filter:none} }
+.mu-warn { animation: muwarn 1.7s ease-in-out infinite; }
+@keyframes muwarn { 0%,100%{opacity:.82} 50%{opacity:1; filter:drop-shadow(0 0 7px #ef4444)} }
+.mu-pulse { animation: mupulse 1.6s ease-in-out infinite; }
+@keyframes mupulse { 0%,100%{opacity:.55} 50%{opacity:1} }
+.mu-refresh { animation: murefresh 2.4s ease-in-out infinite; }
+@keyframes murefresh { 0%{opacity:1} 60%{opacity:.28} 70%{opacity:1} 100%{opacity:1} }
+@media (prefers-reduced-motion: reduce) { .mu-flow,.mu-tsv,.mu-glow,.mu-warn,.mu-pulse,.mu-refresh{animation:none} }
+
+/* ============================================================
    COST — membership engine / flywheel / renewal / loyalty / SKU / fee
    ============================================================ */
 .cost-panel { background: radial-gradient(120% 140% at 50% 0%, #1a1012 0%, #0d0809 70%); border-color: #331a1d; }
