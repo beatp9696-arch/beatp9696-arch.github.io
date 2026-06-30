@@ -2290,6 +2290,41 @@ h2:hover > .heading-anchor, h3:hover > .heading-anchor { opacity: 0.45; }
 @media (prefers-reduced-motion: reduce) { .un-flow,.un-lit,.un-fw,.un-cell,.un-svc,.un-warn{animation:none} .un-lit{stroke-dashoffset:0;opacity:1} }
 
 /* ============================================================
+   SPGI (S&P Global) — premium finance sims (ratings toll / 5 divisions / ratings ladder / index royalty / revenue mix / bear)
+   theme: terminal gold + slate navy + data cyan + market green/red
+   ============================================================ */
+.sp-panel { background: radial-gradient(140% 120% at 50% 0%, #0d1320 0%, #060810 72%); border-color: #1d2940; }
+.ph-eyebrow.sp { color: #f5c451; }
+.sp-panel .s-t { fill: #d8dfea; }
+.sp-panel .s-t.sm { fill: #93a0b6; }
+.sp-t { font-family: var(--font-head); fill: #d8dfea; font-size: 13px; text-anchor: middle; font-weight: 600; }
+.sp-t.sm { font-size: 11px; fill: #93a0b6; }
+.sp-mono { font-family: "IBM Plex Mono", ui-monospace, monospace; fill: #7c8aa0; font-size: 11px; }
+.sp-node { fill: #0f1622; stroke: #2a3a54; stroke-width: 1.4; }
+.sp-gold { fill: #271d06; stroke: #f0a830; stroke-width: 2; }
+.sp-blue { fill: #0c2030; stroke: #38bdf8; stroke-width: 2; }
+.sp-hub { fill: #271d06; stroke: #f5c451; stroke-width: 2.2; filter: drop-shadow(0 0 12px rgba(240,168,48,.55)); }
+.sp-spoke { fill: none; stroke: #2a3a54; stroke-width: 2; stroke-linecap: round; }
+.sp-gold-c { fill: #fcd34d; filter: drop-shadow(0 0 5px #f0a830); }
+.sp-green { fill: #34d399; filter: drop-shadow(0 0 5px #10b981); }
+.sp-green-c { fill: #6ee7b7; filter: drop-shadow(0 0 5px #10b981); }
+.sp-red { fill: #f87171; filter: drop-shadow(0 0 5px #ef4444); }
+.sp-cyan-c { fill: #7dd3fc; filter: drop-shadow(0 0 5px #38bdf8); }
+.sp-flow { fill: none; stroke-width: 2.4; stroke-linecap: round; stroke-dasharray: 14 10; animation: spflow 1s linear infinite; }
+@keyframes spflow { to { stroke-dashoffset: -24 } }
+.sp-wave { fill: none; stroke: #f0a830; stroke-width: 2.4; stroke-linecap: round; stroke-dasharray: 9 7; animation: spflow 1.1s linear infinite; }
+.sp-steady { fill: none; stroke: #34d399; stroke-width: 2.2; stroke-linecap: round; stroke-dasharray: 2 9; animation: spflow 2.6s linear infinite; }
+.sp-ig { stroke: #34d399; stroke-width: 2; stroke-dasharray: 6 5; animation: spig 2.4s ease-in-out infinite; }
+@keyframes spig { 0%,100%{opacity:.5} 50%{opacity:1; filter:drop-shadow(0 0 6px #10b981)} }
+.sp-glow { animation: spglow 2.6s ease-in-out infinite; }
+@keyframes spglow { 0%,82%{filter:none} 91%{filter:drop-shadow(0 0 10px rgba(245,196,81,.7))} 100%{filter:none} }
+.sp-warn { animation: spwarn 1.7s ease-in-out infinite; }
+@keyframes spwarn { 0%,100%{opacity:.82} 50%{opacity:1; filter:drop-shadow(0 0 7px #ef4444)} }
+.sp-threat { fill: #2a1414; stroke: #ef4444; stroke-width: 1.6; }
+.sp-block { stroke: #f87171; stroke-width: 2; stroke-dasharray: 5 5; fill: none; }
+@media (prefers-reduced-motion: reduce) { .sp-flow,.sp-wave,.sp-steady,.sp-ig,.sp-glow,.sp-warn{animation:none} }
+
+/* ============================================================
    COST — membership engine / flywheel / renewal / loyalty / SKU / fee
    ============================================================ */
 .cost-panel { background: radial-gradient(120% 140% at 50% 0%, #1a1012 0%, #0d0809 70%); border-color: #331a1d; }
