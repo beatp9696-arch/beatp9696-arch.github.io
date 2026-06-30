@@ -2254,6 +2254,42 @@ h2:hover > .heading-anchor, h3:hover > .heading-anchor { opacity: 0.45; }
 @media (prefers-reduced-motion: reduce) { .ms-flow,.ms-lit,.ms-rise,.ms-svc,.ms-fw,.ms-meter,.ms-warn{animation:none} .ms-lit{stroke-dashoffset:0;opacity:1} }
 
 /* ============================================================
+   UNH (UnitedHealth) — premium healthcare sims (MLR / segments / integration / risk pool / flywheel / bear)
+   theme: UHC blue + Optum orange + health green + claims red
+   ============================================================ */
+.un-panel { background: radial-gradient(140% 120% at 50% 0%, #0b1220 0%, #060810 72%); border-color: #1a2944; }
+.ph-eyebrow.un { color: #6aa0f0; }
+.un-panel .s-t { fill: #cdd8ea; }
+.un-panel .s-t.sm { fill: #8a9bbd; }
+.un-t { font-family: var(--font-head); fill: #cdd8ea; font-size: 13px; text-anchor: middle; font-weight: 600; }
+.un-t.sm { font-size: 11px; fill: #8a9bbd; }
+.un-mono { font-family: "IBM Plex Mono", ui-monospace, monospace; fill: #6a7ea0; font-size: 11px; }
+.un-node { fill: #0e1626; stroke: #25375a; stroke-width: 1.4; }
+.un-blue { fill: #112545; stroke: #2b6fd8; stroke-width: 2; }
+.un-orange { fill: #2a1708; stroke: #ff7a3c; stroke-width: 2; }
+.un-hub { fill: #112545; stroke: #5a9ff0; stroke-width: 2.2; filter: drop-shadow(0 0 11px rgba(43,111,216,.5)); }
+.un-spoke { fill: none; stroke: #25375a; stroke-width: 2; stroke-linecap: round; }
+.un-green { fill: #34d399; filter: drop-shadow(0 0 5px #10b981); }
+.un-red { fill: #fca5a5; filter: drop-shadow(0 0 5px #ef4444); }
+.un-orange-c { fill: #ffc49a; filter: drop-shadow(0 0 5px #ff7a3c); }
+.un-blue-c { fill: #bcd8ff; filter: drop-shadow(0 0 5px #2b6fd8); }
+.un-flow { fill: none; stroke-width: 2.4; stroke-linecap: round; stroke-dasharray: 14 10; animation: unflow 1s linear infinite; }
+@keyframes unflow { to { stroke-dashoffset: -24 } }
+.un-lit { fill: none; stroke-width: 2.6; stroke-linecap: round; animation: unreveal 3s ease-in-out infinite; }
+@keyframes unreveal { 0%{stroke-dashoffset:var(--len);opacity:1} 70%{stroke-dashoffset:0;opacity:1} 100%{stroke-dashoffset:0;opacity:.9} }
+.un-fw { fill: none; stroke-width: 4; stroke-linecap: round; filter: drop-shadow(0 0 6px rgba(43,111,216,.5)); animation: unfwrot 5s linear infinite; transform-origin: 300px 210px; }
+@keyframes unfwrot { to { transform: rotate(360deg) } }
+.un-cell { animation: uncell 3.6s ease-in-out infinite; }
+@keyframes uncell { 0%,72%,100%{fill:#16332e;stroke:#1f6b50} 80%,92%{fill:#3a1414;stroke:#ef4444} }
+.un-svc { transform-box: fill-box; transform-origin: center; animation: unglow 2.4s ease-in-out infinite; }
+@keyframes unglow { 0%,82%{filter:none} 91%{filter:drop-shadow(0 0 10px rgba(90,159,240,.7))} 100%{filter:none} }
+.un-warn { animation: unwarn 1.7s ease-in-out infinite; }
+@keyframes unwarn { 0%,100%{opacity:.82} 50%{opacity:1; filter:drop-shadow(0 0 7px #ef4444)} }
+.un-threat { fill: #2a1414; stroke: #ef4444; stroke-width: 1.6; }
+.un-block { stroke: #f87171; stroke-width: 2; stroke-dasharray: 5 5; fill: none; }
+@media (prefers-reduced-motion: reduce) { .un-flow,.un-lit,.un-fw,.un-cell,.un-svc,.un-warn{animation:none} .un-lit{stroke-dashoffset:0;opacity:1} }
+
+/* ============================================================
    COST — membership engine / flywheel / renewal / loyalty / SKU / fee
    ============================================================ */
 .cost-panel { background: radial-gradient(120% 140% at 50% 0%, #1a1012 0%, #0d0809 70%); border-color: #331a1d; }
