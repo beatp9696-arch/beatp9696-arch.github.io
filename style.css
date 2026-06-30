@@ -2322,7 +2322,25 @@ h2:hover > .heading-anchor, h3:hover > .heading-anchor { opacity: 0.45; }
 @keyframes spwarn { 0%,100%{opacity:.82} 50%{opacity:1; filter:drop-shadow(0 0 7px #ef4444)} }
 .sp-threat { fill: #2a1414; stroke: #ef4444; stroke-width: 1.6; }
 .sp-block { stroke: #f87171; stroke-width: 2; stroke-dasharray: 5 5; fill: none; }
-@media (prefers-reduced-motion: reduce) { .sp-flow,.sp-wave,.sp-steady,.sp-ig,.sp-glow,.sp-warn{animation:none} }
+/* SPGI instrument/scene classes (terminal, treemap, dial, chart, tank, risk panel) */
+.sp-screen { fill: #07101c; stroke: #15293f; stroke-width: 1.5; }
+.sp-grid2 { stroke: #16233a; stroke-width: 1; }
+.sp-axis { stroke: #2a3a54; stroke-width: 1.4; }
+.sp-tape { font-family: "IBM Plex Mono", ui-monospace, monospace; fill: #6ee7b7; font-size: 12px; letter-spacing: .04em; }
+.sp-bondc { fill: #11203a; stroke: #2b6fd8; stroke-width: 1.4; }
+.sp-tile { fill: #0f1622; stroke: #2a3a54; stroke-width: 1.4; }
+.sp-tile.gold { stroke: #f0a830; }
+.sp-tile.cyan { stroke: #38bdf8; }
+.sp-fillg { fill: #6b4f12; }
+.sp-fillb { fill: #14384f; }
+.sp-area-rec { fill: #5a4310; opacity: .62; }
+.sp-area-tx { fill: #6e2613; opacity: .68; }
+.sp-line-g { fill: none; stroke: #f5c451; stroke-width: 2.4; stroke-linecap: round; }
+.sp-line-up { fill: none; stroke: #34d399; stroke-width: 2.6; stroke-linecap: round; filter: drop-shadow(0 0 4px rgba(16,185,129,.5)); }
+.sp-arc { fill: none; stroke-width: 22; }
+.sp-needle { stroke: #fcd34d; stroke-width: 3; stroke-linecap: round; filter: drop-shadow(0 0 5px #f0a830); }
+.sp-pulse { animation: spwarn 1.6s ease-in-out infinite; }
+@media (prefers-reduced-motion: reduce) { .sp-flow,.sp-wave,.sp-steady,.sp-ig,.sp-glow,.sp-warn,.sp-pulse{animation:none} }
 
 /* ============================================================
    COST — membership engine / flywheel / renewal / loyalty / SKU / fee
