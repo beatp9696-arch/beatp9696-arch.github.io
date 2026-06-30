@@ -2287,7 +2287,27 @@ h2:hover > .heading-anchor, h3:hover > .heading-anchor { opacity: 0.45; }
 @keyframes unwarn { 0%,100%{opacity:.82} 50%{opacity:1; filter:drop-shadow(0 0 7px #ef4444)} }
 .un-threat { fill: #2a1414; stroke: #ef4444; stroke-width: 1.6; }
 .un-block { stroke: #f87171; stroke-width: 2; stroke-dasharray: 5 5; fill: none; }
-@media (prefers-reduced-motion: reduce) { .un-flow,.un-lit,.un-fw,.un-cell,.un-svc,.un-warn{animation:none} .un-lit{stroke-dashoffset:0;opacity:1} }
+/* UNH instrument/scene classes (MLR meter, segment dashboard, sankey, convergence/dual chart, risk panel) */
+.un-screen { fill: #070d18; stroke: #16243c; stroke-width: 1.5; }
+.un-grid2 { stroke: #14223a; stroke-width: 1; }
+.un-axis { stroke: #25375a; stroke-width: 1.4; }
+.un-tile { fill: #0e1626; stroke: #25375a; stroke-width: 1.4; }
+.un-tile.blue { stroke: #2b6fd8; }
+.un-tile.orange { stroke: #ff7a3c; }
+.un-fillb { fill: #163a6b; }
+.un-fillo { fill: #7a3a14; }
+.un-fillr { fill: #6e2020; }
+.un-fillg { fill: #15543f; }
+.un-ribbon-b { fill: #1d4a86; opacity: .8; }
+.un-ribbon-r { fill: #7a2424; opacity: .82; }
+.un-ribbon-o { fill: #8a4016; opacity: .82; }
+.un-ribbon-c { fill: #15506b; opacity: .8; }
+.un-area-b { fill: #163a6b; opacity: .5; }
+.un-line-r { fill: none; stroke: #f87171; stroke-width: 2.6; stroke-linecap: round; filter: drop-shadow(0 0 4px rgba(239,68,68,.5)); }
+.un-line-b { fill: none; stroke: #5a9ff0; stroke-width: 2.6; stroke-linecap: round; }
+.un-needle { stroke: #ffffff; stroke-width: 3; stroke-linecap: round; filter: drop-shadow(0 0 5px #5a9ff0); }
+.un-pulse { animation: unwarn 1.6s ease-in-out infinite; }
+@media (prefers-reduced-motion: reduce) { .un-flow,.un-lit,.un-fw,.un-cell,.un-svc,.un-warn,.un-pulse{animation:none} .un-lit{stroke-dashoffset:0;opacity:1} }
 
 /* ============================================================
    SPGI (S&P Global) — premium finance sims (ratings toll / 5 divisions / ratings ladder / index royalty / revenue mix / bear)
