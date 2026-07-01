@@ -260,6 +260,82 @@
         (Nvidia gross margin ~70%+, HBM ที่ของขาดตลาด) ขณะที่ชั้นประกอบ/ศูนย์ข้อมูลเป็น capex หนักแต่มาร์จิ้นบาง
         คำถามคือ ทั้งสแตกนี้ถูก "เติมเงิน" มาจาก end-customer จริง หรือจากเงินที่หมุนอยู่ในวง?
       </p>
+      <p>
+        แล้ว compute พวกนั้นถูกใช้ทำอะไร? แบ่งเป็น 2 โหมดที่<strong>เศรษฐศาสตร์ตรงข้ามกันคนละขั้ว</strong> —
+        <strong>training</strong> (หลอมโมเดล ใช้ทุนก้อนใหญ่ครั้งเดียว) กับ <strong>inference</strong>
+        (โมเดลที่ฝึกเสร็จคอยตอบคำถามทีละคน สร้างรายได้ต่อเนื่อง):
+      </p>
+
+      <figure class="ph-fig"><div class="ph-panel bub-panel"><div class="ph-eyebrow bub">Training vs Inference · หลอมโมเดล vs ให้บริการ</div>
+        <svg viewBox="0 0 900 340" role="img" aria-label="ซ้าย GPU หลายตัวป้อนพลังหลอมโมเดล (training capex ก้อนใหญ่) ขวา โมเดลที่ฝึกเสร็จตอบคำถามผู้ใช้ทีละคนสร้างรายได้ (inference)">
+          <defs>
+            <radialGradient id="forge"><stop offset="0" stop-color="#f5b642" stop-opacity=".55"/><stop offset="1" stop-color="#f5b642" stop-opacity="0"/></radialGradient>
+            <radialGradient id="mind"><stop offset="0" stop-color="#34d399" stop-opacity=".4"/><stop offset="1" stop-color="#34d399" stop-opacity="0"/></radialGradient>
+          </defs>
+          <text class="bub-title" x="66" y="44" style="text-anchor:start">TRAINING · หลอมโมเดล</text>
+          <text class="bub-title" x="834" y="44" style="text-anchor:end;fill:#8fd3b6">INFERENCE · ให้บริการ</text>
+          <line x1="450" y1="60" x2="450" y2="286" stroke="#241d10" stroke-width="1" stroke-dasharray="4 7"/>
+
+          <!-- LEFT: GPU cluster forging the model -->
+          <g>
+            <rect x="60" y="108" width="46" height="34" rx="4" fill="#0f2a1a" stroke="#34d399" stroke-width="1.5"/><rect class="bub-core" x="70" y="116" width="26" height="18" rx="2" fill="#1f7a4d"/>
+            <rect x="60" y="150" width="46" height="34" rx="4" fill="#0f2a1a" stroke="#34d399" stroke-width="1.5"/><rect class="bub-core" x="70" y="158" width="26" height="18" rx="2" fill="#1f7a4d" style="animation-delay:.4s"/>
+            <rect x="60" y="192" width="46" height="34" rx="4" fill="#0f2a1a" stroke="#34d399" stroke-width="1.5"/><rect class="bub-core" x="70" y="200" width="26" height="18" rx="2" fill="#1f7a4d" style="animation-delay:.8s"/>
+          </g>
+          <text class="bub-sub" x="83" y="242">GPU cluster</text>
+
+          <!-- energy bolts into the forge -->
+          <path d="M106,125 C160,130 210,150 236,164" fill="none" stroke="#f5b642" stroke-width="2.4" class="bub-flow"/>
+          <path d="M106,167 C170,168 210,168 240,168" fill="none" stroke="#f5b642" stroke-width="2.4" class="bub-flow" style="animation-delay:.3s"/>
+          <path d="M106,209 C160,206 210,188 236,174" fill="none" stroke="#f5b642" stroke-width="2.4" class="bub-flow" style="animation-delay:.6s"/>
+          <text class="bub-sub" x="150" y="98" style="fill:#e0c07a">⚡ พลังเข้ามหาศาล</text>
+
+          <!-- forge + model being built -->
+          <circle cx="300" cy="168" r="80" fill="url(#forge)" class="bub-glow"/>
+          <circle cx="300" cy="168" r="60" fill="#120f08" stroke="#f5b642" stroke-width="1.8"/>
+          <g stroke="#7a6636" stroke-width="1.4">
+            <line x1="258" y1="150" x2="290" y2="136"/><line x1="290" y1="136" x2="320" y2="148"/><line x1="258" y1="150" x2="296" y2="172"/><line x1="320" y1="148" x2="296" y2="172"/><line x1="296" y1="172" x2="260" y2="180"/><line x1="296" y1="172" x2="320" y2="186"/><line x1="296" y1="172" x2="282" y2="202"/><line x1="260" y1="180" x2="282" y2="202"/>
+          </g>
+          <g fill="#f5b642">
+            <circle class="bub-led" cx="258" cy="150" r="5"/><circle class="bub-led" cx="290" cy="136" r="5"/><circle class="bub-led" cx="320" cy="148" r="5"/><circle class="bub-led" cx="260" cy="180" r="5"/><circle class="bub-led" cx="296" cy="172" r="6"/><circle class="bub-led" cx="320" cy="186" r="5"/><circle class="bub-led" cx="282" cy="202" r="5"/>
+          </g>
+          <text class="bub-sub" x="300" y="256" style="fill:#e0c07a">capex ก้อนใหญ่ · ครั้งเดียว</text>
+
+          <!-- middle: trained model handoff -->
+          <g fill="#8fd3b6"><g class="bub-chev"><path d="M410,162 l10,6 l-10,6 z"/></g><g class="bub-chev" style="animation-delay:.4s"><path d="M424,162 l10,6 l-10,6 z"/></g><g class="bub-chev" style="animation-delay:.8s"><path d="M438,162 l10,6 l-10,6 z"/></g></g>
+          <text class="bub-sub" x="450" y="132" style="fill:#9a958c">โมเดลฝึกเสร็จ</text>
+
+          <!-- RIGHT: trained model serving users -->
+          <circle cx="600" cy="168" r="74" fill="url(#mind)" class="bub-glow"/>
+          <circle cx="600" cy="168" r="58" fill="#0d1a14" stroke="#34d399" stroke-width="1.8"/>
+          <g stroke="#2a7d4e" stroke-width="1.4">
+            <line x1="578" y1="150" x2="610" y2="136"/><line x1="610" y1="136" x2="640" y2="148"/><line x1="578" y1="150" x2="616" y2="172"/><line x1="640" y1="148" x2="616" y2="172"/><line x1="616" y1="172" x2="580" y2="180"/><line x1="616" y1="172" x2="640" y2="186"/><line x1="616" y1="172" x2="602" y2="202"/>
+          </g>
+          <g fill="#34d399"><circle cx="578" cy="150" r="5"/><circle cx="610" cy="136" r="5"/><circle cx="640" cy="148" r="5"/><circle cx="580" cy="180" r="5"/><circle cx="616" cy="172" r="6"/><circle cx="640" cy="186" r="5"/><circle cx="602" cy="202" r="5"/></g>
+
+          <!-- users -->
+          <g fill="none" stroke="#7f93b5" stroke-width="1.8">
+            <g transform="translate(820,112)"><circle cx="0" cy="0" r="7"/><path d="M-11,22 a11,13 0 0 1 22,0"/></g>
+            <g transform="translate(844,168)"><circle cx="0" cy="0" r="7"/><path d="M-11,22 a11,13 0 0 1 22,0"/></g>
+            <g transform="translate(820,224)"><circle cx="0" cy="0" r="7"/><path d="M-11,22 a11,13 0 0 1 22,0"/></g>
+          </g>
+          <!-- query dots (user -> brain) -->
+          <circle r="3.4" fill="#60a5fa"><animateMotion dur="1.8s" repeatCount="indefinite" path="M812,116 L654,164"/></circle>
+          <circle r="3.4" fill="#60a5fa"><animateMotion dur="1.8s" begin="-.9s" repeatCount="indefinite" path="M836,168 L660,168"/></circle>
+          <circle r="3.4" fill="#60a5fa"><animateMotion dur="1.8s" begin="-1.3s" repeatCount="indefinite" path="M812,220 L654,176"/></circle>
+          <!-- token bubbles (brain -> user) -->
+          <circle r="3.4" fill="#f5b642" filter="drop-shadow(0 0 4px #f5b642)"><animateMotion dur="1.8s" begin="-.5s" repeatCount="indefinite" path="M654,170 L812,120"/></circle>
+          <circle r="3.4" fill="#f5b642" filter="drop-shadow(0 0 4px #f5b642)"><animateMotion dur="1.8s" begin="-1.1s" repeatCount="indefinite" path="M660,172 L836,172"/></circle>
+          <text class="bub-sub" x="720" y="250" style="fill:#8fd3b6">ตอบทีละคำถาม → tokens</text>
+
+          <!-- revenue trickle out with a question -->
+          <g class="bub-coin"><circle r="6"><animateMotion dur="2.4s" repeatCount="indefinite" path="M600,226 L600,286"/></circle></g>
+          <text class="bub-sub" x="626" y="284" style="text-anchor:start;fill:#9a958c">รายได้ไหล…</text>
+          <text class="bub-title" x="690" y="288" style="text-anchor:start;fill:#e59a9a">พอไหม?</text>
+
+          <text class="bub-cap" x="450" y="322" style="fill:#c9b78a">thesis: รายได้ inference (ขวา) จะโตทันคุ้ม capex training (ซ้าย) ก่อน GPU หมดอายุไหม?</text>
+        </svg>
+      </div><figcaption><strong>Training</strong> คือทุ่มทุนก้อนใหญ่ครั้งเดียวหลอม GPU หลายหมื่นตัวให้ออกมาเป็นโมเดล 1 ตัว (ต้นทุน = capex) · <strong>Inference</strong> คือเอาโมเดลนั้นไปตอบคำถามผู้ใช้ทีละคน สร้างรายได้ต่อเนื่อง — <strong>หัวใจของ thesis ทั้งบทอยู่ตรงนี้:</strong> รายได้จาก inference (ที่มาจากลูกค้าจริงนอกวง) จะโตทันคุ้มค่า capex ของ training ก่อนที่ GPU จะหมดอายุ 4-5 ปีไหม? นี่คือสมมติฐานข้อ 1-2 ที่ราคาปี 2025 บังคับให้ต้องเป็นจริง</figcaption></figure>
 
       <h2>4. วงจรเงินหมุน — เงินออกไปหาลูกค้าจริงแค่ไหน</h2>
       <p>ราคาปี 2025 กำลัง "บังคับ" ให้ 4 ข้อนี้ต้องเป็นจริง:</p>
