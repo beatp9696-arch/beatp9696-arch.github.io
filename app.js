@@ -217,7 +217,8 @@
     { f: "deep-dive-snps.html", t: "ผ่าธุรกิจ SNPS (Synopsys)" },
     { f: "deep-dive-axp.html", t: "ผ่าธุรกิจ AXP (American Express)" },
     { f: "deep-dive-tsm.html", t: "ผ่าธุรกิจ TSM (TSMC)" },
-    { f: "deep-dive-cohr.html", t: "ผ่าธุรกิจ COHR (Coherent)" }
+    { f: "deep-dive-cohr.html", t: "ผ่าธุรกิจ COHR (Coherent)" },
+    { f: "deep-dive-ai-bubble.html", t: "AI = ฟองสบู่ dot-com รอบใหม่?" }
   ];
   var file = location.pathname.split("/").pop();
   var idx = -1;
