@@ -2676,55 +2676,77 @@ h2:hover > .heading-anchor, h3:hover > .heading-anchor { opacity: 0.45; }
 @media (prefers-reduced-motion: reduce) { .mr-tile.on,.mr-xpt{ animation:none } }
 
 /* ============================================================
-   AI BUBBLE essay — market-terminal instruments (namespace: bub)
-   theme: amber/gold terminal, cash=green, danger=red, demand=blue
+   AI BUBBLE essay — pictorial scenes (namespace: bub)
+   theme: amber terminal · cash=green · danger=red · demand=blue
+   static shapes use inline attrs; classes below carry animation
    ============================================================ */
 .ph-eyebrow.bub { color: #f5b642; }
 .bub-panel { background: radial-gradient(120% 140% at 50% 0%, #1a1305 0%, #0a0a0c 72%); border-color: #3a2e14; }
 .bub-panel .sim-mono { fill: #9a8a5a; }
+.bub-title { fill: #d8c9a0; font-family: var(--font-head); font-size: 13px; font-weight: 600; }
+.bub-cap   { fill: #b7a778; font-family: var(--font-head); font-size: 12px; font-weight: 600; text-anchor: middle; }
+.bub-lbl   { fill: #e8dcc0; font-family: var(--font-head); font-size: 13px; font-weight: 600; text-anchor: middle; }
+.bub-sub   { fill: #9a8a5a; font-family: "IBM Plex Mono", ui-monospace, monospace; font-size: 10.5px; text-anchor: middle; }
 
-/* --- Fig 1: closed capital circuit (money loops, never exits) --- */
-.bub-pipe { fill: none; stroke: #2a2214; stroke-width: 16; stroke-linecap: round; }
-.bub-pipe-lit { fill: none; stroke: #f5b642; stroke-width: 3.4; stroke-dasharray: 3 15; opacity: .85; animation: bubflow 1.1s linear infinite; filter: drop-shadow(0 0 4px #f5b642); }
-@keyframes bubflow { to { stroke-dashoffset: -18; } }
-.bub-node { fill: #16130c; stroke: #4a3c1c; stroke-width: 1.6; }
-.bub-node-t { fill: #e8dcc0; font-family: var(--font-head); font-size: 13.5px; font-weight: 600; text-anchor: middle; }
-.bub-node-s { fill: #9a8a5a; font-family: "IBM Plex Mono", ui-monospace, monospace; font-size: 10.5px; text-anchor: middle; }
-.bub-coin { fill: #34d399; stroke: #0a3a2a; stroke-width: 1; filter: drop-shadow(0 0 5px rgba(52,211,153,.8)); }
-.bub-dial { fill: #0d0b06; stroke: #4a3c1c; stroke-width: 2; }
-.bub-arc-bg { fill: none; stroke: #2a2214; stroke-width: 6; stroke-linecap: round; }
-.bub-arc-fill { fill: none; stroke: #f5b642; stroke-width: 6; stroke-linecap: round; filter: drop-shadow(0 0 4px #f5b642); }
-.bub-needle { stroke: #f5b642; stroke-width: 2.6; stroke-linecap: round; transform-origin: 420px 178px; animation: bubneedle 4s ease-in-out infinite; }
-@keyframes bubneedle { 0%,100%{ transform: rotate(-4deg); } 50%{ transform: rotate(4deg); } }
-.bub-valve { fill: none; stroke: #35507a; stroke-width: 10; stroke-linecap: round; opacity: .55; }
-.bub-trickle { fill: #60a5fa; opacity: .8; }
+/* flow, particles, status */
+.bub-flow  { stroke-dasharray: 3 12; animation: bubflow 1s linear infinite; }
+@keyframes bubflow { to { stroke-dashoffset: -15; } }
+.bub-coin  { fill: #34d399; stroke: #0a3a2a; stroke-width: 1; filter: drop-shadow(0 0 5px rgba(52,211,153,.8)); }
+.bub-chev  { animation: bubchev 1.5s linear infinite; }
+@keyframes bubchev { 0%{opacity:0;transform:translateX(-6px)} 40%{opacity:1} 100%{opacity:0;transform:translateX(8px)} }
+.bub-led   { animation: bubled 1.7s ease-in-out infinite; }
+.bub-led:nth-of-type(2n){ animation-delay:.5s } .bub-led:nth-of-type(3n){ animation-delay:.9s }
+@keyframes bubled { 0%,100%{opacity:.25} 50%{opacity:1} }
+.bub-glow  { animation: bubglow 2.6s ease-in-out infinite; }
+@keyframes bubglow { 0%,100%{opacity:.5} 50%{opacity:1} }
 
-/* --- Fig 2: asset-life scope (fiber survives vs GPU melts) --- */
-.bub-scope { fill: #0a0a0c; stroke: #2a2214; stroke-width: 1.5; }
-.bub-grid { stroke: #1c1710; stroke-width: 1; }
-.bub-axis { fill: #6f6444; font-family: "IBM Plex Mono", ui-monospace, monospace; font-size: 10.5px; }
-.bub-fiber { fill: none; stroke: #34d399; stroke-width: 3; stroke-linecap: round; filter: drop-shadow(0 0 5px rgba(52,211,153,.6)); stroke-dasharray: var(--len); animation: bubdraw 7s ease-in-out infinite; }
-.bub-fiber-fill { fill: #34d399; opacity: .1; }
-.bub-gpu { fill: none; stroke: #ef4444; stroke-width: 3; stroke-linecap: round; filter: drop-shadow(0 0 5px rgba(239,68,68,.6)); stroke-dasharray: var(--len); animation: bubdraw 7s ease-in-out infinite; }
-.bub-gpu-fill { fill: #ef4444; opacity: .12; }
-@keyframes bubdraw { 0%{ stroke-dashoffset: var(--len); } 45%{ stroke-dashoffset: 0; } 88%{ stroke-dashoffset: 0; } 100%{ stroke-dashoffset: var(--len); } }
-.bub-drip { fill: #ef4444; opacity: 0; animation: bubdrip 7s ease-in infinite; }
-@keyframes bubdrip { 0%,45%{ transform: translateY(0); opacity: 0; } 52%{ opacity: .9; } 70%{ transform: translateY(46px); opacity: 0; } 100%{ opacity: 0; } }
-.bub-gift { animation: bubgift 7s ease-in-out infinite; transform-origin: center; }
-@keyframes bubgift { 0%,60%{ opacity: 0; transform: scale(.6); } 74%{ opacity: 1; transform: scale(1.1); } 82%,100%{ opacity: 1; transform: scale(1); } }
+/* money loop pipes/valve (fig4) */
+.bub-pipe     { fill:none; stroke:#2a2214; stroke-width:14; stroke-linecap:round; }
+.bub-pipe-lit { fill:none; stroke:#f5b642; stroke-width:3; stroke-dasharray:3 14; opacity:.8; animation:bubflow 1.1s linear infinite; filter:drop-shadow(0 0 4px #f5b642); }
+.bub-valve    { fill:none; stroke:#35507a; stroke-width:9; stroke-linecap:round; opacity:.55; }
+.bub-trickle  { fill:#60a5fa; opacity:.8; }
 
-/* --- Fig 3: the race — decay vs demand crossover --- */
-.bub-melt { fill: none; stroke: #ef4444; stroke-width: 3; stroke-linecap: round; stroke-dasharray: var(--len); animation: bubdraw 8s ease-in-out infinite; filter: drop-shadow(0 0 4px rgba(239,68,68,.5)); }
-.bub-demand { fill: none; stroke: #60a5fa; stroke-width: 3; stroke-linecap: round; stroke-dasharray: var(--len); animation: bubdraw 8s ease-in-out infinite; filter: drop-shadow(0 0 4px rgba(96,165,250,.5)); }
-.bub-thresh { stroke: #6f6444; stroke-width: 1.4; stroke-dasharray: 6 6; }
-.bub-gap { fill: #ef4444; opacity: .14; animation: bubgap 8s ease-in-out infinite; }
-@keyframes bubgap { 0%,55%{ opacity: 0; } 72%{ opacity: .22; } 88%{ opacity: .1; } 100%{ opacity: 0; } }
-.bub-cliff { stroke: #ef4444; stroke-width: 1.6; stroke-dasharray: 4 4; opacity: .7; }
-.bub-flag { animation: bubflag 8s ease-in-out infinite; }
-@keyframes bubflag { 0%,78%{ opacity: 0; } 86%,100%{ opacity: 1; } }
+/* fig1 — bubble inflating */
+.bub-inflate { transform-box:fill-box; transform-origin:center; animation: bubinflate 4s ease-in-out infinite; }
+@keyframes bubinflate { 0%{transform:scale(.93)} 55%{transform:scale(1.06)} 100%{transform:scale(.93)} }
+.bub-shine   { animation: bubshine 4s ease-in-out infinite; }
+@keyframes bubshine { 0%,100%{opacity:.3} 50%{opacity:.95} }
+.bub-float   { animation: bubfloat 3.6s ease-in infinite; }
+@keyframes bubfloat { 0%{transform:translateY(0);opacity:0} 15%{opacity:.9} 100%{transform:translateY(-64px);opacity:0} }
+.bub-pop     { animation: bubpop 4s ease-in-out infinite; }
+@keyframes bubpop { 0%,68%{opacity:0;transform:scale(.4)} 80%{opacity:1;transform:scale(1.2)} 92%,100%{opacity:0;transform:scale(1.6)} }
+
+/* fig3 — wafer shimmer + chip core */
+.bub-shim { animation: bubshim 3.5s ease-in-out infinite; }
+@keyframes bubshim { 0%{transform:translateX(-70px)} 55%,100%{transform:translateX(70px)} }
+.bub-core { animation: bubcore 2.2s ease-in-out infinite; }
+@keyframes bubcore { 0%,100%{opacity:.5;filter:drop-shadow(0 0 3px #34d399)} 50%{opacity:1;filter:drop-shadow(0 0 12px #34d399)} }
+
+/* fig5 — melting chip */
+.bub-drip   { animation: bubdrip 3s ease-in infinite; }
+@keyframes bubdrip { 0%{transform:translateY(0);opacity:0} 12%{opacity:1} 70%{transform:translateY(42px);opacity:0} 100%{opacity:0} }
+.bub-puddle { transform-box:fill-box; transform-origin:center; animation: bubpud 3s ease-in-out infinite; }
+@keyframes bubpud { 0%,100%{opacity:.5;transform:scaleX(.9)} 50%{opacity:.85;transform:scaleX(1.06)} }
+
+/* fig6 — cracked pillar */
+.bub-crack  { animation: bubcrack 2.4s ease-in-out infinite; }
+@keyframes bubcrack { 0%,100%{opacity:.5} 50%{opacity:1;filter:drop-shadow(0 0 5px #ef4444)} }
+.bub-wobble { transform-box:fill-box; transform-origin:center bottom; animation: bubwobble 2.4s ease-in-out infinite; }
+@keyframes bubwobble { 0%,100%{transform:rotate(-1deg)} 50%{transform:rotate(1deg)} }
+
+/* fig7 — hourglass sand + water tank */
+.bub-sandtop { transform-box:fill-box; transform-origin:center top;    animation: bubsandtop 5s ease-in-out infinite; }
+@keyframes bubsandtop { 0%{transform:scaleY(1)} 80%{transform:scaleY(.06)} 100%{transform:scaleY(.06)} }
+.bub-sandbot { transform-box:fill-box; transform-origin:center bottom; animation: bubsandbot 5s ease-in-out infinite; }
+@keyframes bubsandbot { 0%{transform:scaleY(.1)} 80%{transform:scaleY(1)} 100%{transform:scaleY(1)} }
+.bub-water   { transform-box:fill-box; transform-origin:center bottom; animation: bubwater 5s ease-in-out infinite; }
+@keyframes bubwater { 0%{transform:scaleY(.12)} 85%{transform:scaleY(.6)} 100%{transform:scaleY(.6)} }
+
+/* fig8 — laser tripwire */
+.bub-beam { animation: bubbeam 1.8s ease-in-out infinite; }
+@keyframes bubbeam { 0%,100%{opacity:.5} 50%{opacity:1} }
 
 @media (prefers-reduced-motion: reduce) {
-  .bub-pipe-lit,.bub-needle,.bub-fiber,.bub-gpu,.bub-drip,.bub-gift,.bub-melt,.bub-demand,.bub-gap,.bub-flag { animation: none; }
-  .bub-fiber,.bub-gpu,.bub-melt,.bub-demand { stroke-dashoffset: 0; }
-  .bub-gift,.bub-flag { opacity: 1; }
+  .bub-flow,.bub-pipe-lit,.bub-coin,.bub-chev,.bub-led,.bub-glow,.bub-inflate,.bub-shine,.bub-float,.bub-pop,.bub-shim,.bub-core,.bub-drip,.bub-puddle,.bub-crack,.bub-wobble,.bub-sandtop,.bub-sandbot,.bub-water,.bub-beam { animation: none; }
+  .bub-inflate,.bub-puddle,.bub-wobble,.bub-sandtop,.bub-sandbot,.bub-water { transform: none; }
 }

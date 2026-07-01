@@ -5,11 +5,11 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <script>try{var t=localStorage.getItem('theme');if(t)document.documentElement.setAttribute('data-theme',t);}catch(e){}</script>
   <title>AI = ฟองสบู่ dot-com รอบใหม่? — ผ่ากลไกด้วยมีดผ่าตัดเล่มเดิม | Moatrices</title>
-  <meta name="description" content="ผ่ากลไกฟองสบู่: dot-com vs AI ด้วย first principles — วงจรเงินหมุน (Nvidia→hyperscaler→AI cloud→VC), จุดที่ AI แย่กว่า dot-com (GPU ตายใน 4-5 ปี แต่ fiber อยู่ 25 ปี), timing error กับ 'ดอกจันโหดร้าย' และ falsifiability test">
+  <meta name="description" content="ผ่ากลไกฟองสบู่: dot-com vs AI ด้วย first principles — 3 เงื่อนไขของฟองสบู่, AI value chain (wafer→GPU+HBM→data center→optical), วงจรเงินหมุน, จุดที่ AI แย่กว่า dot-com (GPU ตายใน 4-5 ปี แต่ fiber อยู่ 25 ปี), timing error กับ 'ดอกจันโหดร้าย' และ falsifiability test">
   <meta property="og:type" content="article">
   <meta property="og:site_name" content="Moatrices">
   <meta property="og:title" content="AI = ฟองสบู่ dot-com รอบใหม่? — ผ่ากลไกด้วยมีดผ่าตัดเล่มเดิม">
-  <meta property="og:description" content="วงจรเงินหมุนที่บังคับ end-demand ให้หายไป, สินทรัพย์ที่ละลาย (GPU 4-5 ปี vs fiber 25 ปี) และคำถามที่แท้จริง: thesis ถูก แต่คนถือจะรอดไหม">
+  <meta property="og:description" content="AI value chain เงินไหลผ่านสแตกไหน, วงจรเงินหมุนที่บังหน้า end-demand, สินทรัพย์ที่ละลาย (GPU 4-5 ปี vs fiber 25 ปี) และคำถามที่แท้จริง: thesis ถูก แต่คนถือจะรอดไหม">
   <meta property="og:url" content="https://beatp9696-arch.github.io/articles/deep-dive-ai-bubble.html">
   <meta property="og:locale" content="th_TH">
   <meta name="twitter:card" content="summary_large_image">
@@ -32,7 +32,7 @@
   <noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Thai:wght@500;600;700&family=Sarabun:wght@400;500;600;700&display=swap"></noscript>
   <link rel="stylesheet" href="../style.css">
   <script type="application/ld+json">
-  {"@context": "https://schema.org", "@type": "BlogPosting", "headline": "AI = ฟองสบู่ dot-com รอบใหม่? — ผ่ากลไกด้วยมีดผ่าตัดเล่มเดิม", "description": "ผ่ากลไกฟองสบู่: dot-com vs AI ด้วย first principles — วงจรเงินหมุน, สินทรัพย์ที่ละลาย (GPU 4-5 ปี vs fiber 25 ปี), timing error และ falsifiability test", "author": {"@type": "Person", "name": "Moatrices"}, "publisher": {"@type": "Organization", "name": "Moatrices", "logo": {"@type": "ImageObject", "url": "https://beatp9696-arch.github.io/favicon.svg"}}, "mainEntityOfPage": {"@type": "WebPage", "@id": "https://beatp9696-arch.github.io/articles/deep-dive-ai-bubble.html"}, "inLanguage": "th", "datePublished": "2026-07-01", "dateModified": "2026-07-01"}
+  {"@context": "https://schema.org", "@type": "BlogPosting", "headline": "AI = ฟองสบู่ dot-com รอบใหม่? — ผ่ากลไกด้วยมีดผ่าตัดเล่มเดิม", "description": "ผ่ากลไกฟองสบู่: dot-com vs AI ด้วย first principles — AI value chain, วงจรเงินหมุน, สินทรัพย์ที่ละลาย (GPU 4-5 ปี vs fiber 25 ปี), timing error และ falsifiability test", "author": {"@type": "Person", "name": "Moatrices"}, "publisher": {"@type": "Organization", "name": "Moatrices", "logo": {"@type": "ImageObject", "url": "https://beatp9696-arch.github.io/favicon.svg"}}, "mainEntityOfPage": {"@type": "WebPage", "@id": "https://beatp9696-arch.github.io/articles/deep-dive-ai-bubble.html"}, "inLanguage": "th", "datePublished": "2026-07-01", "dateModified": "2026-07-01"}
   </script>
 </head>
 <body>
@@ -60,15 +60,16 @@
         <span class="byline-avatar">M</span>
         <div>
           <div class="byline-author">Moatrices</div>
-          <div class="byline-info">1 ก.ค. 2026 · อ่าน ~13 นาที</div>
+          <div class="byline-info">1 ก.ค. 2026 · อ่าน ~17 นาที</div>
         </div>
       </div>
 
       <p class="lead">
         คำถามที่ค้างในหัวคือ: ตลาดที่คาดหวังกับ AI แบบทุกวันนี้ มัน "คล้าย" วิกฤต dot-com bubble ไหม —
         และถ้าเป็นฟองสบู่จริง GPU ก็ยังเอาไปทำงานอื่นได้ไม่ใช่เหรอ? บทนี้ไม่ตอบด้วยความรู้สึก
-        แต่ใช้ <strong>มีดผ่าตัดเล่มเดิม</strong>ที่เคยกรีด dot-com มากรีด AI ทีละชั้น
-        แล้วคุณจะเห็นว่า "ข้อปลอบใจเรื่อง GPU" นั่นแหละ คือจุดที่ AI <em>แย่กว่า</em> dot-com ไม่ใช่ดีกว่า
+        แต่ใช้ <strong>มีดผ่าตัดเล่มเดิม</strong>ที่เคยกรีด dot-com มากรีด AI ทีละชั้น —
+        ตั้งแต่กลไกของฟองสบู่ ไปจนถึงว่า "เงินทุน AI ไหลผ่านสแตกฮาร์ดแวร์อะไรบ้าง" แล้วมันหมุนกลับเข้าตัวเองตรงไหน
+        สุดท้ายคุณจะเห็นว่า "ข้อปลอบใจเรื่อง GPU" นั่นแหละ คือจุดที่ AI <em>แย่กว่า</em> dot-com ไม่ใช่ดีกว่า
       </p>
 
       <blockquote>
@@ -82,42 +83,185 @@
       <p>
         ฟองสบู่ไม่ใช่ "ราคาขึ้น" ฟองสบู่คือตอนที่ <strong>ราคากลายเป็นตัวอ้างอิงของตัวมันเอง</strong>
         (price becomes self-referential) — เมื่อเหตุผลที่คนซื้อคนถัดไปยอมจ่าย ไม่ใช่กระแสเงินสดของสินทรัพย์
-        แต่เป็น "ความคาดหวังว่าจะมีคนถัดไปมาซื้อต่อในราคาที่สูงกว่า"
+        แต่เป็น "ความคาดหวังว่าจะมีคนถัดไปมาซื้อต่อในราคาที่สูงกว่า" ฟองยิ่งพอง ผิวฟิล์มยิ่งบาง — แก่นค่าจริงข้างในเท่าเดิม
       </p>
-      <p>เงื่อนไขเชิงโครงสร้าง 3 ข้อ ที่ต้องมี<strong>ครบทุกข้อ</strong>:</p>
-      <ul>
-        <li><strong>แก่นที่จริง (a true kernel)</strong> — ทุกฟองสบู่ใหญ่เริ่มจากนวัตกรรมจริง คลองจริง รถไฟจริง อินเทอร์เน็ตจริง</li>
-        <li><strong>เครื่องผลิต "สิทธิเรียกร้อง" ได้ไม่จำกัด</strong> — ลำพังความเชื่อ mispricing ไม่ได้ ต้องมีเครื่องจักรแปลงความเชื่อเป็นหลักทรัพย์ (IPO, capex, เครดิต) เร็วกว่าที่ความจริงจะตรวจสอบทัน</li>
-        <li><strong>วงจรการเงินที่หมุนเป็นวงกลม บังหน้าว่าไม่มี end-demand จริง</strong> — นี่คือเงื่อนไขที่ "แบกน้ำหนัก" ที่สุด ปี 1720 คือหุ้นบริษัทที่ซื้อด้วยเงินกู้ที่ค้ำด้วยหุ้นบริษัทเดียวกัน ปี 1999 คือ vendor financing</li>
-      </ul>
+
+      <figure class="ph-fig"><div class="ph-panel bub-panel"><div class="ph-eyebrow bub">ฟองสบู่ · พองจนราคาอ้างอิงตัวเอง</div>
+        <svg viewBox="0 0 840 300" role="img" aria-label="ฟองสบู่ 3 ระยะพองใหญ่ขึ้นเรื่อยๆ ผิวเงาวิบวับ แก่นค่าจริงเล็กๆ อยู่ข้างใน ฟองใบใหญ่กำลังจะแตก">
+          <defs>
+            <linearGradient id="irid" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#7dd3fc"/><stop offset=".4" stop-color="#c4b5fd"/><stop offset=".7" stop-color="#f5b642"/><stop offset="1" stop-color="#f0abfc"/></linearGradient>
+            <radialGradient id="bfill" cx="40%" cy="34%" r="72%"><stop offset="0" stop-color="#ffffff" stop-opacity=".12"/><stop offset=".7" stop-color="#f5b642" stop-opacity=".04"/><stop offset="1" stop-color="#c4b5fd" stop-opacity=".14"/></radialGradient>
+            <radialGradient id="kernel"><stop offset="0" stop-color="#6ee7b7"/><stop offset="1" stop-color="#34d399"/></radialGradient>
+          </defs>
+          <line x1="60" y1="256" x2="780" y2="256" stroke="#241d10" stroke-width="1"/>
+
+          <!-- flow chevrons -->
+          <g fill="#f5b642"><g class="bub-chev"><path d="M214,186 l9,6 l-9,6 z"/></g><g class="bub-chev" style="animation-delay:.4s"><path d="M226,186 l9,6 l-9,6 z"/></g></g>
+          <g fill="#f5b642"><g class="bub-chev"><path d="M452,170 l9,6 l-9,6 z"/></g><g class="bub-chev" style="animation-delay:.4s"><path d="M464,170 l9,6 l-9,6 z"/></g></g>
+
+          <!-- bubble 1 small -->
+          <g class="bub-inflate"><circle cx="150" cy="192" r="40" fill="url(#bfill)" stroke="url(#irid)" stroke-width="2"/><path class="bub-shine" d="M126,170 A40,40 0 0 1 158,160" fill="none" stroke="#fff" stroke-width="3" stroke-linecap="round"/><circle cx="150" cy="192" r="6" fill="url(#kernel)"/></g>
+          <text class="bub-sub" x="150" y="276">ก่อตัว</text>
+
+          <!-- bubble 2 mid -->
+          <g class="bub-inflate" style="animation-delay:.6s"><circle cx="360" cy="170" r="70" fill="url(#bfill)" stroke="url(#irid)" stroke-width="2"/><path class="bub-shine" d="M320,138 A70,70 0 0 1 378,120" fill="none" stroke="#fff" stroke-width="4" stroke-linecap="round"/><circle cx="360" cy="170" r="8" fill="url(#kernel)"/></g>
+          <text class="bub-sub" x="360" y="276">พองตัว</text>
+
+          <!-- bubble 3 big, about to pop -->
+          <g class="bub-inflate" style="animation-delay:1.2s"><circle cx="620" cy="150" r="98" fill="url(#bfill)" stroke="url(#irid)" stroke-width="2.4"/><path class="bub-shine" d="M562,96 A98,98 0 0 1 640,66" fill="none" stroke="#fff" stroke-width="5" stroke-linecap="round"/><circle class="bub-shine" cx="586" cy="112" r="6" fill="#fff" style="animation-delay:.5s"/><circle cx="620" cy="150" r="11" fill="url(#kernel)"/></g>
+          <text class="bub-lbl" x="620" y="154" style="fill:#0a2b1e;font-size:10px">ค่าจริง</text>
+          <text class="bub-sub" x="620" y="132" style="fill:#cbb9e8">มูลค่าที่คาดหวัง (อากาศ)</text>
+          <!-- pop sparkle -->
+          <g class="bub-pop" transform="translate(694,86)" fill="#fde68a"><path d="M0,-12 L3,-3 L12,0 L3,3 L0,12 L-3,3 L-12,0 L-3,-3 Z"/></g>
+          <!-- rising mini bubbles -->
+          <circle class="bub-float" cx="700" cy="210" r="5" fill="none" stroke="url(#irid)" stroke-width="1.4"/>
+          <circle class="bub-float" cx="540" cy="220" r="4" fill="none" stroke="url(#irid)" stroke-width="1.4" style="animation-delay:1.2s"/>
+          <text class="bub-sub" x="620" y="276" style="fill:#e0b0b0">ราคา = ความคาดหวัง (เปราะ)</text>
+        </svg>
+      </div><figcaption>เงื่อนไข 3 ข้อที่ต้องครบ: <strong>แก่นที่จริง</strong> (นวัตกรรมจริง — AI จริง) · <strong>เครื่องผลิตสิทธิเรียกร้องได้ไม่จำกัด</strong> (IPO, capex, เครดิต เร็วกว่าที่ความจริงจะตรวจสอบทัน) · <strong>วงจรการเงินที่หมุนเป็นวงกลม</strong> (เงื่อนไขที่แบกน้ำหนักที่สุด) — ฟองยิ่งพอง แก่นค่าจริงยังเท่าเดิม ที่โตคือ "อากาศ" ของความคาดหวัง</figcaption></figure>
+
       <blockquote>"Truth is the carrier signal; the lie modulates on top of it."<br>— ความจริงคือคลื่นพาห์ ส่วนคำลวงคือสัญญาณที่ถูกผสมทับลงไปบนคลื่นนั้น</blockquote>
       <p>
         ความล้มเหลวทางความคิดที่ทำให้คนติดกับคือ <strong>category transfer</strong>:
         ประโยคว่า "เทคโนโลยีนี้จะเปลี่ยนโลก" (มักจริง) ถูกแปลงเป็น
         "ดังนั้นสิทธิเรียกร้องพวกนี้ ที่ราคาเท่านี้ จะจ่ายคืนได้" (ไม่ได้ตามมาจากข้อแรกเลย)
+        ข้อแรกเป็นเรื่องของ <em>เทคโนโลยี</em> ข้อสองเป็นเรื่องของ <em>ราคาและเวลา</em> — คนละเรื่องกัน
       </p>
 
       <h2>2. ผ่า Dot-com ถึงกระดูก</h2>
       <p>
-        <strong>สิ่งที่นักลงทุนคิดว่ากำลังตีราคา:</strong> กระแสเงินสดในอนาคตของอินเทอร์เน็ต<br>
+        <strong>สิ่งที่นักลงทุนคิดว่ากำลังตีราคา:</strong> กระแสเงินสดในอนาคตของอินเทอร์เน็ต ·
         <strong>สิ่งที่ตีราคากันจริงๆ:</strong> ความหายากของ "exposure" — float น้อย, lockup, momentum
-        และตัวเลขพยากรณ์ที่ว่า "ทราฟฟิกอินเทอร์เน็ตเพิ่มเป็น 2 เท่าทุก 100 วัน"
-        ซึ่งผิดเป็นระดับ order of magnitude และไม่มีใคร audit อยู่ตั้ง 3 ปี
+        และตัวเลขพยากรณ์ที่ว่า "ทราฟฟิกอินเทอร์เน็ตเพิ่มเป็น 2 เท่าทุก 100 วัน" ซึ่งผิดเป็นระดับ order of magnitude
       </p>
       <p>
-        <strong>กลไกที่ทำให้พัง:</strong> บริษัทโทรคมนาคมกู้เงินหลายแสนล้านมาสร้างล่วงหน้าเพื่อรองรับดีมานด์ที่ยังไม่เกิด
-        และ Lucent กับ Nortel <em>ปล่อยกู้ให้ลูกค้าตัวเอง</em>เอาเงินมาซื้ออุปกรณ์ของตัวเอง —
-        รายได้ที่รายงาน แท้จริงคือ "ทุนที่หมุนกลับมา" ไม่ใช่เงินจากลูกค้าปลายทาง
+        <strong>กลไกที่ทำให้พัง:</strong> โทรคมนาคมกู้เงินหลายแสนล้านมาสร้างล่วงหน้า และ Lucent กับ Nortel
+        <em>ปล่อยกู้ให้ลูกค้าตัวเอง</em>เอาเงินมาซื้ออุปกรณ์ของตัวเอง — รายได้ที่รายงาน แท้จริงคือ "ทุนที่หมุนกลับมา"
+        สุดท้าย Nasdaq ร่วงจาก ~5,048 (มี.ค. 2000) เหลือ ~1,114 (ต.ค. 2002) หรือ <strong>−78%</strong>
       </p>
-      <p><strong>แล้วมูลค่ามันหายไปไหน? — มันไม่ได้หายไป:</strong></p>
-      <ul>
-        <li>ไปตกอยู่ที่ <strong>fiber</strong> ที่ถูกซื้อต่อจากซากล้มละลายในราคาเศษเงิน</li>
-        <li>ไปตกอยู่ที่ <strong>ผู้บริโภค</strong> ในรูปแบนด์วิดท์ราคาถูกเกินจริงนานหลายทศวรรษ</li>
-        <li>ไปตกอยู่ที่ <strong>คลื่นลูกที่สอง</strong> — Google, Amazon, Facebook — ที่สร้างอาณาจักรบนโครงสร้างพื้นฐานที่ "ศพ" ของคลื่นลูกแรกจ่ายไว้ให้</li>
-      </ul>
-      <blockquote>"The internet thesis was correct. The 1999 securities were still worthless. Hold both facts at once."<br>— thesis เรื่องอินเทอร์เน็ตนั้นถูก แต่หุ้นปี 1999 ก็ยังไร้ค่าอยู่ดี ถือความจริงสองข้อนี้ไว้พร้อมกัน นี่คือบทเรียนทั้งหมด</blockquote>
 
-      <h2>3. เอามีดเล่มเดิมกรีด AI — วงจรเงินหมุน</h2>
+      <figure class="ph-fig"><div class="ph-panel bub-panel"><div class="ph-eyebrow bub">Dot-com · มูลค่าไม่หาย มันย้ายที่</div>
+        <svg viewBox="0 0 840 320" role="img" aria-label="ฟองปี 2000 แตก ตึกดอตคอมล้ม แต่ใยแก้วนำแสงใต้ดินยังส่องแสงพามูลค่าไปหาตึกใหม่ Google Amazon Meta ที่ขึ้นมาบนซาก">
+          <defs><linearGradient id="win" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#7aa7ff"/><stop offset="1" stop-color="#3b6bd6"/></linearGradient></defs>
+          <text class="bub-title" x="80" y="52" style="text-anchor:start">2000 → หลังฟองแตก · มูลค่าไปตกที่ผู้อยู่รอด</text>
+
+          <!-- burst bubble (left) -->
+          <g stroke="url(#irid)" stroke-width="2" fill="none" opacity=".8" stroke-dasharray="10 9">
+            <path d="M100,110 A56,56 0 0 1 210,110"/><path d="M96,124 A56,56 0 0 0 214,124"/>
+          </g>
+          <g class="bub-pop" transform="translate(155,96)" fill="#fde68a"><path d="M0,-16 L4,-4 L16,0 L4,4 L0,16 L-4,4 L-16,0 L-4,-4 Z"/></g>
+          <text class="bub-sub" x="155" y="150" style="fill:#e0b0b0">ฟองปี 2000 แตก</text>
+          <!-- fallen dotcom towers -->
+          <g fill="#1a1712" stroke="#332a1c" stroke-width="1.4">
+            <rect x="96" y="176" width="26" height="40" transform="rotate(-8 109 196)"/>
+            <rect x="138" y="182" width="24" height="34"/>
+            <rect x="176" y="178" width="26" height="38" transform="rotate(6 189 197)"/>
+          </g>
+          <text class="bub-sub" x="150" y="238" style="fill:#7c7450">ดอตคอมที่ล้ม</text>
+
+          <!-- ground -->
+          <rect x="60" y="244" width="720" height="52" fill="#0d0b06" opacity=".6"/>
+          <line x1="60" y1="244" x2="780" y2="244" stroke="#241d10"/>
+          <!-- buried fiber -->
+          <path id="dcfib" d="M120,270 H720" fill="none" stroke="#2a2a3a" stroke-width="6"/>
+          <path d="M120,270 H720" fill="none" stroke="#ffe6a8" stroke-width="2.4" class="bub-flow"/>
+          <circle r="4" fill="#ffe6a8" filter="drop-shadow(0 0 6px #f5b642)"><animateMotion dur="2.6s" repeatCount="indefinite"><mpath href="#dcfib"/></animateMotion></circle>
+          <circle r="4" fill="#9fd0ff" filter="drop-shadow(0 0 6px #60a5fa)"><animateMotion dur="2.6s" begin="-1.3s" repeatCount="indefinite"><mpath href="#dcfib"/></animateMotion></circle>
+          <text class="bub-sub" x="420" y="288" style="fill:#c9b78a">fiber ที่เหลือ — ยังส่องแสง เป็นของขวัญให้อนาคต</text>
+
+          <!-- new giants (right) rising from fiber -->
+          <g>
+            <rect x="590" y="120" width="42" height="124" rx="2" fill="#141b2a" stroke="#3a4a6e" stroke-width="1.4"/>
+            <rect x="646" y="96" width="46" height="148" rx="2" fill="#141b2a" stroke="#3a4a6e" stroke-width="1.4"/>
+            <rect x="706" y="140" width="40" height="104" rx="2" fill="#141b2a" stroke="#3a4a6e" stroke-width="1.4"/>
+            <!-- lit windows -->
+            <g fill="url(#win)">
+              <rect class="bub-led" x="598" y="132" width="8" height="8"/><rect class="bub-led" x="616" y="132" width="8" height="8"/><rect class="bub-led" x="598" y="152" width="8" height="8"/><rect class="bub-led" x="616" y="152" width="8" height="8"/><rect class="bub-led" x="598" y="172" width="8" height="8"/><rect class="bub-led" x="616" y="172" width="8" height="8"/>
+              <rect class="bub-led" x="654" y="108" width="9" height="9"/><rect class="bub-led" x="674" y="108" width="9" height="9"/><rect class="bub-led" x="654" y="130" width="9" height="9"/><rect class="bub-led" x="674" y="130" width="9" height="9"/><rect class="bub-led" x="654" y="152" width="9" height="9"/><rect class="bub-led" x="674" y="152" width="9" height="9"/>
+              <rect class="bub-led" x="714" y="152" width="8" height="8"/><rect class="bub-led" x="730" y="152" width="8" height="8"/><rect class="bub-led" x="714" y="172" width="8" height="8"/><rect class="bub-led" x="730" y="172" width="8" height="8"/>
+            </g>
+          </g>
+          <text class="bub-sub" x="668" y="262" style="fill:#8fa8d6">คลื่นลูก 2 · GOOGL / AMZN / META</text>
+        </svg>
+      </div><figcaption>thesis เรื่องอินเทอร์เน็ตถูกทั้งหมด แต่ <strong>คนที่ถือหุ้นปี 1999 แทบไม่ได้อะไรกลับ</strong> — มูลค่าไม่ได้หาย มันย้ายที่: ไปตกที่ fiber ที่ซื้อต่อราคาเศษเงิน, แบนด์วิดท์ราคาถูกที่ตกถึงผู้บริโภค และ<strong>คลื่นลูกที่สอง</strong> (Google, Amazon, Facebook) ที่สร้างอาณาจักรบนโครงสร้างพื้นฐานที่ "ศพ" ของคลื่นลูกแรกจ่ายไว้ให้</figcaption></figure>
+
+      <blockquote>"The internet thesis was correct. The 1999 securities were still worthless. Hold both facts at once."<br>— thesis เรื่องอินเทอร์เน็ตนั้นถูก แต่หุ้นปี 1999 ก็ยังไร้ค่าอยู่ดี ถือความจริงสองข้อนี้ไว้พร้อมกัน</blockquote>
+
+      <h2>3. AI value chain — เงินทุนไหลผ่านสแตกไหน</h2>
+      <p>
+        ก่อนจะตัดสิน ต้องเห็นก่อนว่า "เงินทุน AI" หนึ่งดอลลาร์ ไหลผ่านอะไรบ้างกว่าจะกลายเป็นบริการ AI
+        ลำดับที่ถูกต้องของสแตกฮาร์ดแวร์คือ: <strong>ออกแบบชิป (EDA) → ผลิตบนเวเฟอร์ (foundry) →
+        GPU/ตัวเร่ง + หน่วยความจำ HBM/DRAM บนแพ็กเกจเดียวกัน → เสียบเข้าเซิร์ฟเวอร์ในศูนย์ข้อมูล →
+        เชื่อมต่อด้วยแสง (optical)</strong> แล้วส่งออกไปเป็นบริการ
+      </p>
+
+      <figure class="ph-fig"><div class="ph-panel bub-panel"><div class="ph-eyebrow bub">AI journey · จากทรายซิลิคอน สู่บริการ AI</div>
+        <svg viewBox="0 0 900 320" role="img" aria-label="ฉากเส้นทางฮาร์ดแวร์ AI: เวเฟอร์ TSMC ไปแพ็กเกจ GPU กับ HBM ไปแร็คศูนย์ข้อมูล และส่งออกด้วยใยแก้วนำแสง">
+          <defs>
+            <radialGradient id="waf" cx="42%" cy="38%" r="70%"><stop offset="0" stop-color="#e6eef7"/><stop offset=".5" stop-color="#9fb4c8"/><stop offset="1" stop-color="#4a5a6e"/></radialGradient>
+            <linearGradient id="shimg" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#fff" stop-opacity="0"/><stop offset=".5" stop-color="#fff" stop-opacity=".55"/><stop offset="1" stop-color="#fff" stop-opacity="0"/></linearGradient>
+            <linearGradient id="pcb" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#1b6b3a"/><stop offset="1" stop-color="#0d3a20"/></linearGradient>
+            <clipPath id="wclip"><circle cx="118" cy="140" r="52"/></clipPath>
+          </defs>
+
+          <g fill="#f5b642">
+            <g class="bub-chev"><path d="M196,133 l10,7 l-10,7 z"/></g><g class="bub-chev" style="animation-delay:.3s"><path d="M208,133 l10,7 l-10,7 z"/></g><g class="bub-chev" style="animation-delay:.6s"><path d="M220,133 l10,7 l-10,7 z"/></g>
+          </g>
+          <g fill="#f5b642">
+            <g class="bub-chev"><path d="M430,133 l10,7 l-10,7 z"/></g><g class="bub-chev" style="animation-delay:.3s"><path d="M442,133 l10,7 l-10,7 z"/></g><g class="bub-chev" style="animation-delay:.6s"><path d="M454,133 l10,7 l-10,7 z"/></g>
+          </g>
+
+          <!-- 1 wafer -->
+          <circle cx="118" cy="140" r="52" fill="url(#waf)" stroke="#6a7c90" stroke-width="2"/>
+          <g clip-path="url(#wclip)" stroke="#5f7085" stroke-width="1" opacity=".55">
+            <line x1="70" y1="112" x2="166" y2="112"/><line x1="70" y1="128" x2="166" y2="128"/><line x1="70" y1="144" x2="166" y2="144"/><line x1="70" y1="160" x2="166" y2="160"/>
+            <line x1="86" y1="90" x2="86" y2="190"/><line x1="102" y1="90" x2="102" y2="190"/><line x1="118" y1="90" x2="118" y2="190"/><line x1="134" y1="90" x2="134" y2="190"/><line x1="150" y1="90" x2="150" y2="190"/>
+          </g>
+          <g clip-path="url(#wclip)"><rect class="bub-shim" x="90" y="88" width="26" height="104" fill="url(#shimg)"/></g>
+          <path d="M100,96 l14,-6 l4,10 z" fill="#0b0b0d" opacity=".5"/>
+          <text class="bub-lbl" x="118" y="222">เวเฟอร์</text><text class="bub-sub" x="118" y="238">TSMC · foundry</text>
+
+          <!-- 2 GPU + HBM package -->
+          <rect x="250" y="96" width="150" height="92" rx="7" fill="url(#pcb)" stroke="#2a7d4e" stroke-width="1.5"/>
+          <g><rect class="bub-glow" x="262" y="112" width="16" height="60" rx="2" fill="#26324e" stroke="#60a5fa" stroke-width="1"/><line x1="262" y1="127" x2="278" y2="127" stroke="#3a4a6e"/><line x1="262" y1="142" x2="278" y2="142" stroke="#3a4a6e"/><line x1="262" y1="157" x2="278" y2="157" stroke="#3a4a6e"/>
+            <rect class="bub-glow" x="282" y="112" width="16" height="60" rx="2" fill="#26324e" stroke="#60a5fa" stroke-width="1" style="animation-delay:.4s"/><line x1="282" y1="127" x2="298" y2="127" stroke="#3a4a6e"/><line x1="282" y1="142" x2="298" y2="142" stroke="#3a4a6e"/><line x1="282" y1="157" x2="298" y2="157" stroke="#3a4a6e"/></g>
+          <rect x="306" y="110" width="42" height="64" rx="4" fill="#0f2a1a" stroke="#34d399" stroke-width="1.6"/>
+          <rect class="bub-core" x="315" y="122" width="24" height="40" rx="3" fill="#1f7a4d"/>
+          <text class="bub-sub" x="327" y="146" style="fill:#d8f5e6;font-size:10px">GPU</text>
+          <g><rect class="bub-glow" x="352" y="112" width="16" height="60" rx="2" fill="#26324e" stroke="#60a5fa" stroke-width="1" style="animation-delay:.2s"/><line x1="352" y1="127" x2="368" y2="127" stroke="#3a4a6e"/><line x1="352" y1="142" x2="368" y2="142" stroke="#3a4a6e"/><line x1="352" y1="157" x2="368" y2="157" stroke="#3a4a6e"/>
+            <rect class="bub-glow" x="372" y="112" width="16" height="60" rx="2" fill="#26324e" stroke="#60a5fa" stroke-width="1" style="animation-delay:.6s"/><line x1="372" y1="127" x2="388" y2="127" stroke="#3a4a6e"/><line x1="372" y1="142" x2="388" y2="142" stroke="#3a4a6e"/><line x1="372" y1="157" x2="388" y2="157" stroke="#3a4a6e"/></g>
+          <g fill="#f5b642"><rect x="262" y="180" width="8" height="4" rx="1"/><rect x="278" y="180" width="8" height="4" rx="1"/><rect x="294" y="180" width="8" height="4" rx="1"/><rect x="310" y="180" width="8" height="4" rx="1"/><rect x="326" y="180" width="8" height="4" rx="1"/><rect x="342" y="180" width="8" height="4" rx="1"/><rect x="358" y="180" width="8" height="4" rx="1"/><rect x="374" y="180" width="8" height="4" rx="1"/></g>
+          <text class="bub-lbl" x="325" y="222">GPU + หน่วยความจำ HBM</text><text class="bub-sub" x="325" y="238">Nvidia + Micron/SK Hynix</text>
+          <text class="bub-sub" x="270" y="106" style="fill:#8fa8d6">DRAM</text>
+
+          <!-- 3 data center racks -->
+          <g transform="translate(470,90)"><rect x="0" y="0" width="52" height="120" rx="4" fill="#17130a" stroke="#3a3020" stroke-width="1.6"/><rect x="6" y="10" width="40" height="14" rx="2" fill="#0d0b06" stroke="#2a2214"/><circle class="bub-led" cx="40" cy="17" r="2.4" fill="#34d399"/><rect x="6" y="30" width="40" height="14" rx="2" fill="#0d0b06" stroke="#2a2214"/><circle class="bub-led" cx="40" cy="37" r="2.4" fill="#f5b642"/><rect x="6" y="50" width="40" height="14" rx="2" fill="#0d0b06" stroke="#2a2214"/><circle class="bub-led" cx="40" cy="57" r="2.4" fill="#34d399"/><rect x="6" y="70" width="40" height="14" rx="2" fill="#0d0b06" stroke="#2a2214"/><circle class="bub-led" cx="40" cy="77" r="2.4" fill="#34d399"/><rect x="6" y="90" width="40" height="14" rx="2" fill="#0d0b06" stroke="#2a2214"/><circle class="bub-led" cx="40" cy="97" r="2.4" fill="#f5b642"/></g>
+          <g transform="translate(528,90)"><rect x="0" y="0" width="52" height="120" rx="4" fill="#17130a" stroke="#3a3020" stroke-width="1.6"/><rect x="6" y="10" width="40" height="14" rx="2" fill="#0d0b06" stroke="#2a2214"/><circle class="bub-led" cx="40" cy="17" r="2.4" fill="#34d399"/><rect x="6" y="30" width="40" height="14" rx="2" fill="#0d0b06" stroke="#2a2214"/><circle class="bub-led" cx="40" cy="37" r="2.4" fill="#34d399"/><rect x="6" y="50" width="40" height="14" rx="2" fill="#0d0b06" stroke="#2a2214"/><circle class="bub-led" cx="40" cy="57" r="2.4" fill="#f5b642"/><rect x="6" y="70" width="40" height="14" rx="2" fill="#0d0b06" stroke="#2a2214"/><circle class="bub-led" cx="40" cy="77" r="2.4" fill="#34d399"/><rect x="6" y="90" width="40" height="14" rx="2" fill="#0d0b06" stroke="#2a2214"/><circle class="bub-led" cx="40" cy="97" r="2.4" fill="#34d399"/></g>
+          <g transform="translate(586,90)"><rect x="0" y="0" width="52" height="120" rx="4" fill="#17130a" stroke="#3a3020" stroke-width="1.6"/><rect x="6" y="10" width="40" height="14" rx="2" fill="#0d0b06" stroke="#2a2214"/><circle class="bub-led" cx="40" cy="17" r="2.4" fill="#f5b642"/><rect x="6" y="30" width="40" height="14" rx="2" fill="#0d0b06" stroke="#2a2214"/><circle class="bub-led" cx="40" cy="37" r="2.4" fill="#34d399"/><rect x="6" y="50" width="40" height="14" rx="2" fill="#0d0b06" stroke="#2a2214"/><circle class="bub-led" cx="40" cy="57" r="2.4" fill="#34d399"/><rect x="6" y="70" width="40" height="14" rx="2" fill="#0d0b06" stroke="#2a2214"/><circle class="bub-led" cx="40" cy="77" r="2.4" fill="#f5b642"/><rect x="6" y="90" width="40" height="14" rx="2" fill="#0d0b06" stroke="#2a2214"/><circle class="bub-led" cx="40" cy="97" r="2.4" fill="#34d399"/></g>
+          <text class="bub-lbl" x="554" y="222">ศูนย์ข้อมูล</text><text class="bub-sub" x="554" y="238">Hyperscaler</text>
+
+          <!-- 4 optical fiber out -->
+          <rect x="642" y="128" width="26" height="30" rx="3" fill="#0d0b06" stroke="#f5b642" stroke-width="1.4"/>
+          <circle cx="655" cy="143" r="5" fill="#ffe6a8" filter="drop-shadow(0 0 5px #f5b642)"/>
+          <path id="vf1" d="M668,138 C720,130 760,120 860,116" fill="none" stroke="#2a2a3a" stroke-width="4"/>
+          <path d="M668,138 C720,130 760,120 860,116" fill="none" stroke="#60a5fa" stroke-width="2" class="bub-flow"/>
+          <path id="vf2" d="M668,146 C724,150 770,158 860,166" fill="none" stroke="#2a2a3a" stroke-width="4"/>
+          <path d="M668,146 C724,150 770,158 860,166" fill="none" stroke="#ffe6a8" stroke-width="2" class="bub-flow" style="animation-delay:.3s"/>
+          <circle r="4" fill="#ffe6a8" filter="drop-shadow(0 0 6px #f5b642)"><animateMotion dur="1.8s" repeatCount="indefinite"><mpath href="#vf1"/></animateMotion></circle>
+          <circle r="4" fill="#9fd0ff" filter="drop-shadow(0 0 6px #60a5fa)"><animateMotion dur="1.8s" begin="-.9s" repeatCount="indefinite"><mpath href="#vf2"/></animateMotion></circle>
+          <path d="M854,112 l12,4 l-12,4 z" fill="#f5b642"/>
+          <text class="bub-lbl" x="770" y="222">ใยแก้วนำแสง →</text><text class="bub-sub" x="770" y="238">Coherent/Marvell → บริการ AI</text>
+
+          <line x1="40" y1="200" x2="860" y2="200" stroke="#241d10" stroke-width="1"/>
+        </svg>
+      </div><figcaption>เส้นทางจริงของฮาร์ดแวร์ AI: เวเฟอร์ซิลิคอนจาก <strong>TSMC</strong> → ตัด/ประกอบเป็น <strong>GPU ที่มี HBM/DRAM วางข้างๆ บนแพ็กเกจเดียวกัน</strong> (Nvidia + Micron) → เสียบเข้าแร็คใน <strong>ศูนย์ข้อมูล</strong> ของ hyperscaler → ส่งข้อมูลออกด้วย <strong>ใยแก้วนำแสง</strong> (Coherent/Marvell) เป็นแสงวิ่งไปเป็นบริการ AI · เว็บนี้มี deep-dive เกือบทุกชั้น: <a href="deep-dive-snps.html">SNPS</a>, <a href="deep-dive-tsm.html">TSM</a>, <a href="deep-dive-nvda.html">NVDA</a>, <a href="deep-dive-mu.html">MU</a>, <a href="deep-dive-cohr.html">COHR</a></figcaption></figure>
+      <p>
+        ประเด็นสำคัญ: มูลค่าไม่ได้กระจายเท่ากันทุกชั้น — <strong>ชั้นที่มี pricing power จริงเก็บมาร์จิ้นก้อนโต</strong>
+        (Nvidia gross margin ~70%+, HBM ที่ของขาดตลาด) ขณะที่ชั้นประกอบ/ศูนย์ข้อมูลเป็น capex หนักแต่มาร์จิ้นบาง
+        คำถามคือ ทั้งสแตกนี้ถูก "เติมเงิน" มาจาก end-customer จริง หรือจากเงินที่หมุนอยู่ในวง?
+      </p>
+
+      <h2>4. วงจรเงินหมุน — เงินออกไปหาลูกค้าจริงแค่ไหน</h2>
       <p>ราคาปี 2025 กำลัง "บังคับ" ให้ 4 ข้อนี้ต้องเป็นจริง:</p>
       <ol>
         <li>ดีมานด์ฝั่ง inference โตจนดูดซับ compute ระดับ training ได้หมด</li>
@@ -125,202 +269,200 @@
         <li>GPU อยู่รอดนานพอที่จะหาเงินคืนต้นทุนตัวเองได้</li>
         <li>การ scale ยังแปลง compute เป็นความสามารถที่มีมูลค่าทางการค้าได้ต่อไป</li>
       </ol>
-      <p>
-        ข้อ 2 คือข้อที่แบกน้ำหนักทั้งหมด — narrative เรื่อง AGI เป็นแค่ของประดับ เพราะมัน justify ได้ทุกราคา
-        ซึ่งแปลว่ามัน justify ไม่ได้สักราคาเดียว และ <strong>ความเป็นวงกลมมันมีอยู่จริง</strong>:
-      </p>
+      <p>ข้อ 2 คือข้อที่แบกน้ำหนักทั้งหมด และ <strong>ความเป็นวงกลมมันมีอยู่จริง</strong>:</p>
 
-      <figure class="ph-fig"><div class="ph-panel bub-panel"><div class="ph-eyebrow bub">Capital circuit · เงินหมุนในวงปิด</div>
-        <svg viewBox="0 0 840 380" role="img" aria-label="วงจรเงินทุน AI ที่หมุนเป็นวงกลม เงินแทบไม่ออกไปหาลูกค้าปลายทางจริง">
-          <defs>
-            <radialGradient id="bubcg"><stop offset="0" stop-color="#6ee7b7"/><stop offset="1" stop-color="#34d399" stop-opacity="0"/></radialGradient>
-          </defs>
-          <text class="sim-mono" x="30" y="28" style="text-anchor:start">CIRCUIT · internal capital circulation</text>
+      <figure class="ph-fig"><div class="ph-panel bub-panel"><div class="ph-eyebrow bub">Capital loop · เงินหมุนในวงปิด</div>
+        <svg viewBox="0 0 840 360" role="img" aria-label="เหรียญเงินวิ่งวนเป็นวงกลมระหว่าง Nvidia ศูนย์ข้อมูล AI cloud และ VC โดยวาล์วสู่ลูกค้าจริงแทบปิด">
+          <circle class="bub-pipe" cx="420" cy="188" r="116"/>
+          <circle class="bub-pipe-lit" cx="420" cy="188" r="116"/>
 
-          <!-- ring pipe -->
-          <circle class="bub-pipe" cx="420" cy="188" r="118"/>
-          <circle class="bub-pipe-lit" cx="420" cy="188" r="118"/>
+          <!-- center label -->
+          <circle cx="420" cy="188" r="50" fill="#0d0b06" stroke="#4a3c1c" stroke-width="2"/>
+          <text class="bub-sub" x="420" y="182" style="fill:#c9b783">หมุนในวง</text>
+          <text class="bub-lbl" x="420" y="204" style="fill:#f5b642;font-size:16px">≈100%</text>
 
-          <!-- center gauge: 100% internal loop -->
-          <circle class="bub-dial" cx="420" cy="188" r="54"/>
-          <path class="bub-arc-bg" d="M392,222 A40,40 0 1 1 448,222"/>
-          <path class="bub-arc-fill" d="M392,222 A40,40 0 1 1 448,222"/>
-          <line class="bub-needle" x1="420" y1="188" x2="420" y2="152"/>
-          <circle cx="420" cy="188" r="4.5" fill="#f5b642"/>
-          <text class="bub-node-s" x="420" y="176" style="fill:#c9b783">internal</text>
-          <text class="bub-node-t" x="420" y="210" style="fill:#f5b642;font-size:15px">≈100%</text>
+          <!-- N: Nvidia (chip icon) -->
+          <g><rect x="352" y="30" width="136" height="52" rx="9" fill="#16130c" stroke="#4a3c1c" stroke-width="1.6"/>
+            <rect x="366" y="44" width="22" height="22" rx="2" fill="#0f2a1a" stroke="#34d399" stroke-width="1.4"/><line x1="366" y1="50" x2="360" y2="50" stroke="#34d399"/><line x1="366" y1="60" x2="360" y2="60" stroke="#34d399"/><line x1="388" y1="50" x2="394" y2="50" stroke="#34d399"/><line x1="388" y1="60" x2="394" y2="60" stroke="#34d399"/>
+            <text class="bub-lbl" x="430" y="52" style="font-size:12.5px">NVIDIA</text><text class="bub-sub" x="430" y="68" style="text-anchor:middle">ขาย GPU</text></g>
 
-          <!-- nodes N/E/S/W -->
-          <g><rect class="bub-node" x="348" y="30" width="144" height="46" rx="9"/><text class="bub-node-t" x="420" y="52">NVIDIA</text><text class="bub-node-s" x="420" y="67">ขายชิป / GPU</text></g>
-          <g><rect class="bub-node" x="560" y="165" width="150" height="46" rx="9"/><text class="bub-node-t" x="635" y="187">Hyperscaler</text><text class="bub-node-s" x="635" y="202">capex ก้อนโต</text></g>
-          <g><rect class="bub-node" x="348" y="300" width="144" height="46" rx="9"/><text class="bub-node-t" x="420" y="322">AI cloud</text><text class="bub-node-s" x="420" y="337">รายได้จากคลาวด์</text></g>
-          <g><rect class="bub-node" x="130" y="165" width="150" height="46" rx="9"/><text class="bub-node-t" x="205" y="187">Labs / สตาร์ทอัพ</text><text class="bub-node-s" x="205" y="202">จ่ายด้วยเงิน VC</text></g>
+          <!-- E: Hyperscaler (data center) -->
+          <g><rect x="556" y="162" width="150" height="52" rx="9" fill="#16130c" stroke="#4a3c1c" stroke-width="1.6"/>
+            <rect x="568" y="176" width="24" height="24" rx="2" fill="#0d0b06" stroke="#3a3020"/><line x1="572" y1="182" x2="588" y2="182" stroke="#f5b642" stroke-width="1"/><line x1="572" y1="188" x2="588" y2="188" stroke="#34d399" stroke-width="1"/><line x1="572" y1="194" x2="588" y2="194" stroke="#f5b642" stroke-width="1"/>
+            <text class="bub-lbl" x="640" y="184" style="font-size:12px">Hyperscaler</text><text class="bub-sub" x="640" y="200" style="text-anchor:middle">capex ก้อนโต</text></g>
 
-          <!-- circulating coins (clockwise) -->
-          <g class="bub-coin"><circle r="7"><animateMotion dur="6s" repeatCount="indefinite" path="M420,70 A118,118 0 0 1 538,188 A118,118 0 0 1 420,306 A118,118 0 0 1 302,188 A118,118 0 0 1 420,70"/></circle></g>
-          <g class="bub-coin"><circle r="7"><animateMotion dur="6s" begin="-1.5s" repeatCount="indefinite" path="M420,70 A118,118 0 0 1 538,188 A118,118 0 0 1 420,306 A118,118 0 0 1 302,188 A118,118 0 0 1 420,70"/></circle></g>
-          <g class="bub-coin"><circle r="7"><animateMotion dur="6s" begin="-3s" repeatCount="indefinite" path="M420,70 A118,118 0 0 1 538,188 A118,118 0 0 1 420,306 A118,118 0 0 1 302,188 A118,118 0 0 1 420,70"/></circle></g>
-          <g class="bub-coin"><circle r="7"><animateMotion dur="6s" begin="-4.5s" repeatCount="indefinite" path="M420,70 A118,118 0 0 1 538,188 A118,118 0 0 1 420,306 A118,118 0 0 1 302,188 A118,118 0 0 1 420,70"/></circle></g>
+          <!-- S: AI cloud -->
+          <g><rect x="352" y="294" width="136" height="52" rx="9" fill="#16130c" stroke="#4a3c1c" stroke-width="1.6"/>
+            <path d="M366,326 a10,10 0 0 1 4,-19 a12,12 0 0 1 22,3 a8,8 0 0 1 -2,16 z" fill="#0d1830" stroke="#60a5fa" stroke-width="1.4"/>
+            <text class="bub-lbl" x="432" y="316" style="font-size:12.5px">AI cloud</text><text class="bub-sub" x="432" y="332" style="text-anchor:middle">รายได้คลาวด์</text></g>
 
-          <!-- external outlet: nearly-shut valve, tiny trickle -->
-          <path class="bub-valve" d="M538,188 H648"/>
-          <line x1="648" y1="172" x2="648" y2="204" stroke="#35507a" stroke-width="3"/>
-          <line x1="640" y1="180" x2="656" y2="196" stroke="#ef4444" stroke-width="2.4"/>
-          <circle class="bub-trickle" cx="672" cy="196" r="3"/>
-          <circle class="bub-trickle" cx="684" cy="206" r="2.4" opacity=".5"/>
-          <text class="bub-node-s" x="700" y="184" style="text-anchor:start;fill:#7f93b5">end-customer</text>
-          <text class="bub-node-s" x="700" y="199" style="text-anchor:start;fill:#7f93b5">จริง? — แทบปิด</text>
+          <!-- W: Labs/VC (money bag) -->
+          <g><rect x="134" y="162" width="150" height="52" rx="9" fill="#16130c" stroke="#4a3c1c" stroke-width="1.6"/>
+            <path d="M150,200 a13,13 0 0 1 26,0 c0,4 -6,4 -13,4 s-13,0 -13,-4 z" fill="#2a2410" stroke="#f5b642" stroke-width="1.4"/><path d="M158,180 l10,0 l-3,7 l-4,0 z" fill="#2a2410" stroke="#f5b642" stroke-width="1.2"/><text x="163" y="199" class="bub-sub" style="fill:#f5b642;font-size:10px">$</text>
+            <text class="bub-lbl" x="224" y="184" style="font-size:11.5px">Labs / สตาร์ทอัพ</text><text class="bub-sub" x="224" y="200" style="text-anchor:middle">จ่ายด้วยเงิน VC</text></g>
+
+          <!-- circulating coins -->
+          <g class="bub-coin"><circle r="7"><animateMotion dur="6s" repeatCount="indefinite" path="M420,72 A116,116 0 0 1 536,188 A116,116 0 0 1 420,304 A116,116 0 0 1 304,188 A116,116 0 0 1 420,72"/></circle></g>
+          <g class="bub-coin"><circle r="7"><animateMotion dur="6s" begin="-1.5s" repeatCount="indefinite" path="M420,72 A116,116 0 0 1 536,188 A116,116 0 0 1 420,304 A116,116 0 0 1 304,188 A116,116 0 0 1 420,72"/></circle></g>
+          <g class="bub-coin"><circle r="7"><animateMotion dur="6s" begin="-3s" repeatCount="indefinite" path="M420,72 A116,116 0 0 1 536,188 A116,116 0 0 1 420,304 A116,116 0 0 1 304,188 A116,116 0 0 1 420,72"/></circle></g>
+          <g class="bub-coin"><circle r="7"><animateMotion dur="6s" begin="-4.5s" repeatCount="indefinite" path="M420,72 A116,116 0 0 1 536,188 A116,116 0 0 1 420,304 A116,116 0 0 1 304,188 A116,116 0 0 1 420,72"/></circle></g>
+
+          <!-- outlet valve to real customer (branches out at SE, nearly shut) -->
+          <path class="bub-valve" d="M502,270 L576,314"/>
+          <circle cx="584" cy="318" r="10" fill="none" stroke="#35507a" stroke-width="3"/>
+          <line x1="577" y1="311" x2="591" y2="325" stroke="#ef4444" stroke-width="2.6"/>
+          <circle class="bub-trickle" cx="602" cy="330" r="3"/>
+          <text class="bub-sub" x="614" y="316" style="text-anchor:start;fill:#7f93b5">ลูกค้าจริง?</text>
+          <text class="bub-sub" x="614" y="331" style="text-anchor:start;fill:#7f93b5">— แทบปิด</text>
         </svg>
-      </div><figcaption>รายได้ Nvidia คือ capex ของ hyperscaler · capex ถูก justify ด้วยรายได้ AI cloud · ส่วนใหญ่ของรายได้ AI cloud คือ labs/สตาร์ทอัพที่จ่ายด้วยเงิน VC ที่ระดมมาบน narrative AI — เงินก้อนนั้น<strong>วิ่งกลับมาที่ hyperscaler และ Nvidia</strong> การที่ Nvidia ลงทุนใน CoreWeave ที่กู้เงินโดยเอา GPU ค้ำเพื่อไปซื้อ GPU คือ <strong>vendor financing ในเสื้อผ้าชุดใหม่</strong> · เข็มวัดชี้ว่าเงินแทบ 100% หมุนอยู่ในวง วาล์วสู่ลูกค้าปลายทางจริง<strong>แทบปิด</strong></figcaption></figure>
+      </div><figcaption>รายได้ Nvidia คือ capex ของ hyperscaler · capex ถูก justify ด้วยรายได้ AI cloud · ส่วนใหญ่ของรายได้ AI cloud คือ labs/สตาร์ทอัพที่จ่ายด้วยเงิน VC ที่ระดมมาบน narrative AI — เงินก้อนนั้น<strong>วิ่งกลับมาที่ hyperscaler และ Nvidia</strong> การที่ Nvidia ลงทุนใน CoreWeave (neocloud) ที่กู้เงินโดยเอา GPU ค้ำเพื่อไปซื้อ GPU คือ <strong>vendor financing ในเสื้อผ้าชุดใหม่</strong> วาล์วสู่ลูกค้าปลายทางจริง<strong>แทบปิด</strong></figcaption></figure>
       <p>
         "ความขาดแคลน compute" ถูกอ้างเป็นหลักฐานของดีมานด์ — แต่ WorldCom ก็เคยมี "ดีมานด์"
         จากผู้ให้บริการรายอื่นที่สร้างของแข่งกันบนตัวเลขพยากรณ์ผีตัวเดียวกัน
         <strong>ความขาดแคลนภายในการแข่งสร้างกำลังการผลิต พิสูจน์แค่ "การแข่ง" ไม่ได้พิสูจน์ "ลูกค้า"</strong>
       </p>
 
-      <h2>4. จุดที่ AI แย่กว่า dot-com: สินทรัพย์ที่ละลาย</h2>
+      <h2>5. จุดที่ AI แย่กว่า dot-com: สินทรัพย์ที่ละลาย</h2>
       <p>เทียบกับปี 1999 มีความต่างเชิงโครงสร้าง 2 ข้อ — ข้างละทิศ:</p>
       <ul>
-        <li><strong>ข้อดี:</strong> คนที่จ่ายรอบนี้คือบริษัทที่ทำกำไรมากที่สุดในประวัติศาสตร์ จ่ายด้วยกระแสเงินสดจากการดำเนินงาน ไม่ใช่เงินกู้ ถ้าพังก็<em>ไม่</em>ลามผ่านระบบเครดิต มันโผล่มาในรูป return ที่ด้อยลงและ writedown ไม่ใช่การล้มละลาย — เปลี่ยน "รูปแบบการพัง" แต่ไม่เปลี่ยน "คำถาม"</li>
-        <li><strong>ข้อเสีย — และตรงนี้แหละที่ข้อปลอบใจเรื่อง GPU ของเราพัง:</strong> fiber อยู่ได้ 25 ปี dark fiber รอ YouTube อยู่สิบปีก็ยังใช้ได้ แต่ <strong>GPU ตายเชิงเศรษฐกิจใน 4-5 ปี</strong></li>
+        <li><strong>ข้อดี:</strong> คนที่จ่ายรอบนี้คือบริษัทที่ทำกำไรมากที่สุดในประวัติศาสตร์ จ่ายด้วยกระแสเงินสด ไม่ใช่เงินกู้ ถ้าพังก็<em>ไม่</em>ลามผ่านระบบเครดิต มันโผล่มาในรูป writedown ไม่ใช่การล้มละลาย — เปลี่ยน "รูปแบบการพัง" แต่ไม่เปลี่ยน "คำถาม"</li>
+        <li><strong>ข้อเสีย — ตรงนี้ที่ข้อปลอบใจเรื่อง GPU พัง:</strong> fiber อยู่ได้ 25 ปี แต่ <strong>GPU ตายเชิงเศรษฐกิจใน 4-5 ปี</strong></li>
       </ul>
 
-      <figure class="ph-fig"><div class="ph-panel bub-panel"><div class="ph-eyebrow bub">Asset scope · อายุเศรษฐกิจของสินทรัพย์</div>
-        <svg viewBox="0 0 840 300" role="img" aria-label="กราฟเปรียบเทียบอายุสินทรัพย์: fiber คงมูลค่า 25 ปี ขณะที่ GPU ละลายหมดใน 4-5 ปี">
-          <rect class="bub-scope" x="60" y="40" width="720" height="210" rx="8"/>
-          <g class="bub-grid">
-            <line x1="90" y1="60" x2="750" y2="60"/><line x1="90" y1="105" x2="750" y2="105"/><line x1="90" y1="150" x2="750" y2="150"/><line x1="90" y1="195" x2="750" y2="195"/><line x1="90" y1="240" x2="750" y2="240"/>
-            <line x1="222" y1="50" x2="222" y2="240"/><line x1="354" y1="50" x2="354" y2="240"/><line x1="486" y1="50" x2="486" y2="240"/><line x1="618" y1="50" x2="618" y2="240"/>
+      <figure class="ph-fig"><div class="ph-panel bub-panel"><div class="ph-eyebrow bub">Asset · fiber อยู่ยง vs GPU ละลาย</div>
+        <svg viewBox="0 0 840 280" role="img" aria-label="ซ้าย ใยแก้วนำแสงส่องแสงอยู่ยง 25 ปีพร้อมกล่องของขวัญ ขวา ชิป GPU กำลังละลายหยดลงเป็นแอ่งภายใน 4-5 ปี">
+          <line x1="420" y1="40" x2="420" y2="240" stroke="#241d10" stroke-width="1" stroke-dasharray="4 6"/>
+
+          <!-- LEFT: enduring fiber -->
+          <text class="bub-title" x="90" y="58" style="text-anchor:start;fill:#8fd3b6">FIBER · ของขวัญให้อนาคต</text>
+          <path id="af" d="M80,150 C160,110 240,190 360,140" fill="none" stroke="#16403a" stroke-width="12" stroke-linecap="round"/>
+          <path d="M80,150 C160,110 240,190 360,140" fill="none" stroke="#34d399" stroke-width="3" class="bub-flow"/>
+          <circle r="5" fill="#ccfbf1" filter="drop-shadow(0 0 7px #34d399)"><animateMotion dur="2.2s" repeatCount="indefinite"><mpath href="#af"/></animateMotion></circle>
+          <circle r="5" fill="#ccfbf1" filter="drop-shadow(0 0 7px #34d399)"><animateMotion dur="2.2s" begin="-1.1s" repeatCount="indefinite"><mpath href="#af"/></animateMotion></circle>
+          <!-- gift -->
+          <g transform="translate(360,140)"><rect x="-16" y="-14" width="32" height="28" rx="3" fill="#0e2b22" stroke="#34d399" stroke-width="1.8"/><line x1="-16" y1="-4" x2="16" y2="-4" stroke="#34d399" stroke-width="1.6"/><line x1="0" y1="-14" x2="0" y2="14" stroke="#34d399" stroke-width="1.6"/><path d="M-6,-14 Q0,-26 6,-14" fill="none" stroke="#34d399" stroke-width="1.6"/></g>
+          <g transform="translate(150,200)"><circle r="18" fill="#0e2b22" stroke="#34d399" stroke-width="1.6"/><line x1="0" y1="0" x2="0" y2="-9" stroke="#34d399" stroke-width="2"/><line x1="0" y1="0" x2="7" y2="3" stroke="#34d399" stroke-width="2"/></g>
+          <text class="bub-lbl" x="210" y="238" style="fill:#8fd3b6">อยู่ได้ 25 ปี — รออนาคตได้</text>
+
+          <!-- RIGHT: melting GPU -->
+          <text class="bub-title" x="470" y="58" style="text-anchor:start;fill:#e59a9a">GPU · สินทรัพย์ที่ละลาย</text>
+          <!-- chip body with drippy bottom -->
+          <path d="M540,96 h120 v56 q-15,10 -30,2 q-15,-8 -30,4 q-15,10 -30,0 q-15,-8 -30,2 z" fill="#2a1210" stroke="#ef4444" stroke-width="1.8"/>
+          <g stroke="#ef4444" stroke-width="2">
+            <line x1="556" y1="96" x2="556" y2="84"/><line x1="576" y1="96" x2="576" y2="84"/><line x1="596" y1="96" x2="596" y2="84"/><line x1="616" y1="96" x2="616" y2="84"/><line x1="636" y1="96" x2="636" y2="84"/>
           </g>
-          <text class="sim-mono" x="70" y="32" style="text-anchor:start">SIM · value remaining vs time</text>
-
-          <!-- fiber: retained value (green), spans full 25 yr -->
-          <polygon class="bub-fiber-fill" points="90,72 750,96 750,240 90,240"/>
-          <path class="bub-fiber" style="--len:720" d="M90,72 C260,74 520,86 750,96"/>
-          <!-- gpu: melts to zero by ~year 4.5 -->
-          <polygon class="bub-gpu-fill" points="90,72 176,180 209,240 90,240"/>
-          <path class="bub-gpu" style="--len:820" d="M90,72 C130,74 152,120 176,180 C190,214 200,238 209,240 L750,240"/>
-
-          <!-- melt drips -->
-          <circle class="bub-drip" cx="168" cy="184" r="3.4"/>
-          <circle class="bub-drip" cx="190" cy="206" r="3" style="animation-delay:.25s"/>
-          <circle class="bub-drip" cx="150" cy="150" r="2.6" style="animation-delay:.5s"/>
-
-          <!-- gpu death marker -->
-          <line class="bub-cliff" x1="209" y1="60" x2="209" y2="240"/>
-          <text class="bub-axis" x="214" y="74" style="fill:#ef4444">GPU ตาย ~4-5 ปี</text>
-
-          <!-- gift at fiber end -->
-          <g class="bub-gift" transform="translate(742,86)">
-            <rect x="-11" y="-8" width="22" height="18" rx="2" fill="#0e2b22" stroke="#34d399" stroke-width="1.6"/>
-            <line x1="-11" y1="-2" x2="11" y2="-2" stroke="#34d399" stroke-width="1.6"/>
-            <line x1="0" y1="-8" x2="0" y2="10" stroke="#34d399" stroke-width="1.6"/>
-            <path d="M-4,-8 Q0,-16 4,-8" fill="none" stroke="#34d399" stroke-width="1.6"/>
-          </g>
-
-          <!-- axes labels -->
-          <text class="bub-axis" x="88" y="256" style="text-anchor:middle">0</text>
-          <text class="bub-axis" x="222" y="256" style="text-anchor:middle">5 ปี</text>
-          <text class="bub-axis" x="354" y="256" style="text-anchor:middle">10</text>
-          <text class="bub-axis" x="486" y="256" style="text-anchor:middle">15</text>
-          <text class="bub-axis" x="618" y="256" style="text-anchor:middle">20</text>
-          <text class="bub-axis" x="750" y="256" style="text-anchor:middle">25 ปี</text>
-          <text class="bub-axis" x="54" y="68" style="text-anchor:end">100%</text>
-          <text class="bub-axis" x="54" y="244" style="text-anchor:end">0%</text>
-
-          <!-- legend -->
-          <line x1="470" y1="200" x2="500" y2="200" stroke="#34d399" stroke-width="3"/><text class="bub-axis" x="506" y="204" style="text-anchor:start;fill:#8fd3b6">Fiber — ของขวัญให้อนาคต (25 ปี)</text>
-          <line x1="470" y1="220" x2="500" y2="220" stroke="#ef4444" stroke-width="3"/><text class="bub-axis" x="506" y="224" style="text-anchor:start;fill:#e59a9a">GPU — สินทรัพย์ที่ละลาย (4-5 ปี)</text>
+          <text class="bub-sub" x="600" y="128" style="fill:#f0b3b3;font-size:11px">GPU</text>
+          <!-- drips -->
+          <circle class="bub-drip" cx="568" cy="150" r="4" fill="#ef4444"/>
+          <circle class="bub-drip" cx="612" cy="152" r="4.5" fill="#ef4444" style="animation-delay:.5s"/>
+          <circle class="bub-drip" cx="648" cy="150" r="3.6" fill="#ef4444" style="animation-delay:1s"/>
+          <!-- puddle -->
+          <ellipse class="bub-puddle" cx="600" cy="212" rx="70" ry="12" fill="#7a1f1f"/>
+          <ellipse cx="600" cy="212" rx="46" ry="7" fill="#ef4444" opacity=".5"/>
+          <text class="bub-lbl" x="600" y="238" style="fill:#e59a9a">ตายเชิงเศรษฐกิจใน 4-5 ปี</text>
         </svg>
       </div><figcaption>fiber ที่สร้างเกินในยุค dot-com คือ<strong>ของขวัญให้คนรุ่นถัดไป</strong> เพราะมันรอได้ แต่ compute ที่สร้างเกินคือ<strong>สินทรัพย์ที่ละลาย</strong> — "ถ้าเป็นฟองสบู่ GPU ก็เอาไปทำอย่างอื่นได้" คือข้อปลอบใจข้อเดียวที่ dot-com มีแต่ AI ไม่มี สินทรัพย์เน่าเร็วกว่าที่ timing error จะให้อภัยไหว</figcaption></figure>
+
       <blockquote>"Overbuilt fiber was a gift to the future. Overbuilt compute is a melting asset."</blockquote>
       <p>
         ดังนั้นสมมติฐานที่เปราะที่สุดจึงไม่ใช่ "end-demand จะมาไหม" แต่คือ <strong>"มันจะมาทันก่อนนาฬิกา depreciation
         ของ GPU ที่ติดตั้งไปแล้วจะเดินหมดหรือเปล่า"</strong> — ไม่ใช่ <em>whether</em> แต่เป็น <em>when</em>
       </p>
 
-      <h2>5. Steel-man แล้วหาข้อต่อที่เปราะ</h2>
+      <h2>6. Steel-man แล้วหาข้อต่อที่เปราะ</h2>
       <p>
         เคสฝั่ง bull ที่แข็งที่สุด: นี่ไม่ใช่ปี 1999 เพราะ<strong>สินค้ามันทำงานได้จริงวันนี้</strong> —
-        productivity gain วัดได้ มีรายได้จากผู้บริโภคจริงในสเกลใหญ่ภายใน 3 ปีหลังเปิดตัว (monetize เร็วกว่าอินเทอร์เน็ตเองด้วยซ้ำ)
-        compute ถูกปันส่วน ไม่ได้ว่างเปล่า คนซื้อจ่ายจากกระแสเงินสด และการบริโภค token โตเร็วกว่าราคา token ที่ลดลง
-        ซึ่งคือหน้าตาของ demand elasticity จริง
+        productivity gain วัดได้ มีรายได้จากผู้บริโภคจริงในสเกลใหญ่ compute ถูกปันส่วน คนซื้อจ่ายจากกระแสเงินสด
+        และ token consumption โตเร็วกว่าราคาที่ลดลง (demand elasticity จริง) — เป็นสะพานที่เสาแข็งหลายต้น
       </p>
-      <p>
-        เป็นเคสที่ดี — แต่ข้อต่อที่เปราะคือ <strong>แทบไม่มีดีมานด์ก้อนไหนถูกไล่จนถึงปลายทางจริง</strong>
-        ลองไล่เงิน "ดีมานด์ AI" ทุกดอลลาร์ แล้วถามว่ามันออกจากวงตรงไหน — ที่องค์กรที่จ่ายเพราะ AI ทำเงินให้เขา
-        หรือที่กองทุน VC ที่จ่ายเพราะ narrative ยังไม่ตาย? ในปี 2025 คำตอบที่ซื่อสัตย์สำหรับ compute ก้อนใหญ่คืออย่างหลัง
-      </p>
+
+      <figure class="ph-fig"><div class="ph-panel bub-panel"><div class="ph-eyebrow bub">Steel-man · 4 เสาแข็ง 1 เสาร้าว</div>
+        <svg viewBox="0 0 840 280" role="img" aria-label="สะพานของ bull case วางบนเสา 4 ต้นแข็งแรง แต่เสาที่ 5 ร้าวและสั่น คือข้อต่อที่เปราะ ดีมานด์ไล่ไม่ถึงปลายทาง">
+          <!-- load arrows on deck -->
+          <g fill="#9a8a5a"><path d="M180,44 l6,10 l-12,0 z"/><path d="M360,44 l6,10 l-12,0 z"/><path d="M540,44 l6,10 l-12,0 z"/></g>
+          <text class="bub-sub" x="420" y="42" style="fill:#9a8a5a">น้ำหนัก = bull case (ราคาที่ตลาดให้)</text>
+          <!-- deck -->
+          <rect x="90" y="66" width="660" height="22" rx="4" fill="#2a2214" stroke="#4a3c1c" stroke-width="1.5"/>
+          <rect x="90" y="66" width="660" height="6" rx="3" fill="#f5b642" opacity=".35"/>
+
+          <!-- 4 solid pillars -->
+          <g fill="#16130c" stroke="#34d399" stroke-width="1.8">
+            <rect x="132" y="88" width="30" height="132"/><rect x="288" y="88" width="30" height="132"/><rect x="444" y="88" width="30" height="132"/><rect x="600" y="88" width="30" height="132"/>
+          </g>
+          <text class="bub-sub" x="147" y="238">ใช้ได้จริง</text><text class="bub-sub" x="303" y="238">มีรายได้จริง</text><text class="bub-sub" x="459" y="238">compute ปัน</text><text class="bub-sub" x="615" y="238">จ่ายเงินสด</text>
+
+          <!-- 5th cracked pillar -->
+          <g class="bub-wobble">
+            <rect x="690" y="88" width="30" height="132" fill="#2a1210" stroke="#ef4444" stroke-width="1.8"/>
+            <path class="bub-crack" d="M705,88 l-8,26 l10,20 l-9,22 l8,24 l-6,20" fill="none" stroke="#ef4444" stroke-width="2.4"/>
+          </g>
+          <circle class="bub-led" cx="705" cy="78" r="6" fill="#ef4444"/>
+          <text class="bub-sub" x="705" y="238" style="fill:#e59a9a">ไล่ถึงปลายทาง?</text>
+          <line x1="90" y1="222" x2="750" y2="222" stroke="#241d10"/>
+        </svg>
+      </div><figcaption>4 เสาซ้ายแข็งจริง — แต่เสาขวาสุด<strong>ร้าว</strong>: แทบไม่มีดีมานด์ก้อนไหนถูกไล่จนถึงปลายทางจริง ลองไล่เงิน "ดีมานด์ AI" ทุกดอลลาร์ว่ามันออกจากวงตรงไหน — ที่องค์กรที่จ่ายเพราะ AI ทำเงินให้เขา หรือที่กองทุน VC ที่จ่ายเพราะ narrative ยังไม่ตาย? ในปี 2025 คำตอบที่ซื่อสัตย์สำหรับ compute ก้อนใหญ่คืออย่างหลัง — สะพานทั้งหลังฝากไว้บนเสาต้นนี้</figcaption></figure>
+
       <blockquote>"Scarcity inside a capacity race proves the race, not the customer."<br>— ความขาดแคลนในการแข่งขยายกำลังการผลิต พิสูจน์แค่ "การแข่ง" ไม่ได้พิสูจน์ "ลูกค้า"</blockquote>
 
-      <h2>6. คำตัดสิน: timing error กับ "ดอกจันโหดร้าย"</h2>
+      <h2>7. คำตัดสิน: timing error กับ "ดอกจันโหดร้าย"</h2>
       <p>
         คำตอบคือ <strong>(c) timing error — thesis ถูก แต่ timeline ผิด — พร้อมดอกจัน 1 ตัวที่โหดร้าย</strong>
-      </p>
-      <p>
-        ไม่ใช่ (a) "mispriced พื้นฐาน" เพราะแก่นมันจริงเกินไป รายได้จับต้องได้เกินไป และการเงินอิงเงินสดเกินไป —
-        และก็ไม่ใช่ (b) เต็มตัว เพราะทิศทางและแม้แต่ขนาดก็ปกป้องได้<em>ถ้าให้เวลาพอ</em>
+        ไม่ใช่ (a) "mispriced พื้นฐาน" เพราะแก่นมันจริงเกินไป และก็ไม่ใช่ (b) เต็มตัว
+        เพราะทิศทางและขนาดก็ปกป้องได้<em>ถ้าให้เวลาพอ</em> — คำถามคือเวลาจะพอไหม
       </p>
 
-      <figure class="ph-fig"><div class="ph-panel bub-panel"><div class="ph-eyebrow bub">Race · นาฬิกา depreciation vs demand ที่มาถึง</div>
-        <svg viewBox="0 0 840 300" role="img" aria-label="การแข่งระหว่างมูลค่า asset ที่ลดลงกับ external demand ที่รอมาถึง — ช่องว่างระหว่างสองเส้นคือจุดที่ timing error กลายเป็นฟองสบู่">
-          <rect class="bub-scope" x="60" y="40" width="720" height="210" rx="8"/>
-          <g class="bub-grid">
-            <line x1="90" y1="60" x2="750" y2="60"/><line x1="90" y1="110" x2="750" y2="110"/><line x1="90" y1="150" x2="750" y2="150"/><line x1="90" y1="200" x2="750" y2="200"/><line x1="90" y1="240" x2="750" y2="240"/>
-          </g>
-          <text class="sim-mono" x="70" y="32" style="text-anchor:start">RACE · asset value ↓  vs  external demand ↑</text>
+      <figure class="ph-fig"><div class="ph-panel bub-panel"><div class="ph-eyebrow bub">Race · นาฬิกาทราย (asset) vs ถังดีมานด์</div>
+        <svg viewBox="0 0 840 280" role="img" aria-label="นาฬิกาทรายของอายุ GPU กำลังจะหมด ขณะที่ถังน้ำของ external demand ยังไม่ถึงเส้น payback ช่องว่างคือความเสี่ยงฟองสบู่">
+          <!-- LEFT: hourglass = asset life draining -->
+          <text class="bub-title" x="230" y="52" style="text-anchor:middle;fill:#e59a9a">อายุ GPU (depreciation)</text>
+          <g stroke="#4a3c1c" stroke-width="3" fill="none"><line x1="180" y1="80" x2="280" y2="80"/><line x1="180" y1="220" x2="280" y2="220"/></g>
+          <path d="M188,84 L272,84 L234,150 L272,216 L188,216 L226,150 Z" fill="#0d0b06" stroke="#4a3c1c" stroke-width="1.6"/>
+          <!-- top sand shrinking -->
+          <path class="bub-sandtop" d="M196,90 L264,90 L232,146 L228,146 Z" fill="#f5b642" opacity=".85"/>
+          <!-- falling stream -->
+          <line class="bub-led" x1="230" y1="146" x2="230" y2="200" stroke="#f5b642" stroke-width="2"/>
+          <!-- bottom sand growing -->
+          <path class="bub-sandbot" d="M196,210 L264,210 L238,168 L222,168 Z" fill="#f5b642" opacity=".85"/>
+          <text class="bub-sub" x="230" y="244" style="fill:#e0b0b0">ทรายใกล้หมด</text>
 
-          <!-- payback threshold -->
-          <line class="bub-thresh" x1="90" y1="110" x2="750" y2="110"/>
-          <text class="bub-axis" x="96" y="104" style="text-anchor:start;fill:#8a7c56">จุดคืนทุน (payback)</text>
+          <!-- RIGHT: water tank = external demand filling -->
+          <text class="bub-title" x="590" y="52" style="text-anchor:middle;fill:#93b8e5">external demand → payback</text>
+          <rect x="540" y="84" width="100" height="136" rx="6" fill="#0d0b06" stroke="#35507a" stroke-width="2"/>
+          <rect class="bub-water" x="544" y="88" width="92" height="128" rx="4" fill="#2b6cb0" opacity=".75"/>
+          <!-- payback line -->
+          <line x1="536" y1="112" x2="644" y2="112" stroke="#93b8e5" stroke-width="1.6" stroke-dasharray="6 5"/>
+          <text class="bub-sub" x="648" y="116" style="text-anchor:start;fill:#93b8e5">payback</text>
+          <text class="bub-sub" x="590" y="244" style="fill:#9fbce0">น้ำยังไม่ถึงเส้น</text>
 
-          <!-- danger gap: between asset-death and demand-arrival -->
-          <rect class="bub-gap" x="461" y="110" width="139" height="130"/>
-
-          <!-- asset value melting (red) to 0 at ~year 4.5 (x=461) -->
-          <path class="bub-melt" style="--len:780" d="M90,70 C210,74 330,120 420,175 C445,205 455,235 461,240 L750,240"/>
-          <!-- external demand rising (blue), crosses payback ~year 6.2 (x≈600) -->
-          <path class="bub-demand" style="--len:820" d="M90,238 C250,236 340,214 430,178 C520,142 560,112 620,96 C680,86 720,82 750,80"/>
-
-          <!-- asset death cliff -->
-          <line class="bub-cliff" x1="461" y1="60" x2="461" y2="240"/>
-          <text class="bub-axis" x="456" y="74" style="text-anchor:end;fill:#ef4444">asset ตาย (4-5 ปี)</text>
-
-          <!-- flag where demand finally arrives -->
-          <g class="bub-flag" transform="translate(600,110)">
-            <line x1="0" y1="0" x2="0" y2="-26" stroke="#60a5fa" stroke-width="2"/>
-            <path d="M0,-26 L18,-21 L0,-16 Z" fill="#60a5fa"/>
-            <circle cx="0" cy="0" r="3.5" fill="#60a5fa"/>
-          </g>
-          <text class="bub-flag bub-axis" x="606" y="130" style="text-anchor:start;fill:#93b8e5">demand มาถึง… สายไป</text>
-
-          <!-- axes -->
-          <text class="bub-axis" x="88" y="256" style="text-anchor:middle">0</text>
-          <text class="bub-axis" x="750" y="256" style="text-anchor:middle">~8 ปี</text>
-          <text class="bub-axis" x="54" y="70" style="text-anchor:end">100%</text>
-          <text class="bub-axis" x="54" y="244" style="text-anchor:end">0%</text>
-
-          <!-- legend -->
-          <line x1="470" y1="214" x2="500" y2="214" stroke="#ef4444" stroke-width="3"/><text class="bub-axis" x="506" y="218" style="text-anchor:start;fill:#e59a9a">มูลค่า asset (นาฬิกา depreciation)</text>
-          <line x1="470" y1="232" x2="500" y2="232" stroke="#60a5fa" stroke-width="3"/><text class="bub-axis" x="506" y="236" style="text-anchor:start;fill:#93b8e5">external end-demand</text>
+          <!-- gap verdict -->
+          <g fill="#ef4444"><path d="M300,150 l0,-8 l40,0 l0,-8 l16,16 l-16,16 l0,-8 l-40,0 z" opacity=".5"/></g>
+          <text class="bub-cap" x="420" y="150" style="fill:#e59a9a">ทรายหมดก่อน</text>
+          <text class="bub-cap" x="420" y="168" style="fill:#e59a9a">= ฟองสบู่</text>
         </svg>
-      </div><figcaption>ดอกจัน: dot-com ก็เป็น timing error เหมือนกัน แต่มันก็ยังทำลายทุน 80% เพราะ<strong>สำหรับคนถือหลักทรัพย์ timing error ที่ยาวเกินอายุของสินทรัพย์ = แยกไม่ออกจากฟองสบู่</strong> fiber รออนาคตได้ GPU รอไม่ได้ ถ้า end-demand ต้องใช้ 8 ปีแต่ silicon มีอายุ 4 ปี — คำตัดสิน (c) จะให้ผลลัพธ์แบบ (a) กับชั้นโครงสร้างพื้นฐาน ส่วนชั้น application รับมรดกไป เหมือนที่ Google รับมรดก fiber</figcaption></figure>
+      </div><figcaption>ดอกจัน: dot-com ก็เป็น timing error เหมือนกัน แต่มันก็ยังทำลายทุน 80% เพราะ<strong>สำหรับคนถือหลักทรัพย์ timing error ที่ยาวเกินอายุของสินทรัพย์ = แยกไม่ออกจากฟองสบู่</strong> — ทรายในนาฬิกา (อายุ GPU) หมดก่อนน้ำ (external demand) จะขึ้นถึงเส้น payback ถ้า end-demand ต้องใช้ 8 ปีแต่ silicon มีอายุ 4 ปี คำตัดสิน (c) จะให้ผลลัพธ์แบบ (a) กับชั้นโครงสร้างพื้นฐาน ส่วนชั้น application รับมรดกไป เหมือนที่ Google รับมรดก fiber</figcaption></figure>
+
       <blockquote>"The thesis will be vindicated. The question is whether the current holders of it will be."<br>— thesis จะถูกพิสูจน์ว่าถูกในที่สุด คำถามคือคนที่ถือมันอยู่ตอนนี้จะรอดไปถึงตอนนั้นไหม</blockquote>
 
-      <h2>7. Falsifiability — อะไรจะพิสูจน์ว่าคิดผิด</h2>
-      <p>เหตุการณ์ 2 อย่างที่สังเกตได้ภายใน 18 เดือน และจะ<strong>หักล้าง</strong>ข้อสรุปนี้:</p>
-      <ol>
-        <li><strong>ดีมานด์ภายนอกพิสูจน์ตัวเอง:</strong> รายได้ที่ "attribute ให้ AI ได้จริง" ของ hyperscaler รวมกัน
-          — คือ inference และ application ที่ขายให้ลูกค้า<em>นอก</em>วงจรทุน AI ไม่ใช่ capacity ที่ขายต่อกันเองในวง —
-          เกิน ~$100B ต่อปี (annualized) และยังโตเกิน 50% ถ้าเป็นแบบนั้น นี่ไม่ใช่ timing error เลย ตลาดตีราคาต่ำไปด้วยซ้ำ และผมคิดผิดในทางที่ระวังเกิน</li>
-        <li><strong>สมมติฐาน depreciation พังในทางกลับกัน:</strong> GPU เก่าสองรุ่น (คลาส H100) ยังมี utilization และค่าเช่าสูง
-          แม้ของรุ่นใหม่จะไหลเข้าตลาด และการยืดอายุ useful-life ในงบของ hyperscaler พิสูจน์ว่า<em>จริงเชิงกายภาพ</em> ไม่ใช่แค่แต่งบัญชี
-          ถ้าเป็นแบบนั้น สินทรัพย์ไม่ละลาย หน้าต่างเวลากว้าง และดอกจันโหดร้ายก็สลายไป</li>
-      </ol>
-      <p>
-        แต่ถ้า<strong>ไม่เกิดทั้งสองข้อ</strong> — โดยเฉพาะถ้า capex ชะลอลงพร้อมกับ schedule การตัด depreciation
-        ค่อยๆ ถูกยืดออกอย่างเงียบๆ — timing error กำลังแข็งตัวเป็นอะไรบางอย่างที่มีชื่อเรียกเก่ากว่านั้น
-      </p>
+      <h2>8. Falsifiability — อะไรจะพิสูจน์ว่าคิดผิด</h2>
+      <p>เหตุการณ์ 2 อย่างที่สังเกตได้ภายใน 18 เดือน และจะ<strong>หักล้าง</strong>ข้อสรุปนี้ — ตั้งเป็น "ลำแสง tripwire" ไว้เลย ถ้าถูกเหยียบเมื่อไหร่ คำตัดสินพลิกทันที:</p>
+
+      <figure class="ph-fig"><div class="ph-panel bub-panel"><div class="ph-eyebrow bub">Tripwires · 2 ลำแสง (สถานะ: ARMED)</div>
+        <svg viewBox="0 0 840 230" role="img" aria-label="ลำแสงเลเซอร์ tripwire 2 เส้น พร้อมตัวส่ง ตัวรับ และไฟสถานะ ARMED สีเหลืองอำพัน">
+          <!-- beam 1 -->
+          <text class="bub-sub" x="90" y="72" style="text-anchor:start;fill:#c9b78a">1 · รายได้ AI จริง (นอกวง) &gt; $100B &amp; โต &gt;50%</text>
+          <rect x="120" y="86" width="28" height="34" rx="3" fill="#16130c" stroke="#f5b642" stroke-width="1.6"/><circle cx="134" cy="103" r="4" fill="#f5b642" filter="drop-shadow(0 0 5px #f5b642)"/>
+          <line class="bub-beam" x1="148" y1="103" x2="700" y2="103" stroke="#f5b642" stroke-width="2.4" style="color:#f5b642"/>
+          <rect x="700" y="86" width="28" height="34" rx="3" fill="#16130c" stroke="#f5b642" stroke-width="1.6"/>
+          <circle class="bub-led" cx="756" cy="103" r="7" fill="#f5b642"/><text class="bub-sub" x="756" y="128" style="fill:#c9b78a">ARMED</text>
+
+          <!-- beam 2 -->
+          <text class="bub-sub" x="90" y="162" style="text-anchor:start;fill:#c9b78a">2 · GPU เก่า (H100) ยัง util สูง + useful-life จริง</text>
+          <rect x="120" y="176" width="28" height="34" rx="3" fill="#16130c" stroke="#f5b642" stroke-width="1.6"/><circle cx="134" cy="193" r="4" fill="#f5b642" filter="drop-shadow(0 0 5px #f5b642)"/>
+          <line class="bub-beam" x1="148" y1="193" x2="700" y2="193" stroke="#f5b642" stroke-width="2.4" style="color:#f5b642;animation-delay:.6s"/>
+          <rect x="700" y="176" width="28" height="34" rx="3" fill="#16130c" stroke="#f5b642" stroke-width="1.6"/>
+          <circle class="bub-led" cx="756" cy="193" r="7" fill="#f5b642"/><text class="bub-sub" x="756" y="218" style="fill:#c9b78a">ARMED</text>
+        </svg>
+      </div><figcaption><strong>ทริปไวร์ 1:</strong> ถ้ารายได้ที่ "attribute ให้ AI ได้จริง" ของ hyperscaler รวมกัน (ขายให้ลูกค้า<em>นอก</em>วงจรทุน AI) เกิน ~$100B/ปี และยังโตเกิน 50% → นี่ไม่ใช่ timing error เลย ตลาดตีราคาต่ำไปด้วยซ้ำ · <strong>ทริปไวร์ 2:</strong> ถ้า GPU เก่าสองรุ่น (คลาส H100) ยังมี utilization และค่าเช่าสูงแม้ของใหม่ไหลเข้า และการยืด useful-life ในงบพิสูจน์ว่าจริงเชิงกายภาพ → สินทรัพย์ไม่ละลาย ดอกจันสลาย · <strong>ถ้าไม่เกิดทั้งคู่</strong> โดยเฉพาะถ้า capex ชะลอพร้อมกับ schedule depreciation ถูกยืดออกเงียบๆ = timing error กำลังแข็งตัวเป็นชื่อที่เก่ากว่านั้น</figcaption></figure>
 
       <h2>สรุป</h2>
       <p>
