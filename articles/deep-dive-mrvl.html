@@ -1,0 +1,387 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <script>try{var t=localStorage.getItem('theme');if(t)document.documentElement.setAttribute('data-theme',t);}catch(e){}</script>
+  <title>ผ่าธุรกิจ MRVL (Marvell) — ชิป custom และการเชื่อมต่อความเร็วสูงของยุค AI | Moatrices</title>
+  <meta name="description" content="ผ่าธุรกิจ Marvell (MRVL) — fabless custom XPU/ASIC, 224G PAM4 SerDes, Ethernet switch 51.2T และ optical DSP ที่เชื่อม AI data center, รายได้ +42% แต่ ROIC ~6% < ต้นทุนทุน และ goodwill 52% ของสินทรัพย์ อ้างอิงงบ FY2026 + Q1 FY2027">
+  <meta property="og:type" content="article">
+  <meta property="og:site_name" content="Moatrices">
+  <meta property="og:title" content="ผ่าธุรกิจ MRVL (Marvell) — ชิป custom + การเชื่อมต่อความเร็วสูงของยุค AI">
+  <meta property="og:description" content="custom XPU, 224G SerDes, Ethernet switch 51.2T, optical DSP — รายได้ +42% แต่ ROIC < ต้นทุนทุน และ goodwill 52% ของสินทรัพย์">
+  <meta property="og:url" content="https://beatp9696-arch.github.io/articles/deep-dive-mrvl.html">
+  <meta property="og:locale" content="th_TH">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta property="og:image" content="https://beatp9696-arch.github.io/og-deep-dive-mrvl.png">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta name="twitter:image" content="https://beatp9696-arch.github.io/og-deep-dive-mrvl.png">
+  <meta name="author" content="Moatrices">
+  <link rel="canonical" href="https://beatp9696-arch.github.io/articles/deep-dive-mrvl.html">
+  <link rel="alternate" type="application/rss+xml" title="Moatrices RSS" href="/feed.xml">
+  <meta name="theme-color" media="(prefers-color-scheme: light)" content="#f7f5f0">
+  <meta name="theme-color" media="(prefers-color-scheme: dark)" content="#121417">
+  <link rel="icon" href="../favicon.svg" type="image/svg+xml">
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png">
+  <link rel="manifest" href="/site.webmanifest">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Thai:wght@500;600;700&family=Sarabun:wght@400;500;600;700&display=swap">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Thai:wght@500;600;700&family=Sarabun:wght@400;500;600;700&display=swap" media="print" onload="this.media='all'">
+  <noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Thai:wght@500;600;700&family=Sarabun:wght@400;500;600;700&display=swap"></noscript>
+  <link rel="stylesheet" href="../style.css">
+  <script type="application/ld+json">
+  {"@context": "https://schema.org", "@type": "BlogPosting", "headline": "ผ่าธุรกิจ MRVL (Marvell) — ชิป custom และการเชื่อมต่อความเร็วสูงของยุค AI", "description": "ผ่าธุรกิจ Marvell (MRVL) — fabless custom XPU/ASIC, 224G PAM4 SerDes, Ethernet switch 51.2T และ optical DSP ที่เชื่อม AI data center, รายได้ +42% แต่ ROIC ~6% < ต้นทุนทุน และ goodwill 52% ของสินทรัพย์ อ้างอิงงบ FY2026 + Q1 FY2027", "author": {"@type": "Person", "name": "Moatrices"}, "publisher": {"@type": "Organization", "name": "Moatrices", "logo": {"@type": "ImageObject", "url": "https://beatp9696-arch.github.io/favicon.svg"}}, "mainEntityOfPage": {"@type": "WebPage", "@id": "https://beatp9696-arch.github.io/articles/deep-dive-mrvl.html"}, "inLanguage": "th", "datePublished": "2026-06-30", "dateModified": "2026-06-30"}
+  </script>
+</head>
+<body>
+
+  <div class="reading-progress"></div>
+  <div class="top-accent"></div>
+
+  <header class="site-header">
+    <div class="container">
+      <a href="../index.html" class="site-title">Moatrices</a>
+      <nav class="site-nav">
+        <a href="../index.html">หน้าแรก</a>
+        <a href="../dashboard.html">Dashboard</a>
+        <a href="../about.html">เกี่ยวกับ</a>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <div class="container">
+
+      <span class="kicker">Deep-dive · หุ้นจริง</span>
+      <h1>ผ่าธุรกิจ MRVL (Marvell) — ชิป custom และการเชื่อมต่อความเร็วสูงที่ทำให้ AI ขยับ</h1>
+      <div class="company-header">
+        <span class="company-logo"><img src="../logos/MRVL.svg" alt="Marvell Technology, Inc. logo" width="44" height="44"></span>
+        <span class="company-meta">
+          <span class="company-ticker">MRVL <span class="company-exch">NASDAQ</span></span>
+          <span class="company-name">Marvell Technology, Inc.</span>
+        </span>
+      </div>
+      <div class="byline">
+        <span class="byline-avatar">M</span>
+        <div>
+          <div class="byline-author">Moatrices</div>
+          <div class="byline-info">30 มิ.ย. 2026 · อ่าน ~16 นาที</div>
+        </div>
+      </div>
+
+      <p class="lead">
+        ในศูนย์ข้อมูล AI ขนาดมหึมา ชิปนับพันตัวต้องคุยกันให้เร็วที่สุด — และ Marvell คือบริษัทที่ทำทั้ง
+        <strong>"สมอง" (ชิป custom ที่เร่งงาน AI)</strong> และ <strong>"เส้นประสาท" (ชิปที่ขนข้อมูลด้วยความเร็วมหาศาล)</strong>
+        บทนี้จะผ่าให้เห็นว่าจริงๆ แล้ว Marvell ทำ "ของ" อะไรบ้าง แล้วค่อยถามคำถามที่นักลงทุนสาย fundamental
+        ต้องตอบให้ขาด: <strong>มันโตแรงจาก AI จริง แต่สร้างมูลค่าได้จริงแล้วหรือยัง</strong>
+      </p>
+
+      <blockquote>
+        ตัวเลขอ้างอิงงบ FY2026 (10-K สิ้นสุด ม.ค. 2026) และผลประกอบการไตรมาส 1 ปี FY2027 (สิ้นสุด พ.ค. 2026)
+        เป็นการวิเคราะห์เพื่อการศึกษา ไม่ใช่คำแนะนำซื้อขาย
+      </blockquote>
+
+      <h2>1. ธุรกิจนี้หาเงินจากอะไร</h2>
+      <figure class="ph-fig"><div class="ph-panel mrvl-panel"><div class="ph-eyebrow mrvl">Custom XPU · ผังชิปเร่ง AI ที่ออกแบบเฉพาะ</div>
+        <svg viewBox="0 0 840 312" role="img" aria-label="custom AI accelerator floorplan with compute tile array, HBM stacks and SerDes IO">
+          <defs><linearGradient id="mrtr" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#2dd4bf"/><stop offset="1" stop-color="#67e8f9"/></linearGradient></defs>
+          <rect class="mr-die" x="60" y="44" width="720" height="252" rx="14"/>
+          <text class="sim-mono" x="76" y="36" style="text-anchor:start" fill="#2dd4bf">Marvell custom XPU · ออกแบบร่วมกับ hyperscaler → TSMC หล่อ</text>
+          <!-- HBM left -->
+          <g><rect class="mr-hbm" x="78" y="96" width="58" height="116" rx="4"/><line x1="78" y1="125" x2="136" y2="125" stroke="#0a2b27"/><line x1="78" y1="154" x2="136" y2="154" stroke="#0a2b27"/><line x1="78" y1="183" x2="136" y2="183" stroke="#0a2b27"/></g>
+          <text class="s-t sm" x="107" y="230" fill="#7ce0d2">HBM</text>
+          <!-- HBM right -->
+          <g><rect class="mr-hbm" x="704" y="96" width="58" height="116" rx="4"/><line x1="704" y1="125" x2="762" y2="125" stroke="#0a2b27"/><line x1="704" y1="154" x2="762" y2="154" stroke="#0a2b27"/><line x1="704" y1="183" x2="762" y2="183" stroke="#0a2b27"/></g>
+          <text class="s-t sm" x="733" y="230" fill="#7ce0d2">HBM</text>
+          <!-- compute tile array 6x4 -->
+          <text class="s-t sm" x="420" y="84" fill="#ccfbf1">อาเรย์หน่วยประมวลผล AI (tensor tiles)</text>
+          <g>
+            <rect class="mr-tile on" x="252" y="96"  width="46" height="30" rx="3" style="animation-delay:0s"/><rect class="mr-tile on" x="306" y="96"  width="46" height="30" rx="3" style="animation-delay:.2s"/><rect class="mr-tile on" x="360" y="96"  width="46" height="30" rx="3" style="animation-delay:.4s"/><rect class="mr-tile on" x="414" y="96"  width="46" height="30" rx="3" style="animation-delay:.6s"/><rect class="mr-tile on" x="468" y="96"  width="46" height="30" rx="3" style="animation-delay:.8s"/><rect class="mr-tile on" x="522" y="96"  width="46" height="30" rx="3" style="animation-delay:1s"/>
+            <rect class="mr-tile on" x="252" y="134" width="46" height="30" rx="3" style="animation-delay:.2s"/><rect class="mr-tile on" x="306" y="134" width="46" height="30" rx="3" style="animation-delay:.4s"/><rect class="mr-tile on" x="360" y="134" width="46" height="30" rx="3" style="animation-delay:.6s"/><rect class="mr-tile on" x="414" y="134" width="46" height="30" rx="3" style="animation-delay:.8s"/><rect class="mr-tile on" x="468" y="134" width="46" height="30" rx="3" style="animation-delay:1s"/><rect class="mr-tile on" x="522" y="134" width="46" height="30" rx="3" style="animation-delay:1.2s"/>
+            <rect class="mr-tile on" x="252" y="172" width="46" height="30" rx="3" style="animation-delay:.4s"/><rect class="mr-tile on" x="306" y="172" width="46" height="30" rx="3" style="animation-delay:.6s"/><rect class="mr-tile on" x="360" y="172" width="46" height="30" rx="3" style="animation-delay:.8s"/><rect class="mr-tile on" x="414" y="172" width="46" height="30" rx="3" style="animation-delay:1s"/><rect class="mr-tile on" x="468" y="172" width="46" height="30" rx="3" style="animation-delay:1.2s"/><rect class="mr-tile on" x="522" y="172" width="46" height="30" rx="3" style="animation-delay:1.4s"/>
+            <rect class="mr-tile on" x="252" y="210" width="46" height="30" rx="3" style="animation-delay:.6s"/><rect class="mr-tile on" x="306" y="210" width="46" height="30" rx="3" style="animation-delay:.8s"/><rect class="mr-tile on" x="360" y="210" width="46" height="30" rx="3" style="animation-delay:1s"/><rect class="mr-tile on" x="414" y="210" width="46" height="30" rx="3" style="animation-delay:1.2s"/><rect class="mr-tile on" x="468" y="210" width="46" height="30" rx="3" style="animation-delay:1.4s"/><rect class="mr-tile on" x="522" y="210" width="46" height="30" rx="3" style="animation-delay:1.6s"/>
+          </g>
+          <!-- NoC weave -->
+          <path class="mr-noc" d="M252,126 H568 M252,164 H568 M252,202 H568 M298,96 V240 M406,96 V240 M514,96 V240"/>
+          <!-- SerDes IO row -->
+          <rect class="mr-blk" x="210" y="256" width="64" height="24" rx="3"/><rect class="mr-blk" x="290" y="256" width="64" height="24" rx="3"/><rect class="mr-blk" x="370" y="256" width="64" height="24" rx="3"/><rect class="mr-blk" x="450" y="256" width="64" height="24" rx="3"/><rect class="mr-blk" x="530" y="256" width="64" height="24" rx="3"/>
+          <text class="s-t sm" x="402" y="273" fill="#7ce0d2">224G SerDes I/O</text>
+          <!-- pins -->
+          <g class="mr-pin"><circle cx="60" cy="120" r="3"/><circle cx="60" cy="170" r="3"/><circle cx="60" cy="220" r="3"/><circle cx="780" cy="120" r="3"/><circle cx="780" cy="170" r="3"/><circle cx="780" cy="220" r="3"/></g>
+          <!-- data feeding the tiles -->
+          <circle r="4" class="mr-sig"><animateMotion dur="1.6s" repeatCount="indefinite" path="M138,140 L252,150"/></circle>
+          <circle r="4" class="mr-sig"><animateMotion dur="1.6s" begin=".8s" repeatCount="indefinite" path="M704,160 L568,170"/></circle>
+          <circle r="4" class="mr-sig"><animateMotion dur="1.4s" begin=".4s" repeatCount="indefinite" path="M402,256 V240"/></circle>
+        </svg>
+      </div><figcaption>นี่คือสิ่งที่ "custom silicon" หมายถึงจริงๆ — Marvell ออกแบบ<strong>ผังชิปเร่ง AI</strong>ให้ลูกค้าแต่ละราย: อาเรย์ของหน่วยประมวลผล (tensor tiles) ที่จุดติดกันเป็นคลื่นเวลาทำงาน, หน่วยความจำ HBM สองข้าง และ <strong>SerDes I/O 224G</strong> ที่ขอบ — ปรับจูนตาม workload ของ hyperscaler รายนั้น แล้วส่ง TSMC ผลิต (fabless)</figcaption></figure>
+      <p>
+        Marvell ขาย <strong>data infrastructure semiconductor</strong> — ชิปที่อยู่ในศูนย์ข้อมูล AI แบ่งเป็น 2 กลุ่ม:
+      </p>
+      <ul>
+        <li><strong>Custom compute (XPU/ASIC)</strong> — ออกแบบชิปเร่ง AI เฉพาะให้ hyperscaler แต่ละราย (ภาพบน)</li>
+        <li><strong>Connectivity</strong> — SerDes, Ethernet switch, optical interconnect — ชิปที่ "ขนข้อมูล" ระหว่างชิปนับพันตัว (ข้อ 2)</li>
+      </ul>
+      <p>
+        ทั้งหมดเป็น <strong>fabless</strong> — Marvell ออกแบบ แล้วจ้าง TSMC ผลิต ทำให้ลงทุนสินทรัพย์ถาวรต่ำ
+        (capex แค่ ~4–6% ของรายได้) ต่างจากโรงงานอย่าง <a href="deep-dive-tsm.html">TSMC</a> หรือ
+        <a href="deep-dive-mu.html">Micron</a> ที่ต้องเทเงินหมื่นล้านสร้าง fab. คลื่น AI ดันรายได้จริง:
+        FY2026 รายได้ <strong>$8.2bn (+42%)</strong>, Q1 FY2027 ยัง <strong>+28% YoY</strong> เร่งสู่ guide ~+35%
+        และ data center พุ่งเป็น <strong>76% ของรายได้</strong>
+      </p>
+
+      <h2>2. เทคโนโลยีที่ทำให้ AI ขยับได้</h2>
+      <p>
+        หัวใจที่ทำให้ Marvell มีที่ยืนคือ <strong>"การขนข้อมูล"</strong> — GPU/XPU เร็วแค่ไหนก็ไร้ค่า
+        ถ้าส่งข้อมูลหากันไม่ทัน นี่คือ 3 ผลิตภัณฑ์จริงที่ Marvell ทำเพื่อแก้คอขวดนี้
+      </p>
+      <figure class="ph-fig"><div class="ph-panel mrvl-panel"><div class="ph-eyebrow mrvl">224G SerDes · eye diagram (PAM4 = 4 ระดับ)</div>
+        <svg viewBox="0 0 840 300" role="img" aria-label="224G PAM4 SerDes scrolling four-level signal and three-eye diagram">
+          <defs><clipPath id="mrscope"><rect x="60" y="56" width="476" height="208" rx="8"/></clipPath></defs>
+          <rect class="wf-screen" x="60" y="56" width="476" height="208" rx="8"/>
+          <g class="mr-sgrid" clip-path="url(#mrscope)"><line x1="60" y1="100" x2="536" y2="100"/><line x1="60" y1="144" x2="536" y2="144"/><line x1="60" y1="188" x2="536" y2="188"/><line x1="60" y1="232" x2="536" y2="232"/><line x1="156" y1="56" x2="156" y2="264"/><line x1="252" y1="56" x2="252" y2="264"/><line x1="348" y1="56" x2="348" y2="264"/><line x1="444" y1="56" x2="444" y2="264"/></g>
+          <g clip-path="url(#mrscope)"><g class="wf-scroll" transform="translate(70,0)">
+            <path class="mr-pam" d="M0,100 H40 V188 H80 V144 H120 V232 H160 V144 H200 V100 H240 V188 H280 V232 H320 V144 H360 V100 H400 V188 H440 V232 H480 V144 H520 V100 H560 V188 H600 V144 H640 V232 H680 V100 H720 V188 H760 V144 H800 V232 H840 V144 H880 V100 H920 V188 H960 V232 H1000 V144 H1040"/>
+          </g></g>
+          <text class="sim-mono" x="46" y="100" style="text-anchor:end" fill="#5eead4">3</text><text class="sim-mono" x="46" y="144" style="text-anchor:end" fill="#5eead4">2</text><text class="sim-mono" x="46" y="188" style="text-anchor:end" fill="#5eead4">1</text><text class="sim-mono" x="46" y="232" style="text-anchor:end" fill="#5eead4">0</text>
+          <text class="sim-mono" x="68" y="74" style="text-anchor:start" fill="#2dd4bf">สัญญาณ PAM4 · 4 ระดับ/สัญลักษณ์ = 2 บิต</text>
+          <!-- eye diagram box -->
+          <rect class="wf-screen" x="566" y="64" width="214" height="192" rx="8"/>
+          <line class="mr-level" x1="572" y1="92" x2="774" y2="92"/><line class="mr-level" x1="572" y1="140" x2="774" y2="140"/><line class="mr-level" x1="572" y1="188" x2="774" y2="188"/><line class="mr-level" x1="572" y1="228" x2="774" y2="228"/>
+          <!-- 3 eyes: curves crossing between adjacent levels -->
+          <path class="mr-eye" d="M580,92 C636,92 650,140 776,140"/><path class="mr-eye" d="M580,140 C636,140 650,92 776,92"/>
+          <path class="mr-eye" d="M580,140 C636,140 650,188 776,188"/><path class="mr-eye" d="M580,188 C636,188 650,140 776,140"/>
+          <path class="mr-eye" d="M580,188 C636,188 650,228 776,228"/><path class="mr-eye" d="M580,228 C636,228 650,188 776,188"/>
+          <path class="mr-eye" d="M580,92 C648,92 656,140 776,140"/><path class="mr-eye" d="M580,188 C648,188 656,140 776,140"/>
+          <text class="sim-mono" x="673" y="248" fill="#7ce0d2">eye diagram · 3 ตา (PAM4)</text>
+        </svg>
+      </div><figcaption><strong>SerDes คือเพชรยอดมงกุฎของ Marvell</strong> — มันยัดข้อมูลลงบนสายด้วยความเร็ว <strong>224 กิกะบิต/วินาที</strong> โดยใช้ PAM4 (4 ระดับแรงดัน = 2 บิต/สัญลักษณ์ แทนที่จะ 1) "eye diagram" คือเครื่องมือที่วิศวกรอ่าน — <strong>ยิ่ง "ตา" ทั้ง 3 เปิดกว้าง = ส่งเร็วและผิดพลาดน้อย</strong> ชิป AI พันตัวคุยกันได้เร็วแค่ไหนขึ้นกับเทคโนโลยีนี้</figcaption></figure>
+      <figure class="ph-fig"><div class="ph-panel mrvl-panel"><div class="ph-eyebrow mrvl">Teralynx · Ethernet switch 51.2T (crossbar)</div>
+        <svg viewBox="0 0 840 300" role="img" aria-label="Ethernet switch crossbar routing packets from input ports to output ports">
+          <rect class="mr-die" x="270" y="74" width="300" height="170" rx="12"/>
+          <text class="s-t sm" x="420" y="64" fill="#ccfbf1">Teralynx 51.2T switch</text>
+          <text class="sim-mono" x="150" y="60" style="text-anchor:start" fill="#5f9389">เข้า (input ports)</text>
+          <text class="sim-mono" x="690" y="60" style="text-anchor:start" fill="#5f9389">ออก (top ports)</text>
+          <!-- output ports on top -->
+          <rect class="mr-switch" x="320" y="64" width="20" height="20" rx="3"/><rect class="mr-switch" x="380" y="64" width="20" height="20" rx="3"/><rect class="mr-switch" x="440" y="64" width="20" height="20" rx="3"/><rect class="mr-switch" x="500" y="64" width="20" height="20" rx="3"/>
+          <!-- input ports left -->
+          <rect class="mr-switch" x="250" y="100" width="20" height="20" rx="3"/><rect class="mr-switch" x="250" y="130" width="20" height="20" rx="3"/><rect class="mr-switch" x="250" y="160" width="20" height="20" rx="3"/><rect class="mr-switch" x="250" y="190" width="20" height="20" rx="3"/>
+          <!-- crossbar grid -->
+          <g class="mr-xbar"><line x1="290" y1="110" x2="550" y2="110"/><line x1="290" y1="140" x2="550" y2="140"/><line x1="290" y1="170" x2="550" y2="170"/><line x1="290" y1="200" x2="550" y2="200"/><line x1="330" y1="84" x2="330" y2="224"/><line x1="390" y1="84" x2="390" y2="224"/><line x1="450" y1="84" x2="450" y2="224"/><line x1="510" y1="84" x2="510" y2="224"/></g>
+          <!-- active crosspoints -->
+          <circle class="mr-xpt" cx="390" cy="110" r="5"/><circle class="mr-xpt" cx="510" cy="170" r="5" style="animation-delay:.5s"/><circle class="mr-xpt" cx="330" cy="200" r="5" style="animation-delay:1s"/>
+          <!-- packets routing in->cross->out(top) -->
+          <circle r="4.5" class="mr-sig"><animateMotion dur="2s" repeatCount="indefinite" path="M270,110 H390 V84"/></circle>
+          <circle r="4.5" class="mr-sig"><animateMotion dur="2.2s" begin=".5s" repeatCount="indefinite" path="M270,170 H510 V84"/></circle>
+          <circle r="4.5" class="mr-sig"><animateMotion dur="1.9s" begin="1s" repeatCount="indefinite" path="M270,200 H330 V84"/></circle>
+          <text class="sim-mono" x="420" y="270" fill="#7ce0d2">สลับแพ็กเก็ตจากพอร์ตไหน → ไปพอร์ตไหนก็ได้ ทันที</text>
+        </svg>
+      </div><figcaption>Switch คือ "ตำรวจจราจร" ของศูนย์ข้อมูล AI — <strong>Teralynx (51.2 เทระบิต/วินาที)</strong> รับแพ็กเก็ตที่เข้ามาทางพอร์ตใดก็ได้ แล้วส่งต่อไปยังพอร์ตปลายทางที่ถูกต้องผ่าน crossbar (จุดตัดที่สว่างขึ้น) ทันที — GPU/XPU พันตัวคุยข้ามแร็คกันได้เพราะชิปแบบนี้</figcaption></figure>
+      <figure class="ph-fig"><div class="ph-panel mrvl-panel"><div class="ph-eyebrow mrvl">Optical DSP · แปลงบิตไฟฟ้า → แสง</div>
+        <svg viewBox="0 0 840 280" role="img" aria-label="optical DSP encoding electrical bits into light pulses over fiber and decoding at the far end">
+          <!-- electrical input -->
+          <path class="mr-wire" d="M30,150 H56 V128 H82 V150 H108 V128 H134"/>
+          <text class="sim-mono" x="30" y="186" style="text-anchor:start" fill="#5f9389">บิตไฟฟ้า</text>
+          <!-- TX DSP -->
+          <rect class="mr-fab" x="134" y="108" width="120" height="84" rx="10"/><text class="s-t sm" x="194" y="146" fill="#ccfbf1">Marvell DSP</text><text class="s-t sm" x="194" y="164" fill="#7ce0d2">เข้ารหัสแสง (TX)</text>
+          <!-- fiber -->
+          <line class="mr-fiber" x1="254" y1="150" x2="586" y2="150"/>
+          <line class="mr-fiber-core" x1="254" y1="150" x2="586" y2="150"/>
+          <!-- RX DSP -->
+          <rect class="mr-fab" x="586" y="108" width="120" height="84" rx="10"/><text class="s-t sm" x="646" y="146" fill="#ccfbf1">Marvell DSP</text><text class="s-t sm" x="646" y="164" fill="#7ce0d2">ถอดรหัส (RX)</text>
+          <!-- recovered bits -->
+          <path class="mr-wire" d="M706,150 H732 V128 H758 V150 H784 V128 H810"/>
+          <text class="sim-mono" x="810" y="186" style="text-anchor:end" fill="#5f9389">บิตกลับมา</text>
+          <!-- light pulses along fiber (PAM4-ish varied size) -->
+          <circle r="6" class="mr-photon"><animateMotion dur="1.6s" repeatCount="indefinite" path="M260,150 H580"/></circle>
+          <circle r="4" class="mr-photon"><animateMotion dur="1.6s" begin=".4s" repeatCount="indefinite" path="M260,150 H580"/></circle>
+          <circle r="7" class="mr-photon"><animateMotion dur="1.6s" begin=".8s" repeatCount="indefinite" path="M260,150 H580"/></circle>
+          <circle r="3" class="mr-photon"><animateMotion dur="1.6s" begin="1.2s" repeatCount="indefinite" path="M260,150 H580"/></circle>
+          <text class="sim-mono" x="420" y="120" fill="#7ce0d2">พัลส์แสงวิ่งบนใยแก้ว</text>
+          <text class="sim-mono" x="420" y="236" fill="#5f9389">ที่ 224G ทองแดงไปได้แค่ ~1 เมตร — ระยะไกลต้องส่งด้วยแสง</text>
+        </svg>
+      </div><figcaption>ที่ความเร็ว 224G สัญญาณทองแดงตายภายในราว 1 เมตร — Marvell (ผ่านเทคโนโลยี Inphi) ทำ <strong>optical DSP</strong> ที่<strong>เข้ารหัสบิตไฟฟ้าให้เป็นพัลส์แสง</strong> วิ่งข้ามศูนย์ข้อมูลบนใยแก้ว แล้วถอดกลับเป็นบิตที่ปลายทาง — นี่คือ "ท่อส่งทางไกล" ระหว่างแร็ค AI</figcaption></figure>
+      <p>
+        จุดนี้ต้องให้เครดิต bull case: <strong>คลื่น AI ที่ดัน Marvell เป็นของจริง</strong> — data center revenue
+        FY26 ~$6.1bn (+46% YoY) ผู้บริหารพูดถึง "exceptional AI bookings" ทั้ง custom XPU, optics 1.6T และ Ethernet
+        portfolio ที่กว้างนี้ครบเครื่องที่สุดเป็นรอง Broadcom เท่านั้น คำถามที่เหลือทั้งบทไม่ใช่ "โตไหม" (โตแรงมาก)
+        แต่คือ <strong>"โตแล้วเป็นเจ้าของมูลค่านั้นจริงไหม"</strong>
+      </p>
+
+      <h2>3. Moat: design-win ที่เหนียว แต่ไม่ลึก</h2>
+      <figure class="ph-fig"><div class="ph-panel mrvl-panel"><div class="ph-eyebrow mrvl">Design-win · เหนียว 3–5 ปี แต่ rebid ได้</div>
+        <svg viewBox="0 0 840 290" role="img" aria-label="design-win socket on a board sticky for years but re-biddable next generation">
+          <rect x="60" y="70" width="300" height="170" rx="12" fill="#0a201d" stroke="#1f6b5e" stroke-width="1.5"/>
+          <text class="sim-mono" x="76" y="60" style="text-anchor:start" fill="#2dd4bf">บอร์ดของ hyperscaler</text>
+          <rect x="120" y="110" width="180" height="96" rx="8" fill="#08201d" stroke="#2a7d6e" stroke-width="1.4" stroke-dasharray="6 5"/>
+          <rect class="mr-blk core" x="138" y="126" width="144" height="64" rx="6"/>
+          <text class="s-t" x="210" y="154" fill="#ccfbf1">Marvell</text><text class="s-t sm" x="210" y="172" fill="#7ce0d2">custom XPU seated</text>
+          <g class="mr-pin"><circle cx="120" cy="130" r="3"/><circle cx="120" cy="158" r="3"/><circle cx="120" cy="186" r="3"/><circle cx="300" cy="130" r="3"/><circle cx="300" cy="158" r="3"/><circle cx="300" cy="186" r="3"/></g>
+          <text class="sim-mono" x="210" y="226" fill="#5f9389">ผูกทั้ง design flow ~3–5 ปี/socket</text>
+          <text class="sim-mono" x="430" y="60" style="text-anchor:start" fill="#84b3aa">รอบ design ถัดไป (rebid)</text>
+          <defs><marker id="mar" markerWidth="9" markerHeight="9" refX="6" refY="3" orient="auto"><path d="M0,0 L6,3 L0,6 z" fill="#84b3aa"/></marker></defs>
+          <path d="M372,155 H430" stroke="#2a7d6e" stroke-width="2" fill="none" marker-end="url(#mar)"/>
+          <circle cx="446" cy="155" r="9" fill="#10201e" stroke="#84b3aa" stroke-width="2"/><text class="s-t sm" x="446" y="159" fill="#cfe8e2" style="font-size:13px">?</text>
+          <rect x="500" y="78" width="280" height="48" rx="8" fill="#0c2b27" stroke="#5eead4" stroke-width="1.6"/><text class="s-t sm" x="640" y="107" fill="#7ce0d2">Marvell ชนะซ้ำ (ถ้า roadmap ดีพอ)</text>
+          <rect class="mr-warn" x="500" y="134" width="280" height="48" rx="8" fill="#2a1c10" stroke="#fbbf24" stroke-width="1.6"/><text class="s-t sm" x="640" y="163" fill="#fcd34d">ย้ายไป Broadcom (#1)</text>
+          <rect class="mr-warn" x="500" y="190" width="280" height="48" rx="8" fill="#2a1414" stroke="#ef6a72" stroke-width="1.6" style="animation-delay:1s"/><text class="s-t sm" x="640" y="219" fill="#f6a9ad">ลูกค้าทำ ASIC เอง (in-source)</text>
+          <line x1="460" y1="155" x2="500" y2="102" stroke="#2a7d6e" stroke-width="1.3" stroke-dasharray="4 4"/>
+          <line x1="460" y1="155" x2="500" y2="158" stroke="#4a3a1a" stroke-width="1.3" stroke-dasharray="4 4"/>
+          <line x1="460" y1="155" x2="500" y2="214" stroke="#4a2020" stroke-width="1.3" stroke-dasharray="4 4"/>
+        </svg>
+      </div><figcaption>คูเมืองจริงของ Marvell คือ <strong>switching cost ของ design-win</strong> — เมื่อชิปถูกฝังในบอร์ดและ flow ของลูกค้าแล้ว ย้ายกลางทางแพงและเสี่ยงมาก จึงเหนียว 3–5 ปี <strong>แต่ทุก generation ใหม่ต้อง rebid</strong> และที่โต๊ะนั้นมี Broadcom (ใหญ่กว่า) กับตัวเลือก "ทำเอง" ของลูกค้ารออยู่ — moat ระดับกลาง ไม่ใช่ผูกขาด</figcaption></figure>
+      <ul>
+        <li><strong>เป็น #2 รอง Broadcom</strong> — Broadcom นำขาดทั้ง scale (ใหญ่กว่า ~7 เท่า) และ margin (non-GAAP GM ~67% vs Marvell ~59%); Marvell แย่ง socket ที่เหลือ</li>
+        <li><strong>IP ส่วนใหญ่มาจากการซื้อกิจการ</strong> — optical จาก Inphi, processor จาก Cavium ฯลฯ ไม่ใช่สร้างเองจากศูนย์ (ประเด็นนี้กลับมาในข้อ 5)</li>
+        <li><strong>ไม่มี process moat</strong> — fabless แปลว่าใครก็จ้าง TSMC ได้ คูเมืองด้านการผลิตเป็นของ TSMC ไม่ใช่ Marvell</li>
+        <li><strong>Buyer power สูง</strong> — ลูกค้า top-10 = <strong>82% ของรายได้</strong> เป็น hyperscaler ที่มีอำนาจต่อรองมหาศาลและมีทางเลือกชัดเจน</li>
+      </ul>
+
+      <h2>4. กับดักตัวเลข: GAAP บาง vs non-GAAP พอง</h2>
+      <p>
+        นี่คือบทเรียนตรงจาก <a href="financials-01-income-statement.html">ซีรีส์อ่านงบ</a>:
+        รายได้โตแรงไม่ได้แปลว่ากำไร (ต่อหุ้น) ตามมาเสมอ ปี FY2026 GAAP EPS ดูสวยที่ $3.07 —
+        <strong>แต่ในนั้นมี gain ก้อนเดียวจากการขายธุรกิจ auto ethernet ถึง $1.83bn</strong> (รายการครั้งเดียว)
+        พอเข้า Q1 FY2027 ที่ gain หมดแล้ว GAAP EPS ที่แท้จริงเหลือแค่ <strong>$0.04</strong> ขณะที่ non-GAAP รายงาน $0.80
+      </p>
+      <table>
+        <thead><tr><th></th><th class="num">FY2025</th><th class="num">FY2026</th><th class="num">Q1 FY2027</th></tr></thead>
+        <tbody>
+          <tr><td>รายได้ ($M)</td><td class="num">5,767</td><td class="num">8,195 (+42%)</td><td class="num">2,418 (+28%)</td></tr>
+          <tr><td>Gross margin (GAAP)</td><td class="num">41.3%</td><td class="num">51.0%</td><td class="num">52.1%</td></tr>
+          <tr><td>Operating income (GAAP)</td><td class="num">(720)</td><td class="num">1,323</td><td class="num">339</td></tr>
+          <tr><td>GAAP EPS</td><td class="num">(1.02)</td><td class="num">3.07 ⚠️</td><td class="num">0.04</td></tr>
+          <tr><td>non-GAAP EPS</td><td class="num">—</td><td class="num">—</td><td class="num">0.80</td></tr>
+        </tbody>
+      </table>
+      <p>
+        ช่องว่าง GAAP↔non-GAAP ของ Q1 (กำไรสุทธิ non-GAAP $718M เทียบ GAAP $34.5M) มาจาก
+        <strong>SBC $208M + ค่าตัดจำหน่าย $225M + contingent consideration/ภาษี ~$250M</strong> ซึ่งล้วนเป็น
+        <strong>ต้นทุนจริงที่เกิดซ้ำทุกไตรมาส</strong> — non-GAAP ไม่ได้ "ผิด" แต่มันบวกกลับค่าที่ผู้ถือหุ้นจ่ายจริง
+        ต้องดูทั้งสองตัว
+      </p>
+      <p>
+        ข่าวดีจริง: GAAP gross margin ขยายจาก 41% เป็น <strong>52%</strong> และ GAAP operating income
+        <em>พลิกจากขาดทุน 2 ปีติดเป็นบวก</em> $1.3bn — operating leverage มีจริง และ FCF แข็งที่ ~$1.4bn
+        (ข้อดีของ fabless) แต่ SBC ที่ 8.6% ของรายได้ + การออก convertible preferred อีก $2bn + หุ้น M&amp;A อีก
+        26.8 ล้านหุ้น = dilution ยังเป็นบวกแม้ซื้อหุ้นคืน $2bn
+      </p>
+
+      <h2>5. คำถามคุณภาพ: ROIC น้อยกว่าต้นทุนทุน และ goodwill 52%</h2>
+      <p>
+        นักลงทุนสาย fundamental ให้ความสำคัญกับ ROIC เพราะมันตอบคำถามเดียวที่สำคัญที่สุด:
+        <em>"ทุกบาทที่บริษัทเอาไปลงทุน มันสร้างผลตอบแทนเกินต้นทุนของบาทนั้นไหม"</em>
+        Marvell คืน ROIC ราว <strong>5.5–6.5%</strong> ขณะที่ต้นทุนเงินทุน (WACC) อยู่ราว <strong>10–11%</strong>
+        — ทั้งที่ operating margin ดูดีขึ้น นั่นเป็นสัญญาณว่า <strong>"operating leverage" ไม่เท่ากับ "value creation"</strong>
+        ตอนนี้มันยังทำลายมูลค่าเชิงเศรษฐศาสตร์ ไม่ใช่สร้าง — pattern เดียวกับที่เห็นใน
+        <a href="deep-dive-cohr.html">Coherent</a>
+      </p>
+      <table>
+        <thead><tr><th>ตัวชี้คุณภาพ</th><th class="num">Marvell</th><th>อ่านอย่างไร</th></tr></thead>
+        <tbody>
+          <tr><td>ROIC vs WACC</td><td class="num">~6% vs ~11%</td><td>ผลตอบแทนยังต่ำกว่าต้นทุนทุน</td></tr>
+          <tr><td>Goodwill / สินทรัพย์รวม</td><td class="num">52%</td><td>$13.9B — โต $2.8B ใน 1 ไตรมาส</td></tr>
+          <tr><td>non-GAAP GM vs Broadcom</td><td class="num">59% vs ~67%</td><td>#2 ตามหลังผู้นำ</td></tr>
+        </tbody>
+      </table>
+      <p>
+        Marvell เป็น <strong>serial acquirer</strong> — Cavium, Inphi (อดีต) + Celestial AI, XConn (ไตรมาสล่าสุด)
+        ทำให้ goodwill พุ่งเป็น <strong>52% ของสินทรัพย์</strong> (โต $2.8bn ในไตรมาสเดียว) เมื่อ growth ส่วนใหญ่
+        มาจากการ "ซื้อ" ไม่ใช่เครื่องยนต์ organic คำถามที่ต้องคาใจคือ ดีลพวกนี้จะ integrate จน ROIC
+        ไต่ข้าม WACC ได้จริงไหม — ในรอบ decade ที่ผ่านมายัง<strong>ไม่เคยข้าม</strong>
+      </p>
+
+      <h2>6. Bull Case</h2>
+      <ul>
+        <li><strong>เครื่องยนต์ AI data center เป็นของจริง</strong> — รายได้ +42% FY26, Q1 +28% เร่งสู่ guide ~+35%,
+          data center 76% ของรายได้, bookings ระดับ "exceptional" ทั้ง custom XPU, optics 1.6T, Ethernet 51.2T</li>
+        <li><strong>Fabless = capital-light แท้จริง</strong> — capex แค่ 4–6% ของรายได้, FCF ~$1.4bn,
+          OCF ทำสถิติ $639M ในไตรมาสเดียว — จุดแข็งเชิงโครงสร้างที่โรงงานอย่าง Coherent ไม่มี</li>
+        <li><strong>Portfolio กว้าง + execution</strong> — ครบเครื่องที่สุดรองจาก Broadcom; CEO Matt Murphy
+          พา Marvell จากรายได้ ~$2.2bn เป็น $8.2bn ในทศวรรษเดียว และ beat/raise ต่อเนื่อง</li>
+      </ul>
+
+      <h2>7. Bear Case / จุดเปราะ</h2>
+      <ul>
+        <li><strong>คุณภาพต่ำกว่า threshold เชิงโครงสร้าง</strong> — ROIC ~6% &lt; WACC ~11%,
+          goodwill 52% ของสินทรัพย์ (โต $2.8bn ใน 1 ไตรมาส) ยังไม่เคยพิสูจน์ว่าสร้างมูลค่า;
+          "operating leverage" ไม่ใช่ value creation</li>
+        <li><strong>GAAP เปิดเผยว่า earnings power จริงยังบาง</strong> — Q1 GAAP EPS $0.04 vs non-GAAP $0.80;
+          FY26 EPS $3.07 พองด้วย gain ครั้งเดียว $1.83bn; SBC 8.6% + preferred $2bn + หุ้น M&amp;A = dilution จริง</li>
+        <li><strong>Concentration ซ้อนสองชั้น</strong> — top-10 = 82% ของรายได้ <em>และ</em> จีน <strong>44%</strong>
+          (เพิ่มจาก ~36%) — ลูกค้ารายใหญ่รายเดียว in-source หรือ export-control เข้ม กระทบหนักทันที</li>
+        <li><strong>เสีย socket ได้ทุก generation</strong> — Broadcom นำขาด + hyperscaler ทำ ASIC เองได้ใน 2–4 ปี
+          (filing เตือนเอง) — design-win เหนียวแต่ไม่ถาวร</li>
+      </ul>
+
+      <h2>8. Kill Conditions</h2>
+      <p>วินัยสำคัญที่สุดคือกำหนดให้ได้ว่า "อะไรจะทำให้รู้ว่าคิดผิด" ก่อนตัดสินใจ — สำหรับ Marvell มี 4 ตัวที่วัดได้ชัด:</p>
+      <ul>
+        <li><strong>Data center revenue โตช้ากว่า +20% YoY 2 ไตรมาสติด ขณะที่ capex ของ hyperscaler รวมยังขึ้น</strong>
+          → ไม่ใช่ตลาดหด แต่คือ<em>เสีย share/socket</em> ให้ Broadcom หรือ in-house — design-win thesis พัง</li>
+        <li><strong>non-GAAP gross margin หลุดต่ำกว่า 55% 2 ไตรมาสติด</strong>
+          → hyperscaler ใช้ buyer power บีบราคา custom ASIC — pricing thesis พัง</li>
+        <li><strong>Data center segment หด QoQ 2 ไตรมาสติด หรือลูกค้า &gt;10% รายใหญ่หดอย่างมีนัย</strong>
+          → ด้วย concentration 82% ลูกค้าเดียวหายไปกระทบ revenue durability ทันที</li>
+        <li><strong>goodwill impairment ใดๆ หรือดีล M&amp;A ใหม่ &gt;$1bn ขณะ ROIC ยังไม่ข้าม 8%</strong>
+          → ยืนยันว่า reinvestment ไม่คืนต้นทุนทุน = value trap</li>
+      </ul>
+
+      <h2>9. สิ่งที่ยังต้องขุดต่อ (What to ask)</h2>
+      <ol>
+        <li>ROIC จะไต่ข้าม WACC ได้เมื่อไหร่ และด้วยกลไกอะไร — หรือ goodwill 52% จะเป็นภาระถาวร?
+          (incentive ผู้บริหารผูกกับ revenue ไม่มี metric ROIC/FCF — มีแรงจูงใจให้สร้างมูลค่าจริงไหม)</li>
+        <li>ลูกค้ารายใหญ่สุด (สัดส่วนในก้อน 82%) คือใคร และความเสี่ยง in-source อยู่ใกล้แค่ไหน?</li>
+        <li>2 ปีข้างหน้า GAAP EPS จะ converge เข้าหา non-GAAP (gap แคบลง) ไหม — หรือ SBC/amortization จะกดต่อ?</li>
+        <li>จีน 44% ของรายได้ — ถ้า export-control เข้มขึ้น management quantify ผลกระทบไว้เท่าไหร่?</li>
+      </ol>
+
+      <h2>สรุป</h2>
+      <p>
+        Marvell ทำ "ของจริง" ที่ยุค AI ขาดไม่ได้ — ชิป custom เร่ง AI, SerDes 224G, switch 51.2T และ optical DSP
+        ที่เชื่อมศูนย์ข้อมูลทั้งหลังเข้าด้วยกัน รายได้โต +42% และ AI demand เป็นของจริง คำถามหลักจึงไม่ใช่
+        "โตไหม" แต่คือ <strong>"โตด้วยการซื้อกิจการ บนผลตอบแทนที่ยังต่ำกว่าต้นทุนทุน — มันสร้างมูลค่าต่อหุ้นจริงหรือยัง"</strong>
+        ใต้รายได้ที่น่าตื่นเต้น มี ROIC ~6% &lt; WACC, goodwill 52% ของสินทรัพย์ และ GAAP EPS ที่ยังบาง
+        สำหรับนักลงทุนสายเน้นคุณภาพ นี่คือธุรกิจที่ต้อง<strong>เฝ้าดูว่าคุณภาพจะเปลี่ยนเชิงโครงสร้างไหม</strong>
+        (ROIC ข้าม WACC, หยุดพึ่ง M&amp;A, GAAP converge เข้า non-GAAP) — และมี Kill Conditions ที่วัดได้ชัดทุกไตรมาส
+      </p>
+
+      <div class="author-card">
+        <span class="byline-avatar">M</span>
+        <div>
+          <strong>Moatrices</strong>
+          <p>บันทึกการเรียนวิเคราะห์หุ้น US เชิงลึก สาย fundamental — เน้นพื้นฐานธุรกิจ ไม่ใช่ราคา <a href="../about.html">เกี่ยวกับเว็บนี้ →</a></p>
+        </div>
+      </div>
+
+      <p class="back"><a href="../index.html">← กลับหน้าแรก</a></p>
+
+    </div>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container footer-grid">
+      <div class="footer-brand">
+        <a href="../index.html" class="site-title">Moatrices</a>
+        <p>บันทึกการเรียนวิเคราะห์หุ้น US เชิงลึก ภาษาไทย — เน้นพื้นฐานธุรกิจ ไม่ใช่ราคา</p>
+      </div>
+      <nav class="footer-nav">
+        <a href="../index.html">หน้าแรก</a>
+        <a href="../dashboard.html">Dashboard</a>
+        <a href="../about.html">เกี่ยวกับ</a>
+      </nav>
+    </div>
+    <div class="container footer-legal">
+      <p><strong>คำเตือน:</strong> เนื้อหาทั้งหมดเป็นบันทึกการเรียนและความเห็นส่วนตัว
+         เพื่อการศึกษาเท่านั้น <strong>ไม่ใช่คำแนะนำการลงทุน</strong> ไม่ใช่การชี้นำให้ซื้อหรือขายหลักทรัพย์ใดๆ
+         ตัวเลขอ้างอิงงบที่เผยแพร่ ณ ช่วงเวลาหนึ่งและอาจล้าสมัย การตัดสินใจลงทุนเป็นความรับผิดชอบของผู้อ่านเอง</p>
+      <p>© 2026 Moatrices · เผยแพร่ผ่าน GitHub Pages</p>
+    </div>
+  </footer>
+
+  <button class="to-top" aria-label="กลับขึ้นด้านบน">↑</button>
+  <script defer src="../app.js"></script>
+
+</body>
+</html>

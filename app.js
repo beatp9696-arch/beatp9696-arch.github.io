@@ -141,10 +141,11 @@
       var cat = "other";
       if (txt.indexOf("Deep-dive") !== -1) cat = "deepdive";
       else if (txt.indexOf("ซีรีส์") !== -1 || txt.indexOf("งบ") !== -1) cat = "financials";
+      else if (txt.indexOf("หนังสือ") !== -1) cat = "book";
       li.setAttribute("data-cat", cat);
     });
 
-    var counts = { all: items.length, deepdive: 0, financials: 0 };
+    var counts = { all: items.length, deepdive: 0, financials: 0, book: 0 };
     items.forEach(function (li) {
       var cat = li.getAttribute("data-cat");
       if (counts.hasOwnProperty(cat)) counts[cat]++;
@@ -153,7 +154,8 @@
     var filters = [
       { key: "all", label: "ทั้งหมด" },
       { key: "deepdive", label: "Deep-dive" },
-      { key: "financials", label: "อ่านงบ" }
+      { key: "financials", label: "อ่านงบ" },
+      { key: "book", label: "หนังสือ" }
     ];
     var filterBar = document.createElement("div");
     filterBar.className = "filter-bar";
