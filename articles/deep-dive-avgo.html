@@ -1,0 +1,560 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <script>try{var t=localStorage.getItem('theme');if(t)document.documentElement.setAttribute('data-theme',t);}catch(e){}</script>
+  <title>ผ่าธุรกิจ AVGO (Broadcom) — Deep-dive | Moatrices</title>
+  <meta name="description" content="ผ่าธุรกิจ Broadcom (AVGO) — custom XPU + Ethernet ของ AI, VMware เครื่องขึ้นราคา, ลูกค้ากระจุก 42%, purchase commitments $128B + backstop $29B และราคาที่บังคับให้เชื่อ 10 ปีทั้งที่เรดาร์เห็นแค่ FY28 อ้างอิงงบ FY2025 + Q2 FY2026">
+  <meta property="og:type" content="article">
+  <meta property="og:site_name" content="Moatrices">
+  <meta property="og:title" content="ผ่าธุรกิจ AVGO (Broadcom) — custom XPU, VMware และเดิมพัน $128B ที่มองเห็นแค่ FY28">
+  <meta property="og:description" content="เครื่องเก็บค่าผ่านทาง AI สองขา, ลูกค้ากระจุก 42%, commitments $128B + backstop $29B และ Kill Conditions ที่วัดได้จริง">
+  <meta property="og:url" content="https://beatp9696-arch.github.io/articles/deep-dive-avgo.html">
+  <meta property="og:locale" content="th_TH">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta property="og:image" content="https://beatp9696-arch.github.io/og-deep-dive-avgo.png">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta name="twitter:image" content="https://beatp9696-arch.github.io/og-deep-dive-avgo.png">
+  <meta name="author" content="Moatrices">
+  <link rel="canonical" href="https://beatp9696-arch.github.io/articles/deep-dive-avgo.html">
+  <link rel="alternate" type="application/rss+xml" title="Moatrices RSS" href="/feed.xml">
+  <meta name="theme-color" media="(prefers-color-scheme: light)" content="#f7f5f0">
+  <meta name="theme-color" media="(prefers-color-scheme: dark)" content="#121417">
+  <link rel="icon" href="../favicon.svg" type="image/svg+xml">
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png">
+  <link rel="manifest" href="/site.webmanifest">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Thai:wght@500;600;700&family=Sarabun:wght@400;500;600;700&display=swap">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Thai:wght@500;600;700&family=Sarabun:wght@400;500;600;700&display=swap" media="print" onload="this.media='all'">
+  <noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Thai:wght@500;600;700&family=Sarabun:wght@400;500;600;700&display=swap"></noscript>
+  <link rel="stylesheet" href="../style.css">
+  <script type="application/ld+json">
+  {"@context": "https://schema.org", "@type": "BlogPosting", "headline": "ผ่าธุรกิจ AVGO (Broadcom) — custom XPU, VMware และเดิมพัน $128B ที่มองเห็นแค่ FY28", "description": "ผ่าธุรกิจ Broadcom (AVGO) — custom XPU + Ethernet ของ AI, VMware เครื่องขึ้นราคา, ลูกค้ากระจุก 42%, purchase commitments $128B + backstop $29B และราคาที่บังคับให้เชื่อ 10 ปีทั้งที่เรดาร์เห็นแค่ FY28", "author": {"@type": "Person", "name": "Moatrices"}, "publisher": {"@type": "Organization", "name": "Moatrices", "logo": {"@type": "ImageObject", "url": "https://beatp9696-arch.github.io/favicon.svg"}}, "mainEntityOfPage": {"@type": "WebPage", "@id": "https://beatp9696-arch.github.io/articles/deep-dive-avgo.html"}, "inLanguage": "th", "datePublished": "2026-07-02", "dateModified": "2026-07-02"}
+  </script>
+</head>
+<body>
+
+  <div class="reading-progress"></div>
+  <div class="top-accent"></div>
+
+  <header class="site-header">
+    <div class="container">
+      <a href="../index.html" class="site-title">Moatrices</a>
+      <nav class="site-nav">
+        <a href="../index.html">หน้าแรก</a>
+        <a href="../dashboard.html">Dashboard</a>
+        <a href="../about.html">เกี่ยวกับ</a>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <div class="container">
+
+      <span class="kicker">Deep-dive · หุ้นจริง</span>
+      <h1>ผ่าธุรกิจ AVGO (Broadcom) — เก็บค่าผ่านทาง AI สองขา และเดิมพัน $128B ที่เรดาร์มองเห็นแค่ FY28</h1>
+      <div class="company-header">
+        <span class="company-logo company-logo--wm"><span class="company-wm ticker-wm--mask" style="--ar:7.27; --wm:url('../logos/AVGO.svg')" role="img" aria-label="Broadcom Inc. (AVGO)"></span></span>
+        <span class="company-meta">
+          <span class="company-ticker">AVGO <span class="company-exch">NASDAQ</span></span>
+          <span class="company-name">Broadcom Inc.</span>
+        </span>
+      </div>
+      <div class="byline">
+        <span class="byline-avatar">M</span>
+        <div>
+          <div class="byline-author">Moatrices</div>
+          <div class="byline-info">2 ก.ค. 2026 · อ่าน ~17 นาที</div>
+        </div>
+      </div>
+
+      <p class="lead">
+        Broadcom คือบริษัทที่เก็บค่าผ่านทางของ AI buildout จากสองขาพร้อมกัน —
+        ออกแบบ<strong>ชิปเร่ง AI เฉพาะราย (custom XPU)</strong> ให้ hyperscaler
+        และขาย<strong>ชิปเครือข่าย Ethernet</strong> ที่ขนข้อมูลระหว่างชิปนับแสนตัว
+        บวกขาซอฟต์แวร์ VMware ที่ margin 78.7% แต่ในหกเดือนที่ผ่านมา
+        บริษัทเดียวกันนี้เซ็น purchase commitments จาก $132 ล้าน เป็น <strong>$128,110 ล้าน</strong>
+        และค้ำ lease ให้ลูกค้า AI สูงสุด $29,000 ล้าน — นี่คือ deep-dive
+        ของธุรกิจคุณภาพสูงมาก ที่กำลังแบกเดิมพันซึ่งหลักฐานทุกชิ้นหมดอายุราวปี FY2028
+      </p>
+
+      <blockquote>
+        ตัวเลขอ้างอิงงบ FY2025 (10-K สิ้นสุด พ.ย. 2025) และไตรมาส 2 ปี FY2026 (10-Q สิ้นสุด 3 พ.ค. 2026)
+        + earnings release 3 มิ.ย. 2026 — เป็นการวิเคราะห์เพื่อการศึกษา ไม่ใช่คำแนะนำซื้อขาย
+      </blockquote>
+
+      <h2>1. ธุรกิจนี้หาเงินจากอะไร</h2>
+      <figure class="ph-fig"><div class="ph-panel avgo-panel"><div class="ph-eyebrow avgo">Custom XPU · 2.5D package (มุมตัดขวาง)</div>
+        <svg viewBox="0 0 840 300" role="img" aria-label="cross-section of a custom AI accelerator package: compute die and HBM stacks on interposer and substrate">
+          <defs><linearGradient id="avln" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#f87171"/><stop offset="1" stop-color="#fecaca"/></linearGradient></defs>
+          <text class="sim-mono" x="60" y="34" style="text-anchor:start" fill="#f87171">Broadcom XPU · co-design กับ hyperscaler → ผลิตที่ TSMC</text>
+          <!-- substrate -->
+          <rect class="av-substrate" x="90" y="216" width="660" height="34" rx="6"/>
+          <text class="s-t sm" x="420" y="238">substrate (แผ่นฐาน)</text>
+          <!-- solder balls -->
+          <g class="av-bump"><circle cx="140" cy="262" r="5"/><circle cx="200" cy="262" r="5"/><circle cx="260" cy="262" r="5"/><circle cx="320" cy="262" r="5"/><circle cx="380" cy="262" r="5"/><circle cx="440" cy="262" r="5"/><circle cx="500" cy="262" r="5"/><circle cx="560" cy="262" r="5"/><circle cx="620" cy="262" r="5"/><circle cx="680" cy="262" r="5"/></g>
+          <!-- interposer -->
+          <rect class="av-interposer" x="120" y="188" width="600" height="24" rx="4"/>
+          <text class="s-t sm" x="420" y="205" fill="#d9a3a3">silicon interposer — ทางด่วนข้อมูลระหว่าง die</text>
+          <!-- HBM stack left -->
+          <g>
+            <rect class="av-hbmslice on" x="150" y="160" width="110" height="22" rx="3" style="animation-delay:0s"/>
+            <rect class="av-hbmslice on" x="150" y="134" width="110" height="22" rx="3" style="animation-delay:.25s"/>
+            <rect class="av-hbmslice on" x="150" y="108" width="110" height="22" rx="3" style="animation-delay:.5s"/>
+            <rect class="av-hbmslice on" x="150" y="82"  width="110" height="22" rx="3" style="animation-delay:.75s"/>
+            <line class="av-tsv" x1="178" y1="82" x2="178" y2="182"/><line class="av-tsv" x1="205" y1="82" x2="205" y2="182"/><line class="av-tsv" x1="232" y1="82" x2="232" y2="182"/>
+          </g>
+          <text class="s-t sm" x="205" y="70" fill="#e8baba">HBM stack</text>
+          <!-- HBM stack right -->
+          <g>
+            <rect class="av-hbmslice on" x="580" y="160" width="110" height="22" rx="3" style="animation-delay:.4s"/>
+            <rect class="av-hbmslice on" x="580" y="134" width="110" height="22" rx="3" style="animation-delay:.65s"/>
+            <rect class="av-hbmslice on" x="580" y="108" width="110" height="22" rx="3" style="animation-delay:.9s"/>
+            <rect class="av-hbmslice on" x="580" y="82"  width="110" height="22" rx="3" style="animation-delay:1.15s"/>
+            <line class="av-tsv" x1="608" y1="82" x2="608" y2="182"/><line class="av-tsv" x1="635" y1="82" x2="635" y2="182"/><line class="av-tsv" x1="662" y1="82" x2="662" y2="182"/>
+          </g>
+          <text class="s-t sm" x="635" y="70" fill="#e8baba">HBM stack</text>
+          <!-- compute die -->
+          <rect class="av-die" x="300" y="96" width="240" height="86" rx="8"/>
+          <text class="s-t" x="420" y="132" fill="#fecaca">XPU compute die</text>
+          <text class="s-t sm" x="420" y="156" fill="#d9a3a3">สเปคของลูกค้ารายเดียว</text>
+          <!-- micro bumps under dies -->
+          <g class="av-bump" opacity=".55"><circle cx="320" cy="188" r="2.5"/><circle cx="345" cy="188" r="2.5"/><circle cx="370" cy="188" r="2.5"/><circle cx="395" cy="188" r="2.5"/><circle cx="420" cy="188" r="2.5"/><circle cx="445" cy="188" r="2.5"/><circle cx="470" cy="188" r="2.5"/><circle cx="495" cy="188" r="2.5"/><circle cx="520" cy="188" r="2.5"/><circle cx="180" cy="188" r="2.5"/><circle cx="210" cy="188" r="2.5"/><circle cx="240" cy="188" r="2.5"/><circle cx="610" cy="188" r="2.5"/><circle cx="640" cy="188" r="2.5"/><circle cx="668" cy="188" r="2.5"/></g>
+          <!-- data lanes HBM -> die through interposer -->
+          <path class="av-lane" d="M205,182 V198 H300 V172" />
+          <path class="av-lane" d="M635,182 V198 H540 V172" style="animation-delay:.4s"/>
+          <circle r="4" class="av-pulse"><animateMotion dur="1.6s" repeatCount="indefinite" path="M205,182 V198 H300 V172"/></circle>
+          <circle r="4" class="av-pulse"><animateMotion dur="1.6s" begin=".8s" repeatCount="indefinite" path="M635,182 V198 H540 V172"/></circle>
+          <!-- heat wisps -->
+          <path class="av-heat" d="M390,88 q4,-8 0,-16" style="animation-delay:0s"/>
+          <path class="av-heat" d="M420,88 q-4,-8 0,-16" style="animation-delay:.7s"/>
+          <path class="av-heat" d="M450,88 q4,-8 0,-16" style="animation-delay:1.3s"/>
+        </svg>
+      </div><figcaption>นี่คือ "custom XPU" หนึ่งตัวเมื่อผ่ากลาง — <strong>compute die ที่ออกแบบตามสเปคลูกค้ารายเดียว</strong> นั่งบน interposer ข้างกอง HBM ที่ซ้อนกันเป็นชั้น Broadcom เป็นเจ้าของ IP ชิ้นยากทั้งหมด (SerDes, packaging, IP cores ~19,000 สิทธิบัตร บน R&amp;D ปีละ $11bn) — ลูกค้าออกแบบร่วมข้ามรุ่น ย้ายค่ายกลางคันแทบไม่ได้ นี่คือแกนของ switching cost</figcaption></figure>
+      <p>
+        Broadcom มีสองเครื่องยนต์ที่นิสัยต่างกันคนละขั้ว:
+      </p>
+      <ul>
+        <li><strong>Semiconductor solutions (~68% ของรายได้)</strong> — custom AI accelerator (XPU)
+          ที่ออกแบบให้ hyperscaler รายใหญ่ + ชิปเครือข่าย Ethernet + ชิป RF/broadband ดั้งเดิม
+          — segment operating margin 61.8%</li>
+        <li><strong>Infrastructure software (~32%)</strong> — VMware, CA, Symantec ที่ Fortune 500
+          รัน mission-critical workloads — segment operating margin <strong>78.7%</strong></li>
+      </ul>
+      <p>
+        ตัวเลขล่าสุดแรงระดับที่ semiconductor ไม่ค่อยได้เห็น: รายได้ FY2025 <strong>$63.9bn (+23.9%)</strong>,
+        ไตรมาส 2 FY2026 <strong>$22.2bn (+47.9% YoY)</strong> และ guide ไตรมาส 3 ที่ <strong>~$29.4bn (+84%)</strong>
+        — ตัวขับหลักคือ <strong>AI semiconductor revenue $10.8bn ในไตรมาสเดียว (+143%)</strong>
+        และ guide ไตรมาสถัดไป ~$16bn (+มากกว่า 200%) ทั้งหมดเป็นโมเดล <strong>fabless</strong> —
+        ออกแบบเองแล้วจ้าง <a href="deep-dive-tsm.html">TSMC</a> ผลิต (10-K บอกว่า wafer ของ Broadcom
+        เป็น "สัดส่วนที่มีนัย" ของกำลังผลิตทั้งหมดของ TSMC) ทำให้ capex แค่ <strong>1% ของรายได้</strong>
+      </p>
+
+      <h2>2. เครื่องยนต์เซมิ: ชิปของลูกค้า + เส้นเลือดของศูนย์ข้อมูล</h2>
+      <p>
+        คำถามแรกที่ต้องตอบให้ได้เสมอ: <strong>ใครคือลูกค้า และทำไมเขาต้องใช้ของเจ้านี้</strong> —
+        ลูกค้าคือ hyperscaler (Google เป็นรายใหญ่ที่สุดที่ตลาดเชื่อกัน) และ AI labs (มีดีล OpenAI 10 GW
+        + Anthropic มากกว่า 1 GW) ที่ต้องการ compute มหาศาลใน<em>ต้นทุนต่อหน่วยต่ำกว่า GPU สำเร็จรูป</em>
+        การจ้าง Broadcom ออกแบบ XPU เฉพาะ workload ของตัวเอง คือทางเดียวที่ไม่ต้องสะสม IP
+        (SerDes, advanced packaging) เองจากศูนย์ — และเมื่อ co-design ข้ามรุ่นแล้ว 10-K
+        เขียนเองว่า "การพลาด design win รุ่นหนึ่ง อาจทำให้พลาด design win รุ่นถัดๆ ไป" — lock-in
+        ทำงานทั้งขาเข้าและขาออก
+      </p>
+      <figure class="ph-fig"><div class="ph-panel avgo-panel"><div class="ph-eyebrow avgo">Tomahawk · Ethernet fabric ของ AI cluster</div>
+        <svg viewBox="0 0 840 320" role="img" aria-label="leaf-spine Ethernet network fabric connecting AI server racks with animated packet flows">
+          <text class="sim-mono" x="60" y="32" style="text-anchor:start" fill="#f87171">leaf-spine fabric · open standard Ethernet</text>
+          <!-- spine switches -->
+          <rect class="av-spine" x="250" y="48" width="150" height="40" rx="8"/><text class="s-t" x="325" y="73" fill="#fecaca">Spine 51.2T</text>
+          <rect class="av-spine" x="440" y="48" width="150" height="40" rx="8"/><text class="s-t" x="515" y="73" fill="#fecaca">Spine 51.2T</text>
+          <!-- leaf switches -->
+          <rect class="av-leaf" x="120" y="150" width="130" height="34" rx="7"/><text class="s-t sm" x="185" y="172">Leaf</text>
+          <rect class="av-leaf" x="290" y="150" width="130" height="34" rx="7"/><text class="s-t sm" x="355" y="172">Leaf</text>
+          <rect class="av-leaf" x="460" y="150" width="130" height="34" rx="7"/><text class="s-t sm" x="525" y="172">Leaf</text>
+          <rect class="av-leaf" x="630" y="150" width="130" height="34" rx="7"/><text class="s-t sm" x="695" y="172">Leaf</text>
+          <!-- fabric links leaf<->spine (full mesh) -->
+          <path class="av-fabric" d="M185,150 L305,88 M185,150 L480,88 M355,150 L325,88 M355,150 L515,88 M525,150 L360,88 M525,150 L515,88 M695,150 L395,88 M695,150 L550,88"/>
+          <!-- racks -->
+          <g>
+            <rect class="av-rack" x="130" y="240" width="110" height="52" rx="6"/><line x1="130" y1="257" x2="240" y2="257" stroke="#3d1a1c"/><line x1="130" y1="274" x2="240" y2="274" stroke="#3d1a1c"/>
+            <rect class="av-rack" x="300" y="240" width="110" height="52" rx="6"/><line x1="300" y1="257" x2="410" y2="257" stroke="#3d1a1c"/><line x1="300" y1="274" x2="410" y2="274" stroke="#3d1a1c"/>
+            <rect class="av-rack" x="470" y="240" width="110" height="52" rx="6"/><line x1="470" y1="257" x2="580" y2="257" stroke="#3d1a1c"/><line x1="470" y1="274" x2="580" y2="274" stroke="#3d1a1c"/>
+            <rect class="av-rack" x="640" y="240" width="110" height="52" rx="6"/><line x1="640" y1="257" x2="750" y2="257" stroke="#3d1a1c"/><line x1="640" y1="274" x2="750" y2="274" stroke="#3d1a1c"/>
+          </g>
+          <text class="s-t sm" x="185" y="310">XPU racks</text><text class="s-t sm" x="355" y="310">XPU racks</text><text class="s-t sm" x="525" y="310">XPU racks</text><text class="s-t sm" x="695" y="310">XPU racks</text>
+          <!-- rack -> leaf links -->
+          <path class="av-fabric" d="M185,240 V184 M355,240 V184 M525,240 V184 M695,240 V184"/>
+          <!-- animated flows -->
+          <path class="av-flow" d="M185,240 V184"/>
+          <path class="av-flow" d="M355,150 L325,88" style="animation-delay:.3s"/>
+          <path class="av-flow" d="M515,88 L525,150" style="animation-delay:.6s"/>
+          <path class="av-flow" d="M695,240 V184" style="animation-delay:.2s"/>
+          <circle r="4" class="av-pulse"><animateMotion dur="2.6s" repeatCount="indefinite" path="M185,236 V184 L305,92 L360,92 L525,154 V236"/></circle>
+          <circle r="4" class="av-pulse"><animateMotion dur="2.9s" begin="1.2s" repeatCount="indefinite" path="M695,236 V184 L550,92 L395,92 L355,154 V236"/></circle>
+          <!-- LEDs -->
+          <g><circle class="av-led" cx="268" cy="60" r="3"/><circle class="av-led" cx="282" cy="60" r="3"/><circle class="av-led" cx="458" cy="60" r="3"/><circle class="av-led" cx="472" cy="60" r="3"/><circle class="av-led" cx="134" cy="160" r="2.5"/><circle class="av-led" cx="304" cy="160" r="2.5"/><circle class="av-led" cx="474" cy="160" r="2.5"/><circle class="av-led" cx="644" cy="160" r="2.5"/></g>
+        </svg>
+      </div><figcaption>ขาที่สองของเครื่องยนต์เซมิ — สวิตช์ตระกูล <strong>Tomahawk/Jericho</strong> คือกระดูกสันหลัง Ethernet ของ AI cluster: XPU/GPU นับแสนตัวต้องคุยกันผ่าน fabric แบบนี้ทุกรอบการเทรน จุดขายของ Broadcom คือ <strong>มาตรฐานเปิด (Ethernet)</strong> ตรงข้ามกับ InfiniBand ของ <a href="deep-dive-nvda.html">NVIDIA</a> — ยิ่ง cluster ใหญ่ ยิ่งต้องซื้อทั้งชิปประมวลผลและชิปขนข้อมูลพร้อมกัน</figcaption></figure>
+      <p>
+        ใครทำแบบเดียวกันได้บ้าง? คู่แข่งตรงใน custom ASIC คือ <a href="deep-dive-mrvl.html">Marvell</a>
+        — แต่ขนาดต่างกันราว 20-30 เท่าใน niche นี้ ความต่างที่สำคัญกว่าคือ<strong>คุณภาพกำไร</strong>:
+        Broadcom ทำ semiconductor segment margin 61.8% และ ROIC ระดับ 15.7%→~23%
+        ขณะ Marvell ยัง ROIC ~6% ต่ำกว่าต้นทุนทุน — เกมเดียวกัน แต่คนละลีก
+      </p>
+
+      <h2>3. เครื่องยนต์ซอฟต์แวร์: VMware — เครื่องขึ้นราคาที่กำลังหมดรอบ</h2>
+      <figure class="ph-fig"><div class="ph-panel avgo-panel"><div class="ph-eyebrow avgo">VMware · ชั้น virtualization ใต้ Fortune 500</div>
+        <svg viewBox="0 0 840 300" role="img" aria-label="virtualization stack: physical servers below, VMware hypervisor plane, virtual machines appearing on top, with a subscription price meter">
+          <text class="sim-mono" x="60" y="32" style="text-anchor:start" fill="#f87171">1 เครื่องจริง → หลาย VM · แปลงเป็น subscription แล้วขึ้นราคา</text>
+          <!-- physical servers -->
+          <rect class="av-metal" x="110" y="228" width="480" height="46" rx="8"/>
+          <line x1="110" y1="243" x2="590" y2="243" stroke="#3d1a1c"/><line x1="110" y1="258" x2="590" y2="258" stroke="#3d1a1c"/>
+          <g><circle class="av-led" cx="128" cy="236" r="2.5"/><circle class="av-led" cx="140" cy="236" r="2.5"/><circle class="av-led" cx="128" cy="251" r="2.5"/><circle class="av-led" cx="140" cy="251" r="2.5"/></g>
+          <text class="s-t sm" x="350" y="292">เซิร์ฟเวอร์จริงในดาต้าเซ็นเตอร์องค์กร</text>
+          <!-- hypervisor plane -->
+          <rect class="av-hyper" x="90" y="180" width="520" height="34" rx="8"/>
+          <text class="s-t" x="350" y="202" fill="#fecaca">VMware Cloud Foundation (hypervisor)</text>
+          <!-- VMs appearing -->
+          <g>
+            <rect class="av-vm" x="110" y="118" width="88" height="48" rx="6" style="animation-delay:0s"/><text class="s-t sm" x="154" y="146">VM · ERP</text>
+            <rect class="av-vm" x="212" y="118" width="88" height="48" rx="6" style="animation-delay:.6s"/><text class="s-t sm" x="256" y="146">VM · DB</text>
+            <rect class="av-vm" x="314" y="118" width="88" height="48" rx="6" style="animation-delay:1.2s"/><text class="s-t sm" x="358" y="146">VM · App</text>
+            <rect class="av-vm" x="416" y="118" width="88" height="48" rx="6" style="animation-delay:1.8s"/><text class="s-t sm" x="460" y="146">VM · Web</text>
+            <rect class="av-vm" x="518" y="118" width="88" height="48" rx="6" style="animation-delay:2.4s"/><text class="s-t sm" x="562" y="146">VM · AI</text>
+          </g>
+          <!-- price meter -->
+          <path class="av-meter-track" d="M700,240 A66,66 0 0 1 700,108" transform="rotate(0)"/>
+          <path class="av-meter-fill" d="M700,240 A66,66 0 0 1 700,108"/>
+          <text class="s-t sm" x="712" y="118" style="text-anchor:start" fill="#e8baba">ราคา subscription</text>
+          <text class="s-t" x="716" y="176" style="text-anchor:start" fill="#fecaca">margin 65.1%</text>
+          <text class="s-t" x="716" y="200" style="text-anchor:start" fill="#f87171">→ 78.7%</text>
+        </svg>
+      </div><figcaption>VMware คือชั้นซอฟต์แวร์ที่<strong>นั่งอยู่ใต้ระบบสำคัญที่สุดขององค์กร</strong> — ย้ายออกใช้เวลาเป็นปีและเสี่ยงสูง Broadcom ซื้อมา $86bn แล้วบังคับแปลงเป็น subscription พร้อมขึ้นราคา: segment operating margin ขยับจาก 65.1% → 78.7% ภายในสองปี โดยลูกค้าส่วนใหญ่ยังอยู่ — pricing power ที่วัดได้จริงในงบ ไม่ใช่คำเคลม</figcaption></figure>
+      <p>
+        นี่คือหลักฐาน pricing power ที่ชัดที่สุดในงบ: FY2025 รายได้ software โต +25.8%
+        <em>บนฐานลูกค้าเดิม</em> พร้อม margin ขยาย — แปลว่าโตด้วย "ราคา" ล้วนๆ
+        แต่ต้องอ่านให้จบประโยค: การขึ้นราคารอบ VMware เป็น <strong>one-time repricing</strong>
+        ที่กำลังถูก lap — การเติบโตของ segment นี้ชะลอจาก +25.8% (FY25) → <strong>+9% (Q2)</strong> →
+        <strong>+5% (ครึ่งปีแรก FY26)</strong> เบาะรองรับที่ bull case ชอบอ้างว่า
+        "ถ้า AI สะดุดยังมี software" กำลังแฟบลงเรื่อยๆ และไม่มีใครนอกบริษัทรู้
+        churn/renewal rate จริงของ VMware เพราะไม่เปิดเผย — ช่องโหว่ข้อมูลที่ใหญ่ที่สุดของเคสนี้
+      </p>
+
+      <h2>4. Moat: แข็งจริง — แต่เป็นเหรียญเดียวกับความเสี่ยงที่ใหญ่ที่สุด</h2>
+      <p>
+        คะแนน moat ที่ผมให้คือ <strong>Moderate ขอบบน (6.0/10)</strong> — สูงจาก Switching Costs
+        เป็นแกน: co-design ข้ามรุ่น, VMware install base และ <strong>backlog สัญญาผูกพัน (RPO)
+        $164.6bn</strong> (~2.6 ปีของรายได้ — รับรู้ ~30% ใน 12 เดือน) เสริมด้วย scale economies
+        ที่วัดได้จริง: non-GAAP opex แทบไม่ขยับ ($2,118M → $2,181M) ขณะรายได้ +48%
+        แล้วทำไมไม่ใช่ Strong? เพราะเหรียญนี้มีอีกด้าน:
+      </p>
+      <figure class="ph-fig"><div class="ph-panel avgo-panel"><div class="ph-eyebrow avgo">Concentration · รายได้ทั้งบริษัทไหลผ่านท่อเดียว</div>
+        <svg viewBox="0 0 840 290" role="img" aria-label="many small revenue pipes merging into one large pipe labeled single distributor 42 percent, with stress cracks">
+          <text class="sim-mono" x="60" y="32" style="text-anchor:start" fill="#f87171">42% ของรายได้ ผ่าน distributor รายเดียว (21% → 42% ใน 3 ปี)</text>
+          <!-- small pipes from left -->
+          <path class="av-pipe" d="M80,80 H260 C310,80 330,120 380,128"/>
+          <path class="av-pipe" d="M80,125 H280 C320,125 340,132 380,138"/>
+          <path class="av-pipe" d="M80,170 H280 C320,170 340,158 380,150"/>
+          <path class="av-pipe" d="M80,215 H260 C310,215 330,172 380,160"/>
+          <text class="s-t sm" x="130" y="66">hyperscaler A</text>
+          <text class="s-t sm" x="130" y="111">hyperscaler B</text>
+          <text class="s-t sm" x="130" y="156">AI lab</text>
+          <text class="s-t sm" x="130" y="201">OEM อื่นๆ</text>
+          <!-- big pipe -->
+          <path class="av-pipe-big" d="M380,144 H640"/>
+          <path class="av-pipe-lit" d="M80,80 H260 C310,80 330,120 380,128 L400,140 H640"/>
+          <path class="av-pipe-lit" d="M80,215 H260 C310,215 330,172 380,160 L400,148 H640" style="animation-delay:.5s"/>
+          <text class="s-t" x="510" y="122" fill="#fecaca">distributor รายเดียว = 42%</text>
+          <!-- cracks on the big pipe -->
+          <path class="av-crack" d="M470,136 l8,7 -5,6 M545,152 l-7,-6 5,-7"/>
+          <!-- destination -->
+          <rect class="av-node hero" x="660" y="112" width="120" height="64" rx="10"/>
+          <text class="s-t" x="720" y="140" fill="#fecaca">Broadcom</text>
+          <text class="s-t sm" x="720" y="160">net revenue</text>
+          <!-- footnote gauge -->
+          <text class="sim-mono" x="80" y="262" style="text-anchor:start">top-5 end customers ≈ 45% ของรายได้ · ลูกค้ารายเดียว = 44% ของลูกหนี้การค้า (AR)</text>
+        </svg>
+      </div><figcaption>moat กับ concentration คือ<strong>เหรียญเดียวกันสองด้าน</strong> — ลูกค้าที่ผูกแน่นที่สุดคือกลุ่มเดียวที่มีทั้งทุนและแรงจูงใจจะทำเอง 10-K เตือนเองว่า "คู่แข่งรายใหม่ <em>รวมถึงลูกค้าของเราเอง</em> อาจเข้ามาในตลาด" และตลาดกำลังจับตา Google ที่มีข่าว dual-source TPU รุ่นถัดไปกับ MediaTek ช่วงปี 2027-28</figcaption></figure>
+      <ul>
+        <li><strong>Distributor รายเดียว = 42% ของรายได้</strong> — วิ่งขึ้นจาก 21% → 28% → 32% → 42%
+          ในสามปี เร็วและชันมาก</li>
+        <li><strong>Top-5 end customers ≈ 45%</strong> และลูกค้ารายเดียวเป็น 44% ของลูกหนี้การค้า</li>
+        <li><strong>การโตเกือบทั้งหมดมาจาก vertical เดียว</strong> — AI data center capex
+          ที่ลูกค้าทุกรายลงทุนพร้อมกันแบบ synchronized ซึ่งประวัติศาสตร์ semiconductor
+          บอกว่าจบด้วย correction เสมอ ต่างแค่เมื่อไหร่และลึกแค่ไหน</li>
+      </ul>
+      <p>
+        ลูกค้าที่ใหญ่ขนาดนี้ไม่ใช่แค่ความเสี่ยง demand — เขาคือ<strong>คนกำหนดราคาในรอบ
+        renegotiate ถัดไป</strong> (10-Q ยอมรับตรงๆ ว่าลูกค้ารายใหญ่ "เรียกร้องมากขึ้นทั้งด้านราคาและเงื่อนไขสัญญา")
+      </p>
+
+      <h2>5. ตัวเลขบอกอะไร — เครื่องผลิตเงินสด กับกับดักสามชั้นใต้พรม</h2>
+      <p>
+        ในมุมเครื่องจักรการเงิน AVGO อยู่ระดับท็อปของตลาด:
+      </p>
+      <table>
+        <thead><tr><th>Metric</th><th class="num">FY2025 / ล่าสุด</th><th>อ่านว่าอะไร</th></tr></thead>
+        <tbody>
+          <tr><td>FCF</td><td class="num">$26.9bn (42.1% margin)</td><td>ครึ่งปีแรก FY26 ทำแล้ว $18.3bn (+47%)</td></tr>
+          <tr><td>CapEx</td><td class="num">1.0% ของรายได้</td><td>fabless แท้ — โรงงานเป็นภาระของ TSMC</td></tr>
+          <tr><td>GAAP op margin</td><td class="num">26.1% → 39.9% → 48.6%</td><td>สองปีติด — VMware integration จบ + AI scale</td></tr>
+          <tr><td>ROIC</td><td class="num">8.4% → 15.7% → ~23%</td><td>ทั้งที่แบก goodwill $97.8bn เต็มก้อน</td></tr>
+          <tr><td>Net debt</td><td class="num">$58.2bn → $45.3bn</td><td>ลดใน 18 เดือน หนี้ fixed-rate ทั้งหมด ไม่มี maturity wall</td></tr>
+        </tbody>
+      </table>
+      <p>
+        แต่มีกับดักสามชั้นที่มือใหม่มักไม่เห็น เพราะซ่อนอยู่ใต้ FCF ก้อนสวยๆ:
+      </p>
+      <ul>
+        <li><strong>กับดักภาษี:</strong> FY2025 บริษัทจ่าย cash tax จริงแค่ <strong>$2.6bn บนกำไร $23.1bn</strong>
+          (ETR −1.7% — เป็น benefit one-time จาก statute หมดอายุ/audit settlement) ครึ่งปีแรก FY26
+          ETR ขึ้นมา 9.1% แล้ว และ 10-K เตือนเองว่า global minimum tax จะดันขึ้น "materially"
+          บวก tax incentive สิงคโปร์/มาเลเซีย ~$2.7bn/ปี ที่ทยอยหมดถึงปี 2030 — FCF ฐานที่ตลาดใช้คิด
+          valuation จะโดนกัด ~15-20% เชิงโครงสร้าง <em>โดยไม่ต้องมีอะไรผิดพลาดทางธุรกิจเลย</em></li>
+        <li><strong>กับดักหุ้น:</strong> SBC $7.6bn = <strong>28% ของ FCF</strong> ถูก add back ใน FCF
+          และจำนวนหุ้นเพิ่มทุกปี (4,139M → 4,758M — ก้อนใหญ่คือหุ้น 544M ที่ออกจ่ายค่า VMware)
+          ข่าวดีคือครึ่งปีแรก FY26 buyback $8.45bn มากกว่า SBC เป็นครั้งแรก — ต้อง monitor
+          ว่ายืนได้ต่อไหม (บทเรียนเดียวกับ <a href="deep-dive-snps.html">SNPS</a>: การโตของบริษัท ≠ การโตต่อหุ้น)</li>
+        <li><strong>กับดัก working capital:</strong> ในหกเดือน inventory พุ่ง <strong>+91%</strong>
+          ($2.3bn → $4.3bn) และ AR <strong>+52%</strong> ($7.1bn → $10.8bn) — เงินสดถูกดูดไปรอ AI ramp
+          ถ้า demand มาจริงจะคลายเอง ถ้าไม่จริง นี่คือ inventory ค้างรอ write-down
+          (ดูวิธีอ่านใน<a href="financials-02-cash-flow-statement.html">ตอนงบกระแสเงินสด</a>)</li>
+      </ul>
+
+      <h2>6. เดิมพันที่เพิ่งสร้างในหกเดือน: $128bn + ค้ำประกันอีก $29bn</h2>
+      <p>
+        นี่คือหัวใจของบทนี้ และเป็นสิ่งที่เพิ่งเกิดขึ้นทั้งหมดภายในหกเดือน:
+        purchase commitments (ภาระผูกพันซื้อ supply ล่วงหน้า) กระโดดจาก <strong>$132 ล้าน</strong>
+        ณ สิ้น FY2025 เป็น <strong>$128,110 ล้าน</strong> ณ พ.ค. 2026 — กระจุกใน FY2027 ($55.2bn)
+        และ FY2028 ($72.9bn) และวันที่ 8 มิ.ย. 2026 บริษัทเปิดเผยว่าได้จัดโครงสร้างให้
+        "investor partner" (Apollo) เข้าซื้อ AI racks แล้ว lease ให้ลูกค้า AI
+        โดย <strong>Broadcom ค้ำ lease obligations สูงสุด $29bn</strong>
+      </p>
+      <figure class="ph-fig"><div class="ph-panel avgo-panel"><div class="ph-eyebrow avgo">Vendor financing · วงจรเงิน และตาข่าย $29B ที่ Broadcom ถือเอง</div>
+        <svg viewBox="0 0 840 330" role="img" aria-label="money loop: Broadcom builds AI racks, investor partner buys and leases them to AI labs funded by venture rounds, with Broadcom guaranteeing the lease via a backstop net">
+          <text class="sim-mono" x="60" y="30" style="text-anchor:start" fill="#f87171">ลูกค้าที่จ่ายตรงไม่ได้ → ให้คนอื่นซื้อแทน → Broadcom ค้ำ default เอง</text>
+          <!-- nodes -->
+          <rect class="av-node hero" x="80" y="70" width="170" height="60" rx="10"/>
+          <text class="s-t" x="165" y="96" fill="#fecaca">Broadcom</text><text class="s-t sm" x="165" y="116">สร้าง AI racks + book revenue</text>
+          <rect class="av-node" x="590" y="70" width="170" height="60" rx="10"/>
+          <text class="s-t" x="675" y="96">Investor partner</text><text class="s-t sm" x="675" y="116">(Apollo) ออกเงินซื้อ racks</text>
+          <rect class="av-node" x="590" y="220" width="170" height="60" rx="10"/>
+          <text class="s-t" x="675" y="246">AI lab (ลูกค้า)</text><text class="s-t sm" x="675" y="266">เช่าใช้ จ่ายรายงวด 5 ปี</text>
+          <rect class="av-node" x="80" y="220" width="170" height="60" rx="10"/>
+          <text class="s-t" x="165" y="246">Funding round</text><text class="s-t sm" x="165" y="266">VC / private credit</text>
+          <!-- loop pipes -->
+          <path class="av-looppipe" d="M250,100 H590"/>
+          <path class="av-looppipe" d="M675,130 V220"/>
+          <path class="av-looppipe" d="M590,250 H250"/>
+          <path class="av-looppipe" d="M165,220 V130"/>
+          <!-- flows: racks ->, money <- -->
+          <path class="av-loopflow" d="M590,100 H250"/>
+          <path class="av-loopflow" d="M590,250 H250" style="animation-delay:.4s"/>
+          <path class="av-loopflow" d="M165,220 V130" style="animation-delay:.8s"/>
+          <path class="av-loopflow" d="M675,130 V220" style="animation-delay:.6s"/>
+          <circle r="5" class="av-coin"><animateMotion dur="2.4s" repeatCount="indefinite" path="M590,100 H250"/></circle>
+          <circle r="5" class="av-coin"><animateMotion dur="2.4s" begin="1.2s" repeatCount="indefinite" path="M165,220 V130"/></circle>
+          <text class="s-t sm" x="420" y="86" fill="#e8baba">racks ส่งมอบ → เงินค่า racks ไหลกลับ</text>
+          <text class="s-t sm" x="420" y="272" fill="#e8baba">เงินระดมทุน — ไม่ใช่กระแสเงินสดของลูกค้าเอง</text>
+          <text class="s-t sm" x="700" y="180" style="text-anchor:start" fill="#e8baba">lease</text>
+          <!-- backstop net under the lease edge -->
+          <g class="av-net av-netgap">
+            <path d="M600,150 q75,52 150,0"/>
+            <path d="M612,150 q63,42 126,0" opacity=".6"/>
+            <line x1="618" y1="164" x2="618" y2="178"/><line x1="648" y1="176" x2="648" y2="190"/><line x1="675" y1="180" x2="675" y2="194"/><line x1="702" y1="176" x2="702" y2="190"/><line x1="732" y1="164" x2="732" y2="178"/>
+          </g>
+          <text class="s-t" x="675" y="205" fill="#fbbf24">backstop $29B — Broadcom รับ default เอง</text>
+          <circle class="av-warnled" cx="98" cy="238" r="4"/>
+          <text class="sim-mono" x="60" y="316" style="text-anchor:start">ถ้า funding round สะดุด: demand หาย + backstop โดนเรียก + racks ที่ยึดมาด้อยค่า — พร้อมกัน</text>
+        </svg>
+      </div><figcaption>10-Q ของบริษัทเองสารภาพว่าโครงสร้าง "novel or deferred payment models" เหล่านี้อาจทำให้ "revenue หรือ free cash flow ไม่เป็นอย่างที่นักลงทุนคาด" — การมีอยู่ของ backstop คือหลักฐานว่า<strong>ลูกค้า AI อย่างน้อยหนึ่งรายจ่ายเงินตรงๆ ไม่ได้แล้ววันนี้</strong> โครงสร้างแบบนี้มีชื่อเรียกจากยุค dot-com ว่า vendor financing (เคส Lucent/Nortel) — อ่านกลไกเต็มๆ ได้ใน<a href="deep-dive-ai-bubble.html">บทความ AI Bubble</a></figcaption></figure>
+      <p>
+        ต้อง fair กับบริษัทด้วยสองข้อ: (1) <strong>disclosure สะอาดมาก</strong> — ตัวเลขลบทั้งหมดในบทนี้
+        มาจากการเปิดเผยของ Broadcom เองครบถ้วน นี่ไม่ใช่บริษัทที่ซ่อนความเสี่ยง เป็นบริษัทที่บอกตรงๆ
+        แล้วตลาดเลือกไม่ฟัง (2) ต่อให้ทุกอย่างพัง <strong>งบดุลรับไหว</strong> — หนี้ fixed-rate ทั้งหมด
+        ครบกำหนด FY26-28 รวมแค่ ~$7.9bn เทียบ FCF ปีละ $27bn+ ปัญหาไม่ใช่ solvency —
+        ปัญหาคือ<strong>คุณภาพของ revenue ที่ book ผ่านโครงสร้างพวกนี้ กับราคาหุ้นที่ไม่เผื่ออะไรเลย</strong>
+      </p>
+
+      <h2>7. ราคาบังคับให้เชื่ออะไร — เรดาร์ที่มองเห็นแค่ FY28</h2>
+      <figure class="ph-fig"><div class="ph-panel avgo-panel"><div class="ph-eyebrow avgo">Visibility radar · สัญญามองเห็นถึง FY28 — ราคาต้องการ 10 ปี</div>
+        <svg viewBox="0 0 840 330" role="img" aria-label="radar scope with sweeping beam: contract blips visible at FY26 through FY28 rings, empty beyond, while the price requires ten years of growth">
+          <defs><radialGradient id="avscope"><stop offset="0" stop-color="#2a1214"/><stop offset="1" stop-color="#150c0d"/></radialGradient></defs>
+          <!-- scope -->
+          <circle class="av-scope" cx="330" cy="170" r="140" fill="url(#avscope)"/>
+          <circle class="av-ring lit" cx="330" cy="170" r="46"/>
+          <circle class="av-ring lit" cx="330" cy="170" r="92"/>
+          <circle class="av-ring lit" cx="330" cy="170" r="138"/>
+          <line x1="330" y1="32" x2="330" y2="308" stroke="#3d1a1c"/><line x1="192" y1="170" x2="468" y2="170" stroke="#3d1a1c"/>
+          <!-- sweep -->
+          <g>
+            <path d="M330,170 L468,158 A140,140 0 0 0 466,146 Z" fill="#f87171" opacity=".28">
+              <animateTransform attributeName="transform" type="rotate" from="0 330 170" to="360 330 170" dur="6s" repeatCount="indefinite"/>
+            </path>
+            <line x1="330" y1="170" x2="468" y2="152" stroke="#fca5a5" stroke-width="1.6" opacity=".8">
+              <animateTransform attributeName="transform" type="rotate" from="0 330 170" to="360 330 170" dur="6s" repeatCount="indefinite"/>
+            </line>
+          </g>
+          <!-- blips: FY26 inner, FY27, FY28 -->
+          <circle class="av-blip" cx="362" cy="142" r="5" style="animation-delay:0s"/>
+          <circle class="av-blip" cx="268" cy="118" r="5" style="animation-delay:1.4s"/>
+          <circle class="av-blip" cx="252" cy="234" r="5" style="animation-delay:2.6s"/>
+          <circle class="av-blip" cx="412" cy="240" r="5" style="animation-delay:3.4s"/>
+          <text class="s-t sm" x="330" y="132">FY26</text>
+          <text class="s-t sm" x="330" y="88">FY27 · $55.2B</text>
+          <text class="s-t sm" x="330" y="44">FY28 · $72.9B</text>
+          <!-- beyond the scope -->
+          <text class="av-unknown" x="332" y="18" text-anchor="middle">FY29+ · ไม่มีสัญญา ไม่มีข้อมูล</text>
+          <!-- right panel: what price demands -->
+          <g>
+            <rect x="540" y="60" width="240" height="220" rx="12" fill="#170d0e" stroke="#3d1a1c" stroke-width="1.5"/>
+            <text class="sim-mono" x="560" y="88" style="text-anchor:start" fill="#f87171">สิ่งที่ราคา price in</text>
+            <text class="s-t" x="560" y="120" style="text-anchor:start" fill="#fecaca">FCF โต ~24%/ปี</text>
+            <text class="s-t sm" x="560" y="142" style="text-anchor:start">ต่อเนื่อง 10 ปี — ทุกปี</text>
+            <text class="s-t" x="560" y="180" style="text-anchor:start" fill="#fecaca">FCF ปีที่ 10 ≈ $224B</text>
+            <text class="s-t sm" x="560" y="202" style="text-anchor:start">~2 เท่าของบริษัทที่ FCF</text>
+            <text class="s-t sm" x="560" y="220" style="text-anchor:start">สูงสุดในโลกวันนี้</text>
+            <text class="s-t" x="560" y="256" style="text-anchor:start" fill="#fbbf24">แต่เรดาร์เห็นแค่ 3 ปี</text>
+          </g>
+        </svg>
+      </div><figcaption>ทุกหลักฐาน visibility — RPO $164.6bn (~2.6 ปีของรายได้), purchase commitments FY27-28 — <strong>หมดอายุราว FY2028 ทั้งหมด</strong> แต่ราคาหุ้นคิดลดกระแสเงินสด 10 ปี: สามปีแรกแทบการันตีว่าตัวเลขจะสวย (guide +84%) คำถามเดียวที่มีค่าคือ <strong>ปีที่ 4-10 เหลือเท่าไหร่</strong> หลัง synchronized capex boom</figcaption></figure>
+      <p>
+        ผมใช้ reverse DCF ถามกลับ: ราคา ณ วันวิเคราะห์ (ปิด 11 มิ.ย. 2026 ที่ $385.57 — ตัวเลขนี้
+        ขยับตามราคาหุ้น) ตลาดกำลัง price in <strong>FCF เติบโต ~24% ต่อปี เฉลี่ยตลอด 10 ปี</strong>
+        เท่ากับ CAGR ช่วง AI boom + VMware integration พอดี — ตลาดไม่ได้ price การชะลอเลย
+        แม้แต่นิดเดียว ขณะที่ประมาณการ realistic ของผม (front-load โต 40-65% ช่วง FY26-28 ตามสัญญา
+        แล้ว normalize ~10% ปีที่ 4-10) เฉลี่ยได้ <strong>~18%</strong> → มูลค่าที่รองรับได้ ≈
+        <strong>$243/หุ้น</strong> — Margin of Safety ติดลบราว −58%
+      </p>
+      <ul>
+        <li><strong>FCF yield วันนี้ 1.5-2.1%</strong> — ต่ำกว่าพันธบัตรรัฐบาล ผลตอบแทนทั้งหมดมาจาก
+          growth ล้วนๆ ไม่มี yield รองพื้น</li>
+        <li><strong>Asymmetry เสียเปรียบ 0.64 : 1</strong> — bull case (โต 28%) ให้ upside ~+38%
+          แต่ bear case (โต 12% หลัง AI digestion) ให้ downside ~−60% ($152)</li>
+        <li>ถ้าอยากได้ MoS 15-30% ต้องรอโซน <strong>$170-207</strong> — หุ้นแบบนี้มักให้โอกาส
+          ตอน AI capex สะดุดชั่วคราว (guide AI revenue $16bn ต่ำกว่า consensus $17.2bn ครั้งเดียว
+          หุ้นก็ลบ 15% ใน 1 วัน — market cap หายไป ~$280bn มาแล้ว)</li>
+      </ul>
+
+      <h2>8. Bull Case</h2>
+      <ul>
+        <li><strong>เครื่องผลิตเงินสดที่หาตัวจับยากที่สุดในกลุ่ม</strong> — FCF margin 42-46%
+          บน capex 1%, opex แบนขณะรายได้ +48%, deleverage $13bn ใน 18 เดือน
+          — operating leverage วัดได้จริงในงบ ไม่ใช่ promise</li>
+        <li><strong>Visibility แบบที่ semiconductor ไม่เคยมี</strong> — RPO $164.6bn firmly committed
+          + ดีล OpenAI 10 GW + Anthropic มากกว่า 1 GW: FY26-28 โต 40%+ แบบมีสัญญารองรับแล้ว
+          bear ที่ short เร็วเกินจะโดนผลประกอบการ beat ต่อเนื่องบี้เอา</li>
+        <li><strong>Hock Tan คือ operator-allocator ที่พิสูจน์ด้วยตัวเลข</strong> — VMware $86bn
+          → software segment op income $5.6bn → $20.8bn ในสองปี; ROIC ฟื้น 8.4% → ~23%
+          ทั้งที่แบก acquisition premium เต็มก้อน; กล้า guide ต่ำกว่า consensus
+          แล้วยอมรับหุ้นร่วงแทนการเล่นเกมตัวเลข</li>
+      </ul>
+
+      <h2>9. Bear Case / จุดเปราะ</h2>
+      <ul>
+        <li><strong>Visibility ทุกชิ้นหมดอายุ FY28 แต่ราคาต้องการ 10 ปี</strong> — แค่ปีที่ 4-10
+          โตเฉลี่ยต่ำกว่า ~14% (ไม่ต้องมีอะไร "พัง" เลย) ก็ขาดทุนจากราคานี้แล้ว</li>
+        <li><strong>กลายเป็น leveraged counterparty ของ AI buildout ในหกเดือน</strong> —
+          commitments $128.1bn + backstop $29bn + ลูกค้า marginal จ่ายด้วยเงินระดมทุน
+          = vendor financing loop ที่ collateral (AI racks) ด้อยค่าพร้อมกับ trigger;
+          inventory +91% / AR +52% คือ working capital ที่บานรอแล้ว</li>
+        <li><strong>Concentration คือเหรียญอีกด้านของ moat</strong> — distributor เดียว 42%,
+          Google/MediaTek dual-source timeline 2027-28, 10-K ยอมรับความเสี่ยง
+          "ลูกค้ากลายเป็นคู่แข่ง" เอง — มูลค่าต่อ socket หดได้แม้ unit ไม่หด</li>
+        <li><strong>FCF ฐานมี tailwind ที่กำลังหมดอายุ</strong> — tax cliff (จ่ายจริง $2.6bn
+          จะขึ้น "materially") + SBC 28% ของ FCF + software โตเหลือ +5% เมื่อ repricing rounds หมด
+          — แต่ละตัวกัด valuation โดยธุรกิจไม่ต้องพลาดอะไรเลย</li>
+        <li><strong>Key-person + incentive ชี้ผิดทาง</strong> — Hock Tan อายุ 74 ไม่มี succession plan;
+          CFO ออกกลางไตรมาสที่ commitments บานที่สุด; PSU ใหม่ของ CEO (สูงสุด $607M) ผูกกับ
+          "AI revenue" metric เดียวที่ไม่มีนิยาม audited ใน 10-K — จ่ายเต็มถ้า revenue ทะลุ
+          ไม่ว่าได้มาด้วยโครงสร้างเสี่ยงแค่ไหน</li>
+      </ul>
+
+      <h2>10. Kill Conditions</h2>
+      <p>
+        วินัยสำคัญที่สุด: ต้องรู้ก่อนซื้อว่าเหตุการณ์แบบไหนแปลว่าคิดผิด — สำหรับ AVGO
+        ทุกข้อวัดได้จาก filing รายไตรมาส:
+      </p>
+      <ul>
+        <li><strong>AI semiconductor revenue ต่ำกว่า guidance ของบริษัทเอง 2 ไตรมาสติด</strong>
+          (หรือ miss ครั้งเดียวเกิน 10%) → demand จริงวิ่งช้ากว่าสัญญาที่เซ็นไว้ — นาฬิกา triple hit เริ่มเดิน</li>
+        <li><strong>RPO ลดลง QoQ 2 ไตรมาสติด</strong> (หลุด ~$150bn โดยไม่มีสัญญาใหม่ชดเชย)
+          → กระดูกสันหลังของ "contracted visibility" หัก</li>
+        <li><strong>Distributor ใหญ่สุดร่วงต่ำกว่า 30% ของรายได้เร็วผิดปกติ หรือข่าว tape-out
+          TPU รุ่นถัดไปกับ MediaTek/in-house ได้รับการยืนยัน</strong> → switching cost thesis พังที่แกนกลาง</li>
+        <li><strong>Write-down จาก purchase commitments, backstop ถูกเรียกใช้ (utilization &gt; 0)
+          หรือมีดีล investor-partner แบบ Apollo เพิ่มอีก ≥2 ดีล</strong> → ลูกค้า AI
+          จ่ายตรงไม่ได้มากขึ้นเรื่อยๆ — คุณภาพ revenue เสื่อมเชิงโครงสร้าง</li>
+        <li><strong>Software segment op margin หลุดต่ำกว่า 75% หรือรายได้ software ติดลบ YoY</strong>
+          → เบาะ VMware แฟบ + goodwill $97.8bn (112% ของ equity) เข้าเขต impairment</li>
+      </ul>
+
+      <h2>11. สิ่งที่ยังต้องขุดต่อ (What to ask)</h2>
+      <ol>
+        <li>เงื่อนไข cancellation / take-or-pay ของ purchase commitments $128.1bn คืออะไร —
+          10-Q ไม่เปิดเผยรายสัญญา ถ้ายกเลิกได้ง่าย ความเสี่ยง write-down ลดลงมาก
+          ถ้าเป็น take-or-pay จริง ความเสี่ยงหนักกว่าที่คิด</li>
+        <li>Churn / renewal rate จริงของ VMware หลังขึ้นราคา — ไม่มีตัวเลขใดเปิดเผยเลย
+          ทั้งที่เป็นตัววัดเดียวที่สำคัญที่สุดของ switching cost ฝั่ง software</li>
+        <li>AI revenue แยกตามลูกค้าเป็นอย่างไร (Google vs Meta vs OpenAI) — และ "AI revenue"
+          ที่ผูกโบนัส CEO นิยามนับ racks ที่ขายผ่าน Apollo ไหม?</li>
+        <li>Succession plan ของ Hock Tan (74) — ทั้ง Process Power ของ M&amp;A playbook
+          ผูกกับคนคนเดียวที่ไม่มี contract, ไม่มี key-person insurance</li>
+        <li>ไตรมาส 3 FY26 (ประกาศ 3 ก.ย. 2026): inventory เริ่มคลายเป็นรายได้ไหม (เกณฑ์ ~$6bn),
+          ETR คุมอยู่ ~13% ไหม, มีดีล investor-partner เพิ่มไหม</li>
+      </ol>
+
+      <h2>สรุป</h2>
+      <p>
+        Broadcom คือธุรกิจคุณภาพระดับที่หาได้ยากจริง — สองเครื่องยนต์ที่ไม่ correlate กัน
+        (custom silicon + enterprise software) ผลิต FCF margin 42-46% บน capex 1%
+        พร้อม backlog สัญญา $164.6bn ที่ semiconductor ทั่วไปไม่เคยมี และ management
+        ที่พิสูจน์ฝีมือ capital allocation ด้วยตัวเลขจริง แต่ในหกเดือนที่ผ่านมา บริษัทเดียวกันนี้
+        เพิ่งสร้างความเสี่ยงเชิงโครงสร้างใหม่ทั้งชุด — commitments $128.1bn, backstop $29bn,
+        ลูกค้ากระจุก 42% — ขณะที่ราคาหุ้นบังคับให้เชื่อว่า boom สามปีที่มีสัญญารองรับ
+        จะกลายเป็นการทบต้น ~24% ต่อปี<em>ตลอดทศวรรษ</em> ทั้งที่เรดาร์ของหลักฐานทุกตัวดับที่ FY2028
+        คำถามหลักของหุ้นตัวนี้จึงไม่ใช่ "ธุรกิจดีไหม" (ดีมาก) แต่คือ
+        <strong>"คุณยอมจ่ายเต็มราคาสำหรับ scenario ที่ดีที่สุด โดยไม่มี margin for error แม้แต่ข้อเดียวหรือเปล่า"</strong>
+        — สำหรับผมคำตอบคือรอ พร้อม Kill Conditions ทั้งห้าข้อที่เปิดไว้ตั้งแต่วันนี้
+      </p>
+
+      <div class="author-card">
+        <span class="byline-avatar">M</span>
+        <div>
+          <strong>Moatrices</strong>
+          <p>บันทึกการเรียนวิเคราะห์หุ้น US เชิงลึก สาย fundamental — เน้นพื้นฐานธุรกิจ ไม่ใช่ราคา <a href="../about.html">เกี่ยวกับเว็บนี้ →</a></p>
+        </div>
+      </div>
+
+      <p class="back"><a href="../index.html">← กลับหน้าแรก</a></p>
+
+    </div>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container footer-grid">
+      <div class="footer-brand">
+        <a href="../index.html" class="site-title">Moatrices</a>
+        <p>บันทึกการเรียนวิเคราะห์หุ้น US เชิงลึก ภาษาไทย — เน้นพื้นฐานธุรกิจ ไม่ใช่ราคา</p>
+      </div>
+      <nav class="footer-nav">
+        <a href="../index.html">หน้าแรก</a>
+        <a href="../dashboard.html">Dashboard</a>
+        <a href="../about.html">เกี่ยวกับ</a>
+      </nav>
+    </div>
+    <div class="container footer-legal">
+      <p><strong>คำเตือน:</strong> เนื้อหาทั้งหมดเป็นบันทึกการเรียนและความเห็นส่วนตัว
+         เพื่อการศึกษาเท่านั้น <strong>ไม่ใช่คำแนะนำการลงทุน</strong> ไม่ใช่การชี้นำให้ซื้อหรือขายหลักทรัพย์ใดๆ
+         ตัวเลขอ้างอิงงบที่เผยแพร่ ณ ช่วงเวลาหนึ่งและอาจล้าสมัย การตัดสินใจลงทุนเป็นความรับผิดชอบของผู้อ่านเอง</p>
+      <p>© 2026 Moatrices · เผยแพร่ผ่าน GitHub Pages</p>
+    </div>
+  </footer>
+
+  <button class="to-top" aria-label="กลับขึ้นด้านบน">↑</button>
+  <script defer src="../app.js"></script>
+
+</body>
+</html>

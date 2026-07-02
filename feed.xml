@@ -5,8 +5,15 @@
 <link>https://beatp9696-arch.github.io/</link>
 <description>บันทึกการเรียนวิเคราะห์หุ้น US เชิงลึก เน้นพื้นฐานธุรกิจ ไม่ใช่ราคา</description>
 <language>th</language>
-<lastBuildDate>Thu, 02 Jul 2026 09:01:26 +0700</lastBuildDate>
+<lastBuildDate>Thu, 02 Jul 2026 16:52:54 +0700</lastBuildDate>
 <atom:link href="https://beatp9696-arch.github.io/feed.xml" rel="self" type="application/rss+xml"/>
+<item>
+<title>ผ่าธุรกิจ AVGO (Broadcom) — เก็บค่าผ่านทาง AI สองขา และเดิมพัน $128B ที่เรดาร์มองเห็นแค่ FY28</title>
+<link>https://beatp9696-arch.github.io/articles/deep-dive-avgo.html</link>
+<guid isPermaLink="true">https://beatp9696-arch.github.io/articles/deep-dive-avgo.html</guid>
+<pubDate>Thu, 02 Jul 2026 12:00:00 +0700</pubDate>
+<description>เครื่องยนต์สองตัวที่นิสัยคนละขั้ว — custom XPU + Ethernet fabric ที่โต +143% กับ VMware เครื่องขึ้นราคา margin 78.7% — ผลิต FCF margin 42-46% บน capex แค่ 1% พร้อม backlog สัญญา $164.6bn แต่ในหกเดือน บริษัทเดียวกันเซ็น purchase commitments จาก $132M เป็น $128,110M และค้ำ lease ลูกค้า AI อีก $29bn — vendor financing loop ที่ 10-Q สารภาพเอง ขณะลูกค้ากระจุกผ่าน distributor รายเดียว 42% และราคาหุ้น price in FCF โต ~24%/ปีตลอดทศวรรษ ทั้งที่หลักฐานทุกชิ้นหมดอายุ FY28 — เล่าด้วยภาพเคลื่อนไหวระดับ instrument: ผ่าตัดขวาง XPU 2.5D package, leaf-spine fabric, ชั้น hypervisor, วงจรเงิน backstop และเรดาร์ visibility ที่ดับหลัง FY28 พร้อม Kill Conditions 5 ข้อที่วัดได้จาก filing รายไตรมาส</description>
+</item>
 <item>
 <title>AI = ฟองสบู่ dot-com รอบใหม่? — ผ่ากลไกด้วยมีดผ่าตัดเล่มเดิม</title>
 <link>https://beatp9696-arch.github.io/articles/deep-dive-ai-bubble.html</link>

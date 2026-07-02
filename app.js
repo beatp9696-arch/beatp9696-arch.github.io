@@ -45,7 +45,8 @@
     { f: "deep-dive-spgi.html", t: "ผ่าธุรกิจ SPGI (S&amp;P Global)", tk: "SPGI", sec: "finance" },
     { f: "deep-dive-mu.html", t: "ผ่าธุรกิจ MU (Micron)", tk: "MU", sec: "semi" },
     { f: "deep-dive-mrvl.html", t: "ผ่าธุรกิจ MRVL (Marvell)", tk: "MRVL", sec: "semi" },
-    { f: "deep-dive-ai-bubble.html", t: "AI = ฟองสบู่ dot-com รอบใหม่?", sec: "market" }
+    { f: "deep-dive-ai-bubble.html", t: "AI = ฟองสบู่ dot-com รอบใหม่?", sec: "market" },
+    { f: "deep-dive-avgo.html", t: "ผ่าธุรกิจ AVGO (Broadcom)", tk: "AVGO", sec: "semi" }
   ];
 
   var progressBar = document.querySelector(".reading-progress");
