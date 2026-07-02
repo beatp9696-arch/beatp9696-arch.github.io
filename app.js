@@ -25,6 +25,7 @@
   // ---- ข้อมูลบทความ (แหล่งเดียว — ใช้ทั้ง prev/next, related, search, sector filter) ----
   // เรียงเก่า → ใหม่ · sec: semi | software | health | finance | consumer | space | market | basics
   var ARTICLES = [
+    { f: "financials-00-mindset.html", t: "ตอนที่ 0: งบคือรอยเท้า ไม่ใช่คะแนนสอบ", sec: "basics" },
     { f: "financials-01-income-statement.html", t: "ตอนที่ 1: งบกำไรขาดทุน", sec: "basics" },
     { f: "financials-02-cash-flow-statement.html", t: "ตอนที่ 2: งบกระแสเงินสด", sec: "basics" },
     { f: "financials-03-balance-sheet.html", t: "ตอนที่ 3: งบดุล + เชื่อม 3 งบ", sec: "basics" },
