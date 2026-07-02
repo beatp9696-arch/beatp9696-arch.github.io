@@ -5,7 +5,7 @@
 <link>https://beatp9696-arch.github.io/</link>
 <description>บันทึกการเรียนวิเคราะห์หุ้น US เชิงลึก เน้นพื้นฐานธุรกิจ ไม่ใช่ราคา</description>
 <language>th</language>
-<lastBuildDate>Wed, 01 Jul 2026 14:00:00 +0700</lastBuildDate>
+<lastBuildDate>Thu, 02 Jul 2026 09:01:26 +0700</lastBuildDate>
 <atom:link href="https://beatp9696-arch.github.io/feed.xml" rel="self" type="application/rss+xml"/>
 <item>
 <title>AI = ฟองสบู่ dot-com รอบใหม่? — ผ่ากลไกด้วยมีดผ่าตัดเล่มเดิม</title>
@@ -15,6 +15,20 @@
 <description>ผ่ากลไกฟองสบู่ dot-com vs AI ด้วย first principles — ฟองสบู่คือตอนที่ราคากลายเป็นตัวอ้างอิงของตัวเอง (3 เงื่อนไข), วงจรเงินหมุน Nvidia→hyperscaler capex→AI cloud→VC labs ที่บังหน้าว่าไม่มี end-demand จริง, จุดที่ AI แย่กว่า dot-com (fiber อยู่ 25 ปี แต่ GPU ตายใน 4-5 ปี = สินทรัพย์ที่ละลาย), คำตัดสิน timing error กับ "ดอกจันโหดร้าย" และ falsifiability 2 ข้อ — เล่าด้วยภาพเคลื่อนไหวระดับ instrument (capital circuit / asset scope / decay-vs-demand race) เรียบเรียงจากงานที่เขียนด้วย Claude Fable 5</description>
 </item>
 <item>
+<title>ผ่าธุรกิจ MRVL (Marvell) — ชิป custom และการเชื่อมต่อความเร็วสูงที่ทำให้ AI ขยับ</title>
+<link>https://beatp9696-arch.github.io/articles/deep-dive-mrvl.html</link>
+<guid isPermaLink="true">https://beatp9696-arch.github.io/articles/deep-dive-mrvl.html</guid>
+<pubDate>Tue, 30 Jun 2026 12:00:00 +0700</pubDate>
+<description>fabless ที่ทำทั้ง "สมอง" และ "เส้นประสาท" ของศูนย์ข้อมูล AI — custom XPU เร่งงาน AI, SerDes 224G (PAM4), Ethernet switch 51.2T และ optical DSP ที่แปลงบิตเป็นแสง รายได้พุ่ง +42% สู่ $8.2bn, data center 76% ของรายได้, GAAP gross margin พลิก 41%→52% และ operating income พลิกบวก แต่ใต้คลื่น AI ที่จริงนั้น ROIC ~6% ยังต่ำกว่าต้นทุนทุน ~11% และ goodwill = 52% ของสินทรัพย์ (serial acquirer: Cavium/Inphi/Celestial/XConn) — เล่าด้วยภาพเคลื่อนไหวระดับ instrument ของผลิตภัณฑ์จริง: ผังชิป custom XPU, eye diagram PAM4, crossbar ของ switch และ optical DSP ส่งแสง</description>
+</item>
+<item>
+<title>ผ่าธุรกิจ MU (Micron) — โรงงานความจำของยุค AI ในวัฏจักรที่โหดที่สุด</title>
+<link>https://beatp9696-arch.github.io/articles/deep-dive-mu.html</link>
+<guid isPermaLink="true">https://beatp9696-arch.github.io/articles/deep-dive-mu.html</guid>
+<pubDate>Tue, 30 Jun 2026 12:00:00 +0700</pubDate>
+<description>ผู้ผลิตความจำ DRAM/NAND สัญชาติสหรัฐรายเดียว — ขาย "บิต" ที่เป็น commodity, oligopoly 3 ราย + กำแพงทุนที่ฆ่าคู่แข่งจาก 20+ เหลือ 3, เดิมพัน HBM (DRAM ซ้อน 12 ชั้น + TSV) กับยุค AI ที่จองเต็มถึงปี 2027 และวัฏจักรที่ gross margin เหวี่ยงจากขายขาดทุน (FY2023) ถึง 40% (FY2025) อ้างอิงงบ FY2025: รายได้ $37.4bn (+49%), DRAM $28.6bn, GM พลิก 22%→40% — เล่าด้วยภาพเคลื่อนไหวระดับ instrument: DRAM cell, HBM stack + TSV, memory cycle</description>
+</item>
+<item>
 <title>ผ่าธุรกิจ SPGI (S&amp;P Global) — Toll Booth สองชั้นบนระบบการเงินโลก</title>
 <link>https://beatp9696-arch.github.io/articles/deep-dive-spgi.html</link>
 <guid isPermaLink="true">https://beatp9696-arch.github.io/articles/deep-dive-spgi.html</guid>
@@ -22,7 +36,7 @@
 <description>ผ่าธุรกิจ S&amp;P Global (SPGI) — toll booth สองชั้น: Ratings duopoly (margin 64%) + S&amp;P 500 index royalty (margin 71%), 5 segment หลังรวม IHS Markit, อ้างอิงงบจริง FY2024–FY2025 (รายได้ $15.3bn, adj. EPS $17.83, Dividend King 52 ปี), recurring vs cyclical revenue, bull/bear และ Kill Conditions อธิบายด้วยภาพเคลื่อนไหวระดับ instrument</description>
 </item>
 <item>
-<title>ผ่าธุรกิจ UNH (UnitedHealth) — เครื่องจักรประกันที่ผูกครบวงจร</title>
+<title>ผ่าธุรกิจ UNH (UnitedHealth) — เครื่องจักรประกันที่ผูกครบวงจร (และปีที่มันสะดุด)</title>
 <link>https://beatp9696-arch.github.io/articles/deep-dive-unh.html</link>
 <guid isPermaLink="true">https://beatp9696-arch.github.io/articles/deep-dive-unh.html</guid>
 <pubDate>Tue, 30 Jun 2026 21:00:00 +0700</pubDate>
@@ -64,32 +78,11 @@
 <description>ผ่าธุรกิจ NVIDIA (NVDA) — ทำไมโลก AI ขาด GPU ไม่ได้: ประมวลผลขนาน, คูเมืองซอฟต์แวร์ CUDA, การเชื่อม GPU เป็น AI factory (NVLink), ตัวเลข, bull/bear และ Kill Conditions อธิบายด้วยภาพเคลื่อนไหว</description>
 </item>
 <item>
-<title>ผ่าธุรกิจ COHR (Coherent) — ทำไม AI ต้องส่งข้อมูลด้วยแสง</title>
+<title>ผ่าธุรกิจ COHR (Coherent) — ทำไม AI ต้องส่งข้อมูลด้วย "แสง"</title>
 <link>https://beatp9696-arch.github.io/articles/deep-dive-cohr.html</link>
 <guid isPermaLink="true">https://beatp9696-arch.github.io/articles/deep-dive-cohr.html</guid>
 <pubDate>Mon, 29 Jun 2026 09:00:00 +0700</pubDate>
 <description>ผ่าธุรกิจ Coherent (COHR) — ทำไม AI datacenter ต้องเปลี่ยนจากทองแดงมาเป็นแสง: IMDD vs Coherent, SiPh waveguide, InP PIC, TFLN และจุดที่ COHR ได้เปรียบ อธิบายด้วยภาพเคลื่อนไหว</description>
-</item>
-<item>
-<title>ผ่าธุรกิจ TSM (TSMC) — โรงหล่อของโลก AI กับคูเมืองที่ลอกไม่ได้</title>
-<link>https://beatp9696-arch.github.io/articles/deep-dive-tsm.html</link>
-<guid isPermaLink="true">https://beatp9696-arch.github.io/articles/deep-dive-tsm.html</guid>
-<pubDate>Sun, 28 Jun 2026 09:00:00 +0700</pubDate>
-<description>ผ่าธุรกิจ TSMC (TSM) — โรงหล่อชิปผูกขาด leading-edge (≤7nm 74%), ROIC ~48%, operating leverage, AI เป็น engine, valuation และ Kill Conditions อ้างอิง 20-F FY2025 + Q1 FY2026</description>
-</item>
-<item>
-<title>ผ่าธุรกิจ NFLX (Netflix) — operating leverage สวย แต่ moat เปราะสุดในกลุ่ม</title>
-<link>https://beatp9696-arch.github.io/articles/deep-dive-nflx.html</link>
-<guid isPermaLink="true">https://beatp9696-arch.github.io/articles/deep-dive-nflx.html</guid>
-<pubDate>Sun, 28 Jun 2026 09:00:00 +0700</pubDate>
-<description>ผ่าธุรกิจ Netflix (NFLX) — scale economy ของ content, operating leverage ที่ทำงานจริง, ขาโฆษณาใหม่ และจุดเปราะเรื่อง moat ที่บางและ valuation ที่แพง</description>
-</item>
-<item>
-<title>ผ่าธุรกิจ COST (Costco) — ทำเงินจากค่าสมาชิก ไม่ใช่จากของที่ขาย</title>
-<link>https://beatp9696-arch.github.io/articles/deep-dive-cost.html</link>
-<guid isPermaLink="true">https://beatp9696-arch.github.io/articles/deep-dive-cost.html</guid>
-<pubDate>Sun, 28 Jun 2026 09:00:00 +0700</pubDate>
-<description>ผ่าธุรกิจ Costco (COST) — โมเดล 'ขายของไม่เอากำไร ทำเงินจากค่าสมาชิก', flywheel, moat, valuation ที่แพง และ Kill Conditions</description>
 </item>
 <item>
 <title>4 เสาหลักความคิดการลงทุนของ Warren Buffett</title>
@@ -99,6 +92,20 @@
 <description>4 หนังสือที่หล่อหลอมความคิด Warren Buffett — Security Analysis, The Intelligent Investor, The Wealth of Nations, The Essays of Warren Buffett: ใจความสำคัญแต่ละเล่ม + ลำดับการอ่านสำหรับมือใหม่</description>
 </item>
 <item>
+<title>ผ่าธุรกิจ TSM (TSMC) — โรงหล่อของโลก AI, คูเมืองที่ลอกไม่ได้ และหางเสี่ยงชื่อ Taiwan</title>
+<link>https://beatp9696-arch.github.io/articles/deep-dive-tsm.html</link>
+<guid isPermaLink="true">https://beatp9696-arch.github.io/articles/deep-dive-tsm.html</guid>
+<pubDate>Sun, 28 Jun 2026 09:00:00 +0700</pubDate>
+<description>ผ่าธุรกิจ TSMC (TSM) — โรงหล่อชิปผูกขาด leading-edge (≤7nm 74%), ROIC ~48%, operating leverage, AI เป็น engine, valuation และ Kill Conditions อ้างอิง 20-F FY2025 + Q1 FY2026</description>
+</item>
+<item>
+<title>ผ่าธุรกิจ NFLX (Netflix) — operating leverage สวยงาม แต่ moat เปราะสุดในกลุ่ม</title>
+<link>https://beatp9696-arch.github.io/articles/deep-dive-nflx.html</link>
+<guid isPermaLink="true">https://beatp9696-arch.github.io/articles/deep-dive-nflx.html</guid>
+<pubDate>Sun, 28 Jun 2026 09:00:00 +0700</pubDate>
+<description>ผ่าธุรกิจ Netflix (NFLX) — scale economy ของ content, operating leverage ที่ทำงานจริง, ขาโฆษณาใหม่ และจุดเปราะเรื่อง moat ที่บางและ valuation ที่แพง</description>
+</item>
+<item>
 <title>ผ่าธุรกิจ MELI (MercadoLibre) — โตเร็วที่สุด แต่ margin กำลังร่วง</title>
 <link>https://beatp9696-arch.github.io/articles/deep-dive-meli.html</link>
 <guid isPermaLink="true">https://beatp9696-arch.github.io/articles/deep-dive-meli.html</guid>
@@ -106,39 +113,46 @@
 <description>ผ่าธุรกิจ MercadoLibre (MELI) — ecosystem e-commerce + fintech ของลาตินอเมริกา, ความตึงเครียดระหว่างโตเร็วกับ margin ที่ร่วง, moat และ Kill Conditions อ้างอิงงบ FY2025 + Q1 2026</description>
 </item>
 <item>
-<title>งบกำไรขาดทุน — ตอนที่ 1: เงินเข้าเท่าไหร่ เหลือเท่าไหร่</title>
-<link>https://beatp9696-arch.github.io/articles/financials-01-income-statement.html</link>
-<guid isPermaLink="true">https://beatp9696-arch.github.io/articles/financials-01-income-statement.html</guid>
-<pubDate>Sat, 27 Jun 2026 09:00:00 +0700</pubDate>
-<description>อ่านงบกำไรขาดทุนจากบนลงล่างผ่านตัวอย่างร้านกาแฟ และดูว่า margin บอกอะไรเรื่องอำนาจตั้งราคา</description>
+<title>ผ่าธุรกิจ COST (Costco) — ทำเงินจาก "ค่าสมาชิก" ไม่ใช่จากของที่ขาย</title>
+<link>https://beatp9696-arch.github.io/articles/deep-dive-cost.html</link>
+<guid isPermaLink="true">https://beatp9696-arch.github.io/articles/deep-dive-cost.html</guid>
+<pubDate>Sun, 28 Jun 2026 09:00:00 +0700</pubDate>
+<description>ผ่าธุรกิจ Costco (COST) — โมเดล 'ขายของไม่เอากำไร ทำเงินจากค่าสมาชิก', flywheel, moat, valuation ที่แพง และ Kill Conditions</description>
 </item>
 <item>
-<title>งบดุล + เชื่อม 3 งบ — ตอนที่ 3</title>
-<link>https://beatp9696-arch.github.io/articles/financials-03-balance-sheet.html</link>
-<guid isPermaLink="true">https://beatp9696-arch.github.io/articles/financials-03-balance-sheet.html</guid>
+<title>ผ่าธุรกิจ SNPS (Synopsys) — EDA duopoly, ดีล Ansys $35B และความหวัง Physical AI</title>
+<link>https://beatp9696-arch.github.io/articles/deep-dive-snps.html</link>
+<guid isPermaLink="true">https://beatp9696-arch.github.io/articles/deep-dive-snps.html</guid>
 <pubDate>Sat, 27 Jun 2026 09:00:00 +0700</pubDate>
-<description>อ่านงบดุล (ฐานะการเงิน ณ วันนี้) และเอางบทั้ง 3 ชุดมาเชื่อมกันให้เห็นว่ามันเล่าเรื่องเดียวจาก 3 มุม</description>
+<description>ผ่าธุรกิจ Synopsys (SNPS) — EDA duopoly, ดีล Ansys $35B, ความหวัง Physical AI, GAAP vs adjusted margin, dilution และ Kill Conditions อ้างอิงงบ FY2025 + Q2 2026</description>
 </item>
 <item>
-<title>ผ่าธุรกิจ AXP (American Express) — Deep-dive</title>
+<title>ผ่าธุรกิจ AXP (American Express) — โมเดล "spend-centric" กับคูเมืองที่คนมองข้าม</title>
 <link>https://beatp9696-arch.github.io/articles/deep-dive-axp.html</link>
 <guid isPermaLink="true">https://beatp9696-arch.github.io/articles/deep-dive-axp.html</guid>
 <pubDate>Sat, 27 Jun 2026 09:00:00 +0700</pubDate>
 <description>ผ่าธุรกิจ American Express (AXP) — closed-loop network, โมเดล spend-centric, moat, bull/bear และ Kill Conditions อ้างอิงงบ FY2025 + Q1 2026</description>
 </item>
 <item>
-<title>งบกระแสเงินสด — ตอนที่ 2: กำไรคือความเห็น เงินสดคือความจริง</title>
+<title>ตอนที่ 3: งบดุล + เชื่อม 3 งบ — ฐานะ ณ วันนี้ และภาพใหญ่ที่ครบ</title>
+<link>https://beatp9696-arch.github.io/articles/financials-03-balance-sheet.html</link>
+<guid isPermaLink="true">https://beatp9696-arch.github.io/articles/financials-03-balance-sheet.html</guid>
+<pubDate>Sat, 27 Jun 2026 09:00:00 +0700</pubDate>
+<description>อ่านงบดุล (ฐานะการเงิน ณ วันนี้) และเอางบทั้ง 3 ชุดมาเชื่อมกันให้เห็นว่ามันเล่าเรื่องเดียวจาก 3 มุม</description>
+</item>
+<item>
+<title>ตอนที่ 2: งบกระแสเงินสด — "กำไรคือความเห็น เงินสดคือความจริง"</title>
 <link>https://beatp9696-arch.github.io/articles/financials-02-cash-flow-statement.html</link>
 <guid isPermaLink="true">https://beatp9696-arch.github.io/articles/financials-02-cash-flow-statement.html</guid>
 <pubDate>Sat, 27 Jun 2026 09:00:00 +0700</pubDate>
 <description>กำไรคือความเห็น เงินสดคือความจริง — อ่านงบกระแสเงินสด เคสกำไรบวกแต่เงินสดติดลบ และกฎเช็คคุณภาพกำไร</description>
 </item>
 <item>
-<title>ผ่าธุรกิจ SNPS (Synopsys) — EDA, ดีล Ansys $35B และ Physical AI</title>
-<link>https://beatp9696-arch.github.io/articles/deep-dive-snps.html</link>
-<guid isPermaLink="true">https://beatp9696-arch.github.io/articles/deep-dive-snps.html</guid>
+<title>ตอนที่ 1: งบกำไรขาดทุน — เงินเข้าเท่าไหร่ เหลือเท่าไหร่ และบอกอะไรเรื่อง "อำนาจตั้งราคา"</title>
+<link>https://beatp9696-arch.github.io/articles/financials-01-income-statement.html</link>
+<guid isPermaLink="true">https://beatp9696-arch.github.io/articles/financials-01-income-statement.html</guid>
 <pubDate>Sat, 27 Jun 2026 09:00:00 +0700</pubDate>
-<description>ผ่าธุรกิจ Synopsys (SNPS) — EDA duopoly, ดีล Ansys $35B, ความหวัง Physical AI, GAAP vs adjusted margin, dilution และ Kill Conditions อ้างอิงงบ FY2025 + Q2 2026</description>
+<description>อ่านงบกำไรขาดทุนจากบนลงล่างผ่านตัวอย่างร้านกาแฟ และดูว่า margin บอกอะไรเรื่องอำนาจตั้งราคา</description>
 </item>
 </channel>
 </rss>

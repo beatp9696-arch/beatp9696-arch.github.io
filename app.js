@@ -14,6 +14,40 @@
     document.body.insertBefore(skip, document.body.firstChild);
   }
 
+  // ---- ตั้งค่า optional (เปิดใช้เมื่อกรอกค่า) ----
+  var GOATCOUNTER_CODE = ""; // สมัครฟรีที่ goatcounter.com แล้วใส่ code เช่น "moatrices" → นับผู้เข้าชม
+  var GISCUS = { repo: "", repoId: "", category: "", categoryId: "" }; // เอาค่าจาก giscus.app → เปิดคอมเมนต์ท้ายบทความ
+
+  // ---- base path: หน้า root vs หน้าใน articles/ ----
+  var IS_ARTICLE_DIR = location.pathname.indexOf("/articles/") !== -1;
+  var BASE = IS_ARTICLE_DIR ? "../" : "";
+
+  // ---- ข้อมูลบทความ (แหล่งเดียว — ใช้ทั้ง prev/next, related, search, sector filter) ----
+  // เรียงเก่า → ใหม่ · sec: semi | software | health | finance | consumer | space | market | basics
+  var ARTICLES = [
+    { f: "financials-01-income-statement.html", t: "ตอนที่ 1: งบกำไรขาดทุน", sec: "basics" },
+    { f: "financials-02-cash-flow-statement.html", t: "ตอนที่ 2: งบกระแสเงินสด", sec: "basics" },
+    { f: "financials-03-balance-sheet.html", t: "ตอนที่ 3: งบดุล + เชื่อม 3 งบ", sec: "basics" },
+    { f: "buffett-4-pillars.html", t: "4 เสาหลักความคิดของ Warren Buffett", sec: "basics" },
+    { f: "deep-dive-snps.html", t: "ผ่าธุรกิจ SNPS (Synopsys)", tk: "SNPS", sec: "semi" },
+    { f: "deep-dive-axp.html", t: "ผ่าธุรกิจ AXP (American Express)", tk: "AXP", sec: "finance" },
+    { f: "deep-dive-cost.html", t: "ผ่าธุรกิจ COST (Costco)", tk: "COST", sec: "consumer" },
+    { f: "deep-dive-meli.html", t: "ผ่าธุรกิจ MELI (MercadoLibre)", tk: "MELI", sec: "consumer" },
+    { f: "deep-dive-nflx.html", t: "ผ่าธุรกิจ NFLX (Netflix)", tk: "NFLX", sec: "software" },
+    { f: "deep-dive-tsm.html", t: "ผ่าธุรกิจ TSM (TSMC)", tk: "TSM", sec: "semi" },
+    { f: "deep-dive-cohr.html", t: "ผ่าธุรกิจ COHR (Coherent)", tk: "COHR", sec: "semi" },
+    { f: "deep-dive-nvda.html", t: "ผ่าธุรกิจ NVDA (NVIDIA)", tk: "NVDA", sec: "semi" },
+    { f: "deep-dive-googl.html", t: "ผ่าธุรกิจ GOOGL (Alphabet)", tk: "GOOGL", sec: "software" },
+    { f: "deep-dive-spacex.html", t: "ผ่าธุรกิจ SpaceX", tk: "SPACEX", sec: "space" },
+    { f: "deep-dive-lly.html", t: "ผ่าธุรกิจ LLY (Eli Lilly)", tk: "LLY", sec: "health" },
+    { f: "deep-dive-msft.html", t: "ผ่าธุรกิจ MSFT (Microsoft)", tk: "MSFT", sec: "software" },
+    { f: "deep-dive-unh.html", t: "ผ่าธุรกิจ UNH (UnitedHealth)", tk: "UNH", sec: "health" },
+    { f: "deep-dive-spgi.html", t: "ผ่าธุรกิจ SPGI (S&amp;P Global)", tk: "SPGI", sec: "finance" },
+    { f: "deep-dive-mu.html", t: "ผ่าธุรกิจ MU (Micron)", tk: "MU", sec: "semi" },
+    { f: "deep-dive-mrvl.html", t: "ผ่าธุรกิจ MRVL (Marvell)", tk: "MRVL", sec: "semi" },
+    { f: "deep-dive-ai-bubble.html", t: "AI = ฟองสบู่ dot-com รอบใหม่?", sec: "market" }
+  ];
+
   var progressBar = document.querySelector(".reading-progress");
   var btn = document.querySelector(".to-top");
 
@@ -97,6 +131,28 @@
     }
   }
 
+  // ---- เมนู "หุ้น" + ลิงก์ footer (inject จะได้ไม่ต้องแก้ header/footer ทุกหน้า) ----
+  var navMain = document.querySelector(".site-nav");
+  if (navMain) {
+    var stocksLink = document.createElement("a");
+    stocksLink.href = BASE + "stocks.html";
+    stocksLink.textContent = "หุ้น";
+    var navAs = navMain.querySelectorAll("a");
+    if (navAs.length > 1) navMain.insertBefore(stocksLink, navAs[1]);
+    else navMain.appendChild(stocksLink);
+  }
+  var footerNav = document.querySelector(".footer-nav");
+  if (footerNav) {
+    var footStocks = document.createElement("a");
+    footStocks.href = BASE + "stocks.html";
+    footStocks.textContent = "หุ้นทั้งหมด";
+    footerNav.appendChild(footStocks);
+    var footRss = document.createElement("a");
+    footRss.href = BASE + "feed.xml";
+    footRss.textContent = "RSS Feed";
+    footerNav.appendChild(footRss);
+  }
+
   // ---- ไฮไลต์เมนูของหน้าปัจจุบัน ----
   var here = location.pathname.split("/").pop() || "index.html";
   document.querySelectorAll(".site-nav a").forEach(function (a) {
@@ -131,9 +187,12 @@
     revealEls.forEach(function (el) { el.classList.add("reveal"); io.observe(el); });
   }
 
-  // ---- แท็บกรองบทความ ----
+  // ---- แท็บกรองบทความ (หมวด × กลุ่มธุรกิจ) ----
   var postList = document.querySelector(".post-list");
   if (postList) {
+    var SEC_BY_FILE = {};
+    ARTICLES.forEach(function (a) { SEC_BY_FILE[a.f] = a.sec || "other"; });
+
     var items = Array.prototype.slice.call(postList.querySelectorAll("li"));
     items.forEach(function (li) {
       var tagEl = li.querySelector(".tag");
@@ -142,24 +201,60 @@
       if (txt.indexOf("Deep-dive") !== -1) cat = "deepdive";
       else if (txt.indexOf("ซีรีส์") !== -1 || txt.indexOf("งบ") !== -1) cat = "financials";
       else if (txt.indexOf("หนังสือ") !== -1) cat = "book";
+      else if (txt.indexOf("บทวิเคราะห์") !== -1) cat = "analysis";
       li.setAttribute("data-cat", cat);
+      var link = li.querySelector("a[href]");
+      var fname = link ? link.getAttribute("href").split("/").pop() : "";
+      li.setAttribute("data-sec", SEC_BY_FILE[fname] || "other");
     });
 
-    var counts = { all: items.length, deepdive: 0, financials: 0, book: 0 };
+    var counts = { all: items.length, deepdive: 0, financials: 0, book: 0, analysis: 0 };
+    var secCounts = {};
     items.forEach(function (li) {
       var cat = li.getAttribute("data-cat");
       if (counts.hasOwnProperty(cat)) counts[cat]++;
+      var sec = li.getAttribute("data-sec");
+      secCounts[sec] = (secCounts[sec] || 0) + 1;
+    });
+
+    // hero stats นับจากรายการจริง — ตัวเลขใน HTML เป็นแค่ fallback
+    document.querySelectorAll(".hero-stat").forEach(function (st) {
+      var label = st.querySelector(".hero-stat-label");
+      var num = st.querySelector(".hero-stat-num");
+      if (!label || !num) return;
+      var lt = label.textContent.trim();
+      if (lt === "บทความ") num.textContent = counts.all;
+      else if (lt === "Deep-dive") num.textContent = counts.deepdive;
+      else if (lt === "ซีรีส์อ่านงบ") num.textContent = counts.financials;
+    });
+
+    // ป้าย "ใหม่" — บทความอายุ ≤ 7 วัน สูงสุด 3 อันแรก (list เรียงใหม่สุดก่อน)
+    var badged = 0;
+    items.forEach(function (li) {
+      if (badged >= 3) return;
+      var tEl = li.querySelector("time[datetime]");
+      if (!tEl) return;
+      var d = new Date(tEl.getAttribute("datetime") + "T00:00:00");
+      if (Date.now() - d.getTime() <= 7 * 864e5) {
+        var nb = document.createElement("span");
+        nb.className = "new-badge";
+        nb.textContent = "ใหม่";
+        var row = li.querySelector(".article-meta-row");
+        if (row) { row.insertBefore(nb, row.firstChild); badged++; }
+      }
     });
 
     var filters = [
       { key: "all", label: "ทั้งหมด" },
       { key: "deepdive", label: "Deep-dive" },
+      { key: "analysis", label: "บทวิเคราะห์" },
       { key: "financials", label: "อ่านงบ" },
       { key: "book", label: "หนังสือ" }
     ];
     var filterBar = document.createElement("div");
     filterBar.className = "filter-bar";
     filters.forEach(function (f, i) {
+      if (f.key !== "all" && !counts[f.key]) return;
       var c = document.createElement("button");
       c.type = "button";
       c.className = "chip" + (i === 0 ? " active" : "");
@@ -169,16 +264,51 @@
     });
     postList.parentNode.insertBefore(filterBar, postList);
 
-    filterBar.addEventListener("click", function (e) {
-      var c = e.target.closest ? e.target.closest(".chip") : null;
-      if (!c) return;
-      var key = c.getAttribute("data-key");
-      filterBar.querySelectorAll(".chip").forEach(function (x) { x.classList.toggle("active", x === c); });
+    var SECTORS = [
+      { key: "all", label: "ทุกกลุ่ม" },
+      { key: "semi", label: "เซมิ & AI" },
+      { key: "software", label: "ซอฟต์แวร์ & อินเทอร์เน็ต" },
+      { key: "health", label: "สุขภาพ" },
+      { key: "finance", label: "การเงิน" },
+      { key: "consumer", label: "ผู้บริโภค" }
+    ];
+    var sectorBar = document.createElement("div");
+    sectorBar.className = "filter-bar filter-bar--sector";
+    SECTORS.forEach(function (s, i) {
+      if (s.key !== "all" && !secCounts[s.key]) return;
+      var c = document.createElement("button");
+      c.type = "button";
+      c.className = "chip chip--sm" + (i === 0 ? " active" : "");
+      c.setAttribute("data-key", s.key);
+      c.innerHTML = s.label + (s.key === "all" ? "" : '<span class="chip-count">' + secCounts[s.key] + '</span>');
+      sectorBar.appendChild(c);
+    });
+    postList.parentNode.insertBefore(sectorBar, postList);
+
+    var activeCat = "all";
+    var activeSec = "all";
+    function applyFilters() {
       items.forEach(function (li) {
-        var show = key === "all" || li.getAttribute("data-cat") === key;
+        var okCat = activeCat === "all" || li.getAttribute("data-cat") === activeCat;
+        var okSec = activeSec === "all" || li.getAttribute("data-sec") === activeSec;
+        var show = okCat && okSec;
         li.style.display = show ? "" : "none";
         if (show) li.classList.add("is-visible");
       });
+    }
+    filterBar.addEventListener("click", function (e) {
+      var c = e.target.closest ? e.target.closest(".chip") : null;
+      if (!c) return;
+      activeCat = c.getAttribute("data-key");
+      filterBar.querySelectorAll(".chip").forEach(function (x) { x.classList.toggle("active", x === c); });
+      applyFilters();
+    });
+    sectorBar.addEventListener("click", function (e) {
+      var c = e.target.closest ? e.target.closest(".chip") : null;
+      if (!c) return;
+      activeSec = c.getAttribute("data-key");
+      sectorBar.querySelectorAll(".chip").forEach(function (x) { x.classList.toggle("active", x === c); });
+      applyFilters();
     });
   }
 
@@ -207,29 +337,6 @@
   }
 
   // ---- Prev / Next ท้ายบทความ ----
-  var ARTICLES = [
-    { f: "financials-01-income-statement.html", t: "ตอนที่ 1: งบกำไรขาดทุน" },
-    { f: "financials-02-cash-flow-statement.html", t: "ตอนที่ 2: งบกระแสเงินสด" },
-    { f: "financials-03-balance-sheet.html", t: "ตอนที่ 3: งบดุล + เชื่อม 3 งบ" },
-    { f: "buffett-4-pillars.html", t: "4 เสาหลักความคิดของ Warren Buffett" },
-    { f: "deep-dive-snps.html", t: "ผ่าธุรกิจ SNPS (Synopsys)" },
-    { f: "deep-dive-axp.html", t: "ผ่าธุรกิจ AXP (American Express)" },
-    { f: "deep-dive-cost.html", t: "ผ่าธุรกิจ COST (Costco)" },
-    { f: "deep-dive-meli.html", t: "ผ่าธุรกิจ MELI (MercadoLibre)" },
-    { f: "deep-dive-nflx.html", t: "ผ่าธุรกิจ NFLX (Netflix)" },
-    { f: "deep-dive-tsm.html", t: "ผ่าธุรกิจ TSM (TSMC)" },
-    { f: "deep-dive-cohr.html", t: "ผ่าธุรกิจ COHR (Coherent)" },
-    { f: "deep-dive-nvda.html", t: "ผ่าธุรกิจ NVDA (NVIDIA)" },
-    { f: "deep-dive-googl.html", t: "ผ่าธุรกิจ GOOGL (Alphabet)" },
-    { f: "deep-dive-spacex.html", t: "ผ่าธุรกิจ SpaceX" },
-    { f: "deep-dive-lly.html", t: "ผ่าธุรกิจ LLY (Eli Lilly)" },
-    { f: "deep-dive-msft.html", t: "ผ่าธุรกิจ MSFT (Microsoft)" },
-    { f: "deep-dive-unh.html", t: "ผ่าธุรกิจ UNH (UnitedHealth)" },
-    { f: "deep-dive-spgi.html", t: "ผ่าธุรกิจ SPGI (S&amp;P Global)" },
-    { f: "deep-dive-mu.html", t: "ผ่าธุรกิจ MU (Micron)" },
-    { f: "deep-dive-mrvl.html", t: "ผ่าธุรกิจ MRVL (Marvell)" },
-    { f: "deep-dive-ai-bubble.html", t: "AI = ฟองสบู่ dot-com รอบใหม่?" }
-  ];
   var file = location.pathname.split("/").pop();
   var idx = -1;
   ARTICLES.forEach(function (a, i) { if (a.f === file) idx = i; });
@@ -255,12 +362,13 @@
     }
   }
 
-  // ---- Related: บทความหมวดเดียวกัน ----
+  // ---- Related: กลุ่มธุรกิจเดียวกันก่อน แล้วเติมบทอื่น (ใหม่สุดก่อน) ----
   if (idx !== -1) {
-    var curDeep = file.indexOf("deep-dive") === 0;
-    var related = ARTICLES.filter(function (a) {
-      return a.f !== file && (a.f.indexOf("deep-dive") === 0) === curDeep;
-    }).slice(0, 3);
+    var curArt = ARTICLES[idx];
+    var pool = ARTICLES.slice().reverse().filter(function (a) { return a.f !== file; });
+    var sameSec = pool.filter(function (a) { return curArt.sec && a.sec === curArt.sec; });
+    var others = pool.filter(function (a) { return sameSec.indexOf(a) === -1; });
+    var related = sameSec.concat(others).slice(0, 3);
     var relAnchor = document.querySelector(".article-nav") || document.querySelector(".author-card");
     if (related.length && relAnchor) {
       var relHtml = '<h3 class="related-title">บทความที่เกี่ยวข้อง</h3><div class="related-grid">';
@@ -363,9 +471,13 @@
     sb.innerHTML = ICON_SEARCH;
     themeToggleBtn.parentNode.insertBefore(sb, themeToggleBtn);
 
-    var TICKERS = ["NFLX", "MELI", "COST", "SNPS", "AXP"];
-    var chipsHtml = TICKERS.map(function (t) {
-      return '<button type="button" class="search-chip" data-ticker="' + t + '">' + t + '</button>';
+    // ค้นบทความในเว็บก่อน — Yahoo Finance เป็นแค่ fallback
+    var searchItems = ARTICLES.map(function (a) {
+      return { f: a.f, title: a.t.replace(/&amp;/g, "&"), tk: a.tk || "" };
+    }).reverse(); // ใหม่สุดก่อน
+    function articleUrl(f) { return BASE + "articles/" + f; }
+    var chipsHtml = searchItems.filter(function (a) { return a.tk; }).map(function (a) {
+      return '<button type="button" class="search-chip" data-file="' + a.f + '">' + a.tk + '</button>';
     }).join("");
 
     var sOverlay = document.createElement("div");
@@ -378,17 +490,18 @@
         '<form class="search-form" id="search-form">' +
           '<span class="search-form-icon">' + ICON_SEARCH + '</span>' +
           '<input class="search-input" id="search-input" type="text"' +
-          ' placeholder="ค้นหาหุ้น เช่น AAPL, TSLA, NVDA..."' +
+          ' placeholder="ค้นหาบทความ เช่น NVDA, Micron, งบดุล..."' +
           ' autocomplete="off" autocorrect="off" autocapitalize="characters" spellcheck="false">' +
           '<button type="button" class="search-esc" id="search-close-btn">ESC</button>' +
         '</form>' +
+        '<div class="search-results" id="search-results"></div>' +
         '<div class="search-footer">' +
-          '<span class="search-footer-label">หุ้นที่วิเคราะห์แล้ว</span>' +
+          '<span class="search-footer-label">หุ้นที่ผ่าแล้ว · กดเพื่อเปิดบทความ</span>' +
           '<div class="search-chips">' + chipsHtml + '</div>' +
         '</div>' +
         '<div class="search-kbd-hint">' +
           '<kbd>/</kbd>&nbsp;หรือ&nbsp;<kbd>&#8984;K</kbd>&nbsp;เปิดได้เสมอ' +
-          '&nbsp;&middot;&nbsp;กด Enter เพื่อค้นหาบน Yahoo Finance' +
+          '&nbsp;&middot;&nbsp;Enter เปิดผลลัพธ์แรก · ไม่พบบทความ = ค้นบน Yahoo Finance' +
         '</div>' +
       '</div>';
     document.body.appendChild(sOverlay);
@@ -410,20 +523,50 @@
       window.open("https://finance.yahoo.com/quote/" + ticker.toUpperCase() + "/", "_blank", "noopener,noreferrer");
       closeSearch();
     }
+    function findArticles(q) {
+      q = q.trim().toLowerCase();
+      if (!q) return [];
+      return searchItems.filter(function (a) {
+        return a.title.toLowerCase().indexOf(q) !== -1 || (a.tk && a.tk.toLowerCase().indexOf(q) !== -1);
+      }).slice(0, 6);
+    }
+    function renderResults(q) {
+      var box = document.getElementById("search-results");
+      if (!box) return;
+      if (!q.trim()) { box.innerHTML = ""; return; }
+      var hits = findArticles(q);
+      if (!hits.length) {
+        box.innerHTML = '<div class="search-empty">ไม่พบบทความ — กด Enter เพื่อค้น "' +
+          q.replace(/</g, "&lt;") + '" บน Yahoo Finance</div>';
+        return;
+      }
+      box.innerHTML = hits.map(function (a) {
+        return '<a class="search-result" href="' + articleUrl(a.f) + '">' +
+          (a.tk ? '<span class="search-result-tk">' + a.tk + '</span>' : '') +
+          '<span class="search-result-title">' + a.title + '</span></a>';
+      }).join("");
+    }
 
     sb.addEventListener("click", openSearch);
     document.getElementById("search-close-btn").addEventListener("click", closeSearch);
     sOverlay.addEventListener("click", function (e) {
       if (e.target === sOverlay) closeSearch();
     });
+    document.getElementById("search-input").addEventListener("input", function () {
+      renderResults(this.value);
+    });
     document.getElementById("search-form").addEventListener("submit", function (e) {
       e.preventDefault();
       var val = document.getElementById("search-input").value.trim();
-      if (val) doSearch(val);
+      if (!val) return;
+      var hits = findArticles(val);
+      if (hits.length) { window.location.href = articleUrl(hits[0].f); closeSearch(); }
+      else doSearch(val);
     });
     sOverlay.querySelectorAll(".search-chip").forEach(function (chip) {
       chip.addEventListener("click", function () {
-        doSearch(this.getAttribute("data-ticker"));
+        window.location.href = articleUrl(this.getAttribute("data-file"));
+        closeSearch();
       });
     });
     document.addEventListener("keydown", function (e) {
@@ -464,6 +607,7 @@
     var base = isInArticles ? "../" : "";
     var NAV_LINKS = [
       { href: base + "index.html", label: "หน้าแรก" },
+      { href: base + "stocks.html", label: "หุ้นทั้งหมด" },
       { href: base + "dashboard.html", label: "Dashboard" },
       { href: base + "about.html", label: "เกี่ยวกับ" }
     ];
@@ -504,6 +648,40 @@
     document.addEventListener("keydown", function (e) {
       if (e.key === "Escape" && drawer.classList.contains("open")) closeDrawer();
     });
+  }
+
+  // ---- Analytics (GoatCounter) — ทำงานเมื่อกรอก GOATCOUNTER_CODE ด้านบน ----
+  if (GOATCOUNTER_CODE) {
+    var gc = document.createElement("script");
+    gc.async = true;
+    gc.src = "https://gc.zgo.at/count.js";
+    gc.setAttribute("data-goatcounter", "https://" + GOATCOUNTER_CODE + ".goatcounter.com/count");
+    document.body.appendChild(gc);
+  }
+
+  // ---- Comments (giscus) — ท้ายบทความ ทำงานเมื่อกรอก GISCUS ครบ ----
+  if (GISCUS.repo && GISCUS.repoId && GISCUS.categoryId && document.querySelector(".byline")) {
+    var giscusHost = document.querySelector(".related") || document.querySelector(".article-nav") || document.querySelector(".back");
+    if (giscusHost) {
+      var giscusWrap = document.createElement("section");
+      giscusWrap.className = "comments";
+      giscusWrap.innerHTML = '<h3 class="related-title">ความเห็น</h3>';
+      giscusHost.insertAdjacentElement("afterend", giscusWrap);
+      var gs = document.createElement("script");
+      gs.src = "https://giscus.app/client.js";
+      gs.setAttribute("data-repo", GISCUS.repo);
+      gs.setAttribute("data-repo-id", GISCUS.repoId);
+      gs.setAttribute("data-category", GISCUS.category);
+      gs.setAttribute("data-category-id", GISCUS.categoryId);
+      gs.setAttribute("data-mapping", "pathname");
+      gs.setAttribute("data-reactions-enabled", "1");
+      gs.setAttribute("data-input-position", "top");
+      gs.setAttribute("data-theme", effectiveTheme() === "dark" ? "dark" : "light");
+      gs.setAttribute("data-lang", "th");
+      gs.crossOrigin = "anonymous";
+      gs.async = true;
+      giscusWrap.appendChild(gs);
+    }
   }
 
   // ---- Market Clock — นาฬิกา BKK + NY + สถานะตลาด US ----

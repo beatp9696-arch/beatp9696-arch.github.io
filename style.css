@@ -2750,3 +2750,187 @@ h2:hover > .heading-anchor, h3:hover > .heading-anchor { opacity: 0.45; }
   .bub-flow,.bub-pipe-lit,.bub-coin,.bub-chev,.bub-led,.bub-glow,.bub-inflate,.bub-shine,.bub-float,.bub-pop,.bub-shim,.bub-core,.bub-drip,.bub-puddle,.bub-crack,.bub-wobble,.bub-sandtop,.bub-sandbot,.bub-water,.bub-beam { animation: none; }
   .bub-inflate,.bub-puddle,.bub-wobble,.bub-sandtop,.bub-sandbot,.bub-water { transform: none; }
 }
+
+/* ============================================================
+   2026-07 upgrade — card thumbnails, sector chips, new badge,
+   in-site search results, wordmark masks, stocks page
+   ============================================================ */
+
+/* --- wordmark logo จากไฟล์ svg (mask ทำให้สีตาม currentColor เหมือน inline เดิม) --- */
+.ticker-wm--mask {
+  background: currentColor;
+  -webkit-mask: var(--wm) no-repeat center / contain;
+  mask: var(--wm) no-repeat center / contain;
+}
+
+/* --- thumbnail บนการ์ดหน้าแรก (ใช้ og image ที่มีอยู่แล้ว) --- */
+@media (min-width: 701px) {
+  .post-list li {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) 176px;
+    grid-template-rows: auto auto 1fr auto;
+    column-gap: 22px;
+    align-items: start;
+  }
+  .post-list li > .article-meta-row,
+  .post-list li > a,
+  .post-list li > .excerpt,
+  .post-list li > .read-more { grid-column: 1; }
+  .post-list li > .read-more { grid-row: 4; justify-self: start; }
+  .card-thumb {
+    grid-column: 2;
+    grid-row: 1 / span 4;
+    align-self: center;
+    width: 176px;
+    height: auto;
+    aspect-ratio: 1200 / 630;
+    object-fit: cover;
+    border-radius: 10px;
+    border: 1px solid var(--border);
+    transition: transform 0.18s ease;
+  }
+  .post-list li:hover .card-thumb { transform: scale(1.03); }
+}
+@media (max-width: 700px) {
+  .card-thumb {
+    display: block;
+    width: 100%;
+    height: auto;
+    aspect-ratio: 1200 / 630;
+    object-fit: cover;
+    border-radius: 10px;
+    border: 1px solid var(--border);
+    margin-top: 12px;
+  }
+}
+
+/* --- ป้าย "ใหม่" --- */
+.new-badge {
+  font-family: var(--font-head);
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.05em;
+  color: #fff;
+  background: var(--grad);
+  border-radius: 999px;
+  padding: 2.5px 9px;
+  flex: none;
+}
+
+/* --- แถวกรองกลุ่มธุรกิจ (ใต้แถวหมวด) --- */
+.filter-bar--sector { margin: -14px 0 24px; }
+.chip--sm { font-size: 12.5px; padding: 4px 13px; }
+.chip--sm .chip-count { font-size: 10.5px; }
+
+/* --- ผลค้นหาบทความใน search modal --- */
+.search-results { display: flex; flex-direction: column; }
+.search-results:not(:empty) { border-top: 1px solid var(--border); }
+.search-result {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 11px 18px;
+  font-family: var(--font-head);
+  font-size: 15px;
+  font-weight: 500;
+  color: var(--text);
+}
+.search-result:hover { background: var(--accent-tint); color: var(--accent); }
+.search-result-tk {
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  color: var(--accent);
+  background: var(--accent-tint);
+  border: 1px solid color-mix(in srgb, var(--accent) 40%, transparent);
+  border-radius: 6px;
+  padding: 2px 8px;
+  flex: none;
+}
+.search-empty {
+  padding: 13px 18px;
+  font-size: 14px;
+  color: var(--muted);
+}
+
+/* --- giscus comments ท้ายบทความ --- */
+.comments { margin-top: 44px; }
+
+/* --- หน้า "หุ้นทั้งหมด" --- */
+.stock-grid {
+  list-style: none;
+  padding: 0;
+  margin: 28px 0 0;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(210px, 1fr));
+  gap: 16px;
+}
+.stock-card {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: 13px;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 16px 18px;
+  box-shadow: var(--shadow-sm);
+  transition: transform 0.18s ease, box-shadow 0.18s ease, border-color 0.18s ease;
+}
+.stock-card:hover {
+  transform: translateY(-3px);
+  box-shadow: var(--shadow-md);
+  border-color: var(--accent);
+}
+.stock-card .stock-meta > a::after { content: ""; position: absolute; inset: 0; }
+.stock-logo {
+  width: 38px;
+  height: 38px;
+  object-fit: contain;
+  border-radius: 8px;
+  background: #fff;
+  padding: 3px;
+  flex: none;
+}
+.stock-logo--wm {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--accent-tint);
+  color: var(--accent);
+  padding: 6px;
+}
+.stock-logo--wm .ticker-wm { height: 9px; width: calc(9px * var(--ar, 4)); }
+.stock-meta { min-width: 0; }
+.stock-tk {
+  display: block;
+  font-family: var(--font-head);
+  font-size: 16px;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  color: var(--text);
+}
+.stock-card:hover .stock-tk { color: var(--accent); }
+.stock-card .stock-meta > a { color: inherit; }
+.stock-name {
+  display: block;
+  font-size: 13px;
+  color: var(--muted);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.stock-sec {
+  position: absolute;
+  top: 10px;
+  right: 12px;
+  font-family: var(--font-head);
+  font-size: 10.5px;
+  font-weight: 600;
+  color: var(--accent);
+  background: var(--accent-tint);
+  border-radius: 999px;
+  padding: 2px 8px;
+}
+.stock-card--soon { opacity: 0.65; }
+.stock-card--soon .stock-tk { color: var(--muted); }

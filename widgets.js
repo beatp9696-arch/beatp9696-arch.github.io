@@ -49,7 +49,6 @@
         { proName: "NASDAQ:NVDA",  title: "Nvidia" },
         { proName: "NASDAQ:META",  title: "Meta" },
         { proName: "NASDAQ:TSLA",  title: "Tesla" },
-        { proName: "NASDAQ:SPCX",  title: "SpaceX" },
         { proName: "NASDAQ:COST",  title: "Costco" },
         { proName: "NYSE:LLY",     title: "Eli Lilly" },
         { proName: "NYSE:UNH",     title: "UnitedHealth" },
@@ -58,11 +57,15 @@
         { proName: "NASDAQ:SNPS",  title: "Synopsys" },
         { proName: "NYSE:AXP",     title: "Amex" },
         { proName: "NASDAQ:NFLX",  title: "Netflix" },
-        { proName: "NYSE:TSM",     title: "TSMC" }
+        { proName: "NYSE:TSM",     title: "TSMC" },
+        { proName: "NASDAQ:MU",    title: "Micron" },
+        { proName: "NASDAQ:MRVL",  title: "Marvell" },
+        { proName: "NYSE:COHR",    title: "Coherent" },
+        { proName: "NASDAQ:AVGO",  title: "Broadcom" }
       ],
       showSymbolLogo: true,
       isTransparent: true,
-      displayMode: "adaptive",
+      displayMode: "regular",
       locale: "en"
     });
 
@@ -99,7 +102,6 @@
         {
           title: "Watchlist",
           symbols: [
-            { s: "NASDAQ:SPCX",  d: "SpaceX" },
             { s: "NASDAQ:COST",  d: "Costco" },
             { s: "NYSE:LLY",     d: "Eli Lilly" },
             { s: "NYSE:UNH",     d: "UnitedHealth" },
@@ -108,7 +110,11 @@
             { s: "NASDAQ:SNPS",  d: "Synopsys" },
             { s: "NYSE:AXP",     d: "American Express" },
             { s: "NASDAQ:NFLX",  d: "Netflix" },
-            { s: "NYSE:TSM",     d: "TSMC" }
+            { s: "NYSE:TSM",     d: "TSMC" },
+            { s: "NASDAQ:MU",    d: "Micron" },
+            { s: "NASDAQ:MRVL",  d: "Marvell" },
+            { s: "NYSE:COHR",    d: "Coherent" },
+            { s: "NASDAQ:AVGO",  d: "Broadcom" }
           ]
         },
         {
