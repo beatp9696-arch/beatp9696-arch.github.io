@@ -4,12 +4,12 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <script>try{var t=localStorage.getItem('theme');if(t)document.documentElement.setAttribute('data-theme',t);}catch(e){}</script>
-  <title>งบกำไรขาดทุน — ตอนที่ 1 | Moatrices</title>
-  <meta name="description" content="อ่านงบกำไรขาดทุนจากบนลงล่างผ่านตัวอย่างร้านกาแฟ และดูว่า margin บอกอะไรเรื่องอำนาจตั้งราคา">
+  <title>ตอนที่ 1: งบกำไรขาดทุน — หอกลั่นรายได้ | Moatrices</title>
+  <meta name="description" content="อ่านงบกำไรขาดทุนแบบหอกลั่น: NVIDIA เทรายได้ $215.9B เข้า เหลือหยดสุดท้าย $120B — รายได้ทนทานแค่ไหน margin สามชั้นบอกอะไร และกับดัก non-GAAP ที่ซ่อนค่าจ้าง 22% ของรายได้">
   <meta property="og:type" content="article">
   <meta property="og:site_name" content="Moatrices">
-  <meta property="og:title" content="งบกำไรขาดทุน — ตอนที่ 1: เงินเข้าเท่าไหร่ เหลือเท่าไหร่">
-  <meta property="og:description" content="อ่านงบกำไรขาดทุนจากบนลงล่างผ่านตัวอย่างร้านกาแฟ และดูว่า margin บอกอะไรเรื่องอำนาจตั้งราคา">
+  <meta property="og:title" content="ตอนที่ 1: งบกำไรขาดทุน — หอกลั่นรายได้">
+  <meta property="og:description" content="อ่านงบกำไรขาดทุนแบบหอกลั่น: NVIDIA เทรายได้ $215.9B เข้า เหลือหยดสุดท้าย $120B — รายได้ทนทานแค่ไหน margin สามชั้นบอกอะไร และกับดัก non-GAAP ที่ซ่อนค่าจ้าง 22% ของรายได้">
   <meta property="og:url" content="https://beatp9696-arch.github.io/articles/financials-01-income-statement.html">
   <meta property="og:locale" content="th_TH">
   <meta name="twitter:card" content="summary_large_image">
@@ -32,7 +32,7 @@
   <noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Thai:wght@500;600;700&family=Sarabun:wght@400;500;600;700&display=swap"></noscript>
   <link rel="stylesheet" href="../style.css">
   <script type="application/ld+json">
-  {"@context": "https://schema.org", "@type": "BlogPosting", "headline": "งบกำไรขาดทุน — ตอนที่ 1: เงินเข้าเท่าไหร่ เหลือเท่าไหร่", "description": "อ่านงบกำไรขาดทุนจากบนลงล่างผ่านตัวอย่างร้านกาแฟ และดูว่า margin บอกอะไรเรื่องอำนาจตั้งราคา", "author": {"@type": "Person", "name": "Moatrices"}, "publisher": {"@type": "Organization", "name": "Moatrices", "logo": {"@type": "ImageObject", "url": "https://beatp9696-arch.github.io/favicon.svg"}}, "mainEntityOfPage": {"@type": "WebPage", "@id": "https://beatp9696-arch.github.io/articles/financials-01-income-statement.html"}, "inLanguage": "th", "datePublished": "2026-06-27", "dateModified": "2026-06-27"}
+  {"@context": "https://schema.org", "@type": "BlogPosting", "headline": "ตอนที่ 1: งบกำไรขาดทุน — หอกลั่นรายได้", "description": "อ่านงบกำไรขาดทุนแบบหอกลั่น: NVIDIA เทรายได้ $215.9B เข้า เหลือหยดสุดท้าย $120B — รายได้ทนทานแค่ไหน margin สามชั้นบอกอะไร และกับดัก non-GAAP ที่ซ่อนค่าจ้าง 22% ของรายได้", "author": {"@type": "Person", "name": "Moatrices"}, "publisher": {"@type": "Organization", "name": "Moatrices", "logo": {"@type": "ImageObject", "url": "https://beatp9696-arch.github.io/favicon.svg"}}, "mainEntityOfPage": {"@type": "WebPage", "@id": "https://beatp9696-arch.github.io/articles/financials-01-income-statement.html"}, "inLanguage": "th", "datePublished": "2026-06-27", "dateModified": "2026-07-02"}
   </script>
 </head>
 <body>
@@ -55,104 +55,405 @@
     <div class="container">
 
       <span class="kicker">ซีรีส์ · อ่านงบแบบลงมือทำ</span>
-      <h1>ตอนที่ 1: งบกำไรขาดทุน — เงินเข้าเท่าไหร่ เหลือเท่าไหร่ และบอกอะไรเรื่อง "อำนาจตั้งราคา"</h1>
+      <h1>ตอนที่ 1: งบกำไรขาดทุน — หอกลั่นรายได้ และรอยรั่วที่บอกว่าธุรกิจทนทานแค่ไหน</h1>
       <div class="byline">
         <span class="byline-avatar">M</span>
         <div>
           <div class="byline-author">Moatrices</div>
-          <div class="byline-info">27 มิ.ย. 2026 · อ่าน ~6 นาที</div>
+          <div class="byline-info">2 ก.ค. 2026 (เขียนใหม่ทั้งตอน) · อ่าน ~13 นาที</div>
         </div>
       </div>
 
       <p class="lead">
-        งบการเงินมี 3 ชุด และมันเล่าเรื่องเดียวกันจาก 3 มุม ตอนแรกนี้เราเริ่มที่ชุดที่คนดูบ่อยสุด
-        แต่ตีความผิดบ่อยสุดเช่นกัน — งบกำไรขาดทุน (Income Statement)
+        งบกำไรขาดทุนคือหอกลั่น: เทรายได้ลงไปข้างบน ผ่านการกลั่นทีละชั้น
+        เหลือกำไรหยดออกมาข้างล่าง คนส่วนใหญ่ดูแค่หยดสุดท้าย
+        แต่ของจริงอยู่ที่ว่า<strong>แต่ละชั้นรั่วเพราะอะไร และรอยรั่วกำลังกว้างขึ้นหรือแคบลง</strong>
+        — ตอนนี้ใช้ตัวเลขจริงจาก filing ล่าสุดของ NVIDIA, Synopsys, TSMC, Celsius และ Datadog
       </p>
 
-      <h2>อ่านจากบนลงล่าง: ทุกบรรทัดคือเงินที่ถูกหักออก</h2>
+      <h2>1. อ่านจากบนลงล่าง: หอกลั่นของ NVIDIA</h2>
       <p>
-        หัวใจของงบกำไรขาดทุนคือ เริ่มจาก "ยอดขาย" ที่บนสุด แล้วค่อยๆ หักต้นทุนแต่ละชั้นลงมา
-        จนเหลือ "กำไรสุทธิ" ที่ล่างสุด วิธีเข้าใจเร็วสุดคือดูตัวอย่างจริง — สมมติร้านกาแฟเล็กๆ 1 ปี:
+        ปีงบ 2026 NVIDIA เทรายได้ <strong>$215,938 ล้าน</strong> เข้าปากหอกลั่น
+        ระหว่างทางมีท่อแยกดึงต้นทุนออกทีละชั้น จนเหลือกำไรสุทธิหยดออกก้นหอ
+        $120,067 ล้าน — ตัวเลขสามชั้นที่ค้างอยู่ในหอ (gross → operating → net)
+        คือ "margin" ที่เราจะพูดถึงทั้งตอน:
       </p>
+
+      <figure class="ph-fig"><div class="ph-panel f1-panel"><div class="ph-eyebrow f1">หอกลั่นรายได้ · NVIDIA FY2026 (10-K)</div>
+        <svg viewBox="0 0 840 520" role="img" aria-label="distillation tower: NVIDIA revenue poured in at top, cost pipes drawing off at each tray, net income dripping into a barrel at the bottom">
+          <defs>
+            <linearGradient id="f1liq" x1="0" y1="0" x2="0" y2="1">
+              <stop offset="0" stop-color="#34d399" stop-opacity=".85"/>
+              <stop offset="1" stop-color="#059669" stop-opacity=".7"/>
+            </linearGradient>
+          </defs>
+          <text class="sim-mono f1-top" x="420" y="36">เทเข้า $215,938M → เหลือหยดสุดท้าย $120,067M (55.6%)</text>
+          <!-- feed pipe -->
+          <rect x="70" y="94" width="270" height="12" rx="5" fill="#2b4437"/>
+          <path class="f1-flow" d="M76,100 H338" fill="none"/>
+          <text class="s-t sm" x="200" y="82">รายได้ FY2026 · $215,938M</text>
+          <!-- column -->
+          <rect x="340" y="66" width="160" height="386" rx="18" fill="#101c15" stroke="#3c5f4b" stroke-width="2.5"/>
+          <!-- trays -->
+          <g stroke="#3c5f4b" stroke-width="2"><line x1="344" y1="182" x2="496" y2="182"/><line x1="344" y1="282" x2="496" y2="282"/><line x1="344" y1="382" x2="496" y2="382"/></g>
+          <g fill="#3c5f4b"><circle cx="370" cy="182" r="2"/><circle cx="400" cy="182" r="2"/><circle cx="430" cy="182" r="2"/><circle cx="460" cy="182" r="2"/><circle cx="370" cy="282" r="2"/><circle cx="400" cy="282" r="2"/><circle cx="430" cy="282" r="2"/><circle cx="460" cy="282" r="2"/><circle cx="370" cy="382" r="2"/><circle cx="400" cy="382" r="2"/><circle cx="430" cy="382" r="2"/><circle cx="460" cy="382" r="2"/></g>
+          <!-- pools -->
+          <rect x="346" y="150" width="148" height="30" rx="4" fill="url(#f1liq)"/>
+          <rect x="346" y="252" width="148" height="28" rx="4" fill="url(#f1liq)" opacity=".92"/>
+          <rect x="346" y="354" width="148" height="26" rx="4" fill="url(#f1liq)" opacity=".85"/>
+          <rect x="346" y="424" width="148" height="26" rx="4" fill="url(#f1liq)" opacity=".8"/>
+          <!-- bubbles -->
+          <circle class="f1-bub" cx="380" cy="176" r="3" style="animation-delay:0s"/>
+          <circle class="f1-bub" cx="440" cy="178" r="2.4" style="animation-delay:.7s"/>
+          <circle class="f1-bub" cx="410" cy="276" r="2.8" style="animation-delay:.3s"/>
+          <circle class="f1-bub" cx="460" cy="278" r="2.2" style="animation-delay:1s"/>
+          <circle class="f1-bub" cx="395" cy="376" r="2.6" style="animation-delay:.5s"/>
+          <!-- margin chips (left) -->
+          <text class="sim-mono f1-num" x="322" y="160" style="text-anchor:end">GROSS 71.1%</text>
+          <text class="sim-mono f1-num sm" x="322" y="174" style="text-anchor:end">$153,463M</text>
+          <text class="sim-mono f1-num" x="322" y="262" style="text-anchor:end">OPERATING 60.4%</text>
+          <text class="sim-mono f1-num sm" x="322" y="276" style="text-anchor:end">$130,387M</text>
+          <text class="sim-mono f1-num" x="322" y="434" style="text-anchor:end">NET 55.6%</text>
+          <text class="sim-mono f1-num sm" x="322" y="448" style="text-anchor:end">$120,067M</text>
+          <!-- outlet pipes (right) -->
+          <g>
+            <rect x="500" y="128" width="110" height="10" rx="4" fill="#2b4437"/>
+            <path class="f1-flow slow" d="M504,133 H606" fill="none"/>
+            <text class="s-t sm" x="618" y="138" style="text-anchor:start">ต้นทุนผลิต −$62,475M</text>
+          </g>
+          <g>
+            <rect x="500" y="228" width="110" height="10" rx="4" fill="#2b4437"/>
+            <path class="f1-flow slow" d="M504,233 H606" fill="none"/>
+            <text class="s-t sm" x="618" y="238" style="text-anchor:start">R&amp;D + SG&amp;A −$23,076M</text>
+          </g>
+          <g>
+            <line x1="500" y1="330" x2="610" y2="330" stroke="#5eead4" stroke-width="3" stroke-dasharray="6 6"/>
+            <polygon points="504,330 516,324 516,336" fill="#5eead4"/>
+            <text class="s-t sm" x="618" y="326" style="text-anchor:start">ของนอกหอ: ดอกเบี้ย + กำไรหุ้น</text>
+            <text class="sim-mono f1-num sm" x="618" y="342" style="text-anchor:start">+$11,063M (ไม่ได้มาจากการกลั่น)</text>
+          </g>
+          <g>
+            <rect x="500" y="398" width="110" height="10" rx="4" fill="#2b4437"/>
+            <path class="f1-flow slow" d="M504,403 H606" fill="none"/>
+            <text class="s-t sm" x="618" y="408" style="text-anchor:start">ภาษี −$21,383M</text>
+          </g>
+          <!-- bottom spout + barrel -->
+          <path d="M400,452 L440,452 L426,472 L414,472 Z" fill="#101c15" stroke="#3c5f4b" stroke-width="2"/>
+          <circle class="f1-drip" cx="420" cy="478" r="3.6" style="animation-delay:0s"/>
+          <circle class="f1-drip" cx="420" cy="478" r="3" style="animation-delay:1.2s"/>
+          <path d="M366,488 L474,488 L466,516 L374,516 Z" fill="#14231b" stroke="#3c5f4b" stroke-width="2"/>
+          <text class="s-t sm" x="420" y="508">กำไรสุทธิ</text>
+        </svg>
+      </div><figcaption><strong>ทุกบรรทัดในงบกำไรขาดทุนคือท่อดึงเงินออกจากหอ</strong> — NVIDIA เหลือถึงก้นหอ 55.6% ของทุกดอลลาร์ที่เทเข้า (สูงผิดปกติมากสำหรับบริษัทขายฮาร์ดแวร์) สังเกตท่อประ "+$11,063M" ที่ฉีดเข้ากลางหอ: ดอกเบี้ยกับกำไรจากหุ้นที่ถือ (รวม Intel) — เงินก้อนนี้<strong>ไม่ได้มาจากการกลั่นรายได้</strong> ใครเอา net margin ไปอวยธุรกิจโดยไม่หักท่อนี้ออก จะเข้าใจกำลังทำกำไรจริงผิดไป</figcaption></figure>
+
+      <h2>2. Revenue: อย่าถามแค่ "โตเท่าไหร่" ให้ถามว่า "รายได้ก้อนนี้จะกลับมาอีกไหม"</h2>
+      <p>
+        รายได้ทุกดอลลาร์ไม่เท่ากัน ดอลลาร์ที่ลูกค้า <em>ต้อง</em> จ่ายซ้ำทุกปี
+        มีค่ากับคนถือ 10 ปีมากกว่าดอลลาร์ที่ต้องไปขายใหม่ทุกไตรมาส
+        เครื่องมือวัดสองตัวที่ต้องรู้จัก: <strong>backlog</strong> (สัญญาที่เซ็นแล้วรอรับรู้เป็นรายได้)
+        กับ <strong>deferred revenue</strong> (เงินที่ลูกค้าจ่ายมาแล้วแต่เรายังส่งของไม่ครบ —
+        หนี้ชนิดเดียวในโลกที่จ่ายคืนด้วยการทำงาน ไม่ใช่ด้วยเงิน)
+      </p>
+      <p>เทียบสองบริษัทที่ "โตทั้งคู่" แต่ทนทานคนละโลก:</p>
+      <ul>
+        <li><strong>Synopsys (SNPS)</strong> — รายได้ปีงบ 2025 = $7.05B (+15%) แต่มี backlog ที่เซ็นแล้ว
+          <strong>$11.4 พันล้าน = รายได้ล่วงหน้า ~1.6 ปี</strong> (รับรู้ใน 12 เดือน ~45% ที่เหลือลากยาว 3 ปี)
+          บวก deferred revenue อีก $2.6B — ต่อให้ทีมขายหยุดเซ็นดีลใหม่ปีหน้า รายได้ก็ยังไหลต่อ</li>
+        <li><strong>NVIDIA</strong> — รายได้ $215.9B (+65%) มหึมากว่า 30 เท่า แต่ 10-K เปิดเผยว่า
+          <strong>ลูกค้าตรงรายเดียว = 22% ของรายได้ อีกราย = 14%</strong>
+          และปีก่อนหน้ารายใหญ่สุดยังแค่ 12% — การกระจุกตัว<em>เพิ่มขึ้น</em>ขณะที่ยอดโต
+          ถ้า hyperscaler เจ้าใดเจ้าหนึ่งชะลอ capex หนึ่งรอบ รายได้สะเทือนทันที ไม่มีสัญญา 3 ปีรองรับ</li>
+      </ul>
+
+      <figure class="ph-fig"><div class="ph-panel f1-panel"><div class="ph-eyebrow f1">รายได้สองสายพันธุ์ · ถังสัญญา vs เมฆฝน</div>
+        <svg viewBox="0 0 840 400" role="img" aria-label="left: a sealed contract water tank feeding a steady wheel (Synopsys backlog); right: two big rain clouds pouring on a field (NVIDIA customer concentration)">
+          <line x1="420" y1="30" x2="420" y2="360" stroke="#2b4437" stroke-width="2" stroke-dasharray="8 8"/>
+          <rect x="0" y="352" width="840" height="5" fill="#2b4437"/>
+          <!-- LEFT : SNPS tank -->
+          <text class="s-t" x="210" y="44">SNPS — รายได้ที่เซ็นสัญญาไว้แล้ว</text>
+          <g>
+            <rect x="90" y="70" width="180" height="110" rx="14" fill="#14231b" stroke="#3c5f4b" stroke-width="2.5"/>
+            <rect x="98" y="96" width="164" height="76" rx="8" fill="url(#f1liq)" opacity=".75"/>
+            <text class="sim-mono f1-num" x="180" y="128">BACKLOG $11.4B</text>
+            <text class="s-t sm" x="180" y="150">≈ รายได้ล่วงหน้า 1.6 ปี</text>
+            <!-- wax seal -->
+            <circle cx="268" cy="76" r="17" fill="#0d1611" stroke="#34d399" stroke-width="2.5"/>
+            <path d="M262,76 l4,5 l8,-9" fill="none" stroke="#34d399" stroke-width="2.5" stroke-linecap="round"/>
+            <!-- legs -->
+            <line x1="112" y1="180" x2="112" y2="352" stroke="#2b4437" stroke-width="7"/>
+            <line x1="248" y1="180" x2="248" y2="352" stroke="#2b4437" stroke-width="7"/>
+            <!-- outlet to wheel -->
+            <rect x="176" y="180" width="12" height="80" fill="#2b4437"/>
+            <path class="f1-flow slow" d="M182,186 V256" fill="none"/>
+            <g transform="translate(182,296)">
+              <circle r="34" fill="none" stroke="#3c5f4b" stroke-width="4"/>
+              <g stroke="#34d399" stroke-width="3.5" stroke-linecap="round">
+                <line x1="0" y1="-30" x2="0" y2="30"/><line x1="-30" y1="0" x2="30" y2="0"/>
+                <line x1="-21" y1="-21" x2="21" y2="21"/><line x1="-21" y1="21" x2="21" y2="-21"/>
+                <animateTransform attributeName="transform" type="rotate" from="0" to="360" dur="9s" repeatCount="indefinite"/>
+              </g>
+            </g>
+            <text class="s-t sm" x="182" y="382">หมุนสม่ำเสมอ · $7.05B/ปี (+15%)</text>
+            <text class="s-t sm" x="310" y="230" style="text-anchor:start">รับรู้ใน</text>
+            <text class="s-t sm" x="310" y="248" style="text-anchor:start">12 เดือน ~45%</text>
+          </g>
+          <!-- RIGHT : NVDA clouds -->
+          <text class="s-t" x="630" y="44">NVDA — ฝนจากเมฆไม่กี่ก้อน</text>
+          <g class="f1-cloud">
+            <g fill="#3a4c5e"><ellipse cx="545" cy="110" rx="52" ry="28"/><ellipse cx="590" cy="96" rx="44" ry="24"/><ellipse cx="510" cy="98" rx="34" ry="20"/></g>
+            <text class="sim-mono f1-num" x="550" y="112" fill="#cfe3d8">ลูกค้า A · 22%</text>
+          </g>
+          <g class="f1-cloud" style="animation-delay:1.4s">
+            <g fill="#31414f"><ellipse cx="722" cy="88" rx="44" ry="24"/><ellipse cx="758" cy="78" rx="34" ry="19"/><ellipse cx="692" cy="80" rx="28" ry="16"/></g>
+            <text class="sim-mono f1-num" x="726" y="90" fill="#cfe3d8">ลูกค้า B · 14%</text>
+          </g>
+          <!-- rain -->
+          <g class="f1-rain" stroke="#5eead4" stroke-width="2" stroke-linecap="round">
+            <line x1="505" y1="150" x2="500" y2="172"/><line x1="535" y1="156" x2="530" y2="178"/>
+            <line x1="565" y1="150" x2="560" y2="172"/><line x1="595" y1="156" x2="590" y2="178"/>
+            <line x1="700" y1="124" x2="695" y2="146"/><line x1="730" y1="130" x2="725" y2="152"/>
+            <line x1="760" y1="124" x2="755" y2="146"/>
+          </g>
+          <g class="f1-rain" style="animation-delay:.7s" stroke="#5eead4" stroke-width="2" stroke-linecap="round">
+            <line x1="520" y1="152" x2="515" y2="174"/><line x1="550" y1="158" x2="545" y2="180"/>
+            <line x1="580" y1="152" x2="575" y2="174"/><line x1="715" y1="126" x2="710" y2="148"/>
+            <line x1="745" y1="132" x2="740" y2="154"/>
+          </g>
+          <!-- field + flood -->
+          <path d="M450,352 q90,-16 180,0 q80,14 160,0 l0,5 l-340,0 z" fill="#1d3227"/>
+          <ellipse cx="630" cy="344" rx="130" ry="10" fill="#0ea5e9" opacity=".3"/>
+          <text class="sim-mono f1-num" x="630" y="306">$215.9B/ปี (+65%)</text>
+          <text class="s-t sm" x="630" y="382">ปีก่อนเมฆใหญ่สุดแค่ 12% — การกระจุกกำลังเพิ่ม</text>
+        </svg>
+      </div><figcaption><strong>โตแรงกว่า ไม่ได้แปลว่าทนกว่า</strong> — ฝั่ง SNPS น้ำถูกล็อกในถังสัญญาไว้แล้ว 1.6 ปี ล้อหมุนสม่ำเสมอไม่ว่าฟ้าจะเป็นยังไง ฝั่ง NVDA ฝนตกหนักกว่ามหาศาล แต่มาจากเมฆสองก้อนที่รวมกัน 36% ของรายได้ทั้งบริษัท — คำถามที่ถูกต้องไม่ใช่ "ปีนี้ฝนตกเท่าไหร่" แต่คือ "ปีที่ 5 เมฆพวกนี้ยังอยู่ไหม" และนี่ต้องกลายเป็น Kill Condition ของคนถือ NVDA ไม่ใช่เหตุผลขายวันนี้</figcaption></figure>
+
+      <p>
+        <strong>กับดักมือใหม่ประจำหัวข้อ: sell-in ≠ sell-through</strong> —
+        บริษัทที่ขายผ่านตัวแทนจำหน่าย รับรู้รายได้เมื่อ <em>ส่งของให้ distributor</em>
+        ไม่ใช่เมื่อผู้บริโภคซื้อจริง เคสสด: <strong>Celsius (CELH)</strong> ปี 2023 รายได้โตระเบิด
+        แล้วปี 2024 อยู่ดีๆ โตแค่ <strong>+2.9%</strong> ($1,318M → $1,356M) ทั้งที่คนยังดื่มเพิ่ม —
+        เพราะ Pepsi (ตัวแทนจำหน่าย = 43% ของรายได้) เคยตุนสต๊อกเกินแล้วมาระบายออก
+        ปีที่ตุน รายได้ดูเก่งเกินจริง ปีที่ระบาย ดูแย่เกินจริง — demand จริงไม่ได้เหวี่ยงขนาดนั้นสักปี
+        ใครไม่เข้าใจกลไกนี้จะตกใจขายผิดจังหวะ หรือมั่นใจผิดจังหวะ เสมอ
+      </p>
+
+      <h2>3. Margin 3 ชั้น: ระดับบอกโครงสร้าง ทิศทางบอกอนาคต</h2>
+      <p>กำไรสามชั้นตอบคนละคำถาม:</p>
+      <ul>
+        <li><strong>Gross margin</strong> — สินค้าเรามีอำนาจต่อรองราคาแค่ไหน (ชั้นที่สะท้อน moat ตรงที่สุด)</li>
+        <li><strong>Operating margin</strong> — เดินเครื่องธุรกิจทั้งระบบแล้วเหลือจริงเท่าไหร่</li>
+        <li><strong>Net margin</strong> — ผู้ถือหุ้นได้อะไร (ชั้นที่ noise ปนมากที่สุด — ดอกเบี้ย ภาษี รายการพิเศษ)</li>
+      </ul>
+      <p>และ<strong>ทิศทางสำคัญกว่าระดับ</strong> — ดู gross margin สามบริษัทสามทิศ:</p>
 
       <table>
         <thead>
-          <tr>
-            <th>บรรทัด</th>
-            <th class="num">บาท</th>
-            <th class="num">% ของยอดขาย</th>
-          </tr>
+          <tr><th></th><th class="num">FY2023</th><th class="num">FY2024</th><th class="num">FY2025/26</th><th>ทิศ</th></tr>
         </thead>
         <tbody>
-          <tr><td>รายได้ (Revenue)</td><td class="num">1,000,000</td><td class="num">100%</td></tr>
-          <tr><td>ต้นทุนขาย (COGS: เมล็ดกาแฟ นม แก้ว)</td><td class="num">400,000</td><td class="num">40%</td></tr>
-          <tr class="total"><td>กำไรขั้นต้น (Gross Profit)</td><td class="num">600,000</td><td class="num">60%</td></tr>
-          <tr><td>ค่าใช้จ่ายดำเนินงาน (ค่าเช่า เงินเดือน การตลาด)</td><td class="num">350,000</td><td class="num">35%</td></tr>
-          <tr class="total"><td>กำไรจากการดำเนินงาน (Operating Profit / EBIT)</td><td class="num">250,000</td><td class="num">25%</td></tr>
-          <tr><td>ดอกเบี้ยจ่าย</td><td class="num">20,000</td><td class="num">2%</td></tr>
-          <tr><td>ภาษี</td><td class="num">46,000</td><td class="num">4.6%</td></tr>
-          <tr class="total"><td>กำไรสุทธิ (Net Profit)</td><td class="num">184,000</td><td class="num">18.4%</td></tr>
+          <tr><td><strong>TSMC</strong></td><td class="num">54.4%</td><td class="num">56.1%</td><td class="num"><strong>59.9%</strong> (ไตรมาสล่าสุด 66.2%)</td><td>↗ ขึ้น 3 ปีติด</td></tr>
+          <tr><td><strong>NVIDIA</strong></td><td class="num">72.7%</td><td class="num">75.0%</td><td class="num"><strong>71.1%</strong></td><td>↘ พลิกลง</td></tr>
+          <tr><td><strong>Celsius</strong></td><td class="num">48.1%</td><td class="num">50.2%</td><td class="num">50.4% (ไตรมาสล่าสุด 48.3%)</td><td>→ แกว่งตาม mix</td></tr>
         </tbody>
       </table>
 
+      <figure class="ph-fig"><div class="ph-panel f1-panel"><div class="ph-eyebrow f1">เครื่องบันทึกทิศทาง margin · ปากกา 3 ด้าม 3 ทิศ</div>
+        <svg viewBox="0 0 840 400" role="img" aria-label="a physical strip-chart recorder with three pens drawing gross margin traces: TSMC climbing, NVIDIA dipping, Celsius wobbling">
+          <!-- recorder body + paper -->
+          <rect x="120" y="46" width="660" height="300" rx="14" fill="#101c15" stroke="#3c5f4b" stroke-width="2.5"/>
+          <rect x="230" y="60" width="470" height="272" rx="6" fill="#0c1410" stroke="#22392c" stroke-width="1.5"/>
+          <!-- paper feed rollers -->
+          <ellipse cx="230" cy="196" rx="10" ry="136" fill="#14231b" stroke="#3c5f4b" stroke-width="1.5"/>
+          <ellipse cx="700" cy="196" rx="10" ry="136" fill="#14231b" stroke="#3c5f4b" stroke-width="1.5"/>
+          <!-- grid ticks -->
+          <g stroke="#22392c" stroke-width="1"><line x1="330" y1="60" x2="330" y2="332"/><line x1="450" y1="60" x2="450" y2="332"/><line x1="570" y1="60" x2="570" y2="332"/><line x1="660" y1="60" x2="660" y2="332"/></g>
+          <g class="sim-mono f1-tick">
+            <text x="330" y="348">FY23</text><text x="450" y="348">FY24</text><text x="570" y="348">FY25</text><text x="660" y="348">ล่าสุด</text>
+          </g>
+          <!-- pen arms -->
+          <g fill="#3c5f4b"><rect x="132" y="92" width="14" height="34" rx="4"/><rect x="132" y="182" width="14" height="34" rx="4"/><rect x="132" y="272" width="14" height="34" rx="4"/></g>
+          <line x1="146" y1="108" x2="330" y2="112" stroke="#3c5f4b" stroke-width="3"/>
+          <line x1="146" y1="198" x2="330" y2="188" stroke="#3c5f4b" stroke-width="3"/>
+          <line x1="146" y1="288" x2="330" y2="300" stroke="#3c5f4b" stroke-width="3"/>
+          <!-- TSM trace : 54.4 → 56.1 → 59.9 → 66.2 -->
+          <path class="f1-trace tsm" d="M330,112 L450,104 L570,84 L660,58" fill="none"/>
+          <circle cx="660" cy="58" r="4" fill="#34d399"/>
+          <text class="sim-mono f1-num sm" x="712" y="76" style="text-anchor:start">TSM ↗</text>
+          <text class="sim-mono f1-num sm" x="712" y="90" style="text-anchor:start">54.4→59.9%</text>
+          <!-- NVDA trace : 72.7 → 75.0 → 71.1 -->
+          <path class="f1-trace nvda" d="M330,188 L450,172 L570,204" fill="none"/>
+          <circle cx="570" cy="204" r="4" fill="#fbbf24"/>
+          <line x1="570" y1="204" x2="570" y2="160" stroke="#fbbf24" stroke-width="1.5" stroke-dasharray="3 3"/>
+          <text class="sim-mono f1-num sm" x="580" y="156" style="text-anchor:start" fill="#fbbf24">เหตุการณ์: H20 −$4.5B + เปลี่ยนไปขายทั้งตู้</text>
+          <text class="sim-mono f1-num sm" x="712" y="196" style="text-anchor:start">NVDA ↘</text>
+          <text class="sim-mono f1-num sm" x="712" y="210" style="text-anchor:start">75.0→71.1%</text>
+          <!-- CELH trace : 48.1 → 50.2 → 50.4 → 48.3 -->
+          <path class="f1-trace celh" d="M330,300 L450,288 L570,286 L660,306" fill="none"/>
+          <circle cx="660" cy="306" r="4" fill="#93c5fd"/>
+          <text class="sim-mono f1-num sm" x="712" y="292" style="text-anchor:start">CELH →</text>
+          <text class="sim-mono f1-num sm" x="712" y="306" style="text-anchor:start">แกว่งตาม mix</text>
+        </svg>
+      </div><figcaption><strong>เข็มสามด้ามเล่าสามเรื่อง</strong> — TSMC ไต่ขึ้น 3 ปีติดทั้งที่เป็นธุรกิจโรงงานที่หนักที่สุด: ไม่มีใครผลิต 3nm แทนได้ ลูกค้าต้องจ่าย นี่คือ pricing power พิมพ์อยู่ในงบ | NVIDIA พลิกลง 3.9 จุด — หน้าที่เราคือแยกให้ออกว่าชั่วคราว (H20 charge) หรือโครงสร้าง (ขายทั้งตู้ margin ต่ำกว่าขายชิป) แล้วเขียนใส่ Kill Condition | Celsius แกว่งตามส่วนผสมแบรนด์หลังควบ Alani Nu/Rockstar ที่ margin ต่ำกว่า — <strong>margin ปีเดียวไม่บอกอะไร เส้นทางของมันต่างหากที่บอก</strong></figcaption></figure>
+
       <p>
-        สามบรรทัดที่ตัวหนา คือ "อัตรากำไร" (Margin) 3 ชั้นที่เราต้องดูทุกครั้ง:
-        <strong>Gross Margin 60%</strong>, <strong>Operating Margin 25%</strong>, และ
-        <strong>Net Margin 18.4%</strong> — แต่ตัวเลขเปล่าๆ ยังไม่มีความหมาย จนกว่าเราจะถามว่า
-        "มันบอกอะไรเกี่ยวกับตัวธุรกิจ"
+        <strong>กับดักมือใหม่:</strong> เทียบ margin ข้ามอุตสาหกรรมแล้วสรุปว่าเลขสูงกว่า = ธุรกิจดีกว่า
+        Gross margin 50% ของเครื่องดื่ม (CELH) คือดีมาก, 59.9% ของโรงงาน (TSMC) คือปาฏิหาริย์,
+        71% ของ NVIDIA ถ้าไปอยู่บริษัทซอฟต์แวร์จะเรียกว่าธรรมดา (Datadog อยู่ที่ 80%)
+        — เทียบได้เฉพาะกับตัวเองในอดีต และคู่แข่งตรงสายพันธุ์เท่านั้น
+      </p>
+      <p>
+        <strong>Red flag วัดได้:</strong> gross margin ลด &gt;2 จุด (200bps) โดยผู้บริหารอธิบายด้วยคำว่า
+        "mix" หรือ "one-time" ติดกันเกิน 3–4 ไตรมาส = มันไม่ใช่ one-time แล้ว มันคือโครงสร้างใหม่
       </p>
 
-      <h2>1. Gross Margin = สัญญาณของ "อำนาจตั้งราคา"</h2>
+      <h2>4. Operating leverage: สะพานเก็บค่าผ่านทาง — และดาบสองคม</h2>
       <p>
-        Gross Margin บอกว่า หลังหักต้นทุนของที่ขายไปแล้ว เหลือเท่าไหร่ ยิ่งสูง ยิ่งแปลว่า
-        ลูกค้ายอมจ่ายแพงกว่าต้นทุนมาก — นั่นคือสัญญาณของ <strong>pricing power</strong>
-        ซึ่งมักมาจากแบรนด์ที่แข็ง สินค้าที่ลอกยาก หรือสิ่งที่ลูกค้าขาดไม่ได้
-      </p>
-      <blockquote>
-        ธุรกิจที่ตั้งราคาได้โดยลูกค้าไม่หนี คือธุรกิจที่มีคูเมือง (moat) — Gross Margin
-        ที่สูงและนิ่งคือร่องรอยแรกที่บอกใบ้เรื่องนี้
-      </blockquote>
-
-      <h2>2. ดู "ทิศทาง" สำคัญกว่าดูตัวเลขปีเดียว</h2>
-      <p>
-        Margin ปีเดียวไม่บอกอะไรมาก สิ่งที่บอกมากกว่าคือ <strong>มันขึ้นหรือลงตลอด 3–5 ปี</strong>
+        ถ้าต้นทุนส่วนใหญ่<em>คงที่</em> (โรงงานสร้างแล้ว ซอฟต์แวร์เขียนแล้ว)
+        รายได้ที่เพิ่มเข้ามาแทบทั้งก้อนจะไหลลงเป็นกำไร เหมือนสะพานเก็บค่าผ่านทาง:
+        สร้างเสร็จแล้ว รถคันที่ล้านต้นทุนแทบเป็นศูนย์
       </p>
       <ul>
-        <li><strong>Margin ค่อยๆ ขึ้น</strong> — ธุรกิจอาจมี operating leverage (ยอดขายโตเร็วกว่าต้นทุนคงที่) หรือมีอำนาจตั้งราคามากขึ้น = สัญญาณดี</li>
-        <li><strong>Margin ค่อยๆ ลง</strong> — มักแปลว่าการแข่งขันกำลังกัดกินกำไร หรือต้นทุนกำลังควบคุมไม่อยู่ = ต้องหาเหตุผลให้ได้ก่อนสนใจต่อ</li>
+        <li><strong>TSMC ปี 2025:</strong> รายได้ +31.6% แต่กำไรดำเนินงาน +46% → operating margin กระโดด
+          45.7% → <strong>50.8%</strong> (สองปีสะสมจาก 42.6%) เพราะ fab ที่ลงทุนไปแล้วเดินเครื่องเต็มขึ้น</li>
+        <li><strong>NVIDIA ปีงบ 2026:</strong> รายได้ +65% ขณะ opex +41% — โตช้ากว่ารายได้ 24 จุด
+          ผลคือกำไรดำเนินงาน +60% ทั้งที่ gross margin <em>ลดลง</em></li>
       </ul>
-
-      <h2>3. ระวัง "กำไรพิเศษ" ที่เกิดครั้งเดียว</h2>
       <p>
-        บางทีกำไรสุทธิเด้งขึ้นแรงในปีเดียว ไม่ใช่เพราะธุรกิจดีขึ้น แต่เพราะมี
-        "รายการพิเศษ" เช่น ขายที่ดิน ตีมูลค่าทรัพย์สินใหม่ หรือกำไรจากการลงทุนที่ไม่ใช่ธุรกิจหลัก
-        ของพวกนี้เกิดครั้งเดียวแล้วไม่เกิดซ้ำ — ถ้าเราเผลอเอามาคิดเป็น "กำลังกำไรปกติ"
-        ของบริษัท เราจะประเมินค่าธุรกิจสูงเกินจริง เวลาดูกำไรโตให้ถามเสมอว่า
-        <em>"โตเพราะขายของได้มากขึ้นจริง หรือโตเพราะรายการครั้งเดียว?"</em>
+        <strong>แต่ leverage เป็นดาบสองคม:</strong> ตอนรายได้โตมันขยายกำไร
+        ตอนรายได้หดมันขยายขาดทุนด้วยแรงเท่ากัน ธุรกิจต้นทุนคงที่สูงที่รายได้ผันผวน
+        คือระเบิดเวลาในขาลง — อย่าประเมิน "กำไรปกติ" ของธุรกิจแบบนี้จากปีที่ demand พีค
+        และถามเสมอว่า leverage มาจากไหน: ถ้ามาจากสินทรัพย์ที่คู่แข่งลอกยาก (fab, ecosystem) = ทนทาน
+        ถ้ามาจากแค่ "ยังไม่ได้จ้างคนเพิ่ม" = ชั่วคราว
+      </p>
+
+      <h2>5. กับดักใหญ่ที่สุดของยุคนี้: GAAP vs non-GAAP</h2>
+      <p>
+        GAAP คือกำไรตามมาตรฐานบัญชี ส่วน non-GAAP ("adjusted") คือกำไรที่ผู้บริหาร
+        <em>เลือกตัดบางรายการออก</em>โดยอ้างว่า "ไม่สะท้อนธุรกิจจริง"
+        บางครั้งจริง บางครั้งคือการตัดค่าใช้จ่ายจริงทิ้งเพื่อให้ตัวเลขสวย
+        รายการที่โดนตัดบ่อยสุดสองตัว: <strong>stock-based compensation (SBC)</strong>
+        กับ <strong>amortization ของ intangibles หลัง M&amp;A</strong>
+      </p>
+      <p>ตัวเลขจริงที่ต้องเห็นกับตา — Datadog ไตรมาส 1/2026:</p>
+
+      <table>
+        <thead>
+          <tr><th></th><th class="num">GAAP</th><th class="num">non-GAAP</th><th class="num">ส่วนต่าง</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>Operating income</td><td class="num"><strong>$7.3M</strong></td><td class="num"><strong>$223M</strong></td><td class="num"><strong>~30 เท่า</strong></td></tr>
+          <tr><td>Operating margin</td><td class="num">0.7%</td><td class="num">22%</td><td class="num"></td></tr>
+        </tbody>
+      </table>
+
+      <figure class="ph-fig"><div class="ph-panel f1-panel"><div class="ph-eyebrow f1">ห้องแล็บ non-GAAP · Datadog Q1/2026</div>
+        <svg viewBox="0 0 840 400" role="img" aria-label="lab bench: a nearly empty GAAP measuring cylinder next to a full non-GAAP cylinder being topped up by a flask pouring stock-based compensation back in">
+          <rect x="60" y="330" width="720" height="10" rx="4" fill="#2b4437"/>
+          <!-- GAAP cylinder -->
+          <g>
+            <rect x="170" y="110" width="90" height="220" rx="8" fill="#0c1410" stroke="#3c5f4b" stroke-width="2.5"/>
+            <g stroke="#22392c" stroke-width="1.5"><line x1="174" y1="150" x2="196" y2="150"/><line x1="174" y1="190" x2="196" y2="190"/><line x1="174" y1="230" x2="196" y2="230"/><line x1="174" y1="270" x2="196" y2="270"/></g>
+            <rect x="176" y="312" width="78" height="12" rx="4" fill="url(#f1liq)"/>
+            <text class="sim-mono f1-num" x="215" y="90">GAAP</text>
+            <text class="sim-mono f1-num sm" x="215" y="360">op income $7.3M · 0.7%</text>
+          </g>
+          <!-- non-GAAP cylinder -->
+          <g>
+            <rect x="560" y="110" width="90" height="220" rx="8" fill="#0c1410" stroke="#3c5f4b" stroke-width="2.5"/>
+            <g stroke="#22392c" stroke-width="1.5"><line x1="564" y1="150" x2="586" y2="150"/><line x1="564" y1="190" x2="586" y2="190"/><line x1="564" y1="230" x2="586" y2="230"/><line x1="564" y1="270" x2="586" y2="270"/></g>
+            <rect x="566" y="140" width="78" height="184" rx="4" fill="url(#f1liq)"/>
+            <ellipse class="f1-shim" cx="605" cy="142" rx="38" ry="5" fill="#a7f3d0" opacity=".5"/>
+            <text class="sim-mono f1-num" x="605" y="90">non-GAAP</text>
+            <text class="sim-mono f1-num sm" x="605" y="360">"$223M · 22%"</text>
+          </g>
+          <!-- clamp stand + flask pouring into non-GAAP -->
+          <g>
+            <line x1="420" y1="330" x2="420" y2="80" stroke="#3c5f4b" stroke-width="6"/>
+            <line x1="420" y1="112" x2="486" y2="120" stroke="#3c5f4b" stroke-width="4"/>
+            <g transform="rotate(38 505 130)">
+              <circle cx="505" cy="150" r="26" fill="#14231b" stroke="#5eead4" stroke-width="2.5"/>
+              <rect x="497" y="106" width="16" height="26" fill="#14231b" stroke="#5eead4" stroke-width="2.5"/>
+              <circle cx="505" cy="156" r="16" fill="url(#f1liq)" opacity=".9"/>
+            </g>
+            <circle class="f1-drip" cx="586" cy="118" r="3.4" style="animation-delay:0s"/>
+            <circle class="f1-drip" cx="594" cy="116" r="2.8" style="animation-delay:.8s"/>
+            <circle class="f1-drip" cx="602" cy="118" r="3" style="animation-delay:1.6s"/>
+            <text class="s-t sm" x="420" y="60">เทกลับ: SBC $197M/ไตรมาส — "ค่าจ้างที่ขอไม่นับ"</text>
+          </g>
+          <!-- bench tag -->
+          <g transform="rotate(-3 305 300)">
+            <rect x="230" y="272" width="150" height="52" rx="6" fill="#14231b" stroke="#3c5f4b" stroke-width="1.5"/>
+            <text class="sim-mono f1-num sm" x="305" y="294">ทั้งปี 2025: SBC $750.7M</text>
+            <text class="sim-mono f1-num sm" x="305" y="310">= 21.9% ของรายได้</text>
+          </g>
+        </svg>
+      </div><figcaption><strong>ช่องว่าง $216M ระหว่างสองกระบอกนี้เกือบทั้งหมดคือ SBC</strong> — ถามตรงๆ: ถ้าพรุ่งนี้ Datadog เลิกจ่ายหุ้น พนักงานจะอยู่ไหม? ไม่อยู่ — ต้องจ่ายเงินเดือนเพิ่มแทน แปลว่ามันคือ<strong>ค่าจ้างจริง</strong> แค่จ่ายด้วยกระดาษที่เจือจางหุ้นเรา บริษัทที่ GAAP operating margin จริงทั้งปีคือ <strong>−1.3%</strong> ถูกเล่าใน earnings call ว่า "ทำ margin ได้ 22%" (แถม GAAP net income ที่เป็นบวก $107.7M ก็มาจากดอกเบี้ยพอร์ตเงินสด $4.5B ที่จ่ายให้ปีละ $171M — ธุรกิจขาดทุนตามบัญชี แต่พอร์ตพันธบัตรของบริษัทกำไร)</figcaption></figure>
+
+      <p>
+        <strong>ฝั่ง amortization หลัง M&amp;A — Synopsys คือเคสสดที่สุด:</strong>
+        หลังปิดดีล Ansys (ก.ค. 2025) รายได้ปีงบ 2025 โต +15% แต่ operating margin GAAP
+        ร่วงจาก 22.1% → <strong>13.0%</strong> และ EPS ร่วง <strong>−44.6%</strong> ($14.51 → $8.04)
+        เกิดอะไรขึ้น? ค่าตัดจำหน่าย intangible ที่ซื้อมา: ใน cost of revenue พุ่งจาก $108M →
+        <strong>$311.8M</strong> และใน opex พุ่งจาก $16.2M → <strong>$192.5M (+1,088%)</strong>
+        — และนี่คือ Ansys แค่ ~3.5 เดือน ปีหน้าเต็มปีจะหนักกว่านี้
+      </p>
+      <p>
+        ผู้บริหารจะบอกว่า "ตัด amortization ออกสิ ไม่ใช่เงินสด" — จริงครึ่งเดียว:
+        มันไม่ใช่เงินสด<em>วันนี้</em> แต่มันคือบันทึกทางบัญชีของ<strong>เงินสดกับหุ้นมูลค่า $35B
+        ที่จ่ายซื้อ Ansys ไปแล้วจริงๆ</strong> ถ้าตัดทิ้ง = แกล้งลืมว่าดีลนี้มีต้นทุน
+        กฎง่ายๆ: รายการที่ควรตัดได้คือของที่<em>ไม่เกิดซ้ำจริงๆ</em> ส่วน SBC ที่จ่าย<em>ทุกปี</em>
+        และ amortization จากดีลที่<em>ทำเป็นนิสัย</em> คือต้นทุนดำเนินธุรกิจ
+      </p>
+      <p>
+        เทียบขั้วตรงข้าม: NVIDIA จ่าย SBC $6.4B บนรายได้ $215.9B (~3%) —
+        ช่องว่าง GAAP/non-GAAP แทบไม่มี กำไรคือกำไร
+        บริษัทที่ต้องพึ่ง non-GAAP หนักเพื่อให้ดูมีกำไร คือธุรกิจที่ยังพิสูจน์ไม่ได้ว่าโมเดลทำกำไรจริง
+      </p>
+
+      <h2>6. One-off: สามแบบ สามความหมาย</h2>
+      <ul>
+        <li><strong>One-off แท้ — Celsius ปี 2025:</strong> ค่ายกเลิกสัญญา distributor เดิม
+          (ย้ายพอร์ต Alani Nu เข้าเครือข่าย Pepsi) <strong>$327.5M</strong> กด operating margin
+          ทั้งปีเหลือ 5.6% ทั้งที่ normalize แล้วอยู่ ~19% — เกิดจากดีลเดียว จบแล้วจบเลย
+          (ไตรมาสถัดมาเหลือ $4.4M) → <em>ควร</em>ตัดออกตอนประเมินกำลังทำกำไรจริง</li>
+        <li><strong>One-off เชิงโครงสร้าง — NVIDIA ปีงบ 2026:</strong> charge H20 <strong>$4.5B</strong>
+          จากคำสั่งควบคุมการส่งออก — one-off ในรูปแบบ แต่<em>ไม่ one-off ในสาระ</em>:
+          ความเสี่ยงจีนคือโครงสร้างถาวรของ thesis แถม inventory provisions รวมทั้งปี $7.2B
+          (ปีก่อน $3.7B) กด gross margin ~2.6 จุด<em>ทุกปี</em> — ต้องนับเป็นต้นทุนประจำ
+          ของโมเดลธุรกิจที่ผลิตของล้ำยุคล่วงหน้า ตัดทิ้งไม่ได้</li>
+        <li><strong>One-off ในปีฐาน — Amex ปี 2024:</strong> กำไรมี <strong>$0.66/หุ้น</strong>
+          จากการขายบริษัทลูก Accertify ปนอยู่ — เวลาคำนวณว่า EPS ปี 2025 ($15.38)
+          โตจากฐานเท่าไหร่ ต้องหักตัวนี้ออกจากฐาน ($14.01) ก่อน
+          ไม่งั้นจะเห็นการเติบโต "ช้าลง" ทั้งที่เนื้อธุรกิจโตปกติ</li>
+      </ul>
+      <p>
+        <strong>วิธีจับ restructuring ที่แต่งตัวเป็น one-off:</strong> เปิด 10-K ย้อน 5 ปี
+        ถ้ามีรายการพิเศษ 4 ใน 5 ปี = นั่นคือธุรกิจปกติของเขา
+        และถ้าผลรวม "one-time items" 5 ปี &gt;15–20% ของกำไรสะสมช่วงเดียวกัน
+        = กำไรปกติที่รายงานมาตลอดสูงเกินจริง
       </p>
 
       <h2>สรุป: 3 คำถามที่ต้องตอบให้ได้จากงบกำไรขาดทุน</h2>
       <ol>
-        <li>Gross Margin สูง/นิ่งไหม — มีอำนาจตั้งราคา (pricing power) หรือเปล่า?</li>
-        <li>Margin 3 ชั้น ทิศทาง 3–5 ปีเป็นขึ้นหรือลง — และเพราะอะไร?</li>
-        <li>กำไรที่เห็นมาจากธุรกิจจริง หรือมีรายการพิเศษครั้งเดียวปนอยู่?</li>
+        <li>รายได้ก้อนนี้จะกลับมาอีกไหม — ใครคือลูกค้า กระจุกแค่ไหน มี backlog/deferred ล็อกอนาคตเท่าไหร่?</li>
+        <li>Margin 3 ชั้น ทิศทาง 3–5 ปีขึ้นหรือลง — และเหตุเป็นชั่วคราวหรือโครงสร้าง?</li>
+        <li>กำไรที่เห็นคือ GAAP หรือคำเล่าของผู้บริหาร — SBC กับ amortization ถูก "ขอไม่นับ" ไปเท่าไหร่?</li>
       </ol>
 
-      <h2>Kill Conditions — อะไรจะทำให้ผมเปลี่ยนใจเรื่องคุณภาพกำไร</h2>
-      <p>
-        ถึงงบกำไรขาดทุนจะสวย ผมจะถือว่า "ยังไว้ใจไม่ได้" ถ้าเจอข้อใดข้อหนึ่งนี้
-        (และจะไปหาคำตอบในงบอีก 2 ชุดต่อ):
-      </p>
+      <h2>Kill Conditions — สัญญาณจากงบกำไรขาดทุนที่ต้องเขียนไว้ก่อนซื้อ</h2>
       <ul>
-        <li>Gross Margin ลดลงต่อเนื่องหลายปีโดยไม่มีคำอธิบายเชิงโครงสร้างที่รับได้</li>
-        <li>กำไรสุทธิโต แต่พึ่งรายการพิเศษซ้ำๆ ทุกปี (แปลว่าธุรกิจหลักอาจไม่ได้โตจริง)</li>
-        <li>กำไรในงบสวย แต่ยังไม่ได้เช็คว่ามัน "กลายเป็นเงินสด" จริงไหม — ซึ่งเป็นเรื่องของตอนหน้า</li>
+        <li>ลูกค้ารายเดียว &gt;20% ของรายได้ และสัดส่วน<em>กำลังเพิ่ม</em> (NVDA: 12% → 22% ในปีเดียว)</li>
+        <li>รายได้โต แต่ backlog / deferred revenue หด — ลูกค้าเริ่มไม่ commit อนาคต</li>
+        <li>Gross margin ลด &gt;200bps เกิน 3–4 ไตรมาสโดยคำอธิบายยังเป็น "mix / one-time"</li>
+        <li>Opex โตเร็วกว่ารายได้ติดกัน 2 ปีโดยไม่มีเหตุผลเชิงลงทุนที่ระบุได้</li>
+        <li>SBC &gt;10% ของรายได้ต่อเนื่อง ขณะ GAAP operating income ยังไม่เป็นบวก (DDOG: 21.9%)</li>
+        <li>ช่องว่าง GAAP vs non-GAAP &gt;2 เท่า หลายปีติดโดยไม่แคบลง / serial acquirer ที่ขอให้มองข้าม amortization ทุกปี</li>
       </ul>
 
       <p>
-        <strong>ตอนหน้า (ตอนที่ 2):</strong> <a href="financials-02-cash-flow-statement.html">งบกระแสเงินสด</a>
-        — บทเรียนที่แพงที่สุดในการลงทุน คือ "กำไรคือความเห็น เงินสดคือความจริง"
-        เราจะดูเคสที่บริษัทรายงานกำไรเป็นบวก แต่เงินสดติดลบ และทำไมมันถึงเป็นธงแดงที่ใหญ่ที่สุด
+        <strong>ตอนต่อไป (ตอนที่ 2):</strong> <a href="financials-02-cash-flow-statement.html">งบกระแสเงินสด</a>
+        — margin ทุกตัวในตอนนี้ยังเป็น "ความเห็น" อยู่ ตอนหน้าเราเอามิเตอร์ไปจับว่า
+        กำไรพวกนี้กลายเป็นเงินจริงกี่เปอร์เซ็นต์ และตรงไหนที่เงินหายไประหว่างทาง
       </p>
 
       <div class="author-card">
@@ -183,7 +484,8 @@
     <div class="container footer-legal">
       <p><strong>คำเตือน:</strong> เนื้อหาทั้งหมดเป็นบันทึกการเรียนและความเห็นส่วนตัว
          เพื่อการศึกษาเท่านั้น <strong>ไม่ใช่คำแนะนำการลงทุน</strong>
-         ตัวเลขร้านกาแฟเป็นตัวอย่างสมมติเพื่อการสอน การตัดสินใจลงทุนเป็นความรับผิดชอบของผู้อ่านเอง</p>
+         ตัวเลขอ้างอิงจาก 10-K/20-F ปีงบล่าสุดของ NVIDIA, Synopsys, TSMC, Celsius, Datadog และ American Express ณ วันที่เขียน
+         การตัดสินใจลงทุนเป็นความรับผิดชอบของผู้อ่านเอง</p>
       <p>© 2026 Moatrices · เผยแพร่ผ่าน GitHub Pages</p>
     </div>
   </footer>
