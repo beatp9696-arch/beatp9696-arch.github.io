@@ -2371,43 +2371,98 @@ h2:hover > .heading-anchor, h3:hover > .heading-anchor { opacity: 0.45; }
 @media (prefers-reduced-motion: reduce) { .mu-flow,.mu-tsv,.mu-glow,.mu-warn,.mu-pulse,.mu-refresh{animation:none} }
 
 /* ============================================================
-   COST — membership engine / flywheel / renewal / loyalty / SKU / fee
+   COST — scene/instrument set
+   profit-engine card · flywheel mechanism · renewal gauge ·
+   hot-dog loyalty · warehouse aisle · fee step
+   palette: warehouse red #e84855/#f0758a · membership blue #3b82f6/#60a5fa
+            profit green #34d399 · card gold #f4c15b
    ============================================================ */
 .cost-panel { background: radial-gradient(120% 140% at 50% 0%, #1a1012 0%, #0d0809 70%); border-color: #331a1d; }
 .ph-eyebrow.cost { color: #f0758a; }
 .cost-panel .s-t { fill: #e6d8da; }
 .cost-panel .s-t.sm { fill: #b89aa0; }
 .cost-panel .sim-mono { fill: #9a7a80; }
-.cost-node { fill: #1c1416; stroke: #4a2e33; stroke-width: 1.4; }
-.cost-hub { fill: #2a1418; stroke: #e84855; stroke-width: 2.2; filter: drop-shadow(0 0 9px rgba(232,72,85,.45)); }
-.cost-line { stroke: #3a2428; stroke-width: 1.5; fill: none; }
-.cost-blue { fill: #1c1620; stroke: #3b82f6; stroke-width: 1.5; }
+.cost-panel .divider { stroke: #4a2e33; stroke-width: 1.4; stroke-dasharray: 5 6; }
 .coin-g { fill: #34d399; filter: drop-shadow(0 0 4px #34d399); }
 .coin-r { fill: #f0758a; filter: drop-shadow(0 0 4px #e84855); }
 .coin-b { fill: #60a5fa; filter: drop-shadow(0 0 4px #3b82f6); }
-.fw2-ring { fill: none; stroke: #e84855; stroke-width: 3; stroke-dasharray: 60 880; opacity: .9; animation: fw2rot 5s linear infinite; transform-origin: 300px 205px; }
-@keyframes fw2rot { to{transform:rotate(360deg)} }
-.rn-track { fill: none; stroke: #2a1418; stroke-width: 13; }
-.rn-fill { fill: none; stroke: #34d399; stroke-width: 13; stroke-linecap: round; stroke-dasharray: 289; stroke-dashoffset: 29; transform: rotate(-90deg); transform-origin: center; animation: rndraw 3s ease-out infinite; }
-@keyframes rndraw { 0%{stroke-dashoffset:289} 45%{stroke-dashoffset:29} 100%{stroke-dashoffset:29} }
-.sku-big { fill: #2a1418; stroke: #e84855; stroke-width: 1.5; }
-.sku-small { fill: #1c1620; stroke: #3a4458; stroke-width: .6; }
-.pe-fill { fill: #34d399; transform-box: fill-box; transform-origin: bottom; animation: pefill 3.4s ease-in-out infinite; }
-@keyframes pefill { 0%{transform:scaleY(.1)} 40%{transform:scaleY(1)} 90%{transform:scaleY(1)} 100%{transform:scaleY(.1)} }
-.fee-knob { animation: feeknob 3.4s ease-in-out infinite; }
-@keyframes feeknob { 0%,30%{transform:translateX(0)} 55%,100%{transform:translateX(150px)} }
-.fee-bar { fill: #34d399; transform-box: fill-box; transform-origin: bottom; animation: feebar 3.4s ease-in-out infinite; }
-@keyframes feebar { 0%,40%{transform:scaleY(.45)} 65%,100%{transform:scaleY(1)} }
+
+/* fig 1: membership card = profit engine + reservoir */
+.cost-card { stroke: #f0758a; stroke-width: 1.6; }
+.card-glow { animation: cardglow 3.2s ease-in-out infinite; }
+@keyframes cardglow { 0%,100%{filter:drop-shadow(0 0 3px rgba(240,117,138,.35))} 50%{filter:drop-shadow(0 0 13px rgba(240,117,138,.75))} }
+.card-band { fill: #e84855; }
+.card-chip { fill: #f4c15b; stroke: #a9791f; stroke-width: .8; }
+.card-chip line { stroke: #a9791f; stroke-width: .7; }
+.card-photo { fill: #3a1c22; stroke: #f0758a; stroke-width: 1.1; }
+.jar-out { fill: none; stroke: #4a2e33; stroke-width: 2; }
+.jar-hi { fill: #34d399; opacity: .85; transform-box: fill-box; transform-origin: bottom; animation: jarfill 3.4s ease-in-out infinite; }
+@keyframes jarfill { 0%{transform:scaleY(.1)} 45%{transform:scaleY(1)} 92%{transform:scaleY(1)} 100%{transform:scaleY(.1)} }
+.jar-lo { fill: #7a4a2e; opacity: .7; }
+.pbox { fill: #2a1418; stroke: #e84855; stroke-width: 1.3; }
+.pbox.k { fill: #241a10; stroke: #f4c15b; }
+.pallet { fill: #3a2418; stroke: #7a5230; stroke-width: 1.2; }
+.drain-arrow { fill: #e84855; animation: drainpulse 2.4s ease-in-out infinite; }
+@keyframes drainpulse { 0%,100%{opacity:.3} 50%{opacity:.65} }
+
+/* fig 2: flywheel mechanism */
+.fw-wheel { transform-origin: 300px 210px; animation: fwspin 7s linear infinite; }
+@keyframes fwspin { to{transform:rotate(360deg)} }
+.fw-teeth { fill: none; stroke: #e84855; stroke-width: 14; stroke-dasharray: 7 15; opacity: .5; }
+.fw-rim { fill: none; stroke: #7a2f38; stroke-width: 10; }
+.fw-rim-hi { fill: none; stroke: #e84855; stroke-width: 2; opacity: .55; }
+.fw-spoke { stroke: #7a2f38; stroke-width: 9; stroke-linecap: round; }
+.fw-bolt { fill: #e84855; }
+.fw-hub { fill: #2a1418; stroke: #e84855; stroke-width: 2.4; filter: drop-shadow(0 0 9px rgba(232,72,85,.45)); }
+.fw-arc { fill: none; stroke: #f0758a; stroke-width: 4; stroke-linecap: round; stroke-dasharray: 60 820; transform-origin: 300px 210px; animation: fwspin 3.4s linear infinite; }
+.fw-mark { fill: #f0758a; filter: drop-shadow(0 0 5px #e84855); }
+.fw-num { fill: #0d0809; font-weight: 700; }
+
+/* fig 3: renewal gauge */
+.gauge-track { fill: none; stroke: #241417; stroke-width: 22; stroke-linecap: round; }
+.gauge-danger { fill: none; stroke: #e11d48; stroke-width: 22; stroke-linecap: round; opacity: .9; }
+.gauge-safe { fill: none; stroke: #34d399; stroke-width: 22; stroke-linecap: round; }
+.gauge-tick { stroke: #6b4148; stroke-width: 2; }
+.gauge-needle { transform-origin: 250px 210px; animation: needle 4.5s ease-in-out infinite; }
+@keyframes needle { 0%,100%{transform:rotate(-2.5deg)} 50%{transform:rotate(2.5deg)} }
+.gauge-needle line { stroke: #f0758a; stroke-width: 4; stroke-linecap: round; filter: drop-shadow(0 0 5px #e84855); }
+.gauge-hub { fill: #2a1418; stroke: #f0758a; stroke-width: 2.2; }
+.spark { fill: none; stroke: #34d399; stroke-width: 2.4; stroke-linecap: round; stroke-linejoin: round; stroke-dasharray: 340; stroke-dashoffset: 340; animation: sparkdraw 3.6s ease-out infinite; }
+@keyframes sparkdraw { 0%{stroke-dashoffset:340} 60%{stroke-dashoffset:0} 100%{stroke-dashoffset:0} }
+.spark-dot { fill: #34d399; }
+.exec-track { fill: #1c1620; stroke: #3b82f6; stroke-width: 1; opacity: .5; }
+.exec-bar { fill: #3b82f6; opacity: .8; transform-box: fill-box; transform-origin: left; animation: execbar 3.6s ease-out infinite; }
+@keyframes execbar { 0%{transform:scaleX(.04)} 55%{transform:scaleX(1)} 100%{transform:scaleX(1)} }
+
+/* fig 4: hot dog loyalty anchor */
 .hd-pulse { transform-box: fill-box; transform-origin: center; animation: hdp 1.8s ease-in-out infinite; }
 @keyframes hdp { 0%,100%{transform:scale(1)} 50%{transform:scale(1.06)} }
-@media (prefers-reduced-motion: reduce) { .coin-g,.coin-r,.coin-b,.fw2-ring,.rn-fill,.pe-fill,.fee-knob,.fee-bar,.hd-pulse{animation:none} .rn-fill{stroke-dashoffset:29} }
 
-/* COST renewal + SKU — เพิ่ม motion ให้เด่นขึ้น */
-.rn-mem { transform-box: fill-box; transform-origin: center; animation: rnmem 1.8s ease-in-out infinite; }
-@keyframes rnmem { 0%,100%{opacity:.4;transform:scale(.7)} 50%{opacity:1;transform:scale(1.25)} }
-.sku-grow { transform-box: fill-box; transform-origin: bottom; filter: drop-shadow(0 0 6px rgba(232,72,85,.4)); animation: skugrow 3.4s ease-in-out infinite; }
-@keyframes skugrow { 0%{transform:scaleY(.18)} 30%{transform:scaleY(1)} 88%{transform:scaleY(1)} 100%{transform:scaleY(.18)} }
-@media (prefers-reduced-motion: reduce) { .rn-mem,.sku-grow{animation:none;transform:none} }
+/* fig 5: warehouse aisle */
+.rack-up { fill: #1c1416; stroke: #4a2e33; stroke-width: 1.4; }
+.rack-beam { fill: #241a1c; stroke: #4a2e33; stroke-width: 1; }
+.pbox-drop { animation: pdrop 3.8s ease-in-out infinite; }
+@keyframes pdrop { 0%{opacity:0;transform:translateY(-26px)} 12%{opacity:1;transform:translateY(0)} 100%{opacity:1;transform:translateY(0)} }
+.shelf-board { fill: #151a20; stroke: #3a4458; stroke-width: 1.2; }
+.sitem { fill: #1c2230; stroke: #46567a; stroke-width: .7; }
+.shelf-fade { animation: shelffade 3s ease-in-out infinite; }
+@keyframes shelffade { 0%,100%{opacity:.68} 50%{opacity:1} }
+.forklift { fill: #241a1c; stroke: #e84855; stroke-width: 1.3; }
+
+/* fig 6: fee step chart */
+.fee-axis { stroke: #4a2e33; stroke-width: 1.5; }
+.fee-grid { stroke: #241417; stroke-width: 1; stroke-dasharray: 3 5; }
+.fee-line { fill: none; stroke: #f0758a; stroke-width: 3.5; stroke-linecap: round; stroke-linejoin: round; filter: drop-shadow(0 0 4px rgba(232,72,85,.5)); stroke-dasharray: 640; stroke-dashoffset: 640; animation: feedraw 3.8s ease-out infinite; }
+@keyframes feedraw { 0%{stroke-dashoffset:640} 55%{stroke-dashoffset:0} 100%{stroke-dashoffset:0} }
+.fee-dot { fill: #34d399; filter: drop-shadow(0 0 6px #34d399); opacity: 0; animation: feedot 3.8s ease-out infinite; }
+@keyframes feedot { 0%,52%{opacity:0} 62%{opacity:1} 100%{opacity:1} }
+
+@media (prefers-reduced-motion: reduce) {
+  .coin-g,.coin-r,.coin-b,.card-glow,.jar-hi,.drain-arrow,.fw-wheel,.fw-arc,.gauge-needle,
+  .spark,.exec-bar,.hd-pulse,.pbox-drop,.shelf-fade,.fee-line,.fee-dot { animation: none }
+  .jar-hi{transform:scaleY(1)} .exec-bar{transform:scaleX(1)} .fee-line{stroke-dashoffset:0}
+  .fee-dot{opacity:1} .spark{stroke-dashoffset:0} .pbox-drop{opacity:1;transform:none}
+}
 
 /* ============================================================
    MRVL — custom ASIC assembly / design-win socket / earnings bridge / ROIC-WACC / goodwill / vs-Broadcom
