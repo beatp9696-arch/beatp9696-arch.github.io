@@ -51,6 +51,94 @@ def parse_index():
     return posts
 
 
+def article_datemod(path, fallback):
+    """lastmod = dateModified จาก BlogPosting JSON-LD (author คุมเอง สะท้อนการแก้จริง
+    ไม่ใช่วันตีพิมพ์บนการ์ด) — fallback เป็นวันการ์ดถ้าไม่มี/อ่านไม่ได้"""
+    try:
+        body = open(path, encoding="utf-8").read()
+    except OSError:
+        return fallback
+    m = re.search(r'"dateModified":\s*"([\d-]+)"', body)
+    return m.group(1) if m else fallback
+
+
+def file_mtime_date(path, fallback):
+    """lastmod ของหน้า root = วันแก้ไฟล์จริง (ลด churn ใน diff เทียบกับ today ทุก build)"""
+    try:
+        return datetime.date.fromtimestamp(os.path.getmtime(path)).isoformat()
+    except OSError:
+        return fallback
+
+
+TOC_TITLE = "ในบทความนี้"
+TOC_MIN_H2 = 4  # ตรงกับเกณฑ์ใน app.js: สร้าง TOC เมื่อ h2 ≥ 4
+
+_H2_RE = re.compile(r"<h2\b[^>]*>(.*?)</h2>", re.S)
+_BYLINE_RE = re.compile(
+    r'(<div class="byline">.*?<div class="byline-info">.*?</div>\s*</div>\s*</div>)',
+    re.S,
+)
+# กินขึ้นบรรทัดว่าง+ย่อหน้าที่นำหน้า TOC ที่เราใส่ไว้ (\n\n<indent>) แต่ไม่แตะ \n ต่อท้าย
+# เพื่อให้ strip→re-inject ได้ผลไบต์ต่อไบต์เดิม (idempotent, diff สะอาด)
+_TOC_BLOCK_RE = re.compile(r"\n*[ \t]*<!-- TOC-START -->.*?<!-- TOC-END -->", re.S)
+
+
+def inject_tocs():
+    """ฝังสารบัญ (TOC) ลงในไฟล์บทความตอน build แทนที่ app.js จะ inject หลัง paint
+    (ตัวเดิมทำให้เกิด CLS ก้อนใหญ่สุดของหน้าบทความ ~420px ทุกครั้งที่โหลด). ทำ 2 อย่าง:
+      1. ใส่ id="sec-N" ให้ทุก <h2> ใน <main> (เขียนทับทุก build = idempotent) —
+         scroll-spy + heading-anchor + ลิงก์ในสารบัญใช้ id ชุดเดียวกันนี้ทันทีที่ paint
+      2. ฝัง <nav class="toc"> หลัง .byline คั่นด้วย marker <!-- TOC-START/END -->
+    app.js ถูกแก้ให้ข้ามการสร้าง TOC ถ้าเจอ .toc อยู่แล้ว (เหลือไว้เป็น fallback)"""
+    art_dir = "articles"
+    built = skipped = 0
+    for fn in sorted(os.listdir(art_dir)):
+        if not fn.endswith(".html"):
+            continue
+        path = os.path.join(art_dir, fn)
+        orig = open(path, encoding="utf-8").read()
+        body = _TOC_BLOCK_RE.sub("", orig)  # ล้าง TOC เดิมก่อน (idempotent)
+
+        mstart, mend = body.find("<main"), body.find("</main>")
+        if mstart == -1 or mend == -1:
+            skipped += 1
+            continue
+
+        heads = []  # (n, text) เรียงตามลำดับ h2 ใน main
+
+        def add_id(m):
+            n = len(heads) + 1
+            heads.append((n, re.sub(r"\s+", " ", m.group(1)).strip()))
+            return f'<h2 id="sec-{n}">{m.group(1)}</h2>'
+
+        body = body[:mstart] + _H2_RE.sub(add_id, body[mstart:mend]) + body[mend:]
+
+        if len(heads) >= TOC_MIN_H2:
+            m = _BYLINE_RE.search(body)
+            if m:
+                items = "\n".join(
+                    f'          <li><a href="#sec-{n}">{text}</a></li>'
+                    for n, text in heads
+                )
+                toc = (
+                    "\n\n      <!-- TOC-START -->\n"
+                    '      <nav class="toc">\n'
+                    f'        <div class="toc-title">{TOC_TITLE}</div>\n'
+                    "        <ol>\n" + items + "\n"
+                    "        </ol>\n"
+                    "      </nav>\n"
+                    "      <!-- TOC-END -->"
+                )
+                body = body[:m.end()] + toc + body[m.end():]
+
+        if body != orig:
+            open(path, "w", encoding="utf-8").write(body)
+            built += 1
+        else:
+            skipped += 1
+    print(f"toc         : {built} บทฝัง/อัปเดตสารบัญ, {skipped} ไม่เปลี่ยน")
+
+
 def write_sitemap(posts):
     today = datetime.date.today().isoformat()
     lines = [
@@ -58,11 +146,13 @@ def write_sitemap(posts):
         '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">',
     ]
     for page in ROOT_PAGES:
-        lines.append(f"  <url><loc>{BASE_URL}/{page}</loc><lastmod>{today}</lastmod></url>")
+        lastmod = file_mtime_date(page or "index.html", today)
+        lines.append(f"  <url><loc>{BASE_URL}/{page}</loc><lastmod>{lastmod}</lastmod></url>")
     for p in reversed(posts):  # เก่า → ใหม่ ให้ diff อ่านง่าย
+        art = os.path.join("articles", p["file"])
         lines.append(
             f"  <url><loc>{BASE_URL}/articles/{p['file']}</loc>"
-            f"<lastmod>{p['date']}</lastmod></url>"
+            f"<lastmod>{article_datemod(art, p['date'])}</lastmod></url>"
         )
     lines.append("</urlset>")
     open("sitemap.xml", "w", encoding="utf-8").write("\n".join(lines) + "\n")
@@ -216,6 +306,7 @@ def main():
         print("ERROR: parse index.html ไม่เจอบทความเลย — โครงสร้าง HTML อาจเปลี่ยน")
         return 2
     print(f"index.html  : พบ {len(posts)} บทความ")
+    inject_tocs()
     write_thumbnails(posts)
     minify_css()
     write_sitemap(posts)

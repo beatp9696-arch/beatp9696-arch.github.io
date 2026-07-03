@@ -74,6 +74,23 @@
         </div>
       </div>
 
+      <!-- TOC-START -->
+      <nav class="toc">
+        <div class="toc-title">ในบทความนี้</div>
+        <ol>
+          <li><a href="#sec-1">1. ธุรกิจนี้หาเงินจากอะไร</a></li>
+          <li><a href="#sec-2">2. คอขวดของ AI: ทำไม "ทองแดง" ไปไม่ไหว</a></li>
+          <li><a href="#sec-3">3. อ่านแสง 2 แบบ: IMDD vs Coherent</a></li>
+          <li><a href="#sec-4">4. แสงวิ่งบนชิปได้ยังไง: SiPh Waveguide</a></li>
+          <li><a href="#sec-5">5. รวมทุกอย่างไว้บนชิปเดียว: InP PIC</a></li>
+          <li><a href="#sec-6">6. วัสดุ 3 ค่าย: ไม่มีผู้ชนะรายเดียว</a></li>
+          <li><a href="#sec-7">7. แล้ว COHR ได้เปรียบตรงไหน (และไม่ได้เปรียบตรงไหน)</a></li>
+          <li><a href="#sec-8">8. จุดที่ต้องระวัง (Kill Conditions)</a></li>
+          <li><a href="#sec-9">9. สรุป</a></li>
+        </ol>
+      </nav>
+      <!-- TOC-END -->
+
       <p class="lead">
         เบื้องหลังการบูม AI มีปัญหาที่คนพูดถึงน้อย — เราเก่งเรื่องสร้าง GPU ที่แรงขึ้นเรื่อยๆ
         แต่การ "ย้ายข้อมูล" ระหว่าง GPU จำนวนมหาศาลกลับกลายเป็นคอขวด และทางออกคือการเลิกส่งด้วยไฟฟ้า
@@ -86,7 +103,7 @@
         บทนี้เน้น<strong>อธิบายธุรกิจและเทคโนโลยีให้เข้าใจง่าย</strong> ไม่ได้ประเมินราคา/มูลค่า — เพื่อการศึกษาเท่านั้น
       </blockquote>
 
-      <h2>1. ธุรกิจนี้หาเงินจากอะไร</h2>
+      <h2 id="sec-1">1. ธุรกิจนี้หาเงินจากอะไร</h2>
       <p>
         Coherent ขาย <strong>ชิ้นส่วนเชิงแสง (optical/photonics)</strong> — เลเซอร์, optical component
         และ optical transceiver ที่ใช้รับส่งข้อมูลด้วยแสง ปัจจุบันธุรกิจถูกปรับโฉมรอบ AI datacenter ชัดเจน แบ่งเป็น 2 ขา:
@@ -137,7 +154,7 @@
         <figcaption>รายได้ COHR ขับด้วย <strong>2 เครื่องยนต์ที่สวนทาง</strong> — <strong>Datacenter &amp; Comms</strong> (~75%) โตแรง +41% YoY จากดีมานด์ AI ส่วน <strong>Industrial</strong> (~25%) หดตัวต่อเนื่องถ่วงภาพรวม รวม Q3 FY2026 ที่ $1.81B (+27% YoY pro forma) — ทั้งบริษัทจึงผูกกับวัฏจักร AI datacenter เป็นหลัก</figcaption>
       </figure>
 
-      <h2>2. คอขวดของ AI: ทำไม "ทองแดง" ไปไม่ไหว</h2>
+      <h2 id="sec-2">2. คอขวดของ AI: ทำไม "ทองแดง" ไปไม่ไหว</h2>
       <p>
         ใน AI datacenter ต้องย้ายข้อมูลระหว่างชิปปริมาณมหาศาลที่ความเร็ว 800G/1.6T ขึ้นไป —
         สายทองแดง (copper) เริ่มไปไม่ไหว: ยิ่งเร็วยิ่งไกลสัญญาณยิ่งอ่อน ร้อน และกินไฟ ทางออกคือส่งด้วย
@@ -207,7 +224,7 @@
         <figcaption><strong>ทองแดง</strong> ยิ่งส่งเร็ว/ไกล สัญญาณยิ่งจาง ร้อน และตกก่อนถึงปลายทาง (เกิด bit error) — ส่วน <strong>แสงในไฟเบอร์</strong> วิ่งได้ไกล เย็น และอัดแบนด์วิดท์ได้มหาศาล นี่คือเหตุผลที่ AI datacenter ดัน optical interconnect แบบก้าวกระโดด และเป็นขาโตหลัก (~75% ของรายได้) ของ COHR</figcaption>
       </figure>
 
-      <h2>3. อ่านแสง 2 แบบ: IMDD vs Coherent</h2>
+      <h2 id="sec-3">3. อ่านแสง 2 แบบ: IMDD vs Coherent</h2>
       <p>
         ชื่อบริษัท "Coherent" มาจากเทคนิคการอ่านแสงแบบหนึ่ง วิธีที่ง่ายสุดคือ <strong>IMDD</strong> —
         ดูแค่ว่าแสง "สว่างหรือดับ" (1 กับ 0) ส่วน <strong>Coherent detection</strong> อ่านทั้งรูปคลื่นและ
@@ -271,7 +288,7 @@
         <figcaption>IMDD เห็นแค่ <strong>สว่าง/ดับ</strong> ส่วน coherent อ่าน <strong>รูปคลื่นทั้งหมด + มุมเฟส</strong> จึงอัดข้อมูลต่อช่องได้มากกว่า — เป็นเทรนด์ที่กำลังลามจากสายส่งระยะไกลเข้ามาในระยะสั้นของ datacenter</figcaption>
       </figure>
 
-      <h2>4. แสงวิ่งบนชิปได้ยังไง: SiPh Waveguide</h2>
+      <h2 id="sec-4">4. แสงวิ่งบนชิปได้ยังไง: SiPh Waveguide</h2>
       <p>
         แล้วเราพาแสงวิ่ง "บนชิป" ได้ยังไง? คำตอบคือ <strong>Silicon Photonics (SiPh)</strong> — ทำท่อนำแสง
         (waveguide) ลงบนแผ่นซิลิคอน รับแสงเข้ามาแล้วนำไปยังตัวตรวจจับ ทำบน SOI wafer ด้วยต้นทุนสเกลแบบเซมิคอนดักเตอร์
@@ -326,7 +343,7 @@
         <figcaption><strong>SiPh</strong> = ทำท่อนำแสงลงบนซิลิคอน — แสงจากไฟเบอร์ตกลง <strong>grating coupler</strong> เลี้ยวเข้าไปวิ่งในแกน Si (ถูกขังด้วยชั้น BOX ใต้แกน ดูหน้าตัด) แล้วเข้า <strong>detector</strong> แปลงเป็นไฟฟ้า ทำบน SOI wafer (Soitec เป็นเจ้าตลาด) จุดเด่นคือผลิตด้วยโครงสร้างต้นทุนแบบเซมิคอนดักเตอร์</figcaption>
       </figure>
 
-      <h2>5. รวมทุกอย่างไว้บนชิปเดียว: InP PIC</h2>
+      <h2 id="sec-5">5. รวมทุกอย่างไว้บนชิปเดียว: InP PIC</h2>
       <p>
         จุดเปลี่ยนสำคัญคือ <strong>InP PIC</strong> (Indium Phosphide Photonic IC) — รวมทั้ง "เครื่องยนต์แสง"
         (laser, modulator, amplifier, detector, optical mixer) ไว้บนชิปเดียว แต่แลกมาด้วยพื้นที่ die ที่ใหญ่ขึ้น
@@ -381,7 +398,7 @@
         <figcaption><strong>InP PIC</strong> รวมทั้ง engine — laser · modulator · amplifier · detector · optical mixer — ไว้บนชิปเดียว (แสงวิ่งทะลุทั้งสาย) แต่แลกด้วย die ใหญ่ขึ้น <strong>~100×</strong> เทียบ EML ทำให้ <strong>yield ตก</strong> (ได้ชิปดีต่อเวเฟอร์น้อยลง) ใครสเกล InP ได้ก่อนได้เปรียบ — COHR กำลัง double กำลังผลิตบน platform 6 นิ้ว</figcaption>
       </figure>
 
-      <h2>6. วัสดุ 3 ค่าย: ไม่มีผู้ชนะรายเดียว</h2>
+      <h2 id="sec-6">6. วัสดุ 3 ค่าย: ไม่มีผู้ชนะรายเดียว</h2>
       <p>
         ในโลก optical ไม่มีวัสดุเดียวที่เก่งทุกอย่าง — แต่ละค่ายถือคนละหน้าที่: <strong>InP</strong> เปล่งแสงได้
         (ทำ laser), <strong>SiPh</strong> เด่นเรื่องรับ/ต่อแสงด้วยต้นทุนชิป, <strong>TFLN</strong> เป็นวัสดุมอดูเลตรุ่นใหม่
@@ -440,7 +457,7 @@
         <figcaption>แสงต้องวิ่งผ่านทั้ง 3 วัสดุ และตารางขวาบอกชัด — <strong>InP</strong> เด่นเปล่งแสง, <strong>TFLN</strong> เด่นมอดูเลตเร็ว, <strong>SiPh</strong> เด่นต้นทุน/สเกล <strong>ไม่มีใครชนะคนเดียว</strong> — ข้อได้เปรียบของ COHR คือทำ <strong>InP ครบวงจร</strong> (materials → wafer → laser → transceiver) ในบ้านตัวเอง ซึ่งคู่แข่งส่วนใหญ่ต้องซื้อ InP จากข้างนอก</figcaption>
       </figure>
 
-      <h2>7. แล้ว COHR ได้เปรียบตรงไหน (และไม่ได้เปรียบตรงไหน)</h2>
+      <h2 id="sec-7">7. แล้ว COHR ได้เปรียบตรงไหน (และไม่ได้เปรียบตรงไหน)</h2>
       <p><strong>ที่ได้เปรียบ:</strong></p>
       <ul>
         <li><strong>Vertical integration ใน InP</strong> — ทำครบตั้งแต่ materials → InP wafer → laser → transceiver
@@ -497,7 +514,7 @@
         ไม่ใช่ toll-bridge ที่ผูกขาด เก็บค่าผ่านทางสบายๆ
       </blockquote>
 
-      <h2>8. จุดที่ต้องระวัง (Kill Conditions)</h2>
+      <h2 id="sec-8">8. จุดที่ต้องระวัง (Kill Conditions)</h2>
       <p>วินัยของผมคือกำหนดไว้ก่อนว่า "อะไรจะบอกว่าคิดผิด" — สำหรับ COHR ผมจะระวังเมื่อ:</p>
       <ul>
         <li><strong>Datacenter &amp; Comms โตช้าลงต่ำกว่า +15% YoY สองไตรมาสติด</strong> → secular AI-optical thesis เริ่มสะดุด</li>
@@ -505,7 +522,7 @@
         <li><strong>Non-GAAP operating margin หยุดขยายหรือถอยสองไตรมาสติด</strong> → operating leverage ไม่จริง / โดนบีบราคา (ดู gap กับ Lumentum ถ้ากว้างขึ้นเรื่อยๆ = price-taker)</li>
       </ul>
 
-      <h2>9. สรุป</h2>
+      <h2 id="sec-9">9. สรุป</h2>
       <p>
         เรื่องของ COHR คือเรื่องของ "แสง" ที่กำลังเข้ามาแก้คอขวดที่แท้จริงของ AI — การย้ายข้อมูลระหว่างชิป
         และ Coherent เป็นหนึ่งในผู้เล่นหัวแถวที่ทำชิ้นส่วนหัวใจนั้น (โดยเฉพาะ InP แบบครบวงจร) เทคโนโลยีน่าตื่นเต้นจริง

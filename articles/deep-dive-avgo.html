@@ -74,6 +74,26 @@
         </div>
       </div>
 
+      <!-- TOC-START -->
+      <nav class="toc">
+        <div class="toc-title">ในบทความนี้</div>
+        <ol>
+          <li><a href="#sec-1">1. ธุรกิจนี้หาเงินจากอะไร</a></li>
+          <li><a href="#sec-2">2. เครื่องยนต์เซมิ: ชิปของลูกค้า + เส้นเลือดของศูนย์ข้อมูล</a></li>
+          <li><a href="#sec-3">3. เครื่องยนต์ซอฟต์แวร์: VMware — เครื่องขึ้นราคาที่กำลังหมดรอบ</a></li>
+          <li><a href="#sec-4">4. Moat: แข็งจริง — แต่เป็นเหรียญเดียวกับความเสี่ยงที่ใหญ่ที่สุด</a></li>
+          <li><a href="#sec-5">5. ตัวเลขบอกอะไร — เครื่องผลิตเงินสด กับกับดักสามชั้นใต้พรม</a></li>
+          <li><a href="#sec-6">6. เดิมพันที่เพิ่งสร้างในหกเดือน: $128bn + ค้ำประกันอีก $29bn</a></li>
+          <li><a href="#sec-7">7. ราคาบังคับให้เชื่ออะไร — เรดาร์ที่มองเห็นแค่ FY28</a></li>
+          <li><a href="#sec-8">8. Bull Case</a></li>
+          <li><a href="#sec-9">9. Bear Case / จุดเปราะ</a></li>
+          <li><a href="#sec-10">10. Kill Conditions</a></li>
+          <li><a href="#sec-11">11. สิ่งที่ยังต้องขุดต่อ (What to ask)</a></li>
+          <li><a href="#sec-12">สรุป</a></li>
+        </ol>
+      </nav>
+      <!-- TOC-END -->
+
       <p class="lead">
         Broadcom คือบริษัทที่เก็บค่าผ่านทางของ AI buildout จากสองขาพร้อมกัน —
         ออกแบบ<strong>ชิปเร่ง AI เฉพาะราย (custom XPU)</strong> ให้ hyperscaler
@@ -89,7 +109,7 @@
         + earnings release 3 มิ.ย. 2026 — เป็นการวิเคราะห์เพื่อการศึกษา ไม่ใช่คำแนะนำซื้อขาย
       </blockquote>
 
-      <h2>1. ธุรกิจนี้หาเงินจากอะไร</h2>
+      <h2 id="sec-1">1. ธุรกิจนี้หาเงินจากอะไร</h2>
       <figure class="ph-fig"><div class="ph-panel avgo-panel"><div class="ph-eyebrow avgo">Custom XPU · 2.5D package (มุมตัดขวาง)</div>
         <svg viewBox="0 0 840 300" role="img" aria-label="cross-section of a custom AI accelerator package: compute die and HBM stacks on interposer and substrate">
           <defs><linearGradient id="avln" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#f87171"/><stop offset="1" stop-color="#fecaca"/></linearGradient></defs>
@@ -156,7 +176,7 @@
         เป็น "สัดส่วนที่มีนัย" ของกำลังผลิตทั้งหมดของ TSMC) ทำให้ capex แค่ <strong>1% ของรายได้</strong>
       </p>
 
-      <h2>2. เครื่องยนต์เซมิ: ชิปของลูกค้า + เส้นเลือดของศูนย์ข้อมูล</h2>
+      <h2 id="sec-2">2. เครื่องยนต์เซมิ: ชิปของลูกค้า + เส้นเลือดของศูนย์ข้อมูล</h2>
       <p>
         คำถามแรกที่ต้องตอบให้ได้เสมอ: <strong>ใครคือลูกค้า และทำไมเขาต้องใช้ของเจ้านี้</strong> —
         ลูกค้าคือ hyperscaler (Google เป็นรายใหญ่ที่สุดที่ตลาดเชื่อกัน) และ AI labs (มีดีล OpenAI 10 GW
@@ -207,7 +227,7 @@
         ขณะ Marvell ยัง ROIC ~6% ต่ำกว่าต้นทุนทุน — เกมเดียวกัน แต่คนละลีก
       </p>
 
-      <h2>3. เครื่องยนต์ซอฟต์แวร์: VMware — เครื่องขึ้นราคาที่กำลังหมดรอบ</h2>
+      <h2 id="sec-3">3. เครื่องยนต์ซอฟต์แวร์: VMware — เครื่องขึ้นราคาที่กำลังหมดรอบ</h2>
       <figure class="ph-fig"><div class="ph-panel avgo-panel"><div class="ph-eyebrow avgo">VMware · ชั้น virtualization ใต้ Fortune 500</div>
         <svg viewBox="0 0 840 300" role="img" aria-label="virtualization stack: physical servers below, VMware hypervisor plane, virtual machines appearing on top, with a subscription price meter">
           <text class="sim-mono" x="60" y="32" style="text-anchor:start" fill="#f87171">1 เครื่องจริง → หลาย VM · แปลงเป็น subscription แล้วขึ้นราคา</text>
@@ -245,7 +265,7 @@
         churn/renewal rate จริงของ VMware เพราะไม่เปิดเผย — ช่องโหว่ข้อมูลที่ใหญ่ที่สุดของเคสนี้
       </p>
 
-      <h2>4. Moat: แข็งจริง — แต่เป็นเหรียญเดียวกับความเสี่ยงที่ใหญ่ที่สุด</h2>
+      <h2 id="sec-4">4. Moat: แข็งจริง — แต่เป็นเหรียญเดียวกับความเสี่ยงที่ใหญ่ที่สุด</h2>
       <p>
         คะแนน moat ที่ผมให้คือ <strong>Moderate ขอบบน (6.0/10)</strong> — สูงจาก Switching Costs
         เป็นแกน: co-design ข้ามรุ่น, VMware install base และ <strong>backlog สัญญาผูกพัน (RPO)
@@ -293,7 +313,7 @@
         renegotiate ถัดไป</strong> (10-Q ยอมรับตรงๆ ว่าลูกค้ารายใหญ่ "เรียกร้องมากขึ้นทั้งด้านราคาและเงื่อนไขสัญญา")
       </p>
 
-      <h2>5. ตัวเลขบอกอะไร — เครื่องผลิตเงินสด กับกับดักสามชั้นใต้พรม</h2>
+      <h2 id="sec-5">5. ตัวเลขบอกอะไร — เครื่องผลิตเงินสด กับกับดักสามชั้นใต้พรม</h2>
       <p>
         ในมุมเครื่องจักรการเงิน AVGO อยู่ระดับท็อปของตลาด:
       </p>
@@ -326,7 +346,7 @@
           (ดูวิธีอ่านใน<a href="financials-02-cash-flow-statement.html">ตอนงบกระแสเงินสด</a>)</li>
       </ul>
 
-      <h2>6. เดิมพันที่เพิ่งสร้างในหกเดือน: $128bn + ค้ำประกันอีก $29bn</h2>
+      <h2 id="sec-6">6. เดิมพันที่เพิ่งสร้างในหกเดือน: $128bn + ค้ำประกันอีก $29bn</h2>
       <p>
         นี่คือหัวใจของบทนี้ และเป็นสิ่งที่เพิ่งเกิดขึ้นทั้งหมดภายในหกเดือน:
         purchase commitments (ภาระผูกพันซื้อ supply ล่วงหน้า) กระโดดจาก <strong>$132 ล้าน</strong>
@@ -381,7 +401,7 @@
         ปัญหาคือ<strong>คุณภาพของ revenue ที่ book ผ่านโครงสร้างพวกนี้ กับราคาหุ้นที่ไม่เผื่ออะไรเลย</strong>
       </p>
 
-      <h2>7. ราคาบังคับให้เชื่ออะไร — เรดาร์ที่มองเห็นแค่ FY28</h2>
+      <h2 id="sec-7">7. ราคาบังคับให้เชื่ออะไร — เรดาร์ที่มองเห็นแค่ FY28</h2>
       <figure class="ph-fig"><div class="ph-panel avgo-panel"><div class="ph-eyebrow avgo">Visibility radar · สัญญามองเห็นถึง FY28 — ราคาต้องการ 10 ปี</div>
         <svg viewBox="0 0 840 330" role="img" aria-label="radar scope with sweeping beam: contract blips visible at FY26 through FY28 rings, empty beyond, while the price requires ten years of growth">
           <defs><radialGradient id="avscope"><stop offset="0" stop-color="#2a1214"/><stop offset="1" stop-color="#150c0d"/></radialGradient></defs>
@@ -441,7 +461,7 @@
           หุ้นก็ลบ 15% ใน 1 วัน — market cap หายไป ~$280bn มาแล้ว)</li>
       </ul>
 
-      <h2>8. Bull Case</h2>
+      <h2 id="sec-8">8. Bull Case</h2>
       <ul>
         <li><strong>เครื่องผลิตเงินสดที่หาตัวจับยากที่สุดในกลุ่ม</strong> — FCF margin 42-46%
           บน capex 1%, opex แบนขณะรายได้ +48%, deleverage $13bn ใน 18 เดือน
@@ -455,7 +475,7 @@
           แล้วยอมรับหุ้นร่วงแทนการเล่นเกมตัวเลข</li>
       </ul>
 
-      <h2>9. Bear Case / จุดเปราะ</h2>
+      <h2 id="sec-9">9. Bear Case / จุดเปราะ</h2>
       <ul>
         <li><strong>Visibility ทุกชิ้นหมดอายุ FY28 แต่ราคาต้องการ 10 ปี</strong> — แค่ปีที่ 4-10
           โตเฉลี่ยต่ำกว่า ~14% (ไม่ต้องมีอะไร "พัง" เลย) ก็ขาดทุนจากราคานี้แล้ว</li>
@@ -475,7 +495,7 @@
           ไม่ว่าได้มาด้วยโครงสร้างเสี่ยงแค่ไหน</li>
       </ul>
 
-      <h2>10. Kill Conditions</h2>
+      <h2 id="sec-10">10. Kill Conditions</h2>
       <p>
         วินัยสำคัญที่สุด: ต้องรู้ก่อนซื้อว่าเหตุการณ์แบบไหนแปลว่าคิดผิด — สำหรับ AVGO
         ทุกข้อวัดได้จาก filing รายไตรมาส:
@@ -494,7 +514,7 @@
           → เบาะ VMware แฟบ + goodwill $97.8bn (112% ของ equity) เข้าเขต impairment</li>
       </ul>
 
-      <h2>11. สิ่งที่ยังต้องขุดต่อ (What to ask)</h2>
+      <h2 id="sec-11">11. สิ่งที่ยังต้องขุดต่อ (What to ask)</h2>
       <ol>
         <li>เงื่อนไข cancellation / take-or-pay ของ purchase commitments $128.1bn คืออะไร —
           10-Q ไม่เปิดเผยรายสัญญา ถ้ายกเลิกได้ง่าย ความเสี่ยง write-down ลดลงมาก
@@ -509,7 +529,7 @@
           ETR คุมอยู่ ~13% ไหม, มีดีล investor-partner เพิ่มไหม</li>
       </ol>
 
-      <h2>สรุป</h2>
+      <h2 id="sec-12">สรุป</h2>
       <p>
         Broadcom คือธุรกิจคุณภาพระดับที่หาได้ยากจริง — สองเครื่องยนต์ที่ไม่ correlate กัน
         (custom silicon + enterprise software) ผลิต FCF margin 42-46% บน capex 1%

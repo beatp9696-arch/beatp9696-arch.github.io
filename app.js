@@ -73,7 +73,8 @@
 
   if (btn) {
     btn.addEventListener("click", function () {
-      window.scrollTo({ top: 0, behavior: "smooth" });
+      var reduceMotion = window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+      window.scrollTo({ top: 0, behavior: reduceMotion ? "auto" : "smooth" });
     });
   }
 
@@ -116,10 +117,12 @@
     });
   }
 
-  // ---- สารบัญอัตโนมัติ ----
+  // ---- สารบัญอัตโนมัติ (fallback) ----
+  // build.py ฝัง <nav class="toc"> ตอน build แล้ว (กัน CLS) — บล็อกนี้ทำงานเฉพาะหน้า
+  // ที่ยังไม่มี TOC ฝังไว้ เพื่อไม่ให้สร้างซ้ำ
   var bylineEl = document.querySelector(".byline");
   var mainCol = document.querySelector("main .container");
-  if (bylineEl && mainCol) {
+  if (bylineEl && mainCol && !document.querySelector(".toc")) {
     var hs = mainCol.querySelectorAll("h2");
     if (hs.length >= 4) {
       var toc = document.createElement("nav");
@@ -688,6 +691,15 @@
     }
   }
 
+  // ---- 404: บทความแนะนำ — ดึงจาก ARTICLES (SoT) ให้ไม่มีวันค้าง ----
+  var suggestBox = document.getElementById("suggested-articles");
+  if (suggestBox) {
+    var latest = ARTICLES.slice(-4).reverse(); // ใหม่สุด 4 บท (ARTICLES เรียงเก่า→ใหม่)
+    suggestBox.innerHTML = latest.map(function (a) {
+      return '<li><a href="/articles/' + a.f + '">' + a.t.replace(/&amp;/g, "&") + "</a></li>";
+    }).join("");
+  }
+
   // ---- Market Clock — นาฬิกา BKK + NY + สถานะตลาด US ----
   var TH_DAYS_CLK = ["อา.", "จ.", "อ.", "พ.", "พฤ.", "ศ.", "ส."];
   var TH_MONTHS_CLK = ["ม.ค.","ก.พ.","มี.ค.","เม.ย.","พ.ค.","มิ.ย.","ก.ค.","ส.ค.","ก.ย.","ต.ค.","พ.ย.","ธ.ค."];
@@ -726,7 +738,8 @@
       '</div>' +
     '</div>';
 
-  var clkAnchor = document.getElementById("tv-ticker") || document.querySelector("main");
+  // แสดงเฉพาะหน้าที่มีแถบราคา (index + dashboard) — เลี่ยง CLS + timer ทิ้งบนหน้าบทความ
+  var clkAnchor = document.getElementById("tv-ticker");
   if (clkAnchor) clkAnchor.parentNode.insertBefore(clkBar, clkAnchor);
 
   var clkDate = document.getElementById("clk-date");
@@ -757,7 +770,9 @@
     clkTxt.textContent = ms.label;
   }
 
-  clockTick();
-  setInterval(clockTick, 1000);
+  if (clkAnchor) {
+    clockTick();
+    setInterval(clockTick, 1000);
+  }
 
 })();

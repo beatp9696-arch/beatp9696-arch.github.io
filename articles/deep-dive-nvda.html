@@ -74,6 +74,23 @@
         </div>
       </div>
 
+      <!-- TOC-START -->
+      <nav class="toc">
+        <div class="toc-title">ในบทความนี้</div>
+        <ol>
+          <li><a href="#sec-1">1. ธุรกิจนี้หาเงินจากอะไร</a></li>
+          <li><a href="#sec-2">2. คูเมืองที่แท้จริงไม่ใช่ชิป — มันคือ CUDA</a></li>
+          <li><a href="#sec-3">3. GPU เอาไปทำอะไรกันแน่</a></li>
+          <li><a href="#sec-4">4. NVIDIA ขายทั้ง "โรงงาน" ไม่ใช่แค่ชิป</a></li>
+          <li><a href="#sec-5">5. ตัวเลขบอกอะไร</a></li>
+          <li><a href="#sec-6">6. Bull Case</a></li>
+          <li><a href="#sec-7">7. Bear Case / จุดเปราะ</a></li>
+          <li><a href="#sec-8">8. Kill Conditions — อะไรจะทำให้ thesis พัง</a></li>
+          <li><a href="#sec-9">สรุป</a></li>
+        </ol>
+      </nav>
+      <!-- TOC-END -->
+
       <p class="lead">
         NVIDIA กลายเป็นหนึ่งในบริษัทที่มีค่ามากที่สุดในโลกในเวลาไม่กี่ปี เพราะมันขาย "จอบกับเสียม"
         ของยุคตื่นทอง AI — แต่สิ่งที่ทำให้มันเป็น <em>ธุรกิจคุณภาพ</em> ไม่ใช่แค่ชิปที่เร็ว
@@ -86,7 +103,7 @@
         เป็นการวิเคราะห์เพื่อการศึกษา ไม่ใช่คำแนะนำซื้อขาย — เน้นอธิบายโครงสร้างธุรกิจมากกว่ามูลค่า/ราคาเป้า
       </blockquote>
 
-      <h2>1. ธุรกิจนี้หาเงินจากอะไร</h2>
+      <h2 id="sec-1">1. ธุรกิจนี้หาเงินจากอะไร</h2>
       <p>
         NVIDIA ออกแบบ <strong>GPU</strong> (ชิปประมวลผลกราฟิก) และระบบซอฟต์แวร์ที่กลายเป็น
         โครงสร้างพื้นฐานหลักของการประมวลผล AI ลูกค้าก้อนใหญ่ที่สุดคือ <strong>hyperscaler</strong>
@@ -107,7 +124,7 @@
         "ทำเลขเยอะๆ ง่ายๆ พร้อมกัน" ซึ่งคือสิ่งที่ neural network ต้องการพอดี
       </p>
 
-      <h2>2. คูเมืองที่แท้จริงไม่ใช่ชิป — มันคือ CUDA</h2>
+      <h2 id="sec-2">2. คูเมืองที่แท้จริงไม่ใช่ชิป — มันคือ CUDA</h2>
       <p>
         จุดที่นักลงทุนมือใหม่มักเข้าใจผิดคือคิดว่า moat ของ NVIDIA คือ "ชิปที่เร็วที่สุด" —
         แต่ชิปเร็วเป็นสิ่งที่คู่แข่งไล่ตามได้ สิ่งที่ลอกยากกว่ามากคือ <strong>CUDA</strong>
@@ -125,7 +142,7 @@
           (ดูใน Bear Case) แต่ third-party developer ทั่วไปจะยัง lock-in กับ CUDA ต่อไปอีกนาน</li>
       </ul>
 
-      <h2>3. GPU เอาไปทำอะไรกันแน่</h2>
+      <h2 id="sec-3">3. GPU เอาไปทำอะไรกันแน่</h2>
       <p>
         เวลาพูดว่า "เทรนโมเดล AI" จริงๆ แล้วเครื่องกำลังทำอะไร? ภาพนี้อธิบายแบบง่ายที่สุด:
       </p>
@@ -146,7 +163,7 @@
         <svg viewBox="0 0 840 290" role="img" aria-label="LLM inference token generation"><defs><radialGradient id="nvh5"><stop offset="0" stop-color="#e6ffbf"/><stop offset=".4" stop-color="#76b900" stop-opacity=".5"/><stop offset="1" stop-color="#76b900" stop-opacity="0"/></radialGradient></defs><rect class="nv-node" x="40" y="112" width="180" height="62" rx="11"/><text class="nv-t sm" x="130" y="138" fill="#9fb87a">prompt</text><text class="nv-t" x="130" y="159">"เมืองหลวงไทย?"</text><text class="nv-mono" x="130" y="200">ป้อนคำถาม</text><line class="nv-flow" stroke="#3f6a1f" x1="220" y1="143" x2="330" y2="143"/><circle r="11" fill="url(#nvh5)"><animateMotion dur="1.4s" repeatCount="indefinite" path="M220,143 H330"/></circle><circle r="4.5" class="nv-comet"><animateMotion dur="1.4s" repeatCount="indefinite" path="M220,143 H330"/></circle><rect class="nv-hub" x="330" y="110" width="150" height="66" rx="13"/><text class="nv-t" x="405" y="139" fill="#9fe53a">GPU</text><text class="nv-mono" x="405" y="158" fill="#a9d27a">inference</text><line class="nv-flow" stroke="#3f6a1f" x1="480" y1="143" x2="560" y2="143"/><g class="nv-tok" style="animation-delay:0.0s"><rect class="nv-node" x="560" y="124" width="80" height="38" rx="8" stroke="#76b900"/><text class="nv-t sm" x="600.0" y="148" fill="#cdff8f">กรุง</text></g><g class="nv-tok" style="animation-delay:0.5s"><rect class="nv-node" x="648" y="124" width="80" height="38" rx="8" stroke="#76b900"/><text class="nv-t sm" x="688.0" y="148" fill="#cdff8f">เทพฯ</text></g><g class="nv-tok" style="animation-delay:1.0s"><rect class="nv-node" x="736" y="124" width="73" height="38" rx="8" stroke="#76b900"/><text class="nv-t sm" x="772.5" y="148" fill="#cdff8f">คือ</text></g><text class="nv-mono" x="640" y="200">พ่นทีละ token (autoregressive)</text></svg>
       </div><figcaption>Training คือ "สอน" โมเดล — <strong>Inference คือ "ใช้งาน" จริง</strong>: ป้อนคำถาม โมเดลพ่นคำตอบทีละ token ทุกครั้งที่มีคนใช้ AI ก็กิน GPU คลื่น inference นี้เป็นดีมานด์ก้อนใหม่ที่ตามหลัง training มา</figcaption></figure>
 
-      <h2>4. NVIDIA ขายทั้ง "โรงงาน" ไม่ใช่แค่ชิป</h2>
+      <h2 id="sec-4">4. NVIDIA ขายทั้ง "โรงงาน" ไม่ใช่แค่ชิป</h2>
       <p>
         โมเดล AI สมัยใหญ่เกินกว่าจะรันบน GPU ตัวเดียว NVIDIA จึงเชื่อม GPU หลายพันตัวเข้าด้วยกัน
         ด้วย <strong>NVLink</strong> และระบบเครือข่าย ให้ทำงานเสมือนคอมพิวเตอร์เครื่องเดียว
@@ -160,7 +177,7 @@
         "ชิปเดี่ยวๆ" แข่งยากขึ้น เพราะต้องสู้กับทั้งระบบ ไม่ใช่แค่ตัวชิป
       </p>
 
-      <h2>5. ตัวเลขบอกอะไร</h2>
+      <h2 id="sec-5">5. ตัวเลขบอกอะไร</h2>
       <ul>
         <li><strong>รายได้โตแบบผิดปกติสำหรับ semiconductor</strong> — FY2024 ราว $61B → FY2025 ราว $130B
           (~2 เท่าในปีเดียว) ขับเคลื่อนโดย AI infrastructure ของ hyperscaler ไม่ใช่ผู้บริโภค</li>
@@ -174,7 +191,7 @@
         บทนี้เน้น "เข้าใจว่าธุรกิจหาเงินยังไงและคูเมืองอยู่ตรงไหน" มากกว่าตัวเลขเป๊ะรายไตรมาส
       </blockquote>
 
-      <h2>6. Bull Case</h2>
+      <h2 id="sec-6">6. Bull Case</h2>
       <ul>
         <li><strong>CUDA lock-in คือ switching cost ที่แท้จริง</strong> — โลกเขียนโค้ด AI บน CUDA มาสิบปี
           การย้ายค่ายเสี่ยงและแพง ทำให้ดีมานด์เหนียว</li>
@@ -187,7 +204,7 @@
         <svg viewBox="0 0 840 300" role="img" aria-label="NVIDIA architecture cadence Hopper Blackwell Rubin"><defs><linearGradient id="nvg6" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#9fe53a"/><stop offset="1" stop-color="#5a8f00"/></linearGradient></defs><line x1="120" y1="250" x2="720" y2="250" stroke="#244014" stroke-width="3" stroke-linecap="round"/><line class="nv-lit" stroke="url(#nvg6)" x1="120" y1="250" x2="720" y2="250" style="--len:600;stroke-dasharray:600"/><rect class="nv-bar" x="154" y="180" width="52" height="70" rx="5" fill="#1c3a0c" stroke="#76b900" stroke-width="1.4" style="animation-delay:0.0s"/><text class="nv-mono" x="180" y="172" text-anchor="middle" fill="#9fe53a">เร็วขึ้น</text><circle class="nv-chip lit" cx="180" cy="250" r="9" style="animation-delay:0.0s"/><text class="nv-t sm" x="180" y="276" fill="#cde8a8">Hopper</text><text class="nv-mono" x="180" y="294" text-anchor="middle">H100 · 2022</text><rect class="nv-bar" x="394" y="140" width="52" height="110" rx="5" fill="#1c3a0c" stroke="#76b900" stroke-width="1.4" style="animation-delay:0.5s"/><text class="nv-mono" x="420" y="132" text-anchor="middle" fill="#9fe53a">เร็วขึ้น</text><circle class="nv-chip lit" cx="420" cy="250" r="9" style="animation-delay:0.5s"/><text class="nv-t sm" x="420" y="276" fill="#cde8a8">Blackwell</text><text class="nv-mono" x="420" y="294" text-anchor="middle">B200 · 2024</text><rect class="nv-bar" x="634" y="100" width="52" height="150" rx="5" fill="#1c3a0c" stroke="#76b900" stroke-width="1.4" style="animation-delay:1.0s"/><text class="nv-mono" x="660" y="92" text-anchor="middle" fill="#9fe53a">เร็วขึ้น</text><circle class="nv-chip lit" cx="660" cy="250" r="9" style="animation-delay:1.0s"/><text class="nv-t sm" x="660" y="276" fill="#cde8a8">Rubin</text><text class="nv-mono" x="660" y="294" text-anchor="middle">รุ่นถัดไป · 2026</text><text class="nv-mono" x="420" y="40" fill="#9fe53a">สถาปัตยกรรมใหม่เกือบทุกปี — เร็วขึ้นทุกรุ่น</text></svg>
       </div><figcaption>NVIDIA ออกสถาปัตยกรรมใหม่เกือบทุกปี เร็วขึ้นทุกรุ่น — <strong>FCF ก้อนใหญ่หมุนกลับเป็น R&amp;D</strong> สร้างคูเมืองรุ่นต่อรุ่นที่คู่แข่งไล่ตามเหนื่อย (แต่ก็แปลว่าต้องวิ่งตลอด หยุดไม่ได้)</figcaption></figure>
 
-      <h2>7. Bear Case / จุดเปราะ</h2>
+      <h2 id="sec-7">7. Bear Case / จุดเปราะ</h2>
       <p>
         แต่ทุก thesis ที่ดีต้องมองด้านมืดให้ชัด — จุดเปราะที่ใหญ่ที่สุดของ NVIDIA สรุปได้ในภาพเดียว:
       </p>
@@ -205,7 +222,7 @@
           ไปจีนหลายรอบ NVIDIA ออกรุ่น comply แต่ถ้าคุมเข้มขึ้นอีก ตลาดก้อนนี้อาจหายถาวร</li>
       </ul>
 
-      <h2>8. Kill Conditions — อะไรจะทำให้ thesis พัง</h2>
+      <h2 id="sec-8">8. Kill Conditions — อะไรจะทำให้ thesis พัง</h2>
       <p>วินัยสำคัญ: ต้องรู้ก่อนว่า "เหตุการณ์แบบไหนจะบอกว่าผมคิดผิด" สำหรับ NVDA คือ:</p>
       <ul>
         <li><strong>Hyperscaler ตั้งแต่ 2 รายขึ้นไปลด GPU capex guidance ใน earnings ช่วงเดียวกัน</strong> →
@@ -216,7 +233,7 @@
           เทียบเท่าในวงกว้าง จน developer ย้ายค่ายโดยไม่เจ็บ → moat หลักเสื่อม</li>
       </ul>
 
-      <h2>สรุป</h2>
+      <h2 id="sec-9">สรุป</h2>
       <p>
         NVDA เป็นตัวอย่างของ "wonderful business" ที่คูเมืองไม่ได้อยู่ที่ตัวชิป แต่อยู่ที่
         <strong>CUDA + ecosystem + การขายทั้งระบบ AI factory</strong> ที่ทำให้ดีมานด์เหนียวและ margin สูง
