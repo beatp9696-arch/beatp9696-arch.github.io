@@ -47,7 +47,9 @@
     { f: "deep-dive-mu.html", t: "ผ่าธุรกิจ MU (Micron)", tk: "MU", sec: "semi" },
     { f: "deep-dive-mrvl.html", t: "ผ่าธุรกิจ MRVL (Marvell)", tk: "MRVL", sec: "semi" },
     { f: "deep-dive-ai-bubble.html", t: "AI = ฟองสบู่ dot-com รอบใหม่?", sec: "market" },
-    { f: "deep-dive-avgo.html", t: "ผ่าธุรกิจ AVGO (Broadcom)", tk: "AVGO", sec: "semi" }
+    { f: "deep-dive-avgo.html", t: "ผ่าธุรกิจ AVGO (Broadcom)", tk: "AVGO", sec: "semi" },
+    { f: "deep-dive-lmt.html", t: "ผ่าธุรกิจ LMT (Lockheed Martin)", tk: "LMT", sec: "space" },
+    { f: "deep-dive-asml.html", t: "ผ่าธุรกิจ ASML", tk: "ASML", sec: "semi" }
   ];
 
   var progressBar = document.querySelector(".reading-progress");

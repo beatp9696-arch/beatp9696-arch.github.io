@@ -1,0 +1,632 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <script>try{var t=localStorage.getItem('theme');if(t)document.documentElement.setAttribute('data-theme',t);}catch(e){}</script>
+  <title>ผ่าธุรกิจ ASML — เครื่องพิมพ์แสงที่ผูกขาดโลกทั้งใบ | Moatrices</title>
+  <meta name="description" content="ผ่า ASML: ผู้ผลิตเครื่อง EUV รายเดียวในโลก (100% ตลาด), รายได้ €32.7B margin 52.8%, backlog €38.8B แต่ลูกค้ากระจุกไม่ถึง 5 ราย + จีน 29% กำลังถูกสั่งห้าม และราคา $1,758 (P/E 62×) กำลัง bet อะไรถึงปี 2030">
+  <meta property="og:type" content="article">
+  <meta property="og:site_name" content="Moatrices">
+  <meta property="og:title" content="ผ่าธุรกิจ ASML — เครื่องพิมพ์แสงที่ผูกขาดโลกทั้งใบ แต่ราคาคือคำพนันปี 2030">
+  <meta property="og:description" content="ผู้ผลิตเครื่อง EUV รายเดียวในโลก margin 52.8% backlog €38.8B — แต่ลูกค้าไม่ถึง 5 ราย, จีน 29% กำลังถูกสั่งห้าม และราคา $1,758 คือ P/E 62× ที่จ่ายให้แผนโต €44–60B ปี 2030">
+  <meta property="og:url" content="https://beatp9696-arch.github.io/articles/deep-dive-asml.html">
+  <meta property="og:locale" content="th_TH">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta property="og:image" content="https://beatp9696-arch.github.io/og-deep-dive-asml.png">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta name="twitter:image" content="https://beatp9696-arch.github.io/og-deep-dive-asml.png">
+  <meta name="author" content="Moatrices">
+  <link rel="canonical" href="https://beatp9696-arch.github.io/articles/deep-dive-asml.html">
+  <link rel="alternate" type="application/rss+xml" title="Moatrices RSS" href="/feed.xml">
+  <meta name="theme-color" media="(prefers-color-scheme: light)" content="#f7f5f0">
+  <meta name="theme-color" media="(prefers-color-scheme: dark)" content="#121417">
+  <link rel="icon" href="../favicon.svg" type="image/svg+xml">
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png">
+  <link rel="manifest" href="/site.webmanifest">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Thai:wght@500;600;700&family=Sarabun:wght@400;500;600;700&display=swap">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Thai:wght@500;600;700&family=Sarabun:wght@400;500;600;700&display=swap" media="print" onload="this.media='all'">
+  <noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Thai:wght@500;600;700&family=Sarabun:wght@400;500;600;700&display=swap"></noscript>
+  <link rel="stylesheet" href="../style.css">
+  <script type="application/ld+json">
+  {"@context": "https://schema.org", "@type": "BlogPosting", "headline": "ผ่าธุรกิจ ASML — เครื่องพิมพ์แสงที่ผูกขาดโลกทั้งใบ แต่ราคาคือคำพนันปี 2030", "description": "ผู้ผลิตเครื่อง EUV รายเดียวในโลก, margin 52.8%, backlog €38.8B, จีน 29% กำลังถูกสั่งห้าม และราคา $1,758 = P/E 62× ที่จ่ายให้แผนโต €44–60B ปี 2030", "author": {"@type": "Person", "name": "Moatrices"}, "publisher": {"@type": "Organization", "name": "Moatrices", "logo": {"@type": "ImageObject", "url": "https://beatp9696-arch.github.io/favicon.svg"}}, "mainEntityOfPage": {"@type": "WebPage", "@id": "https://beatp9696-arch.github.io/articles/deep-dive-asml.html"}, "inLanguage": "th", "datePublished": "2026-07-03", "dateModified": "2026-07-03"}
+  </script>
+</head>
+<body>
+
+  <div class="reading-progress"></div>
+  <div class="top-accent"></div>
+
+  <header class="site-header">
+    <div class="container">
+      <a href="../index.html" class="site-title">Moatrices</a>
+      <nav class="site-nav">
+        <a href="../index.html">หน้าแรก</a>
+        <a href="../dashboard.html">Dashboard</a>
+        <a href="../about.html">เกี่ยวกับ</a>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <div class="container">
+
+      <span class="kicker">Deep-dive · NASDAQ: ASML</span>
+      <h1>ผ่าธุรกิจ ASML — เครื่องพิมพ์แสงที่ผูกขาดโลกทั้งใบ แต่ราคาคือคำพนันปี 2030</h1>
+      <div class="byline">
+        <span class="byline-avatar">M</span>
+        <div>
+          <div class="byline-author">Moatrices</div>
+          <div class="byline-info">3 ก.ค. 2026 · อ่าน ~17 นาที · ตัวเลขจากงบปี 2025 (ประกาศ 28 ม.ค. 2026, สกุล EUR) · ราคา ณ 3 ก.ค. 2026: $1,758 (Nasdaq)</div>
+        </div>
+      </div>
+
+      <p class="lead">
+        ในโลกนี้มีบริษัทเดียวที่ทำเครื่องจักรซึ่งชิปทุกตัวในมือถือ ในเซิร์ฟเวอร์ AI และในจรวดต้องพึ่งพา —
+        ไม่มีเครื่องนี้ TSMC, Samsung, Intel ทำชิป 3 นาโนไม่ได้เลยแม้แต่ตัวเดียว บริษัทนั้นคือ ASML
+        และมันคือ "ผู้ผูกขาด 100%" ของเทคโนโลยี EUV ที่แท้จริงที่สุดในตลาดหุ้น — moat ที่ Buffett ฝันถึง
+        แต่คำถามของนักลงทุนไม่ใช่ "ธุรกิจดีไหม" (ดีเกินเถียง) คำถามคือ ราคา $1,758 ที่คิดเป็น <strong>P/E 62 เท่า</strong>
+        กำลังให้เรา bet กับอะไร ในเมื่อลูกค้าจริงมีไม่ถึง 5 ราย และลูกค้ารายใหญ่อันดับต้นๆ อย่างจีน (29% ของรายได้)
+        กำลังถูกรัฐบาลสหรัฐสั่งห้ามซื้อทีละขั้น
+      </p>
+
+      <figure class="ph-fig"><div class="ph-panel asml-panel"><div class="ph-eyebrow asml">Veldhoven · ภายในแหล่งกำเนิดแสง EUV — ฟิสิกส์ที่มีบริษัทเดียวในโลกทำสำเร็จ</div>
+        <svg viewBox="0 0 840 470" role="img" aria-label="cross-section of an EUV light source: a laser cannon firing at falling tin droplets, a plasma flash, a collector mirror focusing extreme-ultraviolet light through a stack of mirrors down onto a spinning wafer">
+          <defs>
+            <radialGradient id="asplasma" cx="0.5" cy="0.5" r="0.5">
+              <stop offset="0" stop-color="#a5f3fc" stop-opacity=".95"/>
+              <stop offset=".4" stop-color="#67e8f9" stop-opacity=".5"/>
+              <stop offset="1" stop-color="#67e8f9" stop-opacity="0"/>
+            </radialGradient>
+            <linearGradient id="asbeam" x1="0" y1="0" x2="1" y2="0">
+              <stop offset="0" stop-color="#f97316" stop-opacity="0"/>
+              <stop offset="1" stop-color="#fb923c" stop-opacity=".9"/>
+            </linearGradient>
+          </defs>
+          <!-- vacuum chamber -->
+          <rect x="24" y="40" width="792" height="392" rx="14" fill="#070b11" stroke="#17222f" stroke-width="2"/>
+          <text class="sim-mono asml-dim" x="44" y="66" style="text-anchor:start">ห้องสุญญากาศ · แสง EUV ถูกอากาศดูดกลืน จึงต้องเดินทางในสุญญากาศทั้งหมด</text>
+          <!-- laser cannon -->
+          <g>
+            <rect x="48" y="150" width="120" height="60" rx="8" fill="#0d1520" stroke="#2b3a4d" stroke-width="2"/>
+            <rect x="60" y="166" width="18" height="28" rx="3" fill="#1a2636"/>
+            <rect x="84" y="166" width="18" height="28" rx="3" fill="#1a2636"/>
+            <text class="s-t sm" x="108" y="138">เลเซอร์ CO₂ 30kW</text>
+            <line class="asml-beam" x1="168" y1="180" x2="360" y2="180" stroke="url(#asbeam)" stroke-width="4"/>
+          </g>
+          <!-- tin droplet dispenser -->
+          <g>
+            <rect x="342" y="52" width="40" height="34" rx="5" fill="#0d1520" stroke="#2b3a4d" stroke-width="2"/>
+            <text class="s-t sm" x="362" y="44">หัวฉีดดีบุก</text>
+            <circle class="asml-drop" cx="362" cy="120" r="4" fill="#cbd5e1"/>
+            <circle class="asml-drop" cx="362" cy="120" r="4" fill="#cbd5e1" style="animation-delay:.5s"/>
+            <circle class="asml-drop" cx="362" cy="120" r="4" fill="#cbd5e1" style="animation-delay:1s"/>
+            <text class="sim-mono asml-num sm" x="362" y="100">50,000 หยด/วินาที</text>
+          </g>
+          <!-- plasma flash -->
+          <g>
+            <circle class="asml-plasma" cx="362" cy="180" r="46" fill="url(#asplasma)"/>
+            <circle cx="362" cy="180" r="7" fill="#ecfeff"/>
+            <text class="sim-mono asml-hot" x="362" y="238">พลาสมา 220,000°C</text>
+            <text class="sim-mono asml-dim" x="362" y="256">ร้อนกว่าผิวดวงอาทิตย์ 40 เท่า</text>
+          </g>
+          <!-- collector mirror -->
+          <path d="M436,132 Q470,180 436,228" fill="none" stroke="#7dd3fc" stroke-width="3"/>
+          <text class="s-t sm" x="452" y="270">กระจกรวมแสง</text>
+          <!-- EUV light path through mirror stack -->
+          <g class="asml-light">
+            <path d="M436,180 L560,120 L640,180 L560,240 L660,300 L560,360 L680,410" fill="none" stroke="#67e8f9" stroke-width="2.5" stroke-dasharray="3 5"/>
+          </g>
+          <!-- mirror stack -->
+          <g fill="#0d1520" stroke="#3b82a6" stroke-width="2">
+            <rect x="548" y="104" width="26" height="34" rx="3" transform="rotate(24 561 121)"/>
+            <rect x="628" y="162" width="26" height="34" rx="3" transform="rotate(-20 641 179)"/>
+            <rect x="548" y="224" width="26" height="34" rx="3" transform="rotate(24 561 241)"/>
+            <rect x="648" y="284" width="26" height="34" rx="3" transform="rotate(-22 661 301)"/>
+            <rect x="548" y="344" width="26" height="34" rx="3" transform="rotate(24 561 361)"/>
+          </g>
+          <text class="sim-mono asml-num sm" x="600" y="88">กระจก 10+ บาน · ไม่มีเลนส์</text>
+          <text class="sim-mono asml-dim" x="600" y="426" style="text-anchor:middle">(EUV ทะลุแก้วทุกชนิด จึงสะท้อนอย่างเดียว)</text>
+          <!-- wafer -->
+          <g transform="translate(690,410)">
+            <ellipse class="asml-wafer" cx="0" cy="0" rx="46" ry="14" fill="#0d1520" stroke="#f97316" stroke-width="2"/>
+            <text class="s-t sm" x="0" y="-26">แผ่นเวเฟอร์</text>
+          </g>
+        </svg>
+      </div><figcaption><strong>นี่คือสิ่งที่ ASML ทำได้อยู่เจ้าเดียวในโลก:</strong> ยิงเลเซอร์ใส่หยดดีบุกที่ตกลงมา 50,000 ครั้งต่อวินาที ให้ระเบิดเป็นพลาสมาร้อน 220,000°C เพื่อรีดแสง EUV ความยาวคลื่น 13.5 นาโนเมตรออกมา — แสงที่สั้นจนทะลุแก้วทุกชนิด ทำให้ต้องใช้ "กระจกที่เรียบที่สุดในจักรวาล" กว่า 10 บานสะท้อนแทนเลนส์ ทั้งหมดในสุญญากาศ เพราะแค่อากาศก็ดูดแสงหมด — บริษัทใช้เวลา <strong>กว่า 30 ปีและงบวิจัยหลายหมื่นล้านยูโร</strong> กว่าจะทำสำเร็จเป็นเชิงพาณิชย์ นี่คือเหตุผลว่าทำไมคู่แข่งถึงไม่มี</figcaption></figure>
+
+      <h2>1. ธุรกิจนี้หาเงินจากอะไร — ขายเครื่องแพงที่สุดในโลกปีละไม่กี่ร้อยเครื่อง</h2>
+      <p>
+        รายได้ปี 2025 = <strong>€32,667M (+15.6%)</strong> มาจากสองขาที่นิสัยต่างกันชัดเจน:
+        ขาย<strong>เครื่อง</strong> €24,474M (75%) กับ<strong>บริการ + อัปเกรด</strong> (Installed Base Management)
+        €8,193M (25%) — ขาหลังนี่แหละคือของดีที่คนมองข้าม เพราะเป็นรายได้ต่อเนื่องจากฐานเครื่องที่ขายไปแล้วทั่วโลก
+        (ค่าบริการ อะไหล่ อัปเกรดให้เครื่องเก่าพิมพ์ละเอียดขึ้น) โตเงียบๆ ทุกปีไม่ขึ้นกับวัฏจักรการสั่งเครื่องใหม่
+      </p>
+
+      <figure class="ph-fig"><div class="ph-panel asml-panel"><div class="ph-eyebrow asml">เครื่อง TWINSCAN ตัวจริง · เวเฟอร์เปล่าเข้า → พิมพ์ลายชิปออก</div>
+        <svg viewBox="0 0 840 440" role="img" aria-label="side view of the real ASML TWINSCAN EUV scanner in cleanroom white: an EUV source module, the tall scanner body with a window showing the reticle, light column and wafer stage, a price tag hung on the machine, a blank silicon wafer turning into a patterned glowing wafer, and the two revenue streams drawn as a machine shipping out and a service wrench over the installed base">
+          <rect x="0" y="396" width="840" height="6" fill="#17222f"/>
+          <line x1="0" y1="396" x2="840" y2="396" stroke="#233240" stroke-width="1"/>
+          <!-- price tag hung from the machine top -->
+          <g transform="rotate(-5 375 60)">
+            <line x1="360" y1="92" x2="375" y2="46" stroke="#8b98a6" stroke-width="1.5"/>
+            <rect x="298" y="44" width="180" height="38" rx="8" fill="#3a1e0a" stroke="#f97316" stroke-width="2"/>
+            <circle cx="312" cy="63" r="4" fill="#f97316"/>
+            <text class="sim-mono asml-num" x="390" y="68">€150–400M/เครื่อง</text>
+          </g>
+          <!-- connector between source and body -->
+          <rect x="182" y="228" width="26" height="26" fill="#9aa7b4"/>
+          <!-- EUV source module -->
+          <g>
+            <rect x="64" y="156" width="120" height="240" rx="6" fill="#c3cfda" stroke="#6b7885" stroke-width="2"/>
+            <rect x="80" y="176" width="88" height="70" rx="4" fill="#0b1119" stroke="#3b82a6" stroke-width="1.5"/>
+            <circle class="asml-plasma" cx="124" cy="211" r="20" fill="url(#asplasma)"/>
+            <circle cx="124" cy="211" r="5" fill="#ecfeff"/>
+            <rect x="80" y="300" width="88" height="12" rx="3" fill="#9aa7b4"/>
+            <rect x="80" y="324" width="88" height="12" rx="3" fill="#9aa7b4"/>
+            <rect x="80" y="348" width="88" height="12" rx="3" fill="#9aa7b4"/>
+            <text class="s-t sm" x="124" y="382">แหล่งกำเนิดแสง EUV</text>
+          </g>
+          <!-- main scanner body -->
+          <g>
+            <rect x="208" y="92" width="240" height="304" rx="8" fill="#cdd8e2" stroke="#6b7885" stroke-width="2.5"/>
+            <rect x="208" y="92" width="240" height="30" rx="8" fill="#aeb9c4"/>
+            <text x="328" y="113" style="fill:#33414f;font-weight:600" text-anchor="middle" font-size="14">TWINSCAN · EUV</text>
+            <!-- window into optics -->
+            <rect x="226" y="138" width="96" height="222" rx="5" fill="#0b1119" stroke="#3b82a6" stroke-width="1.5"/>
+            <!-- reticle / photomask -->
+            <rect x="242" y="150" width="64" height="14" rx="2" fill="#1a2636" stroke="#67e8f9" stroke-width="1.4"/>
+            <text class="sim-mono asml-dim" x="274" y="182">เรติเคิล</text>
+            <!-- projection light column -->
+            <path class="asml-light" d="M274,166 L274,330" stroke="#67e8f9" stroke-width="3" stroke-dasharray="3 5"/>
+            <g fill="#0d1520" stroke="#3b82a6" stroke-width="1.4">
+              <rect x="261" y="196" width="26" height="15" rx="2"/>
+              <rect x="261" y="230" width="26" height="15" rx="2"/>
+              <rect x="261" y="264" width="26" height="15" rx="2"/>
+            </g>
+            <!-- wafer stage -->
+            <rect x="242" y="338" width="64" height="10" rx="2" fill="#3a1e0a" stroke="#f97316" stroke-width="1.4"/>
+            <ellipse class="asml-wafer" cx="274" cy="334" rx="24" ry="5" fill="#0d1520" stroke="#67e8f9" stroke-width="1.4"/>
+            <text class="sim-mono asml-num sm" x="274" y="372">แท่นเวเฟอร์เลื่อนเร็วมาก</text>
+            <!-- side cabinets -->
+            <g fill="#b6c2ce" stroke="#6b7885" stroke-width="1.5">
+              <rect x="338" y="146" width="98" height="62" rx="4"/>
+              <rect x="338" y="218" width="98" height="62" rx="4"/>
+              <rect x="338" y="290" width="98" height="70" rx="4"/>
+            </g>
+            <text class="s-t sm" x="387" y="182">ระบบวัด</text>
+            <text class="s-t sm" x="387" y="254">ควบคุม</text>
+            <text class="s-t sm" x="387" y="330">สุญญากาศ</text>
+          </g>
+          <!-- what it makes: blank wafer -> patterned wafer -->
+          <g>
+            <circle cx="760" cy="150" r="32" fill="#8b98a6" stroke="#6b7885" stroke-width="2"/>
+            <text class="s-t sm" x="760" y="200">เวเฟอร์เปล่า</text>
+            <path d="M716,150 L604,150" stroke="#f97316" stroke-width="2.5"/>
+            <polygon points="604,150 616,144 616,156" fill="#f97316"/>
+            <text class="sim-mono asml-num sm" x="660" y="138">พิมพ์ลายวงจร</text>
+            <circle class="asml-wafer" cx="540" cy="150" r="32" fill="#0b1119" stroke="#67e8f9" stroke-width="2"/>
+            <g stroke="#67e8f9" stroke-width="0.7" opacity=".75">
+              <line x1="518" y1="132" x2="562" y2="132"/><line x1="514" y1="144" x2="566" y2="144"/><line x1="514" y1="156" x2="566" y2="156"/><line x1="518" y1="168" x2="562" y2="168"/>
+              <line x1="528" y1="120" x2="528" y2="180"/><line x1="540" y1="118" x2="540" y2="182"/><line x1="552" y1="120" x2="552" y2="180"/>
+            </g>
+            <text class="s-t sm" x="540" y="200">= ชิปทุกตัวในโลก</text>
+          </g>
+          <!-- two revenue streams as real objects -->
+          <g>
+            <!-- sale: a machine shipping out on a wheeled pallet -->
+            <text class="s-t sm" x="528" y="274">ขายเครื่อง</text>
+            <text class="sim-mono asml-big" x="528" y="300">€24.5B</text>
+            <rect x="500" y="312" width="56" height="56" rx="4" fill="#c3cfda" stroke="#6b7885" stroke-width="2"/>
+            <rect x="500" y="312" width="56" height="11" fill="#aeb9c4"/>
+            <rect x="494" y="368" width="68" height="9" rx="3" fill="#9aa7b4"/>
+            <circle cx="508" cy="382" r="6" fill="#0d1520" stroke="#6b7885" stroke-width="2"/><circle cx="548" cy="382" r="6" fill="#0d1520" stroke="#6b7885" stroke-width="2"/>
+            <path class="asml-beam" d="M566,342 L602,342" stroke="#f97316" stroke-width="3"/><polygon points="602,342 590,336 590,348" fill="#f97316"/>
+            <text class="sim-mono asml-dim" x="528" y="392">75% · ปีนี้ 48 EUV</text>
+          </g>
+          <g>
+            <!-- service: recurring wrench over the installed base -->
+            <text class="s-t sm" x="704" y="274">บริการ + อัปเกรด</text>
+            <text class="sim-mono asml-big" x="704" y="300">€8.2B</text>
+            <g fill="#0d1520" stroke="#6b7885" stroke-width="1.6">
+              <rect x="650" y="336" width="20" height="32" rx="2"/><rect x="678" y="336" width="20" height="32" rx="2"/><rect x="706" y="336" width="20" height="32" rx="2"/><rect x="734" y="336" width="20" height="32" rx="2"/>
+            </g>
+            <path class="asml-belt" d="M652,328 q50,-22 100,0" stroke="#38bdf8" stroke-width="2.5" fill="none"/>
+            <g transform="translate(700,320) rotate(40)" stroke="#f97316" stroke-width="6" fill="none" stroke-linecap="round">
+              <line x1="-12" y1="0" x2="12" y2="0"/><circle cx="-15" cy="0" r="6" stroke-width="4"/>
+            </g>
+            <text class="sim-mono asml-dim" x="704" y="388">25% · annuity จากฐานทั่วโลก</text>
+          </g>
+        </svg>
+      </div><figcaption><strong>นี่คือตัวสินค้าจริง — เครื่อง TWINSCAN EUV:</strong> เวเฟอร์ซิลิคอนเปล่าเข้าไปด้านหนึ่ง ออกมาอีกด้านเป็นแผ่นที่พิมพ์ลายวงจรระดับนาโนไว้แล้ว ซึ่งจะกลายเป็นชิปทุกตัวในโลก — หนึ่งเครื่องราคา €150M (NXE) ถึง €400M (High-NA EXE) หนักเท่ารถบัสสองคัน ต้องใช้โบอิ้ง 747 สามลำขน ปีนี้ส่งมอบ EUV แค่ 48 เครื่อง แต่รายได้มาสองขา: <strong>ขายเครื่อง €24.5B</strong> (ก้อนใหญ่แต่ขึ้นลงตามวัฏจักร) กับ<strong>บริการ+อัปเกรด €8.2B</strong> ที่เก็บจากฐานเครื่องติดตั้งทั่วโลกเป็น annuity โตนิ่งทุกปี — ข้อเสียคือรายได้ผูกกับ "จำนวนดีล" ที่น้อยมาก ลูกค้าเลื่อนออเดอร์ไม่กี่เครื่อง ไตรมาสนั้นสะเทือนทั้งงบ นี่คือรากของความผันผวนในหัวข้อ backlog</figcaption></figure>
+
+      <h2>2. Moat: การผูกขาดที่แท้จริง — ไม่ใช่ "เจ้าตลาด" แต่คือ "เจ้าเดียว"</h2>
+      <p>
+        คำว่า moat ถูกใช้เฝือจนแทบไร้ความหมาย แต่ ASML คือหนึ่งในไม่กี่บริษัทที่สมควรได้คำนี้เต็มปาก
+        เพราะส่วนแบ่งตลาด EUV ของมันคือ <strong>100%</strong> — ไม่ใช่ 60% ไม่ใช่ 80% แต่ร้อยเปอร์เซ็นต์
+        ไม่มีคู่แข่งแม้แต่รายเดียวในโลกที่ทำเครื่อง EUV ขายได้ และในตลาดเครื่องพิมพ์ลาย (lithography) ทั้งหมด
+        ASML กินราว <strong>90%</strong> เหลือเศษให้ Nikon กับ Canon ในเครื่องรุ่นเก่าเท่านั้น
+      </p>
+      <p>
+        คูเมืองนี้ไม่ได้มาจากสิทธิบัตรใบเดียว แต่มาจากสามชั้นที่ทับกัน — (1) <strong>ฟิสิกส์ 30 ปี:</strong>
+        การรีดแสง 13.5nm ให้เสถียรพอผลิตจริงเป็นปัญหาที่ทั้งอุตสาหกรรมแก้ไม่ได้จนกระทั่ง ASML ทำสำเร็จ
+        (2) <strong>ห่วงโซ่อุปทานที่ผูกขาดซ้อนผูกขาด:</strong> กระจกจาก Zeiss, แหล่งกำเนิดแสงจาก Cymer
+        (ASML ซื้อทั้งคู่มาไว้ในมือ) เลเซอร์จาก Trumpf — ของพวกนี้คนอื่นซื้อไม่ได้ (3) <strong>R&D 14% ของยอดทุกปี:</strong>
+        ปี 2025 ทุ่ม <strong>€4,699M</strong> ไปกับวิจัย มากกว่ากำไรสุทธิของบริษัทเทคขนาดกลางทั้งบริษัท
+        — ใครจะไล่ตามต้องเผาเงินระดับนี้ต่อเนื่องอีกสิบปีโดยไม่มีรายได้กลับมาเลย
+      </p>
+      <p>
+        หลักฐานว่า moat นี้ "เก็บค่าผ่านทางได้จริง" อยู่ในตัวเลขเดียว: <strong>gross margin 52.8%</strong> บนเครื่องจักรหนักเป็นตัน
+        — เครื่องจักรอุตสาหกรรมทั่วไป margin 20–30% ก็เก่งแล้ว การที่ ASML ทำได้ 52.8% แปลว่าลูกค้า
+        <em>ไม่มีทางเลือกอื่นให้ต่อรอง</em>
+      </p>
+
+      <h2>3. งบที่เกือบสมบูรณ์แบบ — และ R&D ที่เป็นทั้งเกราะและภาระ</h2>
+
+      <figure class="ph-fig"><div class="ph-panel asml-panel"><div class="ph-eyebrow asml">กรวยกลั่นกำไร · €32,667M เทเข้า เหลือ €9,609M ที่ก้นโหล</div>
+        <svg viewBox="0 0 840 440" role="img" aria-label="a funnel where 32.7 billion of revenue is poured in the top and side pipes siphon off cost of sales, R&amp;D and SG&amp;A into three drums, leaving a thin stream dripping into a glowing jar of 9.6 billion net income at the bottom">
+          <defs>
+            <radialGradient id="asjar" cx="0.5" cy="0.5" r="0.5">
+              <stop offset="0" stop-color="#fdba74" stop-opacity=".9"/>
+              <stop offset="1" stop-color="#f97316" stop-opacity="0"/>
+            </radialGradient>
+          </defs>
+          <rect x="0" y="418" width="840" height="6" fill="#17222f"/>
+          <!-- inflow -->
+          <text class="sim-mono asml-num" x="302" y="34" text-anchor="middle">รายได้เทเข้า €32,667M (+15.6%)</text>
+          <path class="asml-beam" d="M302,42 L302,92" stroke="#f97316" stroke-width="4"/>
+          <!-- funnel body -->
+          <path d="M212,92 L392,92 L392,180 L318,330 L318,356 L286,356 L286,330 L212,180 Z" fill="#0b1119" stroke="#3b82a6" stroke-width="2"/>
+          <line class="asml-fill" x1="216" y1="112" x2="388" y2="112" stroke="#38bdf8" stroke-width="3"/>
+          <text class="sim-mono asml-dim" x="302" y="150" text-anchor="middle">GM 52.8%</text>
+          <!-- side drains to drums (right) -->
+          <g stroke="#3b4a5d" stroke-width="9" fill="none" opacity=".85">
+            <path d="M378,206 H452"/><path d="M358,250 H452"/><path d="M336,294 H452"/>
+          </g>
+          <!-- drum: COGS -->
+          <g>
+            <ellipse cx="510" cy="176" rx="56" ry="12" fill="#161f29" stroke="#5a6b7e" stroke-width="1.6"/>
+            <rect x="454" y="176" width="112" height="56" fill="#0f1720" stroke="#5a6b7e" stroke-width="1.6"/>
+            <ellipse cx="510" cy="232" rx="56" ry="12" fill="#0f1720" stroke="#5a6b7e" stroke-width="1.6"/>
+            <text class="s-t sm" x="510" y="200" text-anchor="middle">ต้นทุนขาย</text>
+            <text class="sim-mono asml-warn" x="510" y="222" text-anchor="middle">−€15,409M</text>
+          </g>
+          <!-- drum: R&D (moat armour, orange) -->
+          <g>
+            <ellipse cx="640" cy="240" rx="44" ry="10" fill="#2a1a0a" stroke="#f97316" stroke-width="1.8"/>
+            <rect x="596" y="240" width="88" height="46" fill="#1c1206" stroke="#f97316" stroke-width="1.8"/>
+            <ellipse cx="640" cy="286" rx="44" ry="10" fill="#1c1206" stroke="#f97316" stroke-width="1.8"/>
+            <text class="s-t sm" x="640" y="262" text-anchor="middle">R&amp;D · เกราะ moat</text>
+            <text class="sim-mono asml-num" x="640" y="281" text-anchor="middle">−€4,699M</text>
+          </g>
+          <!-- drum: SG&A (small) -->
+          <g>
+            <ellipse cx="500" cy="300" rx="34" ry="8" fill="#161f29" stroke="#5a6b7e" stroke-width="1.4"/>
+            <rect x="466" y="300" width="68" height="34" fill="#0f1720" stroke="#5a6b7e" stroke-width="1.4"/>
+            <ellipse cx="500" cy="334" rx="34" ry="8" fill="#0f1720" stroke="#5a6b7e" stroke-width="1.4"/>
+            <text class="sim-mono asml-dim" x="500" y="322" text-anchor="middle">SG&amp;A −€1,258M</text>
+          </g>
+          <!-- drip + glowing net-profit jar -->
+          <circle class="asml-drop" cx="302" cy="368" r="4" fill="#fdba74"/>
+          <circle class="asml-drop" cx="302" cy="368" r="4" fill="#fdba74" style="animation-delay:.7s"/>
+          <ellipse cx="302" cy="388" rx="70" ry="16" fill="url(#asjar)"/>
+          <path d="M256,372 Q256,412 302,412 Q348,412 348,372" fill="#1c1206" stroke="#f97316" stroke-width="2"/>
+          <ellipse cx="302" cy="372" rx="46" ry="10" fill="#3a2408" stroke="#f97316" stroke-width="2"/>
+          <text class="sim-mono asml-big" x="302" y="400" text-anchor="middle">€9,609M</text>
+          <text class="s-t sm" x="302" y="430" text-anchor="middle">กำไรสุทธิ 29.4%</text>
+          <!-- stamped tags on the left -->
+          <g>
+            <text class="s-t sm" x="70" y="200" style="text-anchor:start">op margin</text>
+            <text class="sim-mono asml-big" x="70" y="226" style="text-anchor:start">34.6%</text>
+            <text class="sim-mono asml-dim" x="70" y="246" style="text-anchor:start">op income €11,301M</text>
+            <text class="s-t sm" x="70" y="292" style="text-anchor:start">EPS (basic)</text>
+            <text class="sim-mono asml-num" x="70" y="316" style="text-anchor:start">€24.73 · +28% YoY</text>
+            <text class="sim-mono asml-dim" x="70" y="352" style="text-anchor:start">ภาษีจ่ายจริง 17.7%</text>
+            <text class="sim-mono asml-dim" x="70" y="372" style="text-anchor:start">เงินสด €13.3B · หนี้ต่ำ</text>
+          </g>
+        </svg>
+      </div><figcaption><strong>งบนี้แทบหาที่ติไม่ได้:</strong> gross margin 52.8% (ดีขึ้นจาก 51.3% ปีก่อน), operating margin 34.6%, net margin 29.4% บนธุรกิจฮาร์ดแวร์ — ตัวเลขระดับบริษัทซอฟต์แวร์ EPS โต +28% เป็น €24.73 งบดุลมีเงินสด €13.3B หนี้ต่ำ — <strong>แต่จุดที่ต้องเข้าใจคือ R&D €4,699M (14.4% ของยอด) ไม่ใช่ตัวเลือก มันคือค่าธรรมเนียมรักษา moat</strong> วันไหน ASML ลด R&D เพื่อดันกำไรระยะสั้น วันนั้นคือวันที่คูเมืองเริ่มตื้น — ผู้ถือหุ้นระยะยาวควรอยาก<em>ให้</em>เขาใช้เงินก้อนนี้ ไม่ใช่กลัวมัน</figcaption></figure>
+
+      <h2>4. Backlog €38.8B: เรดาร์ที่มองเห็นไม่ไกลเท่าที่คิด</h2>
+      <p>
+        ณ สิ้นปี 2025 backlog = <strong>€38.8B</strong> และปีนี้ออเดอร์ใหม่ (net bookings) เข้ามา €28,035M
+        โดยไตรมาส 4 เพียงไตรมาสเดียวจองเข้ามา <strong>€13,158M</strong> (เป็น EUV €7.4B) — ตัวเลขจองที่ทำลายสถิติ
+        สะท้อนว่า supercycle ของ AI กำลังดันความต้องการเครื่องรุ่นบนสุด
+      </p>
+      <p>
+        แต่นี่คือจุดที่ต้องระวังการเปรียบเทียบมักง่าย: backlog €38.8B ฟังดูใหญ่ แต่เทียบกับรายได้ €32.7B/ปี
+        มันคือ visibility แค่ <strong>~1.2 ปี</strong> เท่านั้น — บางกว่าที่เราเคยชม LMT (2.6 ปี) หรือ AVGO มาก
+        และออเดอร์ ASML เป็น <strong>ยกเลิก/เลื่อนได้</strong> ไม่เหมือนสัญญากลาโหม ประวัติศาสตร์เพิ่งเตือนเราเอง:
+        ไตรมาส 3 ปี 2024 ยอดจองหล่นเหลือ €2.6B จนหุ้นร่วงหนัก — ธุรกิจที่ดีเลิศแต่ <strong>รายได้ยังหายใจตามวัฏจักรทุนของอุตสาหกรรมชิป</strong>
+      </p>
+
+      <figure class="ph-fig"><div class="ph-panel asml-panel"><div class="ph-eyebrow asml">คิวลังเครื่องรอส่งมอบ · backlog €38.8B = รายได้แค่ ~1.2 ปี</div>
+        <svg viewBox="0 0 840 380" role="img" aria-label="a queue of crated machines lined up on the factory floor receding toward a loading dock, representing the backlog: new orders arriving from the left, machines shipping out as revenue on the right, and a warning that the queue can shrink">
+          <rect x="0" y="330" width="840" height="6" fill="#17222f"/>
+          <line x1="0" y1="330" x2="840" y2="330" stroke="#233240" stroke-width="1"/>
+          <text class="sim-mono asml-big" x="420" y="44" text-anchor="middle">backlog €38.8B ≈ รายได้ 1.2 ปี</text>
+          <text class="sim-mono asml-dim" x="420" y="66" text-anchor="middle">(+10% YoY · แต่บางกว่า LMT 2.6 ปี — และออเดอร์เครื่องชิป "ยกเลิกได้")</text>
+          <!-- new orders arriving (left) -->
+          <g>
+            <path class="asml-beam" d="M28,150 L96,150" stroke="#f97316" stroke-width="3"/><polygon points="96,150 84,144 84,156" fill="#f97316"/>
+            <text class="s-t sm" x="30" y="132" style="text-anchor:start">ออเดอร์เข้า 2025</text>
+            <text class="sim-mono asml-num sm" x="30" y="170" style="text-anchor:start">€28.0B</text>
+            <text class="sim-mono asml-num sm" x="30" y="188" style="text-anchor:start">Q4 = €13.2B</text>
+            <text class="sim-mono asml-dim" x="30" y="206" style="text-anchor:start">(EUV €7.4B)</text>
+          </g>
+          <!-- queue of crated machines receding toward the dock -->
+          <g stroke="#6b7885" stroke-width="2">
+            <g fill="#c3cfda"><rect x="120" y="222" width="112" height="108" rx="3"/></g>
+            <g fill="#bcc8d3"><rect x="244" y="242" width="96" height="88" rx="3"/></g>
+            <g fill="#b3bfca"><rect x="352" y="258" width="80" height="72" rx="3"/></g>
+            <g fill="#a9b5c1"><rect x="444" y="272" width="66" height="58" rx="3"/></g>
+            <g fill="#9fabb8"><rect x="522" y="284" width="54" height="46" rx="3"/></g>
+            <g fill="#96a2b0"><rect x="588" y="294" width="44" height="36" rx="3"/></g>
+          </g>
+          <!-- crate cross-battens + labels on the front two -->
+          <g stroke="#8996a4" stroke-width="1.6">
+            <line x1="120" y1="222" x2="232" y2="330"/><line x1="232" y1="222" x2="120" y2="330"/>
+            <line x1="244" y1="242" x2="340" y2="330"/><line x1="340" y1="242" x2="244" y2="330"/>
+          </g>
+          <text x="176" y="214" style="fill:#8ba0b3" text-anchor="middle" font-size="12">เครื่องที่ลูกค้าสั่งแล้ว · รอผลิต+ส่ง</text>
+          <!-- loading dock / shipping out (right) -->
+          <g>
+            <rect x="656" y="286" width="80" height="44" rx="3" fill="#0d1520" stroke="#6b7885" stroke-width="2"/>
+            <rect x="736" y="298" width="34" height="32" rx="2" fill="#0d1520" stroke="#6b7885" stroke-width="2"/>
+            <circle cx="676" cy="330" r="8" fill="#0a1017" stroke="#6b7885" stroke-width="2"/><circle cx="716" cy="330" r="8" fill="#0a1017" stroke="#6b7885" stroke-width="2"/>
+            <path class="asml-beam" d="M642,262 L706,262" stroke="#f97316" stroke-width="3"/><polygon points="706,262 694,256 694,268" fill="#f97316"/>
+            <text class="s-t sm" x="700" y="250" text-anchor="middle">ส่งมอบ = รายได้</text>
+            <text class="sim-mono asml-num sm" x="700" y="356" text-anchor="middle">~€33B/ปี</text>
+          </g>
+          <!-- warning: queue can drop -->
+          <g transform="rotate(-3 300 96)">
+            <rect x="180" y="82" width="248" height="34" rx="6" fill="#2a1414" stroke="#f87171" stroke-width="1.6"/>
+            <text class="sim-mono asml-warn" x="304" y="104" text-anchor="middle">Q3'24 คิวเคยหด ออเดอร์เหลือ €2.6B</text>
+          </g>
+        </svg>
+      </div><figcaption><strong>backlog ใหญ่แต่ไม่ใช่เกราะกันวัฏจักร</strong> — ต่างจากสัญญากลาโหมที่ล็อกตาย ออเดอร์เครื่องชิปเลื่อน/ยกเลิกได้เมื่อลูกค้าชะลอลงทุน และถังนี้เก็บงานไว้แค่ราวปีเศษ นั่นแปลว่ารายได้ ASML ปีต่อปียัง<strong>ขึ้นลงตามรอบการลงทุนของ TSMC/Samsung/Intel</strong> — เก่งแค่ไหนก็หนีวัฏจักรทุน (capital cycle) ของอุตสาหกรรมปลายน้ำไม่พ้น สิ่งที่ ASML การันตีได้คือ "เมื่อโลกสร้างชิปล้ำ ต้องผ่านเรา" ไม่ใช่ "โลกสร้างชิปเท่าเดิมทุกปี"</figcaption></figure>
+
+      <h2>5. แผลที่ 1: จีน — ลูกค้ารายใหญ่ที่กำลังถูกสั่งห้ามซื้อทีละขั้น</h2>
+      <p>
+        จีนคือ <strong>~29% ของรายได้ปี 2025</strong> ลดจากจุดพีค <strong>~41% ในปี 2024</strong> — ตัวเลขนี้ซ่อนเรื่องเล่าที่สำคัญที่สุดของ bear case
+        ปี 2023–2024 จีนแห่ซื้อเครื่อง DUV (รุ่นรองที่ยังไม่โดนแบน) ตุนไว้ก่อนกฎคุมส่งออกจะรัดแน่นขึ้น
+        เป็น "การซื้อล่วงหน้า" (pull-forward) ที่ปั๊มรายได้ ASML ให้ดูดีเกินจริงชั่วคราว
+      </p>
+      <p>
+        ปัญหาคือ: เครื่อง EUV <strong>ห้ามขายให้จีนอยู่แล้ว</strong> (กฎเนเธอร์แลนด์+สหรัฐ) และรอบใหม่เริ่มรัด DUV รุ่นสูงด้วย
+        ASML เองเตือนว่า<strong>รายได้จีนปี 2026 จะลดลงแรง</strong> คำถามลงทุนจริงคือ: ดีมานด์ AI จากไต้หวัน/เกาหลี/สหรัฐ
+        จะโตทันชดเชยหลุมจีนที่กำลังปิดหรือไม่ — งบปี 2025 ตอบว่า "ทันแบบหวุดหวิด" (รายได้รวมยังโต 15.6% ทั้งที่จีนเริ่มแผ่ว)
+        แต่ปี 2026 คือปีพิสูจน์ของจริง
+      </p>
+
+      <figure class="ph-fig"><div class="ph-panel asml-panel"><div class="ph-eyebrow asml">ด่านคุมส่งออก · ลังเครื่อง EUV ที่ถูกกั้นไม่ให้ไปจีน</div>
+        <svg viewBox="0 0 840 360" role="img" aria-label="a customs checkpoint on the road to China: a crated EUV machine blocked at a red boom barrier stamped forbidden, a DUV crate squeezing through the narrowing gate, and descending signposts showing China revenue share falling from 41 to 29 percent toward a sharp 2026 drop">
+          <rect x="0" y="308" width="840" height="6" fill="#17222f"/>
+          <line x1="0" y1="308" x2="840" y2="308" stroke="#233240" stroke-width="1"/>
+          <!-- destination: China -->
+          <g>
+            <rect x="728" y="150" width="88" height="158" rx="4" fill="#1a1410" stroke="#f97316" stroke-width="2"/>
+            <g fill="#0a1017"><rect x="744" y="172" width="14" height="18"/><rect x="786" y="172" width="14" height="18"/><rect x="744" y="206" width="14" height="18"/><rect x="786" y="206" width="14" height="18"/><rect x="744" y="240" width="14" height="18"/><rect x="786" y="240" width="14" height="18"/></g>
+            <text class="s-t sm" x="772" y="138">ตลาดจีน</text>
+          </g>
+          <!-- boom barrier -->
+          <g>
+            <rect x="472" y="150" width="15" height="158" fill="#0d1520" stroke="#6b7885" stroke-width="1.5"/>
+            <g transform="rotate(-19 487 160)">
+              <rect x="487" y="153" width="156" height="14" rx="3" fill="#f87171"/>
+              <g fill="#0a1017"><rect x="512" y="153" width="20" height="14"/><rect x="556" y="153" width="20" height="14"/><rect x="600" y="153" width="20" height="14"/></g>
+            </g>
+            <text class="sim-mono asml-warn" x="486" y="130" text-anchor="middle">ด่านคุมส่งออก สหรัฐ+เนเธอร์แลนด์</text>
+          </g>
+          <!-- EUV crate blocked -->
+          <g>
+            <rect x="250" y="198" width="152" height="100" rx="4" fill="#c3cfda" stroke="#6b7885" stroke-width="2"/>
+            <g stroke="#8996a4" stroke-width="2"><line x1="250" y1="232" x2="402" y2="232"/><line x1="301" y1="198" x2="301" y2="298"/><line x1="351" y1="198" x2="351" y2="298"/></g>
+            <text x="326" y="224" style="fill:#33414f;font-weight:600" text-anchor="middle" font-size="15">EUV</text>
+            <g transform="rotate(-11 326 270)">
+              <ellipse cx="326" cy="270" rx="60" ry="20" fill="none" stroke="#ef4444" stroke-width="3"/>
+              <text x="326" y="276" fill="#ef4444" text-anchor="middle" font-size="15" style="font-weight:700">ห้ามส่งออก</text>
+            </g>
+            <text class="sim-mono asml-warn" x="332" y="186" text-anchor="middle">EUV แบนขายจีน 100%</text>
+          </g>
+          <!-- DUV squeezing through -->
+          <g>
+            <rect x="508" y="240" width="96" height="64" rx="4" fill="#aeb9c4" stroke="#6b7885" stroke-width="1.6"/>
+            <text x="556" y="278" style="fill:#33414f;font-weight:600" text-anchor="middle" font-size="13">DUV</text>
+            <text class="sim-mono asml-dim" x="556" y="224" text-anchor="middle">DUV ยังผ่าน—ช่องแคบลง</text>
+          </g>
+          <!-- descending signposts of China % -->
+          <g>
+            <text class="s-t sm" x="130" y="66" text-anchor="middle">สัดส่วนรายได้จากจีน</text>
+            <g>
+              <rect x="66" y="92" width="58" height="30" rx="3" fill="#0a1017" stroke="#3d5230" stroke-width="1.5"/>
+              <text class="sim-mono asml-big" x="95" y="114" text-anchor="middle">41%</text>
+              <line x1="95" y1="122" x2="95" y2="150" stroke="#6b7885" stroke-width="2"/>
+              <text class="sim-mono asml-dim" x="95" y="164" text-anchor="middle">2024 พีค</text>
+            </g>
+            <g>
+              <rect x="132" y="120" width="58" height="30" rx="3" fill="#0a1017" stroke="#2b3a4d" stroke-width="1.5"/>
+              <text class="sim-mono asml-num" x="161" y="142" text-anchor="middle">29%</text>
+              <line x1="161" y1="150" x2="161" y2="172" stroke="#6b7885" stroke-width="2"/>
+              <text class="sim-mono asml-dim" x="161" y="186" text-anchor="middle">2025</text>
+            </g>
+            <g>
+              <rect x="196" y="150" width="58" height="30" rx="3" fill="#2a1414" stroke="#f87171" stroke-width="1.5"/>
+              <text class="sim-mono asml-warn" x="225" y="172" text-anchor="middle">2026 ↘</text>
+              <line x1="225" y1="180" x2="225" y2="200" stroke="#6b7885" stroke-width="2"/>
+              <text class="sim-mono asml-dim" x="225" y="214" text-anchor="middle">ลดแรง</text>
+            </g>
+          </g>
+        </svg>
+      </div><figcaption><strong>หลุมจีนกำลังปิด และมันเคยเป็นเสาค้ำที่ใหญ่กว่าที่ตลาดชอบพูดถึง</strong> — ตอนพีคจีนคือ 41% ของรายได้ (ส่วนใหญ่เป็น DUV ที่จีนเร่งตุนก่อนโดนแบน) การที่ตัวเลขนี้กำลังไหลลงสู่ ~29% และจะลดอีกในปี 2026 หมายความว่าเครื่องยนต์การเติบโตต้องย้ายไปพึ่ง AI/leading-edge จากไต้หวัน-เกาหลี-สหรัฐเต็มตัว — <strong>ถ้ารอบ AI สะดุดในจังหวะเดียวกับที่จีนหาย = สองแรงลบมาพร้อมกัน</strong> นี่คือความเสี่ยงเชิงภูมิรัฐศาสตร์ที่ประเมินเป็นตัวเลขล่วงหน้าไม่ได้ ต้องคิดราคาเผื่อ</figcaption></figure>
+
+      <h2>6. แผลที่ 2: ลูกค้าไม่ถึง 5 ราย และวัฏจักรที่หนีไม่พ้น</h2>
+      <p>
+        moat ระดับผูกขาดมาพร้อมกระจกเงาด้านมืด: <strong>ผู้ผูกขาดขายของให้ผู้ผูกขาดด้วยกัน</strong>
+        ลูกค้าที่ซื้อ EUV จริงๆ ในโลกนับหัวได้ — TSMC, Samsung, Intel, SK Hynix, Micron — แค่นั้น
+        รายได้ก้อนโตกระจุกอยู่กับ TSMC รายเดียวมากที่สุด ถ้า TSMC เลื่อนแผน capex หรือ Intel สะดุด
+        (ซึ่ง Intel สะดุดจริงมาหลายปี) ออเดอร์เครื่องรุ่นบนของ ASML สะเทือนทันที
+      </p>
+      <p>
+        และเทคโนโลยีเจเนอเรชันถัดไป <strong>High-NA EUV</strong> (เครื่อง EXE ราคา €350–400M) ที่เป็นความหวังการเติบโต
+        ยังต้องพิสูจน์ว่าลูกค้าจะรับไปผลิตจริงในสเกลใหญ่เมื่อไหร่ — ASML ตั้งเป้าให้ High-NA เป็น ~¼ ของรายได้ EUV ภายในปี 2028
+        แต่ถ้าลูกค้ายืดการปรับใช้ (เพราะแพงมากและ integrate ยาก) เส้นการเติบโตก็ยืดตาม
+        นี่คือธุรกิจที่ <strong>คุณภาพระดับ 10/10 แต่จำนวนจุดพึ่งพา (single points of failure) เยอะผิดคาดสำหรับผู้ผูกขาด</strong>
+      </p>
+
+      <h2>7. ราคา $1,758 กำลังให้เรา bet กับอะไร</h2>
+
+      <figure class="ph-fig"><div class="ph-panel asml-panel"><div class="ph-eyebrow asml">ตาชั่งราคา · กำไรวันนี้ vs ราคาที่ตลาดจ่าย @ $1,758 (3 ก.ค. 2026)</div>
+        <svg viewBox="0 0 840 420" role="img" aria-label="a balance scale weighing today earnings on the left pan against a tall stack of coins for the market price on the right, the right pan sinking lower, with a fulcrum labelled P/E 62 times and a 2030 summit flag showing the growth the price is betting on">
+          <rect x="0" y="360" width="840" height="6" fill="#17222f"/>
+          <line x1="0" y1="360" x2="840" y2="360" stroke="#233240" stroke-width="1"/>
+          <text class="sim-mono asml-warn" x="420" y="42" text-anchor="middle">⚠ ราคาจ่ายให้ "การผูกขาด + แผนโต 2030" ไปแล้วเกือบเต็ม</text>
+          <!-- stand -->
+          <polygon points="392,360 448,360 420,332" fill="#3b4a5d"/>
+          <rect x="414" y="150" width="12" height="184" fill="#4a5b6e"/>
+          <circle cx="420" cy="150" r="7" fill="#f97316"/>
+          <!-- beam: tilts right-down (right = price is heavier) -->
+          <line x1="232" y1="126" x2="608" y2="174" stroke="#8b98a6" stroke-width="5" stroke-linecap="round"/>
+          <!-- LEFT pan: the business / earnings -->
+          <g>
+            <line x1="232" y1="126" x2="214" y2="196" stroke="#5a6b7e" stroke-width="1.5"/>
+            <line x1="232" y1="126" x2="250" y2="196" stroke="#5a6b7e" stroke-width="1.5"/>
+            <path d="M196,196 a36,14 0 0 0 72,0" fill="none" stroke="#8b98a6" stroke-width="3"/>
+            <!-- mini TWINSCAN machine on the pan -->
+            <rect x="214" y="158" width="20" height="38" rx="2" fill="#c3cfda" stroke="#6b7885" stroke-width="1.5"/>
+            <rect x="236" y="150" width="16" height="46" rx="2" fill="#cdd8e2" stroke="#6b7885" stroke-width="1.5"/>
+            <text class="s-t sm" x="232" y="230" text-anchor="middle">ธุรกิจวันนี้</text>
+            <text class="sim-mono asml-big" x="232" y="256" text-anchor="middle">กำไร €9.6B</text>
+            <text class="sim-mono asml-dim" x="232" y="276" text-anchor="middle">EPS €24.73 (≈ $28.3)</text>
+          </g>
+          <!-- RIGHT pan: the price (coin stack, heavier → lower) -->
+          <g>
+            <line x1="608" y1="174" x2="590" y2="252" stroke="#5a6b7e" stroke-width="1.5"/>
+            <line x1="608" y1="174" x2="626" y2="252" stroke="#5a6b7e" stroke-width="1.5"/>
+            <path d="M566,252 a42,16 0 0 0 84,0" fill="none" stroke="#8b98a6" stroke-width="3"/>
+            <g fill="#f5b642" stroke="#c2410c" stroke-width="1.2">
+              <ellipse cx="608" cy="250" rx="30" ry="8"/><ellipse cx="608" cy="238" rx="30" ry="8"/><ellipse cx="608" cy="226" rx="30" ry="8"/><ellipse cx="608" cy="214" rx="28" ry="8"/><ellipse cx="608" cy="202" rx="26" ry="8"/><ellipse cx="608" cy="190" rx="22" ry="7"/>
+            </g>
+            <text class="sim-mono asml-big" x="608" y="290" text-anchor="middle">ราคา $691B</text>
+            <text class="sim-mono asml-dim" x="608" y="310" text-anchor="middle">$1,758/หุ้น (≈ €604B)</text>
+          </g>
+          <!-- fulcrum label -->
+          <g>
+            <rect x="348" y="330" width="144" height="30" rx="6" fill="#0a1017" stroke="#f97316" stroke-width="1.6"/>
+            <text class="sim-mono asml-num" x="420" y="351" text-anchor="middle">P/E 62× · P/S 18.5×</text>
+          </g>
+          <!-- 2030 summit the price is betting on -->
+          <g>
+            <polygon points="726,300 792,300 759,206" fill="#12202b" stroke="#3b4a5d" stroke-width="1.5"/>
+            <polygon points="746,244 759,206 772,244 764,240 759,248 754,240" fill="#1a2b1a" stroke="#3d5230" stroke-width="1"/>
+            <line x1="759" y1="206" x2="759" y2="188" stroke="#8b98a6" stroke-width="1.5"/>
+            <polygon points="759,188 786,194 759,200" fill="#f97316"/>
+            <text class="sim-mono asml-num sm" x="759" y="322" text-anchor="middle">เป้า 2030</text>
+            <text class="sim-mono asml-big" x="759" y="176" text-anchor="middle">€44–60B</text>
+            <text class="sim-mono asml-dim" x="759" y="340" text-anchor="middle">ถ้าปีนถึง = P/E ~31–39×</text>
+          </g>
+          <!-- capital return note (bottom-left, a recycling coin) -->
+          <g>
+            <circle cx="96" cy="316" r="20" fill="none" stroke="#f5b642" stroke-width="2"/>
+            <text x="96" y="322" fill="#f5b642" text-anchor="middle" font-size="15" style="font-weight:700">€</text>
+            <text class="s-t sm" x="130" y="308" style="text-anchor:start">คืนเงินแค่ ~1.2%/ปี</text>
+            <text class="sim-mono asml-dim" x="130" y="328" style="text-anchor:start">ปันผล 0.5% + ซื้อคืน €12B · growth ไม่ใช่ yield</text>
+          </g>
+        </svg>
+      </div><figcaption><strong>ตลาดล็อกเป้าไว้ที่ "แผน 2030" ไปแล้วอย่างชัดเจน</strong> — จ่าย 62 เท่าของกำไรปี 2025 (P/S 18.5×) สำหรับธุรกิจที่ปีนี้โต 15.6% การจะ justify ราคานี้ต้องเชื่อว่า ASML เดินไปถึงเป้า €44–60B ในปี 2030 (โต ~2 เท่าจากวันนี้) ที่ margin ขยับขึ้น 56–60% ได้จริง — ถ้าลงจริง ราคานี้คือ ~31–39× ของกำไรปี 2030 "แพงแต่มีเหตุผล" สำหรับผู้ผูกขาด | แต่ถ้า AI supercycle แผ่วหรือ High-NA ปรับใช้ช้า เรากำลังจ่าย 62× ให้ธุรกิจโตเลขสองหลักต้นๆ ที่คืนเงินแค่ 1.2%/ปี — <strong>bet ที่แท้จริงไม่ใช่ "ASML ดีไหม" แต่คือ "โลกจะสร้างชิปล้ำเร็วพอที่จะเต็มถังคำสั่งซื้อไปอีก 5 ปีหรือไม่"</strong></figcaption></figure>
+
+      <h2>8. Bull Case</h2>
+      <ul>
+        <li><strong>การผูกขาด EUV 100% ที่ไม่มีทางถูก disrupt ในทศวรรษนี้</strong> — ทุกชิป leading-edge ในโลก (AI, มือถือ, HPC) ต้องผ่านเครื่อง ASML ไม่มีทางอ้อม เป็น toll booth ของทั้งอุตสาหกรรม</li>
+        <li><strong>AI supercycle ดันความต้องการเครื่องรุ่นบนสุด:</strong> Q4 2025 ยอดจอง €13.2B (EUV €7.4B) ทำสถิติ — สะท้อนว่า TSMC/Samsung กำลังเร่งขยายกำลังผลิตชิป AI</li>
+        <li><strong>รายได้บริการ €8.2B ที่โตนิ่งเป็น annuity:</strong> ฐานเครื่องติดตั้งทั่วโลกยิ่งใหญ่ ค่าบริการ+อัปเกรดยิ่งทบ ไม่ขึ้นกับวัฏจักรออเดอร์ใหม่</li>
+        <li><strong>งบคุณภาพหายาก:</strong> GM 52.8%, op margin 34.6%, net 29.4% บนฮาร์ดแวร์ + เงินสด €13.3B หนี้ต่ำ + EPS โต +28%</li>
+        <li><strong>High-NA EUV คือคันเร่งรอบใหม่:</strong> เครื่อง EXE ราคาแพงกว่าเดิม 2 เท่า ตั้งเป้าเป็น ¼ ของรายได้ EUV ปี 2028 — ราคาขายต่อเครื่องที่สูงขึ้นคือ growth ในตัว</li>
+      </ul>
+
+      <h2>9. Bear Case / จุดเปราะ</h2>
+      <ul>
+        <li><strong>ราคาแพงมาก:</strong> P/E 62× / P/S 18.5× สำหรับธุรกิจโต ~15% ที่คืนเงินแค่ ~1.2%/ปี — margin of safety บางมาก ราคาจ่ายให้แผน 2030 ไปแล้วเกือบเต็ม พลาดคาดหวังนิดเดียวหุ้นปรับฐานแรง</li>
+        <li><strong>จีน 29%→ลดแรง:</strong> pull-forward DUV กำลังหมดฤทธิ์ + export control รัดเพิ่ม บริษัทเตือนเองว่ารายได้จีนปี 2026 ลดแรง</li>
+        <li><strong>วัฏจักร + backlog แค่ ~1.2 ปี:</strong> ออเดอร์ยกเลิก/เลื่อนได้ (Q3'24 เคยหล่นเหลือ €2.6B) รายได้ยังหายใจตาม capex ของลูกค้าไม่กี่ราย</li>
+        <li><strong>ลูกค้ากระจุกไม่ถึง 5 ราย:</strong> TSMC/Samsung/Intel/SK Hynix/Micron — Intel สะดุดจริงหลายปี ถ้า TSMC เลื่อน capex ออเดอร์รุ่นบนสะเทือนทันที</li>
+        <li><strong>ภูมิรัฐศาสตร์เป็นตัวแปรที่ควบคุมไม่ได้:</strong> เครื่อง ASML คือหมากในสงครามเทคโนโลยีสหรัฐ-จีน กฎเปลี่ยนได้ข้ามคืนโดยรัฐบาลที่ ASML ไม่มีสิทธิ์โหวต</li>
+        <li><strong>High-NA ปรับใช้ช้ากว่าคาดได้:</strong> แพงมากและ integrate ยาก ถ้าลูกค้ายืดเวลา เส้นการเติบโตถึง 2030 ก็ยืดตาม</li>
+      </ul>
+
+      <h2>10. Kill Conditions — เขียนก่อนซื้อ วัดได้จากงบรายไตรมาส</h2>
+      <ol>
+        <li><strong>Net bookings หล่นต่ำกว่า €4B/ไตรมาส สองไตรมาสติด</strong> — เครื่องยืนยันดีมานด์หลักของ thesis ดับ (เทียบ Q4'25 = €13.2B ถ้าหล่นแบบ Q3'24 คือสัญญาณวัฏจักรลง)</li>
+        <li><strong>รายได้รวมทั้งปีหดตัว YoY</strong> ทั้งที่ไม่ใช่ปีเปลี่ยนผ่านเทคโนโลยี — แปลว่าหลุมจีน + วัฏจักรชนะการเติบโต AI</li>
+        <li><strong>Gross margin หลุดต่ำกว่า 50% ต่อเนื่อง</strong> — สัญญาณว่าอำนาจตั้งราคา (หัวใจของ moat) เริ่มสึก หรือ mix เลวลงถาวร</li>
+        <li><strong>High-NA ไม่สามารถทำรายได้แตะเป้า ~¼ ของ EUV ภายในปี 2028</strong> — เสาการเติบโตหลักถึงปี 2030 สั่น thesis "โตเป็น 2 เท่า" ตาย</li>
+        <li><strong>เกิดคู่แข่ง/ทางเลือกเทคโนโลยีที่ข้าม EUV ได้จริง</strong> (เช่น จีนทำ litho ทางเลือกสำเร็จเชิงพาณิชย์ หรือ chiplet/advanced packaging ลดความต้องการ leading-edge) — โอกาสต่ำในทศวรรษนี้ แต่ถ้าเกิดคือจุดจบของ moat</li>
+        <li><strong>ASML ลด R&D ต่ำกว่า ~12% ของยอดเพื่อดันกำไรระยะสั้น</strong> — เกราะของ moat เริ่มถูกถอด นี่คือสัญญาณคุณภาพผู้บริหารเปลี่ยน</li>
+      </ol>
+
+      <h2>11. สิ่งที่ยังต้องขุดต่อ (What to ask)</h2>
+      <ul>
+        <li>สัดส่วนรายได้จาก TSMC รายเดียวคือกี่ % จริงๆ (annual report/20-F ระบุลูกค้าที่เกิน 10%) — วัดความเปราะจากลูกค้ากระจุก</li>
+        <li>Logic vs Memory ของยอดขายเครื่องปี 2025 (รอ annual report 25 ก.พ. 2026) — memory เป็นตัวชี้วัฏจักรที่ผันผวนกว่า logic</li>
+        <li>ตารางส่งมอบ High-NA จริง: กี่เครื่องในมือลูกค้าไหน และเข้าสู่ volume production เมื่อไหร่</li>
+        <li>ผลกระทบสุทธิของ export control รอบล่าสุดต่อ DUV: ยอดขายจีนที่หายเป็นตัวเงินเท่าไร และชดเชยด้วยดีมานด์อื่นได้กี่ %</li>
+        <li>FCF conversion รายปี: กำไรสวยแต่เงินสดจริงผันผวนตามเงินมัดจำลูกค้า — ปีไหนกระแสเงินสดสวนทางกำไร ต้องเข้าใจว่าเพราะอะไร</li>
+      </ul>
+
+      <h2>12. สรุป</h2>
+      <p>
+        ASML คือธุรกิจที่เข้าใกล้ "wonderful business" ตามนิยาม Buffett มากที่สุดตัวหนึ่งเท่าที่ตลาดหุ้นมี —
+        ผูกขาด 100% ในเทคโนโลยีที่ทั้งโลกต้องใช้และเลียนแบบไม่ได้, margin ระดับซอฟต์แวร์บนฮาร์ดแวร์,
+        R&D หนาเป็นเกราะ, และคลื่น AI ที่ดันดีมานด์ระยะยาว — ถ้าถามว่า "อยากเป็นเจ้าของธุรกิจนี้ 10 ปีไหม" คำตอบคือใช่แทบไม่ต้องคิด
+      </p>
+      <p>
+        แต่คำถามของนักลงทุนที่มีวินัยไม่เคยหยุดแค่ "ธุรกิจดีไหม" — ที่ $1,758 (P/E 62×, คืนเงินแค่ ~1.2%/ปี)
+        ตลาดจ่ายให้ทั้งการผูกขาด<em>และ</em>แผนโตเป็นสองเท่าถึงปี 2030 ไปแล้วเกือบเต็ม
+        คนที่ซื้อวันนี้กำลัง bet สองชั้นพร้อมกัน: (1) โลกจะสร้างชิปล้ำเร็วพอจนถังออเดอร์เต็มไปอีก 5 ปี
+        และ (2) หลุมจีนกับวัฏจักรจะไม่มาชนกันในจังหวะเดียว — ทั้งสองอย่างเป็นเรื่องของ<strong>ปลายน้ำและภูมิรัฐศาสตร์
+        ที่ ASML เองควบคุมไม่ได้</strong> สำหรับสาย concentrated ถือยาว: นี่คือหุ้นที่ "คุณภาพไม่ใช่คำถาม ราคาต่างหากคือคำถาม" —
+        <strong>ธุรกิจที่คู่ควรกับการรอ ไม่ใช่ธุรกิจที่คู่ควรกับการไล่</strong>
+      </p>
+
+      <div class="author-card">
+        <span class="byline-avatar">M</span>
+        <div>
+          <strong>Moatrices</strong>
+          <p>บันทึกการเรียนวิเคราะห์หุ้น US เชิงลึก สาย fundamental — เน้นพื้นฐานธุรกิจ ไม่ใช่ราคา <a href="../about.html">เกี่ยวกับเว็บนี้ →</a></p>
+        </div>
+      </div>
+
+      <p class="back"><a href="../index.html">← กลับหน้าแรก</a></p>
+
+    </div>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container footer-grid">
+      <div class="footer-brand">
+        <a href="../index.html" class="site-title">Moatrices</a>
+        <p>บันทึกการเรียนวิเคราะห์หุ้น US เชิงลึก ภาษาไทย — เน้นพื้นฐานธุรกิจ ไม่ใช่ราคา</p>
+      </div>
+      <nav class="footer-nav">
+        <a href="../index.html">หน้าแรก</a>
+        <a href="../dashboard.html">Dashboard</a>
+        <a href="../about.html">เกี่ยวกับ</a>
+      </nav>
+    </div>
+    <div class="container footer-legal">
+      <p><strong>คำเตือน:</strong> เนื้อหาทั้งหมดเป็นบันทึกการเรียนและความเห็นส่วนตัว
+         เพื่อการศึกษาเท่านั้น <strong>ไม่ใช่คำแนะนำการลงทุน</strong>
+         ตัวเลขอ้างอิงจากผลประกอบการปี 2025 ของ ASML (ประกาศ 28 ม.ค. 2026, สกุล EUR)
+         ราคาหุ้น ณ 3 ก.ค. 2026 (Nasdaq, USD) การตัดสินใจลงทุนเป็นความรับผิดชอบของผู้อ่านเอง</p>
+      <p>© 2026 Moatrices · เผยแพร่ผ่าน GitHub Pages</p>
+    </div>
+  </footer>
+
+  <button class="to-top" aria-label="กลับขึ้นด้านบน">↑</button>
+  <script defer src="../app.js"></script>
+
+</body>
+</html>
