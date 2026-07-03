@@ -16,6 +16,7 @@
 
 import datetime
 import html
+import json
 import os
 import re
 import subprocess
@@ -228,6 +229,41 @@ def write_feed(posts):
     print(f"feed.xml    : {len(posts)} items ({kept} เดิม, {len(posts) - kept} ใหม่)")
 
 
+_ITEMLIST_RE = re.compile(
+    r'  <script type="application/ld\+json">\n'
+    r'  \{"@context": "https://schema\.org", "@type": "ItemList".*?\}\n'
+    r'  </script>', re.S)
+
+
+def write_itemlist(posts):
+    """regen ItemList JSON-LD ใน index.html จากลำดับการ์ด (ใหม่สุด = position 1)
+    ตัดการไล่เลข position 25 รายการด้วยมือตอนแทรกบทใหม่ (เคยเป็นจุด drift เงียบ)"""
+    src = open("index.html", encoding="utf-8").read()
+    obj = {
+        "@context": "https://schema.org",
+        "@type": "ItemList",
+        "name": "บทความวิเคราะห์หุ้นทั้งหมด — Moatrices",
+        "itemListElement": [
+            {"@type": "ListItem", "position": i + 1,
+             "url": f"{BASE_URL}/articles/{p['file']}",
+             # JSON-LD ไม่ถูก HTML-parse: decode entity (S&amp;P->S&P) ก่อนใส่ JSON
+             "name": html.unescape(p["title"])}
+            for i, p in enumerate(posts)
+        ],
+    }
+    payload = json.dumps(obj, ensure_ascii=False, separators=(", ", ": "))
+    block = ('  <script type="application/ld+json">\n'
+             f'  {payload}\n'
+             '  </script>')
+    new, n = _ITEMLIST_RE.subn(lambda _: block, src)
+    if n != 1:
+        print(f"itemlist    : WARNING หา ItemList script ใน index.html ไม่เจอ (พบ {n})")
+        return
+    if new != src:
+        open("index.html", "w", encoding="utf-8").write(new)
+    print(f"itemlist    : {len(posts)} รายการ" + ("" if new != src else " (ไม่เปลี่ยน)"))
+
+
 def write_thumbnails(posts):
     """gen thumbnail JPEG 640px จาก og-<slug>.png (regen เฉพาะที่ขาดหรือ og ใหม่กว่า thumb)
     เก็บ og png เต็มไว้สำหรับ meta og:image — thumb ใช้แค่เป็นภาพการ์ด ลดหน้าแรก ~90%"""
@@ -369,6 +405,7 @@ def main():
         return 2
     print(f"index.html  : พบ {len(posts)} บทความ")
     inject_tocs()
+    write_itemlist(posts)
     write_thumbnails(posts)
     minify_css()
     build_scenes()
