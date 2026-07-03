@@ -253,15 +253,66 @@ def write_thumbnails(posts):
           + (f", {missing} ไม่มี og png" if missing else ""))
 
 
-def minify_css(src="style.css", dst="style.min.css"):
+def _minify_css_text(css):
     """conservative minify: ตัด comment + dedent + ลบบรรทัดว่าง (คงขึ้นบรรทัดใหม่ระหว่าง rule)
-    ปลอดภัยกับ calc()/gradient/keyframe เพราะไม่ยุ่งกับ whitespace ในค่า/ใน quote
-    style.css คือ source of truth — แก้ที่นั่นแล้วรัน build.py; ทุกหน้า link style.min.css"""
-    css = open(src, encoding="utf-8").read()
+    ปลอดภัยกับ calc()/gradient/keyframe เพราะไม่ยุ่งกับ whitespace ในค่า/ใน quote"""
     out = re.sub(r"/\*.*?\*/", "", css, flags=re.S)               # ตัด block comment
-    out = "\n".join(l.strip() for l in out.splitlines() if l.strip())  # dedent + ลบบรรทัดว่าง
+    return "\n".join(l.strip() for l in out.splitlines() if l.strip())  # dedent + ลบบรรทัดว่าง
+
+
+def minify_css(src="style.css", dst="style.min.css"):
+    """style.css = shared shell/base เท่านั้น (ทุกหน้า link style.min.css)
+    scene CSS เฉพาะบทความอยู่ที่ scenes/<slug>.css แล้ว โหลดเฉพาะบทตัวเอง (build_scenes)"""
+    css = open(src, encoding="utf-8").read()
+    out = _minify_css_text(css)
     open(dst, "w", encoding="utf-8").write(out)
     print(f"{dst} : {len(css):,} -> {len(out):,} bytes ({100 - len(out) * 100 // len(css)}% เล็กลง)")
+
+
+SCENE_DIR = "scenes"
+# ลิงก์ scene CSS ที่ build ฝัง (คั่นด้วย marker ให้ idempotent เหมือน TOC)
+_SCENE_LINK_RE = re.compile(
+    r'\n[ \t]*<!-- SCENE-CSS -->.*?<!-- /SCENE-CSS -->', re.S)
+_STYLE_LINK_RE = re.compile(r'<link rel="stylesheet" href="\.\./style\.min\.css">')
+
+
+def build_scenes():
+    """minify scenes/<slug>.css -> scenes/<slug>.min.css แล้วฝัง <link> ลงบท <slug>.html
+    (เฉพาะบทที่มีไฟล์ scene) ต่อจาก style.min.css — บทโหลด scene ของตัวเองเท่านั้น
+    ตัด scene CSS (~13KB gz) ออกจาก style.min.css ที่ render-blocking ทุกหน้ารวมหน้าแรก
+    เพิ่มบทใหม่ = สร้าง scenes/<slug>.css แล้วรัน build.py (scaffold ทำให้อัตโนมัติ)"""
+    if not os.path.isdir(SCENE_DIR):
+        print("scenes      : ไม่มีโฟลเดอร์ scenes/ (ข้าม)")
+        return
+    scene_slugs = sorted(
+        f[:-4] for f in os.listdir(SCENE_DIR)
+        if f.endswith(".css") and not f.endswith(".min.css")
+    )
+    minified = injected = orphan = 0
+    for slug in scene_slugs:
+        raw = open(f"{SCENE_DIR}/{slug}.css", encoding="utf-8").read()
+        open(f"{SCENE_DIR}/{slug}.min.css", "w", encoding="utf-8").write(_minify_css_text(raw))
+        minified += 1
+
+        art = f"articles/{slug}.html"
+        if not os.path.exists(art):
+            orphan += 1
+            continue
+        body = open(art, encoding="utf-8").read()
+        stripped = _SCENE_LINK_RE.sub("", body)  # ล้าง block เดิมก่อน (idempotent)
+        m = _STYLE_LINK_RE.search(stripped)
+        if not m:
+            print(f"  ! {slug}.html ไม่พบ link style.min.css — ฝัง scene ไม่ได้")
+            continue
+        block = (f'\n      <!-- SCENE-CSS -->'
+                 f'\n      <link rel="stylesheet" href="../scenes/{slug}.min.css">'
+                 f'\n      <!-- /SCENE-CSS -->')
+        new = stripped[:m.end()] + block + stripped[m.end():]
+        if new != body:
+            open(art, "w", encoding="utf-8").write(new)
+            injected += 1
+    print(f"scenes      : {minified} minified, {injected} บทฝัง/อัปเดต link"
+          + (f", {orphan} scene ไม่มีบทคู่" if orphan else ""))
 
 
 def validate(posts):
@@ -280,6 +331,17 @@ def validate(posts):
         warnings.append(f"{f} อยู่ใน index.html แต่ไม่อยู่ใน ARTICLES (app.js) — search/prev-next จะไม่เห็น")
     for f in sorted(app_files - index_files):
         warnings.append(f"{f} อยู่ใน ARTICLES (app.js) แต่ไม่อยู่ใน index.html")
+
+    if os.path.isdir(SCENE_DIR):
+        for f in sorted(os.listdir(SCENE_DIR)):
+            if not f.endswith(".css") or f.endswith(".min.css"):
+                continue
+            slug = f[:-4]
+            art = f"articles/{slug}.html"
+            if not os.path.exists(art):
+                warnings.append(f"scenes/{f} ไม่มีบทคู่ articles/{slug}.html")
+            elif f"scenes/{slug}.min.css" not in open(art, encoding="utf-8").read():
+                warnings.append(f"{slug}.html ไม่ได้ link scenes/{slug}.min.css — รัน build.py")
 
     for p in posts:
         og = f"og-{p['file'].replace('.html', '')}.png"
@@ -309,6 +371,7 @@ def main():
     inject_tocs()
     write_thumbnails(posts)
     minify_css()
+    build_scenes()
     write_sitemap(posts)
     write_feed(posts)
     return validate(posts)

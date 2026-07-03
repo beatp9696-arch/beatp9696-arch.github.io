@@ -1,0 +1,38 @@
+
+.lm-panel { background: radial-gradient(120% 140% at 50% 0%, #10160c 0%, #080b06 72%); border-color: #2a3a1e; }
+.ph-eyebrow.lm { color: #a3e635; }
+.lm-panel .s-t { fill: #dfe8d2; }
+.lm-panel .s-t.sm { fill: #94a388; }
+.lm-panel .sim-mono { fill: #7d9070; }
+.lm-num { fill: #d9f99d; }
+.lm-num.sm { font-size: 11px; }
+.lm-big { fill: #a3e635; font-size: 21px; letter-spacing: .03em; }
+.lm-dim { fill: #66755c; font-size: 11px; }
+.lm-warn { fill: #f87171; font-size: 12px; }
+.lm-lamp circle { fill: #d9f99d; }
+.lm-lamp { animation: lmlamp 4s ease-in-out infinite; }
+@keyframes lmlamp { 0%,100%{opacity:.5} 50%{opacity:1} }
+.lm-blip { fill: #a3e635; animation: lmblip 6s ease-out infinite; }
+@keyframes lmblip { 0%{opacity:0} 8%{opacity:1} 45%{opacity:.15} 100%{opacity:0} }
+.lm-belt { stroke: #a3e635; stroke-width: 2.5; stroke-dasharray: 8 12; opacity: .55; animation: lmbelt 1.3s linear infinite; }
+@keyframes lmbelt { to{stroke-dashoffset:-20} }
+.lm-jet path { fill: #16220f; stroke: #4d6b33; stroke-width: 2; }
+.lm-jet.lit path { fill: #1d2c12; stroke: #a3e635; stroke-width: 2.4; }
+.lm-jet.lit { animation: lmjet 3s ease-in-out infinite; }
+@keyframes lmjet { 0%,100%{filter:none} 50%{filter:drop-shadow(0 0 10px #a3e63566)} }
+.lm-msl { animation: lmmsl 3.2s ease-in-out infinite; }
+@keyframes lmmsl { 0%,100%{transform:translateY(0)} 50%{transform:translateY(-6px)} }
+.lm-rotor { stroke: #4d6b33; stroke-width: 3; animation: lmrotor 1s linear infinite; }
+@keyframes lmrotor { 0%,100%{opacity:.9} 50%{opacity:.25} }
+.lm-lock { fill: #a3e635; animation: lmlock 2.8s ease-in-out infinite; }
+@keyframes lmlock { 0%,100%{opacity:.5} 50%{opacity:1} }
+.lm-leak { fill: #ef4444; opacity: 0; animation: lmleak 2.6s ease-in infinite; }
+@keyframes lmleak { 0%{opacity:0; transform:translateY(0)} 15%{opacity:.95} 100%{opacity:0; transform:translateY(30px)} }
+.lm-target { animation: lmtarget 2.4s ease-in-out infinite; }
+@keyframes lmtarget { 0%,100%{opacity:1} 50%{opacity:.55} }
+
+@media (prefers-reduced-motion: reduce) {
+  .lm-lamp,.lm-blip,.lm-belt,.lm-jet.lit,.lm-msl,.lm-rotor,.lm-lock,.lm-leak,.lm-target { animation: none; }
+  .lm-blip { opacity: .6; }
+  .lm-leak { opacity: .55; }
+}

@@ -1,0 +1,39 @@
+.meli-panel { background: radial-gradient(120% 140% at 50% 0%, #1a160a 0%, #0c0a06 70%); border-color: #2e2812; }
+.ph-eyebrow.meli { color: #facc15; }
+.meli-panel .s-t { fill: #e8e0c8; }
+.meli-panel .s-t.sm { fill: #b8ab84; }
+.meli-panel .sim-mono { fill: #8a7d52; }
+.eco-node { fill: #1c1606; stroke: #4a3d12; stroke-width: 1.4; }
+.eco-hub { fill: #2a2009; stroke: #facc15; stroke-width: 2.2; filter: drop-shadow(0 0 9px rgba(250,204,21,.45)); }
+.eco-line { stroke: #3a2f10; stroke-width: 1.5; }
+.eco-pulse { fill: #fde047; filter: drop-shadow(0 0 4px #facc15); }
+.lg-grid { stroke: #231d0d; stroke-width: 1; }
+.lg-hub { fill: #2a2009; stroke: #facc15; stroke-width: 2; filter: drop-shadow(0 0 6px rgba(250,204,21,.4)); }
+.lg-dest { fill: #1c1606; stroke: #60a5fa; stroke-width: 1.4; }
+.lg-route { stroke: #4a3d12; stroke-width: 1.5; stroke-dasharray: 5 5; fill: none; }
+.lg-pkg { fill: #fde047; filter: drop-shadow(0 0 4px #facc15); }
+.mfw-ring { fill: none; stroke: #facc15; stroke-width: 3; stroke-dasharray: 60 880; opacity: .9; animation: mfwrot 5s linear infinite; transform-origin: 300px 205px; }
+@keyframes mfwrot { to{transform:rotate(360deg)} }
+.mfw-node { fill: #1c1606; stroke: #4a3d12; stroke-width: 1.4; }
+.mfw-hub { fill: #2a2009; stroke: #facc15; stroke-width: 2; }
+.rg-fill { stroke-dasharray: 289; stroke-dashoffset: var(--off); animation: rgfill 3.2s ease-out infinite; }
+@keyframes rgfill { 0%{stroke-dashoffset:289} 38%{stroke-dashoffset:var(--off)} 90%{stroke-dashoffset:var(--off)} 100%{stroke-dashoffset:289} }
+@media (prefers-reduced-motion: reduce) { .eco-pulse,.lg-pkg,.mfw-ring,.rg-fill{animation:none} .rg-fill{stroke-dashoffset:var(--off)} }
+.sae-orbit { fill: none; stroke: #3a2f10; stroke-width: 1.4; stroke-dasharray: 3 8; }
+.sae-spoke { fill: none; stroke: #3a2f10; stroke-width: 2; stroke-linecap: round; }
+.sae-lit { fill: none; stroke-width: 2.6; stroke-linecap: round; animation: saereveal 3s ease-in-out infinite; }
+@keyframes saereveal { 0%{stroke-dashoffset:var(--len);opacity:1} 70%{stroke-dashoffset:0;opacity:1} 100%{stroke-dashoffset:0;opacity:0} }
+.sae-hub { fill: #2a2009; stroke: #facc15; stroke-width: 2.4; filter: drop-shadow(0 0 12px rgba(250,204,21,.55)); }
+.sae-comet { fill: #fff6cc; filter: drop-shadow(0 0 6px #facc15); }
+.sae-aura { transform-box: fill-box; transform-origin: center; animation: saeaura 3s ease-in-out infinite; }
+@keyframes saeaura { 0%,100%{opacity:.4;transform:scale(.82)} 50%{opacity:.85;transform:scale(1.12)} }
+.sae-badge { fill: #1c1606; stroke: #6a5618; stroke-width: 1.6; }
+.sae-ico { fill: none; stroke: #fde047; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
+.sae-ico-f { fill: #fde047; stroke: none; }
+.sae-svc { transform-box: fill-box; transform-origin: center; animation: saeglow 2s ease-in-out infinite; }
+@keyframes saeglow { 0%,80%{filter:none} 90%{filter:drop-shadow(0 0 10px #facc15)} 100%{filter:none} }
+.sae-wheel { transform-box: fill-box; transform-origin: center; animation: saewheel 2.2s linear infinite; }
+@keyframes saewheel { to{transform:rotate(360deg)} }
+.sae-bar { transform-box: fill-box; transform-origin: bottom; animation: saebar 3s ease-in-out infinite; }
+@keyframes saebar { 0%{transform:scaleY(.35)} 40%{transform:scaleY(1)} 90%{transform:scaleY(1)} 100%{transform:scaleY(.35)} }
+@media (prefers-reduced-motion: reduce) { .sae-lit,.sae-svc,.sae-comet,.sae-aura,.sae-wheel,.sae-bar{animation:none} .sae-lit{stroke-dashoffset:0;opacity:1} }

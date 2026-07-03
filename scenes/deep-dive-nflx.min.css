@@ -1,0 +1,14 @@
+.ph-eyebrow.nf { color: #e06a72; }
+.nf-t { font-family: var(--font-head); fill: #c7ccd2; font-size: 13px; text-anchor: middle; font-weight: 600; }
+.nf-t.sm { font-size: 11.5px; fill: #9aa0a7; }
+.nf-mono { font-family: "IBM Plex Mono", ui-monospace, monospace; fill: #7c8189; font-size: 12px; }
+.nf-node { fill: #1a1d22; stroke: #2d323a; stroke-width: 1.5; }
+.nf-bar { transform-box: fill-box; transform-origin: bottom; animation: nfgrow 3.6s ease-in-out infinite; }
+@keyframes nfgrow { 0%{transform:scaleY(.05)} 16%{transform:scaleY(1)} 86%{transform:scaleY(1)} 100%{transform:scaleY(.05)} }
+.nf-fixed { stroke: #e06a72; stroke-width: 2; stroke-dasharray: 6 5; fill: none; }
+.ad-grow { transform-box: fill-box; transform-origin: left; animation: nfadg 3.4s ease-in-out infinite; }
+@keyframes nfadg { 0%{transform:scaleX(.15)} 45%{transform:scaleX(1)} 88%{transform:scaleX(1)} 100%{transform:scaleX(.15)} }
+.fcf-line { fill: none; stroke: #46c46a; stroke-width: 3; stroke-linecap: round; stroke-dasharray: 560; stroke-dashoffset: 560; animation: nfdraw 3.6s ease-in-out infinite; }
+@keyframes nfdraw { 0%{stroke-dashoffset:560} 45%{stroke-dashoffset:0} 90%{stroke-dashoffset:0} 100%{stroke-dashoffset:560} }
+.fcf-neg { stroke: #e06a72; }
+@media (prefers-reduced-motion: reduce) { .nf-bar,.ad-grow{animation:none;transform:none} .fcf-line{animation:none;stroke-dashoffset:0} }

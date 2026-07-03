@@ -1,0 +1,40 @@
+
+.sx-panel { background: radial-gradient(140% 120% at 50% 0%, #0a1020 0%, #04060c 72%); border-color: #16223e; }
+.ph-eyebrow.sx { color: #8fb6ff; }
+.sx-panel .s-t { fill: #cdd8ee; }
+.sx-panel .s-t.sm { fill: #8794ad; }
+.sx-t { font-family: var(--font-head); fill: #cdd8ee; font-size: 13px; text-anchor: middle; font-weight: 600; }
+.sx-t.sm { font-size: 11px; fill: #8794ad; }
+.sx-mono { font-family: "IBM Plex Mono", ui-monospace, monospace; fill: #6f7d99; font-size: 11px; }
+.sx-node { fill: #0e1830; stroke: #28365a; stroke-width: 1.4; }
+.sx-star { fill: #fff; animation: sxtwinkle 3s ease-in-out infinite; }
+@keyframes sxtwinkle { 0%,100%{opacity:.2} 50%{opacity:.85} }
+.sx-rocket { fill: #e8edf7; stroke: #aab6cc; stroke-width: 1; }
+.sx-rocket-d { fill: #b8c1d4; }
+.sx-fin { fill: #2b3a5c; }
+.sx-win { fill: #3b82f6; }
+.sx-flame { transform-box: fill-box; transform-origin: top center; animation: sxflame .18s steps(2) infinite; }
+@keyframes sxflame { 0%{transform:scaleY(1) scaleX(1)} 100%{transform:scaleY(.78) scaleX(1.18)} }
+.sx-catch { animation: sxcatch 6s ease-in-out infinite; }
+@keyframes sxcatch { 0%,84%{opacity:0} 88%{opacity:1} 96%{opacity:1} 100%{opacity:0} }
+.sx-earth { stroke: #2a5a8a; stroke-width: 1.5; }
+.sx-orbit { fill: none; stroke: #2a3a5e; stroke-width: 1; stroke-dasharray: 3 7; }
+.sx-sat { fill: #cfe0ff; filter: drop-shadow(0 0 4px #3b82f6); }
+.sx-beam { stroke: #3b82f6; stroke-width: 1.2; opacity: .45; animation: sxbeam 2.4s ease-in-out infinite; }
+@keyframes sxbeam { 0%,100%{opacity:.12} 50%{opacity:.6} }
+.sx-comet { fill: #cfe0ff; filter: drop-shadow(0 0 6px #3b82f6); }
+.sx-fw { fill: none; stroke-width: 4; stroke-linecap: round; filter: drop-shadow(0 0 6px rgba(59,130,246,.5)); animation: sxfwrot 5s linear infinite; transform-origin: 300px 210px; }
+@keyframes sxfwrot { to { transform: rotate(360deg) } }
+.sx-threat { fill: #2a1414; stroke: #ef4444; stroke-width: 1.6; }
+.sx-block { stroke: #f87171; stroke-width: 2; stroke-dasharray: 5 5; fill: none; }
+.sx-red { fill: #fca5a5; filter: drop-shadow(0 0 5px #ef4444); }
+.sx-lit { fill: none; stroke-width: 3; stroke-linecap: round; animation: sxreveal 3.4s ease-in-out infinite; }
+@keyframes sxreveal { 0%{stroke-dashoffset:var(--len);opacity:1} 75%{stroke-dashoffset:0;opacity:1} 100%{stroke-dashoffset:0;opacity:.85} }
+.sx-mark { animation: sxmark 3.4s ease-in-out infinite; }
+@keyframes sxmark { 0%,100%{filter:none} 50%{filter:drop-shadow(0 0 8px #3b82f6)} }
+.sx-tick { animation: sxtick 3.4s ease-in-out infinite; }
+@keyframes sxtick { 0%,100%{opacity:.28} 14%{opacity:1} 44%{opacity:.5} }
+.sx-warn { animation: sxwarn 1.6s ease-in-out infinite; }
+@keyframes sxwarn { 0%,100%{opacity:.82} 50%{opacity:1; filter:drop-shadow(0 0 7px #ef4444)} }
+.sx-alert { fill: none; stroke: #ef4444; stroke-width: 1.5; transform-box: fill-box; transform-origin: center; animation: sxalert 2s ease-out infinite; }
+@keyframes sxalert { 0%{transform:scale(.5);opacity:.8} 100%{transform:scale(1.5);opacity:0} }

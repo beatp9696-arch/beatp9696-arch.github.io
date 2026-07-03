@@ -1,0 +1,14 @@
+
+.tsm-panel { background: radial-gradient(120% 140% at 50% 0%, #0c1a1f 0%, #08110f 70%); border-color: #16332f; }
+.tsm-panel .s-t { fill: #cdd6d4; }
+.tsm-panel .s-t.sm { fill: #8aa39c; }
+.tsm-panel .sim-mono { fill: #6e8a83; }
+.ns-cell { fill: #0a1518; stroke: #1f4a44; stroke-width: 1.4; }
+.ns-cell.lead { stroke: #2dd4bf; stroke-width: 2.2; filter: drop-shadow(0 0 8px rgba(45,212,191,.45)); }
+.ns-dot { fill: #5eead4; animation: nsdot 2.4s ease-in-out infinite; }
+@keyframes nsdot { 0%,100%{opacity:.3} 50%{opacity:1} }
+.wy-wafer { fill: #0a1518; stroke: #2dd4bf; stroke-width: 2; }
+.wy-pass { fill: #15463a; stroke: #2dd4bf; stroke-width: .5; }
+.wy-fail { fill: #4a1d1d; stroke: #f87171; stroke-width: .6; }
+.wy-scan { fill: url(#scang); animation: wyscan 3.2s linear infinite; }
+@keyframes wyscan { 0%{transform:translateX(-30px)} 100%{transform:translateX(270px)} }

@@ -1,0 +1,32 @@
+.sp-panel { background: radial-gradient(140% 120% at 50% 0%, #0d1320 0%, #060810 72%); border-color: #1d2940; }
+.ph-eyebrow.sp { color: #f5c451; }
+.sp-panel .s-t { fill: #d8dfea; }
+.sp-panel .s-t.sm { fill: #93a0b6; }
+.sp-t { font-family: var(--font-head); fill: #d8dfea; font-size: 13px; text-anchor: middle; font-weight: 600; }
+.sp-t.sm { font-size: 11px; fill: #93a0b6; }
+.sp-mono { font-family: "IBM Plex Mono", ui-monospace, monospace; fill: #7c8aa0; font-size: 11px; }
+.sp-spoke { fill: none; stroke: #2a3a54; stroke-width: 2; stroke-linecap: round; }
+.sp-gold-c { fill: #fcd34d; filter: drop-shadow(0 0 5px #f0a830); }
+.sp-green-c { fill: #6ee7b7; filter: drop-shadow(0 0 5px #10b981); }
+.sp-red { fill: #f87171; filter: drop-shadow(0 0 5px #ef4444); }
+.sp-cyan-c { fill: #7dd3fc; filter: drop-shadow(0 0 5px #38bdf8); }
+.sp-ig { stroke: #34d399; stroke-width: 2; stroke-dasharray: 6 5; animation: spig 2.4s ease-in-out infinite; }
+@keyframes spig { 0%,100%{opacity:.5} 50%{opacity:1; filter:drop-shadow(0 0 6px #10b981)} }
+.sp-warn { animation: spwarn 1.7s ease-in-out infinite; }
+@keyframes spwarn { 0%,100%{opacity:.82} 50%{opacity:1; filter:drop-shadow(0 0 7px #ef4444)} }
+.sp-threat { fill: #2a1414; stroke: #ef4444; stroke-width: 1.6; }
+.sp-screen { fill: #07101c; stroke: #15293f; stroke-width: 1.5; }
+.sp-grid2 { stroke: #16233a; stroke-width: 1; }
+.sp-axis { stroke: #2a3a54; stroke-width: 1.4; }
+.sp-tape { font-family: "IBM Plex Mono", ui-monospace, monospace; fill: #6ee7b7; font-size: 12px; letter-spacing: .04em; }
+.sp-bondc { fill: #11203a; stroke: #2b6fd8; stroke-width: 1.4; }
+.sp-tile { fill: #0f1622; stroke: #2a3a54; stroke-width: 1.4; }
+.sp-tile.gold { stroke: #f0a830; }
+.sp-tile.cyan { stroke: #38bdf8; }
+.sp-fillg { fill: #6b4f12; }
+.sp-fillb { fill: #14384f; }
+.sp-area-rec { fill: #5a4310; opacity: .62; }
+.sp-line-g { fill: none; stroke: #f5c451; stroke-width: 2.4; stroke-linecap: round; }
+.sp-line-up { fill: none; stroke: #34d399; stroke-width: 2.6; stroke-linecap: round; filter: drop-shadow(0 0 4px rgba(16,185,129,.5)); }
+.sp-arc { fill: none; stroke-width: 22; }
+.sp-pulse { animation: spwarn 1.6s ease-in-out infinite; }

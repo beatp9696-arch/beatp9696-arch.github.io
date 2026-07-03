@@ -1,0 +1,31 @@
+
+.un-panel { background: radial-gradient(140% 120% at 50% 0%, #0b1220 0%, #060810 72%); border-color: #1a2944; }
+.ph-eyebrow.un { color: #6aa0f0; }
+.un-panel .s-t { fill: #cdd8ea; }
+.un-panel .s-t.sm { fill: #8a9bbd; }
+.un-t { font-family: var(--font-head); fill: #cdd8ea; font-size: 13px; text-anchor: middle; font-weight: 600; }
+.un-t.sm { font-size: 11px; fill: #8a9bbd; }
+.un-mono { font-family: "IBM Plex Mono", ui-monospace, monospace; fill: #6a7ea0; font-size: 11px; }
+.un-screen { fill: #070d18; stroke: #16243c; stroke-width: 1.5; }
+.un-grid2 { stroke: #14223a; stroke-width: 1; }
+.un-axis { stroke: #25375a; stroke-width: 1.4; }
+.un-tile { fill: #0e1626; stroke: #25375a; stroke-width: 1.4; }
+.un-tile.blue { stroke: #2b6fd8; }
+.un-tile.orange { stroke: #ff7a3c; }
+.un-fillb { fill: #163a6b; }
+.un-fillr { fill: #6e2020; }
+.un-line-b { fill: none; stroke: #5a9ff0; stroke-width: 2.6; stroke-linecap: round; }
+.un-pulse { animation: unwarn 1.6s ease-in-out infinite; }
+.un-ecg { fill: none; stroke: #f87171; stroke-width: 2.4; stroke-linecap: round; stroke-linejoin: round; filter: drop-shadow(0 0 4px rgba(239,68,68,.55)); }
+.un-blood { fill: #fecaca; filter: drop-shadow(0 0 6px #ef4444); }
+.un-data-c { fill: #bcd8ff; filter: drop-shadow(0 0 6px #2b6fd8); }
+.un-prem-c { fill: #6ee7b7; filter: drop-shadow(0 0 5px #10b981); }
+.un-heart { fill: #3a1620; stroke: #f0758a; stroke-width: 2.4; filter: drop-shadow(0 0 9px rgba(240,117,138,.55)); transform-box: fill-box; transform-origin: center; animation: unbeat 1.3s ease-in-out infinite; }
+@keyframes unbeat { 0%,100%{transform:scale(1)} 13%{transform:scale(1.13)} 26%{transform:scale(1)} 40%{transform:scale(1.07)} 54%{transform:scale(1)} }
+.un-vessel-a { fill: none; stroke: #7a2a36; stroke-width: 7; stroke-linecap: round; }
+.un-vessel-v { fill: none; stroke: #234a86; stroke-width: 7; stroke-linecap: round; }
+.un-shield { fill: #102544; stroke: #2b6fd8; stroke-width: 2.2; }
+.un-icon-o { fill: #2a1708; stroke: #ff7a3c; stroke-width: 1.8; }
+.un-member { fill: #16332e; stroke: #1f6b50; stroke-width: 1; }
+.un-member.sick { animation: unsick 3.6s ease-in-out infinite; }
+@keyframes unsick { 0%,72%,100%{fill:#16332e;stroke:#1f6b50} 80%,92%{fill:#3a1414;stroke:#ef4444} }
