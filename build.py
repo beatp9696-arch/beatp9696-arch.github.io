@@ -15,10 +15,12 @@
 """
 
 import datetime
+import html
 import os
 import re
 import subprocess
 import sys
+from xml.sax.saxutils import escape
 
 BASE_URL = "https://beatp9696-arch.github.io"
 ROOT_PAGES = ["", "stocks.html", "dashboard.html", "about.html"]
@@ -67,6 +69,13 @@ def write_sitemap(posts):
     print(f"sitemap.xml : {len(ROOT_PAGES)} pages + {len(posts)} articles")
 
 
+def xmltext(s):
+    """normalize เป็น text ปลอดภัยสำหรับ XML: decode HTML entity ก่อน (R&amp;D->R&D, S&amp;P->S&P
+    และจับ & ดิบที่หลุดมาด้วย) แล้ว escape เป็น XML — idempotent ใช้ซ้ำได้ทั้ง item เก่า/ใหม่
+    กัน feed พังจาก ampersand ที่ไม่ถูก escape (เคยทำทั้ง feed invalid)"""
+    return escape(html.unescape(s))
+
+
 def rfc822(date_str, time_str="12:00:00"):
     d = datetime.date.fromisoformat(date_str)
     days = ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"]
@@ -105,11 +114,11 @@ def write_feed(posts):
             pub, desc = rfc822(p["date"]), p["excerpt"]
         items.append(
             "<item>\n"
-            f"<title>{p['title']}</title>\n"
+            f"<title>{xmltext(p['title'])}</title>\n"
             f"<link>{url}</link>\n"
             f'<guid isPermaLink="true">{url}</guid>\n'
             f"<pubDate>{pub}</pubDate>\n"
-            f"<description>{desc}</description>\n"
+            f"<description>{xmltext(desc)}</description>\n"
             "</item>"
         )
     feed = (
@@ -186,6 +195,11 @@ def validate(posts):
         og = f"og-{p['file'].replace('.html', '')}.png"
         if not os.path.exists(og):
             warnings.append(f"ไม่มี {og} สำหรับ thumbnail ของ {p['file']}")
+        art = os.path.join("articles", p["file"])
+        if os.path.exists(art):
+            body = open(art, encoding="utf-8").read()
+            if '"@type": "BlogPosting"' in body and '"image"' not in body:
+                warnings.append(f"{p['file']}: BlogPosting JSON-LD ขาด \"image\" — เสียสิทธิ์ Article rich results")
 
     if warnings:
         print(f"\n{len(warnings)} WARNING:")
