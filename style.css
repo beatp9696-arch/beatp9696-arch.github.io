@@ -76,7 +76,7 @@ body {
   text-rendering: optimizeLegibility;
 }
 
-::selection { background: var(--accent); color: #fff; }
+::selection { background: var(--accent); color: var(--bg); }
 
 a {
   color: var(--accent);
@@ -159,7 +159,7 @@ h1 {
   font-family: var(--font-head);
   font-size: 38px;
   font-weight: 700;
-  line-height: 1.3;
+  line-height: 1.45;
   letter-spacing: -0.01em;
   margin: 0 0 14px;
 }
@@ -167,7 +167,7 @@ h2 {
   font-family: var(--font-head);
   font-size: 25px;
   font-weight: 600;
-  line-height: 1.4;
+  line-height: 1.5;
   margin: 48px 0 14px;
   padding-top: 6px;
 }
@@ -274,6 +274,11 @@ tr.total td {
   color: var(--muted);
   font-size: 16px;
   margin: 8px 0 0;
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
 }
 .post-list .read-more {
   display: inline-block;
@@ -441,7 +446,7 @@ main p a:hover, main li a:hover { text-decoration-color: var(--accent); }
 /* ============================================================
    Dashboard / ticker
    ============================================================ */
-#tv-ticker { border-bottom: 1px solid var(--border); margin-bottom: 8px; }
+#tv-ticker { border-bottom: 1px solid var(--border); margin-bottom: 8px; min-height: 72px; }
 .dash-section { margin: 36px 0; }
 .tv-frame {
   background: var(--surface);
@@ -635,6 +640,7 @@ h2 { scroll-margin-top: 84px; }
 .reveal { opacity: 0; transform: translateY(16px); transition: opacity .6s ease, transform .6s cubic-bezier(.2,.7,.3,1); }
 .reveal.is-visible { opacity: 1; transform: none; }
 @media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
   .reveal { opacity: 1 !important; transform: none !important; transition: none !important; }
 }
 
@@ -1186,168 +1192,6 @@ main:focus { outline: none; }
 }
 .post-date::before { content: "\B7  "; opacity: 0.6; }
 
-/* --- หน้าแรก: การ์ดหุ้นที่กำลังศึกษา (watchlist / เร็วๆ นี้) --- */
-.coming-soon { margin-top: 48px; }
-.coming-soon .cs-note {
-  color: var(--muted);
-  margin: 0 0 18px;
-  font-size: 15px;
-}
-.cs-grid {
-  list-style: none;
-  padding: 0;
-  margin: 0;
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
-  gap: 12px;
-}
-.cs-card {
-  display: flex;
-  flex-direction: column;
-  gap: 4px;
-  padding: 16px 18px;
-  background: var(--surface);
-  border: 1px solid var(--border);
-  border-radius: var(--radius);
-  box-shadow: var(--shadow-sm);
-  transition: border-color 0.18s ease, transform 0.18s ease, box-shadow 0.18s ease;
-}
-.cs-card:hover {
-  border-color: var(--accent);
-  transform: translateY(-2px);
-  box-shadow: var(--shadow-md);
-}
-.cs-ticker {
-  font-family: var(--font-head);
-  font-weight: 700;
-  font-size: 18px;
-  letter-spacing: 0.3px;
-  color: var(--text);
-}
-.cs-name {
-  font-size: 13px;
-  color: var(--muted);
-}
-.cs-badge {
-  margin-top: 8px;
-  align-self: flex-start;
-  font-family: var(--font-head);
-  font-size: 11px;
-  font-weight: 600;
-  color: var(--accent);
-  background: var(--accent-tint);
-  padding: 2px 9px;
-  border-radius: 999px;
-}
-
-/* ===== Infographic เล่าเรื่องในบทความ (reusable) ===== */
-.infographic {
-  margin: 38px 0;
-  padding: 28px 26px;
-  background: var(--surface-2);
-  border: 1px solid var(--border);
-  border-radius: var(--radius);
-}
-.infographic .ig-eyebrow {
-  font-family: var(--font-head);
-  font-size: 12px;
-  font-weight: 600;
-  letter-spacing: 1px;
-  text-transform: uppercase;
-  color: var(--accent);
-  margin: 0 0 6px;
-}
-.infographic .ig-headline {
-  font-family: var(--font-head);
-  font-size: clamp(20px, 3.4vw, 26px);
-  font-weight: 700;
-  line-height: 1.25;
-  color: var(--text);
-  margin: 0 0 22px;
-}
-.infographic .ig-headline em { font-style: normal; color: var(--accent); }
-.infographic figcaption {
-  margin-top: 20px;
-  font-size: 14px;
-  line-height: 1.5;
-  color: var(--muted);
-  text-align: center;
-}
-.infographic figcaption strong { color: var(--accent); font-weight: 600; }
-
-/* แถวระบบนิเวศ (ขั้นบันได 5 ชั้น) */
-.eco-flow {
-  display: flex;
-  align-items: stretch;
-  gap: 8px;
-  flex-wrap: wrap;
-}
-.eco-step {
-  flex: 1 1 0;
-  min-width: 132px;
-  position: relative;
-  display: flex;
-  flex-direction: column;
-  gap: 7px;
-  padding: 16px 14px 18px;
-  background: var(--surface);
-  border: 1px solid var(--border);
-  border-top: 3px solid var(--c, var(--accent));
-  border-radius: 12px;
-  box-shadow: var(--shadow-sm);
-}
-.eco-num {
-  position: absolute;
-  top: 12px;
-  right: 13px;
-  font-family: var(--font-head);
-  font-weight: 700;
-  font-size: 13px;
-  color: var(--c, var(--accent));
-  opacity: 0.85;
-}
-.eco-icon {
-  width: 38px;
-  height: 38px;
-  display: grid;
-  place-items: center;
-  border-radius: 10px;
-  color: var(--c, var(--accent));
-  background: color-mix(in srgb, var(--c, var(--accent)) 14%, transparent);
-}
-.eco-icon svg { width: 22px; height: 22px; }
-.eco-name {
-  font-family: var(--font-head);
-  font-weight: 700;
-  font-size: 15px;
-  color: var(--text);
-}
-.eco-cat {
-  font-family: var(--font-head);
-  font-size: 11px;
-  font-weight: 600;
-  letter-spacing: 0.5px;
-  text-transform: uppercase;
-  color: var(--muted);
-}
-.eco-desc {
-  font-size: 12.5px;
-  line-height: 1.45;
-  color: var(--muted);
-}
-.eco-arrow {
-  align-self: center;
-  flex: 0 0 auto;
-  font-size: 18px;
-  color: var(--muted);
-  opacity: 0.65;
-}
-@media (max-width: 640px) {
-  .eco-flow { flex-direction: column; }
-  .eco-step { min-width: 0; }
-  .eco-arrow { transform: rotate(90deg); margin: 2px 0; }
-}
-
 .tag.tag-financials { color: #7a5200; background: #fff4d6; }
 :root[data-theme="dark"] .tag.tag-financials { color: #f0c86a; background: #2a1e00; }
 @media (prefers-color-scheme: dark) {
@@ -1450,7 +1294,7 @@ main:focus { outline: none; }
   padding: 0 5px;
   margin-left: 4px;
   background: color-mix(in srgb, var(--muted) 18%, transparent);
-  color: var(--muted);
+  color: var(--text);
   line-height: 1;
   vertical-align: middle;
 }
@@ -1632,29 +1476,6 @@ h2:hover > .heading-anchor, h3:hover > .heading-anchor { opacity: 0.45; }
 }
 /* raster mark with its own solid background fills the chip edge-to-edge (no white frame) */
 .ticker-logo--fill { background: transparent; padding: 0; }
-
-/* ============================================================
-   ภาพประกอบในบทความ (hero illustration)
-   ============================================================ */
-.article-hero-img { margin: 28px 0 32px; }
-.article-hero-img img {
-  display: block;
-  width: 100%;
-  height: auto;
-  background: #fff;
-  border: 1px solid var(--border);
-  border-radius: var(--radius);
-  box-shadow: var(--shadow-sm);
-}
-.article-hero-img figcaption {
-  margin-top: 13px;
-  font-size: 15.5px;
-  line-height: 1.65;
-  color: var(--muted);
-  border-left: 3px solid var(--accent);
-  padding-left: 14px;
-}
-.article-hero-img figcaption strong { color: var(--text); font-family: var(--font-head); }
 
 /* ============================================================
    บทความหนังสือ (book / foundational reading) — pillars
@@ -2932,8 +2753,6 @@ h2:hover > .heading-anchor, h3:hover > .heading-anchor { opacity: 0.45; }
   border-radius: 999px;
   padding: 2px 8px;
 }
-.stock-card--soon { opacity: 0.65; }
-.stock-card--soon .stock-tk { color: var(--muted); }
 
 /* ============================================================
    AVGO — Broadcom deep-dive scenes (namespace: av)
