@@ -2580,8 +2580,11 @@ h2:hover > .heading-anchor, h3:hover > .heading-anchor { opacity: 0.45; }
 /* --- wordmark logo จากไฟล์ svg (mask ทำให้สีตาม currentColor เหมือน inline เดิม) --- */
 .ticker-wm--mask {
   background: currentColor;
-  -webkit-mask: var(--wm) no-repeat center / contain;
-  mask: var(--wm) no-repeat center / contain;
+  /* mask-image ตั้งใน inline style ของแต่ละอัน — ห้ามส่ง url() ผ่าน CSS var
+     เพราะ Safari/WebKit ไม่ resolve url() ที่อยู่ใน custom property (mask หาย
+     เหลือ background ทึบ) ทำให้ logo ไม่ขึ้นบน Mac/Safari แต่ขึ้นบน Chrome/Android */
+  -webkit-mask-repeat: no-repeat; -webkit-mask-position: center; -webkit-mask-size: contain;
+  mask-repeat: no-repeat; mask-position: center; mask-size: contain;
 }
 
 /* --- thumbnail บนการ์ดหน้าแรก (ใช้ og image ที่มีอยู่แล้ว) --- */

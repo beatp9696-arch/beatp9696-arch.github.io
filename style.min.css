@@ -2241,8 +2241,8 @@ transition: opacity 0.65s ease, transform 0.65s cubic-bezier(0.2, 0.7, 0.3, 1);
 }
 .ticker-wm--mask {
 background: currentColor;
--webkit-mask: var(--wm) no-repeat center / contain;
-mask: var(--wm) no-repeat center / contain;
+-webkit-mask-repeat: no-repeat; -webkit-mask-position: center; -webkit-mask-size: contain;
+mask-repeat: no-repeat; mask-position: center; mask-size: contain;
 }
 @media (min-width: 701px) {
 .post-list li {
