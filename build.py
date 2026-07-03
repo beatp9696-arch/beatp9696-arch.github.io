@@ -17,11 +17,14 @@
 import datetime
 import os
 import re
+import subprocess
 import sys
 
 BASE_URL = "https://beatp9696-arch.github.io"
 ROOT_PAGES = ["", "stocks.html", "dashboard.html", "about.html"]
 TZ = datetime.timezone(datetime.timedelta(hours=7))
+THUMB_DIR = "img/thumbs"   # thumbnail ย่อของ og image (ใช้เป็นภาพการ์ดในหน้า index)
+THUMB_W = 640             # กว้างพอสำหรับ retina (การ์ด desktop แสดง 176px, mobile เต็มจอ)
 
 os.chdir(os.path.dirname(os.path.abspath(__file__)))
 
@@ -126,6 +129,42 @@ def write_feed(posts):
     print(f"feed.xml    : {len(posts)} items ({kept} เดิม, {len(posts) - kept} ใหม่)")
 
 
+def write_thumbnails(posts):
+    """gen thumbnail JPEG 640px จาก og-<slug>.png (regen เฉพาะที่ขาดหรือ og ใหม่กว่า thumb)
+    เก็บ og png เต็มไว้สำหรับ meta og:image — thumb ใช้แค่เป็นภาพการ์ด ลดหน้าแรก ~90%"""
+    os.makedirs(THUMB_DIR, exist_ok=True)
+    made = skipped = missing = 0
+    for p in posts:
+        base = p["file"].replace(".html", "")
+        og = f"og-{base}.png"
+        thumb = f"{THUMB_DIR}/{base}.jpg"
+        if not os.path.exists(og):
+            missing += 1
+            continue
+        if os.path.exists(thumb) and os.path.getmtime(thumb) >= os.path.getmtime(og):
+            skipped += 1
+            continue
+        subprocess.run(
+            ["sips", "-Z", str(THUMB_W), "-s", "format", "jpeg",
+             "-s", "formatOptions", "80", og, "--out", thumb],
+            check=True, stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL,
+        )
+        made += 1
+    print(f"thumbnails  : {made} สร้างใหม่, {skipped} ทันสมัยแล้ว"
+          + (f", {missing} ไม่มี og png" if missing else ""))
+
+
+def minify_css(src="style.css", dst="style.min.css"):
+    """conservative minify: ตัด comment + dedent + ลบบรรทัดว่าง (คงขึ้นบรรทัดใหม่ระหว่าง rule)
+    ปลอดภัยกับ calc()/gradient/keyframe เพราะไม่ยุ่งกับ whitespace ในค่า/ใน quote
+    style.css คือ source of truth — แก้ที่นั่นแล้วรัน build.py; ทุกหน้า link style.min.css"""
+    css = open(src, encoding="utf-8").read()
+    out = re.sub(r"/\*.*?\*/", "", css, flags=re.S)               # ตัด block comment
+    out = "\n".join(l.strip() for l in out.splitlines() if l.strip())  # dedent + ลบบรรทัดว่าง
+    open(dst, "w", encoding="utf-8").write(out)
+    print(f"{dst} : {len(css):,} -> {len(out):,} bytes ({100 - len(out) * 100 // len(css)}% เล็กลง)")
+
+
 def validate(posts):
     warnings = []
     index_files = {p["file"] for p in posts}
@@ -163,6 +202,8 @@ def main():
         print("ERROR: parse index.html ไม่เจอบทความเลย — โครงสร้าง HTML อาจเปลี่ยน")
         return 2
     print(f"index.html  : พบ {len(posts)} บทความ")
+    write_thumbnails(posts)
+    minify_css()
     write_sitemap(posts)
     write_feed(posts)
     return validate(posts)
