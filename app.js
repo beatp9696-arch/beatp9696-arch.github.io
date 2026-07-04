@@ -25,6 +25,7 @@
   // ---- ข้อมูลบทความ (แหล่งเดียว — ใช้ทั้ง prev/next, related, search, sector filter) ----
   // เรียงเก่า → ใหม่ · sec: semi | software | health | finance | consumer | space | market | basics
   var ARTICLES = [
+    { f: "poor-charlies-almanack.html", t: "Poor Charlie's Almanack", sec: "basics" },
     { f: "deep-dive-aapl.html", t: "AAPL (Apple)", sec: "consumer" },
     { f: "financials-00-mindset.html", t: "ตอนที่ 0: งบคือรอยเท้า ไม่ใช่คะแนนสอบ", sec: "basics" },
     { f: "financials-01-income-statement.html", t: "ตอนที่ 1: งบกำไรขาดทุน", sec: "basics" },
