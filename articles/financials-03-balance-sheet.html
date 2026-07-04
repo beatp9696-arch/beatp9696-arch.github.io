@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <script>try{var t=localStorage.getItem('theme');if(t)document.documentElement.setAttribute('data-theme',t);}catch(e){}</script>
   <title>งบดุล + เชื่อม 3 งบ — ตอนที่ 3 | Moatrices</title>
-  <meta name="description" content="อ่านงบดุล (ฐานะการเงิน ณ วันนี้) และเอางบทั้ง 3 ชุดมาเชื่อมกันให้เห็นว่ามันเล่าเรื่องเดียวจาก 3 มุม">
+  <meta name="description" content="อ่านงบดุล (ฐานะการเงิน ณ วันนี้) และเอางบทั้ง 3 ชุดมาเชื่อมกันให้เห็นว่ามันเล่าเรื่องเดียวจาก 3 มุม พร้อมงบดุลจริงของ SNPS, AAPL, AVGO">
   <meta property="og:type" content="article">
   <meta property="og:site_name" content="Moatrices">
   <meta property="og:title" content="งบดุล + เชื่อม 3 งบ — ตอนที่ 3">
@@ -31,8 +31,11 @@
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Thai:wght@500;600;700&family=Sarabun:wght@400;500;600;700&display=swap" media="print" onload="this.media='all'">
   <noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Thai:wght@500;600;700&family=Sarabun:wght@400;500;600;700&display=swap"></noscript>
   <link rel="stylesheet" href="../style.min.css">
+      <!-- SCENE-CSS -->
+      <link rel="stylesheet" href="../scenes/financials-03-balance-sheet.min.css">
+      <!-- /SCENE-CSS -->
   <script type="application/ld+json">
-  {"@context": "https://schema.org", "@type": "BlogPosting", "headline": "งบดุล + เชื่อม 3 งบ — ตอนที่ 3", "description": "อ่านงบดุล (ฐานะการเงิน ณ วันนี้) และเอางบทั้ง 3 ชุดมาเชื่อมกันให้เห็นว่ามันเล่าเรื่องเดียวจาก 3 มุม", "image": ["https://beatp9696-arch.github.io/og-financials-03-balance-sheet.png"], "author": {"@type": "Person", "name": "Moatrices"}, "publisher": {"@type": "Organization", "name": "Moatrices", "logo": {"@type": "ImageObject", "url": "https://beatp9696-arch.github.io/icon-512.png"}}, "mainEntityOfPage": {"@type": "WebPage", "@id": "https://beatp9696-arch.github.io/articles/financials-03-balance-sheet.html"}, "inLanguage": "th", "datePublished": "2026-06-27", "dateModified": "2026-06-27"}
+  {"@context": "https://schema.org", "@type": "BlogPosting", "headline": "งบดุล + เชื่อม 3 งบ — ตอนที่ 3", "description": "อ่านงบดุล (ฐานะการเงิน ณ วันนี้) และเอางบทั้ง 3 ชุดมาเชื่อมกันให้เห็นว่ามันเล่าเรื่องเดียวจาก 3 มุม", "image": ["https://beatp9696-arch.github.io/og-financials-03-balance-sheet.png"], "author": {"@type": "Person", "name": "Moatrices"}, "publisher": {"@type": "Organization", "name": "Moatrices", "logo": {"@type": "ImageObject", "url": "https://beatp9696-arch.github.io/icon-512.png"}}, "mainEntityOfPage": {"@type": "WebPage", "@id": "https://beatp9696-arch.github.io/articles/financials-03-balance-sheet.html"}, "inLanguage": "th", "datePublished": "2026-06-27", "dateModified": "2026-07-04"}
   </script>
   <script type="application/ld+json">
   {"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "หน้าแรก", "item": "https://beatp9696-arch.github.io/"}, {"@type": "ListItem", "position": 2, "name": "งบดุล + เชื่อม 3 งบ — ตอนที่ 3", "item": "https://beatp9696-arch.github.io/articles/financials-03-balance-sheet.html"}]}
@@ -63,7 +66,7 @@
         <span class="byline-avatar">M</span>
         <div>
           <div class="byline-author">Moatrices</div>
-          <div class="byline-info">27 มิ.ย. 2026 · อ่าน ~8 นาที</div>
+          <div class="byline-info">27 มิ.ย. 2026 · อ่าน ~14 นาที</div>
         </div>
       </div>
 
@@ -73,11 +76,12 @@
         <ol>
           <li><a href="#sec-1">งบดุลคือ "ภาพถ่าย ณ จุดเวลาหนึ่ง"</a></li>
           <li><a href="#sec-2">งบดุลร้านกาแฟ ณ สิ้นปี</a></li>
-          <li><a href="#sec-3">ดูอะไรในงบดุล</a></li>
-          <li><a href="#sec-4">หัวใจของซีรีส์: เชื่อม 3 งบเข้าด้วยกัน</a></li>
-          <li><a href="#sec-5">สรุป: 3 คำถามที่ต้องตอบจากงบดุล</a></li>
-          <li><a href="#sec-6">Kill Conditions — งบดุลแบบไหนที่ผมจะถอย</a></li>
-          <li><a href="#sec-7">จบซีรีส์ — แล้วยังไงต่อ</a></li>
+          <li><a href="#sec-3">ดูอะไรในงบดุล — 4 จุดวัดความแข็งแรง</a></li>
+          <li><a href="#sec-4">งบดุลบริษัทจริง: เมื่อ M&amp;A พองงบ และ buyback ดูดทุน</a></li>
+          <li><a href="#sec-5">หัวใจของซีรีส์: เชื่อม 3 งบเข้าด้วยกัน</a></li>
+          <li><a href="#sec-6">สรุป: 3 คำถามที่ต้องตอบจากงบดุล</a></li>
+          <li><a href="#sec-7">Kill Conditions — งบดุลแบบไหนที่ผมจะถอย</a></li>
+          <li><a href="#sec-8">จบซีรีส์ — แล้วยังไงต่อ</a></li>
         </ol>
       </nav>
       <!-- TOC-END -->
@@ -87,14 +91,44 @@
         <a href="financials-02-cash-flow-statement.html">งบกระแสเงินสด</a> (กำไรกลายเป็นเงินสดจริงไหม) มาแล้ว
         ตอนปิดซีรีส์นี้เราจะอ่านงบชุดสุดท้าย — งบดุล — แล้วทำสิ่งที่สำคัญที่สุด:
         <strong>เอางบทั้ง 3 มาต่อกันให้เห็นว่ามันคือเรื่องเดียวที่เล่าจาก 3 มุม</strong>
+        แล้วปิดท้ายด้วยงบดุลจริงของ SNPS, AAPL และ AVGO ที่สอนบทเรียนคนละแบบ
       </p>
 
       <h2 id="sec-1">งบดุลคือ "ภาพถ่าย ณ จุดเวลาหนึ่ง"</h2>
       <p>
         ต่างจากงบกำไรขาดทุนและงบกระแสเงินสดที่เล่า "ช่วงเวลา" (ทั้งปี) งบดุลคือ
-        <strong>ภาพถ่าย ณ วันสิ้นงวด</strong> — บอกว่า ณ วินาทีนั้นบริษัทมีอะไร เป็นหนี้ใคร
-        และเหลือเป็นของเจ้าของเท่าไหร่
+        <strong>ภาพถ่าย ณ วินาทีสุดท้ายของงวด</strong> — บอกว่า ณ วินาทีนั้นบริษัทมีอะไร เป็นหนี้ใคร
+        และเหลือเป็นของเจ้าของเท่าไหร่ กดชัตเตอร์ปุ๊บ ทุกอย่างหยุดนิ่ง
       </p>
+
+      <figure class="ph-fig"><div class="ph-panel f3-panel"><div class="ph-eyebrow f3">ภาพนิ่ง vs วิดีโอ · งบ 3 ชุด เล่าเวลาคนละแบบ</div>
+        <svg viewBox="0 0 840 340" role="img" aria-label="on the left a camera snapping a single still photo of the balance sheet at year-end 23:59:59; on the right a film strip labeled income statement and cash flow, a video that runs the whole year">
+          <defs><linearGradient id="f3a-lens" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#2a2050"/><stop offset="1" stop-color="#0c0916"/></linearGradient></defs>
+          <!-- camera -->
+          <rect x="60" y="120" width="250" height="150" rx="16" fill="#140f28" stroke="#4a3f78" stroke-width="2.5"/>
+          <rect x="112" y="98" width="74" height="28" rx="7" fill="#140f28" stroke="#4a3f78" stroke-width="2.5"/>
+          <circle cx="150" cy="196" r="46" fill="url(#f3a-lens)" stroke="#a78bfa" stroke-width="4"/>
+          <circle cx="150" cy="196" r="26" fill="none" stroke="#7c6fb0" stroke-width="2.5"/>
+          <circle cx="137" cy="183" r="7" fill="#c4b5fd" opacity=".6"/>
+          <rect class="f3-flash" x="250" y="132" width="38" height="26" rx="4" fill="#c4b5fd"/>
+          <text class="s-t sm" x="185" y="300">กล้อง = ชัตเตอร์งบดุล</text>
+          <!-- printed photo -->
+          <rect x="336" y="150" width="176" height="120" rx="8" fill="#1c1640" stroke="#4a3f78" stroke-width="2"/>
+          <text class="s-t" x="424" y="188">งบดุล</text>
+          <text class="sim-mono f3-num sm" x="424" y="214">31 ธ.ค. 23:59:59</text>
+          <text class="s-t sm" x="424" y="250">ภาพนิ่ง ณ วินาทีเดียว</text>
+          <!-- film strip -->
+          <rect x="548" y="150" width="252" height="92" rx="6" fill="#140f28" stroke="#4a3f78" stroke-width="2.5"/>
+          <g fill="#3a2f66"><rect x="558" y="156" width="12" height="9"/><rect x="606" y="156" width="12" height="9"/><rect x="654" y="156" width="12" height="9"/><rect x="702" y="156" width="12" height="9"/><rect x="750" y="156" width="12" height="9"/><rect x="558" y="227" width="12" height="9"/><rect x="606" y="227" width="12" height="9"/><rect x="654" y="227" width="12" height="9"/><rect x="702" y="227" width="12" height="9"/><rect x="750" y="227" width="12" height="9"/></g>
+          <g stroke="#4a3f78" stroke-width="1.5"><line x1="612" y1="170" x2="612" y2="222"/><line x1="676" y1="170" x2="676" y2="222"/><line x1="740" y1="170" x2="740" y2="222"/></g>
+          <text class="sim-mono sm" x="586" y="200">ม.ค.</text>
+          <text class="sim-mono sm" x="708" y="200">…ธ.ค.</text>
+          <text class="s-t sm" x="674" y="134">งบกำไรขาดทุน + งบกระแสเงินสด</text>
+          <text class="s-t sm" x="674" y="264">วิดีโอทั้งปี · 1 ม.ค. → 31 ธ.ค.</text>
+          <text class="sim-mono f3-num" x="420" y="322">งบดุลถ่าย "ตอนจบ" · อีกสองงบเล่า "ระหว่างทาง" ที่พามาถึงตอนจบนั้น</text>
+        </svg>
+      </div><figcaption><strong>เข้าใจผิดข้อแรกของมือใหม่คือเอาเลขงบดุลไปเทียบเลขงบกำไรตรงๆ</strong> — มันคนละหน่วยเวลา งบกำไร/งบกระแสเงินสดคือ "วิดีโอ" ที่วิ่งทั้งปี (flow) ส่วนงบดุลคือ "ภาพถ่าย" ณ วินาทีปิดงวด (stock) เงินสดในงบดุลไม่ใช่ "เงินที่หาได้ปีนี้" แต่คือ<strong>เงินที่เหลือค้างอยู่ ณ วินาทีนั้น</strong> หลังจากทุกอย่างวิ่งจบแล้ว จำเส้นแบ่งนี้ไว้ เดี๋ยวตอนเชื่อม 3 งบจะได้ไม่งง</figcaption></figure>
+
       <blockquote>
         สินทรัพย์ = หนี้สิน + ส่วนของเจ้าของ<br>
         (ของที่มี = เงินที่ยืมคนอื่นมา + เงินของเราเอง)
@@ -102,6 +136,7 @@
       <p>
         สมการนี้ต้อง "บาลานซ์" เสมอ (เลยเรียกงบดุล / Balance Sheet) —
         เพราะทุกอย่างที่บริษัทมี ต้องมาจากเงินสองแหล่งเท่านั้น: ยืมเขามา หรือเป็นของเจ้าของเอง
+        ไม่มีสินทรัพย์ก้อนไหนโผล่มาจากอากาศ ทุกบาทฝั่งซ้ายมีเจ้าของฝั่งขวาเสมอ
       </p>
 
       <h2 id="sec-2">งบดุลร้านกาแฟ ณ สิ้นปี</h2>
@@ -132,21 +167,150 @@
         </tbody>
       </table>
 
+      <figure class="ph-fig"><div class="ph-panel f3-panel"><div class="ph-eyebrow f3">ตาชั่งสองแขน · ทำไมงบดุลถึงต้องบาลานซ์</div>
+        <svg viewBox="0 0 840 400" role="img" aria-label="a two-arm balance scale: the left pan holds total assets 934,000 broken into cash receivables inventory and equipment; the right pan holds liabilities 300,000 plus owner equity 634,000; both sides read 934,000 and the beam is level">
+          <!-- pedestal -->
+          <rect x="384" y="344" width="72" height="22" rx="6" fill="#140f28" stroke="#4a3f78" stroke-width="2.5"/>
+          <rect x="412" y="150" width="16" height="196" fill="#241b45" stroke="#4a3f78" stroke-width="2"/>
+          <path d="M420,128 L438,152 L402,152 Z" fill="#a78bfa"/>
+          <!-- balanced beam group -->
+          <g class="f3-bob">
+            <rect x="212" y="140" width="416" height="11" rx="5.5" fill="#a78bfa"/>
+            <circle cx="420" cy="146" r="8" fill="#c4b5fd"/>
+            <!-- left chains + pan -->
+            <line x1="250" y1="150" x2="250" y2="214" stroke="#6d5bc0" stroke-width="2"/>
+            <path d="M198,214 Q250,252 302,214" fill="none" stroke="#a78bfa" stroke-width="3"/>
+            <text class="s-t" x="250" y="200">สินทรัพย์</text>
+            <text class="sim-mono f3-num" x="250" y="242">934,000</text>
+            <!-- right chains + pan -->
+            <line x1="590" y1="150" x2="590" y2="214" stroke="#6d5bc0" stroke-width="2"/>
+            <path d="M538,214 Q590,252 642,214" fill="none" stroke="#a78bfa" stroke-width="3"/>
+            <text class="s-t" x="590" y="192">หนี้สิน + ส่วนเจ้าของ</text>
+            <text class="sim-mono f3-num" x="590" y="242">934,000</text>
+          </g>
+          <!-- breakdown left -->
+          <text class="s-t sm" x="180" y="304">ในฝั่งสินทรัพย์</text>
+          <text class="sim-mono sm" x="180" y="326">เงินสด 164k · ลูกหนี้ 180k</text>
+          <text class="sim-mono sm" x="180" y="344">สต็อก 90k · อุปกรณ์ 500k</text>
+          <!-- breakdown right -->
+          <text class="s-t sm" x="648" y="304">ในฝั่งขวา</text>
+          <text class="sim-mono sm" x="648" y="326">หนี้สิน (กู้) 300k</text>
+          <text class="sim-mono sm" x="648" y="344">ส่วนเจ้าของ 634k</text>
+          <text class="f3-top" x="420" y="388" text-anchor="middle" font-family="IBM Plex Sans Thai, sans-serif" font-size="13" font-weight="600">สินทรัพย์ = หนี้สิน + ส่วนของเจ้าของ · สองฝั่งเท่ากันเสมอ ไม่งั้นมีอะไรผิด</text>
+        </svg>
+      </div><figcaption><strong>"บาลานซ์" ไม่ใช่แค่ชื่อเท่ๆ แต่เป็นเครื่องมือจับผิด</strong> — ของทุกบาทที่ร้านมี (934,000) ต้องตอบได้ว่าเงินมาจากไหน: กู้มา 300,000 หรือเป็นของเจ้าของ 634,000 ถ้าสองฝั่งไม่เท่ากันแปลว่าบันทึกตกหล่น นี่คือเหตุผลที่ระบบบัญชีคู่ (double-entry) ทำให้ตัวเลขโกหกยาก ๆ ได้ยาก — แตะฝั่งหนึ่งต้องมีอีกฝั่งขยับตาม</figcaption></figure>
+
       <p>สังเกตว่าสองฝั่ง <strong>เท่ากันที่ 934,000</strong> — บาลานซ์พอดี</p>
 
-      <h2 id="sec-3">ดูอะไรในงบดุล</h2>
+      <h2 id="sec-3">ดูอะไรในงบดุล — 4 จุดวัดความแข็งแรง</h2>
+      <p>งบดุลไม่ได้อ่านเอา "สวย" แต่อ่านเพื่อตอบว่าธุรกิจนี้<strong>ทนแรงกระแทกได้แค่ไหน</strong> จุดที่ผมดูเป็นอันดับแรก:</p>
       <ul>
-        <li><strong>หนี้เทียบความสามารถจ่าย</strong> — เงินกู้ 300,000 เทียบกำไรจากการดำเนินงาน 250,000/ปี (จากตอน 1) ≈ 1.2 เท่า → จัดการไหว ไม่ใช่หนี้ท่วม</li>
-        <li><strong>ลูกหนี้ + สต็อก พองไหม</strong> — รวมกัน 270,000 จมอยู่ใน working capital นี่แหละคือตัวที่ทำให้กำไร 184,000 กลายเป็นเงินสดติดลบในตอนที่ 2</li>
-        <li><strong>สภาพคล่อง</strong> — สินทรัพย์หมุนเวียน (เงินสด+ลูกหนี้+สต็อก = 434,000) ควรพอจ่ายหนี้ระยะสั้น ถ้าน้อยกว่าหนี้สินหมุนเวียนคือสัญญาณตึง</li>
-        <li><strong>Goodwill</strong> — ถ้าบริษัทไปซื้อกิจการอื่นมาแพง ส่วนเกินจะกลายเป็น "Goodwill" ก้อนใหญ่ในสินทรัพย์ ซึ่งเสี่ยงถูกตัดมูลค่าทิ้ง (impairment) ถ้าดีลไม่เวิร์ก — ต้องระวังเป็นพิเศษ</li>
+        <li><strong>หนี้เทียบความสามารถจ่าย</strong> — เงินกู้ 300,000 เทียบกำไรจากการดำเนินงาน 250,000/ปี (จากตอน 1) ≈ 1.2 เท่า → จัดการไหว ตัววัดจริงที่นักลงทุนใช้คือ <strong>Net Debt / EBIT</strong> (หนี้สุทธิหลังหักเงินสด หารกำไรก่อนดอกเบี้ยและภาษี) ต่ำกว่า 2–3 เท่าถือว่าสบาย เกิน 4–5 เท่าเริ่มตึง โดยเฉพาะถ้ากำไรผันผวน</li>
+        <li><strong>ลูกหนี้ + สต็อก พองไหม</strong> — รวมกัน 270,000 จมอยู่ใน working capital นี่แหละคือตัวที่ทำให้กำไร 184,000 กลายเป็นเงินสดติดลบในตอนที่ 2 ถ้าปีถัดไปสองก้อนนี้โต<em>เร็วกว่ายอดขาย</em> = ธงแดง (ขายไม่ออกจนของค้าง หรือเก็บเงินลูกค้าไม่ได้)</li>
+        <li><strong>สภาพคล่อง</strong> — สินทรัพย์หมุนเวียน (เงินสด+ลูกหนี้+สต็อก = 434,000) ควรมากกว่าหนี้สินหมุนเวียน (current ratio > 1) ถ้าน้อยกว่าคือสัญญาณตึง อาจต้องรีบขายของหรือกู้เพิ่มเพื่อจ่ายหนี้ระยะสั้น</li>
+        <li><strong>Goodwill &amp; Intangibles</strong> — ถ้าบริษัทไปซื้อกิจการอื่นมา<em>แพงกว่ามูลค่าตามบัญชี</em> ส่วนเกินจะกลายเป็น "Goodwill" ก้อนใหญ่ในสินทรัพย์ ซึ่งไม่ใช่ของจับต้องได้ และเสี่ยงถูกตัดมูลค่าทิ้ง (impairment) ถ้าดีลไม่เวิร์ก — จุดนี้สำคัญพอที่จะยกงบจริงมาดูในหัวข้อถัดไป</li>
       </ul>
 
-      <h2 id="sec-4">หัวใจของซีรีส์: เชื่อม 3 งบเข้าด้วยกัน</h2>
+      <h2 id="sec-4">งบดุลบริษัทจริง: เมื่อ M&amp;A พองงบ และ buyback ดูดทุน</h2>
       <p>
-        นักลงทุนมือใหม่มักอ่านงบ 3 ชุดแยกกัน แล้วโดนหลอก ความจริงคือมันต่อกันสนิท —
-        ลองดูจากร้านกาแฟเรา:
+        ร้านกาแฟงบดุลใสเพราะไม่เคยไปซื้อกิจการใคร แต่พอเป็นบริษัทจริงระดับโลก งบดุลจะเต็มไปด้วย
+        "ร่องรอยของดีล" ที่ต้องอ่านให้เป็น เอา 3 ตัวที่อยู่ในเรดาร์ของผมมากางดู
       </p>
+
+      <figure class="ph-fig"><div class="ph-panel f3-panel"><div class="ph-eyebrow f3">งบดุล SNPS · Q1 FY2026 (10-Q) · หลังกลืน Ansys $34.9B (ก.ค. 2025)</div>
+        <svg viewBox="0 0 840 400" role="img" aria-label="a vertical bar of Synopsys total assets 47.24 billion, dominated by a goodwill segment of 26.88 billion (57 percent) that breathes like a balloon with an impairment needle pointing at it, an intangibles segment of 12.29 billion, and a thin tangible sliver at the bottom">
+          <text class="s-t" x="420" y="40">สินทรัพย์รวม SNPS = $47.24B — อะไรอยู่ในนั้น?</text>
+          <!-- stacked bar (total assets) -->
+          <!-- goodwill 57% -->
+          <rect class="f3-shim" x="250" y="70" width="220" height="150" fill="#8b6df0"/>
+          <rect x="250" y="70" width="220" height="150" fill="none" stroke="#c4b5fd" stroke-width="1.5"/>
+          <text class="s-t" x="360" y="138" fill="#0c0916">Goodwill</text>
+          <text class="sim-mono" x="360" y="162" fill="#160f2e" font-size="13">$26.88B · 57%</text>
+          <!-- crack -->
+          <path d="M300,70 l10,22 l-12,18 l14,20 l-8,20" fill="none" stroke="#160f2e" stroke-width="2" opacity=".55"/>
+          <!-- intangibles 26% -->
+          <rect x="250" y="220" width="220" height="68" fill="#6d5bc0"/>
+          <rect x="250" y="220" width="220" height="68" fill="none" stroke="#c4b5fd" stroke-width="1.5"/>
+          <text class="s-t sm" x="360" y="250" fill="#eae6f8">Intangibles (เทคโนโลยี+ลูกค้า Ansys)</text>
+          <text class="sim-mono sm" x="360" y="270" fill="#eae6f8">$12.29B · 26%</text>
+          <!-- tangible 17% -->
+          <rect x="250" y="288" width="220" height="46" fill="#33285c"/>
+          <rect x="250" y="288" width="220" height="46" fill="none" stroke="#4a3f78" stroke-width="1.5"/>
+          <text class="s-t sm" x="360" y="316">ของจับต้องได้จริง ~$8.1B · 17%</text>
+          <!-- impairment needle -->
+          <line x1="640" y1="96" x2="474" y2="140" stroke="#f472b6" stroke-width="2.5"/>
+          <circle cx="640" cy="96" r="7" fill="#f472b6"/>
+          <text class="s-t sm" x="648" y="92" text-anchor="start" fill="#f9a8d4">เข็ม impairment</text>
+          <text class="sim-mono sm" x="648" y="112" text-anchor="start" fill="#c98bb0">ถ้า Ansys โตไม่ทันคาด</text>
+          <text class="sim-mono sm" x="648" y="130" text-anchor="start" fill="#c98bb0">= ตัดมูลค่าทิ้งก้อนใหญ่</text>
+          <text class="sim-mono f3-num" x="420" y="378">Goodwill + Intangibles = $39.17B = 83% ของสินทรัพย์ทั้งหมด</text>
+        </svg>
+      </div><figcaption><strong>งบดุล SNPS หลังกลืน Ansys $34.9B คือกรณีศึกษาชั้นดีของ "งบดุลที่พองด้วยดีล"</strong> — เมื่อจ่ายแพงกว่ามูลค่าตามบัญชีของ Ansys มาก ส่วนเกินก้อนมหึมากลายเป็น <strong>Goodwill $26.88B (57% ของสินทรัพย์)</strong> บวก Intangibles อีก $12.29B รวมเป็น <strong>83% ของสินทรัพย์ทั้งบริษัทที่จับต้องไม่ได้</strong> มันไม่ได้แปลว่าแย่ — EDA เป็นธุรกิจ moat สูง คนซื้อเพราะซอฟต์แวร์+คน ไม่ใช่โรงงาน — แต่มันแปลว่า<strong>เดิมพันทั้งก้อนอยู่ที่ "Ansys ต้องเวิร์กจริง"</strong> ถ้าวันหนึ่งยอดรวมโตไม่ทันที่จ่ายไป ผู้สอบบัญชีจะบังคับตัด goodwill ทิ้ง (impairment) = ขาดทุนทางบัญชีก้อนใหญ่ทันที นี่คือ Kill Condition ที่ต้องจับตาสำหรับคนถือ SNPS</figcaption></figure>
+
+      <p>
+        อีกสองตัวสอนคนละบทเรียนบนบรรทัดเดียวกันของงบดุล — "ส่วนของเจ้าของ":
+      </p>
+      <ul>
+        <li><strong>AVGO (Broadcom) — หนี้ + goodwill จากดีลยักษ์</strong> หลังกลืน VMware (พ.ย. 2023 · ออกหุ้นมูลค่า $53.4B + เงินสด $30.8B) งบดุล AVGO มี <strong>Goodwill ~$97.8B</strong> (ราว 55% ของสินทรัพย์รวม ~$179B) และแบกหนี้ระยะยาว ~$62B โมเดล Hock Tan คือ "กู้มาซื้อของดี แล้วรีดกระแสเงินสดใช้หนี้" — งบดุลแบบนี้ไม่ได้ผิด แต่ต้องเช็กทุกไตรมาสว่ากระแสเงินสดยัง<em>ลดหนี้ได้จริง</em>ตามแผน</li>
+        <li><strong>AAPL (Apple) — buyback จนส่วนของเจ้าของบางเฉียบ</strong> ปี FY2025 Apple ซื้อหุ้นคืน <strong>$89.3B</strong> (บวกปันผลอีก $15.4B) และเพิ่งประกาศโปรแกรมซื้อคืนใหม่อีก <strong>$100B</strong> การซื้อหุ้นคืนคือการเอาเงินสด "ออก" จากฝั่งขวาของงบดุล ทำให้ส่วนของเจ้าของบางลงเรื่อย ๆ — เห็น equity น้อยแล้วอย่าเพิ่งตกใจว่าบริษัทจน มันตรงข้าม: ธุรกิจแข็งจนคืนเงินเจ้าของได้ปีละเกือบแสนล้านดอลลาร์ ต่างกับ SNPS ที่ equity <em>พอง</em>เพราะออกหุ้นใหม่ไปซื้อ Ansys — บรรทัดเดียวกัน เล่าคนละทิศ</li>
+      </ul>
+      <blockquote>
+        บทเรียน: อย่าอ่าน "ส่วนของเจ้าของ" เป็นตัวเลขลอย ๆ ต้องถามว่ามัน<strong>พองหรือหดเพราะอะไร</strong> —
+        พองเพราะออกหุ้นซื้อกิจการ (เจือจางเรา) หรือหดเพราะซื้อหุ้นคืน (เพิ่มสัดส่วนเรา) คนละความหมายกันคนละขั้ว
+      </blockquote>
+
+      <h2 id="sec-5">หัวใจของซีรีส์: เชื่อม 3 งบเข้าด้วยกัน</h2>
+      <p>
+        นักลงทุนมือใหม่มักอ่านงบ 3 ชุดแยกกัน แล้วโดนหลอก ความจริงคือมันต่อกันสนิทเหมือนระบบท่อ —
+        ตัวเลขจากงบหนึ่งไหลเข้าไปโผล่ในอีกงบเสมอ ลองดูจากร้านกาแฟเรา:
+      </p>
+
+      <figure class="ph-fig"><div class="ph-panel f3-panel"><div class="ph-eyebrow f3">ระบบท่อ 3 งบ · เงินก้อนเดียว ไหลครบสามงบ</div>
+        <svg viewBox="0 0 860 470" role="img" aria-label="a plumbing diagram: an income statement tank at top left produces net profit 184000 that pipes into the retained-earnings shelf of a balance-sheet vault on the right; the working-capital shelf drains down into a cash-flow meter at the bottom left dragging CFO negative; the ending cash 164000 pipes back up into the cash shelf of the vault, tying out exactly">
+          <defs><linearGradient id="f3c-liq" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#a78bfa"/><stop offset="1" stop-color="#5b3fd0"/></linearGradient></defs>
+          <!-- income statement tank -->
+          <rect x="54" y="60" width="220" height="112" rx="12" fill="#140f28" stroke="#4a3f78" stroke-width="2.5"/>
+          <rect x="64" y="118" width="200" height="46" rx="5" fill="url(#f3c-liq)"/>
+          <text class="s-t" x="164" y="90">งบกำไรขาดทุน</text>
+          <text class="sim-mono f3-num" x="164" y="146" fill="#160f2e">กำไรสุทธิ 184,000</text>
+          <!-- pipe income -> retained earnings -->
+          <path d="M274,110 H430 Q470,110 470,150 V150" fill="none" stroke="#123038" stroke-width="14"/>
+          <path class="f3-flow" d="M278,110 H432 Q466,110 466,148" fill="none"/>
+          <text class="s-t sm" x="360" y="100">① กำไร → กำไรสะสม</text>
+          <!-- balance sheet vault -->
+          <rect x="470" y="60" width="330" height="360" rx="16" fill="#14102a" stroke="#6d5bc0" stroke-width="3"/>
+          <circle cx="770" cy="90" r="16" fill="none" stroke="#6d5bc0" stroke-width="3"/>
+          <line x1="770" y1="90" x2="770" y2="76" stroke="#6d5bc0" stroke-width="3"/>
+          <line x1="770" y1="90" x2="782" y2="98" stroke="#6d5bc0" stroke-width="3"/>
+          <text class="f3-top" x="560" y="92" text-anchor="middle" font-family="IBM Plex Sans Thai, sans-serif" font-size="14" font-weight="700">งบดุล ณ 31 ธ.ค.</text>
+          <!-- shelf 1: retained earnings -->
+          <rect x="492" y="150" width="286" height="66" rx="8" fill="#241b45" stroke="#4a3f78" stroke-width="1.5"/>
+          <text class="s-t sm" x="635" y="180">กำไรสะสม (ส่วนของเจ้าของ)</text>
+          <text class="sim-mono f3-num" x="635" y="202">184,000</text>
+          <!-- shelf 2: cash -->
+          <rect x="492" y="228" width="286" height="66" rx="8" fill="#241b45" stroke="#4a3f78" stroke-width="1.5"/>
+          <text class="s-t sm" x="635" y="258">เงินสด</text>
+          <text class="sim-mono f3-num" x="635" y="280">164,000</text>
+          <!-- shelf 3: working capital -->
+          <rect x="492" y="306" width="286" height="66" rx="8" fill="#241b45" stroke="#4a3f78" stroke-width="1.5"/>
+          <text class="s-t sm" x="635" y="336">ลูกหนี้ + สต็อก (working capital)</text>
+          <text class="sim-mono f3-num" x="635" y="358">270,000</text>
+          <!-- drain working capital -> cash flow meter (straight, low lane) -->
+          <path d="M492,352 H304" fill="none" stroke="#123038" stroke-width="14"/>
+          <path class="f3-flow slow" d="M488,352 H308" fill="none"/>
+          <text class="s-t sm" x="398" y="336">② เงินจม → กด CFO</text>
+          <!-- cash flow meter -->
+          <rect x="54" y="300" width="250" height="120" rx="12" fill="#140f28" stroke="#4a3f78" stroke-width="2.5"/>
+          <text class="s-t" x="179" y="330">งบกระแสเงินสด</text>
+          <text class="sim-mono f3-num sm" x="179" y="356">เงินสดต้นปี 200,000</text>
+          <text class="sim-mono f3-num sm" x="179" y="376">CFO −36,000 (เงินจม WC)</text>
+          <text class="sim-mono f3-num sm" x="179" y="400">= เงินสดปลายงวด 164,000</text>
+          <!-- pipe ending cash -> cash shelf (up-and-over, high lane) -->
+          <path d="M200,300 V262 H470" fill="none" stroke="#123038" stroke-width="14"/>
+          <path class="f3-flow" d="M200,300 V262 H468" fill="none"/>
+          <text class="s-t sm" x="336" y="248">③ เงินสดปลายงวด → ช่องเงินสด (ตรงเป๊ะ)</text>
+        </svg>
+      </div><figcaption><strong>นี่คือภาพที่คุ้มค่าทั้งซีรีส์</strong> — เงินก้อนเดียวไหลครบสามงบ: <strong>①</strong> กำไรสุทธิ 184,000 จากงบกำไรขาดทุน ไหลเข้าเป็น "กำไรสะสม" ในส่วนของเจ้าของ · <strong>②</strong> ลูกหนี้+สต็อก 270,000 ที่โผล่ในงบดุล คือเงินก้อนเดียวกับที่ถูกหักในงบกระแสเงินสดจนทำให้ CFO ติดลบ · <strong>③</strong> เงินสดต้นปี 200,000 + CFO (−36,000) = เงินสดปลายงวด 164,000 ที่ตรงเป๊ะกับช่อง "เงินสด" ในงบดุล ถ้าตัวเลขสามจุดนี้เชื่อมไม่สนิท แปลว่าคุณอ่านผิด หรือบริษัทแต่งงบ — <strong>นี่คือกลไกที่ทำให้ "โกหกยาว ๆ ในงบ" ทำได้ยากมาก</strong></figcaption></figure>
 
       <table>
         <thead>
@@ -173,27 +337,34 @@
         งบดุลบอก "สะสมเป็นฐานะอะไร" — สามมุมของธุรกิจเดียวกัน ถ้าอ่านครบและเชื่อมได้ ตัวเลขจะโกหกคุณยากขึ้นมาก
       </blockquote>
 
-      <h2 id="sec-5">สรุป: 3 คำถามที่ต้องตอบจากงบดุล</h2>
+      <h2 id="sec-6">สรุป: 3 คำถามที่ต้องตอบจากงบดุล</h2>
       <ol>
-        <li>หนี้อยู่ในระดับที่กำไรของกิจการรับไหวไหม (ไม่ใช่ธุรกิจที่ต้องกู้มาประคอง)?</li>
-        <li>ลูกหนี้/สต็อก/Goodwill มีก้อนไหนพองผิดปกติจนเสี่ยงไหม?</li>
-        <li>ตัวเลขในงบดุลเชื่อมกับอีก 2 งบได้สนิทไหม (กำไรสะสม, เงินสด, working capital)?</li>
+        <li><strong>หนี้อยู่ในระดับที่กำไรของกิจการรับไหวไหม?</strong> (Net Debt/EBIT ต่ำ ๆ ไม่ใช่ธุรกิจที่ต้องกู้มาประคอง) — AVGO แบกหนี้ $62B ได้เพราะกระแสเงินสดแรง แต่ถ้าเป็นธุรกิจกำไรผันผวน หนี้เท่านี้คือระเบิดเวลา</li>
+        <li><strong>ลูกหนี้/สต็อก/Goodwill มีก้อนไหนพองผิดปกติจนเสี่ยงไหม?</strong> — goodwill 83% แบบ SNPS ไม่ผิดถ้า moat จริง แต่ต้องรู้ว่ามันคือเดิมพันบนดีล ไม่ใช่โรงงานที่ขายได้</li>
+        <li><strong>ตัวเลขในงบดุลเชื่อมกับอีก 2 งบได้สนิทไหม?</strong> (กำไรสะสม, เงินสด, working capital ต้อง tie-out เหมือนภาพระบบท่อด้านบน)</li>
       </ol>
 
-      <h2 id="sec-6">Kill Conditions — งบดุลแบบไหนที่ผมจะถอย</h2>
+      <h2 id="sec-7">Kill Conditions — งบดุลแบบไหนที่ผมจะถอย</h2>
+      <p>ตรงกับวินัยของผม: ต้องรู้ก่อนซื้อว่า "อะไรจะทำให้รู้ว่าคิดผิด" สำหรับงบดุล สัญญาณเหล่านี้คือเส้นที่ทำให้ผมทบทวน:</p>
       <ul>
-        <li>หนี้พุ่งเร็วกว่ากำไรต่อเนื่อง (Net Debt/EBIT สูงขึ้นเรื่อยๆ) โดยไม่มีเหตุผลการลงทุนที่ให้ผลตอบแทนชัด</li>
-        <li>ลูกหนี้หรือสต็อกโตเร็วกว่ายอดขายหลายปีติด (เงินจม คุณภาพกำไรต่ำ)</li>
-        <li>Goodwill ก้อนใหญ่จากดีลแพง + สัญญาณว่าดีลไม่เวิร์ก = เสี่ยง impairment</li>
-        <li>ส่วนของเจ้าของถูกลดทอนเรื่อยๆ (จำนวนหุ้นเพิ่มจาก dilution) หรือ equity ติดลบ</li>
+        <li>หนี้พุ่งเร็วกว่ากำไรต่อเนื่อง (Net Debt/EBIT สูงขึ้นเรื่อย ๆ) โดยไม่มีเหตุผลการลงทุนที่ให้ผลตอบแทนชัด</li>
+        <li>ลูกหนี้หรือสต็อกโตเร็วกว่ายอดขายหลายปีติด (เงินจม คุณภาพกำไรต่ำ — งบกำไรสวยแต่งบกระแสเงินสดจะแฉก่อน)</li>
+        <li><strong>Goodwill ก้อนใหญ่จากดีลแพง + สัญญาณว่าดีลไม่เวิร์ก</strong> = เสี่ยง impairment — กับ SNPS นี่คือจุดที่ผมจับตาที่สุด: ถ้ารายได้รวม Synopsys+Ansys โตไม่ทันที่จ่ายไป $34.9B การตัด goodwill $26.88B ทิ้งบางส่วนจะเป็นข่าวร้ายก้อนใหญ่</li>
+        <li>ส่วนของเจ้าของถูกลดทอนเรื่อย ๆ จาก dilution (จำนวนหุ้นเพิ่มโดยไม่ใช่เพื่อดีลที่คุ้ม) หรือ equity ติดลบเพราะขาดทุนสะสม (คนละเรื่องกับ equity บางเพราะ buyback แบบ AAPL — อันหลังคือสัญญาณดี)</li>
       </ul>
 
-      <h2 id="sec-7">จบซีรีส์ — แล้วยังไงต่อ</h2>
+      <h2 id="sec-8">จบซีรีส์ — แล้วยังไงต่อ</h2>
       <p>
-        ถึงตรงนี้คุณมีเครื่องมืออ่านงบครบทั้ง 3 ชุด และรู้วิธีเชื่อมมันเข้าด้วยกันแล้ว
-        นี่คือพื้นฐานที่นักลงทุนสาย Fundamental ใช้ทุกวัน ก้าวต่อไปคือเอาไปใช้กับ
-        <strong>บริษัทจริง</strong> — อ่านงบจริง หา moat จริง ตั้ง Kill Conditions จริง
-        ซึ่งจะเป็นเนื้อหาชุดถัดไปของเว็บนี้
+        ถึงตรงนี้คุณมีเครื่องมืออ่านงบครบทั้ง 3 ชุด และรู้วิธีเชื่อมมันเข้าด้วยกันแล้ว —
+        อ่านงบกำไรขาดทุนหา "ทิศของกำไร", งบกระแสเงินสดจับ "กำไรจริงหรือลม", งบดุลดู "ฐานะทนแค่ไหน"
+        แล้วต่อทั้งสามให้เป็นเรื่องเดียว นี่คือพื้นฐานที่นักลงทุนสาย Fundamental ใช้ทุกวัน
+      </p>
+      <p>
+        ก้าวต่อไปคือเอาไปใช้กับ<strong>บริษัทจริง</strong> — อ่านงบจริง หา moat จริง ตั้ง Kill Conditions จริง
+        อย่างที่เราแอบชิมกับ SNPS, AAPL, AVGO ในตอนนี้ ลองไปอ่านบท
+        <a href="deep-dive-snps.html">ผ่าธุรกิจ SNPS</a> หรือ
+        <a href="deep-dive-avgo.html">ผ่าธุรกิจ AVGO</a> ต่อ แล้วคุณจะเห็นว่าเครื่องมือ 3 งบที่เพิ่งหัด
+        มันทำงานยังไงกับกิจการจริง ๆ
       </p>
 
       <div class="author-card">
@@ -224,7 +395,8 @@
     <div class="container footer-legal">
       <p><strong>คำเตือน:</strong> เนื้อหาทั้งหมดเป็นบันทึกการเรียนและความเห็นส่วนตัว
          เพื่อการศึกษาเท่านั้น <strong>ไม่ใช่คำแนะนำการลงทุน</strong>
-         ตัวเลขร้านกาแฟเป็นตัวอย่างสมมติเพื่อการสอน การตัดสินใจลงทุนเป็นความรับผิดชอบของผู้อ่านเอง</p>
+         ตัวเลขร้านกาแฟเป็นตัวอย่างสมมติเพื่อการสอน ส่วนตัวเลขบริษัทจริงอ้างอิงจากงบล่าสุด (10-K/10-Q)
+         การตัดสินใจลงทุนเป็นความรับผิดชอบของผู้อ่านเอง</p>
       <p>© 2026 Moatrices · เผยแพร่ผ่าน GitHub Pages</p>
     </div>
   </footer>
