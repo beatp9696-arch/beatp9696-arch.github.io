@@ -15,7 +15,7 @@
   }
 
   // ---- ตั้งค่า optional (เปิดใช้เมื่อกรอกค่า) ----
-  var GOATCOUNTER_CODE = ""; // สมัครฟรีที่ goatcounter.com แล้วใส่ code เช่น "moatrices" → นับผู้เข้าชม
+  var GOATCOUNTER_CODE = "moatrices"; // สมัครฟรีที่ goatcounter.com แล้วใส่ code เช่น "moatrices" → นับผู้เข้าชม
   var GISCUS = { repo: "", repoId: "", category: "", categoryId: "" }; // เอาค่าจาก giscus.app → เปิดคอมเมนต์ท้ายบทความ
 
   // ---- base path: หน้า root vs หน้าใน articles/ ----
