@@ -1,0 +1,60 @@
+/* ============================================================
+   buffett-talks-05-punch-card — talk-article components (โหลดเฉพาะบทนี้)
+   ชุดเดียวกับหมวดหนังสือ (มาตรฐานบทความสุนทรพจน์)
+   ============================================================ */
+
+.pillar-head { display: flex; gap: 18px; align-items: flex-start; margin: 54px 0 6px; }
+.pillar-eyebrow {
+  font-family: var(--font-head); font-size: 13px; font-weight: 600;
+  letter-spacing: 0.08em; text-transform: uppercase; color: var(--muted);
+}
+.pillar-head h2 { margin: 3px 0 2px; padding-top: 0; }
+.pillar-head h2::after { content: none; }
+.pillar-meta { font-style: italic; color: var(--muted); font-size: 15px; }
+.focus-tag {
+  display: inline-block; font-family: var(--font-head); font-size: 12.5px; font-weight: 600;
+  color: var(--muted); border: 1px solid var(--border); border-radius: 8px;
+  padding: 5px 13px; margin: 14px 0 6px;
+}
+.focus-tag b { color: var(--accent); font-weight: 600; }
+
+.concept-box {
+  background: var(--surface-2); border: 1px solid var(--border); border-left: 4px solid var(--accent);
+  border-radius: 0 var(--radius) var(--radius) 0; padding: 18px 22px; margin: 22px 0;
+}
+.concept-eyebrow {
+  font-family: var(--font-head); font-size: 12px; font-weight: 600;
+  letter-spacing: 0.08em; text-transform: uppercase; color: var(--muted); margin-bottom: 5px;
+}
+.concept-name { font-family: var(--font-head); font-size: 19px; font-weight: 700; color: var(--text); margin-bottom: 8px; }
+.concept-box p:last-child { margin-bottom: 0; }
+
+.key-lesson {
+  background: var(--accent-tint); border: 1px solid color-mix(in srgb, var(--accent) 30%, transparent);
+  border-radius: var(--radius); padding: 20px 24px; margin: 26px 0;
+}
+.kl-eyebrow {
+  font-family: var(--font-head); font-size: 12px; font-weight: 700;
+  letter-spacing: 0.08em; text-transform: uppercase; color: var(--accent); margin-bottom: 8px;
+}
+.key-lesson p { font-style: italic; margin: 0; color: var(--text); font-size: 17px; line-height: 1.75; }
+
+.reading-order {
+  background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius);
+  padding: 26px 28px; margin: 36px 0 0; box-shadow: var(--shadow-sm);
+}
+.reading-order h3 { margin: 0 0 18px; }
+.ro-item { display: flex; gap: 16px; margin-bottom: 18px; }
+.ro-item:last-child { margin-bottom: 0; }
+.ro-num { font-family: var(--font-head); font-weight: 700; color: var(--accent); font-size: 14px; flex: none; padding-top: 3px; min-width: 22px; }
+.ro-title { font-family: var(--font-head); font-weight: 600; font-style: italic; color: var(--text); }
+.ro-desc { color: var(--muted); font-size: 15px; margin-top: 2px; line-height: 1.6; }
+.book-cover {
+  width: 116px;
+  height: auto;
+  flex: none;
+  border-radius: 6px;
+  border: 1px solid var(--border);
+  box-shadow: var(--shadow-md);
+}
+@media (max-width: 600px) { .book-cover { width: 88px; } }

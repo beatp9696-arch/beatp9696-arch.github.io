@@ -25,6 +25,16 @@
   // ---- ข้อมูลบทความ (แหล่งเดียว — ใช้ทั้ง prev/next, related, search, sector filter) ----
   // เรียงเก่า → ใหม่ · sec: semi | software | health | finance | consumer | space | market | basics
   var ARTICLES = [
+    { f: "buffett-talks-01-superinvestors.html", t: "Buffett Talks 1: Superinvestors (1984)", sec: "basics" },
+    { f: "buffett-talks-02-florida-mba-1998.html", t: "Buffett Talks 2: Florida MBA (1998)", sec: "basics" },
+    { f: "buffett-talks-03-stock-market-1999.html", t: "Buffett Talks 3: Stock Market (1999)", sec: "basics" },
+    { f: "buffett-talks-04-notre-dame-1991.html", t: "Buffett Talks 4: Notre Dame (1991)", sec: "basics" },
+    { f: "buffett-talks-05-punch-card.html", t: "Buffett Talks 5: Punch Card", sec: "basics" },
+    { f: "munger-talks-01-worldly-wisdom.html", t: "Munger Talks 1: Worldly Wisdom (1994)", sec: "basics" },
+    { f: "munger-talks-02-practical-thought.html", t: "Munger Talks 2: Glotz Coca-Cola (1996)", sec: "basics" },
+    { f: "munger-talks-03-misjudgment-1995.html", t: "Munger Talks 3: Misjudgment (1995)", sec: "basics" },
+    { f: "munger-talks-04-guaranteed-misery.html", t: "Munger Talks 4: Guaranteed Misery (1986)", sec: "basics" },
+    { f: "munger-talks-05-usc-law-2007.html", t: "Munger Talks 5: USC Law (2007)", sec: "basics" },
     { f: "books-mind-habit-time.html", t: "3 เล่ม: สมอง นิสัย เวลา", sec: "basics" },
     { f: "poor-charlies-almanack.html", t: "Poor Charlie's Almanack", sec: "basics" },
     { f: "deep-dive-aapl.html", t: "AAPL (Apple)", sec: "consumer" },
@@ -209,6 +219,7 @@
       var txt = tagEl ? tagEl.textContent : "";
       var cat = "other";
       if (txt.indexOf("Deep-dive") !== -1) cat = "deepdive";
+      else if (txt.indexOf("สุนทรพจน์") !== -1) cat = "talks";
       else if (txt.indexOf("ซีรีส์") !== -1 || txt.indexOf("งบ") !== -1) cat = "financials";
       else if (txt.indexOf("หนังสือ") !== -1) cat = "book";
       else if (txt.indexOf("บทวิเคราะห์") !== -1) cat = "analysis";
@@ -218,7 +229,7 @@
       li.setAttribute("data-sec", SEC_BY_FILE[fname] || "other");
     });
 
-    var counts = { all: items.length, deepdive: 0, financials: 0, book: 0, analysis: 0 };
+    var counts = { all: items.length, deepdive: 0, financials: 0, book: 0, analysis: 0, talks: 0 };
     var secCounts = {};
     items.forEach(function (li) {
       var cat = li.getAttribute("data-cat");
@@ -259,7 +270,8 @@
       { key: "deepdive", label: "Deep-dive" },
       { key: "analysis", label: "บทวิเคราะห์" },
       { key: "financials", label: "อ่านงบ" },
-      { key: "book", label: "หนังสือ" }
+      { key: "book", label: "หนังสือ" },
+      { key: "talks", label: "สุนทรพจน์" }
     ];
     var filterBar = document.createElement("div");
     filterBar.className = "filter-bar";
