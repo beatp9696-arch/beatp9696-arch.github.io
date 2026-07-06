@@ -4,8 +4,11 @@
 สร้าง/แก้ให้อัตโนมัติ:
   1. articles/<slug>.html   — head (meta/OG/JSON-LD ครบ) + chrome + โครง section มาตรฐาน
   2. scenes/<slug>.css      — stub ว่าง (build.py จะ minify + ฝัง <link> ให้)
-  3. index.html            — แทรกการ์ดบนสุดของ .post-list
-  4. app.js                — แทรก entry บนสุดของ ARTICLES (search + prev/next เห็น)
+  3. articles.html          — แทรกการ์ดบนสุดของคลังบทความ (source of truth)
+  4. index.html             — เฉพาะ --kind stock/book: แทรกการ์ดบนสุดของ "บทความล่าสุด"
+                              แล้วตัดท้ายให้เหลือ 6 ใบ (ตอนซีรีส์ไม่ขึ้นหน้าแรก —
+                              เข้าถึงผ่านการ์ดซีรีส์/คลังบทความแทน)
+  5. app.js                 — แทรก entry บนสุดของ ARTICLES (search + prev/next เห็น)
 
 หลังรัน: เขียนเนื้อหา + scene, ทำ og-<slug>.png, แล้วรัน `python3 build.py`
 (build.py จะ gen thumbnail/sitemap/feed/TOC/ItemList + ฝัง scene link + validate)
@@ -279,20 +282,35 @@ def main():
     os.makedirs("scenes", exist_ok=True)
     open(f"scenes/{a.slug}.css", "w", encoding="utf-8").write(fill(SCENE_STUB, SLUG=a.slug, NS=ns))
 
-    # 3) index.html card (แทรกบนสุดของ .post-list)
-    idx = open("index.html", encoding="utf-8").read()
+    # 3) articles.html card (แทรกบนสุดของคลังบทความ = source of truth)
     badge = (fill(BADGE_STOCK, TICKER=esc(a.ticker)) if is_stock
              else fill(BADGE_SERIES, TAG=esc(tag)))
     card = fill(CARD_TMPL, TAG=esc(tag), BADGE=badge, READ=str(a.read_time),
                 DATE=a.date, DATE_TH=date_th, SLUG=a.slug,
                 TITLE=esc(a.title), EXCERPT=esc(a.excerpt))
-    anchor = '<ul class="post-list">\n'
-    if anchor not in idx:
-        sys.exit("ERROR: ไม่พบ <ul class=\"post-list\"> ใน index.html")
-    idx = idx.replace(anchor, anchor + "\n" + card, 1)
-    open("index.html", "w", encoding="utf-8").write(idx)
+    arc = open("articles.html", encoding="utf-8").read()
+    anchor = '<ul class="post-list post-list--all">\n'
+    if anchor not in arc:
+        sys.exit("ERROR: ไม่พบ <ul class=\"post-list post-list--all\"> ใน articles.html")
+    arc = arc.replace(anchor, anchor + "\n" + card, 1)
+    open("articles.html", "w", encoding="utf-8").write(arc)
 
-    # 4) app.js ARTICLES entry (แทรกบนสุด)
+    # 4) index.html "บทความล่าสุด" (เฉพาะ stock/book) — แทรกบนสุด + ตัดให้เหลือ RECENT_MAX
+    on_index = a.kind in ("stock", "book")
+    if on_index:
+        RECENT_MAX = 6
+        idx = open("index.html", encoding="utf-8").read()
+        m = re.search(r'(<ul class="post-list post-list--recent">\n)(.*?)(\n[ ]{6}</ul>)',
+                      idx, re.S)
+        if not m:
+            sys.exit("ERROR: ไม่พบ <ul class=\"post-list post-list--recent\"> ใน index.html")
+        cards = re.findall(r"[ ]{8}<li>\n.*?\n[ ]{8}</li>\n", m.group(2) + "\n", re.S)
+        cards = ([card] + cards)[:RECENT_MAX]
+        inner = "\n" + "\n".join(cards).rstrip("\n")
+        idx = idx[:m.start()] + m.group(1) + inner + m.group(3) + idx[m.end():]
+        open("index.html", "w", encoding="utf-8").write(idx)
+
+    # 5) app.js ARTICLES entry (แทรกบนสุด)
     app = open("app.js", encoding="utf-8").read()
     entry = f'    {{ f: "{a.slug}.html", t: "{nav_title}", sec: "{a.sec}" }},\n'
     m = re.search(r"var ARTICLES = \[\n", app)
@@ -303,7 +321,11 @@ def main():
 
     print(f"✓ สร้าง {art}")
     print(f"✓ สร้าง scenes/{a.slug}.css (stub, namespace .{ns}-*)")
-    print("✓ แทรกการ์ดใน index.html")
+    print("✓ แทรกการ์ดใน articles.html (คลังบทความ)")
+    if on_index:
+        print("✓ แทรกการ์ดใน index.html บทความล่าสุด (ตัดให้เหลือ 6 ใบ)")
+    else:
+        print("- ตอนซีรีส์ไม่ขึ้นหน้าแรกอัตโนมัติ — ถ้าเป็นซีรีส์ใหม่ให้เพิ่ม/แก้การ์ดซีรีส์ใน index.html เอง")
     print("✓ แทรก entry ใน app.js ARTICLES")
     print("\nต่อไป:")
     print(f"  1. เขียนเนื้อหาใน {art} (แทน TODO) + scene ใน scenes/{a.slug}.css")

@@ -752,6 +752,90 @@ tbody tr:hover td { background: var(--accent-tint); }/* ========================
   color: var(--muted);
 }
 
+/* ============================================================
+   การ์ดซีรีส์บนหน้าแรก (Buffett/Munger Talks) — 1 ซีรีส์ = 1 การ์ด
+   ลิงก์ไปตอนแรก อ่านต่อด้วย prev/next · ตอนทั้งหมดอยู่หน้า articles.html
+   ============================================================ */
+.series-cards {
+  display: grid;
+  gap: 16px;
+  margin: 0 0 44px;
+}
+@media (min-width: 620px) {
+  .series-cards { grid-template-columns: 1fr 1fr; }
+}
+.series-card {
+  position: relative;
+  overflow: hidden;
+  display: block;
+  padding: 20px 22px 18px;
+  background: linear-gradient(180deg, var(--accent-tint), transparent 55%), var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow-sm);
+  color: var(--text);
+  text-decoration: none;
+  transition: transform 0.18s ease, box-shadow 0.18s ease, border-color 0.18s ease;
+}
+.series-card::before {
+  content: "";
+  position: absolute; left: 0; top: 0; bottom: 0;
+  width: 4px;
+  background: var(--grad);
+}
+.series-card:hover {
+  transform: translateY(-3px);
+  box-shadow: var(--shadow-md);
+  border-color: var(--accent);
+}
+.series-card .kicker { display: block; margin-bottom: 6px; }
+.series-card-title {
+  display: block;
+  font-family: var(--font-head);
+  font-size: 20px;
+  font-weight: 600;
+  line-height: 1.4;
+  margin-bottom: 6px;
+}
+.series-card:hover .series-card-title { color: var(--accent); }
+.series-card-sub {
+  display: block;
+  font-size: 14.5px;
+  line-height: 1.65;
+  color: var(--muted);
+}
+.series-card-cta {
+  display: inline-block;
+  margin-top: 12px;
+  font-family: var(--font-head);
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--accent);
+  transition: transform 0.18s ease;
+}
+.series-card:hover .series-card-cta { transform: translateX(3px); }
+
+/* ปุ่มไปหน้าคลังบทความ ท้าย "บทความล่าสุด" */
+.view-all-wrap { text-align: center; margin: 28px 0 44px; }
+.view-all-btn {
+  display: inline-block;
+  padding: 11px 26px;
+  font-family: var(--font-head);
+  font-size: 15px;
+  font-weight: 600;
+  color: var(--accent);
+  background: var(--surface);
+  border: 1px solid var(--accent);
+  border-radius: 999px;
+  box-shadow: var(--shadow-sm);
+  transition: background 0.15s ease, color 0.15s ease, transform 0.15s ease;
+}
+.view-all-btn:hover {
+  background: var(--accent);
+  color: #fff;
+  transform: translateY(-2px);
+}
+
 .post-list { counter-reset: post; }
 .post-list li {
   counter-increment: post;
