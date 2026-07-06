@@ -668,92 +668,106 @@ tbody tr:hover td { background: var(--accent-tint); }/* ========================
 .hero .lead { margin-bottom: 0; }
 
 /* ============================================================
-   Series start — กล่อง "เริ่มที่นี่" ซีรีส์อ่านงบ (หน้าแรก)
+   Featured — "ต้องอ่าน" ของเด่น 3 หมวดบนหน้าแรก (หุ้น/บทความ/หนังสือ)
+   ใบแรก (--lead) เป็นการ์ดใหญ่แนวนอน อีก 2 ใบเรียงคู่ข้างล่าง
    static HTML ใน index.html · โชว์ทันทีที่ paint (ไม่ inject = ไม่ CLS)
    ============================================================ */
-.series-start {
+.featured-grid {
+  display: grid;
+  gap: 16px;
+  margin: 4px 0 44px;
+}
+@media (min-width: 620px) {
+  .featured-grid { grid-template-columns: 1fr 1fr; }
+  .featured-card--lead { grid-column: 1 / -1; }
+}
+.featured-card {
   position: relative;
   overflow: hidden;
-  margin: 4px 0 44px;
-  padding: 24px 24px 22px;
-  background: linear-gradient(180deg, var(--accent-tint), transparent 55%), var(--surface);
+  display: flex;
+  flex-direction: column;
+  background: var(--surface);
   border: 1px solid var(--border);
   border-radius: var(--radius);
   box-shadow: var(--shadow-sm);
-}
-.series-start::before {
-  content: "";
-  position: absolute; left: 0; top: 0; bottom: 0;
-  width: 4px;
-  background: var(--grad);
-}
-.series-start .kicker { margin-bottom: 6px; }
-.series-start-title {
-  font-family: var(--font-head);
-  font-size: 22px;
-  line-height: 1.4;
-  margin: 0 0 8px;
-}
-.series-start-lead {
-  margin: 0 0 18px;
-  font-size: 15.5px;
-  line-height: 1.7;
-  color: var(--muted);
-}
-.series-steps {
-  list-style: none;
-  margin: 0; padding: 0;
-  display: grid;
-  gap: 10px;
-}
-@media (min-width: 620px) {
-  .series-steps { grid-template-columns: 1fr 1fr; }
-}
-.series-step a {
-  display: flex;
-  align-items: center;
-  gap: 13px;
-  height: 100%;
-  padding: 12px 14px;
-  background: var(--surface-2);
-  border: 1px solid var(--border);
-  border-radius: 11px;
   color: var(--text);
   text-decoration: none;
-  transition: border-color .15s ease, transform .15s ease, box-shadow .15s ease;
+  transition: transform 0.18s ease, box-shadow 0.18s ease, border-color 0.18s ease;
 }
-.series-step a:hover {
-  border-color: var(--accent);
-  transform: translateY(-2px);
-  box-shadow: var(--shadow-md);
-}
-.series-step-num {
-  flex: none;
-  width: 34px; height: 34px;
-  border-radius: 9px;
+.featured-card::after {
+  content: "";
+  position: absolute;
+  left: 0; right: 0; top: 0;
+  height: 3px;
   background: var(--grad);
-  color: #fff;
-  font-family: var(--font-head);
-  font-weight: 700;
-  font-size: 17px;
-  display: grid; place-items: center;
+  z-index: 1;
 }
-.series-step-body { display: flex; flex-direction: column; gap: 1px; min-width: 0; }
-.series-step-title {
+.featured-card:hover {
+  transform: translateY(-3px);
+  box-shadow: var(--shadow-md);
+  border-color: var(--accent);
+}
+.featured-thumb {
+  display: block;
+  overflow: hidden;
+}
+.featured-thumb img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  aspect-ratio: 1200 / 630;
+  object-fit: cover;
+  transition: transform 0.25s ease;
+}
+.featured-card:hover .featured-thumb img { transform: scale(1.04); }
+.featured-body {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  flex: 1;
+  padding: 15px 18px 14px;
+}
+.featured-card .kicker { margin-bottom: 0; }
+.featured-title {
   font-family: var(--font-head);
   font-weight: 600;
-  font-size: 15.5px;
-  line-height: 1.35;
-  color: var(--text);
+  font-size: 16.5px;
+  line-height: 1.45;
 }
-.series-step-sub {
-  font-size: 12.5px;
-  line-height: 1.4;
+.featured-card:hover .featured-title { color: var(--accent); }
+.featured-sub {
+  font-size: 14px;
+  line-height: 1.65;
   color: var(--muted);
+}
+.featured-cta {
+  margin-top: auto;
+  padding-top: 8px;
+  font-family: var(--font-head);
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--accent);
+  transition: transform 0.18s ease;
+}
+.featured-card:hover .featured-cta { transform: translateX(3px); }
+@media (min-width: 620px) {
+  .featured-card--lead { flex-direction: row; align-items: center; }
+  .featured-card--lead .featured-thumb {
+    flex: 0 0 44%;
+    align-self: center;
+    padding: 16px 0 16px 16px;
+  }
+  .featured-card--lead .featured-thumb img {
+    border-radius: 10px;
+    border: 1px solid var(--border);
+  }
+  .featured-card--lead .featured-body { padding: 20px 24px 18px; gap: 8px; }
+  .featured-card--lead .featured-title { font-size: 20px; line-height: 1.4; }
+  .featured-card--lead .featured-sub { font-size: 14.5px; }
 }
 
 /* ============================================================
-   การ์ดซีรีส์บนหน้าแรก (Buffett/Munger Talks) — 1 ซีรีส์ = 1 การ์ด
+   การ์ดซีรีส์บนหน้าแรก (อ่านงบ/Buffett/Munger) — 1 ซีรีส์ = 1 การ์ด
    ลิงก์ไปตอนแรก อ่านต่อด้วย prev/next · ตอนทั้งหมดอยู่หน้า articles.html
    ============================================================ */
 .series-cards {
@@ -762,7 +776,10 @@ tbody tr:hover td { background: var(--accent-tint); }/* ========================
   margin: 0 0 44px;
 }
 @media (min-width: 620px) {
-  .series-cards { grid-template-columns: 1fr 1fr; }
+  .series-cards { grid-template-columns: repeat(3, 1fr); }
+  .series-card { padding: 18px 18px 16px; }
+  .series-card-title { font-size: 18px; }
+  .series-card-sub { font-size: 13.5px; }
 }
 .series-card {
   position: relative;
