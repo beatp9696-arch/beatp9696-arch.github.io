@@ -5,3 +5,6 @@
 # editor
 .vscode/
 *.swp
+
+# python (build.py)
+__pycache__/

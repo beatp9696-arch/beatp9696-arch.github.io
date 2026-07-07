@@ -21,6 +21,7 @@ import html
 import json
 import os
 import re
+import shutil
 import subprocess
 import sys
 from xml.sax.saxutils import escape
@@ -267,6 +268,20 @@ def write_itemlist(posts):
     print(f"itemlist    : {len(posts)} รายการ" + ("" if new != src else " (ไม่เปลี่ยน)"))
 
 
+def _thumb_cmd(src, dst):
+    """คืน argv ย่อ src -> dst (jpeg คุณภาพ 80, ด้านยาว THUMB_W) ตามเครื่องมือที่มีในเครื่อง:
+    macOS = sips, Linux/CI = ImageMagick (magick v7 หรือ convert v6) — คืน None ถ้าไม่มีทั้งคู่
+    (แยกออกมาเพื่อให้ build รันได้ทั้งเครื่อง PP และ GitHub Actions ที่ไม่มี sips)"""
+    if shutil.which("sips"):
+        return ["sips", "-Z", str(THUMB_W), "-s", "format", "jpeg",
+                "-s", "formatOptions", "80", src, "--out", dst]
+    im = shutil.which("magick") or shutil.which("convert")
+    if im:
+        # 640x640> = ย่อให้พอดีกรอบเมื่อใหญ่กว่าเท่านั้น (คงสัดส่วน) เทียบเท่า sips -Z
+        return [im, src, "-resize", f"{THUMB_W}x{THUMB_W}>", "-quality", "80", dst]
+    return None
+
+
 def write_thumbnails(posts):
     """gen thumbnail JPEG 640px จาก og-<slug>.png (regen เฉพาะที่ขาดหรือ og ใหม่กว่า thumb)
     เก็บ og png เต็มไว้สำหรับ meta og:image — thumb ใช้แค่เป็นภาพการ์ด ลดหน้าแรก ~90%"""
@@ -282,11 +297,11 @@ def write_thumbnails(posts):
         if os.path.exists(thumb) and os.path.getmtime(thumb) >= os.path.getmtime(og):
             skipped += 1
             continue
-        subprocess.run(
-            ["sips", "-Z", str(THUMB_W), "-s", "format", "jpeg",
-             "-s", "formatOptions", "80", og, "--out", thumb],
-            check=True, stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL,
-        )
+        cmd = _thumb_cmd(og, thumb)
+        if cmd is None:
+            print("thumbnails  : WARNING ไม่พบ sips หรือ ImageMagick (magick/convert) — ข้ามการสร้าง thumbnail")
+            return
+        subprocess.run(cmd, check=True, stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
         made += 1
     print(f"thumbnails  : {made} สร้างใหม่, {skipped} ทันสมัยแล้ว"
           + (f", {missing} ไม่มี og png" if missing else ""))
@@ -354,7 +369,172 @@ def build_scenes():
           + (f", {orphan} scene ไม่มีบทคู่" if orphan else ""))
 
 
-def validate(posts):
+# ─── stocks.html + hero stats: generate จาก ARTICLES (app.js = SoT ของ ticker↔sector↔ไฟล์) ───
+# ARTICLES ให้ว่ามี ticker ตัวไหน / อยู่ sector อะไร / ลิงก์ไปไฟล์ไหน (สอดคล้อง articles.html)
+# ตารางล่างเก็บเฉพาะ "หน้าตา" ที่ ARTICLES ไม่มี: ชื่อบริษัท, sub-label, โลโก้, ลำดับการ์ด
+def parse_articles_js(path="app.js"):
+    """ดึง ARTICLES (f, tk, sec) จาก app.js — SoT เดียวกับที่ search/prev-next ใช้"""
+    src = open(path, encoding="utf-8").read()
+    m = re.search(r"var ARTICLES = \[(.*?)\];", src, re.S)
+    if not m:
+        print("stocks      : WARNING หา 'var ARTICLES = [' ใน app.js ไม่เจอ")
+        return []
+    out = []
+    for entry in re.finditer(r"\{[^{}]*\}", m.group(1)):
+        e = entry.group(0)
+        f = re.search(r'\bf:\s*"([^"]+)"', e)
+        if not f:
+            continue
+        tk = re.search(r'\btk:\s*"([^"]*)"', e)
+        sec = re.search(r'\bsec:\s*"([^"]*)"', e)
+        out.append({"f": f.group(1),
+                    "tk": tk.group(1) if tk else "",
+                    "sec": sec.group(1) if sec else ""})
+    return out
+
+
+# หัวข้อ + ลำดับกลุ่มธุรกิจในหน้า stocks.html (sec key ต้องตรงกับ ARTICLES)
+STOCK_SECTORS = [
+    ("semi", "เซมิคอนดักเตอร์ &amp; AI"),
+    ("software", "ซอฟต์แวร์ &amp; อินเทอร์เน็ต"),
+    ("health", "สุขภาพ"),
+    ("finance", "การเงิน"),
+    ("consumer", "ผู้บริโภค"),
+    ("space", "อวกาศ &amp; กลาโหม"),
+]
+# ลำดับการ์ดภายในกลุ่ม (curated — ไม่ใช่ลำดับเวลาแบบ ARTICLES)
+STOCK_ORDER = ["ASML", "SNPS", "TSM", "NVDA", "MU", "MRVL", "COHR", "AVGO",
+               "MSFT", "GOOGL", "NFLX", "LLY", "UNH", "AXP", "SPGI",
+               "AAPL", "COST", "MELI", "SPACEX", "LMT"]
+# ticker (ตรงกับ tk ใน ARTICLES) -> หน้าตาการ์ด
+#   logo ("img", "X.png")                 = <img> โลโก้ราสเตอร์/svg
+#   logo ("wm", "X.svg", ar, "aria")      = wordmark ตัดด้วย mask (อัตราส่วน ar)
+#   tk (ออปชัน)                            = ข้อความ ticker ที่โชว์ ถ้าต่างจาก key
+STOCK_META = {
+    "ASML":   {"name": "ASML Holding", "sub": "EUV / Litho", "logo": ("wm", "ASML.svg", 3.55, "ASML")},
+    "SNPS":   {"name": "Synopsys", "sub": "EDA", "logo": ("img", "SNPS.png")},
+    "TSM":    {"name": "TSMC", "sub": "Foundry", "logo": ("img", "TSM.png")},
+    "NVDA":   {"name": "NVIDIA", "sub": "GPU", "logo": ("img", "NVDA.png")},
+    "MU":     {"name": "Micron Technology", "sub": "Memory", "logo": ("wm", "MU.svg", 4.67, "Micron")},
+    "MRVL":   {"name": "Marvell Technology", "sub": "Custom chip", "logo": ("img", "MRVL.png")},
+    "COHR":   {"name": "Coherent", "sub": "Optical", "logo": ("img", "COHR.png")},
+    "AVGO":   {"name": "Broadcom", "sub": "AI chip", "logo": ("wm", "AVGO.svg", 7.27, "Broadcom")},
+    "MSFT":   {"name": "Microsoft", "sub": "Cloud", "logo": ("img", "MSFT.png")},
+    "GOOGL":  {"name": "Alphabet", "sub": "Ads", "logo": ("img", "GOOGL.png")},
+    "NFLX":   {"name": "Netflix", "sub": "Streaming", "logo": ("img", "NFLX.png")},
+    "LLY":    {"name": "Eli Lilly", "sub": "Pharma", "logo": ("img", "LLY.png")},
+    "UNH":    {"name": "UnitedHealth Group", "sub": "ประกัน", "logo": ("img", "UNH.png")},
+    "AXP":    {"name": "American Express", "sub": "Payments", "logo": ("img", "AXP.png")},
+    "SPGI":   {"name": "S&amp;P Global", "sub": "Ratings", "logo": ("img", "SPGI.png")},
+    "AAPL":   {"name": "Apple", "sub": "อุปกรณ์ + บริการ", "logo": ("img", "AAPL.svg")},
+    "COST":   {"name": "Costco Wholesale", "sub": "ค้าปลีก", "logo": ("img", "COST.png")},
+    "MELI":   {"name": "MercadoLibre", "sub": "E-commerce", "logo": ("img", "MELI.png")},
+    "SPACEX": {"name": "บริษัทเอกชน — ยังไม่ IPO", "sub": "Launch", "tk": "SpaceX",
+               "logo": ("wm", "SPACEX.svg", 8, "SpaceX")},
+    "LMT":    {"name": "Lockheed Martin", "sub": "กลาโหม", "logo": ("wm", "LMT.svg", 4.15, "Lockheed Martin")},
+}
+_STOCKS_BLOCK_RE = re.compile(r"<!-- STOCKS-START -->.*?<!-- STOCKS-END -->", re.S)
+
+
+def _stock_logo_html(logo):
+    if logo[0] == "img":
+        return f'<img class="stock-logo" src="logos/{logo[1]}" alt="" loading="lazy">'
+    _, file, ar, aria = logo
+    return ('<span class="stock-logo stock-logo--wm"><span class="ticker-wm ticker-wm--mask" '
+            f"style=\"--ar:{ar}; -webkit-mask-image:url('logos/{file}');mask-image:url('logos/{file}')\" "
+            f'role="img" aria-label="{aria}"></span></span>')
+
+
+def _stock_card_html(tk_key, art_file, meta):
+    disp = meta.get("tk", tk_key)
+    return (
+        '        <li class="stock-card">\n'
+        f'          {_stock_logo_html(meta["logo"])}\n'
+        f'          <span class="stock-meta"><a href="articles/{art_file}">'
+        f'<span class="stock-tk">{disp}</span></a>'
+        f'<span class="stock-name">{meta["name"]}</span></span>\n'
+        f'          <span class="stock-sec">{meta["sub"]}</span>\n'
+        '        </li>'
+    )
+
+
+def render_stocks_grid(articles):
+    sec_by_tk = {a["tk"].upper(): a["sec"] for a in articles if a["tk"]}
+    file_by_tk = {a["tk"].upper(): a["f"] for a in articles if a["tk"]}
+    parts = []
+    for sec_key, heading in STOCK_SECTORS:
+        cards = [
+            _stock_card_html(tk, file_by_tk[tk], STOCK_META[tk])
+            for tk in STOCK_ORDER
+            if sec_by_tk.get(tk) == sec_key and tk in STOCK_META and tk in file_by_tk
+        ]
+        if cards:
+            parts.append(f'      <h2>{heading}</h2>\n      <ul class="stock-grid">\n'
+                         + "\n".join(cards) + "\n      </ul>")
+    return "\n\n".join(parts)
+
+
+def write_stocks(articles):
+    """เขียนตารางการ์ดหุ้นใน stocks.html ระหว่าง marker <!-- STOCKS-START/END -->
+    จาก ARTICLES (มี ticker/sector ไหน) × STOCK_META (หน้าตา) — ตัด manual card ทิ้ง"""
+    src = open("stocks.html", encoding="utf-8").read()
+    if "<!-- STOCKS-START -->" not in src:
+        print("stocks.html : WARNING ไม่พบ marker <!-- STOCKS-START --> — ข้าม (ใส่ marker ก่อน)")
+        return
+    grid = render_stocks_grid(articles)
+    block = f"<!-- STOCKS-START -->\n{grid}\n      <!-- STOCKS-END -->"
+    new = _STOCKS_BLOCK_RE.sub(lambda _: block, src)
+    n_cards = new.count('class="stock-card"')
+    if new != src:
+        open("stocks.html", "w", encoding="utf-8").write(new)
+    print(f"stocks.html : {n_cards} การ์ดหุ้น" + ("" if new != src else " (ไม่เปลี่ยน)"))
+
+
+def write_hero_stats(articles):
+    """อัปเดตตัวเลข hero (บทความ/Deep-dive/ซีรีส์อ่านงบ) + view-all-count ใน index.html ให้ตรง
+    ARTICLES — HTML ดิบไม่ค้าง (app.js เขียนทับตอน runtime อยู่แล้ว แต่ no-JS/SEO เห็นค่านิ่ง)"""
+    n_all = len(articles)
+    n_deep = sum(1 for a in articles if a["tk"])
+    n_fin = sum(1 for a in articles if a["f"].startswith("financials-"))
+    src = open("index.html", encoding="utf-8").read()
+    new = src
+    for label, val in [("บทความ", n_all), ("Deep-dive", n_deep), ("ซีรีส์อ่านงบ", n_fin)]:
+        new = re.sub(
+            r'(<span class="hero-stat-num">)\d+(</span>\s*'
+            r'<span class="hero-stat-label">' + re.escape(label) + r'</span>)',
+            lambda m: m.group(1) + str(val) + m.group(2), new, count=1)
+    new = re.sub(r'(<span class="view-all-count">)\d+(</span>)',
+                 lambda m: m.group(1) + str(n_all) + m.group(2), new)
+    if new != src:
+        open("index.html", "w", encoding="utf-8").write(new)
+    print(f"hero stats  : บทความ {n_all} · deep-dive {n_deep} · อ่านงบ {n_fin}"
+          + ("" if new != src else " (ไม่เปลี่ยน)"))
+
+
+def stock_warnings(articles):
+    """cross-check ARTICLES ↔ STOCK_META ↔ ลำดับ ↔ ไฟล์โลโก้ — deep-dive ทุกตัวต้องมีการ์ด"""
+    w = []
+    art_tk = {a["tk"].upper() for a in articles if a["tk"]}
+    meta_tk = set(STOCK_META)
+    sec_keys = {k for k, _ in STOCK_SECTORS}
+    sec_by_tk = {a["tk"].upper(): a["sec"] for a in articles if a["tk"]}
+    for tk in sorted(art_tk - meta_tk):
+        w.append(f"{tk} เป็น deep-dive (มี tk ใน ARTICLES) แต่ไม่มีใน STOCK_META — ไม่ขึ้นการ์ดใน stocks.html")
+    for tk in sorted(meta_tk - art_tk):
+        w.append(f"STOCK_META มี {tk} แต่ไม่มีใน ARTICLES (app.js) — การ์ดชี้บทความที่ไม่มี")
+    for tk in sorted(meta_tk):
+        if tk not in STOCK_ORDER:
+            w.append(f"STOCK_META มี {tk} แต่ไม่อยู่ใน STOCK_ORDER — การ์ดจะไม่แสดง")
+        logo_file = f"logos/{STOCK_META[tk]['logo'][1]}"
+        if not os.path.exists(logo_file):
+            w.append(f"ไม่มีไฟล์โลโก้ {logo_file} สำหรับ {tk}")
+        sec = sec_by_tk.get(tk)
+        if sec and sec not in sec_keys:
+            w.append(f"{tk} มี sec='{sec}' ที่ไม่มีหัวข้อใน STOCK_SECTORS — การ์ดจะหาย")
+    return w
+
+
+def validate(posts, articles):
     warnings = []
     archive_files = {p["file"] for p in posts}
 
@@ -402,6 +582,10 @@ def validate(posts):
             if '"@type": "BlogPosting"' in body and '"image"' not in body:
                 warnings.append(f"{p['file']}: BlogPosting JSON-LD ขาด \"image\" — เสียสิทธิ์ Article rich results")
 
+    warnings.extend(stock_warnings(articles))
+    if "<!-- STOCKS-START -->" not in open("stocks.html", encoding="utf-8").read():
+        warnings.append("stocks.html ไม่มี marker <!-- STOCKS-START --> — build ไม่ gen การ์ดหุ้นให้")
+
     if warnings:
         print(f"\n{len(warnings)} WARNING:")
         for w in warnings:
@@ -417,14 +601,17 @@ def main():
         print(f"ERROR: parse {ARCHIVE} ไม่เจอบทความเลย — โครงสร้าง HTML อาจเปลี่ยน")
         return 2
     print(f"{ARCHIVE}: พบ {len(posts)} บทความ")
+    articles = parse_articles_js()
     inject_tocs()
     write_itemlist(posts)
     write_thumbnails(posts)
     minify_css()
     build_scenes()
+    write_stocks(articles)
+    write_hero_stats(articles)
     write_sitemap(posts)
     write_feed(posts)
-    return validate(posts)
+    return validate(posts, articles)
 
 
 if __name__ == "__main__":

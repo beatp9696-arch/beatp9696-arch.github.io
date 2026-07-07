@@ -519,6 +519,24 @@
     });
   }
 
+  // ---- a11y: focus trap + คืนโฟกัสให้ปุ่มที่เปิด (ใช้ร่วมกัน search modal + drawer มือถือ) ----
+  var FOCUSABLE_SEL = 'a[href], button:not([disabled]), input:not([disabled]),' +
+    ' textarea:not([disabled]), select:not([disabled]), [tabindex]:not([tabindex="-1"])';
+  function trapTab(container, e) {
+    if (e.key !== "Tab") return;
+    var nodes = Array.prototype.slice.call(container.querySelectorAll(FOCUSABLE_SEL))
+      .filter(function (n) { return n.offsetParent !== null; });  // เฉพาะที่มองเห็นจริง
+    if (!nodes.length) return;
+    var first = nodes[0], last = nodes[nodes.length - 1], active = document.activeElement;
+    if (!container.contains(active)) { e.preventDefault(); first.focus(); return; }  // โฟกัสหลุดออกนอก → ดึงกลับ
+    if (e.shiftKey && active === first) { e.preventDefault(); last.focus(); }
+    else if (!e.shiftKey && active === last) { e.preventDefault(); first.focus(); }
+  }
+  function restoreFocus(saved, fallbackEl) {
+    var t = (saved && saved.focus && saved !== document.body) ? saved : fallbackEl;
+    if (t && t.focus) t.focus();
+  }
+
   // ---- Search modal ----
   var themeToggleBtn = document.getElementById("theme-toggle");
   if (themeToggleBtn) {
@@ -533,9 +551,27 @@
 
     // ค้นบทความในเว็บก่อน — Yahoo Finance เป็นแค่ fallback
     var searchItems = ARTICLES.map(function (a) {
-      return { f: a.f, title: a.t.replace(/&amp;/g, "&"), tk: a.tk || "" };
+      return { f: a.f, title: a.t.replace(/&amp;/g, "&"), tk: a.tk || "", sec: a.sec || "" };
     }).reverse(); // ใหม่สุดก่อน
     function articleUrl(f) { return BASE + "articles/" + f; }
+
+    // k: กรองเจาะจงตาม ticker หรือกลุ่มธุรกิจ (เช่น k:snps, k:semi, k:การเงิน) แทน full-text
+    var SEC_KW = {
+      semi: ["semi", "เซมิ", "ชิป", "chip", "ai", "เอไอ"],
+      software: ["software", "ซอฟต์แวร์", "internet", "อินเทอร์เน็ต", "cloud"],
+      health: ["health", "สุขภาพ", "pharma", "ยา", "bio"],
+      finance: ["finance", "การเงิน", "bank", "ธนาคาร", "payment"],
+      consumer: ["consumer", "ผู้บริโภค", "retail", "ค้าปลีก", "ecommerce"],
+      space: ["space", "อวกาศ", "defense", "กลาโหม"],
+      market: ["market", "ตลาด", "macro", "มหภาค"],
+      basics: ["basics", "พื้นฐาน", "book", "หนังสือ", "talks", "สุนทรพจน์", "งบ"]
+    };
+    function matchKeyword(a, kw) {
+      if (a.tk && a.tk.toLowerCase().indexOf(kw) === 0) return true;  // ticker ขึ้นต้นด้วย kw
+      if (a.sec === kw) return true;
+      var al = SEC_KW[a.sec] || [];
+      return al.some(function (x) { return x === kw || (kw.length >= 2 && x.indexOf(kw) === 0); });
+    }
     var chipsHtml = searchItems.filter(function (a) { return a.tk; }).map(function (a) {
       return '<button type="button" class="search-chip" data-file="' + a.f + '">' + a.tk + '</button>';
     }).join("");
@@ -561,12 +597,15 @@
         '</div>' +
         '<div class="search-kbd-hint">' +
           '<kbd>/</kbd>&nbsp;หรือ&nbsp;<kbd>&#8984;K</kbd>&nbsp;เปิดได้เสมอ' +
+          '&nbsp;&middot;&nbsp;<kbd>k:</kbd>&nbsp;กรองตามหุ้น/หมวด เช่น k:semi' +
           '&nbsp;&middot;&nbsp;Enter เปิดผลลัพธ์แรก · ไม่พบบทความ = ค้นบน Yahoo Finance' +
         '</div>' +
       '</div>';
     document.body.appendChild(sOverlay);
 
+    var lastFocusedBeforeSearch = null;
     function openSearch() {
+      lastFocusedBeforeSearch = document.activeElement;
       sOverlay.classList.add("open");
       document.body.style.overflow = "hidden";
       setTimeout(function () {
@@ -577,15 +616,23 @@
     function closeSearch() {
       sOverlay.classList.remove("open");
       document.body.style.overflow = "";
+      restoreFocus(lastFocusedBeforeSearch, sb);  // คืนโฟกัสจุดเดิม (fallback = ปุ่มค้นหา)
     }
     function doSearch(ticker) {
       if (!ticker) return;
       window.open("https://finance.yahoo.com/quote/" + ticker.toUpperCase() + "/", "_blank", "noopener,noreferrer");
       closeSearch();
     }
+    function isKw(q) { return /^k:/i.test(q.trim()); }
     function findArticles(q) {
       q = q.trim().toLowerCase();
       if (!q) return [];
+      var km = q.match(/^k:\s*(.*)$/);
+      if (km) {
+        var kw = km[1].trim();
+        if (!kw) return searchItems.slice(0, 20);  // "k:" เปล่า → โชว์ทั้งหมด
+        return searchItems.filter(function (a) { return matchKeyword(a, kw); }).slice(0, 20);
+      }
       return searchItems.filter(function (a) {
         return a.title.toLowerCase().indexOf(q) !== -1 || (a.tk && a.tk.toLowerCase().indexOf(q) !== -1);
       }).slice(0, 6);
@@ -596,8 +643,10 @@
       if (!q.trim()) { box.innerHTML = ""; return; }
       var hits = findArticles(q);
       if (!hits.length) {
-        box.innerHTML = '<div class="search-empty">ไม่พบบทความ — กด Enter เพื่อค้น "' +
-          q.replace(/</g, "&lt;") + '" บน Yahoo Finance</div>';
+        box.innerHTML = isKw(q)
+          ? '<div class="search-empty">ไม่พบหุ้น/หมวดที่ตรงกับ “' + q.replace(/</g, "&lt;") + '”</div>'
+          : '<div class="search-empty">ไม่พบบทความ — กด Enter เพื่อค้น "' +
+            q.replace(/</g, "&lt;") + '" บน Yahoo Finance</div>';
         return;
       }
       box.innerHTML = hits.map(function (a) {
@@ -621,8 +670,9 @@
       if (!val) return;
       var hits = findArticles(val);
       if (hits.length) { window.location.href = articleUrl(hits[0].f); closeSearch(); }
-      else doSearch(val);
+      else if (!isKw(val)) doSearch(val);  // k: กรองในเว็บอย่างเดียว ไม่ fallback ไป Yahoo
     });
+    sOverlay.addEventListener("keydown", function (e) { trapTab(sOverlay, e); });
     sOverlay.querySelectorAll(".search-chip").forEach(function (chip) {
       chip.addEventListener("click", function () {
         window.location.href = articleUrl(this.getAttribute("data-file"));
@@ -690,22 +740,28 @@
     drawer.innerHTML = dHtml;
     document.body.appendChild(drawer);
 
+    var lastFocusedBeforeDrawer = null;
     function openDrawer() {
+      lastFocusedBeforeDrawer = document.activeElement;
       drawer.classList.add("open");
       overlay.classList.add("open");
       hamBtn.setAttribute("aria-expanded", "true");
       document.body.style.overflow = "hidden";
+      var closeBtn = drawer.querySelector(".nav-drawer-close");
+      if (closeBtn) closeBtn.focus();  // ย้ายโฟกัสเข้า drawer
     }
     function closeDrawer() {
       drawer.classList.remove("open");
       overlay.classList.remove("open");
       hamBtn.setAttribute("aria-expanded", "false");
       document.body.style.overflow = "";
+      restoreFocus(lastFocusedBeforeDrawer, hamBtn);  // คืนโฟกัสให้ปุ่มแฮมเบอร์เกอร์
     }
 
     hamBtn.addEventListener("click", openDrawer);
     overlay.addEventListener("click", closeDrawer);
     drawer.querySelector(".nav-drawer-close").addEventListener("click", closeDrawer);
+    drawer.addEventListener("keydown", function (e) { trapTab(drawer, e); });
     document.addEventListener("keydown", function (e) {
       if (e.key === "Escape" && drawer.classList.contains("open")) closeDrawer();
     });
