@@ -752,6 +752,7 @@ margin: 0 0 44px;
 }
 @media (min-width: 620px) {
 .series-cards { grid-template-columns: repeat(3, 1fr); }
+.series-cards--2 { grid-template-columns: repeat(2, 1fr); }
 .series-card { padding: 18px 18px 16px; }
 .series-card-title { font-size: 18px; }
 .series-card-sub { font-size: 13.5px; }
