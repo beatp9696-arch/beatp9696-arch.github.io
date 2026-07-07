@@ -65,7 +65,7 @@
       ],
       showSymbolLogo: true,
       isTransparent: true,
-      displayMode: "regular",
+      displayMode: "compact",
       locale: "en"
     });
 
