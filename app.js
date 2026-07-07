@@ -179,10 +179,7 @@
     footStocks.href = BASE + "stocks.html";
     footStocks.textContent = "หุ้นทั้งหมด";
     footerNav.appendChild(footStocks);
-    var footRss = document.createElement("a");
-    footRss.href = BASE + "feed.xml";
-    footRss.textContent = "RSS Feed";
-    footerNav.appendChild(footRss);
+    // RSS อยู่เป็นไอคอนใน .footer-follow แล้ว (เลี่ยงลิงก์ RSS ซ้ำในฟุตเตอร์)
   }
 
   // ---- ไฮไลต์เมนูของหน้าปัจจุบัน ----
