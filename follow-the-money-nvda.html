@@ -1,0 +1,415 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <script>try{var t=localStorage.getItem('theme');if(t)document.documentElement.setAttribute('data-theme',t);}catch(e){}</script>
+  <title>ตามเงิน $100 ของ NVIDIA เดินผ่านงบ 3 ชุด — Moatrices</title>
+  <meta name="description" content="อินเทอร์แอคทีฟ: เลื่อนตามเงิน $100 ของ NVIDIA ผ่านงบกำไรขาดทุน งบกระแสเงินสด และงบดุล ด้วยตัวเลขจริงจาก 10-K FY2026 — ดูว่าเหลือถึงมือเจ้าของกี่ดอลลาร์">
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="Moatrices">
+  <meta property="og:title" content="ตามเงิน $100 ของ NVIDIA เดินผ่านงบ 3 ชุด — Moatrices">
+  <meta property="og:description" content="อินเทอร์แอคทีฟ: เลื่อนตามเงิน $100 ของ NVIDIA ผ่านงบ 3 ชุด ด้วยตัวเลขจริงจาก 10-K FY2026 — เหลือถึงมือเจ้าของกี่ดอลลาร์">
+  <meta property="og:url" content="https://beatp9696-arch.github.io/follow-the-money-nvda.html">
+  <meta property="og:locale" content="th_TH">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta property="og:image" content="https://beatp9696-arch.github.io/og-image.png">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta name="twitter:image" content="https://beatp9696-arch.github.io/og-image.png">
+  <meta name="author" content="Moatrices">
+  <link rel="canonical" href="https://beatp9696-arch.github.io/follow-the-money-nvda.html">
+  <link rel="alternate" type="application/rss+xml" title="Moatrices RSS" href="/feed.xml">
+  <meta name="theme-color" media="(prefers-color-scheme: light)" content="#f7f5f0">
+  <meta name="theme-color" media="(prefers-color-scheme: dark)" content="#121417">
+  <link rel="icon" href="favicon.svg" type="image/svg+xml">
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png">
+  <link rel="manifest" href="/site.webmanifest">
+  <link rel="preload" as="font" type="font/woff2" href="fonts/sarabun-400-thai.woff2" crossorigin>
+  <link rel="preload" as="font" type="font/woff2" href="fonts/sarabun-400-latin.woff2" crossorigin>
+  <link rel="stylesheet" href="style.min.css">
+  <style>
+  /* ─── follow-the-money (ftm) — CSS เฉพาะหน้านี้ ───
+     panel เครื่องมือคงโทนมืดทั้งสองธีม (แบบเดียวกับ scene panel ในบทความ)
+     ส่วนเนื้อหารอบๆ ใช้ token ของเว็บ ปรับตามธีมอัตโนมัติ */
+  .ftm-stage{position:sticky;top:48px;z-index:5;background:var(--bg);padding:10px 0;
+    border-bottom:1px solid var(--border)}
+  .ftm-panel{--ch:#4ecaa0;
+    background:radial-gradient(120% 140% at 50% 0%,#20242a 0%,#1a1d21 62%);
+    border:1px solid #2b2f36;border-radius:var(--radius);padding:18px 20px 16px;
+    background-image:radial-gradient(rgba(255,255,255,.045) 1px,transparent 1px),
+      radial-gradient(120% 140% at 50% 0%,#20242a 0%,#1a1d21 62%);
+    background-size:22px 22px,auto}
+  [data-stage="4"] .ftm-panel,[data-stage="5"] .ftm-panel{--ch:#38c6dd}
+  [data-stage="6"] .ftm-panel{--ch:#a78bfa}
+  .ftm-eyebrow{font-family:"IBM Plex Mono",ui-monospace,monospace;font-size:11.5px;
+    letter-spacing:.16em;color:var(--ch);transition:color .5s;
+    display:flex;justify-content:space-between;gap:10px;flex-wrap:wrap}
+  .ftm-eyebrow .ftm-src{color:#969ba2;letter-spacing:.06em}
+  .ftm-counter-row{display:flex;align-items:baseline;gap:14px;margin:8px 0 2px;flex-wrap:wrap}
+  .ftm-counter{font-family:"IBM Plex Mono",ui-monospace,monospace;font-weight:500;
+    font-size:clamp(36px,6vw,52px);color:var(--ch);transition:color .5s;
+    font-variant-numeric:tabular-nums;line-height:1}
+  .ftm-counter-sub{color:#969ba2;font-size:14.5px}
+  .ftm-counter-real{font-family:"IBM Plex Mono",ui-monospace,monospace;font-size:12px;
+    color:#969ba2;letter-spacing:.04em;min-height:19px}
+  .ftm-track{position:relative;height:56px;border:1px solid #2b2f36;border-radius:10px;
+    margin:12px 0 8px;background:rgba(255,255,255,.02);overflow:hidden}
+  .ftm-tick{position:absolute;top:0;bottom:0;width:1px;background:rgba(255,255,255,.14);z-index:2}
+  .ftm-tick i{position:absolute;bottom:3px;left:5px;font-style:normal;
+    font-family:"IBM Plex Mono",ui-monospace,monospace;font-size:10px;
+    color:rgba(255,255,255,.55);text-shadow:0 1px 2px rgba(0,0,0,.5)}
+  .ftm-bar{position:absolute;inset:0 auto 0 0;width:100%;border-radius:9px 0 0 9px;
+    background:linear-gradient(180deg,color-mix(in srgb,var(--ch) 88%,#fff 6%),color-mix(in srgb,var(--ch) 72%,#000 14%));
+    box-shadow:0 0 22px color-mix(in srgb,var(--ch) 34%,transparent);
+    transition:width .9s cubic-bezier(.22,.9,.3,1),background .5s;display:flex}
+  .ftm-bar .ftm-edge{position:absolute;right:-1px;top:0;bottom:0;width:3px;background:#fff;
+    opacity:.65;border-radius:2px}
+  .ftm-bar .ftm-part{width:0;overflow:hidden;transition:width .9s cubic-bezier(.22,.9,.3,1);
+    display:flex;align-items:center;justify-content:center}
+  .ftm-bar .ftm-part span{font-family:"IBM Plex Mono",ui-monospace,monospace;font-size:11px;
+    color:#0e1113;white-space:nowrap;opacity:0;transition:opacity .4s .5s}
+  [data-stage="6"] .ftm-bar .ftm-part span{opacity:.92}
+  .ftm-bar .ftm-p1{background:#a78bfa}
+  .ftm-bar .ftm-p2{background:color-mix(in srgb,#a78bfa 62%,#fff 24%)}
+  .ftm-bar .ftm-p3{background:color-mix(in srgb,#a78bfa 46%,#20242a 40%)}
+  [data-stage="6"] .ftm-bar .ftm-p1{width:42.5%}
+  [data-stage="6"] .ftm-bar .ftm-p2{width:13.4%}
+  [data-stage="6"] .ftm-bar .ftm-p3{width:44.1%}
+  .ftm-chips{display:flex;flex-wrap:wrap;gap:7px;min-height:33px;margin-top:8px}
+  .ftm-chip{font-family:"IBM Plex Mono",ui-monospace,monospace;font-size:12px;
+    letter-spacing:.02em;color:#969ba2;border:1px solid #2b2f36;border-radius:999px;
+    padding:3px 11px;opacity:0;transform:translateY(6px);
+    transition:opacity .45s,transform .45s,border-color .45s,color .45s}
+  .ftm-chip.on{opacity:1;transform:none}
+  .ftm-chip.now{color:#e8eaed;border-color:var(--ch)}
+  .ftm-chip.ftm-in{border-style:dashed}
+  .ftm-chip.ftm-in.on{color:#6fd9b4}
+  .ftm-legend{display:none;gap:14px;flex-wrap:wrap;margin-top:8px;font-size:13px;color:#969ba2}
+  [data-stage="6"] .ftm-legend{display:flex}
+  .ftm-legend b{color:#e8eaed;font-weight:600}
+  .ftm-dot{display:inline-block;width:9px;height:9px;border-radius:3px;margin-right:6px}
+  .ftm-rail{display:flex;gap:7px;margin-top:10px;flex-wrap:wrap}
+  .ftm-rail span{font-family:"IBM Plex Mono",ui-monospace,monospace;font-size:10.5px;
+    letter-spacing:.1em;color:#969ba2;border:1px solid #2b2f36;border-radius:999px;
+    padding:3px 10px;transition:all .4s}
+  .ftm-rail span.on{color:#121417;border-color:transparent}
+  .ftm-rail .ftm-r1.on{background:#4ecaa0}
+  .ftm-rail .ftm-r2.on{background:#38c6dd}
+  .ftm-rail .ftm-r3.on{background:#a78bfa}
+  .ftm-hint{display:inline-flex;align-items:center;gap:8px;margin:4px 0 18px;color:var(--muted);
+    font-family:"IBM Plex Mono",ui-monospace,monospace;font-size:12.5px;letter-spacing:.08em}
+  .ftm-hint svg{animation:ftm-bob 1.6s ease-in-out infinite}
+  @keyframes ftm-bob{50%{transform:translateY(4px)}}
+  .ftm-steps{padding:6vh 0 2vh}
+  .ftm-step{min-height:72vh;display:flex;align-items:center}
+  .ftm-card{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);
+    padding:20px 24px;max-width:620px;box-shadow:var(--shadow-md)}
+  .ftm-card .ftm-n{font-family:"IBM Plex Mono",ui-monospace,monospace;font-size:11.5px;
+    letter-spacing:.16em;color:var(--accent);display:block;margin-bottom:6px}
+  .ftm-card h2{font-family:var(--font-head);font-weight:700;font-size:20px;line-height:1.45;
+    margin:0 0 8px;border:0;padding:0}
+  .ftm-card p{margin:0;color:var(--muted)}
+  .ftm-card b{color:var(--text);font-weight:600}
+  .ftm-card .ftm-num{font-family:"IBM Plex Mono",ui-monospace,monospace;font-size:.9em;
+    color:var(--accent)}
+  .ftm-outro{border-top:1px solid var(--border);margin-top:6vh;padding:56px 0 30px}
+  .ftm-outro h2{border:0;padding:0}
+  .ftm-outro ul{margin:0 0 26px;padding:0;list-style:none;display:grid;gap:10px}
+  .ftm-outro li{border:1px solid var(--border);border-radius:12px;padding:12px 16px;
+    color:var(--muted)}
+  .ftm-outro li b{color:var(--text);font-weight:600}
+  .ftm-outro li .ftm-sw{display:inline-block;width:10px;height:10px;border-radius:3px;
+    margin-right:9px}
+  .ftm-cta{display:inline-block;font-family:var(--font-head);font-weight:700;font-size:16px;
+    color:var(--bg);background:var(--accent);border-radius:10px;padding:11px 20px;
+    text-decoration:none}
+  .ftm-cta:hover{background:var(--accent-strong)}
+  .ftm-cta:focus-visible{outline:2px solid var(--accent-strong);outline-offset:3px}
+  .ftm-note{margin-top:24px;font-size:14px;color:var(--muted);
+    border-left:3px solid var(--border);padding-left:14px}
+  @media (max-width:640px){
+    .ftm-stage{top:44px}
+    .ftm-panel{padding:14px 13px 12px}
+    .ftm-track{height:48px}
+    .ftm-card{padding:17px 17px}
+    .ftm-step{min-height:78vh}
+    .ftm-bar .ftm-part span{display:none} /* จอแคบ label ในแถบไม่พอ — legend บอกครบอยู่แล้ว */
+  }
+  @media (prefers-reduced-motion:reduce){
+    .ftm-bar,.ftm-bar .ftm-part,.ftm-chip,.ftm-counter,.ftm-eyebrow,.ftm-rail span{transition:none}
+    .ftm-hint svg{animation:none}
+  }
+  </style>
+</head>
+<body>
+
+  <div class="top-accent"></div>
+
+  <header class="site-header">
+    <div class="container">
+      <a href="index.html" class="site-title">Moatrices</a>
+      <nav class="site-nav">
+        <a href="index.html">หน้าแรก</a>
+        <a href="dashboard.html">Dashboard</a>
+        <a href="about.html">เกี่ยวกับ</a>
+      </nav>
+    </div>
+  </header>
+
+  <main id="ftm" data-stage="0">
+    <div class="container">
+      <div class="hero">
+        <span class="kicker">Interactive · ซีรีส์อ่านงบแบบลงมือทำ</span>
+        <h1>ตามเงิน <span class="grad-text">$100</span> ของ NVIDIA<br>เดินผ่านงบ 3 ชุด</h1>
+        <p class="lead">
+          ปีงบ 2026 NVIDIA มีรายได้ $215,938 ล้าน — ตัวเลขใหญ่จนมองไม่เห็นอะไร
+          ลองย่อทั้งบริษัทให้เหลือธนบัตร $100 ใบเดียว แล้วตามดูว่ามันรอดจากหอกลั่น
+          ข้ามสะพานเงินสด ไปถึงมือเจ้าของกี่ดอลลาร์ ทุกตัวเลขมาจาก 10-K จริง
+        </p>
+      </div>
+      <span class="ftm-hint">เลื่อนลงเพื่อเริ่มเดินทาง
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" aria-hidden="true"><path d="M12 4v16m0 0l-6-6m6 6l6-6"/></svg>
+      </span>
+    </div>
+
+    <div class="ftm-stage">
+      <div class="container">
+        <div class="ftm-panel">
+          <div class="ftm-eyebrow"><span id="ftm-eyebrow">NVIDIA FY2026 · เทรายได้เข้าหอกลั่น</span><span class="ftm-src">source: 10-K FY2026</span></div>
+          <div class="ftm-counter-row">
+            <span class="ftm-counter" id="ftm-counter" aria-live="polite">$100.0</span>
+            <span class="ftm-counter-sub" id="ftm-countersub">จากทุก $100 ที่ขายได้</span>
+          </div>
+          <div class="ftm-counter-real" id="ftm-counterreal">= รายได้ $215,938M</div>
+          <div class="ftm-track">
+            <span class="ftm-tick" style="left:25%"><i>$25</i></span>
+            <span class="ftm-tick" style="left:50%"><i>$50</i></span>
+            <span class="ftm-tick" style="left:75%"><i>$75</i></span>
+            <div class="ftm-bar" id="ftm-bar">
+              <div class="ftm-part ftm-p1"><span>คืนเจ้าของ 19.0</span></div>
+              <div class="ftm-part ftm-p2"></div>
+              <div class="ftm-part ftm-p3"><span>นอนในงบดุล ~19.8</span></div>
+              <span class="ftm-edge"></span>
+            </div>
+          </div>
+          <div class="ftm-chips">
+            <span class="ftm-chip" data-at="1">−$28.9 ต้นทุนผลิต</span>
+            <span class="ftm-chip" data-at="2">−$10.7 R&amp;D + SG&amp;A</span>
+            <span class="ftm-chip ftm-in" data-at="3">+$5.1 ของนอกหอ</span>
+            <span class="ftm-chip" data-at="3">−$9.9 ภาษี</span>
+            <span class="ftm-chip" data-at="4">−$8.0 กำไร→เงินสด</span>
+            <span class="ftm-chip" data-at="5">−$2.8 capex</span>
+          </div>
+          <div class="ftm-legend">
+            <span><span class="ftm-dot" style="background:#a78bfa"></span><b>$19.0</b> คืนเจ้าของ</span>
+            <span><span class="ftm-dot" style="background:#cbb8fc"></span><b>$6.0</b> ลงทุน Groq</span>
+            <span><span class="ftm-dot" style="background:#5d5680"></span><b>~$19.8</b> เงินสด + พอร์ตหลักทรัพย์</span>
+          </div>
+          <div class="ftm-rail">
+            <span class="ftm-r1" id="ftm-r1">ตอนที่ 1 · งบกำไรขาดทุน</span>
+            <span class="ftm-r2" id="ftm-r2">ตอนที่ 2 · งบกระแสเงินสด</span>
+            <span class="ftm-r3" id="ftm-r3">ตอนที่ 3 · งบดุล</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="container ftm-steps">
+
+      <section class="ftm-step" data-stage="0">
+        <div class="ftm-card">
+          <span class="ftm-n">จุดตั้งต้น</span>
+          <h2>ธนบัตร $100 หนึ่งใบ = รายได้ทั้งปีของ NVIDIA</h2>
+          <p>ทุกดอลลาร์ที่ลูกค้าจ่ายให้ NVIDIA ในปีงบ 2026 ถูกย่อส่วนลงมาอยู่ในแถบสีนี้
+          จากตรงนี้มันต้องเดินผ่านงบสามชุด — แต่ละชุดจะดึงเงินออกไปทีละท่อ
+          สิ่งที่เหลือรอดถึงปลายทางคือคำตอบว่าธุรกิจนี้ <b>"เครื่องแรง" จริงแค่ไหน</b></p>
+        </div>
+      </section>
+
+      <section class="ftm-step" data-stage="1">
+        <div class="ftm-card">
+          <span class="ftm-n">ตอนที่ 1 · หอกลั่น — ชั้นแรก</span>
+          <h2>ต้นทุนผลิตดึงออก $28.9</h2>
+          <p>ท่อแรกของหอกลั่นคือต้นทุนผลิต <span class="ftm-num">−$62,475M</span> เหลือ
+          <b>$71.1 จากทุก $100</b> — gross margin 71.1%
+          ตัวเลขระดับนี้แทบไม่มีในโลกฮาร์ดแวร์ นี่คือราคาที่ตลาดยอมจ่ายให้
+          สิ่งที่ยังผูกขาดได้: ไม่ได้ผลิตชิปเองสักตัว แต่โลกชิปขาดมันไม่ได้</p>
+        </div>
+      </section>
+
+      <section class="ftm-step" data-stage="2">
+        <div class="ftm-card">
+          <span class="ftm-n">ตอนที่ 1 · หอกลั่น — ชั้นสอง</span>
+          <h2>R&amp;D + SG&amp;A ดึงไปอีกแค่ $10.7</h2>
+          <p>ค่า R&amp;D กับค่าใช้จ่ายบริหาร <span class="ftm-num">−$23,076M</span> คิดเป็นแค่
+          $10.7 ต่อทุก $100 เพราะรายได้โตเร็วกว่าค่าใช้จ่ายมาก —
+          <b>operating leverage ทำงานเต็มสูบ</b> เหลือค้างในหอ $60.4 (operating margin 60.4%)</p>
+        </div>
+      </section>
+
+      <section class="ftm-step" data-stage="3">
+        <div class="ftm-card">
+          <span class="ftm-n">ตอนที่ 1 · หอกลั่น — ก้นหอ</span>
+          <h2>ท่อฉีดเข้า +$5.1 แล้วภาษีดึงออก $9.9</h2>
+          <p>ก่อนถึงก้นหอ มีท่อประหลาดฉีด <b>เข้า</b>: ดอกเบี้ยกับกำไรจากหุ้นที่ถือ
+          <span class="ftm-num">+$11,063M</span> — เงินก้อนนี้<b>ไม่ได้มาจากการกลั่นรายได้</b>
+          ใครเอา net margin ไปอวยโดยไม่หักท่อนี้ จะเข้าใจกำลังทำกำไรผิด
+          หักภาษีแล้วเหลือหยดสุดท้าย <b>กำไรสุทธิ $55.6</b> จากทุก $100</p>
+        </div>
+      </section>
+
+      <section class="ftm-step" data-stage="4">
+        <div class="ftm-card">
+          <span class="ftm-n">ตอนที่ 2 · สะพานเงินสด</span>
+          <h2>กำไรคือความเห็น เงินสดคือความจริง</h2>
+          <p>กำไร $55.6 ไม่ใช่เงินในธนาคาร: มี "กำไรกระดาษ" จากหุ้นที่ถือปนอยู่
+          <span class="ftm-num">−$4.1</span> และเงินจมในลูกหนี้+สต็อกเพราะโต 65% ต้องแบกของ
+          <span class="ftm-num">−$12.4</span> บวกกลับรายการไม่ใช่เงินสด (SBC, ค่าเสื่อม, เจ้าหนี้)
+          แล้วเข้าธนาคารจริง <b>$47.6</b> — CFO เท่ากับ 86% ของกำไร ถือว่าสุขภาพดี</p>
+        </div>
+      </section>
+
+      <section class="ftm-step" data-stage="5">
+        <div class="ftm-card">
+          <span class="ftm-n">ตอนที่ 2 · หัก capex</span>
+          <h2>โรงงานอยู่ที่คนอื่น — capex แค่ $2.8</h2>
+          <p>NVIDIA เป็น fabless: โรงงานจริงอยู่ที่ TSMC จึงจ่าย capex แค่
+          <b>$2.8 จากทุก $100</b> (เทียบ TSMC ที่ต้องเผา ~$33 กลับเข้า fab ทุกปี)
+          เหลือ<b>เงินสดอิสระ $44.8</b> — ตัวเลขที่ Buffett เรียกว่า owner earnings
+          และเป็นเหตุผลว่าทำไมสองบริษัทที่ "ปั๊มเก่งพอกัน" มีมูลค่าคนละเรื่อง</p>
+        </div>
+      </section>
+
+      <section class="ftm-step" data-stage="6">
+        <div class="ftm-card">
+          <span class="ftm-n">ตอนที่ 3 · เงินไปนอนไหน</span>
+          <h2>$44.8 ถูกจัดสรรสามทาง</h2>
+          <p>คืนเจ้าของ <b>$19.0</b> (ซื้อหุ้นคืน $40.1B + ปันผล $974M) ·
+          ลงทุนใน Groq <b>$6.0</b> ($13B) · ที่เหลือ <b>~$19.8</b>
+          นอนสะสมบนงบดุลเป็นเงินสดและพอร์ตหลักทรัพย์ รอเป็นกระสุนรอบถัดไป —
+          ธุรกิจที่จ่ายทุกอย่างด้วยเงินที่หามาเอง ไม่ต้องกู้มาประคอง</p>
+        </div>
+      </section>
+
+    </div>
+
+    <div class="container ftm-outro">
+      <h2>อ่านงบเดียวไม่มีทางเห็นภาพนี้</h2>
+      <ul>
+        <li><span class="ftm-sw" style="background:#4ecaa0"></span><b>งบกำไรขาดทุน</b> บอกว่าหอกลั่นรั่วตรงไหน — $100 → $55.6</li>
+        <li><span class="ftm-sw" style="background:#38c6dd"></span><b>งบกระแสเงินสด</b> บอกว่ากำไรเป็นเงินจริงกี่บาท — $55.6 → $44.8</li>
+        <li><span class="ftm-sw" style="background:#a78bfa"></span><b>งบดุล</b> บอกว่าเงินที่เหลือไปนอนอยู่ไหน — และใครได้มันไป</li>
+      </ul>
+      <a class="ftm-cta" href="series-financials.html">อ่านซีรีส์อ่านงบฉบับเต็ม 4 ตอน →</a>
+      <p class="ftm-note">ตัวเลขทั้งหมดมาจาก 10-K FY2026 ของ NVIDIA ตามที่ตีพิมพ์ใน
+      <a href="series-financials.html">ซีรีส์อ่านงบแบบลงมือทำ</a>
+      (สัดส่วน "เงินสด+พอร์ตหลักทรัพย์" เป็นค่าประมาณจากส่วนที่เหลือของ FCF)</p>
+    </div>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container footer-grid">
+      <div class="footer-brand">
+        <a href="index.html" class="site-title">Moatrices</a>
+        <p>บันทึกการเรียนวิเคราะห์หุ้น US เชิงลึก ภาษาไทย — เน้นพื้นฐานธุรกิจ ไม่ใช่ราคา</p>
+      </div>
+      <nav class="footer-nav">
+        <a href="index.html">หน้าแรก</a>
+        <a href="dashboard.html">Dashboard</a>
+        <a href="about.html">เกี่ยวกับ</a>
+      </nav>
+      <div class="footer-follow">
+        <span class="footer-follow-label">ติดตาม</span>
+        <div class="footer-social">
+          <a href="/feed.xml" class="social-btn" aria-label="RSS feed" title="RSS feed"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 11a9 9 0 0 1 9 9"/><path d="M4 4a16 16 0 0 1 16 16"/><circle cx="5" cy="19" r="1"/></svg></a>
+          <a href="mailto:beatp9696@gmail.com" class="social-btn" aria-label="อีเมล" title="อีเมล"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="m3 7 9 6 9-6"/></svg></a>
+        </div>
+      </div>
+    </div>
+    <div class="container footer-legal">
+      <p><strong>คำเตือน:</strong> เนื้อหาทั้งหมดเป็นบันทึกการเรียนและความเห็นส่วนตัว
+         เพื่อการศึกษาเท่านั้น <strong>ไม่ใช่คำแนะนำการลงทุน</strong>
+         ไม่ใช่การชี้นำให้ซื้อหรือขายหลักทรัพย์ใดๆ การตัดสินใจลงทุนเป็นความรับผิดชอบของผู้อ่านเอง</p>
+      <p>© 2026 Moatrices · เผยแพร่ผ่าน GitHub Pages</p>
+    </div>
+  </footer>
+
+  <button class="to-top" aria-label="กลับขึ้นด้านบน">↑</button>
+  <script>
+  (function () {
+    var reduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    var STAGES = [
+      { v: 100.0, sub: "จากทุก $100 ที่ขายได้",  real: "= รายได้ $215,938M",
+        eye: "NVIDIA FY2026 · เทรายได้เข้าหอกลั่น" },
+      { v: 71.1,  sub: "เหลือหลังต้นทุนผลิต",     real: "= gross profit $153,463M (71.1%)",
+        eye: "ตอนที่ 1 · งบกำไรขาดทุน — หอกลั่นรายได้" },
+      { v: 60.4,  sub: "เหลือหลัง R&D + SG&A",   real: "= operating income $130,387M (60.4%)",
+        eye: "ตอนที่ 1 · งบกำไรขาดทุน — หอกลั่นรายได้" },
+      { v: 55.6,  sub: "กำไรสุทธิ · หยดสุดท้าย",  real: "= net income $120,067M (55.6%)",
+        eye: "ตอนที่ 1 · งบกำไรขาดทุน — หอกลั่นรายได้" },
+      { v: 47.6,  sub: "เงินสดเข้าธนาคารจริง",    real: "= CFO $102,718M (86% ของกำไร)",
+        eye: "ตอนที่ 2 · งบกระแสเงินสด — กำไรคือความเห็น" },
+      { v: 44.8,  sub: "เงินสดอิสระ (FCF)",       real: "≈ FCF $96,700M",
+        eye: "ตอนที่ 2 · งบกระแสเงินสด — กำไรคือความเห็น" },
+      { v: 44.8,  sub: "ถูกจัดสรร 3 ทาง",         real: "buyback $40.1B · Groq $13B · ที่เหลือเข้างบดุล",
+        eye: "ตอนที่ 3 · งบดุล — เงินไปนอนไหน" }
+    ];
+
+    var root = document.getElementById("ftm");
+    var counter = document.getElementById("ftm-counter");
+    var sub = document.getElementById("ftm-countersub");
+    var real = document.getElementById("ftm-counterreal");
+    var eye = document.getElementById("ftm-eyebrow");
+    var bar = document.getElementById("ftm-bar");
+    var chips = Array.prototype.slice.call(document.querySelectorAll(".ftm-chip"));
+    var rails = [document.getElementById("ftm-r1"), document.getElementById("ftm-r2"), document.getElementById("ftm-r3")];
+    var current = 0, shown = 100.0, raf = null;
+
+    function tweenTo(target) {
+      if (raf) cancelAnimationFrame(raf);
+      if (reduced) { shown = target; counter.textContent = "$" + target.toFixed(1); return; }
+      var from = shown, t0 = null, DUR = 750;
+      function frame(ts) {
+        if (!t0) t0 = ts;
+        var p = Math.min((ts - t0) / DUR, 1);
+        p = 1 - Math.pow(1 - p, 3); /* easeOutCubic ให้เข้าจังหวะเดียวกับแถบ */
+        shown = from + (target - from) * p;
+        counter.textContent = "$" + shown.toFixed(1);
+        if (p < 1) raf = requestAnimationFrame(frame);
+      }
+      raf = requestAnimationFrame(frame);
+    }
+
+    function setStage(n) {
+      if (n === current) return;
+      current = n;
+      root.dataset.stage = n;
+      var s = STAGES[n];
+      bar.style.width = s.v + "%";
+      tweenTo(s.v);
+      sub.textContent = s.sub;
+      real.textContent = s.real;
+      eye.textContent = s.eye;
+      chips.forEach(function (c) {
+        var at = +c.dataset.at;
+        c.classList.toggle("on", at <= n);
+        c.classList.toggle("now", at === n);
+      });
+      rails[0].classList.toggle("on", n >= 1 && n <= 3);
+      rails[1].classList.toggle("on", n >= 4 && n <= 5);
+      rails[2].classList.toggle("on", n >= 6);
+    }
+
+    var io = new IntersectionObserver(function (entries) {
+      entries.forEach(function (e) {
+        if (e.isIntersecting) setStage(+e.target.dataset.stage);
+      });
+    }, { rootMargin: "-42% 0px -42% 0px" });
+    document.querySelectorAll(".ftm-step").forEach(function (s) { io.observe(s); });
+  })();
+  </script>
+  <script defer src="app.js"></script>
+
+</body>
+</html>
