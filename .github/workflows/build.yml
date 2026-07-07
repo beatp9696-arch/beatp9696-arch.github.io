@@ -34,7 +34,7 @@ jobs:
       - name: ตรวจ drift — ไฟล์ที่ generate ต้องถูก commit มาแล้ว
         run: |
           if ! git diff --exit-code -- \
-              articles.html index.html stocks.html style.min.css articles/ scenes/*.min.css; then
+              articles.html index.html stocks.html 'series-*.html' style.min.css articles/ scenes/*.min.css; then
             echo "::error::build.py แก้ไฟล์ด้านบน = ยังไม่ได้ commit ผล generate — รัน 'python3 build.py' แล้ว commit ก่อน push"
             exit 1
           fi

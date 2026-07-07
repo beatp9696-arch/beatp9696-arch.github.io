@@ -6,7 +6,9 @@
 
 แหล่งความจริง (source of truth) คือรายการบทความทั้งหมดใน articles.html (คลังบทความ)
 index.html เป็นหน้า curated: โชว์แค่บทล่าสุด + การ์ดซีรีส์ (ต้องเป็น subset ของ articles.html)
-- sitemap.xml    : generate ใหม่ทั้งไฟล์ (หน้า root + ทุกบทความ, lastmod = วันที่บทความ)
+- sitemap.xml    : generate ใหม่ทั้งไฟล์ (หน้า root + หน้าซีรีส์ + ทุกบทความ)
+- series-*.html  : เขียนรายชื่อตอนของแต่ละซีรีส์ระหว่าง marker SERIES-START/END
+                   (สมาชิก = บทความที่ชื่อไฟล์ขึ้นต้นด้วย prefix ใน SERIES)
 - feed.xml       : generate ใหม่ โดยรักษา pubDate + description ของ item เดิมไว้ (ตาม guid)
                    item ใหม่ใช้ excerpt จาก articles.html และ pubDate = วันที่บทความ 12:00 +0700
 - ตรวจ drift     : articles/*.html ↔ ลิงก์ใน articles.html ↔ ARTICLES array ใน app.js
@@ -150,7 +152,8 @@ def write_sitemap(posts):
         '<?xml version="1.0" encoding="UTF-8"?>',
         '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">',
     ]
-    for page in ROOT_PAGES:
+    pages = ROOT_PAGES + [s["page"] for s in SERIES]
+    for page in pages:
         lastmod = file_mtime_date(page or "index.html", today)
         lines.append(f"  <url><loc>{BASE_URL}/{page}</loc><lastmod>{lastmod}</lastmod></url>")
     for p in reversed(posts):  # เก่า → ใหม่ ให้ diff อ่านง่าย
@@ -161,7 +164,7 @@ def write_sitemap(posts):
         )
     lines.append("</urlset>")
     open("sitemap.xml", "w", encoding="utf-8").write("\n".join(lines) + "\n")
-    print(f"sitemap.xml : {len(ROOT_PAGES)} pages + {len(posts)} articles")
+    print(f"sitemap.xml : {len(pages)} pages + {len(posts)} articles")
 
 
 def xmltext(s):
@@ -511,6 +514,120 @@ def write_hero_stats(articles):
           + ("" if new != src else " (ไม่เปลี่ยน)"))
 
 
+# ─── series landing pages: generate รายชื่อตอนระหว่าง marker <!-- SERIES-START/END --> ───
+# สมาชิกซีรีส์ = บทความใน articles.html ที่ชื่อไฟล์ขึ้นต้นด้วย prefix (เรียงตามเลขตอนในชื่อไฟล์)
+# เพิ่มตอนใหม่ = new-article.py ตามปกติ แล้วรัน build.py — หน้าซีรีส์อัปเดตเอง
+SERIES = [
+    {"page": "series-financials.html", "prefix": "financials-", "name": "อ่านงบแบบลงมือทำ"},
+    {"page": "series-buffett-talks.html", "prefix": "buffett-talks-", "name": "Buffett Talks"},
+    {"page": "series-munger-talks.html", "prefix": "munger-talks-", "name": "Munger Talks"},
+]
+_SERIES_BLOCK_RE = re.compile(r"<!-- SERIES-START -->.*?<!-- SERIES-END -->", re.S)
+# read-time ของแต่ละการ์ดใน articles.html (span อยู่ก่อนลิงก์บทความภายในการ์ดเดียวกัน)
+_READTIME_RE = re.compile(
+    r'<span class="read-time">\s*([^<]+?)\s*</span>.*?'
+    r'<a href="articles/([a-z0-9-]+\.html)">', re.S)
+THAI_MONTHS = ["ม.ค.", "ก.พ.", "มี.ค.", "เม.ย.", "พ.ค.", "มิ.ย.",
+               "ก.ค.", "ส.ค.", "ก.ย.", "ต.ค.", "พ.ย.", "ธ.ค."]
+
+
+def thai_date(iso):
+    d = datetime.date.fromisoformat(iso)
+    return f"{d.day} {THAI_MONTHS[d.month - 1]} {d.year}"
+
+
+def episode_no(file, prefix):
+    m = re.match(r"(\d+)", file[len(prefix):])
+    return int(m.group(1)) if m else None
+
+
+def parse_read_times():
+    """map file -> ข้อความ read-time จากการ์ดใน articles.html (การ์ดไหนไม่มีได้ None)"""
+    src = open(ARCHIVE, encoding="utf-8").read()
+    return {m.group(2): m.group(1) for m in _READTIME_RE.finditer(src)}
+
+
+def _series_card_html(p, n, read_time):
+    tag = f"ตอนที่ {n}" if n is not None else "ตอนพิเศษ"
+    rt = (f'\n            <span class="read-time">{read_time}</span>'
+          if read_time else "")
+    alt = escape(html.unescape(p["title"]), {'"': "&quot;"})
+    thumb = p["file"].replace(".html", "")
+    return (
+        "        <li>\n"
+        '          <div class="article-meta-row">\n'
+        f'            <span class="tag">{tag}</span>{rt}\n'
+        f'            <time class="post-date" datetime="{p["date"]}">{thai_date(p["date"])}</time>\n'
+        "          </div>\n"
+        f'          <a href="articles/{p["file"]}">\n'
+        f'            {p["title"]}\n'
+        "          </a>\n"
+        '          <p class="excerpt">\n'
+        f'            {p["excerpt"]}\n'
+        "          </p>\n"
+        f'          <img class="card-thumb" src="img/thumbs/{thumb}.jpg" alt="{alt}" '
+        'loading="lazy" decoding="async" width="640" height="336">\n'
+        '          <span class="read-more">อ่านต่อ →</span>\n'
+        "        </li>"
+    )
+
+
+def write_series(posts):
+    """เขียนรายชื่อตอน (เรียงเลขตอน) + ItemList JSON-LD ลงหน้า series-*.html ระหว่าง marker
+    ใช้ข้อมูลการ์ดชุดเดียวกับ sitemap/feed (articles.html) — หน้าซีรีส์ไม่มีข้อมูลของตัวเอง"""
+    read_times = parse_read_times()
+    for s in SERIES:
+        if not os.path.exists(s["page"]):
+            print(f"series      : WARNING ไม่มีไฟล์ {s['page']} — ข้าม")
+            continue
+        src = open(s["page"], encoding="utf-8").read()
+        if "<!-- SERIES-START -->" not in src:
+            print(f"series      : WARNING {s['page']} ไม่มี marker <!-- SERIES-START --> — ข้าม")
+            continue
+        eps = sorted(
+            (p for p in posts if p["file"].startswith(s["prefix"])),
+            key=lambda p: (episode_no(p["file"], s["prefix"]) is None,
+                           episode_no(p["file"], s["prefix"]) or 0, p["file"]))
+        cards = "\n".join(
+            _series_card_html(p, episode_no(p["file"], s["prefix"]), read_times.get(p["file"]))
+            for p in eps)
+        itemlist = json.dumps({
+            "@context": "https://schema.org", "@type": "ItemList",
+            "name": f"{s['name']} — Moatrices",
+            "itemListElement": [
+                {"@type": "ListItem", "position": i + 1,
+                 "url": f"{BASE_URL}/articles/{p['file']}",
+                 "name": html.unescape(p["title"])}
+                for i, p in enumerate(eps)],
+        }, ensure_ascii=False, separators=(", ", ": "))
+        block = (
+            "<!-- SERIES-START -->\n"
+            f'      <ul class="post-list post-list--series">\n{cards}\n      </ul>\n'
+            '      <script type="application/ld+json">\n'
+            f"      {itemlist}\n"
+            "      </script>\n"
+            "      <!-- SERIES-END -->")
+        new = _SERIES_BLOCK_RE.sub(lambda _: block, src)
+        if new != src:
+            open(s["page"], "w", encoding="utf-8").write(new)
+        print(f"{s['page']} : {len(eps)} ตอน" + ("" if new != src else " (ไม่เปลี่ยน)"))
+
+
+def series_warnings(posts):
+    """หน้า series ต้องมีไฟล์+marker และมีตอนใน archive อย่างน้อย 1 — กันหน้าเปล่าเงียบ"""
+    w = []
+    for s in SERIES:
+        if not os.path.exists(s["page"]):
+            w.append(f"ไม่มีไฟล์ {s['page']} (กำหนดไว้ใน SERIES)")
+            continue
+        body = open(s["page"], encoding="utf-8").read()
+        if "<!-- SERIES-START -->" not in body:
+            w.append(f"{s['page']} ไม่มี marker <!-- SERIES-START --> — build ไม่ gen รายชื่อตอนให้")
+        if not any(p["file"].startswith(s["prefix"]) for p in posts):
+            w.append(f"{s['page']} ไม่มีบทความ prefix '{s['prefix']}' ใน {ARCHIVE} — หน้าซีรีส์จะว่าง")
+    return w
+
+
 def stock_warnings(articles):
     """cross-check ARTICLES ↔ STOCK_META ↔ ลำดับ ↔ ไฟล์โลโก้ — deep-dive ทุกตัวต้องมีการ์ด"""
     w = []
@@ -586,6 +703,11 @@ def validate(posts, articles):
     if "<!-- STOCKS-START -->" not in open("stocks.html", encoding="utf-8").read():
         warnings.append("stocks.html ไม่มี marker <!-- STOCKS-START --> — build ไม่ gen การ์ดหุ้นให้")
 
+    warnings.extend(series_warnings(posts))
+    for s in SERIES:  # การ์ดซีรีส์หน้าแรกต้องชี้มาหน้า landing ของซีรีส์
+        if f'href="{s["page"]}"' not in idx:
+            warnings.append(f"index.html ไม่มีลิงก์ไป {s['page']} — การ์ดซีรีส์หน้าแรกยังชี้ที่อื่น")
+
     if warnings:
         print(f"\n{len(warnings)} WARNING:")
         for w in warnings:
@@ -609,6 +731,7 @@ def main():
     build_scenes()
     write_stocks(articles)
     write_hero_stats(articles)
+    write_series(posts)
     write_sitemap(posts)
     write_feed(posts)
     return validate(posts, articles)
