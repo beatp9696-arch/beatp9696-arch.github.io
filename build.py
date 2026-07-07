@@ -30,7 +30,7 @@ from xml.sax.saxutils import escape
 
 BASE_URL = "https://beatp9696-arch.github.io"
 ROOT_PAGES = ["", "articles.html", "stocks.html", "dashboard.html", "about.html",
-              "follow-the-money-nvda.html"]
+              "follow-the-money-nvda.html", "compound-interest.html"]
 ARCHIVE = "articles.html"   # คลังบทความ = source of truth ของรายการบทความ
 TZ = datetime.timezone(datetime.timedelta(hours=7))
 THUMB_DIR = "img/thumbs"   # thumbnail ย่อของ og image (ใช้เป็นภาพการ์ดในหน้า index)

@@ -1,0 +1,747 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <script>try{var t=localStorage.getItem('theme');if(t)document.documentElement.setAttribute('data-theme',t);}catch(e){}</script>
+  <title>พลังดอกเบี้ยทบต้น: ตามเงิน ฿100,000 กลิ้งเป็นก้อนหิมะ 50 ปี — Moatrices</title>
+  <meta name="description" content="อินเทอร์แอคทีฟ: เลื่อนตามเงิน ฿100,000 หนึ่งก้อนที่ทบต้น 10% ต่อปี ไป 50 ปี — ดูว่าทำไมทศวรรษแรกน่าเบื่อจนคนเลิก ทำไมดอกเบี้ยปีที่ 30 ปีเดียวใหญ่กว่าเงินต้น และค่าธรรมเนียม 2% กินปลายทางไป 60% ได้อย่างไร">
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="Moatrices">
+  <meta property="og:title" content="พลังดอกเบี้ยทบต้น: ตามเงิน ฿100,000 กลิ้งเป็นก้อนหิมะ 50 ปี — Moatrices">
+  <meta property="og:description" content="อินเทอร์แอคทีฟ: เลื่อนตามเงินหนึ่งก้อนทบต้น 10% ต่อปี ไป 50 ปี — ฿100,000 กลายเป็น ฿11.7 ล้าน โดย 85% ของเงินเกิดใน 20 ปีสุดท้าย">
+  <meta property="og:url" content="https://beatp9696-arch.github.io/compound-interest.html">
+  <meta property="og:locale" content="th_TH">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta property="og:image" content="https://beatp9696-arch.github.io/og-compound-interest.png">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta name="twitter:image" content="https://beatp9696-arch.github.io/og-compound-interest.png">
+  <meta name="author" content="Moatrices">
+  <link rel="canonical" href="https://beatp9696-arch.github.io/compound-interest.html">
+  <link rel="alternate" type="application/rss+xml" title="Moatrices RSS" href="/feed.xml">
+  <meta name="theme-color" media="(prefers-color-scheme: light)" content="#f7f5f0">
+  <meta name="theme-color" media="(prefers-color-scheme: dark)" content="#121417">
+  <link rel="icon" href="favicon.svg" type="image/svg+xml">
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png">
+  <link rel="manifest" href="/site.webmanifest">
+  <link rel="preload" as="font" type="font/woff2" href="fonts/sarabun-400-thai.woff2" crossorigin>
+  <link rel="preload" as="font" type="font/woff2" href="fonts/sarabun-400-latin.woff2" crossorigin>
+  <link rel="stylesheet" href="style.min.css">
+  <style>
+  /* ─── compound-interest (cpd) — CSS เฉพาะหน้านี้ ───
+     panel เครื่องมือคงโทนมืดทั้งสองธีม (แบบเดียวกับ ftm/scene panel)
+     ส่วนเนื้อหารอบๆ ใช้ token ของเว็บ ปรับตามธีมอัตโนมัติ */
+  .cpd-stage{position:sticky;top:48px;z-index:5;background:var(--bg);padding:10px 0;
+    border-bottom:1px solid var(--border)}
+  .cpd-panel{--ch:#4ecaa0;
+    background:radial-gradient(120% 140% at 50% 0%,#20242a 0%,#1a1d21 62%);
+    border:1px solid #2b2f36;border-radius:var(--radius);padding:16px 20px 14px;
+    background-image:radial-gradient(rgba(255,255,255,.045) 1px,transparent 1px),
+      radial-gradient(120% 140% at 50% 0%,#20242a 0%,#1a1d21 62%);
+    background-size:22px 22px,auto}
+  .cpd-eyebrow{font-family:"IBM Plex Mono",ui-monospace,monospace;font-size:11.5px;
+    letter-spacing:.16em;color:var(--ch);
+    display:flex;justify-content:space-between;gap:10px;flex-wrap:wrap}
+  .cpd-eyebrow .cpd-src{color:#969ba2;letter-spacing:.06em}
+  .cpd-counter-row{display:flex;align-items:baseline;gap:14px;margin:7px 0 0;flex-wrap:wrap}
+  .cpd-counter{font-family:"IBM Plex Mono",ui-monospace,monospace;font-weight:500;
+    font-size:clamp(30px,5.4vw,44px);color:var(--ch);transition:color .5s;
+    font-variant-numeric:tabular-nums;line-height:1}
+  [data-stage="6"] .cpd-counter{color:#f87171}
+  .cpd-counter-sub{color:#969ba2;font-size:14.5px}
+  .cpd-counter-real{font-family:"IBM Plex Mono",ui-monospace,monospace;font-size:12px;
+    color:#969ba2;letter-spacing:.02em;min-height:19px;margin-bottom:2px}
+  .cpd-chartwrap{margin:4px 0 2px}
+  .cpd-chartwrap svg{display:block;width:100%;height:auto}
+  .cpd-grid{stroke:rgba(255,255,255,.09);stroke-width:1}
+  .cpd-axis{stroke:rgba(255,255,255,.16);stroke-width:1}
+  .cpd-txt{font-family:"IBM Plex Mono",ui-monospace,monospace;font-size:13px;
+    fill:rgba(255,255,255,.42)}
+  .cpd-lbl{font-family:"IBM Plex Mono",ui-monospace,monospace;font-size:13px;fill:#b9bec6}
+  .cpd-area{fill:url(#cpd-areagrad)}
+  .cpd-line{fill:none;stroke:#4ecaa0;stroke-width:2.5;stroke-linecap:round;stroke-linejoin:round}
+  .cpd-simple{stroke:#969ba2;stroke-width:1.75;stroke-dasharray:5 5}
+  .cpd-lblsimple{transition:opacity .5s}
+  [data-stage="0"] .cpd-lblsimple{opacity:0}
+  .cpd-fee{fill:none;stroke:#f87171;stroke-width:2;stroke-linecap:round;
+    transition:stroke-dashoffset 1.3s cubic-bezier(.22,.9,.3,1)}
+  .cpd-lblfee{opacity:0;transition:opacity .5s}
+  [data-stage="6"] .cpd-lblfee{opacity:1;transition:opacity .6s .7s}
+  .cpd-ball-halo{fill:rgba(78,202,160,.16)}
+  .cpd-ball{fill:url(#cpd-snowgrad);stroke:rgba(255,255,255,.85);stroke-width:1}
+  .cpd-cross{stroke:rgba(255,255,255,.25);stroke-width:1}
+  .cpd-readout{font-family:"IBM Plex Mono",ui-monospace,monospace;font-size:13px;fill:#cfd3d8}
+  .cpd-chips{display:flex;flex-wrap:wrap;gap:7px;min-height:33px;margin-top:8px}
+  .cpd-chip{font-family:"IBM Plex Mono",ui-monospace,monospace;font-size:12px;
+    letter-spacing:.02em;color:#969ba2;border:1px solid #2b2f36;border-radius:999px;
+    padding:3px 11px;opacity:0;transform:translateY(6px);
+    transition:opacity .45s,transform .45s,border-color .45s,color .45s}
+  .cpd-chip.on{opacity:1;transform:none}
+  .cpd-chip.now{color:#e8eaed;border-color:var(--ch)}
+  .cpd-chip.cpd-bad.now{border-color:#f87171}
+  .cpd-legend{display:none;gap:14px;flex-wrap:wrap;margin-top:8px;font-size:13px;color:#969ba2}
+  [data-stage="6"] .cpd-legend{display:flex}
+  .cpd-legend b{color:#e8eaed;font-weight:600}
+  .cpd-dot{display:inline-block;width:9px;height:9px;border-radius:3px;margin-right:6px}
+  .cpd-dash{display:inline-block;width:14px;height:0;border-top:2px dashed #969ba2;
+    vertical-align:middle;margin-right:6px}
+  .cpd-rail{display:flex;gap:7px;margin-top:10px;flex-wrap:wrap}
+  .cpd-rail span{font-family:"IBM Plex Mono",ui-monospace,monospace;font-size:10.5px;
+    letter-spacing:.1em;color:#969ba2;border:1px solid #2b2f36;border-radius:999px;
+    padding:3px 10px;transition:all .4s}
+  .cpd-rail span.on{color:#121417;border-color:transparent}
+  .cpd-rail .cpd-r1.on{background:#4ecaa0}
+  .cpd-rail .cpd-r2.on{background:#38c6dd}
+  .cpd-rail .cpd-r3.on{background:#a78bfa}
+  .cpd-hint{display:inline-flex;align-items:center;gap:8px;margin:4px 0 18px;color:var(--muted);
+    font-family:"IBM Plex Mono",ui-monospace,monospace;font-size:12.5px;letter-spacing:.08em}
+  .cpd-hint svg{animation:cpd-bob 1.6s ease-in-out infinite}
+  @keyframes cpd-bob{50%{transform:translateY(4px)}}
+  .cpd-steps{padding:6vh 0 2vh}
+  .cpd-step{min-height:74vh;display:flex;align-items:center}
+  .cpd-card{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);
+    padding:20px 24px;max-width:620px;box-shadow:var(--shadow-md)}
+  .cpd-card .cpd-n{font-family:"IBM Plex Mono",ui-monospace,monospace;font-size:11.5px;
+    letter-spacing:.16em;color:var(--accent);display:block;margin-bottom:6px}
+  .cpd-card h2{font-family:var(--font-head);font-weight:700;font-size:20px;line-height:1.45;
+    margin:0 0 8px;border:0;padding:0}
+  .cpd-card p{margin:0;color:var(--muted)}
+  .cpd-card b{color:var(--text);font-weight:600}
+  .cpd-card .cpd-num{font-family:"IBM Plex Mono",ui-monospace,monospace;font-size:.9em;
+    color:var(--accent)}
+  .cpd-outro{border-top:1px solid var(--border);margin-top:6vh;padding:56px 0 30px}
+  .cpd-outro h2{border:0;padding:0}
+  .cpd-outro ul{margin:0 0 26px;padding:0;list-style:none;display:grid;gap:10px}
+  .cpd-outro li{border:1px solid var(--border);border-radius:12px;padding:12px 16px;
+    color:var(--muted)}
+  .cpd-outro li b{color:var(--text);font-weight:600}
+  .cpd-outro li .cpd-sw{display:inline-block;width:10px;height:10px;border-radius:3px;
+    margin-right:9px}
+  /* ─── เครื่องคิดเลขทบต้น ─── */
+  .cpd-calc{margin:10px 0 34px}
+  .cpd-calc h3{font-family:var(--font-head);font-weight:700;font-size:18px;margin:0 0 12px}
+  .cpd-calc-panel{background:radial-gradient(120% 140% at 50% 0%,#20242a 0%,#1a1d21 62%);
+    border:1px solid #2b2f36;border-radius:var(--radius);padding:18px 20px 16px}
+  .cpd-sliders{display:grid;grid-template-columns:1fr 1fr;gap:12px 22px;margin-bottom:14px}
+  .cpd-sliders label{display:block;font-size:13px;color:#969ba2}
+  .cpd-sliders .cpd-val{font-family:"IBM Plex Mono",ui-monospace,monospace;color:#e8eaed;
+    float:right;font-variant-numeric:tabular-nums}
+  .cpd-sliders input[type=range]{width:100%;margin:7px 0 0;accent-color:#4ecaa0;display:block}
+  .cpd-calc-big{font-family:"IBM Plex Mono",ui-monospace,monospace;font-weight:500;
+    font-size:clamp(26px,4.6vw,38px);color:#4ecaa0;font-variant-numeric:tabular-nums;
+    line-height:1.1}
+  .cpd-calc-sub{font-size:13.5px;color:#969ba2;margin:4px 0 10px}
+  .cpd-calc-sub b{color:#e8eaed;font-weight:600}
+  .cpd-split{position:relative;height:34px;border:1px solid #2b2f36;border-radius:9px;
+    background:rgba(255,255,255,.02);overflow:hidden;display:flex;gap:2px;padding:2px}
+  .cpd-split div{border-radius:6px;transition:width .45s cubic-bezier(.22,.9,.3,1);min-width:2px}
+  .cpd-split .cpd-own{background:#969ba2}
+  .cpd-split .cpd-grow{background:linear-gradient(180deg,#5ad2a8,#3fb98f)}
+  .cpd-split-legend{display:flex;gap:16px;margin:8px 0 2px;font-size:12.5px;color:#969ba2;
+    flex-wrap:wrap}
+  .cpd-split-legend b{color:#e8eaed;font-weight:600}
+  .cpd-calc-r72{font-family:"IBM Plex Mono",ui-monospace,monospace;font-size:12px;
+    color:#969ba2;margin-top:10px}
+  .cpd-calc-r72 b{color:#4ecaa0;font-weight:500}
+  /* ─── ตารางข้อมูล (ทางเลือกอ่านแบบตาราง) ─── */
+  .cpd-table{margin:0 0 30px;color:var(--muted)}
+  .cpd-table summary{cursor:pointer;font-size:14px}
+  .cpd-table-scroll{overflow-x:auto}
+  .cpd-table table{width:100%;min-width:480px;border-collapse:collapse;margin-top:10px;font-size:13.5px}
+  .cpd-table th,.cpd-table td{text-align:right;padding:7px 10px;
+    border-bottom:1px solid var(--border);font-variant-numeric:tabular-nums}
+  .cpd-table th:first-child,.cpd-table td:first-child{text-align:left}
+  .cpd-table th{color:var(--text);font-weight:600}
+  .cpd-cta{display:inline-block;font-family:var(--font-head);font-weight:700;font-size:16px;
+    color:var(--bg);background:var(--accent);border-radius:10px;padding:11px 20px;
+    text-decoration:none}
+  .cpd-cta:hover{background:var(--accent-strong)}
+  .cpd-cta:focus-visible{outline:2px solid var(--accent-strong);outline-offset:3px}
+  .cpd-note{margin-top:24px;font-size:14px;color:var(--muted);
+    border-left:3px solid var(--border);padding-left:14px}
+  @media (max-width:640px){
+    .cpd-stage{top:44px}
+    .cpd-panel{padding:13px 12px 11px}
+    .cpd-card{padding:17px 17px}
+    .cpd-step{min-height:80vh}
+    .cpd-sliders{grid-template-columns:1fr}
+    .cpd-counter-real{font-size:11px}
+  }
+  @media (prefers-reduced-motion:reduce){
+    .cpd-chip,.cpd-counter,.cpd-rail span,.cpd-fee,.cpd-lblfee,.cpd-lblsimple,
+    .cpd-split div{transition:none}
+    .cpd-hint svg{animation:none}
+  }
+  </style>
+</head>
+<body>
+
+  <div class="top-accent"></div>
+
+  <header class="site-header">
+    <div class="container">
+      <a href="index.html" class="site-title">Moatrices</a>
+      <nav class="site-nav">
+        <a href="index.html">หน้าแรก</a>
+        <a href="dashboard.html">Dashboard</a>
+        <a href="about.html">เกี่ยวกับ</a>
+      </nav>
+    </div>
+  </header>
+
+  <main id="cpd" data-stage="0">
+    <div class="container">
+      <div class="hero">
+        <span class="kicker">Interactive · พลังดอกเบี้ยทบต้น</span>
+        <h1>ตามเงิน <span class="grad-text">฿100,000</span><br>กลิ้งเป็นก้อนหิมะ 50 ปี</h1>
+        <p class="lead">
+          ดอกเบี้ยทบต้นเป็นเรื่องที่ทุกคน "รู้จัก" แต่แทบไม่มีใคร "รู้สึก" —
+          เพราะสมองคนถนัดคิดเป็นเส้นตรง ส่วนเงินโตเป็นเส้นโค้ง
+          ลองวางเงิน ฿100,000 หนึ่งก้อนไว้ที่ผลตอบแทน 10% ต่อปี
+          แล้วเลื่อนตามมันไป 50 ปี — ครึ่งทางแรกจะน่าเบื่อจนอยากเลิก
+          และนั่นแหละคือประเด็นทั้งหมดของเรื่องนี้
+        </p>
+      </div>
+      <span class="cpd-hint">เลื่อนลงเพื่อปล่อยก้อนหิมะ
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" aria-hidden="true"><path d="M12 4v16m0 0l-6-6m6 6l6-6"/></svg>
+      </span>
+    </div>
+
+    <div class="cpd-stage">
+      <div class="container">
+        <div class="cpd-panel">
+          <div class="cpd-eyebrow"><span id="cpd-eyebrow">จุดตั้งต้น · เงินหนึ่งก้อน กติกาเดียว</span><span class="cpd-src">สูตร: 100,000 × 1.10ⁿ</span></div>
+          <div class="cpd-counter-row">
+            <span class="cpd-counter" id="cpd-counter" aria-live="polite">฿100,000</span>
+            <span class="cpd-counter-sub" id="cpd-countersub">เงินต้นตั้งต้น · ปีที่ 0</span>
+          </div>
+          <div class="cpd-counter-real" id="cpd-counterreal">กติกา: ไม่เติม ไม่ถอน ไม่ขัดจังหวะ 50 ปี</div>
+          <div class="cpd-chartwrap">
+            <svg id="cpd-chart" viewBox="0 0 720 300" role="img"
+              aria-label="กราฟเส้น: เงิน ฿100,000 ทบต้น 10% ต่อปี เติบโตตลอด 50 ปี เทียบกับฝากดอกคงที่แบบไม่ทบ และเส้นที่โดนค่าธรรมเนียม 2% ต่อปี">
+              <defs>
+                <linearGradient id="cpd-areagrad" x1="0" y1="0" x2="0" y2="1">
+                  <stop offset="0" stop-color="#4ecaa0" stop-opacity=".26"/>
+                  <stop offset="1" stop-color="#4ecaa0" stop-opacity="0"/>
+                </linearGradient>
+                <radialGradient id="cpd-snowgrad" cx=".35" cy=".3" r=".9">
+                  <stop offset="0" stop-color="#ffffff"/>
+                  <stop offset=".7" stop-color="#e4edf3"/>
+                  <stop offset="1" stop-color="#b9cbd8"/>
+                </radialGradient>
+              </defs>
+              <g id="cpd-grid"></g>
+              <line id="cpd-xaxis" class="cpd-axis"/>
+              <g id="cpd-xticks"></g>
+              <line id="cpd-simple" class="cpd-simple"/>
+              <text id="cpd-lblsimple" class="cpd-lbl cpd-lblsimple" text-anchor="end">ฝากดอกคงที่ 10% ไม่ทบ</text>
+              <path id="cpd-fee" class="cpd-fee"/>
+              <text id="cpd-lblfee" class="cpd-lbl cpd-lblfee" text-anchor="end">โดนกิน 2%/ปี</text>
+              <path id="cpd-area" class="cpd-area"/>
+              <path id="cpd-line" class="cpd-line"/>
+              <circle id="cpd-ballhalo" class="cpd-ball-halo"/>
+              <circle id="cpd-ball" class="cpd-ball"/>
+              <g id="cpd-crossg" style="display:none">
+                <line id="cpd-cross" class="cpd-cross"/>
+                <text id="cpd-readout" class="cpd-readout"></text>
+              </g>
+            </svg>
+          </div>
+          <div class="cpd-chips">
+            <span class="cpd-chip" data-at="1">ปี ~7 · เท่าตัวแรก (กฎ 72)</span>
+            <span class="cpd-chip" data-at="2">ปี 20 · ทิ้งเส้นฝากคงที่ 2 เท่า</span>
+            <span class="cpd-chip" data-at="3">ปี 30 · ดอกปีเดียว &gt; เงินต้น</span>
+            <span class="cpd-chip" data-at="4">ทศวรรษที่ 4 &gt; 30 ปีแรกรวม</span>
+            <span class="cpd-chip" data-at="5">20 ปีท้าย = 85% ของทั้งหมด</span>
+            <span class="cpd-chip cpd-bad" data-at="6">−2%/ปี = ปลายทางหาย 60%</span>
+          </div>
+          <div class="cpd-legend">
+            <span><span class="cpd-dot" style="background:#4ecaa0"></span><b>฿11.74 ล้าน</b> ทบต้นเต็ม 10%</span>
+            <span><span class="cpd-dot" style="background:#f87171"></span><b>฿4.69 ล้าน</b> โดนกิน 2%/ปี</span>
+            <span><span class="cpd-dash"></span><b>฿6 แสน</b> ฝากดอกคงที่</span>
+          </div>
+          <div class="cpd-rail">
+            <span class="cpd-r1" id="cpd-r1">ตอนที่ 1 · ทศวรรษที่น่าเบื่อ</span>
+            <span class="cpd-r2" id="cpd-r2">ตอนที่ 2 · เงินแซงคน</span>
+            <span class="cpd-r3" id="cpd-r3">ตอนที่ 3 · ระเบิด</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="container cpd-steps">
+
+      <section class="cpd-step" data-stage="0">
+        <div class="cpd-card">
+          <span class="cpd-n">จุดตั้งต้น</span>
+          <h2>เงิน ฿100,000 หนึ่งก้อน กับกติกาเดียว: อย่าแตะมัน</h2>
+          <p>ตัวเลข 10% ต่อปีไม่ใช่ฝันกลางวัน — มันคือผลตอบแทนเฉลี่ยระยะยาวของดัชนี
+          S&amp;P 500 รวมปันผล (~10.4% ต่อปี ตั้งแต่ปี 1926) แต่ค่าเฉลี่ยนี้มีราคาที่ต้องจ่าย:
+          ต้อง<b>ถือผ่านวิกฤตทุกรอบโดยไม่หนี</b> ทั้งปีที่ตลาดร่วง −37% และปีที่บวก +30%
+          กติกาของเกมนี้จึงมีข้อเดียว — ไม่เติม ไม่ถอน ไม่ขัดจังหวะ แล้วดูว่าเวลาทำอะไรได้</p>
+        </div>
+      </section>
+
+      <section class="cpd-step" data-stage="1">
+        <div class="cpd-card">
+          <span class="cpd-n">ตอนที่ 1 · ปีที่ 1–10</span>
+          <h2>ทศวรรษที่น่าเบื่อ — จุดที่คนส่วนใหญ่เลิก</h2>
+          <p>ดอกเบี้ยปีแรกได้ <span class="cpd-num">฿10,000</span> — สิบปีผ่านไปเงินเพิ่งเป็น
+          <b>฿259,374</b> และที่เจ็บกว่านั้น: เส้นทบต้นกับเส้นฝากดอกคงที่แบบไม่ทบ
+          (<span class="cpd-num">฿200,000</span>) แทบแยกกันไม่ออกบนกราฟ
+          นี่คือช่วงที่คนส่วนใหญ่สรุปว่า "มันไม่เวิร์ก" แล้วถอนออกไปหาอะไรที่เร็วกว่า —
+          ทั้งที่ตามกฎ 72 เงินเพิ่งผ่าน<b>การเท่าตัวครั้งแรก</b>มาหมาดๆ (72 ÷ 10 ≈ 7 ปีต่อเท่าตัว)</p>
+        </div>
+      </section>
+
+      <section class="cpd-step" data-stage="2">
+        <div class="cpd-card">
+          <span class="cpd-n">ตอนที่ 1 · ปีที่ 20</span>
+          <h2>เครื่องเริ่มติด — ดอกปีนี้เป็น 6 เท่าของปีแรก</h2>
+          <p>฿672,750 อาจยังไม่ใช่ตัวเลขที่เปลี่ยนชีวิต แต่สังเกตสิ่งที่เปลี่ยนไปเงียบๆ:
+          ดอกเบี้ยเฉพาะปีที่ 20 ปีเดียวคือ <span class="cpd-num">฿61,159</span> —
+          <b>6 เท่าของดอกปีแรก ทั้งที่คุณไม่ได้เติมเงินสักบาท</b>
+          ดอกเบี้ยของปีก่อนๆ กำลังออกดอกของมันเอง และช่องว่างกับเส้นฝากคงที่
+          (฿300,000) ถ่างเป็น 2 เท่าแล้ว — เส้นตรงไม่มีวันตามเส้นโค้งทันอีกเลย</p>
+        </div>
+      </section>
+
+      <section class="cpd-step" data-stage="3">
+        <div class="cpd-card">
+          <span class="cpd-n">ตอนที่ 2 · ปีที่ 30</span>
+          <h2>จุดที่เงินแซงคน: ดอกปีเดียวใหญ่กว่าเงินต้นทั้งก้อน</h2>
+          <p>มูลค่า ฿1.74 ล้าน — แต่ตัวเลขที่ควรจ้องคือดอกเบี้ยเฉพาะปีที่ 30:
+          <span class="cpd-num">฿158,631</span> <b>ปีเดียว มากกว่าเงินต้น ฿100,000
+          ที่คุณเริ่มทั้งก้อน</b> จากนี้ไปเงินทำงานหนักกว่าเงินออมของคุณตลอดกาล
+          และสังเกตมุมกล้อง: เราต้อง zoom ออกแล้ว — เนินปี 10 ที่เคยดูใหญ่
+          ตอนนี้แบนราบติดพื้น</p>
+        </div>
+      </section>
+
+      <section class="cpd-step" data-stage="4">
+        <div class="cpd-card">
+          <span class="cpd-n">ตอนที่ 2 · ปีที่ 40</span>
+          <h2>ทศวรรษเดียว สร้างมากกว่า 30 ปีแรกรวมกัน</h2>
+          <p>ทศวรรษที่ 4 ทศวรรษเดียวเพิ่มเงิน <span class="cpd-num">฿2.78 ล้าน</span> —
+          มากกว่ากำไรทั้งหมดที่ 30 ปีแรกทำได้รวมกัน (<span class="cpd-num">฿1.64 ล้าน</span>)
+          นี่คือความไม่เป็นเส้นตรงที่สมองคนประมวลผลไม่ถูก:
+          <b>ก้อนหิมะไม่ได้กลิ้งเร็วขึ้นเพราะเนินชันขึ้น — มันใหญ่ขึ้นจนเก็บหิมะได้มากขึ้นทุกรอบ</b>
+          กล้องต้องถอยออกอีกครั้ง และเส้นฝากดอกคงที่ตอนนี้เกือบเป็นพื้นราบ</p>
+        </div>
+      </section>
+
+      <section class="cpd-step" data-stage="5">
+        <div class="cpd-card">
+          <span class="cpd-n">ตอนที่ 3 · ปีที่ 50</span>
+          <h2>85% ของเงินทั้งหมด เกิดใน 20 ปีสุดท้าย</h2>
+          <p>฿11.74 ล้าน จากเงินแสนเดียว — และ <b>฿9.99 ล้านในนั้นเกิดหลังปีที่ 30</b>
+          นี่ไม่ใช่ทฤษฎี: Morgan Housel คำนวณไว้ใน The Psychology of Money ว่า
+          ทรัพย์สิน $84.5 พันล้านของ Buffett (ณ ตอนเขียนหนังสือ) มี
+          <span class="cpd-num">$84.2 พันล้าน — 99.6%</span> — เกิดขึ้น<b>หลังวันเกิดปีที่ 50</b>
+          เคล็ดลับที่แท้จริงของ Buffett จึงไม่ใช่แค่ฝีมือเลือกหุ้น
+          แต่คือการเริ่มตั้งแต่อายุ 10 แล้วปล่อยให้เส้นโค้งวิ่งมา 80 กว่าปีไม่เคยหยุด</p>
+        </div>
+      </section>
+
+      <section class="cpd-step" data-stage="6">
+        <div class="cpd-card">
+          <span class="cpd-n">ตอนที่ 3 · ศัตรูของการทบต้น</span>
+          <h2>สิ่งเล็กๆ ที่ดูไม่อันตราย กินปลายทางไป 60%</h2>
+          <p>เสียผลตอบแทนปีละ 2% — จะเป็นค่าธรรมเนียมกองทุนแพงๆ
+          หรือการเข้าๆ ออกๆ ตลาดจนพลาดปีดีๆ ก็ตาม — เหลือปลายทาง
+          <span class="cpd-num">฿4.69 ล้าน</span> จาก ฿11.74 ล้าน <b>หายไป 60%</b>
+          ส่วนการ "ขอเวลาอีกหน่อยค่อยเริ่ม" 10 ปี ทำร้ายพอกันเป๊ะ: เหลือ ฿4.53 ล้าน
+          สองศัตรูหน้าตาไม่เหมือนกัน แต่ฆ่าเส้นโค้งด้วยวิธีเดียวกัน —
+          <b>ตัดปีท้ายๆ ที่แรงที่สุดทิ้ง</b> Munger จึงสรุปกฎข้อแรกของการทบต้นไว้สั้นๆ:
+          "อย่าขัดจังหวะมันโดยไม่จำเป็น"</p>
+        </div>
+      </section>
+
+    </div>
+
+    <div class="container cpd-outro">
+      <h2>สามบรรทัดที่ควรจำ</h2>
+      <ul>
+        <li><span class="cpd-sw" style="background:#4ecaa0"></span><b>เวลาสำคัญกว่าจังหวะและฝีมือ</b> — 85% ของเงินเกิดใน 20 ปีสุดท้าย ปีแรกๆ ที่น่าเบื่อคือค่าผ่านทาง ไม่ใช่หลักฐานว่าล้มเหลว</li>
+        <li><span class="cpd-sw" style="background:#f87171"></span><b>ศัตรูตัวจริงคือการขัดจังหวะ</b> — ค่าธรรมเนียม 2% หรือเริ่มช้า 10 ปี ให้ผลเหมือนกัน: ตัดปีที่แรงที่สุดทิ้ง เหลือไม่ถึงครึ่ง</li>
+        <li><span class="cpd-sw" style="background:#a78bfa"></span><b>เลือกธุรกิจที่ทบต้นแทนเราได้</b> — Wonderful business ที่ reinvest กำไรได้ที่ ROIC สูงๆ คือเครื่องทบต้นที่ดีที่สุด นี่คือเหตุผลที่ Buffett ถือหุ้นเป็นทศวรรษ</li>
+      </ul>
+
+      <div class="cpd-calc">
+        <h3>ลองหมุนเครื่องทบต้นของคุณเอง</h3>
+        <div class="cpd-calc-panel">
+          <div class="cpd-sliders">
+            <label>เงินต้นตั้งต้น <span class="cpd-val" id="cpd-vp">฿100,000</span>
+              <input type="range" id="cpd-ip" min="10000" max="1000000" step="10000" value="100000" aria-label="เงินต้นตั้งต้น (บาท)">
+            </label>
+            <label>เติมเพิ่มต่อเดือน <span class="cpd-val" id="cpd-vm">฿5,000</span>
+              <input type="range" id="cpd-im" min="0" max="50000" step="1000" value="5000" aria-label="เงินเติมเพิ่มต่อเดือน (บาท)">
+            </label>
+            <label>ผลตอบแทนต่อปี <span class="cpd-val" id="cpd-vr">10%</span>
+              <input type="range" id="cpd-ir" min="2" max="15" step="0.5" value="10" aria-label="ผลตอบแทนต่อปี (เปอร์เซ็นต์)">
+            </label>
+            <label>ระยะเวลา <span class="cpd-val" id="cpd-vn">30 ปี</span>
+              <input type="range" id="cpd-in" min="5" max="50" step="1" value="30" aria-label="ระยะเวลาลงทุน (ปี)">
+            </label>
+          </div>
+          <div class="cpd-calc-big" id="cpd-cbig" aria-live="polite">฿11,614,580</div>
+          <div class="cpd-calc-sub" id="cpd-csub">เงินจากกระเป๋าคุณ <b>฿1.9 ล้าน</b> · ดอกเบี้ยทบให้ <b>฿9.71 ล้าน (84%)</b></div>
+          <div class="cpd-split" role="img" aria-label="สัดส่วนเงินที่ใส่เองเทียบกับส่วนที่ดอกเบี้ยทบต้นสร้างให้">
+            <div class="cpd-own" id="cpd-sown" style="width:16%"></div>
+            <div class="cpd-grow" id="cpd-sgrow" style="width:84%"></div>
+          </div>
+          <div class="cpd-split-legend">
+            <span><span class="cpd-dot" style="background:#969ba2"></span>เงินจากกระเป๋า <b id="cpd-lown">฿1.9 ล้าน</b></span>
+            <span><span class="cpd-dot" style="background:#4ecaa0"></span>ดอกเบี้ยทบต้นสร้างให้ <b id="cpd-lgrow">฿9.71 ล้าน</b></span>
+          </div>
+          <div class="cpd-calc-r72" id="cpd-r72">กฎ 72: ที่ 10% ต่อปี เงินโตเท่าตัวทุก ~7 ปี</div>
+        </div>
+      </div>
+
+      <details class="cpd-table">
+        <summary>ดูข้อมูลทั้งหมดแบบตาราง</summary>
+        <div class="cpd-table-scroll">
+        <table>
+          <thead><tr><th>สิ้นปีที่</th><th>ทบต้น 10%</th><th>โดนกิน 2%/ปี (เหลือ 8%)</th><th>ฝากดอกคงที่ไม่ทบ</th></tr></thead>
+          <tbody>
+            <tr><td>0</td><td>฿100,000</td><td>฿100,000</td><td>฿100,000</td></tr>
+            <tr><td>10</td><td>฿259,374</td><td>฿215,892</td><td>฿200,000</td></tr>
+            <tr><td>20</td><td>฿672,750</td><td>฿466,096</td><td>฿300,000</td></tr>
+            <tr><td>30</td><td>฿1,744,940</td><td>฿1,006,266</td><td>฿400,000</td></tr>
+            <tr><td>40</td><td>฿4,525,926</td><td>฿2,172,452</td><td>฿500,000</td></tr>
+            <tr><td>50</td><td>฿11,739,085</td><td>฿4,690,161</td><td>฿600,000</td></tr>
+          </tbody>
+        </table>
+        </div>
+      </details>
+
+      <a class="cpd-cta" href="series-buffett-talks.html">อ่านซีรีส์สุนทรพจน์ Buffett 5 ตอน →</a>
+      <p class="cpd-note">สมมติฐาน: ผลตอบแทน 10% ต่อปีอ้างอิงค่าเฉลี่ยระยะยาวของ S&amp;P 500
+      รวมปันผล (~10.4% ต่อปี, 1926–2024, ก่อนหักเงินเฟ้อ) ของจริงไม่ได้มาเรียบๆ แบบเส้นนี้ —
+      มาเป็นปีบวกหนักสลับปีติดลบหนัก และผลตอบแทนอดีตไม่การันตีอนาคต
+      ตัวเลขทั้งหมดคำนวณจากสูตรทบต้นปีต่อปีตรงๆ ไม่หักภาษีและค่าธรรมเนียม
+      ตัวเลข Buffett มาจาก Morgan Housel, The Psychology of Money (2020)</p>
+    </div>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container footer-grid">
+      <div class="footer-brand">
+        <a href="index.html" class="site-title">Moatrices</a>
+        <p>บันทึกการเรียนวิเคราะห์หุ้น US เชิงลึก ภาษาไทย — เน้นพื้นฐานธุรกิจ ไม่ใช่ราคา</p>
+      </div>
+      <nav class="footer-nav">
+        <a href="index.html">หน้าแรก</a>
+        <a href="dashboard.html">Dashboard</a>
+        <a href="about.html">เกี่ยวกับ</a>
+      </nav>
+      <div class="footer-follow">
+        <span class="footer-follow-label">ติดตาม</span>
+        <div class="footer-social">
+          <a href="/feed.xml" class="social-btn" aria-label="RSS feed" title="RSS feed"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 11a9 9 0 0 1 9 9"/><path d="M4 4a16 16 0 0 1 16 16"/><circle cx="5" cy="19" r="1"/></svg></a>
+          <a href="mailto:beatp9696@gmail.com" class="social-btn" aria-label="อีเมล" title="อีเมล"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="m3 7 9 6 9-6"/></svg></a>
+        </div>
+      </div>
+    </div>
+    <div class="container footer-legal">
+      <p><strong>คำเตือน:</strong> เนื้อหาทั้งหมดเป็นบันทึกการเรียนและความเห็นส่วนตัว
+         เพื่อการศึกษาเท่านั้น <strong>ไม่ใช่คำแนะนำการลงทุน</strong>
+         ไม่ใช่การชี้นำให้ซื้อหรือขายหลักทรัพย์ใดๆ การตัดสินใจลงทุนเป็นความรับผิดชอบของผู้อ่านเอง</p>
+      <p>© 2026 Moatrices · เผยแพร่ผ่าน GitHub Pages</p>
+    </div>
+  </footer>
+
+  <button class="to-top" aria-label="กลับขึ้นด้านบน">↑</button>
+  <script>
+  (function () {
+    var reduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    var P = 100000, R = 0.10, RFEE = 0.08, YEARS = 50;
+    function V(t)  { return P * Math.pow(1 + R, t); }
+    function VF(t) { return P * Math.pow(1 + RFEE, t); }
+    function VS(t) { return P + P * R * t; }
+
+    var STAGES = [
+      { y: 0,  m: 400000,   v: 100000,   sub: "เงินต้นตั้งต้น · ปีที่ 0",
+        real: "กติกา: ไม่เติม ไม่ถอน ไม่ขัดจังหวะ 50 ปี",
+        eye: "จุดตั้งต้น · เงินหนึ่งก้อน กติกาเดียว" },
+      { y: 10, m: 400000,   v: 259374,   sub: "ปลายปีที่ 10 · ×2.6",
+        real: "ดอกเบี้ยปีที่ 10 ปีเดียว ฿23,579 (ปีแรก ฿10,000)",
+        eye: "ตอนที่ 1 · ทศวรรษที่น่าเบื่อ" },
+      { y: 20, m: 800000,   v: 672750,   sub: "ปลายปีที่ 20 · ×6.7",
+        real: "ดอกเบี้ยปีที่ 20 = ฿61,159 ≈ 6 เท่าของปีแรก",
+        eye: "ตอนที่ 1 · เครื่องเริ่มติด" },
+      { y: 30, m: 2000000,  v: 1744940,  sub: "ปลายปีที่ 30 · ×17.4",
+        real: "ดอกปีนั้นปีเดียว ฿158,631 > เงินต้นทั้งก้อน",
+        eye: "ตอนที่ 2 · เงินแซงคน" },
+      { y: 40, m: 6000000,  v: 4525926,  sub: "ปลายปีที่ 40 · ×45.3",
+        real: "ทศวรรษที่ 4 เพิ่ม ฿2.78 ล้าน > กำไร 30 ปีแรกรวมกัน",
+        eye: "ตอนที่ 2 · เงินแซงคน — กล้องถอยอีกแล้ว" },
+      { y: 50, m: 12000000, v: 11739085, sub: "ปลายปีที่ 50 · ×117",
+        real: "20 ปีสุดท้ายสร้าง ฿9.99 ล้าน = 85% ของทั้งหมด",
+        eye: "ตอนที่ 3 · ส่วนโค้งสุดท้ายคือเกือบทั้งหมด" },
+      { y: 50, m: 12000000, v: 4690161,  sub: "ปลายปีที่ 50 · โดนกิน 2%/ปี",
+        real: "จาก ฿11.74 ล้าน เหลือ ฿4.69 ล้าน — หายไป 60%",
+        eye: "ตอนที่ 3 · ศัตรูของการทบต้น" }
+    ];
+
+    var root    = document.getElementById("cpd");
+    var counter = document.getElementById("cpd-counter");
+    var sub     = document.getElementById("cpd-countersub");
+    var real    = document.getElementById("cpd-counterreal");
+    var eye     = document.getElementById("cpd-eyebrow");
+    var chips   = Array.prototype.slice.call(document.querySelectorAll(".cpd-chip"));
+    var rails   = [document.getElementById("cpd-r1"), document.getElementById("cpd-r2"), document.getElementById("cpd-r3")];
+
+    var svg  = document.getElementById("cpd-chart");
+    var grid = document.getElementById("cpd-grid");
+    var xax  = document.getElementById("cpd-xaxis");
+    var xtks = document.getElementById("cpd-xticks");
+    var eSimple = document.getElementById("cpd-simple");
+    var eLblS   = document.getElementById("cpd-lblsimple");
+    var eFee    = document.getElementById("cpd-fee");
+    var eLblF   = document.getElementById("cpd-lblfee");
+    var eArea = document.getElementById("cpd-area");
+    var eLine = document.getElementById("cpd-line");
+    var eBall = document.getElementById("cpd-ball");
+    var eHalo = document.getElementById("cpd-ballhalo");
+    var crossG = document.getElementById("cpd-crossg");
+    var crossL = document.getElementById("cpd-cross");
+    var readout = document.getElementById("cpd-readout");
+
+    var W = 720, H = 300, padL = 10, padR = 16, padT = 26, padB = 30;
+    var gridLbls = [];
+
+    function xpx(t) { return padL + (t / YEARS) * (W - padL - padR); }
+    function ypx(v, m) { return padT + (1 - v / m) * (H - padT - padB); }
+    function baseY() { return H - padB; }
+
+    function fmtShort(v) {
+      if (v >= 1e6) { var n = v / 1e6; return (n % 1 ? n.toFixed(2).replace(/0+$/, "").replace(/\.$/, "") : n) + " ล้าน"; }
+      if (v >= 1e5) { var s = v / 1e5;  return (s % 1 ? s.toFixed(1) : s) + " แสน"; }
+      return Math.round(v).toLocaleString("en-US");
+    }
+    function fmtFull(v) { return "฿" + Math.round(v).toLocaleString("en-US"); }
+
+    function buildStatic() {
+      /* gridlines แนวนอนที่ 25/50/75% — ตำแหน่ง px คงที่ label เปลี่ยนตาม zoom */
+      grid.innerHTML = ""; xtks.innerHTML = ""; gridLbls = [];
+      [0.25, 0.5, 0.75].forEach(function (f) {
+        var gy = padT + (1 - f) * (H - padT - padB);
+        var l = document.createElementNS("http://www.w3.org/2000/svg", "line");
+        l.setAttribute("class", "cpd-grid");
+        l.setAttribute("x1", padL); l.setAttribute("x2", W - padR);
+        l.setAttribute("y1", gy);   l.setAttribute("y2", gy);
+        grid.appendChild(l);
+        var t = document.createElementNS("http://www.w3.org/2000/svg", "text");
+        t.setAttribute("class", "cpd-txt");
+        t.setAttribute("x", padL + 4); t.setAttribute("y", gy - 5);
+        t.dataset.frac = f;
+        grid.appendChild(t);
+        gridLbls.push(t);
+      });
+      xax.setAttribute("x1", padL); xax.setAttribute("x2", W - padR);
+      xax.setAttribute("y1", baseY()); xax.setAttribute("y2", baseY());
+      for (var yr = 0; yr <= YEARS; yr += 10) {
+        var tx = document.createElementNS("http://www.w3.org/2000/svg", "text");
+        tx.setAttribute("class", "cpd-txt");
+        tx.setAttribute("x", xpx(yr)); tx.setAttribute("y", H - 9);
+        tx.setAttribute("text-anchor", yr === 0 ? "start" : (yr === YEARS ? "end" : "middle"));
+        tx.textContent = yr === 0 ? "ปี 0" : yr;
+        xtks.appendChild(tx);
+      }
+      /* เส้นโดนค่าธรรมเนียม: วาดเต็ม 50 ปีบนสเกลสุดท้าย (โผล่เฉพาะ stage 6) */
+      var d = "";
+      for (var i = 0; i <= 60; i++) {
+        var t2 = YEARS * i / 60;
+        d += (i ? "L" : "M") + xpx(t2).toFixed(1) + "," + ypx(VF(t2), 12000000).toFixed(1);
+      }
+      eFee.setAttribute("d", d);
+      var len = Math.ceil(eFee.getTotalLength()) + 2;
+      eFee.style.strokeDasharray = len;
+      eFee.style.strokeDashoffset = root.dataset.stage === "6" ? 0 : len;
+      /* label สั้นใต้ปลายเส้นแดง — โซนที่ไม่ชนทั้งเส้นเขียวและเส้นแดง (ค่าเต็มอยู่ใน legend) */
+      eLblF.setAttribute("x", xpx(50) - 20);
+      eLblF.setAttribute("y", ypx(VF(50), 12000000) + 20);
+    }
+
+    /* stage 6 เผยเส้นแดงด้วย dashoffset (CSS transition จัดการ) */
+    function setFeeVisible(on) {
+      eFee.style.strokeDashoffset = on ? 0 : eFee.style.strokeDasharray;
+    }
+
+    var cur = { y: 0, m: 400000, v: 100000 };
+
+    function render() {
+      var d = "", steps = 60;
+      if (cur.y > 0.01) {
+        for (var i = 0; i <= steps; i++) {
+          var t = cur.y * i / steps;
+          d += (i ? "L" : "M") + xpx(t).toFixed(1) + "," + ypx(V(t), cur.m).toFixed(1);
+        }
+      }
+      eLine.setAttribute("d", d);
+      eArea.setAttribute("d", d
+        ? d + "L" + xpx(cur.y).toFixed(1) + "," + baseY() + "L" + xpx(0) + "," + baseY() + "Z"
+        : "");
+      var bx = xpx(cur.y), by = ypx(V(cur.y), cur.m);
+      var r = 5 + cur.y * 0.16;
+      eBall.setAttribute("cx", bx); eBall.setAttribute("cy", by); eBall.setAttribute("r", r);
+      eHalo.setAttribute("cx", bx); eHalo.setAttribute("cy", by); eHalo.setAttribute("r", r * 2);
+      /* เส้นฝากดอกคงที่ (เส้นตรง) + label: เส้นสั้นวางขวาของปลาย (ที่ว่าง),
+         เส้นยาววางเหนือ/ใต้ปลายฝั่งซ้ายแทนเพราะพื้นที่ขวาหมด */
+      var sx = xpx(cur.y), sy = ypx(VS(cur.y), cur.m);
+      eSimple.setAttribute("x1", xpx(0)); eSimple.setAttribute("y1", ypx(VS(0), cur.m));
+      eSimple.setAttribute("x2", sx);     eSimple.setAttribute("y2", sy);
+      if (cur.y <= 32) {
+        eLblS.setAttribute("text-anchor", "start");
+        eLblS.setAttribute("x", sx + 12);
+        eLblS.setAttribute("y", sy + 4);
+      } else {
+        eLblS.setAttribute("text-anchor", "end");
+        eLblS.setAttribute("x", sx - 4);
+        eLblS.setAttribute("y", sy > baseY() - 24 ? sy - 8 : sy + 17);
+      }
+      gridLbls.forEach(function (t) {
+        t.textContent = fmtShort(+t.dataset.frac * cur.m);
+      });
+    }
+
+    var raf = null;
+    function tweenTo(tgt) {
+      if (raf) cancelAnimationFrame(raf);
+      if (reduced) {
+        cur = { y: tgt.y, m: tgt.m, v: tgt.v };
+        counter.textContent = fmtFull(tgt.v);
+        render();
+        return;
+      }
+      var from = { y: cur.y, m: cur.m, v: cur.v }, t0 = null, DUR = 900;
+      function frame(ts) {
+        if (!t0) t0 = ts;
+        var p = Math.min((ts - t0) / DUR, 1);
+        p = 1 - Math.pow(1 - p, 3);
+        cur.y = from.y + (tgt.y - from.y) * p;
+        cur.m = from.m + (tgt.m - from.m) * p;
+        cur.v = from.v + (tgt.v - from.v) * p;
+        counter.textContent = fmtFull(cur.v);
+        render();
+        if (p < 1) raf = requestAnimationFrame(frame);
+      }
+      raf = requestAnimationFrame(frame);
+    }
+
+    var current = 0;
+    function setStage(n) {
+      if (n === current) return;
+      current = n;
+      root.dataset.stage = n;
+      var s = STAGES[n];
+      tweenTo(s);
+      sub.textContent = s.sub;
+      real.textContent = s.real;
+      eye.textContent = s.eye;
+      setFeeVisible(n === 6);
+      chips.forEach(function (c) {
+        var at = +c.dataset.at;
+        c.classList.toggle("on", at <= n);
+        c.classList.toggle("now", at === n);
+      });
+      rails[0].classList.toggle("on", n >= 1 && n <= 2);
+      rails[1].classList.toggle("on", n >= 3 && n <= 4);
+      rails[2].classList.toggle("on", n >= 5);
+    }
+
+    var io = new IntersectionObserver(function (entries) {
+      entries.forEach(function (e) {
+        if (e.isIntersecting) setStage(+e.target.dataset.stage);
+      });
+    }, { rootMargin: "-42% 0px -42% 0px" });
+    document.querySelectorAll(".cpd-step").forEach(function (s) { io.observe(s); });
+
+    /* crosshair อ่านค่า (เมาส์เท่านั้น — จอสัมผัสใช้ scroll เป็นหลัก) */
+    svg.addEventListener("pointermove", function (e) {
+      if (e.pointerType !== "mouse") return;
+      var rect = svg.getBoundingClientRect();
+      var px = (e.clientX - rect.left) / rect.width * W;
+      var t = Math.max(0, Math.min((px - padL) / (W - padL - padR) * YEARS, cur.y));
+      if (cur.y < 0.5) return;
+      crossG.style.display = "";
+      var cx = xpx(t);
+      crossL.setAttribute("x1", cx); crossL.setAttribute("x2", cx);
+      crossL.setAttribute("y1", padT); crossL.setAttribute("y2", baseY());
+      readout.textContent = "ปี " + Math.round(t) + " · " + fmtFull(V(t));
+      readout.setAttribute("x", W - padR - 4);
+      readout.setAttribute("y", padT + 2);
+      readout.setAttribute("text-anchor", "end");
+    });
+    svg.addEventListener("pointerleave", function () { crossG.style.display = "none"; });
+
+    /* mobile: viewBox แคบลงให้ตัวหนังสือใน SVG ไม่เล็กเกิน */
+    function setSize() {
+      var wpx = svg.getBoundingClientRect().width || 720;
+      var newW = wpx < 560 ? 460 : 720;
+      if (newW !== W) {
+        W = newW;
+        svg.setAttribute("viewBox", "0 0 " + W + " " + H);
+        buildStatic();
+      }
+      render();
+    }
+    svg.setAttribute("viewBox", "0 0 " + W + " " + H);
+    buildStatic();
+    render();
+    counter.textContent = fmtFull(cur.v);
+    window.addEventListener("resize", setSize);
+    setSize();
+    /* แชร์ลิงก์เจาะจง stage ได้: #s0–#s6 */
+    var mh = location.hash.match(/^#s([0-6])$/);
+    if (mh) setStage(+mh[1]);
+  })();
+
+  /* ─── เครื่องคิดเลขทบต้น ─── */
+  (function () {
+    var ip = document.getElementById("cpd-ip"), im = document.getElementById("cpd-im");
+    var ir = document.getElementById("cpd-ir"), inn = document.getElementById("cpd-in");
+    var vp = document.getElementById("cpd-vp"), vm = document.getElementById("cpd-vm");
+    var vr = document.getElementById("cpd-vr"), vn = document.getElementById("cpd-vn");
+    var big = document.getElementById("cpd-cbig"), csub = document.getElementById("cpd-csub");
+    var sown = document.getElementById("cpd-sown"), sgrow = document.getElementById("cpd-sgrow");
+    var lown = document.getElementById("cpd-lown"), lgrow = document.getElementById("cpd-lgrow");
+    var r72 = document.getElementById("cpd-r72");
+
+    function fmt(v) { return "฿" + Math.round(v).toLocaleString("en-US"); }
+    function fmtM(v) {
+      if (v >= 1e6) return "฿" + (v / 1e6).toFixed(v >= 1e7 ? 1 : 2).replace(/\.?0+$/, "") + " ล้าน";
+      if (v >= 1e5) return "฿" + (v / 1e5).toFixed(1).replace(/\.0$/, "") + " แสน";
+      return fmt(v);
+    }
+    function update() {
+      var P = +ip.value, m = +im.value, r = +ir.value / 100, n = +inn.value;
+      vp.textContent = fmt(P);
+      vm.textContent = fmt(m);
+      vr.textContent = (+ir.value) + "%";
+      vn.textContent = n + " ปี";
+      var g = Math.pow(1 + r, n);
+      var fv = P * g + (r > 0 ? 12 * m * (g - 1) / r : 12 * m * n);
+      var own = P + 12 * m * n;
+      var grow = Math.max(fv - own, 0);
+      big.textContent = fmt(fv);
+      var pct = fv > 0 ? Math.round(grow / fv * 100) : 0;
+      csub.innerHTML = "เงินจากกระเป๋าคุณ <b>" + fmtM(own) + "</b> · ดอกเบี้ยทบให้ <b>" +
+        fmtM(grow) + " (" + pct + "%)</b>";
+      sown.style.width = Math.max(100 - pct, 1) + "%";
+      sgrow.style.width = Math.max(pct, 1) + "%";
+      lown.textContent = fmtM(own);
+      lgrow.textContent = fmtM(grow);
+      r72.innerHTML = "กฎ 72: ที่ " + (+ir.value) + "% ต่อปี เงินโตเท่าตัวทุก <b>~" +
+        (Math.round(72 / +ir.value * 10) / 10) + " ปี</b>";
+    }
+    [ip, im, ir, inn].forEach(function (el) { el.addEventListener("input", update); });
+    update();
+  })();
+  </script>
+  <script defer src="app.js"></script>
+
+</body>
+</html>
