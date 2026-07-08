@@ -140,6 +140,16 @@
     .ftm-bar,.ftm-bar .ftm-part,.ftm-chip,.ftm-counter,.ftm-eyebrow,.ftm-rail span{transition:none}
     .ftm-hint svg{animation:none}
   }
+  /* ═══ FIX 2026-07-08 · sticky-panel header-overlap + one-line chips/rail ═══
+     (1) ปักแผงใต้ header จริง 72px (เดิม top:48/44 → ทับหัวแผง 24–28px)
+     (2) chips/rail เป็นแถบเลื่อนบรรทัดเดียว (กันแผงสูงเกินตอน chip หลายตัว wrap)
+     หน้านี้ track สูงคงที่ 56px อยู่แล้ว จึงไม่ต้อง cap กราฟแบบหน้า compound-interest */
+  .ftm-stage{top:72px}
+  .ftm-panel .ftm-chips,.ftm-panel .ftm-rail{flex-wrap:nowrap;
+    overflow-x:auto;overflow-y:hidden;scrollbar-width:none;-ms-overflow-style:none}
+  .ftm-panel .ftm-chips::-webkit-scrollbar,
+  .ftm-panel .ftm-rail::-webkit-scrollbar{display:none}
+  .ftm-panel .ftm-chip,.ftm-panel .ftm-rail span{white-space:nowrap;flex:0 0 auto}
   </style>
 </head>
 <body>

@@ -173,6 +173,18 @@
     .cpd-split div{transition:none}
     .cpd-hint svg{animation:none}
   }
+  /* ═══ FIX 2026-07-08 · sticky-panel-too-tall ═══
+     แผงกราฟิก sticky กินพื้นที่จอ 68–79% → การ์ดข้อความถูกบังทั้งเดสก์ท็อป+มือถือ
+     แก้ 3 อย่าง: (1) ปักแผงใต้ header จริง 72px (เดิม top:48/44 → ทับหัวแผง 24–28px)
+     (2) cap ความสูงกราฟด้วย max-height (มือถือเต็มกว้างปกติ; จอสูงน้อย cap ลง)
+     (3) chips/rail เป็นแถบเลื่อนบรรทัดเดียว (เดิม wrap หลายบรรทัด = ตัวกินจอบนมือถือ) */
+  .cpd-stage{top:72px}
+  .cpd-panel .cpd-chartwrap svg{max-height:min(30vh,220px)}
+  .cpd-panel .cpd-chips,.cpd-panel .cpd-rail{flex-wrap:nowrap;
+    overflow-x:auto;overflow-y:hidden;scrollbar-width:none;-ms-overflow-style:none}
+  .cpd-panel .cpd-chips::-webkit-scrollbar,
+  .cpd-panel .cpd-rail::-webkit-scrollbar{display:none}
+  .cpd-panel .cpd-chip,.cpd-panel .cpd-rail span{white-space:nowrap;flex:0 0 auto}
   </style>
 </head>
 <body>
