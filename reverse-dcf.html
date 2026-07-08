@@ -30,11 +30,14 @@
   <link rel="stylesheet" href="style.min.css">
   <style>
   /* ─── reverse-dcf (rdcf) — CSS เฉพาะหน้านี้ ทั้งหมด scope ใต้ #rdcf ─── */
-  #rdcf{--neg:#b3392f;--seg2:#5ba98e;--ink-a:#ffffff;--ink-b:#10231c}
+  #rdcf{--neg:#b3392f;--seg2:#5ba98e;--ink-a:#ffffff;--ink-b:#10231c;
+    --warn-ink:#7a4a00;--warn-bg:#fdf3e3;--warn-bd:#eed9ae}
   @media (prefers-color-scheme: dark){
-    :root:not([data-theme="light"]) #rdcf{--neg:#e08579;--seg2:#2f7f63;--ink-a:#0f2b22;--ink-b:#eaf4ef}
+    :root:not([data-theme="light"]) #rdcf{--neg:#e08579;--seg2:#2f7f63;--ink-a:#0f2b22;--ink-b:#eaf4ef;
+      --warn-ink:#eec98a;--warn-bg:#2a2315;--warn-bd:#4a3c20}
   }
-  :root[data-theme="dark"] #rdcf{--neg:#e08579;--seg2:#2f7f63;--ink-a:#0f2b22;--ink-b:#eaf4ef}
+  :root[data-theme="dark"] #rdcf{--neg:#e08579;--seg2:#2f7f63;--ink-a:#0f2b22;--ink-b:#eaf4ef;
+    --warn-ink:#eec98a;--warn-bg:#2a2315;--warn-bd:#4a3c20}
 
   #rdcf h2 .no{font-family:"IBM Plex Mono",ui-monospace,monospace;font-size:.8rem;color:var(--accent);margin-right:10px;letter-spacing:.08em}
   #rdcf .rdcf-note{font-size:.85rem;color:var(--muted)}
@@ -58,6 +61,11 @@
   #rdcf .rdcf-field .unit{color:var(--muted);font-weight:400}
   #rdcf .rdcf-field input[type=text]{width:100%;box-sizing:border-box;font-family:"IBM Plex Mono",ui-monospace,monospace;font-size:1rem;padding:9px 12px;border:1px solid var(--border);border-radius:10px;background:var(--surface-2);color:var(--text)}
   #rdcf .rdcf-hint{font-size:.76rem;color:var(--muted);margin:4px 2px 0;line-height:1.5}
+  #rdcf .rdcf-echo{display:block;font-family:"IBM Plex Mono",ui-monospace,monospace;font-size:.78rem;color:var(--accent-strong);margin:5px 2px 0;min-height:1.2em;font-variant-numeric:tabular-nums}
+  #rdcf .rdcf-warn{margin-top:14px;padding:10px 14px;border-radius:10px;font-size:.86rem;line-height:1.6;background:var(--warn-bg);color:var(--warn-ink);border:1px solid var(--warn-bd)}
+  #rdcf .rdcf-warn p{margin:0 0 4px;color:var(--warn-ink)}
+  #rdcf .rdcf-warn p:last-child{margin:0}
+  @media (min-width:561px){#rdcf .rdcf-field--wide{grid-column:1/-1}}
   #rdcf .rdcf-where{margin:16px 0 0;border:1px dashed var(--border);border-radius:10px;padding:10px 14px;background:var(--surface-2)}
   #rdcf .rdcf-where summary{cursor:pointer;font-weight:600;font-size:.9rem;color:var(--accent-strong)}
   #rdcf .rdcf-where ol{margin:10px 0 4px;padding-left:22px;font-size:.88rem}
@@ -180,22 +188,30 @@
       <div class="rdcf-panel">
         <div class="rdcf-grid2">
           <div class="rdcf-field"><label for="inPrice">ราคาหุ้น <span class="unit">($/หุ้น)</span></label><input type="text" id="inPrice" inputmode="decimal">
+            <span class="rdcf-echo" id="echoPrice"></span>
             <p class="rdcf-hint">Google ชื่อ ticker หรือแอปโบรกเกอร์ — ใช้ราคาล่าสุด</p></div>
           <div class="rdcf-field"><label for="inShares">จำนวนหุ้น (diluted) <span class="unit">(ล้านหุ้น)</span></label><input type="text" id="inShares" inputmode="decimal">
-            <p class="rdcf-hint">งบกำไรขาดทุน บรรทัด "diluted shares" (หรือหน้าปก 10-K)</p></div>
-          <div class="rdcf-field"><label for="inNetCash">เงินสดสุทธิ <span class="unit">($M · ติดลบ = หนี้สุทธิ)</span></label><input type="text" id="inNetCash" inputmode="decimal">
-            <p class="rdcf-hint">งบดุล: เงินสด + เงินลงทุนระยะสั้น − หนี้ทั้งหมด (total debt)</p></div>
-          <div class="rdcf-field"><label for="inFcf">Free Cash Flow ปีฐาน <span class="unit">($M)</span> <button class="rdcf-swap" id="fcfSwap" hidden></button></label><input type="text" id="inFcf" inputmode="decimal">
-            <p class="rdcf-hint">งบกระแสเงินสด: เงินสดจากการดำเนินงาน (OCF) − CapEx</p></div>
+            <span class="rdcf-echo" id="echoShares"></span>
+            <p class="rdcf-hint">แถว "Shares Outstanding (Diluted)" ในงบกำไรขาดทุน — เช็ค market cap ข้างบนกับ Google ว่าใกล้กันไหม</p></div>
+          <div class="rdcf-field"><label for="inCash">เงินสดรวม <span class="unit">($M)</span></label><input type="text" id="inCash" inputmode="decimal">
+            <span class="rdcf-echo" id="echoCash"></span>
+            <p class="rdcf-hint">แถว "Cash &amp; Short-Term Investments" ในงบดุล</p></div>
+          <div class="rdcf-field"><label for="inDebt">หนี้รวม <span class="unit">($M)</span></label><input type="text" id="inDebt" inputmode="decimal">
+            <span class="rdcf-echo" id="echoDebt"></span>
+            <p class="rdcf-hint">แถว "Total Debt" ในงบดุล (รวม lease มาด้วยก็ได้ — ต่างนิดเดียว)</p></div>
+          <div class="rdcf-field rdcf-field--wide"><label for="inFcf">Free Cash Flow ปีฐาน <span class="unit">($M)</span> <button class="rdcf-swap" id="fcfSwap" hidden></button></label><input type="text" id="inFcf" inputmode="decimal">
+            <span class="rdcf-echo" id="echoFcf"></span>
+            <p class="rdcf-hint">แถว "Free Cash Flow" ในงบกระแสเงินสด (= OCF − CapEx) — ทุกช่องพิมพ์แบบย่อได้ เช่น <code>2B</code> = 2,000 ล้าน</p></div>
         </div>
+        <div class="rdcf-warn" id="warnBox" hidden></div>
         <details class="rdcf-where" id="whereBox">
           <summary>มือใหม่: หาตัวเลข 4 ตัวนี้จากไหน? (ฟรี ใช้เวลา ~5 นาที)</summary>
           <ol>
-            <li><strong>ทางลัด:</strong> เปิด <a href="https://stockanalysis.com" target="_blank" rel="noopener">stockanalysis.com</a> → พิมพ์ ticker → แท็บ <em>Financials</em> มีครบทั้ง diluted shares, cash, debt และ FCF (คำนวณให้แล้ว) — ฟรี ไม่ต้องสมัคร</li>
+            <li><strong>ทางลัด:</strong> เปิด <a href="https://stockanalysis.com" target="_blank" rel="noopener">stockanalysis.com</a> → พิมพ์ ticker → แท็บ <em>Financials</em> — ชื่อแถวที่ต้องใช้เขียนไว้ใต้ช่องกรอกแต่ละช่องเป๊ะๆ แล้ว ใช้<strong>คอลัมน์ซ้ายสุด (TTM/ไตรมาสล่าสุด)</strong> — ฟรี ไม่ต้องสมัคร</li>
             <li><strong>ทางเต็ม (อ่านจากต้นทาง):</strong> งบจริงอยู่ใน 10-K ที่ <a href="https://www.sec.gov/cgi-bin/browse-edgar?action=getcompany" target="_blank" rel="noopener">SEC EDGAR</a> — จำนวนหุ้นอยู่หน้าปก, เงินสด/หนี้อยู่ในงบดุล, OCF−CapEx อยู่ในงบกระแสเงินสด</li>
             <li><strong>ตัวเลขไม่ต้องเป๊ะถึงหลักหน่วย:</strong> ใช้ FCF ปีเต็มล่าสุด (หรือ guidance) คู่กับเงินสด/หนี้จาก<strong>งบไตรมาสล่าสุด</strong> (คอลัมน์ TTM/Current ไม่ใช่ปีก่อน)
               · แต่ละเว็บนิยาม "total debt" ไม่เท่ากัน — บางที่รวมภาระเช่า (lease) เลขเลยต่างกันได้เป็นพันล้าน
-              ซึ่ง<strong>ไม่ต้องตกใจ</strong>: ช่องเงินสดสุทธิ sensitivity ต่ำมาก คลาดกัน $1B คำตอบขยับแค่ ~0.1 จุด
+              ซึ่ง<strong>ไม่ต้องตกใจ</strong>: ช่องเงินสด/หนี้ sensitivity ต่ำมาก คลาดกัน $1B คำตอบขยับแค่ ~0.1 จุด
               สิ่งที่ต้องแม่นจริงคือ <strong>FCF ฐาน</strong> กับ <strong>ราคา</strong></li>
             <li><strong>⚠ หุ้นต่างชาติที่ซื้อเป็น ADR/ADS (TSM, ASML ฯลฯ):</strong> เว็บงบจะแสดง<strong>สกุลเงินท้องถิ่น</strong>
               (TSM = NT$ ตัวเลขเลยดูใหญ่กว่ากันเป็นสิบเท่า) และนับ<strong>หุ้นสามัญท้องถิ่น</strong> ไม่ใช่ ADS —
@@ -340,7 +356,17 @@
     return "$"+m.toFixed(0)+"M";
   }
   const fmtNum=x=>x.toLocaleString("en-US",{maximumFractionDigits:2});
-  function parseNum(s){const v=parseFloat(String(s).replace(/,/g,""));return isFinite(v)?v:NaN}
+  /* รับตัวเลข + ตัวย่อ: 2B = 2,000 (ล้าน), 1.5T = 1,500,000 — ฐานหน่วยของช่องคือ "ล้าน" */
+  function parseNum(s){
+    s=String(s).trim().replace(/,/g,"");
+    const m=s.match(/^(-?\d*\.?\d+)\s*([mbt])?$/i);
+    if(!m) return NaN;
+    let v=parseFloat(m[1]);
+    const u=(m[2]||"").toLowerCase();
+    if(u==="b")v*=1e3;
+    if(u==="t")v*=1e6;
+    return isFinite(v)?v:NaN;
+  }
 
   /* ===== DCF math (สูตรเดียวกับ pipeline วิเคราะห์จริง: 2-stage, 10 ปี) ===== */
   function evAt(fcf0,g,w,gt,N=10){
@@ -365,17 +391,17 @@
 
   /* ===== presets (ตัวเลข cited จากงบจริง — ดูบทความ deep-dive แต่ละตัว) ===== */
   const PRESETS=[
-   {k:"SNPS",n:"Synopsys",price:464.85,shares:191.4,netCash:-7552,fcf:2000,
-    date:"7 มิ.ย. 2026",src:"FCF ฐาน = FY2026E $2.0B จาก guidance ไม่ใช่เลขบน screener — เพราะ SNPS เพิ่งซื้อ Ansys (ปิดดีล ก.ค. 2025): FY2025 actual $1.35B มี Ansys แค่ ~3.5 เดือน แต่ market cap วันนี้รวม Ansys เต็ม → ต้องใช้ปีแรกที่รวมเต็มปี · net debt $7.55B = เงินกู้ $10.0B − เงินสด $2.48B (30 เม.ย. 2026; screener ที่นับ lease จะโชว์ ~$8.4B ต่างไม่ถึง 1% ของ EV)",
+   {k:"SNPS",n:"Synopsys",price:464.85,shares:191.4,cash:2484,debt:10036,fcf:2000,
+    date:"7 มิ.ย. 2026",src:"FCF ฐาน = FY2026E $2.0B จาก guidance ไม่ใช่เลขบน screener — เพราะ SNPS เพิ่งซื้อ Ansys (ปิดดีล ก.ค. 2025): FY2025 actual $1.35B มี Ansys แค่ ~3.5 เดือน แต่ market cap วันนี้รวม Ansys เต็ม → ต้องใช้ปีแรกที่รวมเต็มปี · หนี้ = เงินกู้ $10.0B (30 เม.ย. 2026; screener ที่นับ lease จะโชว์ ~$10.8B ต่างไม่ถึง 1% ของ EV)",
     alt:{label:"สลับเป็น FCF TTM ~$2.63B (ตาม screener)",fcf:2634,back:"สลับกลับเป็น FY2026E $2.0B (guidance)"}},
-   {k:"TSM",n:"TSMC (ต่อ ADS)",price:426.80,shares:5186.5,netCash:65000,fcf:32000,
-    date:"9 มิ.ย. 2026",src:"งบ TSM เป็น NT$ — แปลงที่ ~31.3 NT$/US$: FCF FY2025 NT$1.00T → $32B (โดน capex super-cycle กดให้ต่ำ), net cash NT$2.06T → $65.9B · หุ้น 25,932M ÷ 5 = 5,186M ADS (1 ADS = หุ้นสามัญ 5 หุ้น)",
+   {k:"TSM",n:"TSMC (ต่อ ADS)",price:426.80,shares:5186.5,cash:99900,debt:34000,fcf:32000,
+    date:"9 มิ.ย. 2026",src:"งบ TSM เป็น NT$ — แปลงที่ ~31.3 NT$/US$: FCF FY2025 NT$1.00T → $32B (โดน capex super-cycle กดให้ต่ำ), เงินสด NT$3.13T → $99.9B, หนี้ NT$1.06T → $34B · หุ้น 25,932M ÷ 5 = 5,186M ADS (1 ADS = หุ้นสามัญ 5 หุ้น)",
     alt:{label:"สลับเป็น owner earnings ~$59.8B",fcf:59800,back:"สลับกลับเป็น GAAP FCF $32B"}},
-   {k:"AAPL",n:"Apple",price:311.40,shares:15000,netCash:33100,fcf:98770,
-    date:"25 พ.ค. 2026",src:"FCF FY2025 $98.8B · net cash $33.1B",alt:null},
-   {k:"NFLX",n:"Netflix",price:88,shares:4298,netCash:-2100,fcf:9461,
-    date:"13 พ.ค. 2026",src:"FCF FY2025 $9.46B · ราคาหลัง split 10:1 · net debt ต่ำชั่วคราวเพราะรับ WBD termination fee $2.8B",alt:null},
-   {k:"CUSTOM",n:"กรอกเอง",price:100,shares:1000,netCash:0,fcf:1000,date:"",src:"ใส่ตัวเลขของบริษัทที่คุณสนใจ — หาได้จาก 10-K (cash flow statement + balance sheet)",alt:null},
+   {k:"AAPL",n:"Apple",price:311.40,shares:15000,cash:132400,debt:99300,fcf:98770,
+    date:"25 พ.ค. 2026",src:"FCF FY2025 $98.8B · เงินสด+เงินลงทุน $132.4B, หนี้ $99.3B → net cash $33.1B",alt:null},
+   {k:"NFLX",n:"Netflix",price:88,shares:4298,cash:12260,debt:14360,fcf:9461,
+    date:"13 พ.ค. 2026",src:"FCF FY2025 $9.46B · ราคาหลัง split 10:1 · เงินสดสูงชั่วคราวเพราะรับ WBD termination fee $2.8B",alt:null},
+   {k:"CUSTOM",n:"กรอกเอง",price:100,shares:1000,cash:0,debt:0,fcf:1000,date:"",src:"ใส่ตัวเลขของบริษัทที่คุณสนใจ — ทุกช่องชี้ชื่อแถวใน stockanalysis.com ไว้ให้แล้ว (ดูกล่องมือใหม่ด้านล่าง)",alt:null},
   ];
   let cur=PRESETS[0], altOn=false, yourGtouched=false;
 
@@ -403,7 +429,8 @@
     [...chipsEl.children].forEach((c,i)=>c.setAttribute("aria-pressed",PRESETS[i]===p?"true":"false"));
     $("inPrice").value=fmtNum(p.price);
     $("inShares").value=fmtNum(p.shares);
-    $("inNetCash").value=fmtNum(p.netCash);
+    $("inCash").value=fmtNum(p.cash);
+    $("inDebt").value=fmtNum(p.debt);
     $("inFcf").value=fmtNum(p.fcf);
     $("presetNote").textContent=p.date?("ตัวเลข ณ "+p.date+" — "+p.src):p.src;
     const sw=$("fcfSwap");
@@ -420,7 +447,7 @@
   });
 
   /* ===== inputs ===== */
-  ["inPrice","inShares","inNetCash","inFcf"].forEach(id=>$(id).addEventListener("input",recalc));
+  ["inPrice","inShares","inCash","inDebt","inFcf"].forEach(id=>$(id).addEventListener("input",recalc));
   $("inWacc").addEventListener("input",()=>{clampTerm();recalc();});
   $("inTerm").addEventListener("input",()=>{clampTerm();recalc();});
   $("inYourG").addEventListener("input",()=>{yourGtouched=true;recalc();});
@@ -432,13 +459,35 @@
   /* ===== main recalc ===== */
   function recalc(){
     const price=parseNum($("inPrice").value),shares=parseNum($("inShares").value),
-          netCash=parseNum($("inNetCash").value),fcf0=parseNum($("inFcf").value),
+          cash=parseNum($("inCash").value),debt=parseNum($("inDebt").value),
+          fcf0=parseNum($("inFcf").value),
           w=parseFloat($("inWacc").value)/100, gt=parseFloat($("inTerm").value)/100;
     $("outWacc").textContent=(w*100).toFixed(1)+"%";
     $("outTerm").textContent=(gt*100).toFixed(1)+"%";
-    if(!(price>0&&shares>0&&isFinite(netCash)&&isFinite(fcf0))){return;}
-    const mc=price*shares, ev=mc-netCash;
-    $("evLine").innerHTML="Market cap <b>"+fmtMoney(mc)+"</b> − เงินสดสุทธิ <b>"+fmtMoney(netCash)+"</b> = มูลค่ากิจการ (EV) <b>"+fmtMoney(ev)+"</b>"
+
+    /* read-back: สะท้อนกลับว่าเครื่องอ่านแต่ละช่องว่าเท่าไหร่ (จับหน่วยผิดได้ทันที) */
+    const mc=(price>0&&shares>0)?price*shares:NaN;
+    $("echoPrice").textContent=price>0?("= $"+fmtNum(price)+" ต่อหุ้น"):"";
+    $("echoShares").textContent=(shares>0?("= "+fmtNum(shares)+" ล้านหุ้น"+(mc?(" → market cap "+fmtMoney(mc)):"")):"");
+    $("echoCash").textContent=isFinite(cash)?("= "+fmtMoney(cash)):"";
+    const netCash=(isFinite(cash)&&isFinite(debt))?cash-debt:NaN;
+    $("echoDebt").textContent=isFinite(debt)?("= "+fmtMoney(debt)+(isFinite(netCash)?(" → "+(netCash>=0?"เงินสดสุทธิ +"+fmtMoney(netCash):"หนี้สุทธิ "+fmtMoney(-netCash))):"")):"";
+    $("echoFcf").textContent=isFinite(fcf0)?("= "+fmtMoney(fcf0)+(mc&&fcf0>0?(" → FCF yield "+fmtP(fcf0/mc,fcf0/mc<0.005?2:1)):"")):"";
+
+    if(!(price>0&&shares>0&&isFinite(netCash)&&isFinite(fcf0))){$("warnBox").hidden=true;return;}
+    const ev=mc-netCash;
+
+    /* ตัวเตือนอัตโนมัติ: จับ error สกุลเงิน/หน่วย ที่พบบ่อยจริง */
+    const warns=[], y=fcf0/mc;
+    if(fcf0>0&&y>0.15)warns.push("⚠ FCF yield "+fmtP(y,1)+" สูงผิดปกติ (ปกติ ~1–8%) — ราคากับงบน่าจะ<strong>คนละสกุลเงิน</strong> ถ้าเป็นหุ้น ADR (เช่น TSM) งบบนเว็บเป็นสกุลท้องถิ่น ต้องแปลงเป็น USD ก่อน (ดูข้อ ⚠ ในกล่องมือใหม่)");
+    if(fcf0>0&&y<0.003)warns.push("⚠ FCF yield "+fmtP(y,2)+" ต่ำผิดปกติ — เช็คว่า FCF เป็นหน่วย <strong>ล้าน$</strong>: $2 พันล้าน ต้องใส่ 2,000 (หรือพิมพ์ <strong>2B</strong>)");
+    if(cash>1.2*mc||debt>1.2*mc)warns.push("⚠ เงินสด/หนี้ ใหญ่กว่า market cap ทั้งบริษัท — เกือบทุกกรณีคือหน่วยหรือสกุลเงินไม่ตรงกับช่องราคา เช็คอีกครั้ง");
+    if(ev<=0&&fcf0>0)warns.push("⚠ EV ติดลบ (เงินสดมากกว่ามูลค่าบริษัท+หนี้) — เกิดได้จริงแต่หายากมาก เช็คตัวเลขก่อน");
+    const wb=$("warnBox");
+    if(warns.length){wb.innerHTML=warns.map(x=>"<p>"+x+"</p>").join("");wb.hidden=false;}
+    else wb.hidden=true;
+
+    $("evLine").innerHTML="Market cap <b>"+fmtMoney(mc)+"</b> "+(netCash>=0?("− เงินสดสุทธิ <b>"+fmtMoney(netCash)+"</b>"):("+ หนี้สุทธิ <b>"+fmtMoney(-netCash)+"</b>"))+" = มูลค่ากิจการ (EV) <b>"+fmtMoney(ev)+"</b>"
       +" · FCF yield <b>"+fmtP(fcf0/mc,1)+"</b>";
 
     const heroG=$("heroG"),heroSub=$("heroSub");
