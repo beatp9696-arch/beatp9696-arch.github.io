@@ -193,6 +193,11 @@
           <ol>
             <li><strong>ทางลัด:</strong> เปิด <a href="https://stockanalysis.com" target="_blank" rel="noopener">stockanalysis.com</a> → พิมพ์ ticker → แท็บ <em>Financials</em> มีครบทั้ง diluted shares, cash, debt และ FCF (คำนวณให้แล้ว) — ฟรี ไม่ต้องสมัคร</li>
             <li><strong>ทางเต็ม (อ่านจากต้นทาง):</strong> งบจริงอยู่ใน 10-K ที่ <a href="https://www.sec.gov/cgi-bin/browse-edgar?action=getcompany" target="_blank" rel="noopener">SEC EDGAR</a> — จำนวนหุ้นอยู่หน้าปก, เงินสด/หนี้อยู่ในงบดุล, OCF−CapEx อยู่ในงบกระแสเงินสด</li>
+            <li><strong>⚠ หุ้นต่างชาติที่ซื้อเป็น ADR/ADS (TSM, ASML ฯลฯ):</strong> เว็บงบจะแสดง<strong>สกุลเงินท้องถิ่น</strong>
+              (TSM = NT$ ตัวเลขเลยดูใหญ่กว่ากันเป็นสิบเท่า) และนับ<strong>หุ้นสามัญท้องถิ่น</strong> ไม่ใช่ ADS —
+              กติกามีข้อเดียว: <strong>ทั้ง 4 ช่องต้องสกุลเงินเดียวกันและฐานหุ้นเดียวกัน</strong>
+              วิธีง่ายสุดถ้าใช้ราคา ADS: แปลงงบเป็น USD (หารอัตราแลกเปลี่ยน เช่น NT$ ~31 ≈ $1)
+              และแปลงจำนวนหุ้นเป็น ADS (TSM: 1 ADS = หุ้นสามัญ 5 หุ้น) — ดูวิธีแปลงจริงได้ที่คำอธิบาย preset TSM ข้างบน</li>
             <li><strong>อ่านงบไม่เป็น?</strong> ซีรีส์ "อ่านงบแบบลงมือทำ" ของเราไล่ให้ดูทีละบรรทัด:
               <a href="articles/financials-01-income-statement.html">ตอนที่ 1 งบกำไรขาดทุน</a> (จำนวนหุ้น) ·
               <a href="articles/financials-02-cash-flow-statement.html">ตอนที่ 2 งบกระแสเงินสด</a> (FCF) ·
@@ -357,7 +362,7 @@
    {k:"SNPS",n:"Synopsys",price:464.85,shares:191.4,netCash:-7552,fcf:2000,
     date:"7 มิ.ย. 2026",src:"FCF = FY2026E จาก guidance (OCF ~$2.3B − capex ~$0.3B) · net debt หลังดีล Ansys $7.55B",alt:null},
    {k:"TSM",n:"TSMC (ต่อ ADS)",price:426.80,shares:5186.5,netCash:65000,fcf:32000,
-    date:"9 มิ.ย. 2026",src:"FCF FY2025 GAAP $32B — โดน capex super-cycle (33% ของรายได้) กดให้ต่ำผิดปกติ",
+    date:"9 มิ.ย. 2026",src:"งบ TSM เป็น NT$ — แปลงที่ ~31.3 NT$/US$: FCF FY2025 NT$1.00T → $32B (โดน capex super-cycle กดให้ต่ำ), net cash NT$2.06T → $65.9B · หุ้น 25,932M ÷ 5 = 5,186M ADS (1 ADS = หุ้นสามัญ 5 หุ้น)",
     alt:{label:"สลับเป็น owner earnings ~$59.8B",fcf:59800,back:"สลับกลับเป็น GAAP FCF $32B"}},
    {k:"AAPL",n:"Apple",price:311.40,shares:15000,netCash:33100,fcf:98770,
     date:"25 พ.ค. 2026",src:"FCF FY2025 $98.8B · net cash $33.1B",alt:null},
