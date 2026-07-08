@@ -25,6 +25,7 @@
   // ---- ข้อมูลบทความ (แหล่งเดียว — ใช้ทั้ง prev/next, related, search, sector filter) ----
   // เรียงเก่า → ใหม่ · sec: semi | software | health | finance | consumer | space | market | basics
   var ARTICLES = [
+    { f: "deep-dive-ai-oil-shock.html", t: "AI Capex vs Oil Shock 1970s", sec: "market" },
     { f: "buffett-talks-01-superinvestors.html", t: "Buffett Talks 1: Superinvestors (1984)", sec: "basics" },
     { f: "buffett-talks-02-florida-mba-1998.html", t: "Buffett Talks 2: Florida MBA (1998)", sec: "basics" },
     { f: "buffett-talks-03-stock-market-1999.html", t: "Buffett Talks 3: Stock Market (1999)", sec: "basics" },

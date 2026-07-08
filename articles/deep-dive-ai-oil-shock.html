@@ -1,0 +1,771 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <script>try{var t=localStorage.getItem('theme');if(t)document.documentElement.setAttribute('data-theme',t);}catch(e){}</script>
+  <title>ก่อน GPU เคยมีแท่นขุด — Oil Shock 1970s: บทซ้อมใหญ่ของ AI Capex | Moatrices</title>
+  <meta name="description" content="อ่าน AI capex $520B/ปี ผ่านกระจก Oil Shock 1970s — จากแท่นขุด 4,530 แท่นสู่ 663, สมมติฐานราคาที่เชื่อมตายในเหล็กและซิลิคอน, demand ที่เดินหนี, ใครคือ swing buyer ของ compute และ tripwires 3 เส้นที่วัดได้จริงในงบ">
+  <meta property="og:type" content="article">
+  <meta property="og:site_name" content="Moatrices">
+  <meta property="og:title" content="ก่อน GPU เคยมีแท่นขุด — Oil Shock 1970s: บทซ้อมใหญ่ของ AI Capex">
+  <meta property="og:description" content="อ่าน AI capex $520B/ปี ผ่านกระจก Oil Shock 1970s — จากแท่นขุด 4,530 แท่นสู่ 663, สมมติฐานราคาที่เชื่อมตายในเหล็กและซิลิคอน, demand ที่เดินหนี, ใครคือ swing buyer ของ compute และ tripwires 3 เส้นที่วัดได้จริงในงบ">
+  <meta property="og:url" content="https://beatp9696-arch.github.io/articles/deep-dive-ai-oil-shock.html">
+  <meta property="og:locale" content="th_TH">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta property="og:image" content="https://beatp9696-arch.github.io/og-deep-dive-ai-oil-shock.png">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta name="twitter:image" content="https://beatp9696-arch.github.io/og-deep-dive-ai-oil-shock.png">
+  <meta name="author" content="Moatrices">
+  <link rel="canonical" href="https://beatp9696-arch.github.io/articles/deep-dive-ai-oil-shock.html">
+  <link rel="alternate" type="application/rss+xml" title="Moatrices RSS" href="/feed.xml">
+  <meta name="theme-color" media="(prefers-color-scheme: light)" content="#f7f5f0">
+  <meta name="theme-color" media="(prefers-color-scheme: dark)" content="#121417">
+  <link rel="icon" href="../favicon.svg" type="image/svg+xml">
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png">
+  <link rel="manifest" href="/site.webmanifest">
+  <link rel="preload" as="font" type="font/woff2" href="../fonts/sarabun-400-thai.woff2" crossorigin>
+  <link rel="preload" as="font" type="font/woff2" href="../fonts/sarabun-400-latin.woff2" crossorigin>
+  <link rel="stylesheet" href="../style.min.css">
+      <!-- SCENE-CSS -->
+      <link rel="stylesheet" href="../scenes/deep-dive-ai-oil-shock.min.css">
+      <!-- /SCENE-CSS -->
+  <script type="application/ld+json">
+  {"@context": "https://schema.org", "@type": "BlogPosting", "headline": "ก่อน GPU เคยมีแท่นขุด — Oil Shock 1970s: บทซ้อมใหญ่ของ AI Capex", "description": "อ่าน AI capex $520B/ปี ผ่านกระจก Oil Shock 1970s — จากแท่นขุด 4,530 แท่นสู่ 663, สมมติฐานราคาที่เชื่อมตายในเหล็กและซิลิคอน, demand ที่เดินหนี, ใครคือ swing buyer ของ compute และ tripwires 3 เส้นที่วัดได้จริงในงบ", "image": ["https://beatp9696-arch.github.io/og-deep-dive-ai-oil-shock.png"], "author": {"@type": "Person", "name": "Moatrices"}, "publisher": {"@type": "Organization", "name": "Moatrices", "logo": {"@type": "ImageObject", "url": "https://beatp9696-arch.github.io/icon-512.png"}}, "mainEntityOfPage": {"@type": "WebPage", "@id": "https://beatp9696-arch.github.io/articles/deep-dive-ai-oil-shock.html"}, "inLanguage": "th", "datePublished": "2026-07-08", "dateModified": "2026-07-08"}
+  </script>
+  <script type="application/ld+json">
+  {"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "หน้าแรก", "item": "https://beatp9696-arch.github.io/"}, {"@type": "ListItem", "position": 2, "name": "ก่อน GPU เคยมีแท่นขุด — Oil Shock 1970s: บทซ้อมใหญ่ของ AI Capex", "item": "https://beatp9696-arch.github.io/articles/deep-dive-ai-oil-shock.html"}]}
+  </script>
+</head>
+<body>
+
+  <div class="reading-progress"></div>
+  <div class="top-accent"></div>
+
+  <header class="site-header">
+    <div class="container">
+      <a href="../index.html" class="site-title">Moatrices</a>
+      <nav class="site-nav">
+        <a href="../index.html">หน้าแรก</a>
+        <a href="../dashboard.html">Dashboard</a>
+        <a href="../about.html">เกี่ยวกับ</a>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <div class="container">
+
+      <span class="kicker">บทวิเคราะห์ · Oil Shock × AI Capex</span>
+      <h1>ก่อน GPU เคยมีแท่นขุด — Oil Shock 1970s: บทซ้อมใหญ่ของ AI Capex</h1>
+      <div class="byline">
+        <span class="byline-avatar">M</span>
+        <div>
+          <div class="byline-author">Moatrices</div>
+          <div class="byline-info">8 ก.ค. 2026 · อ่าน ~15 นาที</div>
+        </div>
+      </div>
+
+      <!-- TOC-START -->
+      <nav class="toc">
+        <div class="toc-title">ในบทความนี้</div>
+        <ol>
+          <li><a href="#sec-1">1. วันที่ไม่มีใครรู้ว่าคือยอดเขา</a></li>
+          <li><a href="#sec-2">2. เสียงกรีดร้องของราคา (1973, 1979)</a></li>
+          <li><a href="#sec-3">3. น้ำท่วมทุน (1974–1981)</a></li>
+          <li><a href="#sec-4">4. สมมติฐานที่เชื่อมตายลงในเหล็ก</a></li>
+          <li><a href="#sec-5">5. Demand ไม่เถียง มันเดินหนี (1979–1985)</a></li>
+          <li><a href="#sec-6">6. 1986 — วันที่คนอุ้มราคาเลิกอุ้ม</a></li>
+          <li><a href="#sec-7">7. ความต่างที่ต้องพูดตรงๆ (steel-man)</a></li>
+          <li><a href="#sec-8">8. บทเรียนของผู้รอด — แผนที่สำหรับนักลงทุน</a></li>
+          <li><a href="#sec-9">9. Tripwires — Kill Conditions ของ thesis นี้</a></li>
+          <li><a href="#sec-10">สรุป</a></li>
+        </ol>
+      </nav>
+      <!-- TOC-END -->
+
+      <p class="lead">
+        วันที่ 28 ธันวาคม 1981 อเมริกามีแท่นขุดเจาะน้ำมันทำงานอยู่ 4,530 แท่น — สูงที่สุดในประวัติศาสตร์
+        ก่อนหน้านั้นและหลังจากนั้นจนถึงทุกวันนี้ ไม่เคยมีอีกเลย ไม่มีระฆังดังในวันนั้น ไม่มีพาดหัวว่า
+        "นี่คือยอดเขา" ห้าปีต่อมาแท่นขุดเหลือ 663 แท่น วันนี้ hyperscaler สี่เจ้ากำลังเท capex
+        รวมกันราว $130B ต่อ<em>ไตรมาส</em>ลงในชิปและศูนย์ข้อมูล ด้วยตรรกะชุดเดียวกับทศวรรษ
+        ที่ทั้งโลกเชื่อว่าน้ำมันจะแพงตลอดไป — บทนี้ไม่ได้ถามว่า "AI เป็นของจริงไหม"
+        (น้ำมันจริงยิ่งกว่าจริง แต่ความจริงของสินค้าไม่เคยช่วยคนที่จ่ายแพงเกินไปเพื่อผลิตมัน)
+        มันถามคำถามเดียวกับที่ควรถามในปี 1981: <strong>สมมติฐานราคาที่ฝังอยู่ในเงินก้อนนี้
+        สมจริงแค่ไหน — และเกิดอะไรขึ้นกับคนถือ ถ้ามันผิดแค่ครึ่งเดียว</strong>
+      </p>
+
+      <blockquote>
+        ตัวเลขฝั่ง AI อ้างอิง 10-K/10-Q จริงของ MSFT · GOOGL · AMZN · META · NVDA (ถึงงวด Q1 2026)
+        ผ่านบันทึก audit ภายในเมื่อ มิ.ย. 2026 — ตัวเลขฝั่งน้ำมันเป็นข้อเท็จจริงประวัติศาสตร์สาธารณะ
+        (Baker Hughes rig count, EIA) เนื้อหาเป็นบันทึกการเรียนเพื่อการศึกษา ไม่ใช่คำแนะนำซื้อขาย
+      </blockquote>
+
+      <!-- OSH-FIG-1 -->
+      <figure class="ph-fig"><div class="ph-panel osh-panel"><div class="ph-eyebrow osh">สองทศวรรษ · เสียงเดียวกัน</div>
+<svg viewBox="0 0 720 340" role="img" aria-label="แท่นขุดน้ำมันยุค 1970s กับตู้เซิร์ฟเวอร์ AI ยุค 2020s เชื่อมกันด้วยท่อที่กลายเป็นใยแก้ว">
+<defs>
+  <linearGradient id="o1skyL" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#3a2410"/><stop offset="1" stop-color="#160e06"/></linearGradient>
+  <linearGradient id="o1skyR" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#0d1826"/><stop offset="1" stop-color="#080d14"/></linearGradient>
+  <radialGradient id="o1sun" cx=".5" cy=".5" r=".5"><stop offset="0" stop-color="#ffcf7d"/><stop offset=".6" stop-color="#f5a02388"/><stop offset="1" stop-color="#f5a02300"/></radialGradient>
+</defs>
+<rect x="0" y="0" width="360" height="280" fill="url(#o1skyL)"/>
+<rect x="360" y="0" width="360" height="280" fill="url(#o1skyR)"/>
+<circle cx="76" cy="96" r="40" fill="url(#o1sun)" class="osh-glow"/>
+<circle cx="76" cy="96" r="17" fill="#ffc36b"/>
+<circle cx="640" cy="52" r="1.4" fill="#cfe6ff" opacity=".8"/><circle cx="562" cy="34" r="1.1" fill="#cfe6ff" opacity=".6"/>
+<circle cx="688" cy="86" r="1.2" fill="#cfe6ff" opacity=".7"/><circle cx="466" cy="40" r="1" fill="#cfe6ff" opacity=".5"/>
+<rect x="0" y="280" width="360" height="60" fill="#1c1108"/>
+<rect x="360" y="280" width="360" height="60" fill="#0c1218"/>
+<line x1="360" y1="0" x2="360" y2="340" stroke="#000" stroke-width="3" opacity=".55"/>
+<g class="osh-derrick "><line x1="85.3" y1="280" x2="120" y2="115"/><line x1="154.7" y1="280" x2="120" y2="115"/><line x1="91.8" y1="238.8" x2="148.2" y2="238.8"/><line x1="91.8" y1="238.8" x2="141.7" y2="197.5"/><line x1="148.2" y1="238.8" x2="98.3" y2="197.5"/><line x1="98.3" y1="197.5" x2="141.7" y2="197.5"/><line x1="98.3" y1="197.5" x2="135.2" y2="156.2"/><line x1="141.7" y1="197.5" x2="104.8" y2="156.2"/><line x1="104.8" y1="156.2" x2="135.2" y2="156.2"/><rect x="117.0" y="109" width="6" height="6"/></g>
+<g class="">
+  <rect x="210.0" y="274.0" width="80.0" height="6.0" class="osh-steel-f"/>
+  <path d="M234.0,280.0 L250.0,228.0 L266.0,280.0 Z" class="osh-steel"/>
+  <g class="osh-rock">
+    <rect x="194.0" y="223.0" width="112.0" height="10.0" rx="3.0" class="osh-steel-f"/>
+    <path d="M194.0,214.0 q-16.0,6.0 -14.0,26.0 l12.0,0 q-2.0,-14.0 2.0,-26.0 Z" class="osh-head"/>
+  </g>
+  <g class="osh-crank" style="transform-origin:284.0px 262.0px">
+    <circle cx="284.0" cy="262.0" r="12.0" class="osh-steel"/>
+    <line x1="284.0" y1="262.0" x2="284.0" y2="250.0" class="osh-steel"/>
+  </g>
+  <line x1="284.0" y1="250.0" x2="300.0" y2="228.0" class="osh-steel"/>
+</g>
+<path d="M366,258 C410,258 415,242 440,238 L640,226" class="osh-fiber"/>
+<path d="M366,258 C410,258 415,242 440,238 L640,226" class="osh-fiber-lit"/>
+<g><rect x="430" y="118" width="62" height="150" rx="4" class="osh-cab osh-cab-cool"/><rect x="435" y="126" width="52" height="14" rx="2" class="osh-unit"/><rect x="435" y="148" width="52" height="14" rx="2" class="osh-unit"/><rect x="435" y="170" width="52" height="14" rx="2" class="osh-unit"/><rect x="435" y="192" width="52" height="14" rx="2" class="osh-unit"/><rect x="435" y="214" width="52" height="14" rx="2" class="osh-unit"/><rect x="435" y="236" width="52" height="14" rx="2" class="osh-unit"/><circle cx="479" cy="133" r="2.6" class="osh-led" style="animation-delay:0.00s"/><rect x="439" y="131" width="32" height="4" rx="2" class="osh-slit"/><circle cx="479" cy="155" r="2.6" class="osh-led" style="animation-delay:0.33s"/><rect x="439" y="153" width="32" height="4" rx="2" class="osh-slit"/><circle cx="479" cy="177" r="2.6" class="osh-led" style="animation-delay:0.66s"/><rect x="439" y="175" width="32" height="4" rx="2" class="osh-slit"/><circle cx="479" cy="199" r="2.6" class="osh-led" style="animation-delay:0.99s"/><rect x="439" y="197" width="32" height="4" rx="2" class="osh-slit"/><circle cx="479" cy="221" r="2.6" class="osh-led" style="animation-delay:1.32s"/><rect x="439" y="219" width="32" height="4" rx="2" class="osh-slit"/><circle cx="479" cy="243" r="2.6" class="osh-led" style="animation-delay:0.00s"/><rect x="439" y="241" width="32" height="4" rx="2" class="osh-slit"/></g><g><rect x="516" y="118" width="62" height="150" rx="4" class="osh-cab osh-cab-cool"/><rect x="521" y="126" width="52" height="14" rx="2" class="osh-unit"/><rect x="521" y="148" width="52" height="14" rx="2" class="osh-unit"/><rect x="521" y="170" width="52" height="14" rx="2" class="osh-unit"/><rect x="521" y="192" width="52" height="14" rx="2" class="osh-unit"/><rect x="521" y="214" width="52" height="14" rx="2" class="osh-unit"/><rect x="521" y="236" width="52" height="14" rx="2" class="osh-unit"/><circle cx="565" cy="133" r="2.6" class="osh-led" style="animation-delay:0.00s"/><rect x="525" y="131" width="32" height="4" rx="2" class="osh-slit"/><circle cx="565" cy="155" r="2.6" class="osh-led" style="animation-delay:0.33s"/><rect x="525" y="153" width="32" height="4" rx="2" class="osh-slit"/><circle cx="565" cy="177" r="2.6" class="osh-led" style="animation-delay:0.66s"/><rect x="525" y="175" width="32" height="4" rx="2" class="osh-slit"/><circle cx="565" cy="199" r="2.6" class="osh-led" style="animation-delay:0.99s"/><rect x="525" y="197" width="32" height="4" rx="2" class="osh-slit"/><circle cx="565" cy="221" r="2.6" class="osh-led" style="animation-delay:1.32s"/><rect x="525" y="219" width="32" height="4" rx="2" class="osh-slit"/><circle cx="565" cy="243" r="2.6" class="osh-led" style="animation-delay:0.00s"/><rect x="525" y="241" width="32" height="4" rx="2" class="osh-slit"/></g><g><rect x="602" y="118" width="62" height="150" rx="4" class="osh-cab osh-cab-cool"/><rect x="607" y="126" width="52" height="14" rx="2" class="osh-unit"/><rect x="607" y="148" width="52" height="14" rx="2" class="osh-unit"/><rect x="607" y="170" width="52" height="14" rx="2" class="osh-unit"/><rect x="607" y="192" width="52" height="14" rx="2" class="osh-unit"/><rect x="607" y="214" width="52" height="14" rx="2" class="osh-unit"/><rect x="607" y="236" width="52" height="14" rx="2" class="osh-unit"/><circle cx="651" cy="133" r="2.6" class="osh-led" style="animation-delay:0.00s"/><rect x="611" y="131" width="32" height="4" rx="2" class="osh-slit"/><circle cx="651" cy="155" r="2.6" class="osh-led" style="animation-delay:0.33s"/><rect x="611" y="153" width="32" height="4" rx="2" class="osh-slit"/><circle cx="651" cy="177" r="2.6" class="osh-led" style="animation-delay:0.66s"/><rect x="611" y="175" width="32" height="4" rx="2" class="osh-slit"/><circle cx="651" cy="199" r="2.6" class="osh-led" style="animation-delay:0.99s"/><rect x="611" y="197" width="32" height="4" rx="2" class="osh-slit"/><circle cx="651" cy="221" r="2.6" class="osh-led" style="animation-delay:1.32s"/><rect x="611" y="219" width="32" height="4" rx="2" class="osh-slit"/><circle cx="651" cy="243" r="2.6" class="osh-led" style="animation-delay:0.00s"/><rect x="611" y="241" width="32" height="4" rx="2" class="osh-slit"/></g>
+<rect x="424" y="100" width="246" height="8" rx="3" class="osh-tray"/>
+<path d="M60,258 L352,258" class="osh-pipe"/>
+<path d="M60,258 L352,258" class="osh-pipe-oil"/>
+<rect x="348" y="248" width="18" height="20" rx="2" class="osh-steel-f"/>
+<text x="96" y="34" class="sim-mono">1974 — 1986</text>
+<text x="500" y="34" class="sim-mono">2023 — 20??</text>
+<text x="180" y="322" class="s-t sm">ทุนแช่แข็งเป็นเหล็ก</text>
+<text x="546" y="322" class="s-t sm">ทุนแช่แข็งเป็นซิลิคอน</text>
+</svg>
+</div><figcaption><strong>สองทศวรรษ เสียงเดียวกัน</strong> — ยุคน้ำมันเทเงินลงเหล็กและหลุมเจาะจนแท่นขุดแตะ 4,530 แท่น (ธ.ค. 1981) ยุค AI เทเงินลงชิปและศูนย์ข้อมูล ~$130B ต่อไตรมาส (Q1 2026) — ต่างกันแค่วัตถุที่ทุนแช่แข็งลงไป: เหล็กอยู่ 30 ปี ซิลิคอนอยู่ 4–5 ปี</figcaption></figure>
+
+      <h2 id="sec-1">1. วันที่ไม่มีใครรู้ว่าคือยอดเขา</h2>
+      <p>
+        Capex supercycle คือปรากฏการณ์ที่อุตสาหกรรมหนึ่งดูดทุนของทั้งตลาดเข้าไปแปลงเป็นวัตถุ —
+        เหล็ก ท่อ หลุมเจาะ หรือชิป แร็ค ศูนย์ข้อมูล ประวัติศาสตร์การเงินมี supercycle
+        ให้เรียนไม่กี่ครั้ง และรอบที่ "สินค้าเป็นของจริงแท้ๆ แต่คนลงทุนเจ็บหนักที่สุด"
+        ไม่ใช่ dot-com — มันคือทศวรรษน้ำมัน 1974–1986
+      </p>
+      <p>
+        เงินหลายแสนล้านดอลลาร์ (ค่าเงินยุคนั้น) ถูกเทลงไปในดินด้วยความเชื่อว่าราคาน้ำมันจะไม่มีวันถูกอีกแล้ว
+        พอสมมติฐานนั้นพัง มันไม่ได้พาไปแค่บริษัทขุดเจาะ — มันพาธนาคารเกือบทั้งรัฐเท็กซัสตายตาม
+        ทั้งที่ตลอดเวลานั้นน้ำมันก็ยังเป็นสินค้าที่โลกขาดไม่ได้ ใช้มากขึ้นแทบทุกปีจนถึงวันนี้
+      </p>
+      <p>
+        นี่คือเหตุผลที่บทนี้ต้องมีอยู่คู่กับ<a href="deep-dive-ai-bubble.html">บท AI vs dot-com</a>:
+        บทนั้นผ่ากลไก "ฟองสบู่" — ราคาที่อ้างอิงตัวเอง ส่วนบทนี้ผ่ากลไกที่เงียบกว่าแต่ฆ่าคนมามากกว่า:
+        <strong>capex ที่แบกคำพยากรณ์ผิดๆ ไว้ข้างใน</strong> ฟองสบู่ราคาแตกแล้วเจ็บเป็นเดือน
+        แต่ capex ที่สร้างบนสมมติฐานผิด กดผลตอบแทนทั้งอุตสาหกรรมได้เป็นทศวรรษ
+      </p>
+
+      <h2 id="sec-2">2. เสียงกรีดร้องของราคา (1973, 1979)</h2>
+      <p>
+        Supercycle ทุกรอบเริ่มเหมือนกัน: ราคากรีดร้องว่า "ขาดแคลน"
+      </p>
+      <p>
+        ตุลาคม 1973 — OPEC ประกาศ embargo ตอบโต้สงคราม Yom Kippur ราคาน้ำมันกระโดดจากราว $3
+        ต่อบาร์เรลเป็น $12 ภายในไม่กี่เดือน หกปีต่อมาการปฏิวัติอิหร่านซ้ำอีกดอก ดันราคาแตะ ~$34
+        ในปี 1981 — รวมแล้ว<strong>คูณสิบเอ็ดเท่าในแปดปี</strong> ภาพจำของยุคคือคิวรถยาวเหยียดหน้าปั๊ม
+        ป้าย "SORRY — NO GAS TODAY" และกติกาเติมน้ำมันวันคู่วันคี่ตามเลขทะเบียนรถ
+      </p>
+
+      <!-- OSH-FIG-2 -->
+      <figure class="ph-fig"><div class="ph-panel osh-panel"><div class="ph-eyebrow osh">1973 · SORRY — NO GAS TODAY</div>
+<svg viewBox="0 0 720 330" role="img" aria-label="ปั๊มน้ำมันปี 1973 ป้าย SORRY NO GAS TODAY กับแถวรถที่รอเติม">
+<defs>
+  <linearGradient id="o2sky" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#241a10"/><stop offset="1" stop-color="#120c06"/></linearGradient>
+</defs>
+<rect x="0" y="0" width="720" height="296" fill="url(#o2sky)"/>
+<rect x="0" y="296" width="720" height="34" fill="#181008"/>
+<line x1="0" y1="296" x2="720" y2="296" stroke="#000" opacity=".5"/>
+<circle cx="664" cy="46" r="14" fill="#e8dcc0" opacity=".85"/><circle cx="658" cy="42" r="13" fill="#241a10"/>
+<rect x="36" y="70" width="230" height="14" rx="3" class="osh-canopy"/>
+<rect x="52" y="84" width="8" height="130" class="osh-steel-f"/><rect x="238" y="84" width="8" height="130" class="osh-steel-f"/>
+<text x="151" y="81" class="s-t sm" style="letter-spacing:.3em">GAS</text>
+<g>
+  <rect x="92" y="188" width="34" height="106" rx="4" class="osh-pumpbody"/>
+  <rect x="98" y="198" width="22" height="26" rx="2" fill="#141a20" stroke="#3a2a14"/>
+  <path d="M126,206 q22,-6 22,26 l0,50" fill="none" stroke="#241408" stroke-width="4"/>
+  <rect x="162" y="188" width="34" height="106" rx="4" class="osh-pumpbody"/>
+  <rect x="168" y="198" width="22" height="26" rx="2" fill="#141a20" stroke="#3a2a14"/>
+  <path d="M196,206 q22,-6 22,26 l0,50" fill="none" stroke="#241408" stroke-width="4"/>
+</g>
+<rect x="296" y="60" width="10" height="236" class="osh-steel-f"/>
+<g class="osh-flicker">
+  <rect x="238" y="88" width="128" height="76" rx="6" fill="#f3e9dc" stroke="#6b5320" stroke-width="2"/>
+  <text x="302" y="118" text-anchor="middle" font-family="IBM Plex Mono, monospace" font-size="17" font-weight="700" fill="#8a2020">SORRY</text>
+  <text x="302" y="138" text-anchor="middle" font-family="IBM Plex Mono, monospace" font-size="12.5" font-weight="700" fill="#241408">NO GAS TODAY</text>
+  <text x="302" y="154" text-anchor="middle" font-family="IBM Plex Mono, monospace" font-size="9.5" fill="#6b5320">ODD–EVEN RATIONING</text>
+</g>
+<g>
+  <rect x="252" y="176" width="100" height="46" rx="4" fill="#141a20" stroke="#3a2a14" stroke-width="1.5"/>
+  <text x="302" y="194" text-anchor="middle" class="sim-mono">1972 · 36&#162;/GAL</text>
+  <text x="302" y="212" text-anchor="middle" font-family="IBM Plex Mono, monospace" font-size="12.5" font-weight="700" fill="#ffb347">1981 · $1.31</text>
+</g>
+<g class="osh-creep" style="animation-delay:0.0s"><g class="">
+  <path d="M380.0,275.8 L418.9,275.8 L429.7,261.2 L457.8,261.2 L466.4,275.2 L484.8,275.8 L488.0,282.9 L486.9,290.4 L381.1,290.4 L380.0,282.9 Z" fill="#7a4a28" stroke="#241408" stroke-width="1.5"/>
+  <path d="M431.3,263.5 L456.7,263.5 L463.7,273.9 L427.0,273.9 Z" fill="#141a20" stroke="#241408"/>
+  <rect x="382.2" y="278.4" width="6.5" height="4.5" fill="#e8dcc0" opacity=".75"/>
+  <circle cx="401.6" cy="290" r="10.4" fill="#141414" stroke="#3a3a3a" stroke-width="2"/>
+  <circle cx="466.4" cy="290" r="10.4" fill="#141414" stroke="#3a3a3a" stroke-width="2"/>
+  <circle cx="401.6" cy="290" r="4.2" fill="#3a3a3a"/>
+  <circle cx="466.4" cy="290" r="4.2" fill="#3a3a3a"/>
+</g></g><circle cx="496" cy="282" r="4" class="osh-puff" style="animation-delay:0.0s"/><circle cx="502" cy="278" r="3" class="osh-puff" style="animation-delay:0.5s"/><g class="osh-creep" style="animation-delay:0.5s"><g class="">
+  <path d="M505.0,277.0 L541.0,277.0 L551.0,263.5 L577.0,263.5 L585.0,276.4 L602.0,277.0 L605.0,283.6 L604.0,290.5 L506.0,290.5 L505.0,283.6 Z" fill="#4a5a3a" stroke="#241408" stroke-width="1.5"/>
+  <path d="M552.5,265.6 L576.0,265.6 L582.5,275.2 L548.5,275.2 Z" fill="#141a20" stroke="#241408"/>
+  <rect x="507.0" y="279.4" width="6.0" height="4.2" fill="#e8dcc0" opacity=".75"/>
+  <circle cx="525.0" cy="290" r="9.6" fill="#141414" stroke="#3a3a3a" stroke-width="2"/>
+  <circle cx="585.0" cy="290" r="9.6" fill="#141414" stroke="#3a3a3a" stroke-width="2"/>
+  <circle cx="525.0" cy="290" r="3.9" fill="#3a3a3a"/>
+  <circle cx="585.0" cy="290" r="3.9" fill="#3a3a3a"/>
+</g></g><circle cx="613" cy="282" r="4" class="osh-puff" style="animation-delay:0.9s"/><circle cx="619" cy="278" r="3" class="osh-puff" style="animation-delay:1.4s"/><g class="osh-creep" style="animation-delay:1.0s"><g class="">
+  <path d="M618.0,277.6 L652.6,277.6 L662.2,264.6 L687.1,264.6 L694.8,277.0 L711.1,277.6 L714.0,283.9 L713.0,290.6 L619.0,290.6 L618.0,283.9 Z" fill="#5a4a6a" stroke="#241408" stroke-width="1.5"/>
+  <path d="M663.6,266.7 L686.2,266.7 L692.4,275.9 L659.8,275.9 Z" fill="#141a20" stroke="#241408"/>
+  <rect x="619.9" y="279.9" width="5.8" height="4.0" fill="#e8dcc0" opacity=".75"/>
+  <circle cx="637.2" cy="290" r="9.2" fill="#141414" stroke="#3a3a3a" stroke-width="2"/>
+  <circle cx="694.8" cy="290" r="9.2" fill="#141414" stroke="#3a3a3a" stroke-width="2"/>
+  <circle cx="637.2" cy="290" r="3.7" fill="#3a3a3a"/>
+  <circle cx="694.8" cy="290" r="3.7" fill="#3a3a3a"/>
+</g></g><circle cx="722" cy="282" r="4" class="osh-puff" style="animation-delay:1.8s"/><circle cx="728" cy="278" r="3" class="osh-puff" style="animation-delay:2.2s"/>
+<text x="360" y="326" text-anchor="middle" class="s-t sm">ราคาที่พุ่ง = โทรเลขถึงทุนทั้งโลก: ใครหาของมาเพิ่มได้ จะรวย</text>
+</svg>
+</div><figcaption><strong>เสียงกรีดร้องของราคา</strong> — embargo ปี 1973 พาน้ำมัน $3 → $12 การปฏิวัติอิหร่านซ้ำเป็น ~$34 (1981): คูณสิบเอ็ดเท่าในแปดปี คิวรถหน้าปั๊มคือหน้าตาของ "ขาดแคลน" ยุคนั้น — แบบเดียวกับคิวจอง H100 ข้ามปีของยุคนี้</figcaption></figure>
+
+      <p>
+        ราคาที่พุ่งแบบนั้นคือโทรเลขถึงทุนทั้งโลก ข้อความสั้นมาก: <em>ใครหาของมาเพิ่มได้ จะรวย</em>
+      </p>
+      <p>
+        ปี 2023–2025 โลกได้ยินเสียงเดียวกันในภาษาใหม่: GPU allocation กลายเป็นทองคำยุคใหม่
+        H100 ต้องจองคิวข้ามปี สตาร์ทอัพระดมทุนด้วยสไลด์ที่โชว์ว่า "เรามี compute"
+        gross margin ของผู้ขายชิปรายใหญ่ยืนเหนือ 70% และทุก earnings call มีวลี
+        "compute-constrained" — เสียงกรีดร้องของราคา คนละสินค้า โครงสร้างเดียวกัน
+      </p>
+
+      <h2 id="sec-3">3. น้ำท่วมทุน (1974–1981)</h2>
+      <p>
+        สิ่งที่เสียงนั้นสร้างขึ้นในทศวรรษ 1970 คือมหกรรมลงทุนที่ใหญ่ที่สุดที่อุตสาหกรรมเดียวเคยเห็น:
+        แท่นขุดในสหรัฐไต่จากราว 1,200 แท่นต้นทศวรรษไปเป็น 4,530 แท่น ท่อส่งน้ำมัน Trans-Alaska
+        ที่ประมาณการแรก ~$900M จบจริงที่ ~$8B (เสร็จปี 1977) แต่คนก็ยังแย่งกันสร้าง
+        รัฐบาลตั้ง Synthetic Fuels Corporation (1980) วงเงิน $20B เพื่อปลุกเสกน้ำมันจากหินและถ่านหิน
+        แหล่งที่เคย "แพงเกินคุ้ม" — ทะเลเหนือ อลาสก้า เม็กซิโก — ถูกปลดล็อกหมดด้วยสมมติฐานราคาใหม่
+        และที่ยอดปี 1980 หุ้นกลุ่มพลังงานกินน้ำหนัก<strong>ราว 28% ของ S&amp;P 500</strong> —
+        เกินหนึ่งในสี่ของตลาดทั้งหมดคือเดิมพันบนราคาน้ำมัน
+      </p>
+
+      <!-- OSH-FIG-3 -->
+      <figure class="ph-fig"><div class="ph-panel osh-panel"><div class="ph-eyebrow osh">RIG COUNT · 1,200 → 4,530</div>
+<svg viewBox="0 0 720 330" role="img" aria-label="ทุ่งแท่นขุดที่หนาแน่นขึ้นเรื่อยๆ จากปี 1971 ถึงจุดสูงสุด 4,530 แท่นปลายปี 1981">
+<defs>
+  <linearGradient id="o3sky" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#2c1c0c"/><stop offset="1" stop-color="#140d06"/></linearGradient>
+</defs>
+<rect x="0" y="0" width="720" height="268" fill="url(#o3sky)"/>
+<rect x="0" y="268" width="720" height="62" fill="#1c1208"/>
+<line x1="0" y1="268" x2="720" y2="268" stroke="#000" opacity=".5"/>
+<g class="osh-derrick osh-grow" style="animation-delay:0.0s"><line x1="47.4" y1="268" x2="60" y2="208"/><line x1="72.6" y1="268" x2="60" y2="208"/><line x1="49.8" y1="253.0" x2="70.2" y2="253.0"/><line x1="49.8" y1="253.0" x2="67.9" y2="238.0"/><line x1="70.2" y1="253.0" x2="52.1" y2="238.0"/><line x1="52.1" y1="238.0" x2="67.9" y2="238.0"/><line x1="52.1" y1="238.0" x2="65.5" y2="223.0"/><line x1="67.9" y1="238.0" x2="54.5" y2="223.0"/><line x1="54.5" y1="223.0" x2="65.5" y2="223.0"/><rect x="57.0" y="202" width="6" height="6"/></g><g class="osh-derrick osh-grow" style="animation-delay:0.22s"><line x1="118.3" y1="268" x2="128" y2="222"/><line x1="137.7" y1="268" x2="128" y2="222"/><line x1="120.2" y1="256.5" x2="135.8" y2="256.5"/><line x1="120.2" y1="256.5" x2="134.0" y2="245.0"/><line x1="135.8" y1="256.5" x2="122.0" y2="245.0"/><line x1="122.0" y1="245.0" x2="134.0" y2="245.0"/><line x1="122.0" y1="245.0" x2="132.2" y2="233.5"/><line x1="134.0" y1="245.0" x2="123.8" y2="233.5"/><line x1="123.8" y1="233.5" x2="132.2" y2="233.5"/><rect x="125.0" y="216" width="6" height="6"/></g><g class="osh-derrick osh-grow" style="animation-delay:0.44s"><line x1="199.1" y1="268" x2="210" y2="216"/><line x1="220.9" y1="268" x2="210" y2="216"/><line x1="201.1" y1="255.0" x2="218.9" y2="255.0"/><line x1="201.1" y1="255.0" x2="216.8" y2="242.0"/><line x1="218.9" y1="255.0" x2="203.2" y2="242.0"/><line x1="203.2" y1="242.0" x2="216.8" y2="242.0"/><line x1="203.2" y1="242.0" x2="214.8" y2="229.0"/><line x1="216.8" y1="242.0" x2="205.2" y2="229.0"/><line x1="205.2" y1="229.0" x2="214.8" y2="229.0"/><rect x="207.0" y="210" width="6" height="6"/></g><g class="osh-derrick osh-grow" style="animation-delay:0.66s"><line x1="243.3" y1="268" x2="258" y2="198"/><line x1="272.7" y1="268" x2="258" y2="198"/><line x1="246.1" y1="250.5" x2="269.9" y2="250.5"/><line x1="246.1" y1="250.5" x2="267.2" y2="233.0"/><line x1="269.9" y1="250.5" x2="248.8" y2="233.0"/><line x1="248.8" y1="233.0" x2="267.2" y2="233.0"/><line x1="248.8" y1="233.0" x2="264.4" y2="215.5"/><line x1="267.2" y1="233.0" x2="251.6" y2="215.5"/><line x1="251.6" y1="215.5" x2="264.4" y2="215.5"/><rect x="255.0" y="192" width="6" height="6"/></g><g class="osh-derrick osh-grow" style="animation-delay:0.88s"><line x1="296.8" y1="268" x2="306" y2="224"/><line x1="315.2" y1="268" x2="306" y2="224"/><line x1="298.5" y1="257.0" x2="313.5" y2="257.0"/><line x1="298.5" y1="257.0" x2="311.8" y2="246.0"/><line x1="313.5" y1="257.0" x2="300.2" y2="246.0"/><line x1="300.2" y1="246.0" x2="311.8" y2="246.0"/><line x1="300.2" y1="246.0" x2="310.0" y2="235.0"/><line x1="311.8" y1="246.0" x2="302.0" y2="235.0"/><line x1="302.0" y1="235.0" x2="310.0" y2="235.0"/><rect x="303.0" y="218" width="6" height="6"/></g><g class="osh-derrick osh-grow" style="animation-delay:1.1s"><line x1="339.0" y1="268" x2="352" y2="206"/><line x1="365.0" y1="268" x2="352" y2="206"/><line x1="341.4" y1="252.5" x2="362.6" y2="252.5"/><line x1="341.4" y1="252.5" x2="360.1" y2="237.0"/><line x1="362.6" y1="252.5" x2="343.9" y2="237.0"/><line x1="343.9" y1="237.0" x2="360.1" y2="237.0"/><line x1="343.9" y1="237.0" x2="357.7" y2="221.5"/><line x1="360.1" y1="237.0" x2="346.3" y2="221.5"/><line x1="346.3" y1="221.5" x2="357.7" y2="221.5"/><rect x="349.0" y="200" width="6" height="6"/></g><g class="osh-derrick osh-grow" style="animation-delay:1.32s"><line x1="417.8" y1="268" x2="430" y2="210"/><line x1="442.2" y1="268" x2="430" y2="210"/><line x1="420.1" y1="253.5" x2="439.9" y2="253.5"/><line x1="420.1" y1="253.5" x2="437.6" y2="239.0"/><line x1="439.9" y1="253.5" x2="422.4" y2="239.0"/><line x1="422.4" y1="239.0" x2="437.6" y2="239.0"/><line x1="422.4" y1="239.0" x2="435.3" y2="224.5"/><line x1="437.6" y1="239.0" x2="424.7" y2="224.5"/><line x1="424.7" y1="224.5" x2="435.3" y2="224.5"/><rect x="427.0" y="204" width="6" height="6"/></g><g class="osh-derrick osh-grow" style="animation-delay:1.54s"><line x1="446.5" y1="268" x2="462" y2="194"/><line x1="477.5" y1="268" x2="462" y2="194"/><line x1="449.4" y1="249.5" x2="474.6" y2="249.5"/><line x1="449.4" y1="249.5" x2="471.7" y2="231.0"/><line x1="474.6" y1="249.5" x2="452.3" y2="231.0"/><line x1="452.3" y1="231.0" x2="471.7" y2="231.0"/><line x1="452.3" y1="231.0" x2="468.8" y2="212.5"/><line x1="471.7" y1="231.0" x2="455.2" y2="212.5"/><line x1="455.2" y1="212.5" x2="468.8" y2="212.5"/><rect x="459.0" y="188" width="6" height="6"/></g><g class="osh-derrick osh-grow" style="animation-delay:1.76s"><line x1="487.5" y1="268" x2="498" y2="218"/><line x1="508.5" y1="268" x2="498" y2="218"/><line x1="489.5" y1="255.5" x2="506.5" y2="255.5"/><line x1="489.5" y1="255.5" x2="504.6" y2="243.0"/><line x1="506.5" y1="255.5" x2="491.4" y2="243.0"/><line x1="491.4" y1="243.0" x2="504.6" y2="243.0"/><line x1="491.4" y1="243.0" x2="502.6" y2="230.5"/><line x1="504.6" y1="243.0" x2="493.4" y2="230.5"/><line x1="493.4" y1="230.5" x2="502.6" y2="230.5"/><rect x="495.0" y="212" width="6" height="6"/></g><g class="osh-derrick osh-grow" style="animation-delay:1.98s"><line x1="510.4" y1="268" x2="528" y2="184"/><line x1="545.6" y1="268" x2="528" y2="184"/><line x1="513.7" y1="247.0" x2="542.3" y2="247.0"/><line x1="513.7" y1="247.0" x2="539.0" y2="226.0"/><line x1="542.3" y1="247.0" x2="517.0" y2="226.0"/><line x1="517.0" y1="226.0" x2="539.0" y2="226.0"/><line x1="517.0" y1="226.0" x2="535.7" y2="205.0"/><line x1="539.0" y1="226.0" x2="520.3" y2="205.0"/><line x1="520.3" y1="205.0" x2="535.7" y2="205.0"/><rect x="525.0" y="178" width="6" height="6"/></g><g class="osh-derrick osh-grow" style="animation-delay:2.2s"><line x1="547.4" y1="268" x2="560" y2="208"/><line x1="572.6" y1="268" x2="560" y2="208"/><line x1="549.8" y1="253.0" x2="570.2" y2="253.0"/><line x1="549.8" y1="253.0" x2="567.9" y2="238.0"/><line x1="570.2" y1="253.0" x2="552.1" y2="238.0"/><line x1="552.1" y1="238.0" x2="567.9" y2="238.0"/><line x1="552.1" y1="238.0" x2="565.5" y2="223.0"/><line x1="567.9" y1="238.0" x2="554.5" y2="223.0"/><line x1="554.5" y1="223.0" x2="565.5" y2="223.0"/><rect x="557.0" y="202" width="6" height="6"/></g><g class="osh-derrick osh-grow" style="animation-delay:2.42s"><line x1="572.7" y1="268" x2="592" y2="176"/><line x1="611.3" y1="268" x2="592" y2="176"/><line x1="576.3" y1="245.0" x2="607.7" y2="245.0"/><line x1="576.3" y1="245.0" x2="604.1" y2="222.0"/><line x1="607.7" y1="245.0" x2="579.9" y2="222.0"/><line x1="579.9" y1="222.0" x2="604.1" y2="222.0"/><line x1="579.9" y1="222.0" x2="600.5" y2="199.0"/><line x1="604.1" y1="222.0" x2="583.5" y2="199.0"/><line x1="583.5" y1="199.0" x2="600.5" y2="199.0"/><rect x="589.0" y="170" width="6" height="6"/></g><g class="osh-derrick osh-grow" style="animation-delay:2.64s"><line x1="607.7" y1="268" x2="622" y2="200"/><line x1="636.3" y1="268" x2="622" y2="200"/><line x1="610.4" y1="251.0" x2="633.6" y2="251.0"/><line x1="610.4" y1="251.0" x2="630.9" y2="234.0"/><line x1="633.6" y1="251.0" x2="613.1" y2="234.0"/><line x1="613.1" y1="234.0" x2="630.9" y2="234.0"/><line x1="613.1" y1="234.0" x2="628.2" y2="217.0"/><line x1="630.9" y1="234.0" x2="615.8" y2="217.0"/><line x1="615.8" y1="217.0" x2="628.2" y2="217.0"/><rect x="619.0" y="194" width="6" height="6"/></g><g class="osh-derrick osh-grow" style="animation-delay:2.86s"><line x1="639.1" y1="268" x2="650" y2="216"/><line x1="660.9" y1="268" x2="650" y2="216"/><line x1="641.1" y1="255.0" x2="658.9" y2="255.0"/><line x1="641.1" y1="255.0" x2="656.8" y2="242.0"/><line x1="658.9" y1="255.0" x2="643.2" y2="242.0"/><line x1="643.2" y1="242.0" x2="656.8" y2="242.0"/><line x1="643.2" y1="242.0" x2="654.8" y2="229.0"/><line x1="656.8" y1="242.0" x2="645.2" y2="229.0"/><line x1="645.2" y1="229.0" x2="654.8" y2="229.0"/><rect x="647.0" y="210" width="6" height="6"/></g><g class="osh-derrick osh-grow" style="animation-delay:3.08s"><line x1="661.6" y1="268" x2="678" y2="190"/><line x1="694.4" y1="268" x2="678" y2="190"/><line x1="664.7" y1="248.5" x2="691.3" y2="248.5"/><line x1="664.7" y1="248.5" x2="688.2" y2="229.0"/><line x1="691.3" y1="248.5" x2="667.8" y2="229.0"/><line x1="667.8" y1="229.0" x2="688.2" y2="229.0"/><line x1="667.8" y1="229.0" x2="685.2" y2="209.5"/><line x1="688.2" y1="229.0" x2="670.8" y2="209.5"/><line x1="670.8" y1="209.5" x2="685.2" y2="209.5"/><rect x="675.0" y="184" width="6" height="6"/></g><g class="osh-derrick osh-grow" style="animation-delay:3.3s"><line x1="687.8" y1="268" x2="700" y2="210"/><line x1="712.2" y1="268" x2="700" y2="210"/><line x1="690.1" y1="253.5" x2="709.9" y2="253.5"/><line x1="690.1" y1="253.5" x2="707.6" y2="239.0"/><line x1="709.9" y1="253.5" x2="692.4" y2="239.0"/><line x1="692.4" y1="239.0" x2="707.6" y2="239.0"/><line x1="692.4" y1="239.0" x2="705.3" y2="224.5"/><line x1="707.6" y1="239.0" x2="694.7" y2="224.5"/><line x1="694.7" y1="224.5" x2="705.3" y2="224.5"/><rect x="697.0" y="204" width="6" height="6"/></g>
+<circle cx="474" cy="96" r="5" class="osh-coin" style="animation-delay:0.00s"/><circle cx="516" cy="152" r="5" class="osh-coin" style="animation-delay:0.55s"/><circle cx="558" cy="120" r="5" class="osh-coin" style="animation-delay:1.10s"/><circle cx="600" cy="184" r="5" class="osh-coin" style="animation-delay:1.65s"/><circle cx="642" cy="140" r="5" class="osh-coin" style="animation-delay:2.20s"/><circle cx="684" cy="206" r="5" class="osh-coin" style="animation-delay:2.75s"/>
+<g class="osh-glow">
+  <rect x="496" y="18" width="216" height="42" rx="5" fill="#241408" stroke="#f0a84b" stroke-width="1.5"/>
+  <text x="604" y="36" text-anchor="middle" font-family="IBM Plex Mono, monospace" font-size="12" font-weight="700" fill="#ffb347">4,530 แท่น</text>
+  <text x="604" y="52" text-anchor="middle" class="sim-mono">28 ธ.ค. 1981 · จุดสูงสุดตลอดกาล</text>
+</g>
+<text x="94" y="292" text-anchor="middle" class="sim-mono">1971 · ~1,200</text>
+<text x="290" y="292" text-anchor="middle" class="sim-mono">1976</text>
+<text x="560" y="292" text-anchor="middle" class="sim-mono">1981</text>
+<text x="360" y="318" class="s-t sm">แท่นขุดหนึ่งแท่น = คำพยากรณ์ 20 ปี ที่แช่แข็งเป็นเหล็ก</text>
+</svg>
+</div><figcaption><strong>น้ำท่วมทุน</strong> — แท่นขุดสหรัฐไต่จาก ~1,200 → 4,530 แท่นในหนึ่งทศวรรษ พลังงานกินราว 28% ของ S&amp;P 500 ที่ยอดปี 1980 — กระจกปี 2026: capex สี่ hyperscaler ~$113B (2023) → ~$360B (2025) → run-rate ~$520B และ Mag7 = ราวหนึ่งในสามของตลาด</figcaption></figure>
+
+      <p>
+        กระจกของปี 2026 ชัดจนแทบไม่ต้องขยับ: capex สี่ hyperscaler ไต่จากระดับ ~$113B (2023)
+        → ~$360B (2025) → run-rate ~$520B (Q1 2026 annualized) หุ้นกลุ่ม Mag7
+        กินน้ำหนักราวหนึ่งในสามของ S&amp;P 500 — <em>หนัก</em>กว่ายอดพลังงานปี 1980 เสียอีก
+        NVDA มีลูกค้าตรงสองรายเท่ากับ 36% ของรายได้ (10-K FY2026) และ "wildcatter ยุคใหม่"
+        ก็มาครบทีม: neocloud ที่ operating margin −115% อยู่ได้ด้วยตลาดทุน
+        กู้เงินซื้อ GPU เอาชิปเป็นหลักประกัน — เหมือน wildcatter กู้ซื้อแท่นขุดเป๊ะทุกกระเบียด
+      </p>
+      <p>
+        จุดที่อยากให้หยุดอ่านช้าๆ คือบรรทัดนี้: <strong>ทุกดอลลาร์ของ capex ไม่ว่าเหล็กหรือซิลิคอน
+        แบกคำพยากรณ์ระยะยาวไว้ข้างในเสมอ</strong> แท่นขุดหนึ่งแท่นคือคำพยากรณ์ว่าน้ำมันจะขายได้ราคาคุ้มค่าเจาะ
+        ไปอีกยี่สิบปี GPU cluster หนึ่งคลัสเตอร์คือคำพยากรณ์ว่าดีมานด์ compute จะโตเร็วกว่าที่ราคาขาย
+        compute จะร่วง — ไปอีกอย่างน้อยห้าปี
+      </p>
+
+      <h2 id="sec-4">4. สมมติฐานที่เชื่อมตายลงในเหล็ก</h2>
+      <p>
+        Capex คือ forecast ที่ถูกแช่แข็งเป็นวัตถุ จ่ายแล้วแก้ไม่ได้ — แท่น deepwater
+        ไม่รับรู้ว่าคุณเปลี่ยนใจ
+      </p>
+      <p>
+        โครงการ synfuels ยุคนั้นคุ้มทุนก็ต่อเมื่อน้ำมันยืนเหนือ ~$40 (บางโครงการต้อง $60+)
+        แท่นน้ำลึกและ Arctic คุ้มที่ ~$30+ ตัวเลขพวกนี้ไม่ได้ดูบ้าในปี 1980
+        เพราะ forecast กระแสหลักของยุค — รวมถึงของหน่วยงานรัฐ — ลากเส้นราคาขึ้นต่อเนื่อง
+        หลายสำนักเห็น $80–100 ภายในทศวรรษ 1990 <strong>ราคาจริงปี 1990: ราว $20</strong>
+      </p>
+
+      <!-- OSH-FIG-4 -->
+      <figure class="ph-fig"><div class="ph-panel osh-panel"><div class="ph-eyebrow osh">BREAKEVEN · พยากรณ์ที่แช่แข็งเป็นวัตถุ</div>
+<svg viewBox="0 0 720 340" role="img" aria-label="แท่นขุดกลางทะเลที่มีป้ายทองเหลือง breakeven $40 ขณะระดับน้ำ (ราคาจริง) ลดต่ำกว่าป้าย คู่กับตู้ GPU ที่มีป้ายอายุการใช้งานสองแผ่นขัดแย้งกัน">
+<defs>
+  <linearGradient id="o4bp" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#d9b45e"/><stop offset=".45" stop-color="#b08a3e"/><stop offset="1" stop-color="#8a6a28"/></linearGradient>
+  <linearGradient id="o4sea" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#10283a"/><stop offset="1" stop-color="#081420"/></linearGradient>
+  <linearGradient id="o4sky" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#2c1c0c"/><stop offset="1" stop-color="#170f08"/></linearGradient>
+</defs>
+<rect x="0" y="0" width="720" height="340" fill="url(#o4sky)"/>
+<line x1="368" y1="14" x2="368" y2="326" stroke="#000" stroke-width="3" opacity=".5"/>
+<g>
+  <rect x="52" y="64" width="212" height="26" rx="4" class="osh-steel-f"/>
+  <rect x="150" y="34" width="44" height="30" rx="3" class="osh-steel-f"/>
+  <line x1="86" y1="90" x2="74" y2="310" class="osh-leg"/>
+  <line x1="228" y1="90" x2="242" y2="310" class="osh-leg"/>
+  <line x1="86" y1="150" x2="230" y2="166" class="osh-lattice"/>
+  <line x1="230" y1="104" x2="82" y2="196" class="osh-lattice"/>
+  <line x1="84" y1="104" x2="234" y2="216" class="osh-lattice"/>
+  <g class="">
+  <rect x="96" y="148" width="130" height="44" rx="5" fill="url(#o4bp)" stroke="#6b5320" stroke-width="1.5"/>
+  <circle cx="104" cy="156" r="2.4" class="osh-rivet"/><circle cx="218" cy="156" r="2.4" class="osh-rivet"/>
+  <circle cx="104" cy="184" r="2.4" class="osh-rivet"/><circle cx="218" cy="184" r="2.4" class="osh-rivet"/>
+  <text x="161.0" y="166" class="osh-plate-t" text-anchor="middle">BREAKEVEN</text><text x="161.0" y="181" class="osh-plate-t" text-anchor="middle">น้ำมัน &#8805; $40</text>
+</g>
+</g>
+<g class="osh-water">
+  <path d="M0,226 q30,-7 60,0 t60,0 t60,0 t60,0 t60,0 t60,0 L360,416 L0,416 Z" fill="url(#o4sea)" opacity=".82"/>
+  <path d="M0,226 q30,-7 60,0 t60,0 t60,0 t60,0 t60,0 t60,0" fill="none" stroke="#4a7a9a" stroke-width="2" opacity=".9"/>
+</g>
+<g class="osh-pricetag">
+  <text x="18" y="238" class="sim-mono">ราคาจริง</text>
+  <text x="18" y="254" font-family="IBM Plex Mono, monospace" font-size="13" font-weight="700" fill="#e05252">$34 &#8594; $10</text>
+</g>
+<text x="160" y="330" text-anchor="middle" class="s-t sm">น้ำ (ราคา) ลดต่ำกว่าป้าย = โครงการเกยตื้น</text>
+<g><rect x="432" y="60" width="90" height="210" rx="4" class="osh-cab osh-cab-cool"/><rect x="437" y="68" width="80" height="14" rx="2" class="osh-unit"/><rect x="437" y="90" width="80" height="14" rx="2" class="osh-unit"/><rect x="437" y="112" width="80" height="14" rx="2" class="osh-unit"/><rect x="437" y="134" width="80" height="14" rx="2" class="osh-unit"/><rect x="437" y="156" width="80" height="14" rx="2" class="osh-unit"/><rect x="437" y="178" width="80" height="14" rx="2" class="osh-unit"/><rect x="437" y="200" width="80" height="14" rx="2" class="osh-unit"/><rect x="437" y="222" width="80" height="14" rx="2" class="osh-unit"/><rect x="437" y="244" width="80" height="14" rx="2" class="osh-unit"/><circle cx="509" cy="75" r="2.6" class="osh-led" style="animation-delay:0.00s"/><rect x="441" y="73" width="60" height="4" rx="2" class="osh-slit"/><circle cx="509" cy="97" r="2.6" class="osh-led" style="animation-delay:0.33s"/><rect x="441" y="95" width="60" height="4" rx="2" class="osh-slit"/><circle cx="509" cy="119" r="2.6" class="osh-led" style="animation-delay:0.66s"/><rect x="441" y="117" width="60" height="4" rx="2" class="osh-slit"/><circle cx="509" cy="141" r="2.6" class="osh-led" style="animation-delay:0.99s"/><rect x="441" y="139" width="60" height="4" rx="2" class="osh-slit"/><circle cx="509" cy="163" r="2.6" class="osh-led" style="animation-delay:1.32s"/><rect x="441" y="161" width="60" height="4" rx="2" class="osh-slit"/><circle cx="509" cy="185" r="2.6" class="osh-led" style="animation-delay:0.00s"/><rect x="441" y="183" width="60" height="4" rx="2" class="osh-slit"/><circle cx="509" cy="207" r="2.6" class="osh-led" style="animation-delay:0.33s"/><rect x="441" y="205" width="60" height="4" rx="2" class="osh-slit"/><circle cx="509" cy="229" r="2.6" class="osh-led" style="animation-delay:0.66s"/><rect x="441" y="227" width="60" height="4" rx="2" class="osh-slit"/><circle cx="509" cy="251" r="2.6" class="osh-led" style="animation-delay:0.99s"/><rect x="441" y="249" width="60" height="4" rx="2" class="osh-slit"/></g>
+<g class="">
+  <rect x="548" y="92" width="148" height="44" rx="5" fill="url(#o4bp)" stroke="#6b5320" stroke-width="1.5"/>
+  <circle cx="556" cy="100" r="2.4" class="osh-rivet"/><circle cx="688" cy="100" r="2.4" class="osh-rivet"/>
+  <circle cx="556" cy="128" r="2.4" class="osh-rivet"/><circle cx="688" cy="128" r="2.4" class="osh-rivet"/>
+  <text x="622.0" y="110" class="osh-plate-t" text-anchor="middle">SERVER LIFE 5 ปี</text><text x="622.0" y="125" class="osh-plate-t" text-anchor="middle">AMZN · ตัดลง (2025)</text>
+</g>
+<line x1="548" y1="114" x2="524" y2="114" class="osh-lattice"/>
+<g class="osh-ghostplate">
+<g class="">
+  <rect x="548" y="176" width="148" height="44" rx="5" fill="url(#o4bp)" stroke="#6b5320" stroke-width="1.5"/>
+  <circle cx="556" cy="184" r="2.4" class="osh-rivet"/><circle cx="688" cy="184" r="2.4" class="osh-rivet"/>
+  <circle cx="556" cy="212" r="2.4" class="osh-rivet"/><circle cx="688" cy="212" r="2.4" class="osh-rivet"/>
+  <text x="622.0" y="194" class="osh-plate-t" text-anchor="middle">SERVER LIFE 5.5 ปี</text><text x="622.0" y="209" class="osh-plate-t" text-anchor="middle">META · ยืดออก (2025)</text>
+</g>
+</g>
+<line x1="548" y1="198" x2="524" y2="198" class="osh-lattice"/>
+<text x="560" y="252" class="sim-mono">EPS +$1.00 จากปากกา</text>
+<text x="544" y="330" text-anchor="middle" class="s-t sm">คำถามเดียวกัน สองคำตอบ — ถูกพร้อมกันไม่ได้</text>
+</svg>
+</div><figcaption><strong>สมมติฐานที่เชื่อมตายลงในเหล็ก</strong> — synfuels คุ้มทุนที่น้ำมัน &#8805;$40 แต่ราคาจริงปี 1990 เหลือ ~$20: ระดับน้ำลดต่ำกว่าป้ายที่ตอกหมุดไว้ ฝั่งซิลิคอน ป้ายสองแผ่นบนตู้เดียวกัน: AMZN ตัดอายุ server เหลือ 5 ปี "เพราะ AI" ขณะ META ยืดเป็น 5.5 ปี — GPU ตายเร็วแค่ไหนมีคำตอบเดียว แต่งบสองบริษัทบอกคนละทาง</figcaption></figure>
+
+      <p>
+        ฝั่ง AI สมมติฐานที่ฝังอยู่ในซิลิคอนอ่านได้จากงบการเงินโดยตรง และตรงนี้มีดราม่าที่คนส่วนใหญ่มองข้าม:
+        มกราคม 2025 เดือนเดียวกัน — <strong>AMZN ตัดอายุ server จาก 6 → 5 ปี</strong>
+        โดยเขียนใน 10-K ตรงๆ ว่าเพราะ "the increased pace of technology development,
+        particularly in the area of artificial intelligence" ยอมกิน D&amp;A เพิ่ม $1.4B
+        และ EPS −$0.10 เพื่อพูดความจริง ขณะที่ <strong>META ยืดอายุ server เป็น 5.5 ปี</strong>
+        ได้กำไรกระดาษ EPS +$1.00 จากการขยับปากกาครั้งเดียว
+      </p>
+      <p>
+        สองบริษัทตอบคำถามฟิสิกส์ข้อเดียวกัน — "GPU ตายเร็วแค่ไหน" — ด้วยคำตอบตรงข้าม
+        และทั้งคู่ถูกพร้อมกันไม่ได้ นี่ไม่ใช่เรื่องเทคนิคบัญชี นี่คือสมมติฐานราคาที่เชื่อมตายลงไปในเครื่องจักร
+        แบบเดียวกับป้าย "คุ้มทุนที่ $40" ที่ถูกย้ำหมุดลงบนแท่น synfuels เมื่อสี่สิบห้าปีก่อน
+      </p>
+
+      <h2 id="sec-5">5. Demand ไม่เถียง มันเดินหนี (1979–1985)</h2>
+      <p>
+        ตำนานที่คนเชื่อในปี 1979 คือ "ดีมานด์น้ำมัน inelastic — โลกจำเป็นต้องใช้
+        ราคาเท่าไหร่ก็ต้องจ่าย" แปดปีของราคาแพงพิสูจน์ว่าไม่จริง ดีมานด์ไม่เคยเถียงกับราคา
+        มันแค่เงียบๆ เดินหนี: การบริโภคน้ำมันสหรัฐหล่นจาก 18.8 ล้านบาร์เรล/วัน (1978)
+        เหลือ 15.2 (1983) — <strong>หายไป 19% ในห้าปี</strong> รถอเมริกันลำยักษ์ถูกแทนด้วยรถญี่ปุ่นประหยัดน้ำมัน
+        โรงไฟฟ้าเลิกเผาน้ำมันหนีไปถ่านหินและนิวเคลียร์ บ้านติดฉนวน
+        โรงงานญี่ปุ่นรีดพลังงานต่อหน่วยผลผลิตลงมหาศาล
+      </p>
+      <p>
+        และพร้อมกันนั้น ฝั่ง supply ที่ราคาแพงปลุกขึ้นมา — ทะเลเหนือ อลาสก้า เม็กซิโก —
+        ก็เริ่มไหลเข้าตลาด นอกการควบคุมของ OPEC ทั้งหมด สองแรงบีบเข้าหากันพร้อมกัน:
+        ดีมานด์หด supply ใหม่ล้น <strong>ราคาสูงคือยาพิษของตัวมันเอง</strong> —
+        มันจ้าง demand destruction และจ้าง supply ใหม่ พร้อมกัน
+        ด้วยเงินของคนที่เชื่อว่าราคาจะสูงตลอดไป
+      </p>
+
+      <!-- OSH-FIG-5 -->
+      <figure class="ph-fig"><div class="ph-panel osh-panel"><div class="ph-eyebrow osh">DEMAND · ไม่เถียง แต่เดินหนี</div>
+<svg viewBox="0 0 720 330" role="img" aria-label="รถอเมริกันคันยักษ์จางหายกลายเป็นรถเล็กประหยัดน้ำมัน ข้างถังน้ำมันที่ระดับลดลง คู่กับเครื่องกลั่นที่กลั่นโมเดลใหญ่เป็นโมเดลเล็ก">
+<defs>
+  <linearGradient id="o5bg" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#241808"/><stop offset="1" stop-color="#120d06"/></linearGradient>
+  <linearGradient id="o5oil" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#3a2a10"/><stop offset="1" stop-color="#1c1408"/></linearGradient>
+</defs>
+<rect x="0" y="0" width="720" height="330" fill="url(#o5bg)"/>
+<line x1="392" y1="14" x2="392" y2="316" stroke="#000" stroke-width="3" opacity=".5"/>
+<text x="80" y="36" class="sim-mono">1979 — 1983 · ดีมานด์เดินหนี</text>
+<g class="osh-fadeout"><g class="">
+  <path d="M44.0,122.2 L110.6,122.2 L129.1,97.3 L177.2,97.3 L192.0,121.1 L223.4,122.2 L229.0,134.5 L227.2,147.2 L45.9,147.2 L44.0,134.5 Z" fill="#7a4a28" stroke="#241408" stroke-width="1.5"/>
+  <path d="M131.9,101.2 L175.3,101.2 L187.4,118.9 L124.5,118.9 Z" fill="#141a20" stroke="#241408"/>
+  <rect x="47.7" y="126.7" width="11.1" height="7.8" fill="#e8dcc0" opacity=".75"/>
+  <circle cx="81.0" cy="148" r="17.8" fill="#141414" stroke="#3a3a3a" stroke-width="2"/>
+  <circle cx="192.0" cy="148" r="17.8" fill="#141414" stroke="#3a3a3a" stroke-width="2"/>
+  <circle cx="81.0" cy="148" r="7.2" fill="#3a3a3a"/>
+  <circle cx="192.0" cy="148" r="7.2" fill="#3a3a3a"/>
+</g></g>
+<g class="osh-fadein"><g class="">
+  <path d="M258.0,135.8 L292.2,135.8 L301.7,122.9 L326.4,122.9 L334.0,135.2 L350.1,135.8 L353.0,142.0 L352.1,148.6 L258.9,148.6 L258.0,142.0 Z" fill="#3a6a8a" stroke="#241408" stroke-width="1.5"/>
+  <path d="M303.1,124.9 L325.4,124.9 L331.6,134.0 L299.3,134.0 Z" fill="#141a20" stroke="#241408"/>
+  <rect x="259.9" y="138.0" width="5.7" height="4.0" fill="#e8dcc0" opacity=".75"/>
+  <circle cx="277.0" cy="148" r="9.1" fill="#141414" stroke="#3a3a3a" stroke-width="2"/>
+  <circle cx="334.0" cy="148" r="9.1" fill="#141414" stroke="#3a3a3a" stroke-width="2"/>
+  <circle cx="277.0" cy="148" r="3.7" fill="#3a3a3a"/>
+  <circle cx="334.0" cy="148" r="3.7" fill="#3a3a3a"/>
+</g></g>
+<line x1="30" y1="152" x2="370" y2="152" stroke="#3a2a14" stroke-width="2"/>
+<g>
+  <rect x="86" y="200" width="120" height="100" rx="8" class="osh-barrel"/>
+  <ellipse cx="146" cy="200" rx="60" ry="10" class="osh-barrel-top"/>
+  <line x1="86" y1="232" x2="206" y2="232" stroke="#241408" stroke-width="2"/>
+  <line x1="86" y1="266" x2="206" y2="266" stroke="#241408" stroke-width="2"/>
+  <clipPath id="o5clip"><rect x="88" y="202" width="116" height="96" rx="7"/></clipPath>
+  <g clip-path="url(#o5clip)"><rect x="88" y="226" width="116" height="72" fill="url(#o5oil)" class="osh-sink"/></g>
+  <text x="146" y="190" text-anchor="middle" class="sim-mono">การบริโภคสหรัฐ</text>
+  <text x="146" y="256" text-anchor="middle" font-family="IBM Plex Mono, monospace" font-size="11" font-weight="700" fill="#ffb347">18.8 &#8594; 15.2 mb/d</text>
+  <text x="146" y="274" text-anchor="middle" class="sim-mono">&#8722;19% ในห้าปี</text>
+</g>
+<text x="288" y="236" text-anchor="middle" class="s-t sm">รถเล็กลง · บ้านติดฉนวน</text>
+<text x="288" y="254" text-anchor="middle" class="s-t sm">ไฟฟ้าหนีไปนิวเคลียร์</text>
+<text x="440" y="36" class="sim-mono">2024 — token หนี compute แพง</text>
+<g>
+  <path d="M478,118 a38,34 0 1,0 76,0 Z" class="osh-copper"/>
+  <path d="M478,118 L508,82 L524,82 L554,118 Z" class="osh-copper"/>
+  <rect x="504" y="72" width="24" height="12" rx="4" class="osh-copper"/>
+  <path d="M524,80 q52,-14 78,34 q10,20 10,34" fill="none" class="osh-copper-pipe"/>
+  <rect x="588" y="146" width="50" height="52" rx="8" fill="#141a20" stroke="#3a2c18" stroke-width="2"/>
+  <circle cx="613" cy="160" r="9" fill="none" class="osh-copper-pipe" stroke-width="4"/>
+  <circle cx="613" cy="174" r="9" fill="none" class="osh-copper-pipe" stroke-width="4"/>
+  <circle cx="613" cy="188" r="9" fill="none" class="osh-copper-pipe" stroke-width="4"/>
+  <path d="M502,158 q6,8 12,0 q6,8 12,0 q6,8 12,0" fill="none" stroke="#f0a84b" stroke-width="2.5" class="osh-boil"/>
+  <circle cx="613" cy="216" r="4" class="osh-drop"/>
+  <path d="M590,244 a23,19 0 1,0 46,0 l0,-10 l-46,0 Z" class="osh-flask"/>
+  <circle cx="613" cy="246" r="8" class="osh-small-core"/>
+  <text x="510" y="60" text-anchor="middle" class="s-t sm">โมเดลใหญ่ · แพง</text>
+  <text x="590" y="290" text-anchor="middle" class="s-t sm">โมเดลเล็ก · ความสามารถเท่าเดิม</text>
+  <text x="590" y="308" text-anchor="middle" font-family="IBM Plex Mono, monospace" font-size="11.5" font-weight="700" fill="#4cc9f0">ราคา/token &#247;10–100 ในสองปี</text>
+</g>
+<text x="360" y="326" text-anchor="middle" class="s-t sm">ราคาสูงจ้างศัตรูของตัวเองเสมอ — ทั้งสองยุค</text>
+</svg>
+</div><figcaption><strong>Demand ไม่เถียง มันเดินหนี</strong> — แปดปีของน้ำมันแพงพาการบริโภคสหรัฐหาย 19% (18.8 → 15.2 ล้านบาร์เรล/วัน 1978–1983) ฝั่ง compute: distillation กลั่นความสามารถเท่าเดิม ลงโมเดลเล็กลง ราคาต่อ token ร่วงเป็นสิบเป็นร้อยเท่า — Jevons ช่วย "ปริมาณ" แต่ capex คุ้มทุนด้วย "ราคา"</figcaption></figure>
+
+      <p>
+        กระจกฝั่ง compute สะท้อนครบทั้งสองแรง ฝั่งประสิทธิภาพ: distillation, quantization,
+        sparse models — ราคาต่อ token ของความสามารถระดับเดียวกันร่วงลงเป็นสิบเป็นร้อยเท่าภายในสองปี
+        ฝั่ง supply นอกการผูกขาด: hyperscaler ทุกเจ้าออกแบบชิปเอง (TPU, Trainium, Maia, MTIA)
+        นี่คือ "ทะเลเหนือของ compute" — supply ที่เกิดขึ้นเพราะราคาผูกขาดของ NVDA
+        แพงพอที่จะคุ้มสร้างทางหนี
+      </p>
+      <p>
+        Bull case ที่แข็งแรงที่สุดของฝั่ง AI คือ Jevons paradox: compute ยิ่งถูก คนยิ่งใช้เยอะขึ้น —
+        และมันจริง น้ำมันเองก็มีเวอร์ชันนี้ (petrochemicals โตต่อเนื่อง ดูดซับ supply ทีละนิด)
+        แต่บทเรียนปี 1986 แหลมคมตรงนี้: <strong>Jevons ช่วย "ปริมาณ" แต่ไม่การันตี "ราคา" —
+        และ capex คุ้มทุนด้วยราคา ไม่ใช่ปริมาณ</strong> โลกใช้น้ำมันมากขึ้นแทบทุกปีหลัง 1986
+        แต่คนที่จ่ายเงินสร้าง supply บนสมมติฐาน $40 ก็เจ๊งอยู่ดี
+      </p>
+
+      <h2 id="sec-6">6. 1986 — วันที่คนอุ้มราคาเลิกอุ้ม</h2>
+      <p>
+        ราคาน้ำมันไม่ได้ค่อยๆ ลง มันถูก<em>อุ้ม</em>อยู่หลายปี — แล้ววันหนึ่งคนอุ้มปล่อยมือ
+      </p>
+      <p>
+        ระหว่าง 1981–1985 ซาอุดีอาระเบียรับบท swing producer: หั่นกำลังผลิตตัวเองจากราว 10
+        ล้านบาร์เรล/วัน เหลือราว 3.5 เพื่อพยุงราคาให้ทั้ง OPEC ขณะสมาชิกคนอื่นแอบโกงโควตา
+        และ supply นอกกลุ่มไหลเข้าไม่หยุด จนธันวาคม 1985 ซาอุฯ ประกาศพอ — เลิกอุ้ม
+        กลับมาผลิตเต็มที่ <strong>ราคาน้ำมันถล่มจาก ~$27 ลงต่ำกว่า $10 ในเวลาราวครึ่งปี</strong>
+      </p>
+      <p>
+        แล้วโดมิโนก็ล้มตามลำดับที่ตลาดทุนรู้จักดี: แท่นขุดเหลือ 663 แท่น (ก.ค. 1986) —
+        Penn Square Bank ล้มไปก่อนตั้งแต่ 1982 เป็นสัญญาณเตือนที่ไม่มีใครฟัง —
+        Continental Illinois ธนาคารใหญ่อันดับเจ็ดของประเทศต้องถูกรัฐอุ้มปี 1984
+        เพราะซื้อ energy loans ต่อจาก Penn Square — ใจกลางฮิวสตันเต็มไปด้วยตึกออฟฟิศ
+        "see-through" สร้างเสร็จแต่ว่างจนมองทะลุได้ — และ Chevron ซื้อ Gulf Oil
+        ทั้งบริษัทปี 1984 ($13.2B ดีลใหญ่สุดในประวัติศาสตร์ ณ ตอนนั้น)
+        เพราะซื้อ "น้ำมันบนกระดาษ" ใน Wall Street ถูกกว่าขุดเอง
+      </p>
+
+      <!-- OSH-FIG-6 -->
+      <figure class="ph-fig"><div class="ph-panel osh-panel"><div class="ph-eyebrow osh">1986 · วาล์วเปิด ราคาถล่ม</div>
+<svg viewBox="0 0 720 330" role="img" aria-label="วาล์วท่อน้ำมันยักษ์เปิดออก คลื่นน้ำมันดิบทะลักท่วมพื้น เบื้องหลังคือตึกฮิวสตันที่ว่างจนมองทะลุและแท่นขุดร้าง">
+<defs>
+  <linearGradient id="o6sky" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#160f14"/><stop offset="1" stop-color="#0c0810"/></linearGradient>
+  <linearGradient id="o6crude" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#050302"/><stop offset=".25" stop-color="#0e0806"/><stop offset="1" stop-color="#030202"/></linearGradient>
+</defs>
+<rect x="0" y="0" width="720" height="258" fill="url(#o6sky)"/>
+<rect x="0" y="258" width="720" height="72" fill="#140d08"/>
+<circle cx="386" cy="40" r="12" fill="#e8dcc0" opacity=".7"/>
+<circle cx="560" cy="30" r="1.2" fill="#cfe6ff" opacity=".6"/><circle cx="470" cy="56" r="1" fill="#cfe6ff" opacity=".5"/>
+<g><rect x="420" y="108" width="56" height="150" class="osh-tower"/><rect x="424" y="114" width="8" height="10" class="osh-win-lit"/><rect x="424" y="132" width="8" height="10" class="osh-win"/><rect x="424" y="150" width="8" height="10" class="osh-win"/><rect x="424" y="168" width="8" height="10" class="osh-win"/><rect x="424" y="186" width="8" height="10" class="osh-win"/><rect x="424" y="204" width="8" height="10" class="osh-win"/><rect x="424" y="222" width="8" height="10" class="osh-win"/><rect x="424" y="240" width="8" height="10" class="osh-win"/><rect x="438" y="114" width="8" height="10" class="osh-win"/><rect x="438" y="132" width="8" height="10" class="osh-win"/><rect x="438" y="150" width="8" height="10" class="osh-win"/><rect x="438" y="168" width="8" height="10" class="osh-win"/><rect x="438" y="186" width="8" height="10" class="osh-win"/><rect x="438" y="204" width="8" height="10" class="osh-win"/><rect x="438" y="222" width="8" height="10" class="osh-win"/><rect x="438" y="240" width="8" height="10" class="osh-win"/><rect x="452" y="114" width="8" height="10" class="osh-win"/><rect x="452" y="132" width="8" height="10" class="osh-win"/><rect x="452" y="150" width="8" height="10" class="osh-win"/><rect x="452" y="168" width="8" height="10" class="osh-win"/><rect x="452" y="186" width="8" height="10" class="osh-win"/><rect x="452" y="204" width="8" height="10" class="osh-win-lit"/><rect x="452" y="222" width="8" height="10" class="osh-win"/><rect x="452" y="240" width="8" height="10" class="osh-win"/><rect x="466" y="114" width="8" height="10" class="osh-win"/><rect x="466" y="132" width="8" height="10" class="osh-win"/><rect x="466" y="150" width="8" height="10" class="osh-win-lit"/><rect x="466" y="168" width="8" height="10" class="osh-win"/><rect x="466" y="186" width="8" height="10" class="osh-win"/><rect x="466" y="204" width="8" height="10" class="osh-win"/><rect x="466" y="222" width="8" height="10" class="osh-win"/><rect x="466" y="240" width="8" height="10" class="osh-win"/></g><g><rect x="492" y="68" width="44" height="190" class="osh-tower"/><rect x="496" y="74" width="8" height="10" class="osh-win"/><rect x="496" y="92" width="8" height="10" class="osh-win"/><rect x="496" y="110" width="8" height="10" class="osh-win"/><rect x="496" y="128" width="8" height="10" class="osh-win"/><rect x="496" y="146" width="8" height="10" class="osh-win-lit"/><rect x="496" y="164" width="8" height="10" class="osh-win"/><rect x="496" y="182" width="8" height="10" class="osh-win"/><rect x="496" y="200" width="8" height="10" class="osh-win"/><rect x="496" y="218" width="8" height="10" class="osh-win"/><rect x="496" y="236" width="8" height="10" class="osh-win"/><rect x="510" y="74" width="8" height="10" class="osh-win"/><rect x="510" y="92" width="8" height="10" class="osh-win-lit"/><rect x="510" y="110" width="8" height="10" class="osh-win"/><rect x="510" y="128" width="8" height="10" class="osh-win"/><rect x="510" y="146" width="8" height="10" class="osh-win"/><rect x="510" y="164" width="8" height="10" class="osh-win"/><rect x="510" y="182" width="8" height="10" class="osh-win"/><rect x="510" y="200" width="8" height="10" class="osh-win"/><rect x="510" y="218" width="8" height="10" class="osh-win"/><rect x="510" y="236" width="8" height="10" class="osh-win"/><rect x="524" y="74" width="8" height="10" class="osh-win"/><rect x="524" y="92" width="8" height="10" class="osh-win"/><rect x="524" y="110" width="8" height="10" class="osh-win"/><rect x="524" y="128" width="8" height="10" class="osh-win"/><rect x="524" y="146" width="8" height="10" class="osh-win"/><rect x="524" y="164" width="8" height="10" class="osh-win"/><rect x="524" y="182" width="8" height="10" class="osh-win"/><rect x="524" y="200" width="8" height="10" class="osh-win"/><rect x="524" y="218" width="8" height="10" class="osh-win"/><rect x="524" y="236" width="8" height="10" class="osh-win-lit"/></g><g><rect x="552" y="132" width="62" height="126" class="osh-tower"/><rect x="556" y="138" width="8" height="10" class="osh-win"/><rect x="556" y="156" width="8" height="10" class="osh-win"/><rect x="556" y="174" width="8" height="10" class="osh-win"/><rect x="556" y="192" width="8" height="10" class="osh-win"/><rect x="556" y="210" width="8" height="10" class="osh-win"/><rect x="556" y="228" width="8" height="10" class="osh-win"/><rect x="556" y="246" width="8" height="10" class="osh-win"/><rect x="570" y="138" width="8" height="10" class="osh-win"/><rect x="570" y="156" width="8" height="10" class="osh-win"/><rect x="570" y="174" width="8" height="10" class="osh-win"/><rect x="570" y="192" width="8" height="10" class="osh-win"/><rect x="570" y="210" width="8" height="10" class="osh-win"/><rect x="570" y="228" width="8" height="10" class="osh-win-lit"/><rect x="570" y="246" width="8" height="10" class="osh-win"/><rect x="584" y="138" width="8" height="10" class="osh-win"/><rect x="584" y="156" width="8" height="10" class="osh-win"/><rect x="584" y="174" width="8" height="10" class="osh-win-lit"/><rect x="584" y="192" width="8" height="10" class="osh-win"/><rect x="584" y="210" width="8" height="10" class="osh-win"/><rect x="584" y="228" width="8" height="10" class="osh-win"/><rect x="584" y="246" width="8" height="10" class="osh-win"/><rect x="598" y="138" width="8" height="10" class="osh-win"/><rect x="598" y="156" width="8" height="10" class="osh-win"/><rect x="598" y="174" width="8" height="10" class="osh-win"/><rect x="598" y="192" width="8" height="10" class="osh-win"/><rect x="598" y="210" width="8" height="10" class="osh-win"/><rect x="598" y="228" width="8" height="10" class="osh-win"/><rect x="598" y="246" width="8" height="10" class="osh-win"/></g><g><rect x="630" y="90" width="48" height="168" class="osh-tower"/><rect x="634" y="96" width="8" height="10" class="osh-win"/><rect x="634" y="114" width="8" height="10" class="osh-win-lit"/><rect x="634" y="132" width="8" height="10" class="osh-win"/><rect x="634" y="150" width="8" height="10" class="osh-win"/><rect x="634" y="168" width="8" height="10" class="osh-win"/><rect x="634" y="186" width="8" height="10" class="osh-win"/><rect x="634" y="204" width="8" height="10" class="osh-win"/><rect x="634" y="222" width="8" height="10" class="osh-win"/><rect x="634" y="240" width="8" height="10" class="osh-win"/><rect x="648" y="96" width="8" height="10" class="osh-win"/><rect x="648" y="114" width="8" height="10" class="osh-win"/><rect x="648" y="132" width="8" height="10" class="osh-win"/><rect x="648" y="150" width="8" height="10" class="osh-win"/><rect x="648" y="168" width="8" height="10" class="osh-win"/><rect x="648" y="186" width="8" height="10" class="osh-win"/><rect x="648" y="204" width="8" height="10" class="osh-win"/><rect x="648" y="222" width="8" height="10" class="osh-win"/><rect x="648" y="240" width="8" height="10" class="osh-win"/><rect x="662" y="96" width="8" height="10" class="osh-win"/><rect x="662" y="114" width="8" height="10" class="osh-win"/><rect x="662" y="132" width="8" height="10" class="osh-win"/><rect x="662" y="150" width="8" height="10" class="osh-win"/><rect x="662" y="168" width="8" height="10" class="osh-win"/><rect x="662" y="186" width="8" height="10" class="osh-win"/><rect x="662" y="204" width="8" height="10" class="osh-win-lit"/><rect x="662" y="222" width="8" height="10" class="osh-win"/><rect x="662" y="240" width="8" height="10" class="osh-win"/></g>
+<text x="530" y="292" text-anchor="middle" class="sim-mono">HOUSTON 1987 · ตึก "SEE-THROUGH"</text>
+<g opacity=".5"><g class="osh-derrick "><line x1="677.4" y1="258" x2="690" y2="198"/><line x1="702.6" y1="258" x2="690" y2="198"/><line x1="679.8" y1="243.0" x2="700.2" y2="243.0"/><line x1="679.8" y1="243.0" x2="697.9" y2="228.0"/><line x1="700.2" y1="243.0" x2="682.1" y2="228.0"/><line x1="682.1" y1="228.0" x2="697.9" y2="228.0"/><line x1="682.1" y1="228.0" x2="695.5" y2="213.0"/><line x1="697.9" y1="228.0" x2="684.5" y2="213.0"/><line x1="684.5" y1="213.0" x2="695.5" y2="213.0"/><rect x="687.0" y="192" width="6" height="6"/></g></g>
+<rect x="0" y="196" width="120" height="30" rx="4" class="osh-bigpipe"/>
+<g class="osh-wheel" style="transform-origin:132px 178px">
+  <circle cx="132" cy="178" r="26" fill="none" stroke="#8a6a28" stroke-width="6"/>
+  <line x1="132" y1="152" x2="132" y2="204" stroke="#8a6a28" stroke-width="5"/>
+  <line x1="106" y1="178" x2="158" y2="178" stroke="#8a6a28" stroke-width="5"/>
+</g>
+<rect x="120" y="190" width="24" height="42" rx="3" class="osh-steel-f"/>
+<rect x="118" y="200" width="4" height="22" fill="#241408"/><rect x="142" y="200" width="4" height="22" fill="#241408"/>
+<path d="M144,206 L172,230 L144,242 Z" fill="#050302"/>
+<g class="osh-flood" style="transform-origin:144px 258px">
+  <path d="M144,222 q52,-16 104,4 q92,32 202,26 q142,-8 270,6 L720,330 L144,330 Z" fill="url(#o6crude)"/>
+  <path d="M144,222 q52,-16 104,4 q92,32 202,26 q142,-8 270,6" fill="none" stroke="#f0a84b" stroke-width="1.8" opacity=".45"/>
+  <path d="M186,222 q26,-6 48,4 M420,250 q30,-4 58,0 M580,252 q26,-2 52,4" fill="none" stroke="#f0a84b" stroke-width="1.2" opacity=".22"/>
+</g>
+<text x="196" y="188" font-family="IBM Plex Mono, monospace" font-size="13" font-weight="700" fill="#e05252">$27 &#8594; &lt;$10</text>
+<text x="196" y="204" class="sim-mono">ในราวหกเดือน (1986)</text>
+<text x="96" y="132" class="sim-mono">SAUDI · เลิกรับบท</text>
+<text x="96" y="148" class="sim-mono">SWING PRODUCER</text>
+<text x="360" y="322" text-anchor="middle" class="s-t sm">คนอุ้มราคาปล่อยมือได้เสมอ — โดยไม่ขออนุญาตใคร</text>
+</svg>
+</div><figcaption><strong>1986 — วันที่คนอุ้มเลิกอุ้ม</strong> — ซาอุฯ หั่นกำลังผลิต 10 → 3.5 mb/d พยุงราคาอยู่สี่ปี พอเลิกอุ้ม ราคาถล่ม $27 → ต่ำกว่า $10 ในครึ่งปี แท่นขุดเหลือ 663 ธนาคารล้มทั้งแถบ ตึกฮิวสตันว่างจนมองทะลุ — compute ไม่มี OPEC แต่มี <em>swing buyer</em>: ลูกค้าตรงสองรายของ NVDA = 36% ของรายได้ และ PO ยกเลิกได้โดยไม่มี penalty</figcaption></figure>
+
+      <p>
+        คำถามบังคับของบทนี้: <strong>ใครคือ swing producer ของ compute?</strong>
+      </p>
+      <p>
+        คำตอบ: ไม่มี — ไม่มี OPEC ของ GPU ไม่มีใครอุ้มราคา compute แต่มีสิ่งที่อันตรายกว่า:
+        <strong>swing buyer</strong> — hyperscaler สี่เจ้าที่เป็นทั้งลูกค้ารายใหญ่สุดและคู่แข่ง
+        ของ supplier ตัวเอง (NVDA: ลูกค้าตรงสองราย = 36% ของรายได้ และ PO
+        "ยกเลิกได้โดยแทบไม่ต้องแจ้งล่วงหน้าและไม่มี penalty" — 10-K FY2026 เขียนเอง)
+        วันที่ swing buyer เลิกซื้อ ไม่มีสัญญาไหนบังคับให้ซื้อต่อ
+      </p>
+      <p>
+        โครงสร้างการเงินขยับไปในทิศนั้นแล้วหนึ่งก้าว (Q1 2026): GOOGL หยุด buyback สนิท
+        ($15.1B → $0) และออกหนี้ $31.4B — META หยุด buyback สนิท — AMZN กู้ long-term debt
+        $53.4B ในไตรมาสเดียว ขณะ TTM FCF เหลือ $1.2B จาก $25.9B ปีก่อนหน้า
+        เสาบูลเคสที่ว่า "รอบนี้ไม่เหมือนเก่า เพราะจ่ายด้วยเงินสดไม่ใช้หนี้"
+        <strong>หักไปแล้วเมื่อไตรมาสหนึ่งปีนี้</strong> ยังไม่ใช่ 1986 —
+        balance sheet ทั้งสี่ยังแข็งแรงคนละจักรวาลกับแบงก์เท็กซัส — แต่<em>ทิศทาง</em>
+        เดินไปทางเดียวกับ 1984 ทีละก้าว และตลาดมักตีราคาทิศทางก่อนปลายทางเสมอ
+      </p>
+
+      <h2 id="sec-7">7. ความต่างที่ต้องพูดตรงๆ (steel-man)</h2>
+      <p>
+        ถ้าหยุดแค่ความเหมือน บทนี้ก็เป็นแค่ scare piece — ความต่างมีจริงและใหญ่:
+      </p>
+      <p>
+        <strong>(ก) ผู้ซื้อคือผู้ใช้</strong> — hyperscaler ซื้อ GPU มาใช้เอง มีธุรกิจ cloud/ads
+        ที่ทำกำไรจริงรองรับ ไม่ใช่ wildcatter ที่ขุดเพื่อหวังขายต่อ ดีมานด์ขั้นสุดท้ายของ compute
+        มีฐานจริงกว่าดีมานด์เก็งกำไรของน้ำมันปี 1980 มาก
+      </p>
+      <p>
+        <strong>(ข) จุดตายคนละแบบ</strong> — แบงก์เท็กซัสตายเพราะ leverage; MSFT/GOOGL
+        จะไม่ล้มละลายจาก capex ที่ผิดพลาด จุดเจ็บของพวกเขาคือ ROIC เจือจาง +
+        คลื่น depreciation กดกำไรปี 2026–2028 (depreciation ของ MSFT โตเท่าตัวในสองปี:
+        $11B → $22B ทั้งที่ยังไม่เปลี่ยนสมมติฐานใดๆ) + multiple compression
+        เมื่อตลาดเลิกให้เครดิต "AI premium" — เจ็บแบบผู้ถือหุ้น ไม่ใช่เจ็บแบบเจ้าหนี้
+      </p>
+      <p>
+        <strong>(ค) เหล็กเป็นสนิมช้า ซิลิคอนตายเร็ว — ความต่างที่ลึกที่สุด และตัดสองทาง</strong> —
+        แท่นขุดกับท่ออยู่ได้ 30 ปี supply ส่วนเกินของน้ำมันจึงกดราคาอยู่ราว 15 ปี
+        (ราคาแท้จริงไม่กลับไปแตะยอด 1980 อีกเลยจนยุค 2000s) แต่ GPU ตายใน 4–5 ปี —
+        ถ้าเกิด glut ของ compute มันจะ<em>ล้างตัวเองเร็ว</em>เพราะฮาร์ดแวร์เกษียณตัวเองทัน
+        แปลว่าทุนที่จมจะเสียหาย<em>เร็วและแรงกว่า</em>น้ำมัน (ไม่มีเวลาให้ราคาฟื้นมาช่วย asset เก่า)
+        แต่ตลาดโดยรวมจะ<em>เคลียร์เร็วกว่า</em> — วิกฤต AI capex (ถ้ามาจริง)
+        น่าจะสั้นกว่า oil bust แต่ชันกว่า
+      </p>
+
+      <!-- OSH-FIG-7 -->
+      <figure class="ph-fig"><div class="ph-panel osh-panel"><div class="ph-eyebrow osh">อายุสินทรัพย์ · 30 ปี &#8596; 5 ปี</div>
+<svg viewBox="0 0 720 330" role="img" aria-label="ปั๊มแจ็คขึ้นสนิมจากปี 1981 ที่ยังโยกสูบอยู่ เทียบกับตู้ GPU สามรุ่นที่ทยอยจางหายทุก 4-5 ปี">
+<defs>
+  <linearGradient id="o7bg" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#241808"/><stop offset="1" stop-color="#120d08"/></linearGradient>
+  <linearGradient id="o7bp" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#d9b45e"/><stop offset=".45" stop-color="#b08a3e"/><stop offset="1" stop-color="#8a6a28"/></linearGradient>
+</defs>
+<rect x="0" y="0" width="720" height="330" fill="url(#o7bg)"/>
+<line x1="392" y1="14" x2="392" y2="316" stroke="#000" stroke-width="3" opacity=".5"/>
+<rect x="0" y="272" width="392" height="58" fill="#1c1208"/>
+<g class="osh-rusty"><g class="">
+  <rect x="132.0" y="262.4" width="128.0" height="9.6" class="osh-steel-f"/>
+  <path d="M170.4,272.0 L196.0,188.8 L221.6,272.0 Z" class="osh-steel"/>
+  <g class="osh-rock-slow">
+    <rect x="106.4" y="180.8" width="179.2" height="16.0" rx="4.8" class="osh-steel-f"/>
+    <path d="M106.4,166.4 q-25.6,9.6 -22.4,41.6 l19.2,0 q-3.2,-22.4 3.2,-41.6 Z" class="osh-head"/>
+  </g>
+  <g class="osh-crank" style="transform-origin:250.4px 243.2px">
+    <circle cx="250.4" cy="243.2" r="19.2" class="osh-steel"/>
+    <line x1="250.4" y1="243.2" x2="250.4" y2="224.0" class="osh-steel"/>
+  </g>
+  <line x1="250.4" y1="224.0" x2="276.0" y2="188.8" class="osh-steel"/>
+</g></g>
+<ellipse cx="142" cy="189" rx="12" ry="5" fill="#a4552d" opacity=".55"/>
+<ellipse cx="238" cy="192" rx="9" ry="4" fill="#8a4a20" opacity=".6"/>
+<ellipse cx="196" cy="238" rx="7" ry="10" fill="#a4552d" opacity=".5"/>
+<ellipse cx="252" cy="258" rx="10" ry="5" fill="#8a4a20" opacity=".55"/>
+<path d="M60,272 q4,-12 8,0 M74,272 q4,-10 8,0 M330,272 q4,-12 8,0 M346,272 q4,-9 8,0" stroke="#4a5a2a" stroke-width="2" fill="none"/>
+<g class="">
+  <rect x="112" y="288" width="172" height="34" rx="5" fill="url(#o7bp)" stroke="#6b5320" stroke-width="1.5"/>
+  <circle cx="120" cy="296" r="2.4" class="osh-rivet"/><circle cx="276" cy="296" r="2.4" class="osh-rivet"/>
+  <circle cx="120" cy="314" r="2.4" class="osh-rivet"/><circle cx="276" cy="314" r="2.4" class="osh-rivet"/>
+  <text x="198.0" y="306" class="osh-plate-t" text-anchor="middle">ติดตั้ง 1981 · ยังสูบอยู่ 2026</text>
+</g>
+<g class="osh-gen1" opacity=".3"><g><rect x="432" y="92" width="68" height="150" rx="4" class="osh-cab osh-cab-cool"/><rect x="437" y="100" width="58" height="14" rx="2" class="osh-unit"/><rect x="437" y="122" width="58" height="14" rx="2" class="osh-unit"/><rect x="437" y="144" width="58" height="14" rx="2" class="osh-unit"/><rect x="437" y="166" width="58" height="14" rx="2" class="osh-unit"/><rect x="437" y="188" width="58" height="14" rx="2" class="osh-unit"/><rect x="437" y="210" width="58" height="14" rx="2" class="osh-unit"/><circle cx="487" cy="107" r="2.6" class="osh-led" style="animation-delay:0.00s"/><rect x="441" y="105" width="38" height="4" rx="2" class="osh-slit"/><circle cx="487" cy="129" r="2.6" class="osh-led" style="animation-delay:0.33s"/><rect x="441" y="127" width="38" height="4" rx="2" class="osh-slit"/><circle cx="487" cy="151" r="2.6" class="osh-led" style="animation-delay:0.66s"/><rect x="441" y="149" width="38" height="4" rx="2" class="osh-slit"/><circle cx="487" cy="173" r="2.6" class="osh-led" style="animation-delay:0.99s"/><rect x="441" y="171" width="38" height="4" rx="2" class="osh-slit"/><circle cx="487" cy="195" r="2.6" class="osh-led" style="animation-delay:1.32s"/><rect x="441" y="193" width="38" height="4" rx="2" class="osh-slit"/><circle cx="487" cy="217" r="2.6" class="osh-led" style="animation-delay:0.00s"/><rect x="441" y="215" width="38" height="4" rx="2" class="osh-slit"/></g><text x="466" y="262" text-anchor="middle" font-family="IBM Plex Mono, monospace" font-size="12" font-weight="700" fill="#a08c6a">2023</text><text x="466" y="278" text-anchor="middle" class="sim-mono">เกษียณแล้ว</text></g><g class="osh-gen2" opacity=".65"><g><rect x="528" y="92" width="68" height="150" rx="4" class="osh-cab osh-cab-cool"/><rect x="533" y="100" width="58" height="14" rx="2" class="osh-unit"/><rect x="533" y="122" width="58" height="14" rx="2" class="osh-unit"/><rect x="533" y="144" width="58" height="14" rx="2" class="osh-unit"/><rect x="533" y="166" width="58" height="14" rx="2" class="osh-unit"/><rect x="533" y="188" width="58" height="14" rx="2" class="osh-unit"/><rect x="533" y="210" width="58" height="14" rx="2" class="osh-unit"/><circle cx="583" cy="107" r="2.6" class="osh-led" style="animation-delay:0.00s"/><rect x="537" y="105" width="38" height="4" rx="2" class="osh-slit"/><circle cx="583" cy="129" r="2.6" class="osh-led" style="animation-delay:0.33s"/><rect x="537" y="127" width="38" height="4" rx="2" class="osh-slit"/><circle cx="583" cy="151" r="2.6" class="osh-led" style="animation-delay:0.66s"/><rect x="537" y="149" width="38" height="4" rx="2" class="osh-slit"/><circle cx="583" cy="173" r="2.6" class="osh-led" style="animation-delay:0.99s"/><rect x="537" y="171" width="38" height="4" rx="2" class="osh-slit"/><circle cx="583" cy="195" r="2.6" class="osh-led" style="animation-delay:1.32s"/><rect x="537" y="193" width="38" height="4" rx="2" class="osh-slit"/><circle cx="583" cy="217" r="2.6" class="osh-led" style="animation-delay:0.00s"/><rect x="537" y="215" width="38" height="4" rx="2" class="osh-slit"/></g><text x="562" y="262" text-anchor="middle" font-family="IBM Plex Mono, monospace" font-size="12" font-weight="700" fill="#a08c6a">2025</text><text x="562" y="278" text-anchor="middle" class="sim-mono">กำลังถูกแทน</text></g><g class="osh-gen3" opacity="1"><g><rect x="624" y="92" width="68" height="150" rx="4" class="osh-cab osh-cab-cool"/><rect x="629" y="100" width="58" height="14" rx="2" class="osh-unit"/><rect x="629" y="122" width="58" height="14" rx="2" class="osh-unit"/><rect x="629" y="144" width="58" height="14" rx="2" class="osh-unit"/><rect x="629" y="166" width="58" height="14" rx="2" class="osh-unit"/><rect x="629" y="188" width="58" height="14" rx="2" class="osh-unit"/><rect x="629" y="210" width="58" height="14" rx="2" class="osh-unit"/><circle cx="679" cy="107" r="2.6" class="osh-led" style="animation-delay:0.00s"/><rect x="633" y="105" width="38" height="4" rx="2" class="osh-slit"/><circle cx="679" cy="129" r="2.6" class="osh-led" style="animation-delay:0.33s"/><rect x="633" y="127" width="38" height="4" rx="2" class="osh-slit"/><circle cx="679" cy="151" r="2.6" class="osh-led" style="animation-delay:0.66s"/><rect x="633" y="149" width="38" height="4" rx="2" class="osh-slit"/><circle cx="679" cy="173" r="2.6" class="osh-led" style="animation-delay:0.99s"/><rect x="633" y="171" width="38" height="4" rx="2" class="osh-slit"/><circle cx="679" cy="195" r="2.6" class="osh-led" style="animation-delay:1.32s"/><rect x="633" y="193" width="38" height="4" rx="2" class="osh-slit"/><circle cx="679" cy="217" r="2.6" class="osh-led" style="animation-delay:0.00s"/><rect x="633" y="215" width="38" height="4" rx="2" class="osh-slit"/></g><text x="658" y="262" text-anchor="middle" font-family="IBM Plex Mono, monospace" font-size="12" font-weight="700" fill="#a08c6a">2027</text><text x="658" y="278" text-anchor="middle" class="sim-mono">รุ่นถัดไป</text></g>
+<rect x="420" y="292" width="284" height="8" rx="3" class="osh-belt"/>
+<line x1="420" y1="296" x2="704" y2="296" class="osh-belt-lit"/>
+<text x="562" y="318" text-anchor="middle" class="sim-mono">สายพานเกษียณ · ทุก 4–5 ปี</text>
+<text x="196" y="52" text-anchor="middle" class="s-t sm">เหล็ก: สนิมช้า — glut กดราคา ~15 ปี</text>
+<text x="560" y="52" text-anchor="middle" class="s-t sm">ซิลิคอน: ตายเร็ว — glut ล้างตัวเอง</text>
+</svg>
+</div><figcaption><strong>เหล็กสนิมช้า ซิลิคอนตายเร็ว</strong> — แท่นปี 1981 บางแท่นยังสูบอยู่ทุกวันนี้ supply ส่วนเกินของน้ำมันจึงกดราคาราว 15 ปี แต่ GPU เกษียณตัวเองใน 4–5 ปี: ถ้า glut มาจริง ทุนจะเสียหายเร็วกว่า (ไม่มีเวลาให้ราคาฟื้นมาช่วย) แต่ตลาดก็เคลียร์เร็วกว่า — วิกฤต AI capex ถ้ามี จะสั้นกว่าแต่ชันกว่า</figcaption></figure>
+
+      <p>
+        <strong>(ง) ไม่มีใครคุมราคา = ไม่มีใครพยุงราคา</strong> — น้ำมันมี OPEC
+        คอยตรึงราคาไว้เหนือต้นทุนได้เป็นทศวรรษ ราคา compute ไม่มีใครตรึง
+        มันจะไหลลงตาม cost curve เรื่อยๆ — ดีต่อผู้ใช้ ดีต่อโลก
+        แต่โหดกับทุกโมเดลธุรกิจที่ตั้งสมมติฐานว่า "ราคาขาย compute วันนี้จะอยู่ไปอีกห้าปี"
+      </p>
+
+      <h2 id="sec-8">8. บทเรียนของผู้รอด — แผนที่สำหรับนักลงทุน</h2>
+      <p>
+        ปี 1986 ไม่ได้ฆ่าทุกคน รายชื่อผู้รอดกับผู้ตายมีโครงสร้างชัดจนใช้เป็นแผนที่ได้
+      </p>
+      <p>
+        <strong>รอด:</strong> (1) <em>low-cost producer</em> — คนที่ต้นทุนต่อบาร์เรลต่ำสุดของแอ่ง
+        ราคาลงเหลือเท่าไหร่ก็ยังมี margin (2) <em>toll road</em> — เจ้าของท่อส่งและโรงกลั่น
+        ที่เก็บค่าผ่านทางตามปริมาณ ไม่ได้เดิมพันราคา (3) <em>majors ที่ balance sheet แข็ง</em> —
+        เจ็บแต่รอด แล้วได้ซื้อซากในราคาถูก (Chevron–Gulf)
+        <strong>ตาย:</strong> wildcatter ที่ใช้หนี้ ธนาคารที่ปล่อยกู้ให้พวกเขา
+        และทุกโครงการที่ breakeven สูง (Synthetic Fuels Corp ถูกยุบปี 1986 —
+        ปีเดียวกับที่ราคาถล่ม ไม่ใช่เรื่องบังเอิญ)
+      </p>
+      <p>วางทาบกับ AI value chain:</p>
+      <ul>
+        <li><strong>Toll road ของ compute = TSM</strong> — เก็บค่าผ่านทางทุก architecture
+          ไม่ว่า NVDA หรือ custom ASIC ชนะ (แต่มีจุดอ่อนเดียวกับเจ้าของท่อ:
+          ถ้าสร้าง fab เกินแล้ว volume หด utilization ตกแรง — top 10 ลูกค้า = 78% ของรายได้)</li>
+        <li><strong>Majors = MSFT / GOOGL</strong> — ผู้ซื้อที่มีธุรกิจจริงรองรับ เจ็บที่ ROIC
+          แต่รอดแน่ และถ้าเกิด bust จะเป็นฝ่ายได้ซื้อซากถูกเหมือน Chevron ปี 1984</li>
+        <li><strong>Wildcatters = neocloud และ pure-play concentration</strong> —
+          ผู้เล่นที่ operating margin ติดลบร้อยกว่าเปอร์เซ็นต์และอยู่ได้ด้วยตลาดทุน
+          หรือ supplier ที่ลูกค้ารายเดียวเกินครึ่งของรายได้ — ถ้า funding window ปิด
+          ไม่ใช่รายได้ลด แต่คือหายทั้งบริษัท</li>
+        <li><strong>ตำแหน่งก้ำกึ่งที่สุด = NVDA</strong> — margin สูงสุดใน chain
+          แต่เป็นคนขายของให้ swing buyer โดยตรง (2 ลูกค้า = 36%)
+          ประวัติศาสตร์น้ำมันไม่มีตัวละครไหนเทียบได้เป๊ะ เพราะไม่เคยมี supplier
+          รายเดียวกิน margin ของทั้ง supercycle ขนาดนี้ —
+          ความไม่มี precedent ตรงนี้เองที่ควรทำให้ทั้ง bull และ bear ถ่อมตัว</li>
+      </ul>
+      <p>
+        แผนที่นี้ไม่ได้สั่งขายอะไร มันทำงานแบบเดียวกับแผนที่แอ่งน้ำมัน:
+        บอกว่าคุณยืนอยู่ตรงไหน ถ้าฝนหยุดตก
+      </p>
+
+      <h2 id="sec-9">9. Tripwires — Kill Conditions ของ thesis นี้</h2>
+      <p>
+        วินัยของเราคือเขียนเงื่อนไขไว้ก่อนที่จะต้องใช้มัน เส้นลวดสามเส้น
+        อิงจากสัญญาณที่วัดได้จริงในงบ ไม่ใช่ความรู้สึกของตลาด:
+      </p>
+      <ol>
+        <li><strong>Saudi moment:</strong> hyperscaler รายใดรายหนึ่งประกาศ<em>ลด</em>
+          capex guidance แบบ YoY จริง (ไม่ใช่แค่ชะลอการโต) — swing buyer
+          คนแรกที่ปล่อยมือ ตลาดจะตีความแทน OPEC ทันที</li>
+        <li><strong>กำไรกระดาษ:</strong> บริษัทไหนยืด useful life ของ AI hardware เพิ่มอีก
+          ขณะ AWS (fleet ใหญ่สุด ข้อมูลจริงเยอะสุด) คงไว้หรือตัดลง — META ทำไปแล้วหนึ่งครั้ง
+          (+$1.00 EPS จากปากกา) รายต่อไปที่ทำ = ยอมรับกลายๆ ว่า unit economics ไม่ลงตัว</li>
+        <li><strong>ทิศทางเงินทุน:</strong> ดูสองตัวสวนกัน — ถ้า GOOGL/META กลับมา buyback
+          = capex กำลังอิ่มตัวโดยสมัครใจ (สัญญาณ<em>ดี</em> — วงจรจบแบบนุ่ม)
+          แต่ถ้า debt issuance เร่งต่อเนื่องอีกหลายไตรมาส = เดินเข้าใกล้ telecom playbook
+          1999 อีกก้าว</li>
+      </ol>
+
+      <!-- OSH-FIG-8 -->
+      <figure class="ph-fig"><div class="ph-panel osh-panel"><div class="ph-eyebrow osh">TRIPWIRES · เครื่องบันทึกสัญญาณ</div>
+<svg viewBox="0 0 720 340" role="img" aria-label="เครื่องบันทึกกราฟแบบม้วนกระดาษยุคหลุมเจาะ ปากกาสามด้ามกำลังลากเส้นสัญญาณ capex, useful life และ debt">
+<defs>
+  <linearGradient id="o8case" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#2e2418"/><stop offset="1" stop-color="#1a1208"/></linearGradient>
+  <linearGradient id="o8paper" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#efe6d2"/><stop offset="1" stop-color="#ddd0b4"/></linearGradient>
+  <clipPath id="o8clip"><rect x="168" y="92" width="484" height="168"/></clipPath>
+</defs>
+<rect x="70" y="40" width="620" height="264" rx="14" fill="url(#o8case)" stroke="#4a3820" stroke-width="2.5"/>
+<circle cx="88" cy="58" r="3" class="osh-screw"/><circle cx="672" cy="58" r="3" class="osh-screw"/>
+<circle cx="88" cy="288" r="3" class="osh-screw"/><circle cx="672" cy="288" r="3" class="osh-screw"/>
+<rect x="96" y="82" width="42" height="188" rx="8" fill="#3a2c18" stroke="#584428"/>
+<ellipse cx="117" cy="88" rx="21" ry="7" fill="#584428"/>
+<text x="117" y="180" text-anchor="middle" class="sim-mono" transform="rotate(-90 117 180)">PAPER FEED</text>
+<rect x="164" y="88" width="492" height="176" fill="url(#o8paper)" rx="3"/>
+<g clip-path="url(#o8clip)"><g class="osh-paper">
+<line x1="170" y1="96" x2="170" y2="256" class="osh-grid"/><line x1="208" y1="96" x2="208" y2="256" class="osh-grid"/><line x1="246" y1="96" x2="246" y2="256" class="osh-grid"/><line x1="284" y1="96" x2="284" y2="256" class="osh-grid"/><line x1="322" y1="96" x2="322" y2="256" class="osh-grid"/><line x1="360" y1="96" x2="360" y2="256" class="osh-grid"/><line x1="398" y1="96" x2="398" y2="256" class="osh-grid"/><line x1="436" y1="96" x2="436" y2="256" class="osh-grid"/><line x1="474" y1="96" x2="474" y2="256" class="osh-grid"/><line x1="512" y1="96" x2="512" y2="256" class="osh-grid"/><line x1="550" y1="96" x2="550" y2="256" class="osh-grid"/><line x1="588" y1="96" x2="588" y2="256" class="osh-grid"/><line x1="626" y1="96" x2="626" y2="256" class="osh-grid"/><line x1="170" y1="96" x2="650" y2="96" class="osh-grid"/><line x1="170" y1="128" x2="650" y2="128" class="osh-grid"/><line x1="170" y1="160" x2="650" y2="160" class="osh-grid"/><line x1="170" y1="192" x2="650" y2="192" class="osh-grid"/><line x1="170" y1="224" x2="650" y2="224" class="osh-grid"/><line x1="170" y1="256" x2="650" y2="256" class="osh-grid"/>
+<path d="M170,140 L266,138 L300,142 L360,136 L420,140 L470,118 L540,112 L610,116 L650,110 L730,108" class="osh-trace osh-trace-amber"/>
+<path d="M170,190 L250,190 L294,190 L330,172 L368,172 L560,174 L650,172 L730,172" class="osh-trace osh-trace-red"/>
+<path d="M170,232 L280,230 L340,234 L430,214 L500,208 L560,190 L650,182 L730,176" class="osh-trace osh-trace-cyan"/>
+<g class="osh-eventflag"><line x1="330" y1="100" x2="330" y2="252" stroke="#8a2020" stroke-width="1.5" stroke-dasharray="4 4"/>
+<text x="336" y="110" font-family="IBM Plex Mono, monospace" font-size="9.5" fill="#8a2020">META +0.5 ปี · ม.ค. 2025</text></g>
+</g></g>
+<text x="178" y="126" class="osh-paper-lbl">CAPEX GUIDANCE</text>
+<text x="178" y="178" class="osh-paper-lbl">USEFUL LIFE</text>
+<text x="178" y="222" class="osh-paper-lbl">DEBT / BUYBACK</text>
+<rect x="168" y="58" width="488" height="12" rx="4" class="osh-steel-f" stroke="#584428"/>
+<g class="osh-pen" style="transform-origin:600px 64px"><rect x="595" y="60" width="10" height="14" rx="2" fill="#584428"/><line x1="600" y1="72" x2="600" y2="113" stroke="#b4552d" stroke-width="3.5"/><circle cx="600" cy="116" r="3.5" fill="#f0a84b"/></g>
+<g class="osh-pen" style="transform-origin:626px 64px;animation-delay:.4s"><rect x="621" y="60" width="10" height="14" rx="2" fill="#584428"/><line x1="626" y1="72" x2="626" y2="172" stroke="#8a2020" stroke-width="3.5"/><circle cx="626" cy="175" r="3.5" fill="#e05252"/></g>
+<g class="osh-pen" style="transform-origin:648px 64px;animation-delay:.8s"><rect x="643" y="60" width="10" height="14" rx="2" fill="#584428"/><line x1="648" y1="72" x2="648" y2="179" stroke="#2a6a7a" stroke-width="3.5"/><circle cx="648" cy="182" r="3.5" fill="#4cc9f0"/></g>
+<rect x="96" y="278" width="180" height="18" rx="4" fill="#141a20" stroke="#3a2a14"/>
+<text x="186" y="291" text-anchor="middle" class="sim-mono">MOATRICES WELL LOG · 2026</text>
+<circle cx="640" cy="287" r="5" class="osh-lamp"/>
+<text x="628" y="291" text-anchor="end" class="sim-mono">ARMED</text>
+<text x="360" y="330" text-anchor="middle" class="s-t sm">เส้นลวดสามเส้น: capex guidance ลดจริง · ใครยืดอายุ hardware สวน AWS · หนี้เร่ง/buyback กลับ</text>
+</svg>
+</div><figcaption><strong>Tripwires ติดอาวุธแล้ว</strong> — เครื่องบันทึกลากเส้นสามสัญญาณจากงบจริงทุกไตรมาส: capex guidance (ลดจริงเมื่อไหร่ = Saudi moment), useful life (ใครยืดสวน AWS = กำไรกระดาษ — META ทำแล้ว ม.ค. 2025), และ debt/buyback (GOOGL+META หยุด buyback สนิท, AMZN กู้ $53.4B ในไตรมาสเดียว) — ปากกายังเขียนอยู่ทุกวัน</figcaption></figure>
+
+      <h2 id="sec-10">สรุป</h2>
+      <p>
+        ยอดเขาไม่มีระฆัง — 28 ธันวาคม 1981 เป็นวันธรรมดาวันหนึ่งในรายงานรายสัปดาห์
+        จนกระทั่งมันไม่ใช่ คนที่รอดจากทศวรรษถัดมาไม่ใช่คนที่ทายวันนั้นถูก
+        แต่คือคนที่รู้ว่าตัวเองยืนตรงไหนบนแผนที่ รู้ว่าสัญญาณไหนคือสัญญาณจริง
+        และเขียน kill conditions ไว้ตั้งแต่วันที่ทุกอย่างยังดูดีอยู่
+      </p>
+      <p>
+        น้ำมันสอนไว้ครบแล้ว: ราคาที่กรีดร้องจะจ้างศัตรูของตัวเองเสมอ —
+        ทั้งดีมานด์ที่เดินหนีและ supply ที่โผล่มาใหม่ สมมติฐานที่เชื่อมตายลงในวัตถุแก้ไม่ได้หลังจ่าย
+        และคนอุ้มราคา (หรือคนซื้อรายใหญ่) เลิกอุ้มได้เสมอโดยไม่ขออนุญาตใคร
+        ความแตกต่างเดียวที่สำคัญ: รอบนี้สินทรัพย์ตายเร็วกว่าเหล็กสิบเท่า —
+        ถ้าพายุมา มันจะจบเร็วกว่า แต่ใครยืนผิดที่ตอนมันมา จะไม่มีเวลาแก้ตัวเลย
+      </p>
+
+    </div>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container footer-grid">
+      <div class="footer-brand">
+        <a href="../index.html" class="site-title">Moatrices</a>
+        <p>บันทึกการเรียนวิเคราะห์หุ้น US เชิงลึก ภาษาไทย — เน้นพื้นฐานธุรกิจ ไม่ใช่ราคา</p>
+      </div>
+      <nav class="footer-nav">
+        <a href="../index.html">หน้าแรก</a>
+        <a href="../dashboard.html">Dashboard</a>
+        <a href="../about.html">เกี่ยวกับ</a>
+      </nav>
+      <div class="footer-follow">
+        <span class="footer-follow-label">ติดตาม</span>
+        <div class="footer-social">
+          <a href="/feed.xml" class="social-btn" aria-label="RSS feed" title="RSS feed"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 11a9 9 0 0 1 9 9"/><path d="M4 4a16 16 0 0 1 16 16"/><circle cx="5" cy="19" r="1"/></svg></a>
+          <a href="mailto:beatp9696@gmail.com" class="social-btn" aria-label="อีเมล" title="อีเมล"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="m3 7 9 6 9-6"/></svg></a>
+        </div>
+      </div>
+    </div>
+    <div class="container footer-legal">
+      <p><strong>คำเตือน:</strong> เนื้อหาทั้งหมดเป็นบันทึกการเรียนและความเห็นส่วนตัว
+         เพื่อการศึกษาเท่านั้น <strong>ไม่ใช่คำแนะนำการลงทุน</strong> ไม่ใช่การชี้นำให้ซื้อหรือขายหลักทรัพย์ใดๆ
+         ตัวเลขอ้างอิงงบที่เผยแพร่ ณ ช่วงเวลาหนึ่งและอาจล้าสมัย การตัดสินใจลงทุนเป็นความรับผิดชอบของผู้อ่านเอง</p>
+      <p>© 2026 Moatrices · เผยแพร่ผ่าน GitHub Pages</p>
+    </div>
+  </footer>
+
+  <button class="to-top" aria-label="กลับขึ้นด้านบน">↑</button>
+  <script defer src="../app.js"></script>
+
+</body>
+</html>
