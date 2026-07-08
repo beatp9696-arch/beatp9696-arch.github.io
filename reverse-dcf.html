@@ -192,7 +192,9 @@
             <p class="rdcf-hint">Google ชื่อ ticker หรือแอปโบรกเกอร์ — ใช้ราคาล่าสุด</p></div>
           <div class="rdcf-field"><label for="inShares">จำนวนหุ้น (diluted) <span class="unit">(ล้านหุ้น)</span></label><input type="text" id="inShares" inputmode="decimal">
             <span class="rdcf-echo" id="echoShares"></span>
-            <p class="rdcf-hint">แถว "Shares Outstanding (Diluted)" ในงบกำไรขาดทุน — เช็ค market cap ข้างบนกับ Google ว่าใกล้กันไหม</p></div>
+            <p class="rdcf-hint">ใช้หุ้น "ที่มีอยู่จริงวันนี้": หน้าแรกของ ticker แถว "Shares Out" (หรือหน้าปก 10-Q ล่าสุด)
+              — ระวัง: แถว Shares Outstanding ใน<strong>งบกำไรขาดทุน</strong>เป็นค่าเฉลี่ยระหว่างงวด จะต่ำเกินจริงถ้าบริษัทเพิ่งออกหุ้นใหม่
+              · เช็คง่ายๆ: market cap ข้างบนต้องใกล้กับตัวเลขใน Google</p></div>
           <div class="rdcf-field"><label for="inCash">เงินสดรวม <span class="unit">($M)</span></label><input type="text" id="inCash" inputmode="decimal">
             <span class="rdcf-echo" id="echoCash"></span>
             <p class="rdcf-hint">แถว "Cash &amp; Short-Term Investments" ในงบดุล</p></div>
@@ -392,7 +394,7 @@
   /* ===== presets (ตัวเลข cited จากงบจริง — ดูบทความ deep-dive แต่ละตัว) ===== */
   const PRESETS=[
    {k:"SNPS",n:"Synopsys",price:464.85,shares:191.4,cash:2484,debt:10036,fcf:2000,
-    date:"7 มิ.ย. 2026",src:"FCF ฐาน = FY2026E $2.0B จาก guidance ไม่ใช่เลขบน screener — เพราะ SNPS เพิ่งซื้อ Ansys (ปิดดีล ก.ค. 2025): FY2025 actual $1.35B มี Ansys แค่ ~3.5 เดือน แต่ market cap วันนี้รวม Ansys เต็ม → ต้องใช้ปีแรกที่รวมเต็มปี · หนี้ = เงินกู้ $10.0B (30 เม.ย. 2026; screener ที่นับ lease จะโชว์ ~$10.8B ต่างไม่ถึง 1% ของ EV)",
+    date:"7 มิ.ย. 2026",src:"SNPS เพิ่งซื้อ Ansys (ปิดดีล ก.ค. 2025) เลขหลายตัวจึงต้องเลือกให้ดี: FCF ใช้ FY2026E $2.0B จาก guidance เพราะ FY2025 actual $1.35B มี Ansys แค่ ~3.5 เดือน · หุ้น 191.4M = diluted ปัจจุบัน (งบ Q2 FY2026) — แถวในงบกำไรขาดทุนเป็นค่าเฉลี่ยระหว่างงวด (FY2025 = 166M, TTM = 183M) ยังไม่นับหุ้นที่ออกจ่ายดีลเต็มจำนวน · หนี้ = เงินกู้ $10.0B (screener ที่นับ lease โชว์ ~$10.8B ต่างไม่ถึง 1% ของ EV)",
     alt:{label:"สลับเป็น FCF TTM ~$2.63B (ตาม screener)",fcf:2634,back:"สลับกลับเป็น FY2026E $2.0B (guidance)"}},
    {k:"TSM",n:"TSMC (ต่อ ADS)",price:426.80,shares:5186.5,cash:99900,debt:34000,fcf:32000,
     date:"9 มิ.ย. 2026",src:"งบ TSM เป็น NT$ — แปลงที่ ~31.3 NT$/US$: FCF FY2025 NT$1.00T → $32B (โดน capex super-cycle กดให้ต่ำ), เงินสด NT$3.13T → $99.9B, หนี้ NT$1.06T → $34B · หุ้น 25,932M ÷ 5 = 5,186M ADS (1 ADS = หุ้นสามัญ 5 หุ้น)",
