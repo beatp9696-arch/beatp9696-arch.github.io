@@ -186,6 +186,18 @@
       <p class="rdcf-preset-note" id="presetNote"></p>
 
       <div class="rdcf-panel">
+        <details class="rdcf-where" style="margin:0 0 18px">
+          <summary>แนวคิด 1 นาที: 4 ตัวเลขนี้ประกอบกันเป็นอะไร?</summary>
+          <ol>
+            <li><strong>ราคาหุ้น × จำนวนหุ้น = market cap</strong> — เงินที่ต้องจ่ายถ้าซื้อหุ้นทุกหุ้นของบริษัท</li>
+            <li><strong>+ หนี้รวม − เงินสดรวม = มูลค่ากิจการ (EV)</strong> — เหมือนซื้อบ้านติดจำนองที่มีเงินสดอยู่ในตู้เซฟ:
+              รับหนี้ของบริษัทมาด้วย แต่เงินสดในบัญชีก็ตกเป็นของเรา (เอาไปโปะหนี้ได้ทันที) → EV คือ "ราคาซื้อทั้งกิจการจริงๆ"</li>
+            <li><strong>Free Cash Flow</strong> — เงินสดที่ธุรกิจปั๊มออกมาได้ต่อปีหลังหักเงินลงทุน = กำไรที่เป็นเงินจริงถึงมือเจ้าของ
+              (ไม่ใช่กำไรบัญชี) — นี่คือ "ผลตอบแทน" ของการจ่าย EV</li>
+          </ol>
+          <p style="font-size:.88rem;margin:0">เครื่องถามคำถามเดียว: <strong>จ่าย EV ก้อนนี้วันนี้ เพื่อกระแสเงินสดที่เริ่มจาก FCF ปีฐาน —
+            ต้องโตปีละกี่ % ถึงคุ้ม</strong> (ที่ผลตอบแทนขั้นต่ำ = WACC)</p>
+        </details>
         <div class="rdcf-grid2">
           <div class="rdcf-field"><label for="inPrice">ราคาหุ้น <span class="unit">($/หุ้น)</span></label><input type="text" id="inPrice" inputmode="decimal">
             <span class="rdcf-echo" id="echoPrice"></span>
@@ -200,10 +212,14 @@
             <p class="rdcf-hint">แถว "Cash &amp; Short-Term Investments" ในงบดุล</p></div>
           <div class="rdcf-field"><label for="inDebt">หนี้รวม <span class="unit">($M)</span></label><input type="text" id="inDebt" inputmode="decimal">
             <span class="rdcf-echo" id="echoDebt"></span>
-            <p class="rdcf-hint">แถว "Total Debt" ในงบดุล (รวม lease มาด้วยก็ได้ — ต่างนิดเดียว)</p></div>
+            <p class="rdcf-hint">หนี้ที่คนซื้อกิจการต้องรับไปด้วย — แถว "Total Debt" ในงบดุล พิมพ์ตรงๆ ไม่ต้องคิดมาก
+              (รวม lease มาด้วยก็ได้ · ช่องนี้คลาดได้เยอะสุดโดยกระทบคำตอบน้อยสุด ~0.1 จุดต่อ $1B)</p></div>
           <div class="rdcf-field rdcf-field--wide"><label for="inFcf">Free Cash Flow ปีฐาน <span class="unit">($M)</span> <button class="rdcf-swap" id="fcfSwap" hidden></button></label><input type="text" id="inFcf" inputmode="decimal">
             <span class="rdcf-echo" id="echoFcf"></span>
-            <p class="rdcf-hint">แถว "Free Cash Flow" ในงบกระแสเงินสด (= OCF − CapEx) — ทุกช่องพิมพ์แบบย่อได้ เช่น <code>2B</code> = 2,000 ล้าน</p></div>
+            <p class="rdcf-hint">เงินสดจริงที่ธุรกิจทำได้ต่อปีหลังหักลงทุน = จุดตั้งต้นที่เครื่องจะให้โตทบต้น 10 ปี (ช่องที่สำคัญที่สุด)
+              — แถว "Free Cash Flow" ในงบกระแสเงินสด <strong>คอลัมน์ TTM ใช้ตรงๆ ได้เกือบทุกบริษัท</strong>
+              ยกเว้นปีที่ผิดปกติ: เพิ่งควบรวมกิจการ / ลงทุนหนักผิดปกติ / มีรายการครั้งเดียว (ดูตัวอย่างการปรับใน preset SNPS · TSM)
+              — ทุกช่องพิมพ์แบบย่อได้ เช่น <code>2B</code> = 2,000 ล้าน</p></div>
         </div>
         <div class="rdcf-warn" id="warnBox" hidden></div>
         <details class="rdcf-where" id="whereBox">
