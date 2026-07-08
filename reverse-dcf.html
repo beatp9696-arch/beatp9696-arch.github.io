@@ -193,6 +193,10 @@
           <ol>
             <li><strong>ทางลัด:</strong> เปิด <a href="https://stockanalysis.com" target="_blank" rel="noopener">stockanalysis.com</a> → พิมพ์ ticker → แท็บ <em>Financials</em> มีครบทั้ง diluted shares, cash, debt และ FCF (คำนวณให้แล้ว) — ฟรี ไม่ต้องสมัคร</li>
             <li><strong>ทางเต็ม (อ่านจากต้นทาง):</strong> งบจริงอยู่ใน 10-K ที่ <a href="https://www.sec.gov/cgi-bin/browse-edgar?action=getcompany" target="_blank" rel="noopener">SEC EDGAR</a> — จำนวนหุ้นอยู่หน้าปก, เงินสด/หนี้อยู่ในงบดุล, OCF−CapEx อยู่ในงบกระแสเงินสด</li>
+            <li><strong>ตัวเลขไม่ต้องเป๊ะถึงหลักหน่วย:</strong> ใช้ FCF ปีเต็มล่าสุด (หรือ guidance) คู่กับเงินสด/หนี้จาก<strong>งบไตรมาสล่าสุด</strong> (คอลัมน์ TTM/Current ไม่ใช่ปีก่อน)
+              · แต่ละเว็บนิยาม "total debt" ไม่เท่ากัน — บางที่รวมภาระเช่า (lease) เลขเลยต่างกันได้เป็นพันล้าน
+              ซึ่ง<strong>ไม่ต้องตกใจ</strong>: ช่องเงินสดสุทธิ sensitivity ต่ำมาก คลาดกัน $1B คำตอบขยับแค่ ~0.1 จุด
+              สิ่งที่ต้องแม่นจริงคือ <strong>FCF ฐาน</strong> กับ <strong>ราคา</strong></li>
             <li><strong>⚠ หุ้นต่างชาติที่ซื้อเป็น ADR/ADS (TSM, ASML ฯลฯ):</strong> เว็บงบจะแสดง<strong>สกุลเงินท้องถิ่น</strong>
               (TSM = NT$ ตัวเลขเลยดูใหญ่กว่ากันเป็นสิบเท่า) และนับ<strong>หุ้นสามัญท้องถิ่น</strong> ไม่ใช่ ADS —
               กติกามีข้อเดียว: <strong>ทั้ง 4 ช่องต้องสกุลเงินเดียวกันและฐานหุ้นเดียวกัน</strong>
@@ -360,7 +364,7 @@
   /* ===== presets (ตัวเลข cited จากงบจริง — ดูบทความ deep-dive แต่ละตัว) ===== */
   const PRESETS=[
    {k:"SNPS",n:"Synopsys",price:464.85,shares:191.4,netCash:-7552,fcf:2000,
-    date:"7 มิ.ย. 2026",src:"FCF = FY2026E จาก guidance (OCF ~$2.3B − capex ~$0.3B) · net debt หลังดีล Ansys $7.55B",alt:null},
+    date:"7 มิ.ย. 2026",src:"FCF = FY2026E จาก guidance (OCF ~$2.3B − capex ~$0.3B) · net debt $7.55B = เงินกู้ $10.0B − เงินสด $2.48B (งบ 30 เม.ย. 2026 หลังโปะหนี้ดีล Ansys) — screener ที่นับ lease เป็นหนี้จะโชว์ ~$8.4B: ต่างไม่ถึง 1% ของ EV คำตอบขยับแค่ 19.0→19.2%",alt:null},
    {k:"TSM",n:"TSMC (ต่อ ADS)",price:426.80,shares:5186.5,netCash:65000,fcf:32000,
     date:"9 มิ.ย. 2026",src:"งบ TSM เป็น NT$ — แปลงที่ ~31.3 NT$/US$: FCF FY2025 NT$1.00T → $32B (โดน capex super-cycle กดให้ต่ำ), net cash NT$2.06T → $65.9B · หุ้น 25,932M ÷ 5 = 5,186M ADS (1 ADS = หุ้นสามัญ 5 หุ้น)",
     alt:{label:"สลับเป็น owner earnings ~$59.8B",fcf:59800,back:"สลับกลับเป็น GAAP FCF $32B"}},
