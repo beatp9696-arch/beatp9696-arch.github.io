@@ -1,0 +1,627 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <script>try{var t=localStorage.getItem('theme');if(t)document.documentElement.setAttribute('data-theme',t);}catch(e){}</script>
+  <title>ราคานี้ ตลาดคาดหวังอะไร? เครื่องถอดความคาดหวัง (Reverse DCF) — Moatrices</title>
+  <meta name="description" content="เครื่องคิดเลข Reverse DCF ภาษาไทย — ใส่ 4 ตัวเลขจากงบ แล้วถอดออกมาว่าตลาดกำลังเดิมพันว่า Free Cash Flow ต้องโตปีละกี่ % ถึงคุ้มราคานี้ พร้อมตัวอย่างจริง SNPS · TSM · AAPL · NFLX">
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="Moatrices">
+  <meta property="og:title" content="ราคานี้ ตลาดคาดหวังอะไร? เครื่องถอดความคาดหวัง (Reverse DCF) — Moatrices">
+  <meta property="og:description" content="ใส่ 4 ตัวเลขจากงบ แล้วถอดออกมาว่าตลาดกำลังเดิมพันว่า FCF ต้องโตปีละกี่ % ถึงคุ้มราคานี้ — เครื่องมือเดียวกับที่ใช้วิเคราะห์จริงทุกตัวบนเว็บนี้">
+  <meta property="og:url" content="https://beatp9696-arch.github.io/reverse-dcf.html">
+  <meta property="og:locale" content="th_TH">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta property="og:image" content="https://beatp9696-arch.github.io/og-reverse-dcf.png">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta name="twitter:image" content="https://beatp9696-arch.github.io/og-reverse-dcf.png">
+  <meta name="author" content="Moatrices">
+  <link rel="canonical" href="https://beatp9696-arch.github.io/reverse-dcf.html">
+  <link rel="alternate" type="application/rss+xml" title="Moatrices RSS" href="/feed.xml">
+  <meta name="theme-color" media="(prefers-color-scheme: light)" content="#f7f5f0">
+  <meta name="theme-color" media="(prefers-color-scheme: dark)" content="#121417">
+  <link rel="icon" href="favicon.svg" type="image/svg+xml">
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png">
+  <link rel="manifest" href="/site.webmanifest">
+  <link rel="preload" as="font" type="font/woff2" href="fonts/sarabun-400-thai.woff2" crossorigin>
+  <link rel="preload" as="font" type="font/woff2" href="fonts/sarabun-400-latin.woff2" crossorigin>
+  <link rel="stylesheet" href="style.min.css">
+  <style>
+  /* ─── reverse-dcf (rdcf) — CSS เฉพาะหน้านี้ ทั้งหมด scope ใต้ #rdcf ─── */
+  #rdcf{--neg:#b3392f;--seg2:#5ba98e;--ink-a:#ffffff;--ink-b:#10231c}
+  @media (prefers-color-scheme: dark){
+    :root:not([data-theme="light"]) #rdcf{--neg:#e08579;--seg2:#2f7f63;--ink-a:#0f2b22;--ink-b:#eaf4ef}
+  }
+  :root[data-theme="dark"] #rdcf{--neg:#e08579;--seg2:#2f7f63;--ink-a:#0f2b22;--ink-b:#eaf4ef}
+
+  #rdcf h2 .no{font-family:"IBM Plex Mono",ui-monospace,monospace;font-size:.8rem;color:var(--accent);margin-right:10px;letter-spacing:.08em}
+  #rdcf .rdcf-note{font-size:.85rem;color:var(--muted)}
+
+  #rdcf .rdcf-panel{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);box-shadow:var(--shadow-sm);padding:20px 22px;margin:0 0 18px}
+  #rdcf .rdcf-concept{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin:26px 0 8px}
+  #rdcf .rdcf-concept .rdcf-panel{margin:0;padding:16px}
+  #rdcf .rdcf-concept .t{font-family:var(--font-head);font-weight:700;font-size:.95rem;margin:0 0 6px;display:block}
+  #rdcf .rdcf-concept .t .step{font-family:"IBM Plex Mono",ui-monospace,monospace;color:var(--accent);font-size:.72rem;display:block;letter-spacing:.12em;margin-bottom:6px}
+  #rdcf .rdcf-concept p{font-size:.88rem;color:var(--muted);margin:0;line-height:1.65}
+  @media (max-width:640px){#rdcf .rdcf-concept{grid-template-columns:1fr}}
+
+  #rdcf .rdcf-chips{display:flex;flex-wrap:wrap;gap:8px;margin:14px 0 22px}
+  #rdcf .rdcf-chip{font-family:var(--font-body);font-weight:600;font-size:.9rem;border:1px solid var(--border);background:var(--surface);color:var(--text);border-radius:99px;padding:7px 16px;cursor:pointer}
+  #rdcf .rdcf-chip[aria-pressed="true"]{background:var(--accent);border-color:var(--accent);color:var(--surface)}
+  #rdcf .rdcf-preset-note{font-size:.85rem;color:var(--muted);margin:-10px 0 18px}
+
+  #rdcf .rdcf-grid2{display:grid;grid-template-columns:1fr 1fr;gap:14px 18px}
+  @media (max-width:560px){#rdcf .rdcf-grid2{grid-template-columns:1fr}}
+  #rdcf .rdcf-field label{display:block;font-size:.85rem;font-weight:600;margin-bottom:5px}
+  #rdcf .rdcf-field .unit{color:var(--muted);font-weight:400}
+  #rdcf .rdcf-field input[type=text]{width:100%;box-sizing:border-box;font-family:"IBM Plex Mono",ui-monospace,monospace;font-size:1rem;padding:9px 12px;border:1px solid var(--border);border-radius:10px;background:var(--surface-2);color:var(--text)}
+  #rdcf .rdcf-hint{font-size:.76rem;color:var(--muted);margin:4px 2px 0;line-height:1.5}
+  #rdcf .rdcf-where{margin:16px 0 0;border:1px dashed var(--border);border-radius:10px;padding:10px 14px;background:var(--surface-2)}
+  #rdcf .rdcf-where summary{cursor:pointer;font-weight:600;font-size:.9rem;color:var(--accent-strong)}
+  #rdcf .rdcf-where ol{margin:10px 0 4px;padding-left:22px;font-size:.88rem}
+  #rdcf .rdcf-where li{margin-bottom:8px}
+
+  #rdcf .rdcf-sliders{margin-top:18px;padding-top:16px;border-top:1px solid var(--border)}
+  #rdcf .rdcf-srow{display:flex;align-items:center;gap:14px;margin:10px 0}
+  #rdcf .rdcf-srow label{flex:0 0 175px;font-size:.88rem;font-weight:600}
+  #rdcf .rdcf-srow input[type=range]{flex:1;accent-color:var(--accent);min-width:60px}
+  #rdcf .rdcf-srow output{flex:0 0 64px;text-align:right;font-family:"IBM Plex Mono",ui-monospace,monospace;font-size:.95rem;font-variant-numeric:tabular-nums}
+  @media (max-width:560px){#rdcf .rdcf-srow{flex-wrap:wrap}#rdcf .rdcf-srow label{flex:1 0 100%}}
+  #rdcf .rdcf-evline{margin-top:16px;padding:12px 14px;background:var(--surface-2);border-radius:10px;font-size:.9rem;color:var(--muted)}
+  #rdcf .rdcf-evline b{color:var(--text);font-family:"IBM Plex Mono",ui-monospace,monospace;font-weight:500;font-variant-numeric:tabular-nums}
+
+  #rdcf .rdcf-hero{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);box-shadow:var(--shadow-md);padding:30px 26px;text-align:center;margin:24px 0 18px}
+  #rdcf .rdcf-hero .lbl{font-size:.95rem;color:var(--muted);margin:0 0 4px}
+  #rdcf .rdcf-hero .big{font-family:var(--font-head);font-weight:700;font-size:clamp(44px,9vw,64px);line-height:1.15;color:var(--accent-strong);margin:2px 0}
+  #rdcf .rdcf-hero .big.na{color:var(--muted);font-size:clamp(26px,5vw,36px)}
+  #rdcf .rdcf-hero .sub{font-size:.98rem;margin:8px 0 0}
+  #rdcf .rdcf-strip{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin:0 0 26px}
+  #rdcf .rdcf-tile{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:14px 16px}
+  #rdcf .rdcf-tile .lbl{font-size:.78rem;color:var(--muted);margin:0 0 3px}
+  #rdcf .rdcf-tile .val{font-family:var(--font-head);font-weight:700;font-size:1.35rem;line-height:1.3}
+  #rdcf .rdcf-tile .cap{font-size:.78rem;color:var(--muted);margin-top:2px}
+  @media (max-width:640px){#rdcf .rdcf-strip{grid-template-columns:1fr 1fr}}
+
+  #rdcf .rdcf-chart{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);box-shadow:var(--shadow-sm);padding:18px 18px 12px;margin:0 0 18px;position:relative}
+  #rdcf .rdcf-chart h3{font-family:var(--font-head);font-weight:700;font-size:1.02rem;margin:0 0 2px}
+  #rdcf .rdcf-chart .sub{font-size:.84rem;color:var(--muted);margin:0 0 10px}
+  #rdcf .rdcf-chart svg{display:block;width:100%;height:auto}
+  #rdcf .rdcf-chart svg text{font-family:"IBM Plex Mono",ui-monospace,monospace;font-size:11px;fill:var(--muted);font-variant-numeric:tabular-nums}
+  #rdcf .rdcf-chart svg text.dl{font-weight:500;fill:var(--text)}
+  #rdcf .gridline{stroke:var(--border);stroke-width:1}
+  #rdcf .axisline{stroke:var(--border);stroke-width:1}
+  #rdcf .bar{fill:var(--accent)}
+  #rdcf .bar.base{fill:var(--muted)}
+  #rdcf .bar:hover,#rdcf .bar:focus{fill:var(--accent-strong);outline:none}
+  #rdcf .curve{stroke:var(--accent);stroke-width:2;fill:none;stroke-linecap:round;stroke-linejoin:round}
+  #rdcf .refline{stroke:var(--muted);stroke-width:1}
+  #rdcf .marker{fill:var(--accent);stroke:var(--surface);stroke-width:2}
+  #rdcf .crosshair{stroke:var(--muted);stroke-width:1;opacity:0;pointer-events:none}
+  #rdcf .hit{fill:transparent}
+  #rdcf .seg-a{fill:var(--accent)}
+  #rdcf .seg-b{fill:var(--seg2)}
+  #rdcf .rdcf-legend{display:flex;gap:16px;font-size:.78rem;color:var(--muted);margin:2px 0 8px;align-items:center;flex-wrap:wrap}
+  #rdcf .rdcf-legend .sw{display:inline-block;width:12px;height:12px;border-radius:3px;margin-right:5px;vertical-align:-2px}
+
+  #rdcf-tip{position:fixed;z-index:50;background:var(--surface);border:1px solid var(--border);border-radius:10px;box-shadow:var(--shadow-md);padding:8px 12px;font-size:.82rem;pointer-events:none;opacity:0;max-width:240px;line-height:1.55}
+  #rdcf-tip b{font-family:"IBM Plex Mono",ui-monospace,monospace;font-weight:500;font-size:.92rem;font-variant-numeric:tabular-nums;color:var(--text)}
+  #rdcf-tip .k{color:var(--muted)}
+  #rdcf-tip .key{display:inline-block;width:12px;height:3px;border-radius:2px;background:var(--accent);vertical-align:3px;margin-right:6px}
+
+  #rdcf .rdcf-mos{margin-top:14px}
+  #rdcf .rdcf-mos-scale{position:relative;height:46px}
+  #rdcf .rdcf-mos-track{position:absolute;top:18px;left:0;right:0;height:10px;border-radius:99px;background:var(--surface-2);border:1px solid var(--border)}
+  #rdcf .rdcf-mos-fill{position:absolute;top:19px;height:8px;border-radius:99px;background:var(--accent)}
+  #rdcf .rdcf-mos-fill.neg{background:var(--neg)}
+  #rdcf .rdcf-mos-zero{position:absolute;top:12px;width:1px;height:22px;background:var(--muted)}
+  #rdcf .rdcf-mos-mark{position:absolute;top:30px;font-family:"IBM Plex Mono",ui-monospace,monospace;font-size:.68rem;color:var(--muted);transform:translateX(-50%)}
+  #rdcf .rdcf-mos-verdict{display:inline-block;font-weight:600;font-size:.9rem;border-radius:99px;padding:3px 14px;margin-top:8px;background:var(--accent-tint);color:var(--accent-strong)}
+  #rdcf .rdcf-mos-verdict.neg{background:transparent;border:1px solid var(--neg);color:var(--neg)}
+  #rdcf .rdcf-fair{font-size:.95rem;margin-top:10px}
+  #rdcf .rdcf-fair b{font-family:"IBM Plex Mono",ui-monospace,monospace;font-weight:500;font-variant-numeric:tabular-nums}
+
+  #rdcf .rdcf-tblscroll{overflow-x:auto}
+  #rdcf .rdcf-tblscroll table{width:100%;border-collapse:collapse;font-size:.88rem;margin:12px 0 6px}
+  #rdcf .rdcf-tblscroll th{font-family:var(--font-head);font-weight:700;font-size:.8rem;text-align:right;padding:8px 10px;border-bottom:1px solid var(--border);color:var(--muted)}
+  #rdcf .rdcf-tblscroll th:first-child,#rdcf .rdcf-tblscroll td:first-child{text-align:left}
+  #rdcf .rdcf-tblscroll td{padding:7px 10px;border-bottom:1px solid var(--border);text-align:right;font-family:"IBM Plex Mono",ui-monospace,monospace;font-size:.84rem;font-variant-numeric:tabular-nums;color:var(--text)}
+  #rdcf .rdcf-tblscroll td:first-child{font-family:var(--font-body);font-weight:600}
+  #rdcf .rdcf-tblscroll tr.hl td{background:var(--accent-tint)}
+  #rdcf .rdcf-tblscroll tr:last-child td{border-bottom:none}
+
+  #rdcf .rdcf-pit{display:flex;gap:12px;margin:0 0 14px}
+  #rdcf .rdcf-pit .ico{flex:0 0 30px;height:30px;border-radius:8px;background:var(--accent-tint);color:var(--accent-strong);display:flex;align-items:center;justify-content:center;font-family:"IBM Plex Mono",ui-monospace,monospace;font-size:.8rem;font-weight:500}
+  #rdcf .rdcf-pit p{margin:2px 0 0;font-size:.92rem}
+  #rdcf .rdcf-pit b.t{font-family:var(--font-head)}
+
+  #rdcf .rdcf-swap{font-family:var(--font-body);font-weight:600;font-size:.8rem;border:1px solid var(--accent);background:transparent;color:var(--accent-strong);border-radius:99px;padding:4px 12px;cursor:pointer;margin-left:8px}
+  </style>
+</head>
+<body>
+
+  <div class="top-accent"></div>
+
+  <header class="site-header">
+    <div class="container">
+      <a href="index.html" class="site-title">Moatrices</a>
+      <nav class="site-nav">
+        <a href="index.html">หน้าแรก</a>
+        <a href="dashboard.html">Dashboard</a>
+        <a href="about.html">เกี่ยวกับ</a>
+      </nav>
+    </div>
+  </header>
+
+  <main id="rdcf">
+    <div class="container">
+
+      <span class="kicker">เครื่องมือ · Interactive</span>
+      <h1>ราคานี้ ตลาดคาดหวังอะไร?<br>เครื่องถอดความคาดหวังที่ซ่อนอยู่ในราคาหุ้น</h1>
+      <p class="lead">DCF ปกติให้เรา "เดา" ว่าธุรกิจจะโตเท่าไหร่แล้วคำนวณมูลค่า — ปัญหาคือคำตอบขึ้นกับการเดา
+      Reverse DCF กลับหัวคำถาม: เอา<strong>ราคาจริงบนกระดาน</strong>มาตั้ง แล้วถอดออกมาว่า
+      ตลาดกำลังเดิมพันว่า Free Cash Flow ต้องโตปีละกี่ % ถึงจะคุ้มราคานี้
+      จากนั้นเหลือคำถามเดียวที่ตอบง่ายกว่ามาก: <strong>ผมเชื่อแบบนั้นด้วยไหม</strong></p>
+
+      <div class="rdcf-concept">
+        <div class="rdcf-panel"><span class="t"><span class="step">STEP 1</span>ใส่ตัวเลขจริง</span>
+          <p>ราคาหุ้น จำนวนหุ้น เงินสด/หนี้สุทธิ และ FCF ปีล่าสุด — 4 ตัวเลขจากงบ ไม่ต้องเดาอะไรเลย</p></div>
+        <div class="rdcf-panel"><span class="t"><span class="step">STEP 2</span>เครื่องถอดรหัส</span>
+          <p>หา growth rate ตัวเดียวที่ทำให้มูลค่ากิจการ (DCF 10 ปี + terminal) เท่ากับราคาที่ตลาดตั้งอยู่พอดี</p></div>
+        <div class="rdcf-panel"><span class="t"><span class="step">STEP 3</span>คุณตัดสิน</span>
+          <p>เทียบกับที่ธุรกิจเคยทำได้จริง — ตัวเลขที่ตลาดต้องการ สมเหตุสมผล หรือฝันหวานเกินไป?</p></div>
+      </div>
+
+      <h2><span class="no">01</span>เลือกบริษัท หรือกรอกเอง</h2>
+      <div class="rdcf-chips" role="group" aria-label="เลือกบริษัทตัวอย่าง" id="chips"></div>
+      <p class="rdcf-preset-note" id="presetNote"></p>
+
+      <div class="rdcf-panel">
+        <div class="rdcf-grid2">
+          <div class="rdcf-field"><label for="inPrice">ราคาหุ้น <span class="unit">($/หุ้น)</span></label><input type="text" id="inPrice" inputmode="decimal">
+            <p class="rdcf-hint">Google ชื่อ ticker หรือแอปโบรกเกอร์ — ใช้ราคาล่าสุด</p></div>
+          <div class="rdcf-field"><label for="inShares">จำนวนหุ้น (diluted) <span class="unit">(ล้านหุ้น)</span></label><input type="text" id="inShares" inputmode="decimal">
+            <p class="rdcf-hint">งบกำไรขาดทุน บรรทัด "diluted shares" (หรือหน้าปก 10-K)</p></div>
+          <div class="rdcf-field"><label for="inNetCash">เงินสดสุทธิ <span class="unit">($M · ติดลบ = หนี้สุทธิ)</span></label><input type="text" id="inNetCash" inputmode="decimal">
+            <p class="rdcf-hint">งบดุล: เงินสด + เงินลงทุนระยะสั้น − หนี้ทั้งหมด (total debt)</p></div>
+          <div class="rdcf-field"><label for="inFcf">Free Cash Flow ปีฐาน <span class="unit">($M)</span> <button class="rdcf-swap" id="fcfSwap" hidden></button></label><input type="text" id="inFcf" inputmode="decimal">
+            <p class="rdcf-hint">งบกระแสเงินสด: เงินสดจากการดำเนินงาน (OCF) − CapEx</p></div>
+        </div>
+        <details class="rdcf-where" id="whereBox">
+          <summary>มือใหม่: หาตัวเลข 4 ตัวนี้จากไหน? (ฟรี ใช้เวลา ~5 นาที)</summary>
+          <ol>
+            <li><strong>ทางลัด:</strong> เปิด <a href="https://stockanalysis.com" target="_blank" rel="noopener">stockanalysis.com</a> → พิมพ์ ticker → แท็บ <em>Financials</em> มีครบทั้ง diluted shares, cash, debt และ FCF (คำนวณให้แล้ว) — ฟรี ไม่ต้องสมัคร</li>
+            <li><strong>ทางเต็ม (อ่านจากต้นทาง):</strong> งบจริงอยู่ใน 10-K ที่ <a href="https://www.sec.gov/cgi-bin/browse-edgar?action=getcompany" target="_blank" rel="noopener">SEC EDGAR</a> — จำนวนหุ้นอยู่หน้าปก, เงินสด/หนี้อยู่ในงบดุล, OCF−CapEx อยู่ในงบกระแสเงินสด</li>
+            <li><strong>อ่านงบไม่เป็น?</strong> ซีรีส์ "อ่านงบแบบลงมือทำ" ของเราไล่ให้ดูทีละบรรทัด:
+              <a href="articles/financials-01-income-statement.html">ตอนที่ 1 งบกำไรขาดทุน</a> (จำนวนหุ้น) ·
+              <a href="articles/financials-02-cash-flow-statement.html">ตอนที่ 2 งบกระแสเงินสด</a> (FCF) ·
+              <a href="articles/financials-03-balance-sheet.html">ตอนที่ 3 งบดุล</a> (เงินสด/หนี้)</li>
+          </ol>
+        </details>
+        <div class="rdcf-sliders">
+          <div class="rdcf-srow"><label for="inWacc">Discount rate (WACC)</label><input type="range" id="inWacc" min="6" max="14" step="0.5" value="10"><output id="outWacc">10.0%</output></div>
+          <div class="rdcf-srow"><label for="inTerm">Terminal growth</label><input type="range" id="inTerm" min="0" max="4" step="0.5" value="3"><output id="outTerm">3.0%</output></div>
+          <p class="rdcf-note" style="margin:6px 0 0">ค่าตั้งต้น WACC 10% / terminal 3% / มองไป 10 ปี — ชุดเดียวกับที่ Moatrices ใช้วิเคราะห์จริงทุกตัว</p>
+        </div>
+        <div class="rdcf-evline" id="evLine"></div>
+      </div>
+
+      <h2><span class="no">02</span>สิ่งที่ตลาดกำลังเดิมพัน</h2>
+      <div class="rdcf-hero" id="hero">
+        <p class="lbl">ราคานี้จะคุ้ม ก็ต่อเมื่อ FCF โตปีละ</p>
+        <div class="big" id="heroG">—</div>
+        <p class="sub" id="heroSub"></p>
+      </div>
+      <div class="rdcf-strip" id="strip"></div>
+
+      <div class="rdcf-chart">
+        <h3>เส้นทาง FCF ที่ตลาดสั่งให้เดิน</h3>
+        <p class="sub" id="fcfPathSub"></p>
+        <div id="chartFcf"></div>
+      </div>
+
+      <div class="rdcf-chart">
+        <h3>มูลค่าที่จ่ายวันนี้ มาจากไหน</h3>
+        <p class="sub">แบ่งมูลค่ากิจการ (EV) เป็นเงินสด 10 ปีแรก vs "terminal value" — อนาคตไกลๆ ที่มองไม่เห็น</p>
+        <div class="rdcf-legend"><span><span class="sw" style="background:var(--accent)"></span>PV ของ FCF 10 ปีแรก</span><span><span class="sw" style="background:var(--seg2)"></span>PV ของ terminal value (ปีที่ 11 ถึงตลอดกาล)</span></div>
+        <div id="chartComp"></div>
+        <p class="rdcf-note" id="compNote"></p>
+      </div>
+
+      <h2><span class="no">03</span>เส้นโค้งราคา–ความคาดหวัง</h2>
+      <p>ทุกจุดบนเส้นนี้คือคำตอบของคำถาม "ถ้าโตปีละ g% กิจการควรมีมูลค่าเท่าไหร่"
+      จุดที่เส้นตัดกับมูลค่าจริงบนกระดาน คือความคาดหวังที่ตลาดฝังไว้ในราคา</p>
+      <div class="rdcf-chart">
+        <h3>EV ตามสมมติฐาน growth</h3>
+        <p class="sub">ลากเมาส์บนกราฟเพื่ออ่านค่า · เส้นแนวนอน = มูลค่ากิจการจริงที่ราคาปัจจุบัน</p>
+        <div id="chartCurve"></div>
+      </div>
+      <div class="rdcf-panel">
+        <p style="font-size:.9rem;margin:0 0 4px"><strong>ตารางเดียวกับที่ใช้ใน research จริง</strong> — EV ที่แต่ละ growth rate เทียบมูลค่าจริง</p>
+        <div class="rdcf-tblscroll"><table id="gTable" aria-label="ตาราง EV ตาม growth rate"></table></div>
+      </div>
+
+      <h2><span class="no">04</span>แล้วคุณเชื่อว่าโตได้เท่าไหร่?</h2>
+      <p>เลื่อนไปที่ตัวเลขที่<strong>คุณ</strong>เชื่อ (จากประวัติจริงของธุรกิจ ไม่ใช่จากความหวัง)
+      แล้วดูว่าราคาวันนี้ถูกหรือแพงเมื่อเทียบกับความเชื่อของคุณ</p>
+      <div class="rdcf-panel">
+        <div class="rdcf-srow"><label for="inYourG">ผมเชื่อว่า FCF โตได้ปีละ</label><input type="range" id="inYourG" min="-5" max="35" step="0.5" value="10"><output id="outYourG">10.0%</output></div>
+        <p class="rdcf-fair" id="fairLine"></p>
+        <div class="rdcf-mos">
+          <div class="rdcf-mos-scale">
+            <div class="rdcf-mos-track"></div>
+            <div class="rdcf-mos-fill" id="mosFill"></div>
+            <div class="rdcf-mos-zero" style="left:50%"></div>
+            <span class="rdcf-mos-mark" style="left:15%">−35%</span>
+            <span class="rdcf-mos-mark" style="left:50%">0</span>
+            <span class="rdcf-mos-mark" style="left:65%">+15%</span>
+            <span class="rdcf-mos-mark" style="left:80%">+30%</span>
+          </div>
+          <span class="rdcf-mos-verdict" id="mosVerdict"></span>
+          <p class="rdcf-note" style="margin-top:10px">เกณฑ์ margin of safety: มากกว่า +30% = ถูกอย่างมีนัย · +15 ถึง +30% = ถูกพอสมควร · 0 ถึง +15% = ราคายุติธรรม · ติดลบ = ตลาดคาดหวังสูงกว่าที่คุณเชื่อ</p>
+        </div>
+      </div>
+
+      <h2><span class="no">05</span>ถ้าเปลี่ยนสมมติฐาน คำตอบขยับแค่ไหน</h2>
+      <p>Implied growth ไม่ใช่ตัวเลขศักดิ์สิทธิ์ — มันขึ้นกับ WACC และ terminal growth ที่เลือก
+      ตารางนี้บอกว่าคำตอบแกว่งอยู่ในช่วงไหน (ช่องที่ไฮไลต์ = ค่าที่คุณตั้งอยู่ตอนนี้)</p>
+      <div class="rdcf-panel">
+        <div class="rdcf-tblscroll"><table id="sensTable" aria-label="ตาราง sensitivity ของ implied growth"></table></div>
+      </div>
+
+      <h2><span class="no">06</span>กับดัก 4 ข้อ ก่อนเชื่อตัวเลข</h2>
+      <div class="rdcf-pit"><div class="ico">01</div><p><b class="t">ฐาน FCF สำคัญกว่าสูตร</b> — ถ้า FCF ปีฐานถูกกดชั่วคราว (เช่นลงทุนหนัก) implied growth จะดูสูงเวอร์
+      ลองกดตัวอย่าง TSM แล้วสลับฐานระหว่าง GAAP FCF กับ owner earnings ดู — คำตอบเปลี่ยนคนละโลก</p></div>
+      <div class="rdcf-pit"><div class="ico">02</div><p><b class="t">Terminal value คือกล่องดำ</b> — ถ้ามูลค่าส่วนใหญ่มาจาก "ปีที่ 11 เป็นต้นไป"
+      แปลว่ากำลังจ่ายเงินให้อนาคตที่ไกลเกินสายตา ยิ่งสัดส่วนนี้สูง ยิ่งต้องมั่นใจใน moat ระยะยาว</p></div>
+      <div class="rdcf-pit"><div class="ico">03</div><p><b class="t">กฎของตัวเลขใหญ่</b> — บริษัทที่ FCF ระดับแสนล้านดอลลาร์ โตปีละ 18% สิบปีติด แปลว่า FCF ต้องใหญ่กว่า GDP บางประเทศ
+      ยิ่งฐานใหญ่ ยิ่งต้องสงสัยตัวเลขโตสูงๆ</p></div>
+      <div class="rdcf-pit"><div class="ico">04</div><p><b class="t">FCF ติดลบ = เครื่องนี้ใช้ไม่ได้</b> — reverse DCF ไม่มีความหมายกับบริษัทที่ยังเผาเงิน
+      ต้องไปใช้ EV/Revenue เทียบ peers แทน (เครื่องจะเตือนเองถ้าใส่ค่าติดลบ)</p></div>
+
+      <blockquote id="srcNote"><strong>ที่มาตัวเลขตัวอย่าง:</strong> งบจริงจาก 10-K/10-Q/earnings call ของแต่ละบริษัท ราคา ณ วันที่ระบุในแต่ละตัวอย่าง (ไม่ใช่ราคาปัจจุบัน — ใส่ราคาล่าสุดเองได้เลย)
+      เครื่องมือนี้เพื่อการศึกษาเท่านั้น <strong>ไม่ใช่คำแนะนำการลงทุน</strong></blockquote>
+
+    </div>
+    <div id="rdcf-tip" role="status"></div>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container footer-grid">
+      <div class="footer-brand">
+        <a href="index.html" class="site-title">Moatrices</a>
+        <p>บันทึกการเรียนวิเคราะห์หุ้น US เชิงลึก ภาษาไทย — เน้นพื้นฐานธุรกิจ ไม่ใช่ราคา</p>
+      </div>
+      <nav class="footer-nav">
+        <a href="index.html">หน้าแรก</a>
+        <a href="dashboard.html">Dashboard</a>
+        <a href="about.html">เกี่ยวกับ</a>
+      </nav>
+      <div class="footer-follow">
+        <span class="footer-follow-label">ติดตาม</span>
+        <div class="footer-social">
+          <a href="/feed.xml" class="social-btn" aria-label="RSS feed" title="RSS feed"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 11a9 9 0 0 1 9 9"/><path d="M4 4a16 16 0 0 1 16 16"/><circle cx="5" cy="19" r="1"/></svg></a>
+          <a href="mailto:beatp9696@gmail.com" class="social-btn" aria-label="อีเมล" title="อีเมล"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="m3 7 9 6 9-6"/></svg></a>
+        </div>
+      </div>
+    </div>
+    <div class="container footer-legal">
+      <p><strong>คำเตือน:</strong> เนื้อหาทั้งหมดเป็นบันทึกการเรียนและความเห็นส่วนตัว
+         เพื่อการศึกษาเท่านั้น <strong>ไม่ใช่คำแนะนำการลงทุน</strong>
+         ไม่ใช่การชี้นำให้ซื้อหรือขายหลักทรัพย์ใดๆ การตัดสินใจลงทุนเป็นความรับผิดชอบของผู้อ่านเอง</p>
+      <p>© 2026 Moatrices · เผยแพร่ผ่าน GitHub Pages</p>
+    </div>
+  </footer>
+
+  <button class="to-top" aria-label="กลับขึ้นด้านบน">↑</button>
+
+  <script>
+  (function(){
+  "use strict";
+  /* ===== helpers ===== */
+  const $=id=>document.getElementById(id);
+  const fmtP=(x,d=1)=>(x*100).toFixed(d)+"%";
+  function fmtMoney(m){
+    const a=Math.abs(m);
+    if(a>=1e6) return "$"+(m/1e6).toFixed(2)+"T";
+    if(a>=1e3) return "$"+(m/1e3).toFixed(a>=1e5?0:1)+"B";
+    return "$"+m.toFixed(0)+"M";
+  }
+  const fmtNum=x=>x.toLocaleString("en-US",{maximumFractionDigits:2});
+  function parseNum(s){const v=parseFloat(String(s).replace(/,/g,""));return isFinite(v)?v:NaN}
+
+  /* ===== DCF math (สูตรเดียวกับ pipeline วิเคราะห์จริง: 2-stage, 10 ปี) ===== */
+  function evAt(fcf0,g,w,gt,N=10){
+    let pv=0,f=fcf0;
+    for(let t=1;t<=N;t++){f*=(1+g);pv+=f/Math.pow(1+w,t);}
+    return pv + f*(1+gt)/((w-gt)*Math.pow(1+w,N));
+  }
+  function pvSplit(fcf0,g,w,gt,N=10){
+    let pv=0,f=fcf0;
+    for(let t=1;t<=N;t++){f*=(1+g);pv+=f/Math.pow(1+w,t);}
+    const term=f*(1+gt)/((w-gt)*Math.pow(1+w,N));
+    return {ten:pv,term:term};
+  }
+  function impliedG(targetEV,fcf0,w,gt){
+    let lo=-0.9,hi=3.0;
+    if(fcf0<=0||targetEV<=0||w<=gt) return null;
+    if(evAt(fcf0,lo,w,gt)>targetEV) return {v:lo,clip:"lo"};
+    if(evAt(fcf0,hi,w,gt)<targetEV) return {v:hi,clip:"hi"};
+    for(let i=0;i<80;i++){const m=(lo+hi)/2;(evAt(fcf0,m,w,gt)<targetEV)?lo=m:hi=m;}
+    return {v:(lo+hi)/2,clip:null};
+  }
+
+  /* ===== presets (ตัวเลข cited จากงบจริง — ดูบทความ deep-dive แต่ละตัว) ===== */
+  const PRESETS=[
+   {k:"SNPS",n:"Synopsys",price:464.85,shares:191.4,netCash:-7552,fcf:2000,
+    date:"7 มิ.ย. 2026",src:"FCF = FY2026E จาก guidance (OCF ~$2.3B − capex ~$0.3B) · net debt หลังดีล Ansys $7.55B",alt:null},
+   {k:"TSM",n:"TSMC (ต่อ ADS)",price:426.80,shares:5186.5,netCash:65000,fcf:32000,
+    date:"9 มิ.ย. 2026",src:"FCF FY2025 GAAP $32B — โดน capex super-cycle (33% ของรายได้) กดให้ต่ำผิดปกติ",
+    alt:{label:"สลับเป็น owner earnings ~$59.8B",fcf:59800,back:"สลับกลับเป็น GAAP FCF $32B"}},
+   {k:"AAPL",n:"Apple",price:311.40,shares:15000,netCash:33100,fcf:98770,
+    date:"25 พ.ค. 2026",src:"FCF FY2025 $98.8B · net cash $33.1B",alt:null},
+   {k:"NFLX",n:"Netflix",price:88,shares:4298,netCash:-2100,fcf:9461,
+    date:"13 พ.ค. 2026",src:"FCF FY2025 $9.46B · ราคาหลัง split 10:1 · net debt ต่ำชั่วคราวเพราะรับ WBD termination fee $2.8B",alt:null},
+   {k:"CUSTOM",n:"กรอกเอง",price:100,shares:1000,netCash:0,fcf:1000,date:"",src:"ใส่ตัวเลขของบริษัทที่คุณสนใจ — หาได้จาก 10-K (cash flow statement + balance sheet)",alt:null},
+  ];
+  let cur=PRESETS[0], altOn=false, yourGtouched=false;
+
+  /* ===== tooltip ===== */
+  const tip=$("rdcf-tip");
+  function showTip(html,x,y){tip.innerHTML=html;tip.style.opacity=1;
+    const r=tip.getBoundingClientRect();
+    let L=x+14,T=y-r.height-10;
+    if(L+r.width>innerWidth-8)L=x-r.width-14;
+    if(T<8)T=y+16;
+    tip.style.left=L+"px";tip.style.top=T+"px";}
+  function hideTip(){tip.style.opacity=0}
+
+  /* ===== chips ===== */
+  const chipsEl=$("chips");
+  PRESETS.forEach((p,i)=>{
+    const b=document.createElement("button");
+    b.className="rdcf-chip";b.type="button";b.textContent=p.k==="CUSTOM"?p.n:p.k+" · "+p.n;
+    b.setAttribute("aria-pressed",i===0?"true":"false");
+    b.addEventListener("click",()=>{selectPreset(p);});
+    chipsEl.appendChild(b);
+  });
+  function selectPreset(p){
+    cur=p;altOn=false;yourGtouched=false;
+    [...chipsEl.children].forEach((c,i)=>c.setAttribute("aria-pressed",PRESETS[i]===p?"true":"false"));
+    $("inPrice").value=fmtNum(p.price);
+    $("inShares").value=fmtNum(p.shares);
+    $("inNetCash").value=fmtNum(p.netCash);
+    $("inFcf").value=fmtNum(p.fcf);
+    $("presetNote").textContent=p.date?("ตัวเลข ณ "+p.date+" — "+p.src):p.src;
+    const sw=$("fcfSwap");
+    if(p.alt){sw.hidden=false;sw.textContent=p.alt.label;}else{sw.hidden=true;}
+    if(p.k==="CUSTOM")$("whereBox").open=true;
+    recalc();
+  }
+  $("fcfSwap").addEventListener("click",()=>{
+    if(!cur.alt)return;
+    altOn=!altOn;
+    $("inFcf").value=fmtNum(altOn?cur.alt.fcf:cur.fcf);
+    $("fcfSwap").textContent=altOn?cur.alt.back:cur.alt.label;
+    recalc();
+  });
+
+  /* ===== inputs ===== */
+  ["inPrice","inShares","inNetCash","inFcf"].forEach(id=>$(id).addEventListener("input",recalc));
+  $("inWacc").addEventListener("input",()=>{clampTerm();recalc();});
+  $("inTerm").addEventListener("input",()=>{clampTerm();recalc();});
+  $("inYourG").addEventListener("input",()=>{yourGtouched=true;recalc();});
+  function clampTerm(){
+    const w=parseFloat($("inWacc").value),tEl=$("inTerm");
+    if(parseFloat(tEl.value)>w-2)tEl.value=w-2;
+  }
+
+  /* ===== main recalc ===== */
+  function recalc(){
+    const price=parseNum($("inPrice").value),shares=parseNum($("inShares").value),
+          netCash=parseNum($("inNetCash").value),fcf0=parseNum($("inFcf").value),
+          w=parseFloat($("inWacc").value)/100, gt=parseFloat($("inTerm").value)/100;
+    $("outWacc").textContent=(w*100).toFixed(1)+"%";
+    $("outTerm").textContent=(gt*100).toFixed(1)+"%";
+    if(!(price>0&&shares>0&&isFinite(netCash)&&isFinite(fcf0))){return;}
+    const mc=price*shares, ev=mc-netCash;
+    $("evLine").innerHTML="Market cap <b>"+fmtMoney(mc)+"</b> − เงินสดสุทธิ <b>"+fmtMoney(netCash)+"</b> = มูลค่ากิจการ (EV) <b>"+fmtMoney(ev)+"</b>"
+      +" · FCF yield <b>"+fmtP(fcf0/mc,1)+"</b>";
+
+    const heroG=$("heroG"),heroSub=$("heroSub");
+    if(fcf0<=0){
+      heroG.textContent="N/A — FCF ฐานติดลบ";heroG.className="big na";
+      heroSub.textContent="reverse DCF ใช้ไม่ได้กับบริษัทที่ยังเผาเงิน — ใช้ EV/Revenue เทียบ peers แทน";
+      ["strip","chartFcf","chartComp","chartCurve"].forEach(id=>$(id).innerHTML="");
+      $("gTable").innerHTML="";$("sensTable").innerHTML="";$("fairLine").textContent="";$("mosVerdict").textContent="";
+      return;
+    }
+    const res=impliedG(ev,fcf0,w,gt);
+    if(!res){return;}
+    const g=res.v;
+    heroG.className="big";
+    heroG.textContent=res.clip==="hi"?">300%":res.clip==="lo"?"<−90%":fmtP(g,1);
+    const f10=fcf0*Math.pow(1+g,10);
+    heroSub.innerHTML=res.clip?"ตัวเลขหลุดสเกล — เช็คว่า FCF ฐานผิดปกติหรือเปล่า (กับดักข้อ 01)":
+      "ทุกปี ติดกัน 10 ปี → FCF ปีที่ 10 ต้องเป็น <strong>"+fmtMoney(f10)+"</strong> ("+(f10/fcf0).toFixed(1)+" เท่าของวันนี้)";
+
+    const sp=pvSplit(fcf0,g,w,gt), termShare=sp.term/ev;
+    $("strip").innerHTML=
+      tile("FCF ปีฐาน",fmtMoney(fcf0),cur.k==="CUSTOM"?"":"ฐานที่ใช้ถอดรหัส")+
+      tile("FCF ที่ต้องทำได้ปีที่ 10",fmtMoney(f10),"×"+(f10/fcf0).toFixed(1)+" ของวันนี้")+
+      tile("สัดส่วน terminal value",fmtP(termShare,0),"ของ EV มาจากหลังปีที่ 10");
+    $("compNote").textContent=termShare>0.75?
+      "⚠ มูลค่า "+fmtP(termShare,0)+" อยู่หลังปีที่ 10 — ราคานี้จ่ายให้อนาคตที่ไกลเกินตามอง ต้องมั่นใจใน moat ระยะยาวมาก":
+      "สัดส่วน terminal "+fmtP(termShare,0)+" — ยิ่งต่ำ ยิ่งพึ่งพาการเดาอนาคตไกลๆ น้อย";
+
+    drawFcfPath(fcf0,g,w);
+    drawComp(sp);
+    drawCurve(fcf0,w,gt,ev,g,res.clip);
+    buildGTable(fcf0,w,gt,ev,g,res.clip);
+    buildSens(ev,fcf0,w,gt);
+
+    const yg=$("inYourG");
+    if(!yourGtouched&&!res.clip){yg.value=Math.round(g*200)/2;}
+    const ygv=parseFloat(yg.value)/100;
+    $("outYourG").textContent=(ygv*100).toFixed(1)+"%";
+    const fairEV=evAt(fcf0,ygv,w,gt), fairPS=(fairEV+netCash)/shares, mos=1-price/fairPS;
+    $("fairLine").innerHTML="ถ้าโต "+fmtP(ygv,1)+" มูลค่าที่เหมาะสม ≈ <b>$"+fairPS.toFixed(2)+"/หุ้น</b> เทียบราคา <b>$"+price.toFixed(2)+"</b> → margin of safety <b>"+(mos<0?"−":"+")+fmtP(Math.abs(mos),1)+"</b>";
+    drawMos(mos);
+  }
+  function tile(l,v,c){return '<div class="rdcf-tile"><p class="lbl">'+l+'</p><div class="val">'+v+'</div><p class="cap">'+c+'</p></div>'}
+
+  /* ===== chart A: FCF path ===== */
+  function drawFcfPath(fcf0,g,w){
+    const W=700,H=240,pl=56,pr=16,pt=16,pb=30,pw=W-pl-pr,ph=H-pt-pb;
+    const vals=[];for(let t=0;t<=10;t++)vals.push(fcf0*Math.pow(1+g,t));
+    const max=Math.max(...vals)*1.12;
+    const ticks=niceTicks(0,max,4);
+    let s='<svg viewBox="0 0 '+W+' '+H+'" role="img" aria-label="กราฟแท่ง FCF ปีที่ 0 ถึง 10 ที่ implied growth">';
+    ticks.forEach(v=>{const y=pt+ph-(v/max)*ph;
+      s+='<line class="gridline" x1="'+pl+'" y1="'+y+'" x2="'+(W-pr)+'" y2="'+y+'"/><text x="'+(pl-8)+'" y="'+(y+4)+'" text-anchor="end">'+shortMoney(v)+'</text>';});
+    const band=pw/11,bw=Math.min(24,band*0.55);
+    vals.forEach((v,t)=>{
+      const x=pl+band*t+(band-bw)/2, h=Math.max(2,(v/max)*ph), y=pt+ph-h;
+      const pv=t===0?v:v/Math.pow(1+w,t);
+      s+='<path class="bar'+(t===0?' base':'')+'" tabindex="0" data-t="'+t+'" data-v="'+v+'" data-pv="'+pv+'" d="'+roundTopBar(x,y,bw,h)+'"/>';
+      if(t%2===0)s+='<text x="'+(x+bw/2)+'" y="'+(H-10)+'" text-anchor="middle">'+(t===0?"วันนี้":"ปี "+t)+'</text>';
+      if(t===0||t===10)s+='<text class="dl" x="'+(x+bw/2)+'" y="'+(y-7)+'" text-anchor="middle">'+shortMoney(v)+'</text>';
+    });
+    s+='<line class="axisline" x1="'+pl+'" y1="'+(pt+ph)+'" x2="'+(W-pr)+'" y2="'+(pt+ph)+'"/></svg>';
+    $("chartFcf").innerHTML=s;
+    $("fcfPathSub").textContent="แท่งเทา = FCF วันนี้ · แท่งเขียว = ที่ตลาดต้องการในแต่ละปี (โต "+fmtP(g,1)+"/ปี)";
+    $("chartFcf").querySelectorAll(".bar").forEach(b=>{
+      const f=e=>{const t=+b.dataset.t;
+        showTip((t===0?"<span class='k'>ปีฐาน (วันนี้)</span>":"<span class='k'>ปีที่ "+t+"</span>")+"<br><span class='key'></span>FCF <b>"+fmtMoney(+b.dataset.v)+"</b>"+(t>0?"<br><span class='k'>คิดลดกลับมาวันนี้</span> <b>"+fmtMoney(+b.dataset.pv)+"</b>":""),
+          e.clientX||b.getBoundingClientRect().x, e.clientY||b.getBoundingClientRect().y);};
+      b.addEventListener("pointermove",f);b.addEventListener("focus",f);
+      b.addEventListener("pointerleave",hideTip);b.addEventListener("blur",hideTip);
+    });
+  }
+  function roundTopBar(x,y,w,h){const r=Math.min(4,w/2,h);
+    return "M"+x+" "+(y+h)+" v"+(-(h-r))+" a"+r+" "+r+" 0 0 1 "+r+" "+(-r)+" h"+(w-2*r)+" a"+r+" "+r+" 0 0 1 "+r+" "+r+" v"+(h-r)+" z";}
+  function shortMoney(m){const a=Math.abs(m);
+    if(a>=1e6)return "$"+(m/1e6).toFixed(1)+"T";
+    if(a>=1e3)return "$"+(m/1e3).toFixed(a>=1e4?0:1)+"B";
+    return "$"+Math.round(m)+"M";}
+  function niceTicks(min,max,n){
+    const span=max-min,step0=span/n,mag=Math.pow(10,Math.floor(Math.log10(step0)));
+    const step=[1,2,2.5,5,10].map(k=>k*mag).find(s=>span/s<=n)||10*mag;
+    const out=[];for(let v=Math.ceil(min/step)*step;v<=max;v+=step)out.push(v);return out;}
+
+  /* ===== chart C: EV composition (2 segments เขียวเข้ม/อ่อน + ช่องว่าง 2px) ===== */
+  function drawComp(sp){
+    const W=700,H=64,total=sp.ten+sp.term;
+    const wA=(sp.ten/total)*(W-2), wB=(sp.term/total)*(W-2);
+    const pctA=Math.round(sp.ten/total*100), pctB=100-pctA;
+    let s='<svg viewBox="0 0 '+W+' '+H+'" role="img" aria-label="สัดส่วน EV: 10 ปีแรก '+pctA+'% terminal '+pctB+'%">';
+    s+='<rect class="seg-a" tabindex="0" data-k="PV ของ FCF 10 ปีแรก" data-v="'+sp.ten+'" x="0" y="14" width="'+wA+'" height="26" rx="6"/>';
+    s+='<rect class="seg-b" tabindex="0" data-k="PV ของ terminal value" data-v="'+sp.term+'" x="'+(wA+2)+'" y="14" width="'+wB+'" height="26" rx="6"/>';
+    const tA=pctA+"%",tB=pctB+"%";
+    if(wA>52)s+='<text class="dl" x="'+(wA/2)+'" y="31" text-anchor="middle" style="fill:var(--ink-a)">'+tA+'</text>';
+    else s+='<text class="dl" x="'+(wA/2)+'" y="56" text-anchor="middle">'+tA+'</text>';
+    if(wB>52)s+='<text class="dl" x="'+(wA+2+wB/2)+'" y="31" text-anchor="middle" style="fill:var(--ink-b)">'+tB+'</text>';
+    else s+='<text class="dl" x="'+Math.min(W-16,wA+2+wB/2)+'" y="56" text-anchor="middle">'+tB+'</text>';
+    s+='</svg>';
+    $("chartComp").innerHTML=s;
+    $("chartComp").querySelectorAll("rect").forEach(r=>{
+      const f=e=>showTip("<span class='k'>"+r.dataset.k+"</span><br><b>"+fmtMoney(+r.dataset.v)+"</b>",e.clientX,e.clientY);
+      r.addEventListener("pointermove",f);r.addEventListener("focus",e=>{const b=r.getBoundingClientRect();showTip("<span class='k'>"+r.dataset.k+"</span><br><b>"+fmtMoney(+r.dataset.v)+"</b>",b.x+b.width/2,b.y);});
+      r.addEventListener("pointerleave",hideTip);r.addEventListener("blur",hideTip);
+    });
+  }
+
+  /* ===== chart B: EV vs g curve ===== */
+  function drawCurve(fcf0,w,gt,ev,gImp,clip){
+    const W=700,H=280,pl=64,pr=16,pt=14,pb=34,pw=W-pl-pr,ph=H-pt-pb;
+    const gMin=-0.05, gMax=Math.max(0.30,(clip?0.32:Math.ceil((gImp+0.03)*20)/20));
+    const pts=[];for(let g=gMin;g<=gMax+1e-9;g+=0.0025)pts.push([g,evAt(fcf0,g,w,gt)]);
+    const yMax=Math.max(ev*1.35,evAt(fcf0,Math.min(gMax,(clip?0.30:gImp+0.02)),w,gt));
+    const X=g=>pl+(g-gMin)/(gMax-gMin)*pw, Y=v=>pt+ph-Math.min(1,v/yMax)*ph;
+    let s='<svg viewBox="0 0 '+W+' '+H+'" role="img" aria-label="เส้นโค้ง EV ตาม growth และจุด implied">';
+    niceTicks(0,yMax,4).forEach(v=>{const y=Y(v);
+      s+='<line class="gridline" x1="'+pl+'" y1="'+y+'" x2="'+(W-pr)+'" y2="'+y+'"/><text x="'+(pl-8)+'" y="'+(y+4)+'" text-anchor="end">'+shortMoney(v)+'</text>';});
+    for(let g=0;g<=gMax+1e-9;g+=0.05){const x=X(g);
+      s+='<text x="'+x+'" y="'+(H-12)+'" text-anchor="middle">'+Math.round(g*100)+'%</text>';}
+    s+='<line class="axisline" x1="'+pl+'" y1="'+(pt+ph)+'" x2="'+(W-pr)+'" y2="'+(pt+ph)+'"/>';
+    const yEV=Y(ev);
+    s+='<line class="refline" x1="'+pl+'" y1="'+yEV+'" x2="'+(W-pr)+'" y2="'+yEV+'"/>';
+    s+='<text class="dl" x="'+(W-pr)+'" y="'+(yEV-6)+'" text-anchor="end">EV จริง '+shortMoney(ev)+'</text>';
+    let d="";pts.forEach(p=>{if(p[1]<=yMax*1.02)d+=(d?"L":"M")+X(p[0]).toFixed(1)+" "+Y(p[1]).toFixed(1)+" ";});
+    s+='<path class="curve" d="'+d+'"/>';
+    if(!clip){
+      s+='<circle class="marker" cx="'+X(gImp)+'" cy="'+Y(ev)+'" r="5"/>';
+      const lx=Math.min(X(gImp),W-pr-110);
+      s+='<text class="dl" x="'+lx+'" y="'+(Y(ev)+22)+'" text-anchor="start">implied '+fmtP(gImp,1)+'</text>';
+    }
+    s+='<line class="crosshair" x1="0" y1="'+pt+'" x2="0" y2="'+(pt+ph)+'"/>';
+    s+='<rect class="hit" x="'+pl+'" y="'+pt+'" width="'+pw+'" height="'+ph+'"/></svg>';
+    $("chartCurve").innerHTML=s;
+    const svg=$("chartCurve").querySelector("svg"),hit=svg.querySelector(".hit"),xh=svg.querySelector(".crosshair");
+    hit.addEventListener("pointermove",e=>{
+      const r=svg.getBoundingClientRect(),sx=W/r.width;
+      const g=gMin+((e.clientX-r.left)*sx-pl)/pw*(gMax-gMin);
+      const gc=Math.max(gMin,Math.min(gMax,g)), x=X(gc);
+      xh.setAttribute("x1",x);xh.setAttribute("x2",x);xh.style.opacity=1;
+      showTip("<span class='k'>ถ้าโตปีละ</span> <b>"+fmtP(gc,1)+"</b><br><span class='key'></span>EV ควรเป็น <b>"+fmtMoney(evAt(fcf0,gc,w,gt))+"</b>",e.clientX,e.clientY);
+    });
+    hit.addEventListener("pointerleave",()=>{xh.style.opacity=0;hideTip();});
+  }
+
+  /* ===== g table (แบบเดียวกับ pipeline) ===== */
+  function buildGTable(fcf0,w,gt,ev,gImp,clip){
+    const rows=[0,.05,.10,.15,.20,.25,.30];
+    let h="<thead><tr><th>Growth (g)</th><th>EV ถ้าโตเท่านี้</th><th>เทียบ EV จริง "+fmtMoney(ev)+"</th></tr></thead><tbody>";
+    rows.forEach(g=>{
+      const v=evAt(fcf0,g,w,gt), diff=v/ev-1;
+      h+="<tr><td>"+Math.round(g*100)+"%</td><td>"+fmtMoney(v)+"</td><td>"+(diff>=0?"+":"")+fmtP(diff,0)+"</td></tr>";
+    });
+    if(!clip)h+='<tr class="hl"><td>'+fmtP(gImp,1)+' (implied)</td><td>'+fmtMoney(evAt(fcf0,gImp,w,gt))+'</td><td>= ราคาตลาดพอดี</td></tr>';
+    h+="</tbody>";
+    $("gTable").innerHTML=h;
+  }
+
+  /* ===== sensitivity ===== */
+  function buildSens(ev,fcf0,wCur,gtCur){
+    const ws=[.08,.09,.10,.11,.12],gts=[.02,.025,.03,.035];
+    let h="<thead><tr><th>WACC \\ Terminal</th>"+gts.map(g=>"<th>"+(g*100).toFixed(1)+"%</th>").join("")+"</tr></thead><tbody>";
+    ws.forEach(w=>{
+      h+="<tr><td>"+(w*100).toFixed(0)+"%</td>";
+      gts.forEach(gt=>{
+        const r=impliedG(ev,fcf0,w,gt);
+        const txt=(!r||r.clip)?"—":fmtP(r.v,1);
+        const on=Math.abs(w-wCur)<1e-9&&Math.abs(gt-gtCur)<1e-9;
+        h+="<td"+(on?' style="background:var(--accent-tint);font-weight:700"':"")+">"+txt+"</td>";
+      });
+      h+="</tr>";
+    });
+    h+="</tbody>";
+    $("sensTable").innerHTML=h;
+  }
+
+  /* ===== MoS diverging meter ===== */
+  function drawMos(mos){
+    const el=$("mosFill"),v=$("mosVerdict");
+    const clamp=Math.max(-0.5,Math.min(0.5,mos));  /* สเกล −50%..+50% → 0..100% ของ track */
+    const mid=50, pos=50+clamp*100;
+    if(mos>=0){el.classList.remove("neg");el.style.left=mid+"%";el.style.width=(pos-mid)+"%";}
+    else{el.classList.add("neg");el.style.left=pos+"%";el.style.width=(mid-pos)+"%";}
+    const sgn=(mos<0?"−":"+")+fmtP(Math.abs(mos),0);
+    let t,neg=false;
+    if(Math.abs(mos)<0.005)t="≈ ราคายุติธรรมพอดี — คุณเชื่อเท่ากับตลาด";
+    else if(mos>0.30)t="✓ ถูกอย่างมีนัยสำคัญ (MoS "+sgn+")";
+    else if(mos>0.15)t="✓ ถูกพอสมควร (MoS "+sgn+")";
+    else if(mos>=0)t="≈ ราคายุติธรรม (MoS "+sgn+")";
+    else{t="✗ ตลาดคาดหวังสูงกว่าที่คุณเชื่อ (MoS "+sgn+")";neg=true;}
+    v.textContent=t;v.className="rdcf-mos-verdict"+(neg?" neg":"");
+  }
+
+  /* init */
+  selectPreset(PRESETS[0]);
+  })();
+  </script>
+  <script defer src="app.js"></script>
+
+</body>
+</html>
