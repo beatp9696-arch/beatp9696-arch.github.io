@@ -152,36 +152,8 @@
     }
   }
 
-  // ---- เมนู "บทความ" + "หุ้น" + ลิงก์ footer (inject จะได้ไม่ต้องแก้ header/footer ทุกหน้า) ----
-  var navMain = document.querySelector(".site-nav");
-  if (navMain) {
-    var articlesLink = document.createElement("a");
-    articlesLink.href = BASE + "articles.html";
-    articlesLink.textContent = "บทความ";
-    var stocksLink = document.createElement("a");
-    stocksLink.href = BASE + "stocks.html";
-    stocksLink.textContent = "หุ้น";
-    var navAs = navMain.querySelectorAll("a");
-    if (navAs.length > 1) {
-      navMain.insertBefore(articlesLink, navAs[1]);
-      navMain.insertBefore(stocksLink, navAs[1]);
-    } else {
-      navMain.appendChild(articlesLink);
-      navMain.appendChild(stocksLink);
-    }
-  }
-  var footerNav = document.querySelector(".footer-nav");
-  if (footerNav) {
-    var footArticles = document.createElement("a");
-    footArticles.href = BASE + "articles.html";
-    footArticles.textContent = "บทความทั้งหมด";
-    footerNav.appendChild(footArticles);
-    var footStocks = document.createElement("a");
-    footStocks.href = BASE + "stocks.html";
-    footStocks.textContent = "หุ้นทั้งหมด";
-    footerNav.appendChild(footStocks);
-    // RSS อยู่เป็นไอคอนใน .footer-follow แล้ว (เลี่ยงลิงก์ RSS ซ้ำในฟุตเตอร์)
-  }
+  // เมนู "บทความ" + "หุ้น" เป็นลิงก์ static ใน header/footer ทุกหน้าแล้ว (10 ก.ค. 2026)
+  // — เลิก inject ด้วย JS ที่นี่ เพราะจะซ้ำ 2 ชุด
 
   // ---- ไฮไลต์เมนูของหน้าปัจจุบัน ----
   var here = location.pathname.split("/").pop() || "index.html";
