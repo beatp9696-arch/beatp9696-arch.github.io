@@ -719,6 +719,161 @@ def validate(posts, articles):
     return 0
 
 
+# ─── related articles: ฝัง "อ่านต่อ" ท้าย deep-dive ระหว่าง marker <!-- RELATED-START/END --> ───
+# แก้รายการที่นี่แล้วรัน build ใหม่ — block เดิมถูก strip แล้ว re-inject (idempotent เหมือน TOC)
+# href relative จาก articles/ (บทความ = ชื่อไฟล์ตรง, หน้า root = ../xxx.html)
+RELATED = {
+    "deep-dive-nvda.html": [
+        ("deep-dive-tsm.html", "ผ่าธุรกิจ TSM — โรงหล่อที่ผลิตชิปให้ NVIDIA"),
+        ("deep-dive-avgo.html", "ผ่าธุรกิจ AVGO — custom XPU ที่ hyperscaler ใช้ลดการพึ่ง GPU"),
+        ("deep-dive-ai-bubble.html", "AI = ฟองสบู่ dot-com รอบใหม่?"),
+    ],
+    "deep-dive-tsm.html": [
+        ("deep-dive-nvda.html", "ผ่าธุรกิจ NVDA — ลูกค้าคนสำคัญที่สุดของโรงหล่อ"),
+        ("deep-dive-asml.html", "ผ่าธุรกิจ ASML — เครื่อง EUV ที่ TSMC ขาดไม่ได้"),
+        ("deep-dive-mu.html", "ผ่าธุรกิจ MU — ความจำของยุค AI ในวัฏจักรที่โหดที่สุด"),
+    ],
+    "deep-dive-asml.html": [
+        ("deep-dive-tsm.html", "ผ่าธุรกิจ TSM — ลูกค้าเบอร์หนึ่งของเครื่อง EUV"),
+        ("deep-dive-snps.html", "ผ่าธุรกิจ SNPS — ซอฟต์แวร์ที่ออกแบบชิปก่อนถึงเครื่องพิมพ์"),
+        ("deep-dive-nvda.html", "ผ่าธุรกิจ NVDA — ปลายทางของชิปที่ EUV พิมพ์"),
+    ],
+    "deep-dive-snps.html": [
+        ("deep-dive-asml.html", "ผ่าธุรกิจ ASML — ผูกขาดอีกชั้นของห่วงโซ่ชิป"),
+        ("deep-dive-tsm.html", "ผ่าธุรกิจ TSM — โรงหล่อที่รับไม้ต่อจาก EDA"),
+        ("deep-dive-nvda.html", "ผ่าธุรกิจ NVDA — ลูกค้า EDA และผู้ถือหุ้นใหม่ของ SNPS"),
+    ],
+    "deep-dive-mu.html": [
+        ("deep-dive-tsm.html", "ผ่าธุรกิจ TSM — โรงหล่อ logic คู่ขนานกับโลก memory"),
+        ("deep-dive-nvda.html", "ผ่าธุรกิจ NVDA — คนซื้อ HBM รายใหญ่ที่สุด"),
+        ("deep-dive-ai-oil-shock.html", "Oil Shock 1970s — บทซ้อมใหญ่ของ commodity cycle"),
+    ],
+    "deep-dive-mrvl.html": [
+        ("deep-dive-avgo.html", "ผ่าธุรกิจ AVGO — คู่แข่งตรงในสนาม custom XPU"),
+        ("deep-dive-cohr.html", "ผ่าธุรกิจ COHR — ฝั่ง optics ของ data center เดียวกัน"),
+        ("deep-dive-nvda.html", "ผ่าธุรกิจ NVDA — เจ้าตลาดที่ custom chip ท้าชิง"),
+    ],
+    "deep-dive-cohr.html": [
+        ("deep-dive-mrvl.html", "ผ่าธุรกิจ MRVL — optical DSP ที่อยู่ปลายสายแสงเดียวกัน"),
+        ("deep-dive-nvda.html", "ผ่าธุรกิจ NVDA — ต้นทางดีมานด์ของ optics ทั้งหมด"),
+        ("deep-dive-tsm.html", "ผ่าธุรกิจ TSM — โรงหล่อของโลก AI"),
+    ],
+    "deep-dive-avgo.html": [
+        ("deep-dive-nvda.html", "ผ่าธุรกิจ NVDA — เจ้าตลาดที่ XPU ตั้งใจแทน"),
+        ("deep-dive-mrvl.html", "ผ่าธุรกิจ MRVL — อีกค่าย custom chip"),
+        ("deep-dive-msft.html", "ผ่าธุรกิจ MSFT — ลูกค้า VMware ที่โดนขึ้นราคา"),
+    ],
+    "deep-dive-msft.html": [
+        ("deep-dive-googl.html", "ผ่าธุรกิจ GOOGL — คู่ชกตรงในสนาม cloud + AI"),
+        ("deep-dive-aapl.html", "ผ่าธุรกิจ AAPL — อีกหนึ่ง ecosystem lock-in"),
+        ("deep-dive-avgo.html", "ผ่าธุรกิจ AVGO — คนคิดค่าเช่า VMware กับ Azure"),
+    ],
+    "deep-dive-googl.html": [
+        ("deep-dive-msft.html", "ผ่าธุรกิจ MSFT — คู่ชกตรงในสนาม cloud + AI"),
+        ("deep-dive-aapl.html", "ผ่าธุรกิจ AAPL — เจ้าของประตูที่ Google จ่ายค่าผ่าน"),
+        ("deep-dive-nflx.html", "ผ่าธุรกิจ NFLX — สนามชิงเวลาหน้าจอเดียวกัน"),
+    ],
+    "deep-dive-nflx.html": [
+        ("deep-dive-googl.html", "ผ่าธุรกิจ GOOGL — YouTube คู่แข่งชิงเวลาหน้าจอ"),
+        ("deep-dive-cost.html", "ผ่าธุรกิจ COST — โมเดลสมาชิกอีกแบบที่ churn ต่ำกว่า"),
+        ("deep-dive-meli.html", "ผ่าธุรกิจ MELI — โตแรงคนละทวีป"),
+    ],
+    "deep-dive-aapl.html": [
+        ("deep-dive-googl.html", "ผ่าธุรกิจ GOOGL — คนจ่ายค่าประตูให้ Apple ปีละหลายหมื่นล้าน"),
+        ("deep-dive-msft.html", "ผ่าธุรกิจ MSFT — ecosystem lock-in ฝั่งองค์กร"),
+        ("deep-dive-cost.html", "ผ่าธุรกิจ COST — ธุรกิจค่าสมาชิกที่ลูกค้าไม่ยอมยกเลิก"),
+    ],
+    "deep-dive-cost.html": [
+        ("deep-dive-aapl.html", "ผ่าธุรกิจ AAPL — เครื่องเก็บค่าเช่าจากฐานผู้ใช้"),
+        ("deep-dive-nflx.html", "ผ่าธุรกิจ NFLX — subscription อีกแบบที่ moat บางกว่า"),
+        ("deep-dive-meli.html", "ผ่าธุรกิจ MELI — ค้าปลีก+fintech ของลาตินอเมริกา"),
+    ],
+    "deep-dive-meli.html": [
+        ("deep-dive-cost.html", "ผ่าธุรกิจ COST — ค้าปลีกที่ margin บางแต่ moat หนา"),
+        ("deep-dive-axp.html", "ผ่าธุรกิจ AXP — payments แบบ closed-loop"),
+        ("deep-dive-googl.html", "ผ่าธุรกิจ GOOGL — เครื่องโฆษณาที่ MELI ต้องพึ่ง"),
+    ],
+    "deep-dive-axp.html": [
+        ("deep-dive-spgi.html", "ผ่าธุรกิจ SPGI — toll booth การเงินอีกชั้น"),
+        ("deep-dive-cost.html", "ผ่าธุรกิจ COST — โมเดลสมาชิกฝั่งค้าปลีก"),
+        ("deep-dive-meli.html", "ผ่าธุรกิจ MELI — fintech ตลาดเกิดใหม่"),
+    ],
+    "deep-dive-spgi.html": [
+        ("deep-dive-axp.html", "ผ่าธุรกิจ AXP — การเงินสาย closed-loop"),
+        ("deep-dive-msft.html", "ผ่าธุรกิจ MSFT — subscription + data ในอีกอุตสาหกรรม"),
+        ("financials-01-income-statement.html", "ซีรีส์อ่านงบ ตอนที่ 1 — margin บอกโครงสร้างยังไง"),
+    ],
+    "deep-dive-unh.html": [
+        ("deep-dive-lly.html", "ผ่าธุรกิจ LLY — ฝั่งยาของระบบสุขภาพเดียวกัน"),
+        ("financials-01-income-statement.html", "ซีรีส์อ่านงบ ตอนที่ 1 — อ่าน margin บางๆ ให้เป็น"),
+    ],
+    "deep-dive-lly.html": [
+        ("deep-dive-unh.html", "ผ่าธุรกิจ UNH — ฝั่ง payer ของระบบสุขภาพเดียวกัน"),
+        ("financials-01-income-statement.html", "ซีรีส์อ่านงบ ตอนที่ 1 — งบกำไรขาดทุนแบบลงมือทำ"),
+    ],
+    "deep-dive-lmt.html": [
+        ("deep-dive-spacex.html", "ผ่าธุรกิจ SpaceX — ผู้ท้าชิงจากนอกระบบ defense เดิม"),
+        ("financials-01-income-statement.html", "ซีรีส์อ่านงบ ตอนที่ 1 — backlog กับความทนทานของรายได้"),
+    ],
+    "deep-dive-spacex.html": [
+        ("deep-dive-lmt.html", "ผ่าธุรกิจ LMT — เจ้าตลาด defense ที่โดนท้าชิง"),
+        ("deep-dive-ai-bubble.html", "AI = ฟองสบู่? — วิธีคิดกับ valuation ที่ขายอนาคต"),
+    ],
+    "deep-dive-ai-bubble.html": [
+        ("deep-dive-nvda.html", "ผ่าธุรกิจ NVDA — ศูนย์กลางของวงจรเงินที่บทนี้ผ่า"),
+        ("deep-dive-ai-oil-shock.html", "Oil Shock 1970s — บทซ้อมใหญ่ของ AI Capex"),
+        ("buffett-talks-03-stock-market-1999.html", "Buffett 1999 — คำเตือนกลางไข้ dot-com"),
+    ],
+    "deep-dive-ai-oil-shock.html": [
+        ("deep-dive-ai-bubble.html", "AI = ฟองสบู่ dot-com รอบใหม่?"),
+        ("deep-dive-nvda.html", "ผ่าธุรกิจ NVDA — ผู้ขายจอบเสียมของยุคตื่นทอง"),
+        ("deep-dive-mu.html", "ผ่าธุรกิจ MU — ธุรกิจ commodity cycle ตัวเป็นๆ"),
+    ],
+}
+
+_RELATED_BLOCK_RE = re.compile(r"\n*[ \t]*<!-- RELATED-START -->.*?<!-- RELATED-END -->", re.S)
+
+
+def write_related():
+    """ฝัง block "อ่านต่อในจักรวาลเดียวกัน" ท้าย deep-dive (ก่อน author-card ถ้ามี
+    ไม่งั้นก่อนปิด container ท้าย main) — strip block เดิมก่อนเสมอ = idempotent"""
+    changed = 0
+    for fname, links in RELATED.items():
+        path = os.path.join("articles", fname)
+        try:
+            src = open(path, encoding="utf-8").read()
+        except OSError:
+            print(f"related     : WARNING ไม่พบ {path} — ข้าม")
+            continue
+        cards = "\n".join(
+            f'          <a class="related-card" href="{href}">{html.escape(label, quote=False)}</a>'
+            for href, label in links
+        )
+        block = (
+            "<!-- RELATED-START -->\n"
+            '      <div class="related">\n'
+            '        <div class="related-title">อ่านต่อในจักรวาลเดียวกัน</div>\n'
+            '        <div class="related-grid">\n'
+            f"{cards}\n"
+            "        </div>\n"
+            "      </div>\n"
+            "      <!-- RELATED-END -->"
+        )
+        orig = src
+        src = _RELATED_BLOCK_RE.sub("", src)
+        if '<div class="author-card">' in src:
+            src = src.replace('<div class="author-card">', block + '\n\n      <div class="author-card">', 1)
+        elif "\n    </div>\n  </main>" in src:
+            src = src.replace("\n    </div>\n  </main>", "\n\n      " + block + "\n\n    </div>\n  </main>", 1)
+        else:
+            print(f"related     : WARNING {fname} ไม่เจอจุดฝัง (author-card / ปิด main) — ข้าม")
+            continue
+        if src != orig:
+            open(path, "w", encoding="utf-8").write(src)
+            changed += 1
+    print(f"related     : ฝัง related block {changed} ไฟล์ ({len(RELATED)} รายการใน map)")
+
+
 def main():
     posts = parse_archive()
     if not posts:
@@ -727,6 +882,7 @@ def main():
     print(f"{ARCHIVE}: พบ {len(posts)} บทความ")
     articles = parse_articles_js()
     inject_tocs()
+    write_related()
     write_itemlist(posts)
     write_thumbnails(posts)
     minify_css()

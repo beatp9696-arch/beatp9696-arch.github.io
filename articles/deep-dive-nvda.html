@@ -32,7 +32,7 @@
       <link rel="stylesheet" href="../scenes/deep-dive-nvda.min.css">
       <!-- /SCENE-CSS -->
   <script type="application/ld+json">
-  {"@context": "https://schema.org", "@type": "BlogPosting", "headline": "ผ่าธุรกิจ NVDA (NVIDIA) — GPU, คูเมือง CUDA และ AI Factory", "description": "ผ่าธุรกิจ NVIDIA (NVDA) — GPU ประมวลผลขนาน, คูเมือง CUDA, AI factory, bull/bear และ Kill Conditions", "image": ["https://beatp9696-arch.github.io/og-deep-dive-nvda.png"], "author": {"@type": "Person", "name": "Moatrices"}, "publisher": {"@type": "Organization", "name": "Moatrices", "logo": {"@type": "ImageObject", "url": "https://beatp9696-arch.github.io/icon-512.png"}}, "mainEntityOfPage": {"@type": "WebPage", "@id": "https://beatp9696-arch.github.io/articles/deep-dive-nvda.html"}, "inLanguage": "th", "datePublished": "2026-06-29", "dateModified": "2026-06-29"}
+  {"@context": "https://schema.org", "@type": "BlogPosting", "headline": "ผ่าธุรกิจ NVDA (NVIDIA) — GPU, คูเมือง CUDA และ AI Factory", "description": "ผ่าธุรกิจ NVIDIA (NVDA) — GPU ประมวลผลขนาน, คูเมือง CUDA, AI factory, bull/bear และ Kill Conditions", "image": ["https://beatp9696-arch.github.io/og-deep-dive-nvda.png"], "author": {"@type": "Person", "name": "Moatrices"}, "publisher": {"@type": "Organization", "name": "Moatrices", "logo": {"@type": "ImageObject", "url": "https://beatp9696-arch.github.io/icon-512.png"}}, "mainEntityOfPage": {"@type": "WebPage", "@id": "https://beatp9696-arch.github.io/articles/deep-dive-nvda.html"}, "inLanguage": "th", "datePublished": "2026-06-29", "dateModified": "2026-07-10"}
   </script>
   <script type="application/ld+json">
   {"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "หน้าแรก", "item": "https://beatp9696-arch.github.io/"}, {"@type": "ListItem", "position": 2, "name": "ผ่าธุรกิจ NVDA (NVIDIA) — GPU, คูเมือง CUDA และ AI Factory", "item": "https://beatp9696-arch.github.io/articles/deep-dive-nvda.html"}]}
@@ -48,7 +48,8 @@
       <a href="../index.html" class="site-title">Moatrices</a>
       <nav class="site-nav">
         <a href="../index.html">หน้าแรก</a>
-        <a href="../dashboard.html">Dashboard</a>
+        <a href="../articles.html">บทความ</a>
+        <a href="../stocks.html">หุ้น</a>
         <a href="../about.html">เกี่ยวกับ</a>
       </nav>
     </div>
@@ -70,7 +71,7 @@
         <span class="byline-avatar">M</span>
         <div>
           <div class="byline-author">Moatrices</div>
-          <div class="byline-info">29 มิ.ย. 2026 · อ่าน ~14 นาที</div>
+          <div class="byline-info">29 มิ.ย. 2026 · ปรับปรุง 10 ก.ค. 2026 · อ่าน ~14 นาที</div>
         </div>
       </div>
 
@@ -82,7 +83,7 @@
           <li><a href="#sec-2">2. คูเมืองที่แท้จริงไม่ใช่ชิป — มันคือ CUDA</a></li>
           <li><a href="#sec-3">3. GPU เอาไปทำอะไรกันแน่</a></li>
           <li><a href="#sec-4">4. NVIDIA ขายทั้ง "โรงงาน" ไม่ใช่แค่ชิป</a></li>
-          <li><a href="#sec-5">5. ตัวเลขบอกอะไร</a></li>
+          <li><a href="#sec-5">5. ตัวเลขบอกอะไร (10-K FY2026)</a></li>
           <li><a href="#sec-6">6. Bull Case</a></li>
           <li><a href="#sec-7">7. Bear Case / จุดเปราะ</a></li>
           <li><a href="#sec-8">8. Kill Conditions — อะไรจะทำให้ thesis พัง</a></li>
@@ -99,8 +100,15 @@
       </p>
 
       <blockquote>
-        ตัวเลขอ้างอิงงบที่เผยแพร่ (FY2025) และข้อมูลสาธารณะ ควรตรวจสอบกับ filing ล่าสุดก่อนใช้ตัดสินใจ
+        ตัวเลขอ้างอิง 10-K ปีงบ FY2026 (สิ้นสุด 25 ม.ค. 2026)
         เป็นการวิเคราะห์เพื่อการศึกษา ไม่ใช่คำแนะนำซื้อขาย — เน้นอธิบายโครงสร้างธุรกิจมากกว่ามูลค่า/ราคาเป้า
+      </blockquote>
+
+      <blockquote>
+        <strong>เปลี่ยนจากฉบับแรก (29 มิ.ย.):</strong> ฉบับแรกใช้ตัวเลขโดยประมาณจากข้อมูลสาธารณะ
+        (FY2025 "ราว $130B") — ฉบับนี้อัปเดตทั้งหัวข้อ 5 และ Bear Case เป็นตัวเลขจริงจาก 10-K FY2026:
+        รายได้ $215.9B, gross margin ที่<em>พลิกลง</em>เป็น 71.1% และตลาดจีนที่เปลี่ยนสถานะจาก
+        "ความเสี่ยง" เป็น "หายไปแล้วจริง" — เขียนไว้ตรงนี้เพื่อให้เห็นว่าฉบับแรกหยาบตรงไหน
       </blockquote>
 
       <h2 id="sec-1">1. ธุรกิจนี้หาเงินจากอะไร</h2>
@@ -111,8 +119,11 @@
         สำหรับ <em>train</em> และ <em>inference</em> โมเดล AI
       </p>
       <ul>
-        <li><strong>Data Center (85%+ ของรายได้)</strong> — ขาหลักที่โตแบบ explosive ตั้งแต่ปี 2023</li>
-        <li><strong>Gaming</strong> — ธุรกิจดั้งเดิม (GPU เล่นเกม) ยังโตแต่สัดส่วนเล็กลงเรื่อยๆ</li>
+        <li><strong>Compute &amp; Networking (~90% ของรายได้ — $193.5B ใน FY2026)</strong> —
+          Data Center + เครือข่าย + automotive ขาหลักที่โตแบบ explosive ตั้งแต่ปี 2023
+          (เฉพาะ Data Center โต +68% YoY)</li>
+        <li><strong>Graphics ($22.5B)</strong> — ธุรกิจดั้งเดิม (GPU เล่นเกม) ยังโต +57%
+          แต่สัดส่วนเหลือ ~10% ของทั้งบริษัท</li>
       </ul>
       <p>แล้วทำไมงาน AI ต้องใช้ GPU ไม่ใช่ CPU? คำตอบอยู่ที่ "การทำงานพร้อมกัน":</p>
       <figure class="ph-fig"><div class="ph-panel nv-panel"><div class="ph-eyebrow nv">GPU · ประมวลผลขนาน (parallel)</div>
@@ -177,18 +188,27 @@
         "ชิปเดี่ยวๆ" แข่งยากขึ้น เพราะต้องสู้กับทั้งระบบ ไม่ใช่แค่ตัวชิป
       </p>
 
-      <h2 id="sec-5">5. ตัวเลขบอกอะไร</h2>
+      <h2 id="sec-5">5. ตัวเลขบอกอะไร (10-K FY2026)</h2>
       <ul>
-        <li><strong>รายได้โตแบบผิดปกติสำหรับ semiconductor</strong> — FY2024 ราว $61B → FY2025 ราว $130B
-          (~2 เท่าในปีเดียว) ขับเคลื่อนโดย AI infrastructure ของ hyperscaler ไม่ใช่ผู้บริโภค</li>
-        <li><strong>Gross margin ระดับบริษัทซอฟต์แวร์ (~73-78%)</strong> — สูงผิดปกติสำหรับ chip company
-          สะท้อน pricing power ที่ demand เกิน supply มาหลายปี</li>
-        <li><strong>Data Center concentration สูงมาก (85%+)</strong> — เป็นทั้งจุดแข็ง (ขี่คลื่น AI เต็มตัว)
-          และจุดเปราะ (พึ่ง segment เดียว + ลูกค้าไม่กี่ราย)</li>
+        <li><strong>รายได้โตแบบผิดปกติสำหรับ semiconductor</strong> — FY2025 $130.5B → FY2026
+          <strong>$215.9B (+65%)</strong> ขับเคลื่อนโดย AI infrastructure ของ hyperscaler ไม่ใช่ผู้บริโภค
+          Net income $120.1B = net margin 55.6% ตัวเลขที่แทบไม่มีธุรกิจไหนในโลกทำได้ที่ scale นี้</li>
+        <li><strong>Gross margin ยังระดับซอฟต์แวร์ แต่ทิศพลิกลงแล้ว: 75.0% → 71.1% (−3.9pts)</strong> —
+          10-K อธิบายว่ามาจากการเปลี่ยนจากขาย Hopper HGX ไปเป็น Blackwell full-scale datacenter
+          (ขายทั้งระบบ margin ต่ำกว่าขายชิปเปล่า) บวก charge $4.5B จาก H20 ที่ขายจีนไม่ได้
+          — ทิศทางนี้คือตัวเลขที่ต้องตามต่อทุกไตรมาส ไม่ใช่ระดับ</li>
+        <li><strong>ลูกค้ากระจุกหนักขึ้นและมีชื่อในงบ</strong> — direct customer รายเดียว = <strong>22%
+          ของรายได้</strong> อีกราย = 14% (ปีก่อนหน้ารายใหญ่สุดยังแค่ 12%) — สองรายรวมกันเกิน 1 ใน 3
+          ของบริษัท ทั้งคู่เป็นลูกค้า Compute &amp; Networking</li>
+        <li><strong>ตลาดจีน = ศูนย์แล้วจริง ไม่ใช่ความเสี่ยง</strong> — 10-K ใช้คำว่า
+          "effectively foreclosed" จากตลาด data center จีน ณ สิ้น FY2026
+          พร้อมยอมรับว่าการถูกกันออกช่วยให้คู่แข่งจีนสร้าง ecosystem ไล่หลังในตลาดโลก</li>
       </ul>
       <blockquote>
-        ตัวเลขข้างบนเป็นข้อมูลสาธารณะ/training memory — ควรเปิดงบไตรมาสล่าสุดยืนยันก่อนใช้จริง
-        บทนี้เน้น "เข้าใจว่าธุรกิจหาเงินยังไงและคูเมืองอยู่ตรงไหน" มากกว่าตัวเลขเป๊ะรายไตรมาส
+        ตัวเลขทั้งหมดจาก 10-K FY2026 (ปีงบสิ้นสุด 25 ม.ค. 2026) — อ่านวิธีตามรายได้ก้อนนี้ผ่านงบ 3 ชุด
+        แบบเห็นภาพได้ใน <a href="../follow-the-money-nvda.html">ตามเงิน $100 ของ NVIDIA (interactive)</a>
+        และ<a href="financials-01-income-statement.html">ซีรีส์อ่านงบ ตอนงบกำไรขาดทุน</a>
+        ที่ใช้ NVIDIA ปีงบเดียวกันเป็นเคสหลัก
       </blockquote>
 
       <h2 id="sec-6">6. Bull Case</h2>
@@ -213,13 +233,18 @@
       </div><figcaption>จุดเปราะที่ใหญ่สุด: รายได้กระจุกอยู่กับ hyperscaler ไม่กี่ราย และ<strong>แต่ละรายกำลังทำชิป AI ของตัวเอง</strong> (Trainium/TPU/Maia/MTIA) ถ้าลด order ลง 20-30% รายได้ Data Center สะเทือนหนัก</figcaption></figure>
       <ul>
         <li><strong>Custom chip ของลูกค้ารายใหญ่</strong> — Amazon (Trainium), Google (TPU), Meta (MTIA)
-          กำลังพัฒนาชิป AI ของตัวเองจริงจัง ถ้า hyperscaler ลด GPU order ลง 20-30% เพราะหันไปใช้
-          in-house chip รายได้ Data Center จะสะเทือนหนัก เพราะลูกค้ากลุ่มนี้คือ majority ของรายได้</li>
+          กำลังพัฒนาชิป AI ของตัวเองจริงจัง และ 10-K FY2026 บอกระดับการกระจุกชัด: ลูกค้าตรง 2 ราย
+          = 22% + 14% ของรายได้ทั้งบริษัท ถ้ารายใดรายหนึ่งลด GPU order ลง 20-30% เพราะหันไปใช้
+          in-house chip รายได้สะเทือนทันที — และงบยังบอกว่าคำสั่งซื้อส่วนใหญ่เป็น purchase order
+          ที่ยกเลิกได้โดยแทบไม่มี penalty</li>
         <li><strong>Valuation ฝัง assumption สูงมาก</strong> — ตลาด price-in การโตต่อเนื่องหลายปี
           ถ้า AI spending cycle ชะลอแม้แค่ 1-2 ไตรมาส EPS ที่ miss จะทำให้ multiple หดแรง
           แม้ธุรกิจพื้นฐานยังดี</li>
-        <li><strong>Export control ต่อจีนเป็นความเสี่ยงถาวร</strong> — สหรัฐจำกัดการส่งออกชิปประสิทธิภาพสูง
-          ไปจีนหลายรอบ NVIDIA ออกรุ่น comply แต่ถ้าคุมเข้มขึ้นอีก ตลาดก้อนนี้อาจหายถาวร</li>
+        <li><strong>Export control ต่อจีน — ไม่ใช่ความเสี่ยงอีกต่อไป มันเกิดขึ้นแล้ว</strong> —
+          เม.ย. 2025 สหรัฐบังคับ license ส่งออก H20 → NVIDIA ตัด charge $4.5B ใน Q1 FY2026
+          และ ณ สิ้นปีงบ 10-K ประกาศตรงๆ ว่าถูก "effectively foreclosed" จากตลาด data center จีน
+          คำถามที่เหลือไม่ใช่ "จะเสียตลาดจีนไหม" แต่คือ Huawei และคู่แข่งจีนที่โตในสุญญากาศนี้
+          จะตามออกมาแข่งในตลาดโลกเร็วแค่ไหน</li>
       </ul>
 
       <h2 id="sec-8">8. Kill Conditions — อะไรจะทำให้ thesis พัง</h2>
@@ -242,6 +267,17 @@
         ใครจะถือต้องตอบให้ได้ว่า ถ้า capex cycle สะดุดหรือ custom chip เริ่มกินส่วนแบ่ง จะทำยังไง
       </p>
 
+      <!-- RELATED-START -->
+      <div class="related">
+        <div class="related-title">อ่านต่อในจักรวาลเดียวกัน</div>
+        <div class="related-grid">
+          <a class="related-card" href="deep-dive-tsm.html">ผ่าธุรกิจ TSM — โรงหล่อที่ผลิตชิปให้ NVIDIA</a>
+          <a class="related-card" href="deep-dive-avgo.html">ผ่าธุรกิจ AVGO — custom XPU ที่ hyperscaler ใช้ลดการพึ่ง GPU</a>
+          <a class="related-card" href="deep-dive-ai-bubble.html">AI = ฟองสบู่ dot-com รอบใหม่?</a>
+        </div>
+      </div>
+      <!-- RELATED-END -->
+
       <div class="author-card">
         <span class="byline-avatar">M</span>
         <div>
@@ -263,6 +299,8 @@
       </div>
       <nav class="footer-nav">
         <a href="../index.html">หน้าแรก</a>
+        <a href="../articles.html">บทความ</a>
+        <a href="../stocks.html">หุ้น</a>
         <a href="../dashboard.html">Dashboard</a>
         <a href="../about.html">เกี่ยวกับ</a>
       </nav>
