@@ -8,7 +8,7 @@
   4. index.html             — เฉพาะ --kind stock/book: แทรกการ์ดบนสุดของ "บทความล่าสุด"
                               แล้วตัดท้ายให้เหลือ 6 ใบ (ตอนซีรีส์ไม่ขึ้นหน้าแรก —
                               เข้าถึงผ่านการ์ดซีรีส์/คลังบทความแทน)
-  5. app.js                 — แทรก entry บนสุดของ ARTICLES (search + prev/next เห็น)
+  5. app.js                 — ต่อ entry ท้าย ARTICLES (เรียงเก่า→ใหม่ — search + prev/next เห็น)
 
 หลังรัน: เขียนเนื้อหา + scene, ทำ og-<slug>.png, แล้วรัน `python3 build.py`
 (build.py จะ gen thumbnail/sitemap/feed/TOC/ItemList + ฝัง scene link + validate)
@@ -320,13 +320,16 @@ def main():
         idx = idx[:m.start()] + m.group(1) + inner + m.group(3) + idx[m.end():]
         open("index.html", "w", encoding="utf-8").write(idx)
 
-    # 5) app.js ARTICLES entry (แทรกบนสุด)
+    # 5) app.js ARTICLES entry — ต้อง "ต่อท้าย" array เสมอ (สัญญาเรียงเก่า→ใหม่:
+    #    prev/next, "ใหม่สุด" ใน 404, ลำดับผลค้นหา พึ่งลำดับนี้ — build.py มี drift check)
+    #    บทหุ้นต้องมี tk ด้วย ไม่งั้นหายจาก stocks.html + ไม่ถูกนับเป็น deep-dive
     app = open("app.js", encoding="utf-8").read()
-    entry = f'    {{ f: "{a.slug}.html", t: "{nav_title}", sec: "{a.sec}" }},\n'
-    m = re.search(r"var ARTICLES = \[\n", app)
+    tk_part = f' tk: "{a.ticker.upper()}",' if a.kind == "stock" and a.ticker else ""
+    entry = f'    {{ f: "{a.slug}.html", t: "{nav_title}",{tk_part} sec: "{a.sec}" }}'
+    m = re.search(r"(var ARTICLES = \[[\s\S]*?)\n(  \];)", app)
     if not m:
-        sys.exit("ERROR: ไม่พบ 'var ARTICLES = [' ใน app.js")
-    app = app[:m.end()] + entry + app[m.end():]
+        sys.exit("ERROR: ไม่พบ 'var ARTICLES = [ ... ];' ใน app.js")
+    app = app[:m.end(1)] + ",\n" + entry + "\n" + app[m.start(2):]
     open("app.js", "w", encoding="utf-8").write(app)
 
     print(f"✓ สร้าง {art}")
@@ -336,7 +339,7 @@ def main():
         print("✓ แทรกการ์ดใน index.html บทความล่าสุด (ตัดให้เหลือ 6 ใบ)")
     else:
         print("- ตอนซีรีส์ไม่ขึ้นหน้าแรกอัตโนมัติ — ถ้าเป็นซีรีส์ใหม่ให้เพิ่ม/แก้การ์ดซีรีส์ใน index.html เอง")
-    print("✓ แทรก entry ใน app.js ARTICLES")
+    print("✓ ต่อ entry ท้าย app.js ARTICLES" + (" (มี tk)" if tk_part else ""))
     print("\nต่อไป:")
     print(f"  1. เขียนเนื้อหาใน {art} (แทน TODO) + scene ใน scenes/{a.slug}.css")
     print(f"  2. ทำ og-{a.slug}.png (1200×630) วางที่ website/")
