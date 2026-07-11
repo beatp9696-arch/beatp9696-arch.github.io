@@ -11,3 +11,30 @@
 .wy-fail { fill: #4a1d1d; stroke: #f87171; stroke-width: .6; }
 .wy-scan { fill: url(#scang); animation: wyscan 3.2s linear infinite; }
 @keyframes wyscan { 0%{transform:translateX(-30px)} 100%{transform:translateX(270px)} }
+.tf-wall { fill: #0a1518; stroke: #1f4a44; stroke-width: 1.4; }
+.tf-flow { stroke-linecap: butt; fill: none; stroke-dasharray: 16 9; animation: tfflow 1.1s linear infinite; }
+@keyframes tfflow { to { stroke-dashoffset: -50 } }
+.tf-fire { transform-box: fill-box; transform-origin: center; animation: tffire 1.6s ease-in-out infinite; }
+@keyframes tffire { 0%,100%{opacity:.55;transform:scale(.92)} 50%{opacity:1;transform:scale(1.06)} }
+.tf-ingot { fill: #2b1708; stroke: #b45309; stroke-width: 1.3; }
+.tf-ingot.hot { fill: #3a1d08; stroke: #fbbf24; stroke-width: 1.5; filter: drop-shadow(0 0 6px rgba(251,191,36,.4)); }
+.tf-ingot.fcf { fill: #0e2b28; stroke: #2dd4bf; stroke-width: 1.6; filter: drop-shadow(0 0 7px rgba(45,212,191,.45)); }
+.cw-sub { fill: #0a1c1a; stroke: #1f4a44; stroke-width: 1.4; }
+.cw-int { fill: #12332e; stroke: #2dd4bf; stroke-width: 1.5; }
+.cw-die { fill: #0e2b28; stroke: #5eead4; stroke-width: 1.8; }
+.cw-hbm { fill: #0a1c22; stroke: #38bdf8; stroke-width: 1; }
+.cw-bump { fill: #b45309; }
+.cw-heat { transform-box: fill-box; transform-origin: center; animation: cwheat 2s ease-in-out infinite; }
+@keyframes cwheat { 0%,100%{opacity:.45} 50%{opacity:.95} }
+.cw-pulse { fill: #7ff5e2; filter: drop-shadow(0 0 5px #2dd4bf); }
+.tw-island { fill: #0e2b28; stroke: #2dd4bf; stroke-width: 2; filter: drop-shadow(0 0 16px rgba(45,212,191,.28)); }
+.tw-fab { fill: #fbbf24; filter: drop-shadow(0 0 6px rgba(251,191,36,.85)); }
+.tw-ring { fill: none; stroke: #fbbf24; stroke-width: 1.3; transform-box: fill-box; transform-origin: center; animation: twring 2.6s ease-out infinite; }
+@keyframes twring { 0%{transform:scale(.35);opacity:.9} 100%{transform:scale(2.4);opacity:0} }
+.tw-ofab { fill: #0a1c1a; stroke: #3f6b63; stroke-width: 1.4; }
+.tw-hatch { stroke: #f87171; stroke-width: 1; opacity: .3; }
+.tw-link { stroke: #3f6b63; stroke-width: 1.2; stroke-dasharray: 4 6; fill: none; }
+@media (prefers-reduced-motion: reduce) {
+.ns-dot, .wy-scan, .tf-flow, .tf-fire, .cw-heat, .tw-ring { animation: none; }
+.tw-ring { opacity: .35; }
+}
