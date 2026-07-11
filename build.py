@@ -200,13 +200,34 @@ def parse_old_feed():
     return old
 
 
+# หน้า interactive อยู่นอก articles.html แต่เป็น "ของใหม่" ที่คน subscribe RSS ควรรู้
+# (guid = url — parse_old_feed จะรักษา pubDate เดิมไว้เหมือน item บทความ)
+FEED_EXTRAS = [
+    {"file": "follow-the-money-nvda.html", "date": "2026-07-07",
+     "title": "ตามเงิน $100 ของ NVIDIA ผ่านงบ 3 ชุด — Interactive Scrollytelling",
+     "excerpt": "จากรายได้ทุก $100 รอดถึงมือเจ้าของกี่ดอลลาร์ — เดินผ่านหอกลั่นกำไร สะพานเงินสด และงบดุล ด้วยตัวเลขจริงจาก 10-K FY2026"},
+    {"file": "reverse-dcf.html", "date": "2026-07-08",
+     "title": "ราคานี้ ตลาดคาดหวังอะไร? (Reverse DCF) — เครื่องคิดเลข Interactive",
+     "excerpt": "ใส่ 4 ตัวเลขจากงบ แล้วถอดออกมาว่าตลาดเดิมพันว่า FCF ต้องโตปีละกี่ % ถึงคุ้มราคานี้ พร้อมตัวอย่าง SNPS · TSM · AAPL · NFLX"},
+    {"file": "compound-interest.html", "date": "2026-07-08",
+     "title": "พลังดอกเบี้ยทบต้น: เงินแสนกลิ้ง 50 ปี — Interactive Scrollytelling",
+     "excerpt": "เลื่อนตามก้อนหิมะ ฿100,000 โตเป็น ฿11.7 ล้าน — ทำไม 85% ของเงินเกิดใน 20 ปีท้าย อะไรฆ่าเส้นโค้ง ปิดท้ายด้วยเครื่องคิดเลขทบต้นของคุณเอง"},
+    {"file": "ai-iceberg.html", "date": "2026-07-09",
+     "title": "ใต้ภูเขาน้ำแข็ง AI: ใครยืนตรงไหน — Interactive Scrollytelling",
+     "excerpt": "ทุกคนเห็นแค่ยอด NVIDIA — ดำดิ่งทีละชั้นลงก้นทะเล ดูว่าใครยืนตรงไหนในกองทัพ AI และใครกันแน่ที่เก็บเงินจากทุกคน"},
+]
+
+
 def write_feed(posts):
     old = parse_old_feed()
     now = datetime.datetime.now(TZ)
     kept = 0
     items = []
-    for p in posts:  # ใหม่สุดก่อน ตาม index
-        url = f"{BASE_URL}/articles/{p['file']}"
+    entries = ([{**p, "url": f"{BASE_URL}/articles/{p['file']}"} for p in posts]
+               + [{**e, "url": f"{BASE_URL}/{e['file']}"} for e in FEED_EXTRAS])
+    entries.sort(key=lambda e: e["date"], reverse=True)  # stable — ลำดับเดิมภายในวันเดียวกันคงอยู่
+    for p in entries:  # ใหม่สุดก่อน
+        url = p["url"]
         prev = old.get(url)
         if prev:
             pub, desc = prev["pubDate"], prev["description"]
@@ -236,7 +257,8 @@ def write_feed(posts):
         + "\n</channel>\n</rss>\n"
     )
     open("feed.xml", "w", encoding="utf-8").write(feed)
-    print(f"feed.xml    : {len(posts)} items ({kept} เดิม, {len(posts) - kept} ใหม่)")
+    print(f"feed.xml    : {len(entries)} items = {len(posts)} บทความ + {len(FEED_EXTRAS)} interactive "
+          f"({kept} เดิม, {len(entries) - kept} ใหม่)")
 
 
 _ITEMLIST_RE = re.compile(

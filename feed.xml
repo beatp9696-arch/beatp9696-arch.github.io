@@ -5,14 +5,42 @@
 <link>https://beatp9696-arch.github.io/</link>
 <description>บันทึกการเรียนวิเคราะห์หุ้น US เชิงลึก เน้นพื้นฐานธุรกิจ ไม่ใช่ราคา</description>
 <language>th</language>
-<lastBuildDate>Sat, 11 Jul 2026 14:41:47 +0700</lastBuildDate>
+<lastBuildDate>Sat, 11 Jul 2026 15:04:21 +0700</lastBuildDate>
 <atom:link href="https://beatp9696-arch.github.io/feed.xml" rel="self" type="application/rss+xml"/>
+<item>
+<title>ใต้ภูเขาน้ำแข็ง AI: ใครยืนตรงไหน — Interactive Scrollytelling</title>
+<link>https://beatp9696-arch.github.io/ai-iceberg.html</link>
+<guid isPermaLink="true">https://beatp9696-arch.github.io/ai-iceberg.html</guid>
+<pubDate>Thu, 09 Jul 2026 12:00:00 +0700</pubDate>
+<description>ทุกคนเห็นแค่ยอด NVIDIA — ดำดิ่งทีละชั้นลงก้นทะเล ดูว่าใครยืนตรงไหนในกองทัพ AI และใครกันแน่ที่เก็บเงินจากทุกคน</description>
+</item>
 <item>
 <title>ก่อน GPU เคยมีแท่นขุด — Oil Shock 1970s: บทซ้อมใหญ่ของ AI Capex</title>
 <link>https://beatp9696-arch.github.io/articles/deep-dive-ai-oil-shock.html</link>
 <guid isPermaLink="true">https://beatp9696-arch.github.io/articles/deep-dive-ai-oil-shock.html</guid>
 <pubDate>Wed, 08 Jul 2026 12:00:00 +0700</pubDate>
 <description>28 ธ.ค. 1981 อเมริกามีแท่นขุดน้ำมัน 4,530 แท่น — ไม่มีใครรู้ว่านั่นคือยอดเขา ห้าปีต่อมาเหลือ 663 วันนี้ hyperscaler สี่เจ้าเท capex $130B ต่อไตรมาสด้วยตรรกะเดียวกับทศวรรษที่เชื่อว่าน้ำมันจะแพงตลอดไป บทนี้อ่านสองทศวรรษพร้อมกัน: เสียงกรีดร้องของราคาที่จ้างทั้ง demand destruction และ supply ใหม่, ดราม่า depreciation ที่ AMZN ตัดอายุ server แต่ META ยืด — สองคำตอบตรงข้ามที่ถูกพร้อมกันไม่ได้, คำถามว่าใครคือ swing buyer ของ compute เมื่อไม่มี OPEC คอยอุ้มราคา และแผนที่ผู้รอดจากปี 1986 — toll road, majors, wildcatters — ที่วางทาบ AI value chain ได้ทั้งแผ่น</description>
+</item>
+<item>
+<title>ราคานี้ ตลาดคาดหวังอะไร? (Reverse DCF) — เครื่องคิดเลข Interactive</title>
+<link>https://beatp9696-arch.github.io/reverse-dcf.html</link>
+<guid isPermaLink="true">https://beatp9696-arch.github.io/reverse-dcf.html</guid>
+<pubDate>Wed, 08 Jul 2026 12:00:00 +0700</pubDate>
+<description>ใส่ 4 ตัวเลขจากงบ แล้วถอดออกมาว่าตลาดเดิมพันว่า FCF ต้องโตปีละกี่ % ถึงคุ้มราคานี้ พร้อมตัวอย่าง SNPS · TSM · AAPL · NFLX</description>
+</item>
+<item>
+<title>พลังดอกเบี้ยทบต้น: เงินแสนกลิ้ง 50 ปี — Interactive Scrollytelling</title>
+<link>https://beatp9696-arch.github.io/compound-interest.html</link>
+<guid isPermaLink="true">https://beatp9696-arch.github.io/compound-interest.html</guid>
+<pubDate>Wed, 08 Jul 2026 12:00:00 +0700</pubDate>
+<description>เลื่อนตามก้อนหิมะ ฿100,000 โตเป็น ฿11.7 ล้าน — ทำไม 85% ของเงินเกิดใน 20 ปีท้าย อะไรฆ่าเส้นโค้ง ปิดท้ายด้วยเครื่องคิดเลขทบต้นของคุณเอง</description>
+</item>
+<item>
+<title>ตามเงิน $100 ของ NVIDIA ผ่านงบ 3 ชุด — Interactive Scrollytelling</title>
+<link>https://beatp9696-arch.github.io/follow-the-money-nvda.html</link>
+<guid isPermaLink="true">https://beatp9696-arch.github.io/follow-the-money-nvda.html</guid>
+<pubDate>Tue, 07 Jul 2026 12:00:00 +0700</pubDate>
+<description>จากรายได้ทุก $100 รอดถึงมือเจ้าของกี่ดอลลาร์ — เดินผ่านหอกลั่นกำไร สะพานเงินสด และงบดุล ด้วยตัวเลขจริงจาก 10-K FY2026</description>
 </item>
 <item>
 <title>The Superinvestors of Graham-and-Doddsville (1984) — สุนทรพจน์ที่พิสูจน์ว่า value investing ไม่ใช่โชค</title>
