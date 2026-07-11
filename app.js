@@ -16,12 +16,9 @@
 
   // ---- ตั้งค่า optional (เปิดใช้เมื่อกรอกค่า) ----
   var GOATCOUNTER_CODE = "moatrices"; // สมัครฟรีที่ goatcounter.com แล้วใส่ code เช่น "moatrices" → นับผู้เข้าชม
-  // Giscus: Discussions เปิดแล้ว + ค่าพร้อมใช้ (11 ก.ค. 2026) — เหลืออย่างเดียว: ติดตั้ง giscus app
-  // ที่ https://github.com/apps/giscus (เลือก repo นี้) แล้วสลับมาใช้บรรทัด config จริงข้างล่าง
-  // (ห้ามเปิดก่อนติดตั้ง — widget จะขึ้น "giscus is not installed" ทุกบทความ)
-  var GISCUS = { repo: "", repoId: "", category: "", categoryId: "" };
-  // var GISCUS = { repo: "beatp9696-arch/beatp9696-arch.github.io", repoId: "R_kgDOTG4Dqg",
-  //                category: "Announcements", categoryId: "DIC_kwDOTG4Dqs4DA9O5" };
+  // Giscus เปิดใช้แล้ว (11 ก.ค. 2026): Discussions + giscus app ติดตั้งครบ
+  var GISCUS = { repo: "beatp9696-arch/beatp9696-arch.github.io", repoId: "R_kgDOTG4Dqg",
+                 category: "Announcements", categoryId: "DIC_kwDOTG4Dqs4DA9O5" };
 
   // ---- base path: หน้า root vs หน้าใน articles/ ----
   var IS_ARTICLE_DIR = location.pathname.indexOf("/articles/") !== -1;
