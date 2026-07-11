@@ -1,0 +1,1066 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <script>try{var t=localStorage.getItem('theme');if(t)document.documentElement.setAttribute('data-theme',t);}catch(e){}</script>
+  <title>เศรษฐศาสตร์ 4 บทที่โรงเรียนไม่สอน แต่ตลาดหุ้นสอบทุกวัน — Moatrices</title>
+  <meta name="description" content="อินเทอร์แอคทีฟ: เลื่อนผ่านเศรษฐศาสตร์ 4 บท — ทำไมสายการบินจนทั้งแผงแต่ EDA รวยทั้งแผง, โรคของ Baumol ที่ทำให้ค่าตัดผมแพงขึ้นแต่ทีวีถูกลง, Jevons Paradox ที่ตอบว่า chip ยิ่งถูกยิ่งขายดี และ Comparative Advantage ที่อธิบายว่าทำไมอเมริกาต้องง้อไต้หวัน">
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="Moatrices">
+  <meta property="og:title" content="เศรษฐศาสตร์ 4 บทที่โรงเรียนไม่สอน แต่ตลาดหุ้นสอบทุกวัน — Moatrices">
+  <meta property="og:description" content="อินเทอร์แอคทีฟ: สายการบินขนคนพันล้านแต่ margin ~5% ขณะที่ซอฟต์แวร์ออกแบบชิป margin 30–40% — เลื่อนดู 4 บทเศรษฐศาสตร์ที่อธิบายว่าทำไม พร้อมตัวเลขจริง">
+  <meta property="og:url" content="https://beatp9696-arch.github.io/econ-lessons.html">
+  <meta property="og:locale" content="th_TH">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta property="og:image" content="https://beatp9696-arch.github.io/og-econ-lessons.png">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta name="twitter:image" content="https://beatp9696-arch.github.io/og-econ-lessons.png">
+  <meta name="author" content="Moatrices">
+  <link rel="canonical" href="https://beatp9696-arch.github.io/econ-lessons.html">
+  <link rel="alternate" type="application/rss+xml" title="Moatrices RSS" href="/feed.xml">
+  <meta name="theme-color" media="(prefers-color-scheme: light)" content="#f7f5f0">
+  <meta name="theme-color" media="(prefers-color-scheme: dark)" content="#121417">
+  <link rel="icon" href="favicon.svg" type="image/svg+xml">
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png">
+  <link rel="manifest" href="/site.webmanifest">
+  <link rel="preload" as="font" type="font/woff2" href="fonts/sarabun-400-thai.woff2" crossorigin>
+  <link rel="preload" as="font" type="font/woff2" href="fonts/sarabun-400-latin.woff2" crossorigin>
+  <link rel="stylesheet" href="style.min.css">
+  <style>
+  /* ─── econ-lessons (eco) — CSS เฉพาะหน้านี้ ───
+     4 บท แต่ละบทมี sticky stage ของตัวเอง (sticky จบเมื่อหมด section)
+     panel เครื่องมือคงโทนมืดทั้งสองธีม ส่วนรอบๆ ใช้ token ธีมของเว็บ
+     กฎจาก cpd/ftm: ปัก top:72px ใต้ header จริง + viz สูงรวม ≤ ~45vh */
+  .eco-stage{position:sticky;top:72px;z-index:5;background:var(--bg);padding:10px 0;
+    border-bottom:1px solid var(--border)}
+  .eco-panel{background:radial-gradient(rgba(255,255,255,.045) 1px,transparent 1px),
+      radial-gradient(120% 140% at 50% 0%,#20242a 0%,#1a1d21 62%);
+    background-size:22px 22px,auto;
+    border:1px solid #2b2f36;border-radius:var(--radius);padding:14px 18px 12px}
+  .eco-eyebrow{font-family:"IBM Plex Mono",ui-monospace,monospace;font-size:11.5px;
+    letter-spacing:.14em;color:var(--ch);display:flex;justify-content:space-between;gap:10px}
+  .eco-eyebrow .eco-src{color:#969ba2;letter-spacing:.04em;white-space:nowrap;
+    overflow:hidden;text-overflow:ellipsis}
+  .eco-counter-row{display:flex;align-items:baseline;gap:12px;margin:5px 0 1px;flex-wrap:wrap}
+  .eco-counter{font-family:"IBM Plex Mono",ui-monospace,monospace;font-weight:500;
+    font-size:clamp(24px,4.6vw,36px);color:var(--ch);transition:color .5s;
+    font-variant-numeric:tabular-nums;line-height:1.05}
+  .eco-counter.bad{color:#f87171}
+  .eco-counter-sub{color:#969ba2;font-size:14px}
+  .eco-real{font-family:"IBM Plex Mono",ui-monospace,monospace;font-size:11.5px;
+    color:#969ba2;letter-spacing:.02em;min-height:18px;margin-bottom:6px}
+  .eco-viz{position:relative;height:clamp(150px,24vh,196px)}
+  .eco-view{position:absolute;inset:0;opacity:0;pointer-events:none;
+    transition:opacity .55s;display:flex;flex-direction:column;justify-content:center;gap:9px}
+  .eco-view.on{opacity:1;pointer-events:auto}
+  /* ── แถวบาร์แนวนอน ── */
+  .eco-brow{display:grid;grid-template-columns:128px 1fr 92px;align-items:center;gap:10px;
+    transition:opacity .5s}
+  .eco-brow.dim{opacity:.28}
+  .eco-blab{font-size:12.5px;color:#b9bec6;text-align:right;line-height:1.25}
+  .eco-btrack{position:relative;height:16px;background:rgba(255,255,255,.05);
+    border:1px solid #2b2f36;border-radius:6px;overflow:hidden}
+  .eco-bfill{position:absolute;top:2px;bottom:2px;left:2px;border-radius:4px;min-width:3px;
+    transition:width .9s cubic-bezier(.22,.9,.3,1),background .5s}
+  .eco-bval{font-family:"IBM Plex Mono",ui-monospace,monospace;font-size:12px;
+    color:#e8eaed;font-variant-numeric:tabular-nums;white-space:nowrap}
+  /* ── บาร์แยกซ้าย/ขวาจากแกนกลาง (บท 2) ── */
+  .eco-dtrack{position:relative;height:16px;background:rgba(255,255,255,.05);
+    border:1px solid #2b2f36;border-radius:6px}
+  .eco-dtrack::before{content:"";position:absolute;top:-2px;bottom:-2px;left:28.2%;
+    width:1px;background:rgba(255,255,255,.3)}
+  .eco-dfill{position:absolute;top:2px;bottom:2px;border-radius:4px;min-width:2px;
+    transition:width .8s cubic-bezier(.22,.9,.3,1),left .8s cubic-bezier(.22,.9,.3,1),opacity .5s}
+  /* ── matrix 2×2 (บท 1) ── */
+  .eco-mtx{display:grid;grid-template-columns:auto 1fr 1fr;gap:5px;max-width:520px;margin:0 auto}
+  .eco-mtx .eco-mhead{font-family:"IBM Plex Mono",ui-monospace,monospace;font-size:10.5px;
+    letter-spacing:.06em;color:#969ba2;align-self:center;justify-self:center;text-align:center}
+  .eco-mtx .eco-mside{writing-mode:vertical-rl;transform:rotate(180deg)}
+  .eco-mcell{border:1px solid #2b2f36;border-radius:9px;padding:7px 9px;background:rgba(255,255,255,.02);
+    transition:border-color .5s,background .5s,box-shadow .5s}
+  .eco-mcell b{display:block;font-size:12.5px;color:#e8eaed;font-weight:600;line-height:1.3}
+  .eco-mcell span{font-size:11.5px;color:#969ba2;line-height:1.3;display:block}
+  .eco-mcell.hot{border-color:#f87171;background:rgba(248,113,113,.09);
+    box-shadow:0 0 0 1px rgba(248,113,113,.35)}
+  .eco-mcell.win{border-color:#4ecaa0;background:rgba(78,202,160,.09);
+    box-shadow:0 0 0 1px rgba(78,202,160,.35)}
+  /* ── บาร์แนวตั้งคู่ (บท 3) ── */
+  .eco-vwrap{display:flex;gap:26px;justify-content:center;align-items:flex-end;height:100%;
+    padding-bottom:4px;transition:padding .5s}
+  .eco-view:has(.eco-flash.on) .eco-vwrap{padding-bottom:96px}
+  .eco-vcol{display:flex;flex-direction:column;align-items:center;gap:6px;height:100%;
+    justify-content:flex-end;flex:0 1 150px}
+  .eco-vtrack{position:relative;width:100%;flex:1;max-width:150px;
+    background:rgba(255,255,255,.05);border:1px solid #2b2f36;border-radius:8px;overflow:hidden}
+  .eco-vfill{position:absolute;left:3px;right:3px;bottom:3px;border-radius:6px;
+    transition:height 1s cubic-bezier(.22,.9,.3,1),background .5s}
+  .eco-vburst{position:absolute;left:0;right:0;top:0;height:26px;display:none;
+    background:repeating-linear-gradient(-45deg,rgba(255,255,255,.14) 0 6px,transparent 6px 12px)}
+  .eco-vtrack.burst .eco-vburst{display:block}
+  .eco-vnum{font-family:"IBM Plex Mono",ui-monospace,monospace;font-size:13px;color:#e8eaed;
+    font-variant-numeric:tabular-nums}
+  .eco-vlab{font-size:12px;color:#969ba2;text-align:center;line-height:1.3}
+  .eco-flash{position:absolute;inset:auto 0 0 0;margin:0 auto;max-width:430px;z-index:2;
+    border:1px solid #f87171;border-radius:12px;
+    background:linear-gradient(rgba(248,113,113,.10),rgba(248,113,113,.10)),#1a1d21;
+    padding:10px 14px;text-align:center;opacity:0;transform:translateY(8px);
+    transition:opacity .5s,transform .5s}
+  .eco-flash.on{opacity:1;transform:none}
+  .eco-flash b{font-family:"IBM Plex Mono",ui-monospace,monospace;font-size:17px;color:#f87171;
+    display:block}
+  .eco-flash span{font-size:12px;color:#b9bec6}
+  /* ── ตารางเวลา 8 ช่อง (บท 4) ── */
+  .eco-sc{display:grid;grid-template-columns:1fr 1fr;gap:14px;max-width:560px;margin:0 auto;width:100%}
+  .eco-sccard{border:1px solid #2b2f36;border-radius:10px;padding:9px 11px;
+    background:rgba(255,255,255,.02);transition:border-color .5s,box-shadow .5s}
+  .eco-sccard.win{border-color:#4ecaa0;box-shadow:0 0 0 1px rgba(78,202,160,.35)}
+  .eco-sct{font-size:12px;color:#b9bec6;margin-bottom:6px;line-height:1.3}
+  .eco-hours{display:flex;gap:3px;margin-bottom:8px}
+  .eco-hours i{flex:1;height:15px;border-radius:3px;background:#3a3f47;transition:background .6s}
+  .eco-hours i.work{background:var(--ch)}
+  .eco-hours i.type{background:#69707a}
+  .eco-scnum{font-family:"IBM Plex Mono",ui-monospace,monospace;font-size:15.5px;color:#e8eaed;
+    font-variant-numeric:tabular-nums}
+  .eco-scsub{font-size:11px;color:#969ba2;min-height:15px}
+  /* ── chips ── */
+  .eco-chips{display:flex;flex-wrap:nowrap;gap:7px;min-height:31px;margin-top:8px;
+    overflow-x:auto;overflow-y:hidden;scrollbar-width:none;-ms-overflow-style:none}
+  .eco-chips::-webkit-scrollbar{display:none}
+  .eco-chip{font-family:"IBM Plex Mono",ui-monospace,monospace;font-size:11.5px;
+    letter-spacing:.02em;color:#969ba2;border:1px solid #2b2f36;border-radius:999px;
+    padding:3px 11px;opacity:0;transform:translateY(6px);white-space:nowrap;flex:0 0 auto;
+    transition:opacity .45s,transform .45s,border-color .45s,color .45s}
+  .eco-chip.on{opacity:1;transform:none}
+  .eco-chip.now{color:#e8eaed;border-color:var(--ch)}
+  .eco-chip.bad.now{border-color:#f87171}
+  /* ── โครงบท / การ์ดข้อความ ── */
+  .eco-ch{--ch:#4ecaa0}
+  #eco-c1{--ch:#f0a848}
+  #eco-c2{--ch:#a78bfa}
+  #eco-c3{--ch:#38c6dd}
+  #eco-c4{--ch:#f27d98}
+  .eco-chhead{padding:11vh 0 4vh;max-width:660px}
+  .eco-chhead .eco-chn{font-family:"IBM Plex Mono",ui-monospace,monospace;font-size:12px;
+    letter-spacing:.16em;color:var(--ch);display:block;margin-bottom:8px}
+  .eco-chhead h2{font-family:var(--font-head);font-weight:700;font-size:clamp(22px,3.6vw,30px);
+    line-height:1.4;margin:0 0 10px;border:0;padding:0}
+  .eco-chhead p{margin:0;color:var(--muted)}
+  .eco-steps{padding:4vh 0 2vh}
+  .eco-step{min-height:72vh;display:flex;align-items:center}
+  .eco-card{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);
+    padding:19px 23px;max-width:620px;box-shadow:var(--shadow-md)}
+  .eco-card .eco-n{font-family:"IBM Plex Mono",ui-monospace,monospace;font-size:11.5px;
+    letter-spacing:.16em;color:var(--ch);display:block;margin-bottom:6px}
+  .eco-card h3{font-family:var(--font-head);font-weight:700;font-size:19px;line-height:1.45;
+    margin:0 0 8px;border:0;padding:0}
+  .eco-card p{margin:0;color:var(--muted)}
+  .eco-card b{color:var(--text);font-weight:600}
+  .eco-card .eco-num{font-family:"IBM Plex Mono",ui-monospace,monospace;font-size:.9em;
+    color:var(--ch)}
+  .eco-hint{display:inline-flex;align-items:center;gap:8px;margin:4px 0 14px;color:var(--muted);
+    font-family:"IBM Plex Mono",ui-monospace,monospace;font-size:12.5px;letter-spacing:.08em}
+  .eco-hint svg{animation:eco-bob 1.6s ease-in-out infinite}
+  @keyframes eco-bob{50%{transform:translateY(4px)}}
+  /* ── outro ── */
+  .eco-outro{border-top:1px solid var(--border);margin-top:6vh;padding:54px 0 30px}
+  .eco-outro h2{border:0;padding:0}
+  .eco-outro ul{margin:0 0 30px;padding:0;list-style:none;display:grid;gap:10px}
+  .eco-outro li{border:1px solid var(--border);border-radius:12px;padding:12px 16px;
+    color:var(--muted)}
+  .eco-outro li b{color:var(--text);font-weight:600}
+  .eco-outro li .eco-sw{display:inline-block;width:10px;height:10px;border-radius:3px;
+    margin-right:9px}
+  .eco-next{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:12px;
+    margin:0 0 26px}
+  .eco-next a{border:1px solid var(--border);border-radius:12px;padding:13px 16px;
+    text-decoration:none;color:var(--text);background:var(--surface);
+    transition:border-color .3s,transform .3s}
+  .eco-next a:hover{border-color:var(--accent);transform:translateY(-2px)}
+  .eco-next .eco-nk{font-family:"IBM Plex Mono",ui-monospace,monospace;font-size:10.5px;
+    letter-spacing:.12em;color:var(--accent);display:block;margin-bottom:4px}
+  .eco-next .eco-nt{font-weight:600;font-size:14.5px;line-height:1.4;display:block}
+  .eco-note{margin-top:24px;font-size:14px;color:var(--muted);
+    border-left:3px solid var(--border);padding-left:14px}
+  @media (max-width:640px){
+    .eco-panel{padding:11px 11px 9px}
+    .eco-card{padding:16px 16px}
+    .eco-step{min-height:78vh}
+    .eco-brow{grid-template-columns:92px 1fr 74px;gap:7px}
+    .eco-blab{font-size:11px}
+    .eco-bval{font-size:10.5px}
+    .eco-viz{height:clamp(140px,22vh,180px)}
+    .eco-mcell b{font-size:11px}
+    .eco-mcell span{font-size:10px}
+    .eco-sc{gap:8px}
+    .eco-eyebrow .eco-src{display:none}
+    .eco-flash{padding:8px 10px}
+    .eco-flash b{font-size:13.5px}
+    .eco-flash span{font-size:11px}
+    .eco-view:has(.eco-flash.on) .eco-vwrap{padding-bottom:88px}
+    /* บท 4 มี view เดียวแต่เนื้อหาสูงกว่า viz คงที่บนจอแคบ — ให้โตตามเนื้อหา */
+    #eco-c4 .eco-viz{height:auto}
+    #eco-c4 .eco-view{position:static}
+  }
+  @media (prefers-reduced-motion:reduce){
+    .eco-bfill,.eco-dfill,.eco-vfill,.eco-chip,.eco-view,.eco-brow,.eco-mcell,
+    .eco-flash,.eco-hours i,.eco-sccard{transition:none}
+    .eco-hint svg{animation:none}
+  }
+  </style>
+</head>
+<body>
+
+  <div class="top-accent"></div>
+
+  <header class="site-header">
+    <div class="container">
+      <a href="index.html" class="site-title">Moatrices</a>
+      <nav class="site-nav">
+        <a href="index.html">หน้าแรก</a>
+        <a href="articles.html">บทความ</a>
+        <a href="stocks.html">หุ้น</a>
+        <a href="tools.html">เครื่องมือ</a>
+        <a href="dashboard.html">Dashboard</a>
+        <a href="about.html">เกี่ยวกับ</a>
+      </nav>
+    </div>
+  </header>
+
+  <main id="eco">
+    <div class="container">
+      <div class="hero">
+        <span class="kicker">Interactive · เลนส์เศรษฐศาสตร์</span>
+        <h1>เศรษฐศาสตร์ <span class="grad-text">4 บท</span><br>ที่โรงเรียนไม่สอน แต่ตลาดหุ้นสอบทุกวัน</h1>
+        <p class="lead">
+          ทำไมสายการบินขนคนเป็นพันล้านแต่แทบไม่เหลือกำไร ขณะที่ซอฟต์แวร์ที่คนทั่วไปไม่รู้จักรวยเงียบๆ มาสามสิบปี
+          ทำไมค่าตัดผมแพงขึ้นทุกปีทั้งที่ช่างตัดเร็วเท่าเดิม ทำไมชิปยิ่งถูกลงคนยิ่งซื้อมากขึ้น
+          และทำไมประเทศที่เก่งที่สุดในโลกยังต้องง้อเกาะเล็กๆ เกาะเดียว —
+          สี่คำถามนี้มีคำตอบเป็นเศรษฐศาสตร์คนละบท และทั้งสี่บทคือเลนส์ที่ทำให้มองตลาดหุ้นชัดขึ้นทันที
+        </p>
+      </div>
+      <span class="eco-hint">เลื่อนลงเพื่อเริ่มบทที่ 1
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" aria-hidden="true"><path d="M12 4v16m0 0l-6-6m6 6l6-6"/></svg>
+      </span>
+    </div>
+
+    <!-- ═══════════ บทที่ 1 · เกมราคา ═══════════ -->
+    <section class="eco-ch" id="eco-c1" data-stage="0">
+      <div class="container">
+        <div class="eco-chhead">
+          <span class="eco-chn">บทที่ 1/4 · โครงสร้างการแข่งขัน</span>
+          <h2>ทำไมบางอุตสาหกรรมจนทั้งแผง — และบางอุตสาหกรรมรวยทั้งแผง</h2>
+          <p>เริ่มจากปริศนาที่ค้านสามัญสำนึกที่สุดในตลาดหุ้น:
+          ธุรกิจที่ยิ่งใหญ่และมีประโยชน์ต่อโลกมากที่สุด กลับทำเงินให้ผู้ถือหุ้นน้อยที่สุด</p>
+        </div>
+      </div>
+
+      <div class="eco-stage">
+        <div class="container">
+          <div class="eco-panel">
+            <div class="eco-eyebrow"><span id="c1-eye">สองธุรกิจ · คนละโลก</span><span class="eco-src" id="c1-src">IATA 2025F · 10-K SNPS/CDNS/V</span></div>
+            <div class="eco-counter-row">
+              <span class="eco-counter" id="c1-big" aria-live="polite">$979B</span>
+              <span class="eco-counter-sub" id="c1-sub">รายได้สายการบินทั้งโลกต่อปี</span>
+            </div>
+            <div class="eco-real" id="c1-real">ใหญ่กว่ารายได้ EDA สองเจ้ารวมกัน ~80 เท่า</div>
+            <div class="eco-viz">
+              <div class="eco-view on" id="c1-view-bars" role="img" aria-label="กราฟแท่งเทียบขนาดรายได้และอัตรากำไรของสายการบิน ซอฟต์แวร์ EDA และเครือข่ายบัตร">
+                <div class="eco-brow">
+                  <span class="eco-blab" id="c1-l1">สายการบินทั้งโลก</span>
+                  <div class="eco-btrack"><div class="eco-bfill" id="c1-b1" style="width:100%;background:#f87171"></div></div>
+                  <span class="eco-bval" id="c1-v1">$979B</span>
+                </div>
+                <div class="eco-brow">
+                  <span class="eco-blab" id="c1-l2">EDA สองเจ้า (SNPS+CDNS)</span>
+                  <div class="eco-btrack"><div class="eco-bfill" id="c1-b2" style="width:1.6%;background:#f0a848"></div></div>
+                  <span class="eco-bval" id="c1-v2">~$12B</span>
+                </div>
+                <div class="eco-brow">
+                  <span class="eco-blab" id="c1-l3">Visa</span>
+                  <div class="eco-btrack"><div class="eco-bfill" id="c1-b3" style="width:4%;background:#4ecaa0"></div></div>
+                  <span class="eco-bval" id="c1-v3">~$38B</span>
+                </div>
+              </div>
+              <div class="eco-view" id="c1-view-mtx" role="img" aria-label="ตาราง payoff 2 คูณ 2 ของเกมตัดราคา">
+                <div class="eco-mtx">
+                  <span class="eco-mhead eco-mside" id="c1-mside">เรา</span>
+                  <span class="eco-mhead">คู่แข่งตรึงราคา</span>
+                  <span class="eco-mhead">คู่แข่งตัดราคา</span>
+                  <span class="eco-mhead eco-mside" style="grid-row:2/4">​</span>
+                  <div class="eco-mcell" id="c1-m11"><b id="c1-m11t">ตรึง / ตรึง</b><span id="c1-m11s">ทั้งคู่พออยู่ได้</span></div>
+                  <div class="eco-mcell" id="c1-m12"><b id="c1-m12t">ตรึง / เขาตัด</b><span id="c1-m12s">เครื่องเราบินโล่ง — เจ็บหนัก</span></div>
+                  <div class="eco-mcell" id="c1-m21"><b id="c1-m21t">เราตัด / เขาตรึง</b><span id="c1-m21s">ที่นั่งเต็มทันที — กำไรโต</span></div>
+                  <div class="eco-mcell" id="c1-m22"><b id="c1-m22t">ตัด / ตัด</b><span id="c1-m22s">จนทั้งคู่ ตลอดกาล</span></div>
+                </div>
+              </div>
+            </div>
+            <div class="eco-chips">
+              <span class="eco-chip" data-at="1">margin ต่าง 13 เท่า</span>
+              <span class="eco-chip bad" data-at="2">สายการบิน: ตัดราคา = ทางเลือกเด่น</span>
+              <span class="eco-chip" data-at="3">EDA: ตัดราคาแล้วไม่ได้อะไร</span>
+              <span class="eco-chip" data-at="4">โครงสร้าง &gt; ความเก่ง</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="container eco-steps">
+        <section class="eco-step" data-s="0">
+          <div class="eco-card">
+            <span class="eco-n">1.0 · ปริศนา</span>
+            <h3>ธุรกิจที่มีประโยชน์ที่สุด ไม่ใช่ธุรกิจที่กำไรที่สุด</h3>
+            <p>ปี 2025 สายการบินทั้งโลกขนผู้โดยสารเกือบ <b>5 พันล้านเที่ยว</b>
+            เก็บรายได้ราว <span class="eco-num">$979B</span> (IATA) —
+            เทียบกับซอฟต์แวร์ออกแบบชิป (EDA) สองเจ้าคือ Synopsys กับ Cadence
+            ที่รายได้รวมกันแค่ <span class="eco-num">~$12B</span> เล็กกว่า ~80 เท่า
+            ถ้ากำไรมาจาก "ขนาด" หรือ "ประโยชน์ต่อโลก" สายการบินต้องชนะขาด —
+            แต่เดี๋ยวดูว่าเกิดอะไรขึ้นเมื่อเราเปลี่ยนจากวัดรายได้ เป็นวัด<b>กำไรที่เหลือจริง</b></p>
+          </div>
+        </section>
+        <section class="eco-step" data-s="1">
+          <div class="eco-card">
+            <span class="eco-n">1.1 · พลิกกราฟ</span>
+            <h3>กำไรต่อผู้โดยสารหนึ่งคน: ~$7 — เท่าค่ากาแฟแก้วเดียว</h3>
+            <p>อัตรากำไรจากการดำเนินงานของสายการบินทั้งอุตสาหกรรมอยู่ราว
+            <span class="eco-num">5%</span> กำไรสุทธิต่อผู้โดยสารหนึ่งคนเหลือ <b>~$7</b> (IATA 2025F)
+            ขณะที่ Cadence ทำ operating margin <span class="eco-num">~30%</span>
+            Synopsys (adjusted) <span class="eco-num">~40%</span>
+            และ Visa — ธุรกิจที่แค่ "ยืนเก็บค่าผ่านทาง" — ทำได้ <span class="eco-num">~66%</span>
+            <b>ต่างกันสิบกว่าเท่า ทั้งที่ทุกเจ้ามีคนเก่ง เทคโนโลยีดี และลูกค้าจ่ายเงินจริงเหมือนกัน</b>
+            แปลว่าตัวแปรที่ตัดสินไม่ใช่ความเก่ง — มันคือบางอย่างในโครงสร้าง</p>
+          </div>
+        </section>
+        <section class="eco-step" data-s="2">
+          <div class="eco-card">
+            <span class="eco-n">1.2 · เกมที่สายการบินเล่น</span>
+            <h3>Prisoner's Dilemma: ทุกคนรู้ว่าไม่ควรตัดราคา แต่ทุกคนต้องตัด</h3>
+            <p>ที่นั่งของทุกสายการบินเหมือนกันจนแยกไม่ออก และที่นั่งว่างคือสินค้าที่
+            <b>หมดอายุตอนประตูเครื่องปิด</b> — ขายได้ ฿1 ก็ยังดีกว่าปล่อยว่าง
+            เพราะต้นทุนของผู้โดยสารเพิ่มหนึ่งคนแทบเป็นศูนย์
+            มองผ่านตาราง payoff: ไม่ว่าคู่แข่งจะทำอะไร <b>การตัดราคาคือทางเลือกที่ดีกว่าเสมอ</b>
+            ทุกคนจึงจบที่มุมขวาล่าง — ตัด/ตัด — จนทั้งคู่ตลอดกาล
+            นี่ไม่ใช่เพราะผู้บริหารโง่ มันคือ Nash equilibrium: <b>ทุกคนเล่นเกมของตัวเองอย่างฉลาดที่สุด
+            แล้วผลรวมออกมาแย่ที่สุด</b></p>
+          </div>
+        </section>
+        <section class="eco-step" data-s="3">
+          <div class="eco-card">
+            <span class="eco-n">1.3 · เกมที่ EDA เล่น</span>
+            <h3>เกมเดียวกัน กติกาคนละข้อเดียว — ผลลัพธ์กลับด้าน</h3>
+            <p>ทีนี้ดูเกมของ EDA: ลูกค้าที่จะย้ายจาก Synopsys ไป Cadence ต้อง retrain
+            วิศวกรที่ใช้เครื่องมือเดิมมาทั้งอาชีพ แล้วเสี่ยงกับชิปที่งบออกแบบระดับ
+            <span class="eco-num">หลักร้อยล้านดอลลาร์</span>ต่อตัว —
+            ขณะที่ค่า license EDA เป็นแค่เศษเสี้ยวของงบนั้น
+            ตัดราคา 30% แล้วได้อะไร? <b>ลูกค้าใหม่ ~0 ราย</b> เพราะไม่มีใครย้ายค่ายด้วยเหตุผลเรื่องราคา
+            ช่องขวาบนของตารางเปลี่ยนจาก "ได้ลูกค้าเพิ่ม" เป็น "ไม่ได้อะไรเลย"
+            — แค่นั้น equilibrium ก็ย้ายไปมุมซ้ายบน: <b>ตรึง/ตรึง รวยทั้งคู่ ตลอดกาล</b></p>
+          </div>
+        </section>
+        <section class="eco-step" data-s="4">
+          <div class="eco-card">
+            <span class="eco-n">1.4 · บทสรุป</span>
+            <h3>Buffett: "นายทุนที่สายตายาวไกล ควรยิงเครื่องบินพี่น้อง Wright ตก"</h3>
+            <p>Buffett เขียนไว้ในจดหมายถึงผู้ถือหุ้นปี 2007 ว่าถ้ามีนายทุนสายตายาวไกลไปอยู่ที่
+            Kitty Hawk วันที่เครื่องบินลำแรกขึ้นบิน เขาควรยิง Orville Wright ร่วง
+            เพื่อช่วยเงินลูกหลานนักลงทุนไว้ — มุกร้ายที่สรุปบทนี้ได้ครบ:
+            <b>กำไรระยะยาวไม่ได้มาจากความเก่งหรือคุณูปการต่อโลก
+            แต่มาจากโครงสร้างที่ทำให้ไม่มีใครมีเหตุผลให้ตัดราคา</b>
+            คำถามแรกก่อนซื้อหุ้นทุกตัวจึงไม่ใช่ "บริษัทนี้เก่งไหม"
+            แต่คือ "อุตสาหกรรมนี้เล่นเกมแบบสายการบิน หรือแบบ EDA"</p>
+          </div>
+        </section>
+      </div>
+    </section>
+
+    <!-- ═══════════ บทที่ 2 · โรคของ Baumol ═══════════ -->
+    <section class="eco-ch" id="eco-c2" data-stage="0">
+      <div class="container">
+        <div class="eco-chhead">
+          <span class="eco-chn">บทที่ 2/4 · Baumol's Cost Disease</span>
+          <h2>ทำไมค่าตัดผมแพงขึ้นทุกปี — แต่ทีวีถูกลงทุกปี</h2>
+          <p>โรคเศรษฐศาสตร์ที่ไม่มีใครผิด ไม่มีใครโกง แต่ทำให้ทุกอย่างที่ "ต้องใช้เวลามนุษย์"
+          แพงขึ้นตลอดกาล — และเป็นเครื่องผลิต pricing power ที่เงียบที่สุดในตลาดหุ้น</p>
+        </div>
+      </div>
+
+      <div class="eco-stage">
+        <div class="container">
+          <div class="eco-panel">
+            <div class="eco-eyebrow"><span id="c2-eye">วงเครื่องสายของ Beethoven · 1826 → 2026</span><span class="eco-src" id="c2-src">Baumol &amp; Bowen 1966 · BLS CPI</span></div>
+            <div class="eco-counter-row">
+              <span class="eco-counter" id="c2-big" aria-live="polite">×1.0</span>
+              <span class="eco-counter-sub" id="c2-sub">productivity นักดนตรี ใน 200 ปี</span>
+            </div>
+            <div class="eco-real" id="c2-real">เพลงควอเต็ตของ Beethoven: 4 คน 40 นาที — เท่าเดิมเป๊ะ</div>
+            <div class="eco-viz">
+              <div class="eco-view on" id="c2-view-prod" role="img" aria-label="เทียบผลิตภาพและค่าแรงของโรงงานกับงานบริการที่ใช้เวลามนุษย์">
+                <div class="eco-brow">
+                  <span class="eco-blab">ผลิตภาพโรงงาน<br>(ตั้งแต่ 1900)</span>
+                  <div class="eco-btrack"><div class="eco-bfill" id="c2-b1" style="width:100%;background:#4ecaa0"></div></div>
+                  <span class="eco-bval">×50+</span>
+                </div>
+                <div class="eco-brow">
+                  <span class="eco-blab">ผลิตภาพนักดนตรี<br>/ ช่างตัดผม</span>
+                  <div class="eco-btrack"><div class="eco-bfill" id="c2-b2" style="width:2%;background:#a78bfa"></div></div>
+                  <span class="eco-bval">×1</span>
+                </div>
+                <div class="eco-brow" id="c2-wrow1" style="opacity:0">
+                  <span class="eco-blab">ค่าแรงโรงงาน</span>
+                  <div class="eco-btrack"><div class="eco-bfill" id="c2-b3" style="width:2%;background:#4ecaa0"></div></div>
+                  <span class="eco-bval">↑ ตามผลิตภาพ</span>
+                </div>
+                <div class="eco-brow" id="c2-wrow2" style="opacity:0">
+                  <span class="eco-blab">ค่าแรงช่างตัดผม</span>
+                  <div class="eco-btrack"><div class="eco-bfill" id="c2-b4" style="width:2%;background:#a78bfa"></div></div>
+                  <span class="eco-bval">↑ เท่ากัน!</span>
+                </div>
+              </div>
+              <div class="eco-view" id="c2-view-cpi" role="img" aria-label="กราฟแท่งการเปลี่ยนแปลงราคาสหรัฐปี 2000 ถึง 2024 แยกหมวดสินค้ากับบริการ">
+                <div class="eco-brow"><span class="eco-blab">โทรทัศน์</span>
+                  <div class="eco-dtrack"><div class="eco-dfill" id="c2-d1" style="background:#38c6dd"></div></div>
+                  <span class="eco-bval">−98%</span></div>
+                <div class="eco-brow"><span class="eco-blab">ของเล่น</span>
+                  <div class="eco-dtrack"><div class="eco-dfill" id="c2-d2" style="background:#38c6dd"></div></div>
+                  <span class="eco-bval">−74%</span></div>
+                <div class="eco-brow"><span class="eco-blab">เงินเฟ้อเฉลี่ย</span>
+                  <div class="eco-dtrack"><div class="eco-dfill" id="c2-d3" style="background:#69707a"></div></div>
+                  <span class="eco-bval">+87%</span></div>
+                <div class="eco-brow"><span class="eco-blab">ค่าเทอมมหาวิทยาลัย</span>
+                  <div class="eco-dtrack"><div class="eco-dfill" id="c2-d4" style="background:#a78bfa"></div></div>
+                  <span class="eco-bval">+180%</span></div>
+                <div class="eco-brow"><span class="eco-blab">บริการโรงพยาบาล</span>
+                  <div class="eco-dtrack"><div class="eco-dfill" id="c2-d5" style="background:#f27d98"></div></div>
+                  <span class="eco-bval">+250%</span></div>
+              </div>
+            </div>
+            <div class="eco-chips">
+              <span class="eco-chip" data-at="1">ค่าแรงขึ้นทั้งที่ productivity ไม่ขึ้น</span>
+              <span class="eco-chip" data-at="2">ยิ่งใช้มนุษย์ ยิ่งแพงขึ้น</span>
+              <span class="eco-chip" data-at="3">= pricing power อัตโนมัติ</span>
+              <span class="eco-chip bad" data-at="4">AI คือยารักษาตัวแรก?</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="container eco-steps">
+        <section class="eco-step" data-s="0">
+          <div class="eco-card">
+            <span class="eco-n">2.0 · จุดตั้งต้น</span>
+            <h3>200 ปีผ่านไป วงควอเต็ตยังใช้ 4 คน 40 นาที เท่าเดิม</h3>
+            <p>ปี 1826 การเล่นควอเต็ตของ Beethoven หนึ่งบทใช้นักดนตรี 4 คน ราว 40 นาที
+            ปี 2026 ก็ยังใช้ <b>4 คน 40 นาทีเท่าเดิมเป๊ะ</b> — จะเล่นเร็วขึ้น 2 เท่าก็ไม่ใช่เพลงเดิมแล้ว
+            นักเศรษฐศาสตร์ William Baumol สังเกตเรื่องนี้ในปี 1966:
+            งานบางประเภท <b>ตัว "เวลามนุษย์" คือสินค้า</b> — ดนตรี การพยาบาล การสอน การตัดผม —
+            productivity ของมันแทบเพิ่มไม่ได้เลย ขณะที่โรงงานข้างๆ ผลิตของได้มากขึ้น
+            50 เท่าในศตวรรษเดียว และช่องว่างนี้แหละคือจุดเริ่มของโรค</p>
+          </div>
+        </section>
+        <section class="eco-step" data-s="1">
+          <div class="eco-card">
+            <span class="eco-n">2.1 · กลไกของโรค</span>
+            <h3>ค่าแรงช่างตัดผมขึ้น เพราะโรงงานข้างบ้านขึ้น</h3>
+            <p>นี่คือหัวใจที่คนเข้าใจผิดบ่อยที่สุด: ช่างตัดผมตัดผมเร็วเท่าเดิมมา 50 ปี
+            แล้วทำไมค่าแรง (และค่าตัดผม) ถึงขึ้น? <b>เพราะช่างตัดผมมีทางเลือก</b> —
+            ถ้าค่าแรงในร้านตัดผมไม่ขยับตามโรงงานและออฟฟิศที่ productivity โตขึ้นเรื่อยๆ
+            สุดท้ายคนจะเลิกเป็นช่างตัดผมกันหมด
+            เศรษฐกิจจึง<b>ถูกบังคับ</b>ให้จ่ายค่าแรงภาคบริการแพงขึ้น
+            ทั้งที่ผลผลิตต่อชั่วโมงเท่าเดิม — ไม่มีใครผิด ไม่มีใครโกง
+            แต่ทุกอย่างที่ทำด้วยมือมนุษย์จะแพงขึ้นสัมพัทธ์ ตลอดกาล</p>
+          </div>
+        </section>
+        <section class="eco-step" data-s="2">
+          <div class="eco-card">
+            <span class="eco-n">2.2 · หลักฐาน 24 ปี</span>
+            <h3>สิ่งที่หุ่นยนต์ทำ ถูกลง 98% — สิ่งที่มนุษย์ทำ แพงขึ้น 250%</h3>
+            <p>ข้อมูลเงินเฟ้อสหรัฐปี 2000–2024 (BLS) เรียงเป็นภาพเดียวแล้วชัดจนไม่ต้องอธิบาย:
+            ราคาทีวี <span class="eco-num">−98%</span> ของเล่น <span class="eco-num">−74%</span>
+            — ทุกอย่างที่ automation แตะได้ ถูกลงมหาศาล
+            ขณะที่ค่าเทอมมหาวิทยาลัย <span class="eco-num">+180%</span>
+            และบริการโรงพยาบาล <span class="eco-num">+250%</span> ทิ้งเงินเฟ้อเฉลี่ย
+            (+87%) ไม่เห็นฝุ่น — <b>เส้นแบ่งไม่ใช่ "ของฟุ่มเฟือย vs ของจำเป็น"
+            แต่คือ "เครื่องจักรทำได้ vs ต้องใช้เวลามนุษย์"</b></p>
+          </div>
+        </section>
+        <section class="eco-step" data-s="3">
+          <div class="eco-card">
+            <span class="eco-n">2.3 · มุมนักลงทุน</span>
+            <h3>ธุรกิจฝั่งขวาของโรค ได้ขึ้นราคาอัตโนมัติทุกปี</h3>
+            <p>สำหรับนักลงทุน โรคของ Baumol คือเครื่องผลิต pricing power ที่เงียบที่สุด:
+            ธุรกิจที่ขายบริการซึ่ง<b>ผูกกับเวลามนุษย์ผู้เชี่ยวชาญ</b> — โรงพยาบาล การศึกษา
+            งานตรวจสอบ งานเฉพาะทาง — ขึ้นราคาเร็วกว่าเงินเฟ้อได้ทุกปีโดยไม่ต้องเก่งขึ้นเลย
+            เพราะลูกค้าไม่มีทางเลือกที่ productivity ดีกว่า
+            แต่เหรียญนี้มีสองด้าน: ธุรกิจที่<b>ต้นทุน</b>หลักเป็นแรงงานมนุษย์
+            (ร้านอาหาร โรงแรม ขนส่ง) ก็โดนโรคเดียวกันกัดฝั่งต้นทุน —
+            เลนส์นี้จึงใช้ถามหุ้นทุกตัวว่า <b>"Baumol อยู่ฝั่งรายได้ หรือฝั่งต้นทุนของบริษัทนี้"</b></p>
+          </div>
+        </section>
+        <section class="eco-step" data-s="4">
+          <div class="eco-card">
+            <span class="eco-n">2.4 · จุดพลิกของยุคเรา</span>
+            <h3>AI คือยารักษาโรค Baumol ตัวแรกในประวัติศาสตร์ — อาจจะ</h3>
+            <p>สองร้อยปีที่ผ่านมาไม่มีเทคโนโลยีไหนเพิ่ม productivity ของ "งานหัวมนุษย์" ได้จริง
+            AI คือผู้ท้าชิงตัวแรก: ถ้ามันวินิจฉัยโรค ตรวจเอกสาร สอนหนังสือ เขียนโค้ดได้จริงในสเกลใหญ่
+            สิ่งที่จะเกิดคือ<b>เส้น +250% พวกนั้นหักหัวลงเป็นครั้งแรก</b>
+            นั่นดีต่อโลกมหาศาล — แต่โหดกับธุรกิจที่ moat ตั้งอยู่บนความแพงของเวลามนุษย์
+            คำถามที่ควรถามหุ้นบริการทุกตัวในพอร์ตวันนี้:
+            <b>"ราคาที่เก็บอยู่ทุกวันนี้ แพงเพราะเก่ง หรือแพงเพราะโรคของ Baumol?"</b>
+            ถ้าคำตอบคืออย่างหลัง AI คือ kill condition ที่ต้องเขียนลงกระดาษ</p>
+          </div>
+        </section>
+      </div>
+    </section>
+
+    <!-- ═══════════ บทที่ 3 · Jevons Paradox ═══════════ -->
+    <section class="eco-ch" id="eco-c3" data-stage="0">
+      <div class="container">
+        <div class="eco-chhead">
+          <span class="eco-chn">บทที่ 3/4 · Jevons Paradox</span>
+          <h2>ยิ่งประหยัด ยิ่งเปลือง — ปริศนาปี 1865 ที่เพิ่งเขย่าตลาดปี 2025</h2>
+          <p>สัญชาตญาณบอกว่าของยิ่งใช้อย่างมีประสิทธิภาพ เราจะยิ่งใช้มันน้อยลง —
+          ประวัติศาสตร์ 160 ปีบอกตรงกันข้าม และคนที่ลืมบทนี้เพิ่งขายหุ้นทิ้ง $589B ในวันเดียว</p>
+        </div>
+      </div>
+
+      <div class="eco-stage">
+        <div class="container">
+          <div class="eco-panel">
+            <div class="eco-eyebrow"><span id="c3-eye">อังกฤษ ยุคเครื่องจักรไอน้ำ · 1865</span><span class="eco-src" id="c3-src">Jevons, The Coal Question (1865)</span></div>
+            <div class="eco-counter-row">
+              <span class="eco-counter" id="c3-big" aria-live="polite">−75%</span>
+              <span class="eco-counter-sub" id="c3-sub">ถ่านหินที่เครื่องจักรใช้ ต่อแรงม้า</span>
+            </div>
+            <div class="eco-real" id="c3-real">เครื่องจักรของ Watt ประหยัดถ่านหินกว่ารุ่นก่อน ~4 เท่า</div>
+            <div class="eco-viz">
+              <div class="eco-view on" id="c3-view" role="img" aria-label="กราฟแท่งคู่: ต้นทุนต่อหน่วยที่ลดลง เทียบกับปริมาณการใช้รวมที่เพิ่มขึ้น">
+                <div class="eco-vwrap">
+                  <div class="eco-vcol">
+                    <span class="eco-vnum" id="c3-n1">100 → 25</span>
+                    <div class="eco-vtrack"><div class="eco-vfill" id="c3-f1" style="height:96%;background:#38c6dd"></div></div>
+                    <span class="eco-vlab" id="c3-lab1">ต้นทุนต่อหน่วย</span>
+                  </div>
+                  <div class="eco-vcol">
+                    <span class="eco-vnum" id="c3-n2">100</span>
+                    <div class="eco-vtrack" id="c3-t2"><div class="eco-vburst"></div><div class="eco-vfill" id="c3-f2" style="height:16%;background:#4ecaa0"></div></div>
+                    <span class="eco-vlab" id="c3-lab2">การใช้ทั้งหมด</span>
+                  </div>
+                </div>
+                <div class="eco-flash" id="c3-flash">
+                  <b>27 ม.ค. 2025 · NVDA −17% · −$589B</b>
+                  <span>มูลค่าหุ้นตัวเดียวที่หายในวันเดียว มากที่สุดในประวัติศาสตร์ ณ วันนั้น</span>
+                </div>
+              </div>
+            </div>
+            <div class="eco-chips">
+              <span class="eco-chip" data-at="1">ถ่านหิน: ประหยัด 4 เท่า → ใช้เพิ่ม 6 เท่า</span>
+              <span class="eco-chip" data-at="2">แสงไฟ: ถูกลง 3,000 เท่า</span>
+              <span class="eco-chip bad" data-at="3">DeepSeek day</span>
+              <span class="eco-chip" data-at="4">token ถูกลง 100 เท่า · capex ×4.6</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="container eco-steps">
+        <section class="eco-step" data-s="0">
+          <div class="eco-card">
+            <span class="eco-n">3.0 · อังกฤษ 1865</span>
+            <h3>เครื่องจักรประหยัดถ่านหิน 4 เท่า — ทุกคนคิดว่าถ่านหินจะขายไม่ออก</h3>
+            <p>เมื่อ James Watt ปรับปรุงเครื่องจักรไอน้ำจนกินถ่านหินน้อยลงราว 4 เท่า
+            ข้อสรุปที่ฟังขึ้นที่สุดคือ อังกฤษจะใช้ถ่านหินน้อยลง
+            นักเศรษฐศาสตร์หนุ่ม William Stanley Jevons เขียนแย้งไว้ในปี 1865 ว่าตรงกันข้าม:
+            <b>เมื่อพลังงานถูกลง งานที่ "เคยไม่คุ้มทำ" จะคุ้มขึ้นมาพร้อมกันทั้งประเทศ</b> —
+            โรงงานใหม่ รถไฟสายใหม่ เรือกลไฟลำใหม่ ที่ไม่มีทางเกิดในยุคถ่านหินแพง
+            ประสิทธิภาพไม่ได้ลดการใช้ มันคือ<b>ส่วนลดราคา</b>ที่ปลุก demand ทั้งระบบ</p>
+          </div>
+        </section>
+        <section class="eco-step" data-s="1">
+          <div class="eco-card">
+            <span class="eco-n">3.1 · ผลจริง</span>
+            <h3>อังกฤษไม่ได้ใช้ถ่านหินลดลง — ใช้เพิ่มขึ้น ~6 เท่า</h3>
+            <p>ตลอดศตวรรษที่ 19 หลังยุคเครื่องจักรประหยัดพลังงาน
+            การใช้ถ่านหินของอังกฤษ<b>โตขึ้นราว 6 เท่า</b> — Jevons ถูกเผง
+            ปรากฏการณ์นี้ได้ชื่อว่า Jevons Paradox: <b>ประสิทธิภาพที่ดีขึ้น
+            ทำให้การใช้ทรัพยากรรวม "เพิ่มขึ้น" ไม่ใช่ลดลง</b>
+            ตราบใดที่ยังมี demand ที่รอราคาถูกกว่านี้อยู่ข้างนอก
+            จำเงื่อนไขท้ายประโยคนี้ไว้ให้ดี — มันคือหัวใจของบทนี้
+            และคือคำถามที่นักลงทุน AI ทุกคนต้องตอบให้ได้</p>
+          </div>
+        </section>
+        <section class="eco-step" data-s="2">
+          <div class="eco-card">
+            <span class="eco-n">3.2 · ทำซ้ำกับแสงไฟ</span>
+            <h3>แสงถูกลง ~3,000 เท่า — โลกเลยสว่างจนมองเห็นจากอวกาศ</h3>
+            <p>ประวัติศาสตร์เล่นมุกเดิมซ้ำกับทุกเทคโนโลยี: งานวิจัยคลาสสิกของ
+            William Nordhaus (1996) ไล่ราคาของ "แสงสว่างหนึ่งหน่วย" จากเทียนไข
+            สู่ตะเกียงน้ำมัน สู่หลอดไฟ — ถูกลงราว <span class="eco-num">3,000 เท่า</span>ในสองศตวรรษ
+            แล้วมนุษย์ใช้แสงน้อยลงไหม? เราจุดไฟทิ้งไว้ทั้งคืนทั้งเมือง
+            จนภาพถ่ายกลางคืนจากอวกาศกลายเป็นแผนที่อารยธรรม —
+            <b>การใช้แสงรวมโตขึ้นหลายหมื่นเท่า กลืนการประหยัดต่อหน่วยหมดแล้วเหลือเฟือ</b></p>
+          </div>
+        </section>
+        <section class="eco-step" data-s="3">
+          <div class="eco-card">
+            <span class="eco-n">3.3 · วันที่ตลาดลืมบทนี้</span>
+            <h3>DeepSeek Day: ตลาดเดิมพัน $589B ว่า Jevons คิดผิด</h3>
+            <p>27 มกราคม 2025 — ข่าวว่าโมเดล AI จากจีนชื่อ DeepSeek ฝึกได้ด้วยต้นทุนต่ำกว่า
+            ที่ทุกคนคิดหลายเท่า ตลาดตีความแบบสัญชาตญาณ: "AI มีประสิทธิภาพขึ้น =
+            โลกต้องการชิปน้อยลง" หุ้น NVIDIA ร่วง <span class="eco-num">−17%</span> ในวันเดียว
+            มูลค่าหาย <b>~$589B — สถิติหุ้นตัวเดียววันเดียวที่มากที่สุดในประวัติศาสตร์ ณ วันนั้น</b>
+            สังเกตว่านี่คือประโยคเดียวกับ "เครื่องจักร Watt ประหยัดถ่านหิน
+            = ถ่านหินจะขายไม่ออก" เป๊ะ — คำถามเดียวที่สำคัญคือ รอบนี้ demand
+            ที่รอราคาถูกอยู่ข้างนอก มีจริงหรือเปล่า</p>
+          </div>
+        </section>
+        <section class="eco-step" data-s="4">
+          <div class="eco-card">
+            <span class="eco-n">3.4 · สิ่งที่เกิดจริงหลังจากนั้น</span>
+            <h3>ราคาถูกลง 100 เท่า เงินลงทุนกลับ ×4.6 — Jevons ยังไม่แพ้</h3>
+            <p>สองปีหลังจากนั้นราคาใช้งานโมเดลระดับ GPT-4 ถูกลง<b>ราวร้อยเท่า</b>
+            แล้ว demand หดไหม? capex ของ hyperscaler สี่เจ้า (MSFT, GOOGL, AMZN, META)
+            ไต่จาก <span class="eco-num">$113B</span> (2023) → <span class="eco-num">~$360B</span> (2025)
+            → run-rate <span class="eco-num">~$520B</span> (Q1 2026, จาก 10-Q) — โตเกือบ 5 เท่า
+            ระหว่างที่ราคาต่อหน่วยดิ่งลงเหว <b>นี่คือ Jevons แบบตำราเป๊ะ</b>
+            แต่อย่าหยุดคิดแค่นี้: paradox ทำงานเฉพาะเมื่อ demand ยัง price-elastic
+            วันที่งานส่วนใหญ่ที่ AI ทำคุ้ม ถูกทำไปหมดแล้ว — วันนั้น
+            ประสิทธิภาพที่เพิ่มขึ้นจะเริ่ม "ลด" การใช้จริงๆ
+            การอ่านให้ออกว่าเราอยู่ช่วงไหนของเส้นนี้ คือเดิมพันที่ใหญ่ที่สุดในตลาดตอนนี้</p>
+          </div>
+        </section>
+      </div>
+    </section>
+
+    <!-- ═══════════ บทที่ 4 · Comparative Advantage ═══════════ -->
+    <section class="eco-ch" id="eco-c4" data-stage="0">
+      <div class="container">
+        <div class="eco-chhead">
+          <span class="eco-chn">บทที่ 4/4 · Comparative Advantage</span>
+          <h2>ทำไมคนที่เก่งกว่าทุกเรื่อง ยังต้องจ้างคนอื่น — และอเมริกาต้องง้อไต้หวัน</h2>
+          <p>แนวคิดปี 1817 ที่ Paul Samuelson ยกให้เป็นความจริงในสังคมศาสตร์ที่
+          "จริงแท้ แต่ไม่ชัดในตัวเอง" ที่สุด — และเป็นบทที่อธิบายสงครามชิปทั้งกระดาน</p>
+        </div>
+      </div>
+
+      <div class="eco-stage">
+        <div class="container">
+          <div class="eco-panel">
+            <div class="eco-eyebrow"><span id="c4-eye">หมอที่พิมพ์เร็วที่สุดในเมือง</span><span class="eco-src" id="c4-src">Ricardo 1817 · TSMC 20-F</span></div>
+            <div class="eco-counter-row">
+              <span class="eco-counter" id="c4-big" aria-live="polite">×2</span>
+              <span class="eco-counter-sub" id="c4-sub">หมอพิมพ์เร็วกว่าเลขาฯ — ควรจ้างไหม?</span>
+            </div>
+            <div class="eco-real" id="c4-real">ตัวอย่างสมมติ: รักษาได้ ฿4,000/ชม. · เลขาฯ ค่าจ้าง ฿200/ชม.</div>
+            <div class="eco-viz">
+              <div class="eco-view on" id="c4-view" role="img" aria-label="เทียบสองทางเลือก: หมอทำเองทุกอย่าง กับหมอแบ่งงานให้เลขานุการ">
+                <div class="eco-sc">
+                  <div class="eco-sccard" id="c4-sc1">
+                    <div class="eco-sct" id="c4-sct1">ทำเองหมด — รักษา 6 ชม. + พิมพ์เอง 2 ชม.</div>
+                    <div class="eco-hours" id="c4-h1" aria-hidden="true">
+                      <i class="work"></i><i class="work"></i><i class="work"></i><i class="work"></i><i class="work"></i><i class="work"></i><i class="type"></i><i class="type"></i>
+                    </div>
+                    <div class="eco-scnum" id="c4-num1">฿24,000/วัน</div>
+                    <div class="eco-scsub" id="c4-sub1">เก่งทุกอย่าง แต่เวลามีแค่ 8 ชม.</div>
+                  </div>
+                  <div class="eco-sccard" id="c4-sc2">
+                    <div class="eco-sct" id="c4-sct2">แบ่งงาน — รักษาเต็ม 8 ชม. จ้างเลขาฯ พิมพ์</div>
+                    <div class="eco-hours" id="c4-h2" aria-hidden="true">
+                      <i class="work"></i><i class="work"></i><i class="work"></i><i class="work"></i><i class="work"></i><i class="work"></i><i class="work"></i><i class="work"></i>
+                    </div>
+                    <div class="eco-scnum" id="c4-num2">฿31,200/วัน</div>
+                    <div class="eco-scsub" id="c4-sub2">หักค่าจ้างเลขาฯ แล้ว — ยังชนะ +30%</div>
+                  </div>
+                </div>
+                <div class="eco-brow" id="c4-azrow" style="opacity:0;margin-top:10px">
+                  <span class="eco-blab">ต้นทุนผลิตชิปในสหรัฐฯ</span>
+                  <div class="eco-btrack"><div class="eco-bfill" id="c4-az" style="width:2%;background:#f87171"></div></div>
+                  <span class="eco-bval">~+50%</span>
+                </div>
+              </div>
+            </div>
+            <div class="eco-chips">
+              <span class="eco-chip" data-at="1">ดูค่าเสียโอกาส ไม่ใช่ความเก่ง</span>
+              <span class="eco-chip" data-at="2">TSMC: ≤7nm = 74% ของ wafer rev</span>
+              <span class="eco-chip bad" data-at="3">เบี้ยประกัน ~+50%</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="container eco-steps">
+        <section class="eco-step" data-s="0">
+          <div class="eco-card">
+            <span class="eco-n">4.0 · ปริศนา</span>
+            <h3>หมอที่พิมพ์รายงานเร็วกว่าเลขาฯ 2 เท่า ควรพิมพ์เองไหม?</h3>
+            <p>หมอคนหนึ่งเก่งทั้งสองอย่าง: รักษาคนไข้ได้ค่าตัว <span class="eco-num">฿4,000/ชม.</span>
+            และบังเอิญพิมพ์รายงานเร็วกว่าเลขานุการทุกคนในเมือง 2 เท่า —
+            ภาษาเศรษฐศาสตร์เรียกว่ามี <b>absolute advantage ทั้งสองงาน</b>
+            สัญชาตญาณบอกว่า "เก่งกว่าก็ทำเองสิ จ้างทำไม"
+            David Ricardo ตอบไว้ตั้งแต่ปี 1817 ว่าสัญชาตญาณนี้ผิด —
+            และคำตอบที่ถูกคือรากของการค้าโลกทั้งใบ</p>
+          </div>
+        </section>
+        <section class="eco-step" data-s="1">
+          <div class="eco-card">
+            <span class="eco-n">4.1 · เฉลย</span>
+            <h3>สิ่งที่ต้องมอง ไม่ใช่ความเก่ง — คือค่าเสียโอกาส</h3>
+            <p>ทุกชั่วโมงที่หมอนั่งพิมพ์ = ชั่วโมงที่ไม่ได้รักษา = เผา ฿4,000 ทิ้ง
+            ต่อให้พิมพ์เร็วแค่ไหน การพิมพ์ของหมอก็เป็นงานที่ "แพงที่สุดในเมือง"
+            ลองเทียบ: ทำเองหมด (รักษา 6 ชม. พิมพ์ 2 ชม.) ได้ <span class="eco-num">฿24,000/วัน</span>
+            — จ้างเลขาฯ ที่พิมพ์ช้ากว่า 2 เท่า ค่าจ้าง ฿200/ชม. แล้วรักษาเต็ม 8 ชม.
+            ได้ <span class="eco-num">฿31,200/วัน</span> หลังหักค่าจ้าง — <b>รวยขึ้น 30%
+            จากการมอบงานให้คนที่ทำงานนั้น "แย่กว่าตัวเอง"</b>
+            เพราะสิ่งที่ตัดสินการแบ่งงานคือค่าเสียโอกาสของแต่ละฝ่าย ไม่ใช่ฝีมือสัมบูรณ์</p>
+          </div>
+        </section>
+        <section class="eco-step" data-s="2">
+          <div class="eco-card">
+            <span class="eco-n">4.2 · ขยายเป็นประเทศ</span>
+            <h3>อเมริกาออกแบบชิปเก่งที่สุดในโลก — เหตุผลเดียวกับที่ไม่ควรผลิตเอง</h3>
+            <p>สลับ "หมอกับเลขาฯ" เป็น "อเมริกากับไต้หวัน" แล้วบทเรียนเดิมทำงานเป๊ะ:
+            ทุกชั่วโมงวิศวกรรมที่อเมริกาทุ่มให้การรีดกำลังผลิตโรงงาน
+            คือชั่วโมงที่ไม่ได้ทุ่มให้การออกแบบชิปและโมเดล AI ที่ตัวเองทำได้ดีที่สุดในโลก
+            การแบ่งงานจึงลงตัวที่: อเมริกาออกแบบ ไต้หวันผลิต —
+            TSMC กลายเป็นโรงงานของอุตสาหกรรมชิปทั้งโลก คุมโหนดล้ำสุด
+            (≤7nm) ถึง <span class="eco-num">74% ของ wafer revenue</span>
+            และแทบทุก AI accelerator บนโลกต้องผ่านสายพานของเกาะเดียวเกาะนี้
+            <b>ชิปที่โลกได้จึงถูกกว่า เร็วกว่า และเก่งกว่า โลกที่ต่างคนต่างทำเองทุกขั้น</b></p>
+          </div>
+        </section>
+        <section class="eco-step" data-s="3">
+          <div class="eco-card">
+            <span class="eco-n">4.3 · ขีดจำกัดของบทเรียน</span>
+            <h3>Ricardo มีสมมติฐานซ่อนอยู่: การค้าต้องไหลตลอดไป</h3>
+            <p>Comparative advantage ให้ประสิทธิภาพสูงสุด — แลกกับ<b>ความเปราะบางสูงสุด</b>:
+            ถ้าโรงงานทั้งโลกอยู่บนเกาะเดียวที่มีความเสี่ยงภูมิรัฐศาสตร์ ประสิทธิภาพก็คือ
+            single point of failure ดีๆ นี่เอง สงครามชิปจึงเป็นการที่โลก<b>ยอมจ่ายเบี้ยประกัน</b>:
+            Morris Chang ผู้ก่อตั้ง TSMC เตือนเองว่าผลิตชิปในสหรัฐฯ
+            แพงกว่าไต้หวันราว <span class="eco-num">50%</span> — โรงงานแอริโซนาจึงไม่ใช่การ
+            "ทวงคืน" ที่ได้ของถูกกว่า แต่คือการซื้อ resilience ด้วย margin
+            คำถามมุมนักลงทุน: <b>เบี้ยประกันก้อนนี้ไปโผล่ในงบใคร</b> —
+            ถ้าคนจ่ายคือลูกค้า (อย่างที่ TSMC ส่งผ่านราคาได้ทุกวันนี้)
+            นั่นแหละหลักฐาน pricing power ที่แข็งที่สุดที่หุ้นตัวหนึ่งจะโชว์ได้</p>
+          </div>
+        </section>
+      </div>
+    </section>
+
+    <!-- ═══════════ OUTRO ═══════════ -->
+    <div class="container eco-outro">
+      <h2>สี่บท ในสี่บรรทัด</h2>
+      <ul>
+        <li><span class="eco-sw" style="background:#f0a848"></span><b>โครงสร้าง &gt; ความเก่ง</b> — ก่อนถามว่าบริษัทเก่งไหม ถามว่าอุตสาหกรรมนี้เล่นเกมแบบสายการบิน (ตัดราคาคือทางเลือกเด่น) หรือแบบ EDA (ตัดราคาแล้วไม่ได้อะไร)</li>
+        <li><span class="eco-sw" style="background:#a78bfa"></span><b>โรคของ Baumol</b> — อะไรที่ผูกกับเวลามนุษย์จะแพงขึ้นตลอดกาล ถามหุ้นทุกตัวว่าโรคนี้อยู่ฝั่งรายได้ (ดี) หรือฝั่งต้นทุน (แย่) — และ AI คือยาตัวแรกที่อาจรักษามันได้</li>
+        <li><span class="eco-sw" style="background:#38c6dd"></span><b>Jevons Paradox</b> — ประสิทธิภาพที่ดีขึ้นคือส่วนลดราคาที่ปลุก demand ไม่ใช่ตัวลด demand — ตราบใดที่ยังมีงานที่ "รอราคาถูกกว่านี้" อยู่ข้างนอก จงระวังวันที่มันหมด</li>
+        <li><span class="eco-sw" style="background:#f27d98"></span><b>Comparative Advantage</b> — การแบ่งงานตามค่าเสียโอกาสสร้างความมั่งคั่งมากกว่าความเก่งสัมบูรณ์ แต่ต้องแลกกับความเปราะบาง — และคนที่ส่งผ่าน "เบี้ยประกัน" ให้ลูกค้าจ่ายได้ คือคนที่มี pricing power จริง</li>
+      </ul>
+
+      <h2>ใช้เลนส์พวกนี้ต่อ</h2>
+      <div class="eco-next">
+        <a href="articles/deep-dive-snps.html">
+          <span class="eco-nk">บทที่ 1 ในของจริง</span>
+          <span class="eco-nt">ผ่าธุรกิจ Synopsys — duopoly ที่ตัดราคาแล้วไม่ได้อะไร</span>
+        </a>
+        <a href="articles/deep-dive-tsm.html">
+          <span class="eco-nk">บทที่ 4 ในของจริง</span>
+          <span class="eco-nt">ผ่าธุรกิจ TSMC — โรงงานของโลกที่ส่งเบี้ยประกันให้ลูกค้าจ่าย</span>
+        </a>
+        <a href="articles/deep-dive-ai-bubble.html">
+          <span class="eco-nk">บทที่ 3 ภาคเดิมพัน</span>
+          <span class="eco-nt">AI ตอนนี้คือ dotcom 1999 หรือเปล่า — เช็คด้วยข้อมูล ไม่ใช่อารมณ์</span>
+        </a>
+        <a href="reverse-dcf.html">
+          <span class="eco-nk">เครื่องมือ</span>
+          <span class="eco-nt">Reverse DCF — ถอดว่าราคาหุ้นวันนี้ ตลาดคาดหวังอะไร</span>
+        </a>
+      </div>
+
+      <p class="eco-note">ที่มาและข้อจำกัดของตัวเลข: ตัวเลขสายการบินจาก IATA (ประมาณการปี 2025:
+      รายได้ ~$979B, net margin ~3.7%, กำไรสุทธิ ~$7 ต่อผู้โดยสาร); margin ของ Cadence (GAAP, FY2025,
+      normalize รายการ settlement) และ Synopsys (adjusted segment, FY2025–26 ที่รวม Ansys แล้ว)
+      จาก 10-K/10-Q; Visa จาก 10-K FY2024; ดัชนีราคาสหรัฐฯ 2000–2024 จาก BLS CPI (ค่าโดยประมาณ
+      ตามหมวดที่นิยมอ้างในงานของ AEI); ถ่านหินอังกฤษและราคาแสงเป็นตัวเลขประวัติศาสตร์โดยประมาณ
+      (Jevons 1865; Nordhaus 1996); ตัวเลข NVDA วันที่ 27 ม.ค. 2025 จากข้อมูลตลาด;
+      capex hyperscaler จาก 10-Q ไตรมาสล่าสุดของทั้งสี่บริษัท; สัดส่วนโหนด ≤7nm ของ TSMC
+      จากรายงานผลประกอบการ; ตัวเลขหมอ–เลขานุการเป็นตัวอย่างสมมติเพื่ออธิบายแนวคิด
+      ทั้งหมดนี้เพื่อการศึกษา ไม่ใช่คำแนะนำการลงทุน</p>
+    </div>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container footer-grid">
+      <div class="footer-brand">
+        <a href="index.html" class="site-title">Moatrices</a>
+        <p>บันทึกการเรียนวิเคราะห์หุ้น US เชิงลึก ภาษาไทย — เน้นพื้นฐานธุรกิจ ไม่ใช่ราคา</p>
+      </div>
+      <nav class="footer-nav">
+        <a href="index.html">หน้าแรก</a>
+        <a href="articles.html">บทความ</a>
+        <a href="stocks.html">หุ้น</a>
+        <a href="tools.html">เครื่องมือ</a>
+        <a href="dashboard.html">Dashboard</a>
+        <a href="about.html">เกี่ยวกับ</a>
+      </nav>
+      <div class="footer-follow">
+        <span class="footer-follow-label">ติดตาม</span>
+        <div class="footer-social">
+          <a href="/feed.xml" class="social-btn" aria-label="RSS feed" title="RSS feed"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 11a9 9 0 0 1 9 9"/><path d="M4 4a16 16 0 0 1 16 16"/><circle cx="5" cy="19" r="1"/></svg></a>
+          <a href="mailto:beatp9696@gmail.com" class="social-btn" aria-label="อีเมล" title="อีเมล"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="m3 7 9 6 9-6"/></svg></a>
+        </div>
+      </div>
+    </div>
+    <div class="container footer-legal">
+      <p><strong>คำเตือน:</strong> เนื้อหาทั้งหมดเป็นบันทึกการเรียนและความเห็นส่วนตัว
+         เพื่อการศึกษาเท่านั้น <strong>ไม่ใช่คำแนะนำการลงทุน</strong>
+         ไม่ใช่การชี้นำให้ซื้อหรือขายหลักทรัพย์ใดๆ การตัดสินใจลงทุนเป็นความรับผิดชอบของผู้อ่านเอง</p>
+      <p>© 2026 Moatrices · เผยแพร่ผ่าน GitHub Pages</p>
+    </div>
+  </footer>
+
+  <button class="to-top" aria-label="กลับขึ้นด้านบน">↑</button>
+  <script>
+  (function () {
+    "use strict";
+    function $(id) { return document.getElementById(id); }
+
+    /* ── สถานะข้อความ + ท่าของกราฟ ต่อ stage ต่อบท ──
+       ค่าที่เป็นภาพ (ความกว้าง/สูงบาร์, class) ตั้งผ่าน apply ของแต่ละบท
+       CSS transition เป็นคนทำ animation ทั้งหมด */
+
+    var C1 = {
+      stages: [
+        { eye: "สองธุรกิจ · คนละโลก", big: "$979B", sub: "รายได้สายการบินทั้งโลกต่อปี",
+          real: "ใหญ่กว่ารายได้ EDA สองเจ้ารวมกัน ~80 เท่า" },
+        { eye: "พลิกจากรายได้ → margin", big: "~$7", sub: "กำไรสุทธิต่อผู้โดยสาร 1 คน",
+          real: "op margin: สายการบิน ~5% · CDNS ~30% · SNPS ~40% · Visa ~66%" },
+        { eye: "เกมของสายการบิน", big: "ตัด/ตัด", sub: "Nash equilibrium ของสินค้าที่เหมือนกันเป๊ะ",
+          real: "ที่นั่งว่าง = สินค้าหมดอายุตอนประตูปิด → ต้องตัดราคาเสมอ", bad: true },
+        { eye: "เกมของ EDA", big: "ตรึง/ตรึง", sub: "equilibrium เมื่อไม่มีใครย้ายค่ายเพราะราคา",
+          real: "switching cost: retrain วิศวกร + เสี่ยงชิปงบร้อยล้านดอลลาร์" },
+        { eye: "บทสรุป · โครงสร้าง > ความเก่ง", big: "13×", sub: "ช่องว่าง margin ที่โครงสร้างสร้าง",
+          real: "Buffett 2007: นายทุนที่ Kitty Hawk ควรยิง Orville Wright ร่วง" }
+      ],
+      apply: function (n) {
+        var bars = $("c1-view-bars"), mtx = $("c1-view-mtx");
+        var showMtx = (n === 2 || n === 3);
+        bars.classList.toggle("on", !showMtx);
+        mtx.classList.toggle("on", showMtx);
+        if (n <= 0) { /* มุมมองรายได้ */
+          $("c1-l1").textContent = "สายการบินทั้งโลก";
+          $("c1-l2").textContent = "EDA สองเจ้า (SNPS+CDNS)";
+          $("c1-l3").textContent = "Visa";
+          $("c1-b1").style.width = "100%";  $("c1-v1").textContent = "$979B";
+          $("c1-b2").style.width = "1.6%";  $("c1-v2").textContent = "~$12B";
+          $("c1-b3").style.width = "4%";    $("c1-v3").textContent = "~$38B";
+        } else { /* มุมมอง operating margin (สเกล 66% = เต็ม) */
+          $("c1-l1").textContent = "สายการบิน · op margin";
+          $("c1-l2").textContent = "EDA สองเจ้า · op margin";
+          $("c1-l3").textContent = "Visa · op margin";
+          $("c1-b1").style.width = "7.5%"; $("c1-v1").textContent = "~5%";
+          $("c1-b2").style.width = "53%";  $("c1-v2").textContent = "~35%";
+          $("c1-b3").style.width = "100%"; $("c1-v3").textContent = "~66%";
+        }
+        /* matrix: สลับป้ายเกมสายการบิน (n=2) ↔ เกม EDA (n=3) */
+        if (n === 3) {
+          $("c1-m21s").textContent = "ลูกค้าใหม่ ~0 — ไม่มีใครย้ายค่าย";
+          $("c1-m12s").textContent = "ไม่เสียลูกค้า — แค่เขากำไรบางลง";
+          $("c1-m11s").textContent = "รวยทั้งคู่ ตลอดกาล";
+          $("c1-m22s").textContent = "เจ็บฟรีทั้งคู่ — ไม่มีใครได้ลูกค้า";
+        } else {
+          $("c1-m21s").textContent = "ที่นั่งเต็มทันที — กำไรโต";
+          $("c1-m12s").textContent = "เครื่องเราบินโล่ง — เจ็บหนัก";
+          $("c1-m11s").textContent = "ทั้งคู่พออยู่ได้";
+          $("c1-m22s").textContent = "จนทั้งคู่ ตลอดกาล";
+        }
+        $("c1-m22").classList.toggle("hot", n === 2);
+        $("c1-m11").classList.toggle("win", n === 3);
+      }
+    };
+
+    var C2 = {
+      stages: [
+        { eye: "วงเครื่องสายของ Beethoven · 1826 → 2026", big: "×1.0",
+          sub: "productivity นักดนตรี ใน 200 ปี",
+          real: "เพลงควอเต็ตของ Beethoven: 4 คน 40 นาที — เท่าเดิมเป๊ะ" },
+        { eye: "กลไกของโรค · ค่าแรงวิ่งตามกันทั้งเมือง", big: "↑ เท่ากัน",
+          sub: "ค่าแรงช่างตัดผม ขึ้นตามค่าแรงโรงงาน",
+          real: "ไม่ขึ้นตาม = คนหนีไปทำงานโรงงานหมด → ถูกบังคับให้แพง" },
+        { eye: "หลักฐาน · ราคาสหรัฐฯ 2000 → 2024 (BLS)", big: "+250%",
+          sub: "บริการโรงพยาบาล ใน 24 ปี",
+          real: "ทีวี −98% · ของเล่น −74% · เงินเฟ้อเฉลี่ย +87%" },
+        { eye: "มุมนักลงทุน · pricing power อัตโนมัติ", big: "ฝั่งไหน?",
+          sub: "Baumol อยู่ฝั่งรายได้ หรือฝั่งต้นทุนของหุ้นตัวนี้",
+          real: "ฝั่งรายได้ = ขึ้นราคาได้ทุกปี · ฝั่งต้นทุน = โดนกัดทุกปี" },
+        { eye: "จุดพลิก · ยารักษาตัวแรกใน 200 ปี", big: "AI?",
+          sub: "ถ้างานหัวมนุษย์ automate ได้จริง เส้น +250% หักหัวลง",
+          real: "ถามหุ้นบริการ: แพงเพราะเก่ง หรือแพงเพราะโรค Baumol", bad: true }
+      ],
+      apply: function (n) {
+        var prod = $("c2-view-prod"), cpi = $("c2-view-cpi");
+        var showCpi = n >= 2;
+        prod.classList.toggle("on", !showCpi);
+        cpi.classList.toggle("on", showCpi);
+        $("c2-wrow1").style.opacity = n >= 1 ? 1 : 0;
+        $("c2-wrow2").style.opacity = n >= 1 ? 1 : 0;
+        $("c2-b3").style.width = n >= 1 ? "62%" : "2%";
+        $("c2-b4").style.width = n >= 1 ? "62%" : "2%";
+        /* diverging bars: แกนกลางที่ 28.2% (สเกล −98 … +250, ช่วงรวม 348) */
+        var data = [
+          ["c2-d1", -98], ["c2-d2", -74], ["c2-d3", 87], ["c2-d4", 180], ["c2-d5", 250]
+        ];
+        data.forEach(function (d, i) {
+          var el = $(d[0]), v = d[1];
+          var w = Math.abs(v) / 348 * 100, axis = 28.2;
+          el.style.transitionDelay = showCpi ? (i * 0.12) + "s" : "0s";
+          if (!showCpi) { el.style.width = "0%"; el.style.left = axis + "%"; return; }
+          el.style.width = w + "%";
+          el.style.left = (v < 0 ? axis - w : axis) + "%";
+          /* stage 3: เน้นฝั่งบริการมนุษย์ */
+          el.style.opacity = (n === 3 && i < 3) ? 0.3 : 1;
+        });
+      }
+    };
+
+    var C3 = {
+      /* [ต้นทุน/หน่วย %สูงบาร์, ป้าย, การใช้ %สูงบาร์, ป้าย, burst] */
+      stages: [
+        { eye: "อังกฤษ ยุคเครื่องจักรไอน้ำ · 1865", big: "−75%",
+          sub: "ถ่านหินที่เครื่องจักรใช้ ต่อแรงม้า",
+          real: "เครื่องจักรของ Watt ประหยัดถ่านหินกว่ารุ่นก่อน ~4 เท่า",
+          src: "Jevons, The Coal Question (1865)",
+          cost: 24, costN: "100 → 25", use: 16, useN: "100", burst: false,
+          lab1: "ต้นทุนต่อหน่วยงาน", lab2: "การใช้ถ่านหินรวม" },
+        { eye: "ผลจริง · ศตวรรษที่ 19", big: "×6", sub: "การใช้ถ่านหินของอังกฤษ กลับโตขึ้น",
+          real: "ประหยัดต่อหน่วย 4 เท่า → ใช้รวมเพิ่ม 6 เท่า = Jevons Paradox",
+          src: "Jevons, The Coal Question (1865)",
+          cost: 24, costN: "100 → 25", use: 96, useN: "×6", burst: false,
+          lab1: "ต้นทุนต่อหน่วยงาน", lab2: "การใช้ถ่านหินรวม" },
+        { eye: "ทำซ้ำ · แสงสว่าง 1800 → 1992", big: "÷3,000",
+          sub: "ราคาแสงหนึ่งหน่วย ในสองศตวรรษ",
+          real: "การใช้แสงรวมโตหลายหมื่นเท่า — เห็นเมืองจากอวกาศ",
+          src: "Nordhaus (1996)",
+          cost: 4, costN: "÷3,000", use: 100, useN: "ทะลุสเกล", burst: true,
+          lab1: "ราคาแสงต่อหน่วย", lab2: "การใช้แสงรวม" },
+        { eye: "27 ม.ค. 2025 · วันที่ตลาดลืม Jevons", big: "−$589B",
+          sub: "มูลค่า NVDA ที่หายในวันเดียว", bad: true,
+          real: "ตลาดตีความ: AI มีประสิทธิภาพขึ้น = ต้องการชิปน้อยลง",
+          src: "DeepSeek day · ข้อมูลตลาด",
+          cost: 4, costN: "AI ถูกลง", use: 30, useN: "?", burst: false,
+          lab1: "ต้นทุนต่อ token", lab2: "demand จะหด…จริงหรือ?" },
+        { eye: "สิ่งที่เกิดจริง · 2023 → Q1 2026", big: "×4.6",
+          sub: "capex สี่ hyperscaler ระหว่างที่ราคาดิ่ง",
+          real: "token ถูกลง ~100 เท่า · capex $113B → $360B → $520B run-rate",
+          src: "10-Q MSFT/GOOGL/AMZN/META",
+          cost: 2, costN: "÷100", use: 100, useN: "$520B", burst: true,
+          lab1: "ราคา inference/token", lab2: "เงินลงทุน AI รวม" }
+      ],
+      apply: function (n) {
+        var s = C3.stages[n];
+        $("c3-f1").style.height = s.cost + "%";
+        $("c3-f2").style.height = s.use + "%";
+        $("c3-n1").textContent = s.costN;
+        $("c3-n2").textContent = s.useN;
+        $("c3-lab1").textContent = s.lab1;
+        $("c3-lab2").textContent = s.lab2;
+        $("c3-t2").classList.toggle("burst", s.burst);
+        $("c3-flash").classList.toggle("on", n === 3);
+        $("c3-src").textContent = s.src;
+      }
+    };
+
+    var C4 = {
+      stages: [
+        { eye: "หมอที่พิมพ์เร็วที่สุดในเมือง", big: "×2",
+          sub: "หมอพิมพ์เร็วกว่าเลขาฯ — ควรจ้างไหม?",
+          real: "ตัวอย่างสมมติ: รักษาได้ ฿4,000/ชม. · เลขาฯ ค่าจ้าง ฿200/ชม.",
+          src: "Ricardo 1817" },
+        { eye: "เฉลย · มองค่าเสียโอกาส", big: "+30%",
+          sub: "รายได้ที่เพิ่ม จากการจ้างคนที่ 'แย่กว่า'",
+          real: "ทำเอง ฿24,000/วัน → แบ่งงาน ฿31,200/วัน (หักค่าจ้างแล้ว)",
+          src: "Ricardo 1817" },
+        { eye: "สเกลประเทศ · อเมริกา ↔ ไต้หวัน", big: "74%",
+          sub: "wafer revenue ของ TSMC มาจากโหนด ≤7nm",
+          real: "อเมริกาออกแบบ · ไต้หวันผลิต — ชิปโลกถูกลงเพราะแบ่งงาน",
+          src: "TSMC earnings" },
+        { eye: "ขีดจำกัด · เบี้ยประกันภูมิรัฐศาสตร์", big: "~+50%", bad: true,
+          sub: "ต้นทุนผลิตชิปในสหรัฐฯ เทียบไต้หวัน",
+          real: "Morris Chang เตือนเอง — Arizona คือการซื้อ resilience ด้วย margin",
+          src: "Morris Chang, 2022" }
+      ],
+      apply: function (n) {
+        var h1 = $("c4-h1").children, h2 = $("c4-h2").children, i;
+        if (n >= 2) { /* โหมดประเทศ: ซ้าย = ต่างคนต่างทำ, ขวา = แบ่งงานกัน */
+          $("c4-sct1").textContent = "โลกที่ทุกประเทศทำเองทุกขั้น";
+          $("c4-sct2").textContent = "โลกที่แบ่งงานกัน — ออกแบบ ↔ ผลิต";
+          $("c4-num1").textContent = "ชิปแพง · ช้า";
+          $("c4-num2").textContent = "ชิปถูก · เร็ว · เก่ง";
+          $("c4-sub1").textContent = "ทุกคนเสียเวลากับงานที่ตัวเองไม่ถนัด";
+          $("c4-sub2").textContent = "TSMC = โรงงานของโลก · ≤7nm 74% ของ wafer rev";
+          for (i = 0; i < 8; i++) {
+            h1[i].className = i % 2 ? "type" : "work";
+            h2[i].className = "work";
+          }
+        } else {
+          $("c4-sct1").textContent = "ทำเองหมด — รักษา 6 ชม. + พิมพ์เอง 2 ชม.";
+          $("c4-sct2").textContent = "แบ่งงาน — รักษาเต็ม 8 ชม. จ้างเลขาฯ พิมพ์";
+          $("c4-num1").textContent = "฿24,000/วัน";
+          $("c4-num2").textContent = "฿31,200/วัน";
+          $("c4-sub1").textContent = "เก่งทุกอย่าง แต่เวลามีแค่ 8 ชม.";
+          $("c4-sub2").textContent = n >= 1 ? "หักค่าจ้างเลขาฯ แล้ว — ยังชนะ +30%" : "…?";
+          for (i = 0; i < 8; i++) {
+            h1[i].className = i < 6 ? "work" : "type";
+            h2[i].className = "work";
+          }
+        }
+        $("c4-sc2").classList.toggle("win", n >= 1);
+        $("c4-azrow").style.opacity = n === 3 ? 1 : 0;
+        $("c4-az").style.width = n === 3 ? "78%" : "2%";
+      }
+    };
+
+    var CHAPTERS = { "eco-c1": C1, "eco-c2": C2, "eco-c3": C3, "eco-c4": C4 };
+
+    function setStage(sec, n) {
+      if (+sec.dataset.stage === n && sec.dataset.init) return;
+      sec.dataset.stage = n;
+      sec.dataset.init = "1";
+      var ch = CHAPTERS[sec.id], s = ch.stages[n];
+      var pid = sec.id.replace("eco-", "");
+      $(pid + "-eye").textContent = s.eye;
+      var big = $(pid + "-big");
+      big.textContent = s.big;
+      big.classList.toggle("bad", !!s.bad);
+      $(pid + "-sub").textContent = s.sub;
+      $(pid + "-real").textContent = s.real;
+      if (s.src) $(pid + "-src").textContent = s.src;
+      ch.apply(n);
+      sec.querySelectorAll(".eco-chip").forEach(function (c) {
+        var at = +c.dataset.at;
+        c.classList.toggle("on", at <= n);
+        c.classList.toggle("now", at === n);
+      });
+    }
+
+    document.querySelectorAll(".eco-ch").forEach(function (sec) {
+      var io = new IntersectionObserver(function (entries) {
+        entries.forEach(function (e) {
+          if (e.isIntersecting) setStage(sec, +e.target.dataset.s);
+        });
+      }, { rootMargin: "-42% 0px -42% 0px" });
+      sec.querySelectorAll(".eco-step").forEach(function (st) { io.observe(st); });
+    });
+
+    /* แชร์/verify: #c1s2 … เรียก stage ตรงๆ (scroll ไม่ทำงานใน headless) */
+    var mh = location.hash.match(/^#c([1-4])s([0-9])$/);
+    if (mh) {
+      var sec = $("eco-c" + mh[1]);
+      var n = Math.min(+mh[2], CHAPTERS[sec.id].stages.length - 1);
+      setStage(sec, n);
+    }
+  })();
+  </script>
+  <script defer src="app.js"></script>
+
+</body>
+</html>

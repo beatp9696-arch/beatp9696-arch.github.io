@@ -30,7 +30,7 @@ from xml.sax.saxutils import escape
 
 BASE_URL = "https://beatp9696-arch.github.io"
 TOOLS = ["follow-the-money-nvda.html", "compound-interest.html", "reverse-dcf.html",
-         "ai-iceberg.html"]  # เครื่องมือ interactive — นับเป็น hero stat + ลิสต์ใน tools.html
+         "ai-iceberg.html", "econ-lessons.html"]  # เครื่องมือ interactive — นับเป็น hero stat + ลิสต์ใน tools.html
 ROOT_PAGES = ["", "articles.html", "stocks.html", "tools.html", "dashboard.html",
               "about.html"] + TOOLS
 ARCHIVE = "articles.html"   # คลังบทความ = source of truth ของรายการบทความ
@@ -215,6 +215,9 @@ FEED_EXTRAS = [
     {"file": "ai-iceberg.html", "date": "2026-07-09",
      "title": "ใต้ภูเขาน้ำแข็ง AI: ใครยืนตรงไหน — Interactive Scrollytelling",
      "excerpt": "ทุกคนเห็นแค่ยอด NVIDIA — ดำดิ่งทีละชั้นลงก้นทะเล ดูว่าใครยืนตรงไหนในกองทัพ AI และใครกันแน่ที่เก็บเงินจากทุกคน"},
+    {"file": "econ-lessons.html", "date": "2026-07-11",
+     "title": "เศรษฐศาสตร์ 4 บทที่โรงเรียนไม่สอน แต่ตลาดหุ้นสอบทุกวัน — Interactive Scrollytelling",
+     "excerpt": "ทำไมสายการบินจนทั้งแผงแต่ซอฟต์แวร์ชิปรวยทั้งแผง ค่าตัดผมแพงขึ้นแต่ทีวีถูกลง ชิปยิ่งถูกยิ่งขายดี และอเมริกาต้องง้อไต้หวัน — เลื่อนผ่าน 4 เลนส์พร้อมตัวเลขจริง"},
 ]
 
 
