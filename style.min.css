@@ -1037,7 +1037,7 @@ color: var(--accent);
 border-left-color: var(--accent);
 font-weight: 600;
 }
-@media (max-width: 600px) {
+@media (max-width: 700px) {
 .hamburger-btn { display: inline-flex; align-items: center; }
 .site-nav a { display: none; }
 }

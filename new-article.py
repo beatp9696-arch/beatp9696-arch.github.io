@@ -98,6 +98,8 @@ ARTICLE_TMPL = """<!DOCTYPE html>
         <a href="../index.html">หน้าแรก</a>
         <a href="../articles.html">บทความ</a>
         <a href="../stocks.html">หุ้น</a>
+        <a href="../tools.html">เครื่องมือ</a>
+        <a href="../dashboard.html">Dashboard</a>
         <a href="../about.html">เกี่ยวกับ</a>
       </nav>
     </div>
@@ -162,6 +164,7 @@ ARTICLE_TMPL = """<!DOCTYPE html>
         <a href="../index.html">หน้าแรก</a>
         <a href="../articles.html">บทความ</a>
         <a href="../stocks.html">หุ้น</a>
+        <a href="../tools.html">เครื่องมือ</a>
         <a href="../dashboard.html">Dashboard</a>
         <a href="../about.html">เกี่ยวกับ</a>
       </nav>

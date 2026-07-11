@@ -1125,7 +1125,8 @@ tbody tr:hover td { background: var(--accent-tint); }/* ========================
   font-weight: 600;
 }
 
-@media (max-width: 600px) {
+/* 700px ไม่ใช่ 600px: header 6 ลิงก์ (เพิ่ม เครื่องมือ + Dashboard) ล้นช่วง 600–700px */
+@media (max-width: 700px) {
   .hamburger-btn { display: inline-flex; align-items: center; }
   .site-nav a { display: none; }
 }/* ============================================================

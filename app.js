@@ -692,6 +692,7 @@
       { href: base + "index.html", label: "หน้าแรก" },
       { href: base + "articles.html", label: "บทความทั้งหมด" },
       { href: base + "stocks.html", label: "หุ้นทั้งหมด" },
+      { href: base + "tools.html", label: "เครื่องมือ" },
       { href: base + "dashboard.html", label: "Dashboard" },
       { href: base + "about.html", label: "เกี่ยวกับ" }
     ];

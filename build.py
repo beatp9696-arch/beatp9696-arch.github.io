@@ -29,9 +29,10 @@ import sys
 from xml.sax.saxutils import escape
 
 BASE_URL = "https://beatp9696-arch.github.io"
-ROOT_PAGES = ["", "articles.html", "stocks.html", "dashboard.html", "about.html",
-              "follow-the-money-nvda.html", "compound-interest.html", "reverse-dcf.html",
-              "ai-iceberg.html"]
+TOOLS = ["follow-the-money-nvda.html", "compound-interest.html", "reverse-dcf.html",
+         "ai-iceberg.html"]  # เครื่องมือ interactive — นับเป็น hero stat + ลิสต์ใน tools.html
+ROOT_PAGES = ["", "articles.html", "stocks.html", "tools.html", "dashboard.html",
+              "about.html"] + TOOLS
 ARCHIVE = "articles.html"   # คลังบทความ = source of truth ของรายการบทความ
 TZ = datetime.timezone(datetime.timedelta(hours=7))
 THUMB_DIR = "img/thumbs"   # thumbnail ย่อของ og image (ใช้เป็นภาพการ์ดในหน้า index)
@@ -496,14 +497,14 @@ def write_stocks(articles):
 
 
 def write_hero_stats(articles):
-    """อัปเดตตัวเลข hero (บทความ/Deep-dive/ซีรีส์อ่านงบ) + view-all-count ใน index.html ให้ตรง
-    ARTICLES — HTML ดิบไม่ค้าง (app.js เขียนทับตอน runtime อยู่แล้ว แต่ no-JS/SEO เห็นค่านิ่ง)"""
+    """อัปเดตตัวเลข hero (บทความ/Deep-dive/เครื่องมือ Interactive) + view-all-count ใน index.html
+    ให้ตรง ARTICLES/TOOLS — HTML ดิบไม่ค้าง (app.js เขียนทับตอน runtime อยู่แล้ว แต่ no-JS/SEO เห็นค่านิ่ง)"""
     n_all = len(articles)
     n_deep = sum(1 for a in articles if a["tk"])
-    n_fin = sum(1 for a in articles if a["f"].startswith("financials-"))
+    n_tools = len(TOOLS)
     src = open("index.html", encoding="utf-8").read()
     new = src
-    for label, val in [("บทความ", n_all), ("Deep-dive", n_deep), ("ซีรีส์อ่านงบ", n_fin)]:
+    for label, val in [("บทความ", n_all), ("Deep-dive", n_deep), ("เครื่องมือ Interactive", n_tools)]:
         new = re.sub(
             r'(<span class="hero-stat-num">)\d+(</span>\s*'
             r'<span class="hero-stat-label">' + re.escape(label) + r'</span>)',
@@ -512,7 +513,7 @@ def write_hero_stats(articles):
                  lambda m: m.group(1) + str(n_all) + m.group(2), new)
     if new != src:
         open("index.html", "w", encoding="utf-8").write(new)
-    print(f"hero stats  : บทความ {n_all} · deep-dive {n_deep} · อ่านงบ {n_fin}"
+    print(f"hero stats  : บทความ {n_all} · deep-dive {n_deep} · เครื่องมือ {n_tools}"
           + ("" if new != src else " (ไม่เปลี่ยน)"))
 
 
