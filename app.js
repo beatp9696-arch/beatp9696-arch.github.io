@@ -23,29 +23,15 @@
   var BASE = IS_ARTICLE_DIR ? "../" : "";
 
   // ---- ข้อมูลบทความ (แหล่งเดียว — ใช้ทั้ง prev/next, related, search, sector filter) ----
-  // เรียงเก่า → ใหม่ · sec: semi | software | health | finance | consumer | space | market | basics
+  // เรียงเก่า → ใหม่ ตาม datePublished — บทความใหม่ต้อง "ต่อท้าย" array เสมอ ห้ามแทรกหัว
+  // (prev/next, ป้ายใหม่สุดใน 404, ลำดับผลค้นหา ทั้งหมดพึ่งลำดับนี้ — build.py มี drift check)
+  // sec: semi | software | health | finance | consumer | space | market | basics
   var ARTICLES = [
-    { f: "deep-dive-ai-oil-shock.html", t: "AI Capex vs Oil Shock 1970s", sec: "market" },
-    { f: "buffett-talks-01-superinvestors.html", t: "Buffett Talks 1: Superinvestors (1984)", sec: "basics" },
-    { f: "buffett-talks-02-florida-mba-1998.html", t: "Buffett Talks 2: Florida MBA (1998)", sec: "basics" },
-    { f: "buffett-talks-03-stock-market-1999.html", t: "Buffett Talks 3: Stock Market (1999)", sec: "basics" },
-    { f: "buffett-talks-04-notre-dame-1991.html", t: "Buffett Talks 4: Notre Dame (1991)", sec: "basics" },
-    { f: "buffett-talks-05-punch-card.html", t: "Buffett Talks 5: Punch Card", sec: "basics" },
-    { f: "munger-talks-01-worldly-wisdom.html", t: "Munger Talks 1: Worldly Wisdom (1994)", sec: "basics" },
-    { f: "munger-talks-02-practical-thought.html", t: "Munger Talks 2: Glotz Coca-Cola (1996)", sec: "basics" },
-    { f: "munger-talks-03-misjudgment-1995.html", t: "Munger Talks 3: Misjudgment (1995)", sec: "basics" },
-    { f: "munger-talks-04-guaranteed-misery.html", t: "Munger Talks 4: Guaranteed Misery (1986)", sec: "basics" },
-    { f: "munger-talks-05-usc-law-2007.html", t: "Munger Talks 5: USC Law (2007)", sec: "basics" },
-    { f: "books-mind-habit-time.html", t: "3 เล่ม: สมอง นิสัย เวลา", sec: "basics" },
-    { f: "poor-charlies-almanack.html", t: "Poor Charlie's Almanack", sec: "basics" },
-    { f: "deep-dive-aapl.html", t: "AAPL (Apple)", tk: "AAPL", sec: "consumer" },
-    { f: "financials-00-mindset.html", t: "ตอนที่ 0: งบคือรอยเท้า ไม่ใช่คะแนนสอบ", sec: "basics" },
-    { f: "financials-01-income-statement.html", t: "ตอนที่ 1: งบกำไรขาดทุน", sec: "basics" },
     { f: "financials-02-cash-flow-statement.html", t: "ตอนที่ 2: งบกระแสเงินสด", sec: "basics" },
     { f: "financials-03-balance-sheet.html", t: "ตอนที่ 3: งบดุล + เชื่อม 3 งบ", sec: "basics" },
-    { f: "buffett-4-pillars.html", t: "4 เสาหลักความคิดของ Warren Buffett", sec: "basics" },
     { f: "deep-dive-snps.html", t: "ผ่าธุรกิจ SNPS (Synopsys)", tk: "SNPS", sec: "semi" },
     { f: "deep-dive-axp.html", t: "ผ่าธุรกิจ AXP (American Express)", tk: "AXP", sec: "finance" },
+    { f: "buffett-4-pillars.html", t: "4 เสาหลักความคิดของ Warren Buffett", sec: "basics" },
     { f: "deep-dive-cost.html", t: "ผ่าธุรกิจ COST (Costco)", tk: "COST", sec: "consumer" },
     { f: "deep-dive-meli.html", t: "ผ่าธุรกิจ MELI (MercadoLibre)", tk: "MELI", sec: "consumer" },
     { f: "deep-dive-nflx.html", t: "ผ่าธุรกิจ NFLX (Netflix)", tk: "NFLX", sec: "software" },
@@ -61,9 +47,25 @@
     { f: "deep-dive-mu.html", t: "ผ่าธุรกิจ MU (Micron)", tk: "MU", sec: "semi" },
     { f: "deep-dive-mrvl.html", t: "ผ่าธุรกิจ MRVL (Marvell)", tk: "MRVL", sec: "semi" },
     { f: "deep-dive-ai-bubble.html", t: "AI = ฟองสบู่ dot-com รอบใหม่?", sec: "market" },
+    { f: "financials-00-mindset.html", t: "ตอนที่ 0: งบคือรอยเท้า ไม่ใช่คะแนนสอบ", sec: "basics" },
+    { f: "financials-01-income-statement.html", t: "ตอนที่ 1: งบกำไรขาดทุน", sec: "basics" },
     { f: "deep-dive-avgo.html", t: "ผ่าธุรกิจ AVGO (Broadcom)", tk: "AVGO", sec: "semi" },
     { f: "deep-dive-lmt.html", t: "ผ่าธุรกิจ LMT (Lockheed Martin)", tk: "LMT", sec: "space" },
-    { f: "deep-dive-asml.html", t: "ผ่าธุรกิจ ASML", tk: "ASML", sec: "semi" }
+    { f: "deep-dive-aapl.html", t: "AAPL (Apple)", tk: "AAPL", sec: "consumer" },
+    { f: "deep-dive-asml.html", t: "ผ่าธุรกิจ ASML", tk: "ASML", sec: "semi" },
+    { f: "books-mind-habit-time.html", t: "3 เล่ม: สมอง นิสัย เวลา", sec: "basics" },
+    { f: "poor-charlies-almanack.html", t: "Poor Charlie's Almanack", sec: "basics" },
+    { f: "buffett-talks-01-superinvestors.html", t: "Buffett Talks 1: Superinvestors (1984)", sec: "basics" },
+    { f: "buffett-talks-02-florida-mba-1998.html", t: "Buffett Talks 2: Florida MBA (1998)", sec: "basics" },
+    { f: "buffett-talks-03-stock-market-1999.html", t: "Buffett Talks 3: Stock Market (1999)", sec: "basics" },
+    { f: "buffett-talks-04-notre-dame-1991.html", t: "Buffett Talks 4: Notre Dame (1991)", sec: "basics" },
+    { f: "buffett-talks-05-punch-card.html", t: "Buffett Talks 5: Punch Card", sec: "basics" },
+    { f: "munger-talks-01-worldly-wisdom.html", t: "Munger Talks 1: Worldly Wisdom (1994)", sec: "basics" },
+    { f: "munger-talks-02-practical-thought.html", t: "Munger Talks 2: Glotz Coca-Cola (1996)", sec: "basics" },
+    { f: "munger-talks-03-misjudgment-1995.html", t: "Munger Talks 3: Misjudgment (1995)", sec: "basics" },
+    { f: "munger-talks-04-guaranteed-misery.html", t: "Munger Talks 4: Guaranteed Misery (1986)", sec: "basics" },
+    { f: "munger-talks-05-usc-law-2007.html", t: "Munger Talks 5: USC Law (2007)", sec: "basics" },
+    { f: "deep-dive-ai-oil-shock.html", t: "AI Capex vs Oil Shock 1970s", sec: "market" }
   ];
 
   var progressBar = document.querySelector(".reading-progress");
@@ -396,7 +398,8 @@
   }
 
   // ---- Related: กลุ่มธุรกิจเดียวกันก่อน แล้วเติมบทอื่น (ใหม่สุดก่อน) ----
-  if (idx !== -1) {
+  // เฉพาะบทที่ build.py ยังไม่ได้ฝัง curated block (.related) ไว้ — ไม่งั้นซ้ำ 2 ชุด
+  if (idx !== -1 && !document.querySelector(".related")) {
     var curArt = ARTICLES[idx];
     var pool = ARTICLES.slice().reverse().filter(function (a) { return a.f !== file; });
     var sameSec = pool.filter(function (a) { return curArt.sec && a.sec === curArt.sec; });
@@ -835,8 +838,10 @@
   function clockTick() {
     if (!clkDate) return;
     var now = new Date();
-    var wd = now.getDay(), dt = now.getDate(), mo = now.getMonth(), yr = now.getFullYear();
-    var hh = now.getHours(), mm = now.getMinutes(), ss = now.getSeconds();
+    // เวลา/วันที่ฝั่งซ้ายคือ "BKK" — ต้องปักโซนเวลาไทยจริง ไม่ใช่เวลาเครื่องผู้อ่าน
+    var bkk = new Date(now.toLocaleString("en-US", { timeZone: "Asia/Bangkok" }));
+    var wd = bkk.getDay(), dt = bkk.getDate(), mo = bkk.getMonth(), yr = bkk.getFullYear();
+    var hh = bkk.getHours(), mm = bkk.getMinutes(), ss = bkk.getSeconds();
 
     clkDate.textContent = TH_DAYS_CLK[wd] + " " + dt + " " + TH_MONTHS_CLK[mo] + " " + yr;
 

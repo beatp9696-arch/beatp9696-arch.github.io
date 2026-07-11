@@ -671,6 +671,19 @@ def validate(posts, articles):
     for f in sorted(app_files - archive_files):
         warnings.append(f"{f} อยู่ใน ARTICLES (app.js) แต่ไม่อยู่ใน {ARCHIVE}")
 
+    # ลำดับ ARTICLES ต้องเก่า→ใหม่ตามวันที่การ์ด — prev/next, "ใหม่สุด" ใน 404,
+    # ลำดับผลค้นหา/related พึ่งลำดับนี้ (เคยพังเพราะบทใหม่ถูกแทรกหัว array แทนต่อท้าย)
+    date_by_file = {p["file"]: p["date"] for p in posts}
+    prev_a = None
+    for a in articles:
+        d = date_by_file.get(a["f"])
+        if d is None:
+            continue
+        if prev_a and d < prev_a[1]:
+            warnings.append(f"ARTICLES (app.js) ลำดับผิด: {a['f']} ({d}) มาหลัง "
+                            f"{prev_a[0]} ({prev_a[1]}) — ต้องเรียงเก่า→ใหม่ (บทใหม่ต่อท้ายเสมอ)")
+        prev_a = (a["f"], d)
+
     # หน้าแรก (curated) ต้องชี้เฉพาะบทความที่มีอยู่จริงในคลัง
     idx = open("index.html", encoding="utf-8").read()
     idx_files = set(re.findall(r'href="articles/([a-z0-9-]+\.html)"', idx))
