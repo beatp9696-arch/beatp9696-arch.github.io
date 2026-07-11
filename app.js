@@ -51,7 +51,7 @@
     { f: "financials-01-income-statement.html", t: "ตอนที่ 1: งบกำไรขาดทุน", sec: "basics" },
     { f: "deep-dive-avgo.html", t: "ผ่าธุรกิจ AVGO (Broadcom)", tk: "AVGO", sec: "semi" },
     { f: "deep-dive-lmt.html", t: "ผ่าธุรกิจ LMT (Lockheed Martin)", tk: "LMT", sec: "space" },
-    { f: "deep-dive-aapl.html", t: "AAPL (Apple)", tk: "AAPL", sec: "consumer" },
+    { f: "deep-dive-aapl.html", t: "ผ่าธุรกิจ AAPL (Apple)", tk: "AAPL", sec: "consumer" },
     { f: "deep-dive-asml.html", t: "ผ่าธุรกิจ ASML", tk: "ASML", sec: "semi" },
     { f: "books-mind-habit-time.html", t: "3 เล่ม: สมอง นิสัย เวลา", sec: "basics" },
     { f: "poor-charlies-almanack.html", t: "Poor Charlie's Almanack", sec: "basics" },
