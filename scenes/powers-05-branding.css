@@ -1,44 +1,100 @@
 /* ============================================================
    powers-05-branding — scene CSS (โหลดเฉพาะบทนี้)
-   namespace .pw5-* — โลก Apple เงินแพลทินัม + ป้ายราคาทองอ่อน
+   ฟิสิกส์ของธุรกิจนี้: ความสงบที่แพง
+
+   ทุกฉากเล่นอยู่ในหน้าจอที่ Apple คุมทุกพิกเซลเอง —
+   หน้าขายของ / หน้าตั้งค่า Apple ID / แผงควบคุมที่คู่แข่งอยากมี
+   และฉากนี้เป็น **ฉากเดียวในเว็บที่พื้นสว่าง** — ความว่างคือของที่ลูกค้าจ่ายเพิ่มให้
+
+   กฎการเคลื่อนไหว:
+     ช้า เงียบ ไม่มีอะไรกระตุก ไม่มีอะไรรีบ (--e-expo ยาว 1.2–2s)
+     **ความยับยั้งชั่งใจคือตัวแบรนด์เอง** — ห้ามกะพริบ ห้าม glow แรง ห้ามเร่งเร้า
+     ฝั่ง Apple ขยับน้อยที่สุดในฉาก · ฝั่งคู่แข่ง "รก" แบบ static (ความรกไม่ต้องขยับก็รกอยู่ดี)
+     แสงกวาดผิวเครื่อง **ครั้งเดียว** แล้วจบ — ไม่วนซ้ำ
+
+   กฎไฟล์นี้: markup = สถานะจบเสมอ · ทุก @keyframes จบที่ 100% = สถานะใน markup
    ============================================================ */
 
-.pw5-panel { background: radial-gradient(140% 120% at 50% 0%, #171b26 0%, #0a0c12 72%); border-color: #323a4a; }
-.ph-eyebrow.pw5 { color: #e5e9f0; }
-.pw5-panel .s-t { fill: #eceff5; }
-.pw5-panel .s-t.sm { fill: #9aa3b4; }
-.pw5-t { font-family: var(--font-head); fill: #eceff5; font-size: 13px; text-anchor: middle; font-weight: 600; }
-.pw5-t.sm { font-size: 11px; fill: #9aa3b4; }
-.pw5-mono { font-family: "IBM Plex Mono", ui-monospace, monospace; fill: #7e8798; font-size: 11px; }
+.pw5-panel { background: linear-gradient(180deg, #f5f5f7 0%, #ebebef 100%); border-color: #d2d2d7; }
+.ph-eyebrow.pw5 { color: #86868b; }
 
-/* เครื่องฝั่งแบรนด์ — เรืองนุ่มๆ เหมือนไฟบูธโชว์ */
-.pw5-hero { animation: pw5hero 3.6s ease-in-out infinite; }
-@keyframes pw5hero { 0%, 100% { filter: drop-shadow(0 0 6px rgba(229,233,240,.25)) } 50% { filter: drop-shadow(0 0 14px rgba(229,233,240,.5)) } }
+/* ── ภาษาของหน้าเว็บ Apple: ตัวหนังสือดำบนขาว ช่องว่างเยอะ ── */
+.pw5-nav    { font-family: var(--font-head); font-size: 12px; font-weight: 600; fill: #6e6e73; }
+.pw5-h1     { font-family: var(--font-head); font-size: 22px; font-weight: 700; fill: #1d1d1f; text-anchor: middle; letter-spacing: -.02em; }
+.pw5-h1.sm  { font-size: 13px; font-weight: 700; }
+.pw5-h2     { font-family: var(--font-head); font-size: 13px; font-weight: 700; fill: #1d1d1f; }
+.pw5-h2.dim { fill: #b0b0b5; }
+.pw5-sub    { font-family: var(--font-head); font-size: 12px; fill: #6e6e73; text-anchor: middle; }
+.pw5-price  { font-family: var(--font-head); font-size: 26px; font-weight: 700; fill: #1d1d1f; text-anchor: middle; letter-spacing: -.02em; }
+.pw5-price.sale { fill: #d92d20; text-anchor: start; }
+.pw5-strike { font-family: var(--font-head); font-size: 14px; fill: #a1a1a6; text-decoration: line-through; }
+.pw5-btn    { font-family: var(--font-head); font-size: 12.5px; font-weight: 700; fill: #fff; text-anchor: middle; }
+.pw5-btn2   { font-family: var(--font-head); font-size: 12px; font-weight: 600; fill: #1d1d1f; text-anchor: middle; }
+.pw5-tag    { font-family: var(--font-head); font-size: 11px; font-weight: 800; fill: #fff; text-anchor: middle; }
+.pw5-spec text { font-family: "IBM Plex Mono", ui-monospace, monospace; font-size: 10px; fill: #424245; }
+.pw5-urg    { font-family: var(--font-head); font-size: 11px; font-weight: 700; fill: #d92d20; }
+.pw5-note   { font-family: var(--font-head); font-size: 11px; fill: #a1a1a6; text-anchor: middle; }
+.pw5-note2  { font-family: var(--font-head); font-size: 11.5px; fill: #6e6e73; }
+.pw5-lt     { font-family: var(--font-head); font-size: 13px; font-weight: 700; fill: #1d1d1f; }
+.pw5-ls     { font-family: var(--font-head); font-size: 11.5px; fill: #6e6e73; }
+.pw5-free   { font-family: var(--font-head); font-size: 11.5px; font-weight: 700; fill: #34c759; text-anchor: end; }
+.pw5-cost   { font-family: var(--font-head); font-size: 11.5px; font-weight: 700; fill: #d92d20; text-anchor: end; }
+.pw5-money  { font-family: "IBM Plex Mono", monospace; font-size: 14px; font-weight: 700; fill: #1d1d1f; }
+.pw5-ok     { font-family: var(--font-head); font-size: 11.5px; font-weight: 600; fill: #34c759; }
+.pw5-lock   { font-family: var(--font-head); font-size: 11.5px; font-weight: 600; fill: #b0b0b5; }
+.pw5-ticks line { stroke: #d2d2d7; stroke-width: 1.2; }
 
-/* ป้ายราคา premium — แกว่งเบาๆ */
-.pw5-tag { animation: pw5tag 3.2s ease-in-out infinite; transform-origin: 741px 120px; }
-@keyframes pw5tag { 0%, 100% { transform: rotate(0deg) } 50% { transform: rotate(-3deg) } }
+.pw5-panel .sa-stage { container-type: inline-size; }
+.pw5-panel .sa-chip { color: #1d1d1f; text-align: center; font-size: 13px; font-size: 1.55cqw; }
+.pw5-panel .sa-chip .k { display: block; color: #1d1d1f; font-weight: 800; letter-spacing: -.03em; font-size: 27px; font-size: 3.4cqw; }
+.pw5-panel .sa-chip .d { color: #6e6e73; font-weight: 600; font-size: 11.5px; font-size: 1.37cqw; line-height: 1.5; }
+.pw5-panel .ox0 { transform-origin: left center; transform-box: fill-box; }
 
-/* คิวลูกค้า — ขยับเข้าหาเครื่องทีละก้าว */
-.pw5-q { animation: pw5q 2.6s ease-in-out infinite; }
-@keyframes pw5q { 0%, 100% { transform: translateX(0) } 50% { transform: translateX(7px) } }
+/* ตัวเลขวิ่ง — เลขจริงจาก 10-K */
+.pw5-368 { --n: 36; animation: pw5n368 2s var(--e-expo); }   /* gross margin ฮาร์ดแวร์ 36.8% */
+@keyframes pw5n368 { from { --n: 0 } }
 
-/* แผงคำอธิบายชั้น — หายใจช้าๆ */
-.pw5-note { animation: pw5note 4.4s ease-in-out infinite; }
-@keyframes pw5note { 0%, 100% { opacity: .88 } 50% { opacity: 1 } }
+/* ── ambient (1 ท่า · เบามาก) — จุดบนแถบ nav ที่หายใจ ─────────
+   ทั้งฉากมี ambient ได้แค่นี้ อะไรที่มากกว่านี้ = แบรนด์กำลังพยายามขายของ */
+.pw5-amb { opacity: .5; animation: pw5amb 5s var(--e-expo) infinite; }
+@keyframes pw5amb { 0%, 100% { opacity: .35 } 50% { opacity: .55 } }
 
-/* ตราประทับบนเส้นเวลา — วาบเรียงลำดับ */
-.pw5-stampline { animation: pw5stamp 4.2s ease-in-out infinite; }
-@keyframes pw5stamp { 0%, 100% { opacity: .88 } 50% { opacity: 1 } }
+/* ── ท่าเดียวที่ใช้ทั้งตอน: เผยตัวเงียบๆ ────────────────────
+   ไม่มี scale ไม่มี bounce ไม่มี glow — แค่ปรากฏขึ้นอย่างช้าและนิ่ง */
+.pw5-q { animation: pw5q 1.4s var(--e-expo); }
+@keyframes pw5q { from { opacity: 0; transform: translateY(6px); } }
+.pw5-obj { animation: pw5obj 1.8s var(--e-expo); }
+@keyframes pw5obj { from { opacity: 0; transform: translateY(10px); } }
 
-/* มิเตอร์ trust — ค่อยๆ เติม (แล้วค้าง ไม่รีเซ็ตถี่) */
-.pw5-fill { transform-origin: 82px 202px; animation: pw5fill 7s ease-out infinite; }
-@keyframes pw5fill { 0% { transform: scaleX(.72) } 55%, 100% { transform: scaleX(1) } }
-
-/* ปุ่มโฆษณา — กดแล้วไม่มีอะไรเกิด (สั่นนิดเดียวแบบไร้ผล) */
-.pw5-adbtn { animation: pw5ad 3.4s ease-in-out infinite; }
-@keyframes pw5ad { 0%, 100% { transform: translateY(0) } 46%, 50% { transform: translateY(2px) } 54% { transform: translateY(0) } }
-
-@media (prefers-reduced-motion: reduce) {
-  .pw5-hero, .pw5-tag, .pw5-q, .pw5-note, .pw5-stampline, .pw5-fill, .pw5-adbtn { animation: none; }
+/* ── ฉาก 1 · แสงกวาดผิวเครื่อง — ครั้งเดียวในทั้งตอน ─────────
+   นี่คือ "ท่าโชว์" ท่าเดียวที่ Apple ยอมให้ตัวเองทำ: แสงเคลื่อนผ่านผิว แล้วก็เงียบ
+   base = แสงเลยออกไปแล้ว (สถานะจบ = ผิวสะอาด ไม่มีอะไรเหลือ) */
+.pw5-sheen { opacity: 0; animation: pw5sheen 2s var(--e-expo); }
+@keyframes pw5sheen {
+  0%   { opacity: 0; transform: translateX(-120px) skewX(-12deg); }
+  30%  { opacity: 1; }
+  70%  { opacity: 1; }
+  100% { opacity: 0; transform: translateX(120px) skewX(-12deg); }
 }
+
+/* ── ฉาก 2 · แกะชั้นความภักดี — เผยทีละชั้น ช้าๆ ─────────────
+   ห่างกันชั้นละ 2 beats เต็ม (--i: 2.4 / 4.4 / 6.4) = ให้คนอ่านทันทุกชั้น ไม่รีบ */
+.pw5-layer { animation: pw5layer 1.6s var(--e-expo); }
+@keyframes pw5layer { from { opacity: 0; transform: translateY(12px); } }
+
+/* ── ฉาก 3 · สไลเดอร์เงินลากได้ · สไลเดอร์เวลาลากไม่ได้ ───────
+   งบโฆษณาพุ่งสุดเร็ว (เงินไม่เคยเป็นข้อจำกัด) → awareness เต็มตาม
+   → trust ขยับทีละขีด ช้ามาก ไม่มีทางลัด (steps 10 = 10 ปี)
+   ความช้าของแถบ trust เทียบกับความเร็วของแถบเงิน = ทั้งอาร์กิวเมนต์ของบทนี้ */
+.pw5-spend { transform: scaleX(1); animation: pw5spend 1.2s var(--e-expo); }
+@keyframes pw5spend { from { transform: scaleX(0); } }
+.pw5-knob  { animation: pw5knob 1.2s var(--e-expo); }
+@keyframes pw5knob { from { transform: translateX(-440px); } }
+.pw5-aware { transform: scaleX(1); animation: pw5aware .8s var(--e-expo); }
+@keyframes pw5aware { from { transform: scaleX(0); } }
+/* trust: เทเงินพันล้านแล้วยังขึ้นได้แค่ 2 ขีดจาก 10 (base = .2 = สถานะจบที่เป็นความจริง)
+   ต้องต่างจาก awareness ทั้งใน *ความเร็ว* และใน *ปลายทาง* — ไม่งั้นภาพนิ่งจะอ่านไม่ออกว่าต่างกัน */
+.pw5-trust { transform: scaleX(.2); animation: pw5trust 5s steps(2, end); }
+@keyframes pw5trust { from { transform: scaleX(0); } }
+
+@media (prefers-reduced-motion: reduce) { .pw5-amb { animation: none; } }
