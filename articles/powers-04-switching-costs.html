@@ -136,29 +136,41 @@
         ที่ต่อกันเป็นเส้นเดียว:
       </p>
       <figure class="ph-fig"><div class="ph-panel pw4-panel"><div class="ph-eyebrow pw4">Design Flow · สายการผลิตของบริษัทออกแบบชิป</div>
-        <svg viewBox="0 0 840 330" role="img" aria-label="EDA design flow embedded like a production line; removing one tool breaks the chain"><defs><linearGradient id="pw4pipe" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#a78bfa" stop-opacity=".15"/><stop offset="1" stop-color="#a78bfa" stop-opacity=".6"/></linearGradient></defs>
-        <g fill="#1c1430" stroke="#a78bfa" stroke-width="1.8">
-          <rect x="50" y="120" width="118" height="64" rx="8"/>
-          <rect x="196" y="120" width="118" height="64" rx="8"/>
-          <rect class="pw4-hot" x="342" y="120" width="118" height="64" rx="8"/>
-          <rect x="488" y="120" width="118" height="64" rx="8"/>
-          <rect x="634" y="120" width="118" height="64" rx="8"/>
+        <div class="sa-stage">
+        <svg viewBox="0 0 840 420" role="img" aria-label="หน้าจอ design flow ของบริษัทออกแบบชิป: ห้าขั้นตอนต่อกันเป็นสายเดียว ทุกขั้นเป็นเครื่องมือ Synopsys คนละตัว จากนั้นเส้นใยของลูกค้าเอง — สคริปต์ TCL ที่เขียนเอง คอนฟิกของโหนดการผลิต และความชำนาญของวิศวกร — ก็งอกเข้าไปเกาะทุกขั้นทีละเส้นจนกลายเป็นรากที่ถอนไม่ออก ไม่มีสัญญาไหนห้ามย้าย แต่คุกทั้งหลังสร้างจากสิ่งที่ลูกค้าลงทุนฝังเข้าไปเอง">
+        <rect x="40" y="26" width="760" height="368" rx="8" fill="#0d1117" stroke="#2a3038" stroke-width="1.6"/>
+        <rect x="40" y="26" width="760" height="30" rx="8" fill="#161b22"/>
+        <circle cx="60" cy="41" r="4.5" fill="#3a4048"/><circle cx="76" cy="41" r="4.5" fill="#3a4048"/><circle cx="92" cy="41" r="4.5" fill="#3a4048"/>
+        <text class="pw4-um" x="420" y="45" style="text-anchor:middle">design_flow.tcl — ทีมออกแบบชิปของลูกค้า</text>
+
+        <line x1="94" y1="120" x2="746" y2="120" stroke="#2a3038" stroke-width="2"/>
+        <g class="sa n pw4-stage" style="--i:0.6"><rect x="62" y="98" width="112" height="44" rx="5" fill="#12212f" stroke="#38bdf8" stroke-width="1.4"/><text class="pw4-st" x="118" y="118">RTL</text><text class="pw4-um s" x="118" y="134">VCS · Verdi</text></g>
+        <g class="sa n pw4-stage" style="--i:1.2"><rect x="196" y="98" width="112" height="44" rx="5" fill="#12212f" stroke="#38bdf8" stroke-width="1.4"/><text class="pw4-st" x="252" y="118">Synthesis</text><text class="pw4-um s" x="252" y="134">Design Compiler</text></g>
+        <g class="sa n pw4-stage" style="--i:1.8"><rect x="330" y="98" width="112" height="44" rx="5" fill="#12212f" stroke="#38bdf8" stroke-width="1.4"/><text class="pw4-st" x="386" y="118">Place &amp; Route</text><text class="pw4-um s" x="386" y="134">Fusion Compiler</text></g>
+        <g class="sa n pw4-stage" style="--i:2.4"><rect x="464" y="98" width="112" height="44" rx="5" fill="#12212f" stroke="#38bdf8" stroke-width="1.4"/><text class="pw4-st" x="520" y="118">Timing Signoff</text><text class="pw4-um s" x="520" y="134">PrimeTime</text></g>
+        <g class="sa n pw4-stage" style="--i:3"><rect x="598" y="98" width="112" height="44" rx="5" fill="#12212f" stroke="#38bdf8" stroke-width="1.4"/><text class="pw4-st" x="654" y="118">Tape-out</text><text class="pw4-um s" x="654" y="134">IC Validator</text></g>
+
+        <text class="pw4-um" x="62" y="180">ของที่ลูกค้าลงทุนสร้างเองรอบๆ เครื่องมือ — ทีละนิด ทุกวัน หลายปี</text>
+        <g stroke="#f59e0b" stroke-width="1.5" fill="none" stroke-linecap="round">
+          <path class="sa n pw4-root" style="--i:4" d="M118 142 C 118 176, 96 194, 84 214" stroke-dasharray="90"/>
+          <path class="sa n pw4-root" style="--i:4.4" d="M252 142 C 252 178, 236 196, 224 214" stroke-dasharray="90"/>
+          <path class="sa n pw4-root" style="--i:4.8" d="M386 142 C 386 178, 380 196, 372 214" stroke-dasharray="90"/>
+          <path class="sa n pw4-root" style="--i:5.2" d="M520 142 C 520 178, 524 196, 530 214" stroke-dasharray="90"/>
+          <path class="sa n pw4-root" style="--i:5.6" d="M654 142 C 654 178, 664 196, 676 214" stroke-dasharray="90"/>
+          <path class="sa n pw4-root" style="--i:6" d="M118 142 C 130 180, 178 198, 214 216" stroke-dasharray="120"/>
+          <path class="sa n pw4-root" style="--i:6.4" d="M386 142 C 400 182, 470 200, 522 216" stroke-dasharray="150"/>
+          <path class="sa n pw4-root" style="--i:6.8" d="M520 142 C 508 182, 424 202, 376 216" stroke-dasharray="150"/>
         </g>
-        <line class="pw4-flow" x1="168" y1="152" x2="196" y2="152"/>
-        <line class="pw4-flow" x1="314" y1="152" x2="342" y2="152"/>
-        <line class="pw4-flow" x1="460" y1="152" x2="488" y2="152"/>
-        <line class="pw4-flow" x1="606" y1="152" x2="634" y2="152"/>
-        <text class="pw4-t sm" x="109" y="146">RTL</text><text class="pw4-mono" x="109" y="166" style="text-anchor:middle">โค้ดวงจร</text>
-        <text class="pw4-t sm" x="255" y="146">Synthesis</text><text class="pw4-mono" x="255" y="166" style="text-anchor:middle">สังเคราะห์</text>
-        <text class="pw4-t sm" x="401" y="146">P&amp;R</text><text class="pw4-mono" x="401" y="166" style="text-anchor:middle">วางผัง+เดินสาย</text>
-        <text class="pw4-t sm" x="547" y="146">Verify</text><text class="pw4-mono" x="547" y="166" style="text-anchor:middle">ตรวจสอบ</text>
-        <text class="pw4-t sm" x="693" y="146">Tape-out</text><text class="pw4-mono" x="693" y="166" style="text-anchor:middle">ส่งผลิตจริง</text>
-        <text class="pw4-mono" x="420" y="86" style="text-anchor:middle">ดีไซน์ทรานซิสเตอร์หลายพันล้านตัว วิ่งผ่านเครื่องมือทุกตัวเป็นเส้นเดียว · script/config/ความชำนาญ สะสมทับถมทุกปี</text>
-        <g class="pw4-wrench"><path d="M401 236 l0 -34" stroke="#f0abfc" stroke-width="2.4" stroke-dasharray="5 5"/><path d="M389 252 a14 14 0 1 0 24 0 l-4 -14 h-16 Z" fill="none" stroke="#f0abfc" stroke-width="2.4"/></g>
-        <text class="pw4-mono" x="401" y="298" style="text-anchor:middle" fill="#f0abfc">"ลองถอดตัวนี้ไปใช้ของเจ้าอื่นสิ"</text>
-        <text class="pw4-mono" x="401" y="318" style="text-anchor:middle">= ต้อง re-validate ใหม่ทั้งเส้น ระหว่างที่โปรเจคชิปเดินอยู่</text>
+        <g class="sa n pw4-owned" style="--i:7.2"><rect x="62" y="220" width="180" height="52" rx="5" fill="#1c1608" stroke="#f59e0b" stroke-width="1.3"/><text class="pw4-ot" x="76" y="242">สคริปต์ TCL ที่เขียนเอง</text><text class="pw4-um s" x="76" y="260">หลายหมื่นบรรทัด · สะสม 10+ ปี</text></g>
+        <g class="sa n pw4-owned" style="--i:7.6"><rect x="290" y="220" width="180" height="52" rx="5" fill="#1c1608" stroke="#f59e0b" stroke-width="1.3"/><text class="pw4-ot" x="304" y="242">config ต่อโหนดการผลิต</text><text class="pw4-um s" x="304" y="260">จูนกับ PDK ของ fab แต่ละเจ้า</text></g>
+        <g class="sa n pw4-owned" style="--i:8"><rect x="518" y="220" width="192" height="52" rx="5" fill="#1c1608" stroke="#f59e0b" stroke-width="1.3"/><text class="pw4-ot" x="532" y="242">ความชำนาญของวิศวกร</text><text class="pw4-um s" x="532" y="260">ทั้งทีมคิดเป็นภาษาเครื่องมือนี้</text></g>
+
+        <text class="sa n pw4-in pw4-uit" x="420" y="318" fill="#f59e0b" style="--i:9;text-anchor:middle">เครื่องมือไม่ได้ถูก "ใช้" — มันถูก "ฝัง"</text>
+        <text class="sa n pw4-in pw4-um" x="420" y="346" style="--i:9.6;text-anchor:middle">ไม่มีสัญญาไหนห้ามย้าย ไม่มีค่าปรับ ไม่มี lock-in ทางกฎหมายแม้แต่ข้อเดียว</text>
+        <text class="sa n pw4-in pw4-um" x="420" y="370" style="--i:10.2;text-anchor:middle">คุกทั้งหลังนี้ ลูกค้าเป็นคนก่อสร้างให้เอง — ทีละนิด ทุกวัน</text>
         </svg>
-      </div><figcaption><strong>เครื่องมือไม่ได้ถูก "ใช้" — มันถูก "ฝัง"</strong> — design flow ของลูกค้าแต่ละรายคือสายการผลิตที่ปรับจูนกับเครื่องมือ Synopsys มาหลายปี ทั้ง script ภายใน, config ของโหนดการผลิตแต่ละเจ้า และความชำนาญของวิศวกรทั้งทีม การสลับเครื่องมือขั้นตอนเดียวกลางโปรเจค หมายถึงการหยุดตรวจสอบความถูกต้องใหม่ทั้งเส้น — ในอุตสาหกรรมที่ช้าหนึ่งไตรมาสอาจแปลว่าแพ้ทั้ง generation</figcaption></figure>
+        </div>
+      </div><figcaption><strong>เครื่องมือไม่ได้ถูก "ใช้" — มันถูก "ฝัง"</strong> — design flow ของลูกค้าแต่ละรายคือสายการผลิตที่ปรับจูนกับเครื่องมือ Synopsys มาหลายปี ทั้ง script ภายใน, config ของโหนดการผลิตแต่ละเจ้า และความชำนาญของวิศวกรทั้งทีม สังเกตในฉาก: <em>สิ่งที่มัดลูกค้าไว้ไม่ใช่เส้นที่ Synopsys ลากไปหาลูกค้า — แต่เป็นรากที่ลูกค้างอกไปเกาะเครื่องมือเอง</em> นั่นคือเหตุผลที่มันถอนไม่ออก</figcaption></figure>
       <p>
         นี่คือ switching cost แบบ<strong>กระบวนการ</strong>ในรูปบริสุทธิ์:
         ไม่มีสัญญาไหนห้ามลูกค้าย้าย ไม่มีค่าปรับ ไม่มี lock-in ทางกฎหมายเลย —
@@ -171,29 +183,60 @@
         สมมติวิศวกรทีมออกแบบเสนอว่า "เครื่องมือเจ้าอื่นถูกกว่า ประหยัดได้หลายล้านต่อปี"
         — ฟังดูน่าทำ จนกระทั่งวางตาชั่ง:
       </p>
-      <figure class="ph-fig"><div class="ph-panel pw4-panel"><div class="ph-eyebrow pw4">ตาชั่งของ CFO ลูกค้า · ประหยัดค่า license vs ความเสี่ยงของการย้าย</div>
-        <svg viewBox="0 0 840 340" role="img" aria-label="CFO scale: license savings vs tape-out risk and revalidation"><defs><linearGradient id="pw4beam" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#2a2145"/><stop offset="1" stop-color="#171028"/></linearGradient></defs>
-        <rect x="404" y="100" width="12" height="168" fill="url(#pw4beam)" stroke="#5b4a8f" stroke-width="1.6"/>
-        <path d="M330 268 h160 l-20 24 h-120 Z" fill="#1c1430" stroke="#5b4a8f" stroke-width="1.8"/>
-        <g class="pw4-beamtilt">
-          <line x1="190" y1="78" x2="630" y2="122" stroke="#a78bfa" stroke-width="4" stroke-linecap="round"/>
-          <path d="M190 78 v18 M170 96 h40" stroke="#a78bfa" stroke-width="2.4" fill="none"/>
-          <circle cx="182" cy="87" r="9" fill="#facc15" opacity=".9"/>
-          <circle cx="199" cy="87" r="9" fill="#eab308" opacity=".85"/>
-          <text class="pw4-mono" x="190" y="126" style="text-anchor:middle">ค่า license ที่ประหยัดได้</text>
-          <path d="M630 122 v16 M600 138 h60" stroke="#a78bfa" stroke-width="2.4" fill="none"/>
-          <g fill="#1c1430" stroke="#f0abfc" stroke-width="1.8">
-            <rect x="540" y="144" width="180" height="30" rx="4"/>
-            <rect x="546" y="178" width="168" height="30" rx="4"/>
-            <rect x="552" y="212" width="156" height="30" rx="4"/>
-          </g>
-          <text class="pw4-mono" x="630" y="164" style="text-anchor:middle" fill="#f0abfc">tape-out พลาด 1 รอบ</text>
-          <text class="pw4-mono" x="630" y="198" style="text-anchor:middle" fill="#f0abfc">หลายล้าน$ + ดีเลย์</text>
-          <text class="pw4-mono" x="630" y="232" style="text-anchor:middle" fill="#f0abfc">re-validate ทั้ง flow</text>
+      <figure class="ph-fig"><div class="ph-panel pw4-panel"><div class="ph-eyebrow pw4">Migration Wizard · ความพยายามย้ายไปเครื่องมือคู่แข่ง</div>
+        <div class="sa-stage">
+        <svg viewBox="0 0 840 430" role="img" aria-label="หน้าต่างโปรแกรมย้ายไปใช้เครื่องมือคู่แข่ง: แถบความคืบหน้าถูกลากไปข้างหน้าสามครั้ง และถูกดีดกลับที่ศูนย์ทั้งสามครั้ง ครั้งแรกติดที่สคริปต์ TCL หมื่นสองพันบรรทัดใช้ไม่ได้ ครั้งที่สองติดที่ผลไทม์มิงไม่ตรงกับซิลิคอนจริง ครั้งที่สามคือความเสี่ยง tape-out พลาดหนึ่งรอบซึ่งแพงกว่าค่า license ทั้งปีหลายเท่า ทุกครั้งที่ดิ้น เส้นที่มัดอยู่ก็สว่างขึ้น และตาชั่งของ CFO ก็เอียงกลับไปข้างเดิม">
+        <rect x="60" y="26" width="500" height="378" rx="8" fill="#0d1117" stroke="#2a3038" stroke-width="1.6"/>
+        <rect x="60" y="26" width="500" height="30" rx="8" fill="#161b22"/>
+        <text class="pw4-um" x="80" y="45">Migration Wizard — ย้าย design flow ไปเครื่องมือเจ้าอื่น</text>
+        <text class="pw4-um" x="540" y="45" style="text-anchor:end">✕</text>
+
+        <text class="pw4-uit" x="84" y="86">ความคืบหน้าการย้าย</text>
+        <rect x="84" y="98" width="452" height="20" rx="3" fill="#161b22" stroke="#2a3038" stroke-width="1.2"/>
+        <rect class="sa n pw4-try ox0" style="--i:1" x="86" y="100" width="448" height="16" rx="2" fill="#38bdf8"/>
+        <text class="sa n pw4-in pw4-um" style="--i:9.6" x="84" y="136">ย้ายสำเร็จ 0% — ครั้งที่สาม เหมือนสองครั้งแรก</text>
+
+        <g class="sa n pw4-err" style="--i:2.2">
+          <rect x="84" y="152" width="452" height="46" rx="5" fill="#2a1215" stroke="#f87171" stroke-width="1.3"/>
+          <text class="pw4-et" x="100" y="172">ครั้งที่ 1 · ล้มเหลว — rollback</text>
+          <text class="pw4-um s" x="100" y="190">สคริปต์ TCL 12,400 บรรทัดที่เขียนเอง รันบนเครื่องมือใหม่ไม่ได้</text>
         </g>
-        <text class="pw4-mono" x="420" y="322" style="text-anchor:middle">ต้นทุนความผิดพลาดสูงกว่าค่า license หลายเท่า — "ของถูกกว่า" จึงแพ้ "ของที่พิสูจน์แล้ว" เกือบทุกครั้ง</text>
+        <g class="sa n pw4-err" style="--i:4.6">
+          <rect x="84" y="208" width="452" height="46" rx="5" fill="#2a1215" stroke="#f87171" stroke-width="1.3"/>
+          <text class="pw4-et" x="100" y="228">ครั้งที่ 2 · ล้มเหลว — rollback</text>
+          <text class="pw4-um s" x="100" y="246">ผล timing signoff ไม่ตรงกับซิลิคอนจริง — ต้องจูนใหม่ทั้งโหนด</text>
+        </g>
+        <g class="sa n pw4-err" style="--i:7">
+          <rect x="84" y="264" width="452" height="46" rx="5" fill="#2a1215" stroke="#f87171" stroke-width="1.3"/>
+          <text class="pw4-et" x="100" y="284">ครั้งที่ 3 · ล้มเหลว — rollback</text>
+          <text class="pw4-um s" x="100" y="302">ถ้า tape-out พลาด 1 รอบ = หลายล้านดอลลาร์ + เวลาที่ซื้อคืนไม่ได้</text>
+        </g>
+        <text class="sa n pw4-in pw4-uit" style="--i:9.6" x="84" y="344" fill="#f59e0b">ยิ่งดิ้น ยิ่งเห็นว่าอะไรมัดอยู่</text>
+        <text class="sa n pw4-in pw4-um" style="--i:10" x="84" y="368">ไม่มีใครล็อกประตู — ประตูมันหนักเอง</text>
+
+        <text class="pw4-uit" x="700" y="70" style="text-anchor:middle">ตาชั่งของ CFO ลูกค้า</text>
+        <line x1="700" y1="88" x2="700" y2="128" stroke="#3a4048" stroke-width="2"/>
+        <g class="sa n pw4-tilt pw4-tilted" style="--i:8">
+          <line x1="600" y1="128" x2="800" y2="128" stroke="#8b949e" stroke-width="2.6"/>
+          <g><rect x="602" y="136" width="94" height="52" rx="4" fill="#12212f" stroke="#38bdf8" stroke-width="1.2"/>
+          <text class="pw4-um c" x="649" y="156" style="text-anchor:middle">ประหยัด</text>
+          <text class="pw4-um c" x="649" y="172" style="text-anchor:middle">ค่า license</text></g>
+          <g><rect x="704" y="136" width="94" height="76" rx="4" fill="#2a1215" stroke="#f87171" stroke-width="1.4"/>
+          <text class="pw4-um r" x="751" y="156" style="text-anchor:middle">ความเสี่ยง</text>
+          <text class="pw4-um r" x="751" y="172" style="text-anchor:middle">tape-out พลาด</text>
+          <text class="pw4-um r" x="751" y="196" style="text-anchor:middle">+ เวลาที่หายไป</text></g>
+        </g>
+        <text class="sa n pw4-in pw4-um" x="700" y="250" style="--i:8.8;text-anchor:middle">ค่าเครื่องมือ = เศษเสี้ยวของมูลค่าโปรเจค</text>
+        <text class="sa n pw4-in pw4-um" x="700" y="268" style="--i:8.8;text-anchor:middle">ความเสี่ยงจึงชนะส่วนลดทุกครั้ง</text>
+        <g class="sa n pw4-in" style="--i:10.4">
+          <rect x="600" y="296" width="200" height="86" rx="6" fill="#1c1608" stroke="#f59e0b" stroke-width="1.4"/>
+          <text class="pw4-ot" x="700" y="322" style="text-anchor:middle">ผลของอำนาจนี้ในงบ</text>
+          <text class="pw4-um c" x="700" y="346" style="text-anchor:middle">adj. operating margin ~39.5%</text>
+          <text class="pw4-um c" x="700" y="366" style="text-anchor:middle">รายได้ Q2 FY2026 +41.9% YoY</text>
+        </g>
         </svg>
-      </div><figcaption><strong>ความเสี่ยงเอาชนะส่วนลดเสมอ เมื่อราคาของความผิดพลาดใหญ่พอ</strong> — ค่าเครื่องมือ EDA เป็นเศษเสี้ยวของมูลค่าโปรเจคชิป แต่การ tape-out พลาดหนึ่งรอบคือความเสียหายหลายล้านดอลลาร์บวกเวลาที่ซื้อคืนไม่ได้ ตาชั่งนี้คือเหตุผลที่ลูกค้า "บ่นแพงแต่เซ็นต่อ" — และเป็นเหตุผลที่คู่แข่งราคาถูกเจาะตลาดนี้แทบไม่ได้เลย ต่อให้เครื่องมือดีจริง</figcaption></figure>
+        </div>
+      </div><figcaption><strong>ความเสี่ยงเอาชนะส่วนลดเสมอ เมื่อราคาของความผิดพลาดใหญ่พอ</strong> — ค่าเครื่องมือ EDA เป็นเศษเสี้ยวของมูลค่าโปรเจคชิป แต่การ tape-out พลาดหนึ่งรอบคือความเสียหายหลายล้านดอลลาร์บวกเวลาที่ซื้อคืนไม่ได้ ตาชั่งนี้จึงเอียงกลับข้างเดิมทุกครั้ง — และเมื่อลูกค้าย้ายไม่ได้ ผู้ขายก็ตั้งราคาตาม<em>มูลค่าที่ลูกค้าได้</em> ไม่ใช่ตามต้นทุนตัวเอง: adjusted operating margin ~39.5% รายได้ Q2 FY2026 +41.9% YoY</figcaption></figure>
       <p>
         Benefit ของ Synopsys โผล่ตรงนี้: เมื่อลูกค้าย้ายไม่ได้ ผู้ขายก็<strong>ตั้งราคาตามมูลค่า
         ที่ลูกค้าได้ ไม่ใช่ตามต้นทุนของตัวเอง</strong> ผลคือ adjusted operating margin ~39.5%
@@ -209,26 +252,35 @@
         ทำให้เกิดตัวเลขที่ต้องหยุดดู:
       </p>
       <figure class="ph-fig"><div class="ph-panel pw4-panel"><div class="ph-eyebrow pw4">Backlog · รายได้ที่ลูกค้าเซ็นจ่ายล่วงหน้า (สิ้น FY2025)</div>
-        <svg viewBox="0 0 840 300" role="img" aria-label="Synopsys backlog $11.4B equals about 1.5 years of revenue signed in advance"><defs><linearGradient id="pw4blk" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#4c1d95"/><stop offset="1" stop-color="#2a1454"/></linearGradient></defs>
-        <text class="pw4-mono" x="70" y="66" style="text-anchor:start">ทุกไตรมาสข้างหน้า เดินเข้ามาพร้อมรายได้ที่ถูกเซ็นไว้แล้ว — ก่อนทีมขายจะเริ่มทำงานปีนี้ด้วยซ้ำ</text>
-        <g class="pw4-belt2"><line x1="70" y1="170" x2="770" y2="170"/></g>
-        <g fill="url(#pw4blk)" stroke="#a78bfa" stroke-width="1.8">
-          <rect x="90" y="108" width="130" height="62" rx="7"/>
-          <rect x="250" y="108" width="130" height="62" rx="7"/>
-          <rect x="410" y="108" width="130" height="62" rx="7"/>
-          <rect x="570" y="108" width="130" height="62" rx="7" opacity=".75"/>
-        </g>
-        <g class="pw4-stamp">
-          <text class="pw4-t sm" x="155" y="134">Q ถัดไป</text><text class="pw4-mono" x="155" y="156" style="text-anchor:middle" fill="#c4b5fd">เซ็นแล้ว ✓</text>
-          <text class="pw4-t sm" x="315" y="134">+2 ไตรมาส</text><text class="pw4-mono" x="315" y="156" style="text-anchor:middle" fill="#c4b5fd">เซ็นแล้ว ✓</text>
-          <text class="pw4-t sm" x="475" y="134">+3 ไตรมาส</text><text class="pw4-mono" x="475" y="156" style="text-anchor:middle" fill="#c4b5fd">เซ็นแล้ว ✓</text>
-          <text class="pw4-t sm" x="635" y="134">…ถึงปีครึ่ง</text><text class="pw4-mono" x="635" y="156" style="text-anchor:middle" fill="#c4b5fd">เซ็นแล้ว ✓</text>
-        </g>
-        <text class="pw4-big" x="420" y="232" style="text-anchor:middle">backlog = $11.4B</text>
-        <text class="pw4-mono" x="420" y="258" style="text-anchor:middle">≈ รายได้ทั้งบริษัทหนึ่งปีครึ่ง · รับรู้ ~45% ภายใน 12 เดือน · สัญญา TSL 2-3 ปี</text>
-        <text class="pw4-mono" x="420" y="282" style="text-anchor:middle" fill="#c4b5fd">นี่คือหน้าตาของ switching costs เวลาถูกแปลงเป็นตัวเลขในงบ</text>
+        <div class="sa-stage">
+        <svg viewBox="0 0 840 400" role="img" aria-label="แดชบอร์ดสัญญาของ Synopsys: ใบสัญญา subscription สองถึงสามปีถูกเซ็นเข้ามาทีละใบจนเต็มปฏิทิน แถบ backlog เติมไปถึง 11.4 พันล้านดอลลาร์ ซึ่งเท่ากับรายได้ทั้งบริษัทราวหนึ่งปีครึ่งที่ถูกล็อกไว้แล้ว โดยไม่ต้องขายเพิ่มอีกแม้แต่ดอลลาร์เดียว — ลูกค้าที่มีทางเลือกจริง ไม่มีใครเซ็นจ่ายล่วงหน้าขนาดนี้">
+        <rect x="40" y="26" width="760" height="348" rx="8" fill="#0d1117" stroke="#2a3038" stroke-width="1.6"/>
+        <rect x="40" y="26" width="760" height="30" rx="8" fill="#161b22"/>
+        <text class="pw4-um" x="60" y="45">Contracts — subscription 2–3 ปี · สิ้น FY2025</text>
+
+        <text class="pw4-uit" x="62" y="84">ใบสัญญาที่ลูกค้าเซ็นเอง — ไม่มีใครบังคับ</text>
+        <g class="sa n pw4-sign" style="--i:1"><rect x="62" y="96" width="112" height="66" rx="4" fill="#12212f" stroke="#38bdf8" stroke-width="1.2"/><text class="pw4-um c" x="76" y="118">3 ปี</text><path d="M76 138 q 14 -10 26 0 t 26 -2" fill="none" stroke="#38bdf8" stroke-width="1.4"/></g>
+        <g class="sa n pw4-sign" style="--i:1.6"><rect x="186" y="96" width="112" height="66" rx="4" fill="#12212f" stroke="#38bdf8" stroke-width="1.2"/><text class="pw4-um c" x="200" y="118">3 ปี</text><path d="M200 138 q 14 -10 26 0 t 26 -2" fill="none" stroke="#38bdf8" stroke-width="1.4"/></g>
+        <g class="sa n pw4-sign" style="--i:2.2"><rect x="310" y="96" width="112" height="66" rx="4" fill="#12212f" stroke="#38bdf8" stroke-width="1.2"/><text class="pw4-um c" x="324" y="118">2 ปี</text><path d="M324 138 q 14 -10 26 0 t 26 -2" fill="none" stroke="#38bdf8" stroke-width="1.4"/></g>
+        <g class="sa n pw4-sign" style="--i:2.8"><rect x="434" y="96" width="112" height="66" rx="4" fill="#12212f" stroke="#38bdf8" stroke-width="1.2"/><text class="pw4-um c" x="448" y="118">3 ปี</text><path d="M448 138 q 14 -10 26 0 t 26 -2" fill="none" stroke="#38bdf8" stroke-width="1.4"/></g>
+        <g class="sa n pw4-sign" style="--i:3.4"><rect x="558" y="96" width="112" height="66" rx="4" fill="#12212f" stroke="#38bdf8" stroke-width="1.2"/><text class="pw4-um c" x="572" y="118">2 ปี</text><path d="M572 138 q 14 -10 26 0 t 26 -2" fill="none" stroke="#38bdf8" stroke-width="1.4"/></g>
+        <g class="sa n pw4-sign" style="--i:4"><rect x="682" y="96" width="96" height="66" rx="4" fill="#12212f" stroke="#38bdf8" stroke-width="1.2"/><text class="pw4-um c" x="696" y="118">3 ปี</text><path d="M696 138 q 14 -10 26 0 t 26 -2" fill="none" stroke="#38bdf8" stroke-width="1.4"/></g>
+
+        <text class="pw4-uit" x="62" y="204">รายได้ที่ถูกล็อกไว้แล้ว โดยไม่ต้องขายเพิ่มอีกแม้แต่ดอลลาร์เดียว</text>
+        <rect x="62" y="216" width="716" height="34" rx="4" fill="#161b22" stroke="#2a3038" stroke-width="1.2"/>
+        <rect class="sa n pw4-fill ox0" style="--i:5" x="64" y="218" width="712" height="30" rx="3" fill="#f59e0b"/>
+        <text class="sa n pw4-in" style="--i:6.6;font-family:var(--font-head);font-size:12.5px;font-weight:800" x="80" y="238" fill="#1a1200">backlog $11.4B ≈ รายได้ทั้งบริษัทราว 1.5 ปี</text>
+
+        <text class="pw4-um" x="62" y="286">ปฏิทินรายได้ข้างหน้า — เต็มไปแล้วตั้งแต่วันนี้</text>
+        <g class="sa n pw4-cal" style="--i:7.4"><rect x="62" y="298" width="140" height="30" rx="3" fill="#1c1608" stroke="#f59e0b" stroke-width="1.2"/><text class="pw4-um c" x="132" y="318" style="text-anchor:middle">ปีหน้า · ล็อกแล้ว</text></g>
+        <g class="sa n pw4-cal" style="--i:7.8"><rect x="214" y="298" width="140" height="30" rx="3" fill="#1c1608" stroke="#f59e0b" stroke-width="1.2"/><text class="pw4-um c" x="284" y="318" style="text-anchor:middle">ครึ่งปีถัดไป · ล็อกแล้ว</text></g>
+        <g class="sa n pw4-cal" style="--i:8.2"><rect x="366" y="298" width="152" height="30" rx="3" fill="#161b22" stroke="#2a3038" stroke-width="1.2" stroke-dasharray="4 3"/><text class="pw4-um" x="442" y="318" style="text-anchor:middle">ที่เหลือ · ยังไม่ขาย</text></g>
+        <text class="sa n pw4-in pw4-um" style="--i:9" x="536" y="318">← ลูกค้าที่มีทางเลือกจริง ไม่เซ็นจ่ายล่วงหน้าปีครึ่ง</text>
+        <text class="sa n pw4-in pw4-uit" x="420" y="360" fill="#f59e0b" style="--i:9.6;text-anchor:middle">switching costs ไม่ได้โชว์ตัวใน margin — มันโชว์ตัวใน "ความแน่นอน" ของรายได้</text>
         </svg>
-      </div><figcaption><strong>ลูกค้าที่มีทางเลือกจริง ไม่เซ็นจ่ายล่วงหน้าปีครึ่ง</strong> — backlog $11.4B ณ สิ้น FY2025 เท่ากับรายได้ทั้งบริษัทราวหนึ่งปีครึ่งที่ถูกล็อกไว้แล้วโดยไม่ต้องขายเพิ่มแม้แต่ดอลลาร์เดียว ความหมายเชิงอำนาจ: ลูกค้าเองก็รู้ว่าจะอยู่ต่ออีกหลายปี เลยแลกความแน่นอนกับส่วนลด — visibility แบบนี้คือของขวัญที่ moat ชนิดอื่นให้ไม่ได้</figcaption></figure>
+        <div class="sa n pw4-in sa-chip" style="--i:6;left:82%;top:16%"><span class="k">$<span class="sa n sa-num pw4-114" style="--i:6"></span>.4B</span><span class="d">backlog · เซ็นแล้ว รอรับรู้</span></div>
+        </div>
+      </div><figcaption><strong>ลูกค้าที่มีทางเลือกจริง ไม่เซ็นจ่ายล่วงหน้าปีครึ่ง</strong> — backlog $11.4B ณ สิ้น FY2025 เท่ากับรายได้ทั้งบริษัทราวหนึ่งปีครึ่งที่ถูกล็อกไว้แล้วโดยไม่ต้องขายเพิ่มแม้แต่ดอลลาร์เดียว ความหมายเชิงอำนาจ: ลูกค้าเป็นฝ่าย<em>เดินมาขอ</em>เซ็นสัญญายาวเอง เพราะเขารู้ตัวว่าไม่ได้จะไปไหนอยู่แล้ว — เทอร์โมมิเตอร์ของ switching costs อยู่ตรงนี้ ไม่ใช่ที่ความหนาของ margin</figcaption></figure>
       <p>
         เทียบกับสองตอนแรกจะเห็นบุคลิกต่างกันชัด: scale economies ของ Costco
         โชว์ตัวใน<em>ต้นทุนต่อหน่วย</em>, network economies ของ MELI โชว์ตัวใน<em>การโตของสองฝั่ง</em>
