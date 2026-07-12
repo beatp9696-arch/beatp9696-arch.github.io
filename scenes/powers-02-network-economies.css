@@ -1,39 +1,99 @@
 /* ============================================================
    powers-02-network-economies — scene CSS (โหลดเฉพาะบทนี้)
-   namespace .pw2-* — จัตุรัสตลาด MELI: ทองตลาดกลางคืน + ผ้าใบเหลือง + ฝูงคนไหล
+   ฟิสิกส์ของธุรกิจนี้: การแพร่ระบาด (n²)
+
+   ทุกฉากเล่นอยู่ใน "แอปจริงของ MELI" — ฟีด marketplace / กระเป๋า Mercado Pago / QR หน้าร้าน
+   ฉาก 2 ใช้หน้าจอเดียวกับฉาก 1 เป๊ะ ต่างกันแค่ "ของข้างใน" — ซึ่งคือสิ่งเดียวที่ลอกไม่ได้
+
+   กฎการเคลื่อนไหว:
+     ปมติดกันเป็นทอดๆ ตามระยะห่าง **ห้ามสว่างพร้อมกัน** (ฆ่าความหมายของ network ทันที)
+     ช้าตอนต้น → ระเบิดตอนท้าย (--e-spread) — ดู --i ของการ์ด: 1 / 2.4 / 3.4 / 4 / 4.4 / 4.7…
+     ฝั่งผู้ท้าชิง: ประกายไฟที่ *ดับ* ทุกครั้ง — ไม่ใช่ไฟที่ค่อยๆ หรี่
+
+   กฎไฟล์นี้: markup = สถานะจบเสมอ · ทุก @keyframes จบที่ 100% = สถานะใน markup
    ============================================================ */
 
-.pw2-panel { background: radial-gradient(140% 120% at 50% 0%, #171207 0%, #090702 72%); border-color: #3a2e0e; }
-.ph-eyebrow.pw2 { color: #facc15; }
-.pw2-panel .s-t { fill: #f2e8cf; }
-.pw2-panel .s-t.sm { fill: #b0a077; }
-.pw2-t { font-family: var(--font-head); fill: #f2e8cf; font-size: 13px; text-anchor: middle; font-weight: 600; }
-.pw2-t.sm { font-size: 11px; fill: #b0a077; }
-.pw2-mono { font-family: "IBM Plex Mono", ui-monospace, monospace; fill: #9c8a5b; font-size: 11px; }
+.pw2-panel { background: radial-gradient(140% 120% at 50% 0%, #16181d 0%, #08090b 72%); border-color: #33373f; }
+.ph-eyebrow.pw2 { color: #ffe600; }
 
-/* แผงตลาด — สว่างขึ้นทีละแผงเป็นจังหวะ (คลื่นแผงเปิดใหม่ไล่ไปทางขวา) */
-.pw2-stall { animation: pw2stall 7s ease-in-out infinite; }
-@keyframes pw2stall {
-  0%, 100% { opacity: .78; filter: none }
-  12%, 30% { opacity: 1; filter: drop-shadow(0 0 7px rgba(250,204,21,.35)) }
+/* ── ภาษาของแอปจริง (MELI = เหลือง #ffe600 + น้ำเงิน #3483fa บนพื้นขาว) ── */
+.pw2-brand   { font-family: var(--font-head); font-size: 15px; font-weight: 800; letter-spacing: -.01em; fill: #2d3277; }
+.pw2-brand.g { fill: #6b7280; }
+.pw2-brand.w { fill: #fff; font-size: 13px; }
+.pw2-ph      { font-family: var(--font-head); font-size: 11px; fill: #9aa0aa; }
+.pw2-lb      { font-family: var(--font-head); font-size: 12px; font-weight: 600; fill: #4a5058; }
+.pw2-lb.r    { fill: #e05555; }
+.pw2-lb2     { font-family: var(--font-head); font-size: 12px; font-weight: 600; fill: #8d94a0; }
+.pw2-pr      { font-family: "IBM Plex Mono", ui-monospace, monospace; font-size: 12px; font-weight: 700; fill: #111; }
+.pw2-pr.s    { font-size: 10.5px; }
+.pw2-tt      { font-family: var(--font-head); font-size: 11.5px; fill: #4a5058; }
+.pw2-tt.b    { font-weight: 700; fill: #1f2430; }
+.pw2-tt.r    { fill: #e05555; }
+.pw2-tt.g2   { font-family: "IBM Plex Mono", monospace; font-weight: 700; fill: #00a650; }
+.pw2-amt     { font-family: "IBM Plex Mono", monospace; font-size: 22px; font-weight: 800; fill: #111; }
+.pw2-empty   { font-family: var(--font-head); font-size: 12px; fill: #a8adb6; }
+
+.pw2-panel .sa-stage { container-type: inline-size; }
+.pw2-panel .sa-chip { color: #e8eaee; text-align: center; font-size: 13px; font-size: 1.55cqw; }
+.pw2-panel .sa-chip .k { display: block; color: #ffe600; font-weight: 800; letter-spacing: -.02em; font-size: 27px; font-size: 3.2cqw; }
+.pw2-panel .sa-chip .d { color: #8d94a0; font-weight: 600; font-size: 11.5px; font-size: 1.37cqw; line-height: 1.5; }
+
+/* ตัวเลขวิ่ง — เลขจริงจากงบ/รายงานไตรมาสเท่านั้น */
+.pw2-84  { --n: 84; animation: pw2n84 1.8s var(--e-spread); }    /* ผู้ซื้อ 84M/ไตรมาส */
+@keyframes pw2n84 { from { --n: 0 } }
+.pw2-289 { --n: 28; animation: pw2n289 1.4s var(--e-spread); }   /* รายได้ FY2025 $28.9B */
+@keyframes pw2n289 { from { --n: 0 } }
+.pw2-83  { --n: 83; animation: pw2n83 1.6s var(--e-spread); }    /* MAU Mercado Pago 83M */
+@keyframes pw2n83 { from { --n: 0 } }
+
+/* ── ambient (1 ท่า) — ปุ่ม "สแกนจ่าย" ที่ยังมีชีวิต ─────────── */
+.pw2-amb { opacity: .92; animation: pw2amb 3s var(--e-spread) infinite; }
+@keyframes pw2amb { 0%, 100% { opacity: .82 } 50% { opacity: 1 } }
+
+.pw2-in { animation: pw2in .6s var(--e-spread); }
+@keyframes pw2in { from { opacity: 0; transform: translateY(7px); } }
+
+/* ── ฉาก 1 · ฟีด marketplace ที่ "งอก" เอง ───────────────────
+   การ์ดร้านโผล่เป็นทอดๆ ห่างกันถี่ขึ้นเรื่อยๆ = การแพร่ระบาด ไม่ใช่ fade in พร้อมกัน
+   ราคาบนการ์ดยิ่งใบท้ายยิ่งถูก = ผลของการที่ร้านเพิ่ม (เหตุกับผลอยู่ในภาพเดียวกัน) */
+.pw2-pop { animation: pw2pop .5s var(--e-spread); transform-origin: center; transform-box: fill-box; }
+@keyframes pw2pop { from { opacity: 0; transform: scale(.72) translateY(10px); } }
+.pw2-toast { animation: pw2toast .5s var(--e-spread); }
+@keyframes pw2toast { from { opacity: 0; transform: translateX(-18px); } }
+.pw2-cycle { animation: pw2cycle .7s var(--e-spread); transform-origin: center; transform-box: fill-box; }
+@keyframes pw2cycle { from { opacity: 0; transform: scale(.9); } }
+
+/* ── ฉาก 2 · จอเดียวกัน แต่จุดไม่ติด ─────────────────────────
+   ประกายไฟพยายามจุด 3 ครั้ง แล้ว **ดับ** ทุกครั้ง (base = ดับอยู่แล้ว = สถานะจบ)
+   ห้ามใช้ท่า "ค่อยๆ จาง" — ไฟไม่ได้หรี่ลง มันไม่ติดตั้งแต่แรก */
+.pw2-spark { opacity: 0; animation: pw2spark 1.6s var(--e-fail); transform-origin: center; transform-box: fill-box; }
+@keyframes pw2spark {
+  0%   { opacity: 0; transform: scale(.4); }
+  25%  { opacity: 1; transform: scale(1.25); }
+  55%  { opacity: .8; transform: scale(1); }
+  100% { opacity: 0; transform: scale(.3); }        /* ดับ */
+}
+.pw2-ask { animation: pw2ask .6s var(--e-spread); }
+@keyframes pw2ask { from { opacity: 0; transform: translateY(10px); } }
+.pw2-loop { animation: pw2loop .6s var(--e-fail); }
+@keyframes pw2loop { from { opacity: 0; } }
+.pw2-fizz { opacity: 0; animation: pw2fizz 1.1s var(--e-fail); transform-origin: center; transform-box: fill-box; }
+@keyframes pw2fizz {
+  0%   { opacity: 0; transform: scale(.5); }
+  22%  { opacity: 1; transform: scale(1.4); }
+  100% { opacity: 0; transform: scale(.4); }        /* ประกายที่ดับ ไม่ใช่ปมที่ติด */
 }
 
-/* แผงเปิดใหม่ปลายแถว — โผล่จากมืดแล้วติดไฟ */
-.pw2-stall-new { animation: pw2new 7s ease-in-out infinite; }
-@keyframes pw2new {
-  0%, 38% { opacity: .12 }
-  55%, 88% { opacity: 1; filter: drop-shadow(0 0 10px rgba(250,204,21,.55)) }
-  100% { opacity: .12 }
-}
+/* ── ฉาก 3 · Mercado Pago: เครือข่ายซ้อนเครือข่าย ────────────
+   QR ติดหน้าร้านเป็นทอดๆ (เร่งขึ้นเหมือนฉาก 1 — เพราะมันคือ cascade ชุดเดียวกัน แค่ชั้นที่สอง)
+   → ข้อมูลไหลลงไปจุดเครือข่ายชั้นที่ 3 (สินเชื่อ) */
+.pw2-qr { animation: pw2qr .5s var(--e-spread); transform-origin: center; transform-box: fill-box; }
+@keyframes pw2qr { from { opacity: 0; transform: scale(.6) rotate(-6deg); } }
+.pw2-row { animation: pw2row .5s var(--e-spread); }
+@keyframes pw2row { from { opacity: 0; transform: translateX(-12px); } }
+.pw2-feed { animation: pw2feed .7s var(--e-spread); }
+@keyframes pw2feed { from { stroke-dashoffset: 48; } }
+.pw2-l3 { animation: pw2l3 .7s var(--e-spread); transform-origin: center; transform-box: fill-box; }
+@keyframes pw2l3 { from { opacity: 0; transform: scale(.94); } }
 
-/* ป้าย QR ของ Mercado Pago — วาบเชิญให้สแกน */
-.pw2-qr { animation: pw2qr 2.8s ease-in-out infinite; }
-@keyframes pw2qr {
-  0%, 100% { filter: none }
-  45%, 62% { filter: drop-shadow(0 0 9px rgba(250,204,21,.7)) }
-}
-
-@media (prefers-reduced-motion: reduce) {
-  .pw2-stall, .pw2-stall-new, .pw2-qr { animation: none; }
-  .pw2-stall-new { opacity: 1; }
-}
+@media (prefers-reduced-motion: reduce) { .pw2-amb { animation: none; } }
