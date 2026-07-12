@@ -1,97 +1,158 @@
-.pw3-panel { background: radial-gradient(140% 120% at 50% 0%, #1c0d10 0%, #0a0507 72%); border-color: #4a2328; }
-.ph-eyebrow.pw3 { color: #ff6b7a; }
-.pw3-t { font-family: var(--font-head); fill: #f2d7da; font-size: 13px; text-anchor: middle; font-weight: 600; }
-.pw3-t.sm { font-size: 11px; fill: #b08790; }
-.pw3-mono { font-family: "IBM Plex Mono", ui-monospace, monospace; fill: #a0707a; font-size: 11px; }
-.pw3-panel .sa-chip { color: #fecaca; font-size: 13px; text-align: center; }
-.pw3-panel .sa-chip .k { display: block; font-size: 27px; color: #ff4d5e; font-weight: 800; letter-spacing: -.02em; }
-.pw3-panel .sa-chip .d { color: #a0707a; font-size: 11.5px; font-weight: 600; }
-.pw3-panel .sa-chip .hot { color: #ff6b7a; }
-.pw3-rev  { --n: 45;   animation: pw3rev 1.6s var(--e-expo); }
-@keyframes pw3rev  { from { --n: 0 } }
-.pw3-year { --n: 2010; animation: pw3year 1.8s steps(10, end); }
+.pw3-panel { background: radial-gradient(120% 100% at 50% 0%, #1a0a0c 0%, #070707 72%); border-color: #3a2a2d; }
+.ph-eyebrow.pw3 { color: #e5535f; }
+.pw3-brand { font-family: var(--font-head); font-size: 15px; font-weight: 800; letter-spacing: .16em; fill: #e50914; }
+.pw3-uit   { font-family: var(--font-head); font-size: 13px; font-weight: 600; fill: #ececec; }
+.pw3-uit.lg { font-size: 15px; font-weight: 700; }
+.pw3-um    { font-family: "IBM Plex Mono", ui-monospace, monospace; font-size: 11px; fill: #8d8d8d; }
+.pw3-um.r  { fill: #e5808a; }
+.pw3-panel .sa-stage { container-type: inline-size; }
+.pw3-panel .sa-chip { color: #ececec; text-align: center; font-size: 13px; font-size: 1.55cqw; }
+.pw3-panel .sa-chip .k { display: block; color: #e50914; font-weight: 800; letter-spacing: -.02em; font-size: 27px; font-size: 3.2cqw; }
+.pw3-panel .sa-chip .d { color: #8d8d8d; font-weight: 600; font-size: 11.5px; font-size: 1.37cqw; }
+.pw3-panel .ox0 { transform-origin: left center; transform-box: fill-box; }
+.pw3-panel .oc  { transform-origin: center; transform-box: fill-box; }
+.pw3-year { --n: 2010; animation: pw3year 2.2s steps(10, end); }
 @keyframes pw3year { from { --n: 2000 } }
 .pw3-x900 { --n: 900;  animation: pw3x900 1.2s var(--e-expo); }
 @keyframes pw3x900 { from { --n: 0 } }
-.pw3-fee  { --n: 16;   animation: pw3fee 1.2s var(--e-mass); }
-@keyframes pw3fee  { from { --n: 0 } }
 .pw3-hh   { --n: 325;  animation: pw3hh 1.4s var(--e-expo); }
-@keyframes pw3hh   { from { --n: 0 } }
-.pw3-paper { animation: pw3paper 6s var(--e-mass); }
-@keyframes pw3paper {
-0%   { transform: translate(0,0) rotate(-3deg); }
-22%  { transform: translate(146px,-8px) rotate(-1deg); }
-55%  { transform: translate(146px,-8px) rotate(-1deg); }
-70%  { transform: translate(0,0) rotate(-3deg); animation-timing-function: var(--e-fail); }
-100% { transform: translate(0,0) rotate(-3deg); }
-}
-.pw3-laugh { animation: pw3laugh .9s steps(3, jump-none); }
-@keyframes pw3laugh { from { opacity: 0; transform: scale(.55); } }
-.pw3-stamp { animation: pw3stamp .5s var(--e-expo); }
-@keyframes pw3stamp { from { opacity: 0; transform: scale(2.1) rotate(-26deg); } }
-.pw3-alive { animation: pw3alive 1.6s var(--e-mass) 4 both; transform-origin: center; transform-box: fill-box; }
-@keyframes pw3alive { 0%, 100% { transform: translateY(0) } 50% { transform: translateY(-2.5px) } }
-.pw3-freeze { animation: pw3freeze .6s var(--e-fail); }
+@keyframes pw3hh { from { --n: 0 } }
+.pw3-amb   { opacity: .5; animation: pw3amb 3.2s var(--e-expo) infinite; }
+@keyframes pw3amb { 0%, 100% { opacity: .38 } 50% { opacity: .62 } }
+.pw3-tip   { animation: pw3tip 2.8s var(--e-expo) infinite; }
+@keyframes pw3tip { 0%, 100% { opacity: .7 } 50% { opacity: 1 } }
+.pw3-nextp { animation: pw3nextp 3.4s var(--e-expo) 8.4s infinite; }
+@keyframes pw3nextp { 0%, 100% { opacity: .75 } 50% { opacity: 1 } }
+.pw3-freeze { animation: pw3freeze .5s var(--e-fail); }
 @keyframes pw3freeze { from { filter: none; } }
-.pw3-frozen { filter: saturate(.1) brightness(.6); }
+.pw3-frozen { filter: saturate(.08) brightness(.55); }
+.pw3-in { animation: pw3in .6s var(--e-expo); }
+@keyframes pw3in { from { opacity: 0; transform: translateY(8px); } }
+.pw3-stamp { animation: pw3stamp .5s var(--e-expo); }
+@keyframes pw3stamp { from { opacity: 0; transform: scale(2.1) rotate(-24deg); } }
 .pw3-crack { animation: pw3crack .5s var(--e-fail); }
 @keyframes pw3crack { from { opacity: 0; } }
-.pw3-rise { animation: pw3rise 2.6s var(--e-spread); }
-@keyframes pw3rise { from { stroke-dashoffset: 640; } }
-.pw3-tip { animation: pw3tip 2.8s var(--e-expo) infinite; }
-@keyframes pw3tip { 0%, 100% { opacity: .7 } 50% { opacity: 1 } }
-.pw3-cursor { animation: pw3cursor 5.4s var(--e-mass); }
-@keyframes pw3cursor {
-0%   { transform: translate(0,0); }
-22%  { transform: translate(-104px,22px); }
-30%  { transform: translate(-104px,26px) scale(.92); }
-36%, 62% { transform: translate(-104px,22px); }
-78%  { transform: translate(0,0); animation-timing-function: var(--e-snapback); }
-100% { transform: translate(0,0); }
-}
-.pw3-fuse { animation: pw3fuse .8s linear; }
-@keyframes pw3fuse { from { stroke-dashoffset: 300; } }
-.pw3-break { animation: pw3break .7s var(--e-fail); }
-@keyframes pw3break { from { transform: scaleY(1); } }
-.pw3-broken { transform: scaleY(.8); transform-origin: bottom center; transform-box: fill-box; }
-.pw3-break { transform-origin: bottom center; transform-box: fill-box; }
-.pw3-tilt { animation: pw3tilt .9s var(--e-mass); transform-origin: 0 100%; transform-box: fill-box; }
-@keyframes pw3tilt { from { transform: rotate(0) translateY(0); } }
-.pw3-tilted { transform: rotate(3deg) translateY(12px); transform-origin: 0 100%; transform-box: fill-box; }
-.pw3-drop { animation: pw3drop 1s var(--e-fail); transform-origin: bottom center; transform-box: fill-box; }
-@keyframes pw3drop { from { transform: scaleY(1); } }
-.pw3-dropped { transform: scaleY(.4); transform-origin: bottom center; transform-box: fill-box; }
-.pw3-in { animation: pw3in .6s var(--e-expo); }
-@keyframes pw3in { from { opacity: 0; transform: translateY(9px); } }
-.pw3-pull { animation: pw3pull .5s var(--e-snapback); transform-origin: right center; transform-box: fill-box; }
-@keyframes pw3pull { from { opacity: 0; transform: scaleX(.15); } }
-.pw3-desc { animation: pw3desc 5.4s steps(4, end); }
-@keyframes pw3desc { from { transform: translate(-480px,-176px); } }
-.pw3-sym { animation: pw3sym .7s var(--e-expo); }
-@keyframes pw3sym { from { opacity: .1; transform: translateX(-12px); } }
-.pw3-climb { animation: pw3climb 6.4s var(--e-spread); }
-@keyframes pw3climb { from { stroke-dashoffset: 820; } }
-.pw3-flare { animation: pw3flare .8s var(--e-fail); }
-@keyframes pw3flare { from { opacity: 0; transform: scale(2.6); } }
-.pw3-gap { animation: pw3gap .6s var(--e-expo); transform-origin: center; transform-box: fill-box; }
+.pw3-climb { animation: pw3climb 3s var(--e-spread); }
+@keyframes pw3climb { from { stroke-dashoffset: 280; } }
+.pw3-area  { animation: pw3area 3s var(--e-spread); }
+@keyframes pw3area { from { clip-path: inset(0 100% 0 0); } }
+.pw3-dip   { animation: pw3dip .6s var(--e-fail); }
+@keyframes pw3dip { from { opacity: 0; transform: scale(2.4); } }
+.pw3-gap   { animation: pw3gap .6s var(--e-expo); transform-origin: center; transform-box: fill-box; }
 @keyframes pw3gap { from { opacity: 0; transform: scaleY(.08); } }
-.pw3-env { animation: pw3env .8s var(--e-mass); }
-@keyframes pw3env { from { opacity: 1; } }
-.pw3-dead { opacity: .2; }
-.pw3-spark { animation: pw3spark 1.6s var(--e-spread); }
+.pw3-paper { animation: pw3paper 1.2s var(--e-mass); }
+@keyframes pw3paper { from { opacity: 0; transform: translate(-110px, 26px) rotate(-8deg); } }
+.pw3-laugh { animation: pw3laugh .9s steps(3, jump-none); }
+@keyframes pw3laugh { from { opacity: 0; transform: scale(.5); } }
+.pw3-skip  { animation: pw3skip 1.6s var(--e-expo); }
+@keyframes pw3skip {
+0%   { opacity: 0; transform: translateY(8px); }
+30%  { opacity: 1; transform: translateY(0); }
+46%  { transform: translateY(0) scale(.95); }
+100% { transform: translateY(0) scale(1); }
+}
+.pw3-scrub { transform-origin: left center; transform-box: fill-box; animation: pw3scrub 2.2s var(--e-expo); }
+@keyframes pw3scrub { from { transform: scaleX(0); } }
+.pw3-knob  { animation: pw3knob 2.2s var(--e-expo); }
+@keyframes pw3knob { from { transform: translateX(-560px); } }
+.pw3-over  { animation: pw3over .7s var(--e-expo); }
+@keyframes pw3over { from { opacity: 0; } }
+.pw3-cursor { animation: pw3cursor 6.6s var(--e-mass); }
+@keyframes pw3cursor {
+0%   { transform: translate(0, 0); }
+18%  { transform: translate(-354px, -42px); }
+24%  { transform: translate(-354px, -38px) scale(.9); }
+32%, 82% { transform: translate(-354px, -42px); }
+92%  { transform: translate(0, 0); animation-timing-function: var(--e-snapback); }
+100% { transform: translate(0, 0); }
+}
+.pw3-togg { animation: pw3togg 3.6s var(--e-mass); }
+@keyframes pw3togg {
+0%   { transform: translateX(0); }
+8%   { transform: translateX(24px); }
+70%  { transform: translateX(24px); }
+85%  { transform: translateX(0); animation-timing-function: var(--e-snapback); }
+100% { transform: translateX(0); }
+}
+.pw3-toggon { opacity: 0; animation: pw3toggon 3.6s var(--e-mass); }
+@keyframes pw3toggon {
+0%   { opacity: 0; }
+8%, 70% { opacity: 1; }
+85%, 100% { opacity: 0; }
+}
+.pw3-strike { opacity: 0; transform-origin: left center; transform-box: fill-box; animation: pw3strike 3.2s var(--e-expo); }
+@keyframes pw3strike {
+0%   { opacity: 0; transform: scaleX(0); }
+12%  { opacity: 1; transform: scaleX(1); }
+72%  { opacity: 1; transform: scaleX(1); }
+88%, 100% { opacity: 0; transform: scaleX(1); }
+}
+.pw3-profit { transform: scaleX(.12); animation: pw3profit 3s var(--e-fail); }
+@keyframes pw3profit {
+0%   { transform: scaleX(1); }
+30%  { transform: scaleX(.4); }
+62%  { transform: scaleX(.4); }
+78%  { transform: scaleX(.55); }
+100% { transform: scaleX(.12); }
+}
+.pw3-snack { animation: pw3snack .6s var(--e-snapback); }
+@keyframes pw3snack { from { opacity: 0; transform: translateY(28px); } }
+.pw3-spin  { animation: pw3spin 4.5s steps(32, end); }
+@keyframes pw3spin { from { transform: rotate(0); } to { transform: rotate(1440deg); } }
+.pw3-lstep { transform: scaleX(.62); animation: pw3lstep 4.2s steps(5, end); }
+@keyframes pw3lstep { from { transform: scaleX(0); } }
+.pw3-jerk  { animation: pw3jerk .5s steps(2, jump-none); }
+@keyframes pw3jerk { from { opacity: .08; transform: translateX(-10px); } }
+.pw3-rflow { transform-origin: left center; transform-box: fill-box; animation: pw3rflow 4.2s var(--e-spread); }
+@keyframes pw3rflow { from { transform: scaleX(0); } }
+.pw3-tile  { animation: pw3tile .5s var(--e-expo); transform-origin: center; transform-box: fill-box; }
+@keyframes pw3tile { from { opacity: 0; transform: scale(.9) translateY(6px); } }
+.pw3-sym   { animation: pw3sym .5s var(--e-expo); }
+@keyframes pw3sym { from { opacity: 0; transform: translateY(6px); } }
+.pw3-cursor2 { animation: pw3cursor2 4.6s var(--e-mass); }
+@keyframes pw3cursor2 {
+0%   { opacity: 0; transform: translate(160px, 140px); }
+8%   { opacity: 1; }
+30%  { transform: translate(1px, 32px); }
+36%  { transform: translate(1px, 36px) scale(.9); }
+44%  { transform: translate(1px, 32px); }
+72%  { transform: translate(0, 0); }
+80%  { transform: translate(0, 4px) scale(.9); }
+100% { transform: translate(0, 0); }
+}
+.pw3-press { animation: pw3press 1.2s var(--e-expo); transform-origin: center; transform-box: fill-box; }
+@keyframes pw3press { 0% { transform: scale(1); } 22% { transform: scale(.93); } 100% { transform: scale(1); } }
+.pw3-modal { opacity: 0; animation: pw3modal 2.4s var(--e-expo); }
+@keyframes pw3modal {
+0%   { opacity: 0; transform: scale(.96); }
+12%  { opacity: 1; transform: scale(1); }
+78%  { opacity: 1; transform: scale(1); }
+88%, 100% { opacity: 0; transform: scale(.98); }
+}
+.pw3-dim { animation: pw3dim .8s var(--e-fail); }
+@keyframes pw3dim { from { opacity: 1; filter: none; } }
+.pw3-dimmed { opacity: .38; filter: saturate(.1); }
+.pw3-cut { transform-origin: left center; transform-box: fill-box; animation: pw3cut .5s var(--e-expo); }
+@keyframes pw3cut { from { transform: scaleX(0); } }
+.pw3-spark { animation: pw3spark 1.5s var(--e-spread); }
 @keyframes pw3spark {
-0%   { opacity: 0; transform: translate(0,0); }
+0%   { opacity: 0; transform: translate(0, 0); }
 15%  { opacity: 1; }
 85%  { opacity: .9; transform: translate(var(--dx), var(--dy)); }
 100% { opacity: 0; transform: translate(var(--dx), var(--dy)); }
 }
-.pw3-dip { animation: pw3dip .6s var(--e-fail); }
-@keyframes pw3dip { from { opacity: 0; transform: scale(2.6); } }
-.pw3-area { animation: pw3area 6.4s var(--e-spread); }
-@keyframes pw3area { from { clip-path: inset(0 100% 0 0); } }
-.pw3-offer2 { animation: pw3offer2 2.4s var(--e-mass); }
-@keyframes pw3offer2 { from { opacity: 0; transform: translate(-160px,12px) scale(.88); } }
-.pw3-q { animation: pw3q .8s var(--e-expo), pw3qp 3.4s var(--e-expo) 5.6s infinite; }
-@keyframes pw3q { from { opacity: 0; transform: scale(.3); } }
-@keyframes pw3qp { 0%, 100% { opacity: .8 } 50% { opacity: 1 } }
-@media (prefers-reduced-motion: reduce) { .pw3-tip, .pw3-q { animation: none; } }
+.pw3-hover { animation: pw3hover 5.4s var(--e-mass); }
+@keyframes pw3hover {
+0%   { opacity: 0; transform: translate(90px, 60px); }
+10%  { opacity: 1; }
+35%  { transform: translate(-76px, -26px); }
+45%  { transform: translate(-73px, -24px); }
+55%  { transform: translate(-79px, -28px); }
+70%  { transform: translate(-76px, -26px); }
+88%  { transform: translate(0, 0); animation-timing-function: var(--e-snapback); }
+100% { transform: translate(0, 0); }
+}
+.pw3-q { animation: pw3q .8s var(--e-expo), pw3qp 3.4s var(--e-expo) 4.8s infinite; transform-origin: center; transform-box: fill-box; }
+@keyframes pw3q  { from { opacity: 0; transform: scale(.3); } }
+@keyframes pw3qp { 0%, 100% { opacity: .82 } 50% { opacity: 1 } }
+@media (prefers-reduced-motion: reduce) { .pw3-tip, .pw3-q, .pw3-amb, .pw3-nextp { animation: none; } }
