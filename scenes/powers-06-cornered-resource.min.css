@@ -1,34 +1,48 @@
-.pw6-panel { background: radial-gradient(140% 120% at 50% 0%, #0a1e26 0%, #040d11 72%); border-color: #23515e; }
-.ph-eyebrow.pw6 { color: #6fe3f5; }
-.pw6-panel .s-t { fill: #d8f7ff; }
-.pw6-panel .s-t.sm { fill: #7e97a0; }
-.pw6-t { font-family: var(--font-head); fill: #d8f7ff; font-size: 13px; text-anchor: middle; font-weight: 600; }
-.pw6-t.sm { font-size: 11px; fill: #7e97a0; }
-.pw6-mono { font-family: "IBM Plex Mono", ui-monospace, monospace; fill: #7e97a0; font-size: 11px; }
-.pw6-plasma { animation: pw6plasma 2.4s ease-in-out infinite; transform-origin: center; transform-box: fill-box; }
-@keyframes pw6plasma {
-0%, 100% { filter: drop-shadow(0 0 5px rgba(111,227,245,.5)); transform: scale(1) }
-50% { filter: drop-shadow(0 0 16px rgba(216,247,255,.9)); transform: scale(1.08) }
+.pw6-panel { background: radial-gradient(140% 120% at 50% 0%, #0a1018 0%, #04070a 72%); border-color: #1e2833; }
+.ph-eyebrow.pw6 { color: #7dd3fc; }
+.pw6-uit  { font-family: var(--font-head); font-size: 12.5px; font-weight: 700; fill: #dbeafe; }
+.pw6-pt   { font-family: var(--font-head); font-size: 12.5px; font-weight: 700; fill: #7dd3fc; }
+.pw6-pt.o { fill: #f59e0b; }
+.pw6-cq   { font-family: "IBM Plex Mono", ui-monospace, monospace; font-size: 11px; font-weight: 600; fill: #7dd3fc; text-anchor: middle; }
+.pw6-um   { font-family: "IBM Plex Mono", ui-monospace, monospace; font-size: 11px; fill: #6b8299; }
+.pw6-um.s { font-size: 9.5px; fill: #55697d; }
+.pw6-om   { font-family: "IBM Plex Mono", ui-monospace, monospace; font-size: 11px; fill: #f59e0b; }
+.pw6-om.s { font-size: 9.5px; }
+.pw6-ok   { font-family: "IBM Plex Mono", ui-monospace, monospace; font-size: 10.5px; fill: #34d399; }
+.pw6-panel .sa-stage { container-type: inline-size; }
+.pw6-panel .sa-chip { color: #dbeafe; text-align: center; font-size: 13px; font-size: 1.55cqw; }
+.pw6-panel .sa-chip .k { display: block; color: #7dd3fc; font-weight: 800; letter-spacing: -.02em; font-size: 27px; font-size: 3.2cqw; }
+.pw6-panel .sa-chip .d { color: #6b8299; font-weight: 600; font-size: 11.5px; font-size: 1.37cqw; line-height: 1.5; }
+.pw6-panel .ox0 { transform-origin: left center; transform-box: fill-box; }
+.pw6-528 { --n: 52; animation: pw6n528 1.6s var(--e-expo); }
+@keyframes pw6n528 { from { --n: 0 } }
+.pw6-in { animation: pw6in .6s var(--e-expo); }
+@keyframes pw6in { from { opacity: 0; transform: translateY(7px); } }
+.pw6-q { animation: pw6q .45s steps(3, jump-none); }
+@keyframes pw6q { from { opacity: 0; transform: translateX(-14px); } }
+.pw6-lane { animation: pw6lane .9s var(--e-mech); }
+@keyframes pw6lane { from { stroke-dashoffset: 120; } }
+.pw6-pulse { opacity: 0; animation: pw6pulse 1.4s var(--e-expo); transform-origin: center; transform-box: fill-box; }
+@keyframes pw6pulse {
+0%   { opacity: 0; transform: scale(.15); }
+35%  { opacity: 1; transform: scale(1); }
+100% { opacity: 0; transform: scale(1.45); }
 }
-.pw6-flow { stroke-dasharray: 6 8; animation: pw6flow 2.8s linear infinite; }
-@keyframes pw6flow { to { stroke-dashoffset: -28 } }
-.pw6-toll { animation: pw6toll 4s ease-in-out infinite; }
-@keyframes pw6toll { 0%, 100% { opacity: .9 } 50% { opacity: 1 } }
-.pw6-supp { animation: pw6supp 5s ease-in-out infinite; }
-@keyframes pw6supp { 0%, 100% { opacity: .92 } 50% { opacity: 1 } }
-.pw6-lock { animation: pw6lock 3.6s ease-in-out infinite; }
-@keyframes pw6lock { 0%, 100% { opacity: .55 } 50% { opacity: 1 } }
-.pw6-walk { animation: pw6walk 4.2s ease-in-out infinite; }
-@keyframes pw6walk { 0%, 100% { transform: translateX(0) } 50% { transform: translateX(10px) } }
-.pw6-drain { stroke-dasharray: 5 7; animation: pw6drain 1.9s linear infinite; }
-@keyframes pw6drain { to { stroke-dashoffset: -24 } }
-.pw6-cars { animation: pw6cars 3.4s ease-in-out infinite; }
-@keyframes pw6cars { 0%, 100% { transform: translateX(0) } 50% { transform: translateX(6px) } }
-.pw6-blocked { animation: pw6blocked 2.8s ease-in-out infinite; }
-@keyframes pw6blocked { 0%, 100% { opacity: .5 } 50% { opacity: 1 } }
-.pw6-switch { animation: pw6switch 3.2s ease-in-out infinite; }
-@keyframes pw6switch { 0%, 100% { opacity: .75 } 50% { opacity: 1 } }
-@media (prefers-reduced-motion: reduce) {
-.pw6-plasma, .pw6-flow, .pw6-toll, .pw6-supp, .pw6-lock, .pw6-walk,
-.pw6-drain, .pw6-cars, .pw6-blocked, .pw6-switch { animation: none; }
-}
+.pw6-beam { animation: pw6beam .7s var(--e-expo); }
+@keyframes pw6beam { from { stroke-dashoffset: 170; } }
+.pw6-waf { animation: pw6waf .6s var(--e-expo); transform-origin: center; transform-box: fill-box; }
+@keyframes pw6waf { from { opacity: 0; transform: scale(.5) translateX(-40px); } }
+.pw6-part { animation: pw6part .55s var(--e-mech); }
+@keyframes pw6part { from { opacity: 0; transform: translateY(-10px); } }
+.pw6-keep { animation: pw6keep 1.2s var(--e-expo); }
+@keyframes pw6keep { from { transform: scaleX(0); } }
+.pw6-leak { animation: pw6leak .6s var(--e-mass); transform-origin: top center; transform-box: fill-box; }
+@keyframes pw6leak { from { opacity: 0; transform: scaleY(0); } }
+.pw6-cust { animation: pw6cust .5s steps(3, jump-none); }
+@keyframes pw6cust { from { opacity: 0; transform: translateY(-8px); } }
+.pw6-sw { animation: pw6sw .5s var(--e-mech); }
+@keyframes pw6sw { from { transform: translateX(34px); } }
+.pw6-cut { animation: pw6cut .8s var(--e-fail); }
+@keyframes pw6cut { from { filter: none; opacity: 1; } }
+.pw6-blocked { filter: saturate(.5); opacity: .55; }
+@media (prefers-reduced-motion: reduce) { .pw6-pulse { opacity: 0; } }

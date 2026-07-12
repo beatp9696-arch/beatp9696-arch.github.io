@@ -1,40 +1,41 @@
-.pw7-panel { background: radial-gradient(140% 120% at 50% 0%, #1d1408 0%, #0b0704 72%); border-color: #4a3a1e; }
-.ph-eyebrow.pw7 { color: #f0a860; }
-.pw7-panel .s-t { fill: #f6d5ac; }
-.pw7-panel .s-t.sm { fill: #a8977f; }
-.pw7-t { font-family: var(--font-head); fill: #f6d5ac; font-size: 13px; text-anchor: middle; font-weight: 600; }
-.pw7-t.sm { font-size: 11px; fill: #a8977f; }
-.pw7-mono { font-family: "IBM Plex Mono", ui-monospace, monospace; fill: #a8977f; font-size: 11px; }
-.pw7-machine { animation: pw7machine 3.8s ease-in-out infinite; }
-@keyframes pw7machine {
-0%, 100% { filter: drop-shadow(0 0 4px rgba(240,168,96,.25)) }
-50% { filter: drop-shadow(0 0 12px rgba(240,168,96,.5)) }
-}
-.pw7-feed { stroke-dasharray: 5 7; animation: pw7feed 3s linear infinite; }
-@keyframes pw7feed { to { stroke-dashoffset: -24 } }
-.pw7-out { stroke-dasharray: 7 6; animation: pw7out 1.8s linear infinite; }
-@keyframes pw7out { to { stroke-dashoffset: -26 } }
-.pw7-good { animation: pw7good 3.4s ease-in-out infinite; }
-@keyframes pw7good {
-0%, 100% { filter: drop-shadow(0 0 4px rgba(94,224,192,.3)) }
-50% { filter: drop-shadow(0 0 13px rgba(94,224,192,.7)) }
-}
-.pw7-ring { animation: pw7ring 14s linear infinite; transform-origin: center; transform-box: fill-box; }
-@keyframes pw7ring { to { transform: rotate(360deg) } }
-.pw7-node { animation: pw7node 4.6s ease-in-out infinite; }
-@keyframes pw7node { 0%, 100% { opacity: .9 } 50% { opacity: 1 } }
-.pw7-hand { animation: pw7hand 8s steps(8) infinite; transform-origin: 640px 112px; }
-@keyframes pw7hand { to { transform: rotate(360deg) } }
-.pw7-clock { animation: pw7clock 5s ease-in-out infinite; }
-@keyframes pw7clock { 0%, 100% { opacity: .88 } 50% { opacity: 1 } }
-.pw7-shelf { animation: pw7shelf 5.4s ease-in-out infinite; }
-@keyframes pw7shelf { 0%, 100% { opacity: .85 } 50% { opacity: 1 } }
-.pw7-keyhole { animation: pw7key 3s ease-in-out infinite; }
-@keyframes pw7key {
-0%, 100% { filter: drop-shadow(0 0 3px rgba(94,224,192,.35)) }
-50% { filter: drop-shadow(0 0 11px rgba(94,224,192,.8)) }
-}
-@media (prefers-reduced-motion: reduce) {
-.pw7-machine, .pw7-feed, .pw7-out, .pw7-good, .pw7-ring, .pw7-node,
-.pw7-hand, .pw7-clock, .pw7-shelf, .pw7-keyhole { animation: none; }
+.pw7-panel { background: radial-gradient(140% 120% at 50% 0%, #0d1512 0%, #050807 72%); border-color: #1e2a24; }
+.ph-eyebrow.pw7 { color: #22c55e; }
+.pw7-uit   { font-family: var(--font-head); font-size: 12.5px; font-weight: 700; fill: #d6e6dd; }
+.pw7-cyt   { font-family: var(--font-head); font-size: 12.5px; font-weight: 700; fill: #8fb3a2; }
+.pw7-cyt.g { fill: #22c55e; }
+.pw7-bx    { font-family: var(--font-head); font-size: 12.5px; font-weight: 700; fill: #22c55e; }
+.pw7-gt    { font-family: var(--font-head); font-size: 12px; font-weight: 700; fill: #22c55e; }
+.pw7-bt    { font-family: var(--font-head); font-size: 12px; font-weight: 700; fill: #ef4444; }
+.pw7-dt    { font-family: "IBM Plex Mono", ui-monospace, monospace; font-size: 10.5px; fill: #8fb3a2; }
+.pw7-dt.g  { fill: #22c55e; }
+.pw7-um    { font-family: "IBM Plex Mono", ui-monospace, monospace; font-size: 11px; fill: #6b8a7b; }
+.pw7-um.s  { font-size: 9.5px; fill: #55705f; }
+.pw7-price { font-family: "IBM Plex Mono", ui-monospace, monospace; font-size: 10px; fill: #8fb3a2; }
+.pw7-gwt   { font-family: var(--font-head); font-size: 12.5px; font-weight: 800; fill: #1a1200; }
+.pw7-dots circle { fill: #ef4444; }
+.pw7-panel .sa-stage { container-type: inline-size; }
+.pw7-panel .sa-chip { color: #d6e6dd; text-align: center; font-size: 13px; font-size: 1.55cqw; }
+.pw7-panel .sa-chip .k { display: block; color: #f59e0b; font-weight: 800; letter-spacing: -.02em; font-size: 27px; font-size: 3.2cqw; }
+.pw7-panel .sa-chip .d { color: #6b8a7b; font-weight: 600; font-size: 11.5px; font-size: 1.37cqw; }
+.pw7-panel .ox0 { transform-origin: left center; transform-box: fill-box; }
+.pw7-188 { --n: 188; animation: pw7n188 1.6s var(--e-mass); }
+@keyframes pw7n188 { from { --n: 0 } }
+.pw7-in { animation: pw7in .7s var(--e-mass); }
+@keyframes pw7in { from { opacity: 0; transform: translateY(7px); } }
+.pw7-good { animation: pw7good .8s var(--e-mass); }
+@keyframes pw7good { from { opacity: 0; transform: scale(.9); } }
+.pw7-bad1 { animation: pw7bad .6s var(--e-mass); }
+.pw7-bad2 { animation: pw7bad .9s var(--e-mass); }
+@keyframes pw7bad { from { opacity: 0; } }
+.pw7-cy  { animation: pw7cy .8s var(--e-mass); }
+@keyframes pw7cy { from { opacity: 0; transform: translateY(14px); } }
+.pw7-arr { animation: pw7arr .5s var(--e-mass); }
+@keyframes pw7arr { from { opacity: 0; transform: translateX(-6px); } }
+.pw7-box { animation: pw7box .7s var(--e-mass); }
+@keyframes pw7box { from { opacity: 0; transform: translateY(-10px); } }
+.pw7-gw  { transform: scaleX(.05); animation: pw7gw 1.8s var(--e-mass); }
+@keyframes pw7gw {
+0%   { transform: scaleX(0); }
+45%  { transform: scaleX(1); }
+100% { transform: scaleX(.05); }
 }
