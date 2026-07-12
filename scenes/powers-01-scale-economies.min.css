@@ -1,20 +1,62 @@
 .pw1-panel { background: radial-gradient(140% 120% at 50% 0%, #0b1322 0%, #05080f 72%); border-color: #1b2b44; }
 .ph-eyebrow.pw1 { color: #7dd3fc; }
-.pw1-panel .s-t { fill: #d7e4f2; }
-.pw1-panel .s-t.sm { fill: #8298b0; }
-.pw1-t { font-family: var(--font-head); fill: #d7e4f2; font-size: 13px; text-anchor: middle; font-weight: 600; }
-.pw1-t.sm { font-size: 11px; fill: #8298b0; }
-.pw1-mono { font-family: "IBM Plex Mono", ui-monospace, monospace; fill: #6b83a0; font-size: 11px; }
-.pw1-belt { stroke: #7dd3fc; stroke-width: 2; opacity: .5; stroke-dasharray: 12 10; animation: pw1belt 1.1s linear infinite; }
-@keyframes pw1belt { to { stroke-dashoffset: -22 } }
-.pw1-swipe { animation: pw1swipe 2.6s ease-in-out infinite; }
-@keyframes pw1swipe { 0%, 100% { filter: none } 45%, 60% { filter: drop-shadow(0 0 9px #38bdf8) } }
-.pw1-coin { animation: pw1coin 3.2s ease-in-out infinite; }
-@keyframes pw1coin { 0%, 100% { filter: drop-shadow(0 0 3px rgba(251,191,36,.35)) } 50% { filter: drop-shadow(0 0 8px rgba(251,191,36,.75)) } }
-.pw1-bleed { animation: pw1bleed 1.9s ease-in-out infinite; }
-@keyframes pw1bleed { 0%, 100% { fill: #3a1a22 } 50% { fill: #5b1f2a; filter: drop-shadow(0 0 8px rgba(248,113,113,.6)) } }
-.pw1-drip { filter: drop-shadow(0 0 4px rgba(248,113,113,.7)); }
-@media (prefers-reduced-motion: reduce) {
-.pw1-belt, .pw1-swipe, .pw1-coin, .pw1-bleed { animation: none; }
-.pw1-bleed { fill: #5b1f2a; }
+.pw1-brand { font-family: var(--font-head); font-size: 14px; font-weight: 800; letter-spacing: .12em; fill: #e31837; }
+.pw1-uit   { font-family: var(--font-head); font-size: 12.5px; font-weight: 600; fill: #d7e4f2; }
+.pw1-um    { font-family: "IBM Plex Mono", ui-monospace, monospace; font-size: 11px; fill: #6b83a0; }
+.pw1-um.s  { fill: #4d6480; font-size: 10px; }
+.pw1-um.g  { fill: #fbbf24; }
+.pw1-um.r  { fill: #f87171; }
+.pw1-rc    { font-family: "IBM Plex Mono", ui-monospace, monospace; font-size: 11px; fill: #3a352c; }
+.pw1-rc.b  { font-weight: 700; fill: #111; }
+.pw1-rc.s  { font-size: 9.5px; fill: #8a8172; }
+.pw1-rc.mk { fill: #b45309; font-size: 9.5px; }
+.pw1-panel .sa-stage { container-type: inline-size; }
+.pw1-panel .sa-chip { color: #d7e4f2; text-align: center; font-size: 13px; font-size: 1.55cqw; }
+.pw1-panel .sa-chip .k { display: block; color: #fbbf24; font-weight: 800; letter-spacing: -.02em; font-size: 27px; font-size: 3.2cqw; }
+.pw1-panel .sa-chip .d { color: #6b83a0; font-weight: 600; font-size: 11.5px; font-size: 1.37cqw; }
+.pw1-panel .ox0 { transform-origin: left center; transform-box: fill-box; }
+.pw1-280 { --n: 280; animation: pw1n280 1.6s var(--e-mass); }
+@keyframes pw1n280 { from { --n: 0 } }
+.pw1-52  { --n: 52;  animation: pw1n52 1.4s var(--e-mass); }
+@keyframes pw1n52 { from { --n: 0 } }
+.pw1-90  { --n: 90;  animation: pw1n90 1.4s var(--e-mass); }
+@keyframes pw1n90 { from { --n: 0 } }
+.pw1-amb { opacity: .55; animation: pw1amb 3.4s var(--e-mass) infinite; }
+@keyframes pw1amb { 0%, 100% { opacity: .42 } 50% { opacity: .66 } }
+.pw1-in { animation: pw1in .7s var(--e-mass); }
+@keyframes pw1in { from { opacity: 0; transform: translateY(7px); } }
+.pw1-load { animation: pw1load .8s var(--e-mass); }
+@keyframes pw1load { from { opacity: 0; transform: translateY(-30px); } }
+.pw1-walk { animation: pw1walk .5s var(--e-mass); }
+@keyframes pw1walk { from { opacity: 0; transform: translateX(-16px); } }
+.pw1-sink { transform: scaleX(.11); animation: pw1sink 4.2s var(--e-mass); }
+@keyframes pw1sink { from { transform: scaleX(1); } }
+.pw1-slip  { animation: pw1slip 1s var(--e-mass); transform-origin: top center; transform-box: fill-box; }
+@keyframes pw1slip { from { opacity: 0; transform: translateY(-24px) scaleY(.94); } }
+.pw1-print { animation: pw1print .35s steps(2, jump-none); }
+@keyframes pw1print { from { opacity: 0; transform: translateX(-8px); } }
+.pw1-thin  { transform: scaleX(.11); animation: pw1thin 1.2s var(--e-mass); }
+@keyframes pw1thin { from { transform: scaleX(1); } }
+.pw1-tap   { animation: pw1tap .9s var(--e-mass); transform-origin: center; transform-box: fill-box; }
+@keyframes pw1tap {
+0%   { opacity: 0; transform: translate(46px, -22px) scale(1.06); }
+70%  { opacity: 1; transform: translate(0, 3px) scale(1); }
+100% { transform: translate(0, 0) scale(1); }
 }
+.pw1-pipe  { animation: pw1pipe .8s var(--e-mass); }
+@keyframes pw1pipe { from { stroke-dashoffset: 52; } }
+.pw1-fee   { animation: pw1fee 1.4s var(--e-mass); }
+@keyframes pw1fee { from { transform: scaleX(0); } }
+.pw1-tag  { animation: pw1tag .9s var(--e-mass); }
+@keyframes pw1tag { from { opacity: 0; transform: translateY(-26px); } }
+.pw1-cogs { animation: pw1cogs 1.1s var(--e-mass); transform-origin: bottom center; transform-box: fill-box; }
+@keyframes pw1cogs { from { transform: scaleY(0); } }
+.pw1-cogs2 { animation: pw1cogs2 1.3s var(--e-mass); transform-origin: bottom center; transform-box: fill-box; }
+@keyframes pw1cogs2 { from { transform: scaleY(0); } }
+.pw1-live { animation: pw1live .8s var(--e-mass); transform-origin: bottom center; transform-box: fill-box; }
+@keyframes pw1live { from { opacity: 0; transform: scaleY(0); } }
+.pw1-bleed { transform-origin: top center; transform-box: fill-box; animation: pw1bleed 1.4s var(--e-mass); }
+@keyframes pw1bleed { from { transform: scaleY(0); } }
+.pw1-cush { animation: pw1cush .9s var(--e-mass); transform-origin: top center; transform-box: fill-box; }
+@keyframes pw1cush { from { opacity: 0; transform: scaleY(0); } }
+@media (prefers-reduced-motion: reduce) { .pw1-amb { animation: none; } }
