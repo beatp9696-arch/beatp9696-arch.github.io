@@ -1,0 +1,25 @@
+.pw3-panel { background: radial-gradient(140% 120% at 50% 0%, #1c0d10 0%, #0a0507 72%); border-color: #4a2328; }
+.ph-eyebrow.pw3 { color: #ff6b7a; }
+.pw3-panel .s-t { fill: #f2d7da; }
+.pw3-panel .s-t.sm { fill: #b08790; }
+.pw3-t { font-family: var(--font-head); fill: #f2d7da; font-size: 13px; text-anchor: middle; font-weight: 600; }
+.pw3-t.sm { font-size: 11px; fill: #b08790; }
+.pw3-mono { font-family: "IBM Plex Mono", ui-monospace, monospace; fill: #a0707a; font-size: 11px; }
+.pw3-paper { animation: pw3paper 3.4s ease-in-out infinite; transform-origin: center; transform-box: fill-box; }
+@keyframes pw3paper { 0%, 100% { transform: rotate(0deg) } 50% { transform: rotate(1.6deg) } }
+.pw3-laugh { animation: pw3laugh 2.2s ease-in-out infinite; }
+@keyframes pw3laugh { 0%, 100% { opacity: .25 } 30%, 55% { opacity: 1 } }
+.pw3-pillar { animation: pw3pillar 2.6s ease-in-out infinite; }
+@keyframes pw3pillar { 0%, 100% { filter: none } 50% { filter: drop-shadow(0 0 9px rgba(229,9,20,.55)) } }
+.pw3-btn { animation: pw3btn 3s ease-in-out infinite; }
+@keyframes pw3btn { 0%, 100% { filter: none } 45%, 60% { filter: drop-shadow(0 0 10px rgba(248,113,113,.6)) } }
+.pw3-fuse { animation: pw3fuse 1.4s linear infinite; }
+@keyframes pw3fuse { to { stroke-dashoffset: -13 } }
+.pw3-env { animation: pw3env 5.4s ease-in-out infinite; }
+@keyframes pw3env { 0%, 100% { opacity: 1 } 55%, 75% { opacity: .35 } }
+.pw3-dip { animation: pw3dip 2.4s ease-in-out infinite; }
+@keyframes pw3dip { 0%, 100% { opacity: .5 } 50% { opacity: 1; filter: drop-shadow(0 0 7px rgba(248,113,113,.7)) } }
+@media (prefers-reduced-motion: reduce) {
+.pw3-paper, .pw3-laugh, .pw3-pillar, .pw3-btn, .pw3-fuse, .pw3-env, .pw3-dip { animation: none; }
+.pw3-laugh { opacity: 1; }
+}
