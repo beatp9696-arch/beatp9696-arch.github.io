@@ -1,0 +1,45 @@
+/* ============================================================
+   powers-04-switching-costs — scene CSS (โหลดเฉพาะบทนี้)
+   namespace .pw4-* — โลก EDA ม่วงอเมทิสต์: สายการผลิตดีไซน์ + ตาชั่ง CFO
+   ============================================================ */
+
+.pw4-panel { background: radial-gradient(140% 120% at 50% 0%, #150f26 0%, #090612 72%); border-color: #2f2452; }
+.ph-eyebrow.pw4 { color: #a78bfa; }
+.pw4-panel .s-t { fill: #e4dcf7; }
+.pw4-panel .s-t.sm { fill: #9d8fc4; }
+.pw4-t { font-family: var(--font-head); fill: #e4dcf7; font-size: 13px; text-anchor: middle; font-weight: 600; }
+.pw4-t.sm { font-size: 11px; fill: #c4b5fd; }
+.pw4-mono { font-family: "IBM Plex Mono", ui-monospace, monospace; fill: #8b7bb5; font-size: 11px; }
+.pw4-big { font-family: "IBM Plex Mono", ui-monospace, monospace; fill: #c4b5fd; font-size: 24px; font-weight: 700; }
+
+/* ท่อเชื่อมขั้นตอน design flow — เส้นประวิ่งไปข้างหน้า */
+.pw4-flow { stroke: #a78bfa; stroke-width: 2.4; stroke-dasharray: 6 6; animation: pw4flow 1s linear infinite; }
+@keyframes pw4flow { to { stroke-dashoffset: -12 } }
+
+/* กล่องที่โดนลอง "ถอด" — เตือนทั้งเส้น */
+.pw4-hot { animation: pw4hot 2.8s ease-in-out infinite; }
+@keyframes pw4hot { 0%, 100% { filter: none } 50% { filter: drop-shadow(0 0 10px rgba(240,171,252,.55)); stroke: #f0abfc } }
+
+/* ประแจ — ขยับพยายามงัด */
+.pw4-wrench { animation: pw4wrench 2.8s ease-in-out infinite; transform-origin: center; transform-box: fill-box; }
+@keyframes pw4wrench { 0%, 100% { transform: translateY(0) } 45%, 60% { transform: translateY(-7px) } }
+
+/* คานตาชั่ง — เอียงข้างหนักอยู่แล้ว แกว่งเบาๆ เหมือนเพิ่งวางของ */
+.pw4-beamtilt { animation: pw4tilt 5.2s ease-in-out infinite; transform-origin: 410px 100px; }
+@keyframes pw4tilt {
+  0%, 100% { transform: rotate(0deg) }
+  30%, 70% { transform: rotate(1.1deg) }
+}
+
+/* สายพาน backlog */
+.pw4-belt2 line { stroke: #a78bfa; stroke-width: 2; opacity: .45; stroke-dasharray: 12 10; animation: pw4belt 1.4s linear infinite; }
+@keyframes pw4belt { to { stroke-dashoffset: -22 } }
+
+/* ตราประทับ "เซ็นแล้ว" — วาบทีละจังหวะ */
+.pw4-stamp { animation: pw4stamp 3.6s ease-in-out infinite; }
+@keyframes pw4stamp { 0%, 100% { opacity: .85 } 50% { opacity: 1 } }
+
+@media (prefers-reduced-motion: reduce) {
+  .pw4-flow, .pw4-hot, .pw4-wrench, .pw4-beamtilt, .pw4-belt2 line, .pw4-stamp { animation: none; }
+  .pw4-beamtilt { transform: rotate(1.8deg); }
+}
