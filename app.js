@@ -204,6 +204,17 @@
     revealEls.forEach(function (el) { el.classList.add("reveal"); io.observe(el); });
   }
 
+  // ---- scene player: ฉากเริ่มเล่นเมื่อเลื่อนมาถึง (เล่นครั้งเดียว จบแล้วค้างที่สถานะจบ) ----
+  if ("IntersectionObserver" in window) {
+    var scenePanels = document.querySelectorAll(".ph-panel");
+    var sio = new IntersectionObserver(function (entries, obs) {
+      entries.forEach(function (e) {
+        if (e.isIntersecting) { e.target.classList.add("playing"); obs.unobserve(e.target); }
+      });
+    }, { threshold: 0.35 });
+    scenePanels.forEach(function (p) { sio.observe(p); });
+  }
+
   // ---- ป้าย "ใหม่" — บทความอายุ ≤ 7 วัน สูงสุด 3 อันแรก (ทุกหน้าที่มี list) ----
   var anyPostList = document.querySelector(".post-list");
   if (anyPostList) {

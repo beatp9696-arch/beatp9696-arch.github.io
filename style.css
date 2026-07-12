@@ -1713,7 +1713,31 @@ h2:hover > .heading-anchor, h3:hover > .heading-anchor { opacity: 0.45; }
 .ph-eyebrow { font-family: "IBM Plex Mono", ui-monospace, monospace; text-align: center; letter-spacing: 0.28em; font-size: 12.5px; color: #8a8f96; text-transform: uppercase; margin-bottom: 20px; }
 .ph-fig figcaption { font-size: 15.5px; color: var(--muted); line-height: 1.7; margin-top: 14px; padding-left: 14px; border-left: 3px solid var(--accent); }
 .ph-fig figcaption strong { color: var(--text); font-family: var(--font-head); }
-.ph-svg { width: 100%; height: auto; display: block; }/* §2: copper wall vs light highway (SVG scene) *//* copper: สัญญาณจาง+ร้อน แล้วตายก่อนถึงกำแพง *//* optical: แสงวิ่งถึงปลายทางครบ *//* §4: SiPh waveguide — แสงบนชิป (top-down + หน้าตัด) *//* coherent vs imdd *//* IMDD: on-off keying (1 มิติ) *//* Coherent: IQ constellation + phasor หมุน (2 มิติ) *//* §5: InP PIC — engine ครบบนชิปเดียว + die/yield */
+.ph-svg { width: 100%; height: auto; display: block; }
+/* ============================================================
+   Scene Motion System — มาตรฐานฉากเคลื่อนไหว (ดู .claude/skills/scene-animation)
+   กฎ: markup = "สถานะจบ" เสมอ · keyframes ต้องจบที่ 100% = สถานะใน markup
+   ฉากเล่นครั้งเดียวเมื่อ scroll ถึง (app.js เติมคลาส .playing ให้ .ph-panel)
+   ============================================================ */
+:root {
+  --beat: .6s;                                 /* 1 จังหวะ — narrative ทั้งฉาก 6–14 beats */
+  --e-mass: cubic-bezier(.2,.75,.25,1);        /* ของหนัก: ออกตัวช้า จอดนิ่ง */
+  --e-expo: cubic-bezier(.16,1,.3,1);          /* พรีเมียม: ลื่น เงียบ */
+  --e-fail: cubic-bezier(.55,.06,.9,.16);      /* พุ่งแล้วดับ: เร่งแล้วชนกำแพง */
+  --e-spread: cubic-bezier(.5,0,.1,1);         /* การแพร่: ช้า → ระเบิด */
+  --e-snapback: cubic-bezier(.3,1.4,.6,1);     /* ดีดกลับ: หลุดไม่ได้ */
+}
+.ph-panel .sa { animation-play-state: paused; }
+.ph-panel.playing .sa { animation-play-state: running; }
+.ph-panel .sa.n { animation-iteration-count: 1; animation-fill-mode: both; animation-delay: calc(var(--i, 0) * var(--beat)); }
+/* เวที: ให้วาง chip HTML ทับ SVG ได้ (SVG text ใช้ counter() ไม่ได้) — % ตรงกับ viewBox เพราะ svg เต็มเวที */
+.sa-stage { position: relative; }
+.sa-stage > svg { width: 100%; height: auto; display: block; }
+.sa-chip { position: absolute; transform: translate(-50%, -50%); font-family: "IBM Plex Mono", ui-monospace, monospace; font-weight: 700; white-space: nowrap; pointer-events: none; }
+@property --n { syntax: "<integer>"; initial-value: 0; inherits: false; }
+.sa-num { counter-reset: n var(--n); }
+.sa-num::after { content: counter(n); }
+@media (prefers-reduced-motion: reduce) { .ph-panel .sa { animation: none !important; } }/* §2: copper wall vs light highway (SVG scene) *//* copper: สัญญาณจาง+ร้อน แล้วตายก่อนถึงกำแพง *//* optical: แสงวิ่งถึงปลายทางครบ *//* §4: SiPh waveguide — แสงบนชิป (top-down + หน้าตัด) *//* coherent vs imdd *//* IMDD: on-off keying (1 มิติ) *//* Coherent: IQ constellation + phasor หมุน (2 มิติ) *//* §5: InP PIC — engine ครบบนชิปเดียว + die/yield */
 .pic-stat { font-family: "IBM Plex Mono", monospace; font-size: 12px; fill: #8a8f96; letter-spacing: .06em; }/* §6: วัสดุ 3 ค่าย — relay + capability matrix *//* §1: สองเครื่องยนต์รายได้ (Datacenter โต vs Industrial หด) *//* §7: vertical integration ใน InP (moat) */
 
 @media (max-width: 600px) { .ph-cards { grid-template-columns: 1fr; } .ph-cards3 { grid-template-columns: 1fr; } }/* IBM Plex Mono เฉพาะ photonics (โหลดเพิ่มในบท COHR) *//* ============================================================

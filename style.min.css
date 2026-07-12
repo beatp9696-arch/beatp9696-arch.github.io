@@ -1590,6 +1590,24 @@ transition: opacity 0.65s ease, transform 0.65s cubic-bezier(0.2, 0.7, 0.3, 1);
 .ph-fig figcaption { font-size: 15.5px; color: var(--muted); line-height: 1.7; margin-top: 14px; padding-left: 14px; border-left: 3px solid var(--accent); }
 .ph-fig figcaption strong { color: var(--text); font-family: var(--font-head); }
 .ph-svg { width: 100%; height: auto; display: block; }
+:root {
+--beat: .6s;
+--e-mass: cubic-bezier(.2,.75,.25,1);
+--e-expo: cubic-bezier(.16,1,.3,1);
+--e-fail: cubic-bezier(.55,.06,.9,.16);
+--e-spread: cubic-bezier(.5,0,.1,1);
+--e-snapback: cubic-bezier(.3,1.4,.6,1);
+}
+.ph-panel .sa { animation-play-state: paused; }
+.ph-panel.playing .sa { animation-play-state: running; }
+.ph-panel .sa.n { animation-iteration-count: 1; animation-fill-mode: both; animation-delay: calc(var(--i, 0) * var(--beat)); }
+.sa-stage { position: relative; }
+.sa-stage > svg { width: 100%; height: auto; display: block; }
+.sa-chip { position: absolute; transform: translate(-50%, -50%); font-family: "IBM Plex Mono", ui-monospace, monospace; font-weight: 700; white-space: nowrap; pointer-events: none; }
+@property --n { syntax: "<integer>"; initial-value: 0; inherits: false; }
+.sa-num { counter-reset: n var(--n); }
+.sa-num::after { content: counter(n); }
+@media (prefers-reduced-motion: reduce) { .ph-panel .sa { animation: none !important; } }
 .pic-stat { font-family: "IBM Plex Mono", monospace; font-size: 12px; fill: #8a8f96; letter-spacing: .06em; }
 @media (max-width: 600px) { .ph-cards { grid-template-columns: 1fr; } .ph-cards3 { grid-template-columns: 1fr; } }
 .axp-base { fill: none; stroke: #1c3450; stroke-width: 3; stroke-linecap: round; }
