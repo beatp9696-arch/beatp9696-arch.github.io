@@ -1,0 +1,20 @@
+.pw1-panel { background: radial-gradient(140% 120% at 50% 0%, #0b1322 0%, #05080f 72%); border-color: #1b2b44; }
+.ph-eyebrow.pw1 { color: #7dd3fc; }
+.pw1-panel .s-t { fill: #d7e4f2; }
+.pw1-panel .s-t.sm { fill: #8298b0; }
+.pw1-t { font-family: var(--font-head); fill: #d7e4f2; font-size: 13px; text-anchor: middle; font-weight: 600; }
+.pw1-t.sm { font-size: 11px; fill: #8298b0; }
+.pw1-mono { font-family: "IBM Plex Mono", ui-monospace, monospace; fill: #6b83a0; font-size: 11px; }
+.pw1-belt { stroke: #7dd3fc; stroke-width: 2; opacity: .5; stroke-dasharray: 12 10; animation: pw1belt 1.1s linear infinite; }
+@keyframes pw1belt { to { stroke-dashoffset: -22 } }
+.pw1-swipe { animation: pw1swipe 2.6s ease-in-out infinite; }
+@keyframes pw1swipe { 0%, 100% { filter: none } 45%, 60% { filter: drop-shadow(0 0 9px #38bdf8) } }
+.pw1-coin { animation: pw1coin 3.2s ease-in-out infinite; }
+@keyframes pw1coin { 0%, 100% { filter: drop-shadow(0 0 3px rgba(251,191,36,.35)) } 50% { filter: drop-shadow(0 0 8px rgba(251,191,36,.75)) } }
+.pw1-bleed { animation: pw1bleed 1.9s ease-in-out infinite; }
+@keyframes pw1bleed { 0%, 100% { fill: #3a1a22 } 50% { fill: #5b1f2a; filter: drop-shadow(0 0 8px rgba(248,113,113,.6)) } }
+.pw1-drip { filter: drop-shadow(0 0 4px rgba(248,113,113,.7)); }
+@media (prefers-reduced-motion: reduce) {
+.pw1-belt, .pw1-swipe, .pw1-coin, .pw1-bleed { animation: none; }
+.pw1-bleed { fill: #5b1f2a; }
+}

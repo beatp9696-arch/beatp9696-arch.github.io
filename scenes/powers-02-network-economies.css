@@ -1,0 +1,39 @@
+/* ============================================================
+   powers-02-network-economies — scene CSS (โหลดเฉพาะบทนี้)
+   namespace .pw2-* — จัตุรัสตลาด MELI: ทองตลาดกลางคืน + ผ้าใบเหลือง + ฝูงคนไหล
+   ============================================================ */
+
+.pw2-panel { background: radial-gradient(140% 120% at 50% 0%, #171207 0%, #090702 72%); border-color: #3a2e0e; }
+.ph-eyebrow.pw2 { color: #facc15; }
+.pw2-panel .s-t { fill: #f2e8cf; }
+.pw2-panel .s-t.sm { fill: #b0a077; }
+.pw2-t { font-family: var(--font-head); fill: #f2e8cf; font-size: 13px; text-anchor: middle; font-weight: 600; }
+.pw2-t.sm { font-size: 11px; fill: #b0a077; }
+.pw2-mono { font-family: "IBM Plex Mono", ui-monospace, monospace; fill: #9c8a5b; font-size: 11px; }
+
+/* แผงตลาด — สว่างขึ้นทีละแผงเป็นจังหวะ (คลื่นแผงเปิดใหม่ไล่ไปทางขวา) */
+.pw2-stall { animation: pw2stall 7s ease-in-out infinite; }
+@keyframes pw2stall {
+  0%, 100% { opacity: .78; filter: none }
+  12%, 30% { opacity: 1; filter: drop-shadow(0 0 7px rgba(250,204,21,.35)) }
+}
+
+/* แผงเปิดใหม่ปลายแถว — โผล่จากมืดแล้วติดไฟ */
+.pw2-stall-new { animation: pw2new 7s ease-in-out infinite; }
+@keyframes pw2new {
+  0%, 38% { opacity: .12 }
+  55%, 88% { opacity: 1; filter: drop-shadow(0 0 10px rgba(250,204,21,.55)) }
+  100% { opacity: .12 }
+}
+
+/* ป้าย QR ของ Mercado Pago — วาบเชิญให้สแกน */
+.pw2-qr { animation: pw2qr 2.8s ease-in-out infinite; }
+@keyframes pw2qr {
+  0%, 100% { filter: none }
+  45%, 62% { filter: drop-shadow(0 0 9px rgba(250,204,21,.7)) }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .pw2-stall, .pw2-stall-new, .pw2-qr { animation: none; }
+  .pw2-stall-new { opacity: 1; }
+}

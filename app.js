@@ -67,7 +67,9 @@
     { f: "munger-talks-03-misjudgment-1995.html", t: "Munger Talks 3: Misjudgment (1995)", sec: "basics" },
     { f: "munger-talks-04-guaranteed-misery.html", t: "Munger Talks 4: Guaranteed Misery (1986)", sec: "basics" },
     { f: "munger-talks-05-usc-law-2007.html", t: "Munger Talks 5: USC Law (2007)", sec: "basics" },
-    { f: "deep-dive-ai-oil-shock.html", t: "AI Capex vs Oil Shock 1970s", sec: "market" }
+    { f: "deep-dive-ai-oil-shock.html", t: "AI Capex vs Oil Shock 1970s", sec: "market" },
+    { f: "powers-01-scale-economies.html", t: "7 Powers 1: Scale Economies (Costco)", sec: "basics" },
+    { f: "powers-02-network-economies.html", t: "7 Powers 2: Network Economies (MercadoLibre)", sec: "basics" }
   ];
 
   var progressBar = document.querySelector(".reading-progress");
