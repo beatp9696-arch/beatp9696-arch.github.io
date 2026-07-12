@@ -1,0 +1,392 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <script>try{var t=localStorage.getItem('theme');if(t)document.documentElement.setAttribute('data-theme',t);}catch(e){}</script>
+  <title>7 Powers ตอนที่ 7: Process Power — เครื่องเดียวกัน แต่ได้ชิปคนละโลก: สิ่งที่ Intel ซื้อไม่ได้จาก TSMC (และแผนที่รวมทั้ง 7 อำนาจ) | Moatrices</title>
+  <meta name="description" content="อำนาจที่เจ็ดใน 7 Powers: Process Power — ความสามารถที่ฝังอยู่ในวิธีทำงานขององค์กร ลอกได้แค่ด้วยเวลาหลายปี ผ่านเคสจริง TSMC: ทุกคนซื้อเครื่อง EUV จาก ASML ได้เหมือนกัน แต่มีเจ้าเดียวที่ได้ yield — gross margin 59.9% ขยับขึ้นทุกปี, ROIC 48%, goodwill แทบเป็นศูนย์ พร้อมบทสรุปแผนที่ทั้ง 7 อำนาจของซีรีส์">
+  <meta property="og:type" content="article">
+  <meta property="og:site_name" content="Moatrices">
+  <meta property="og:title" content="7 Powers ตอนที่ 7: Process Power — เครื่องเดียวกัน แต่ได้ชิปคนละโลก: สิ่งที่ Intel ซื้อไม่ได้จาก TSMC (และแผนที่รวมทั้ง 7 อำนาจ)">
+  <meta property="og:description" content="อำนาจที่เจ็ดใน 7 Powers: Process Power — ความสามารถที่ฝังอยู่ในวิธีทำงานขององค์กร ลอกได้แค่ด้วยเวลาหลายปี ผ่านเคสจริง TSMC: ทุกคนซื้อเครื่อง EUV จาก ASML ได้เหมือนกัน แต่มีเจ้าเดียวที่ได้ yield — gross margin 59.9% ขยับขึ้นทุกปี, ROIC 48%, goodwill แทบเป็นศูนย์ พร้อมบทสรุปแผนที่ทั้ง 7 อำนาจของซีรีส์">
+  <meta property="og:url" content="https://beatp9696-arch.github.io/articles/powers-07-process-power.html">
+  <meta property="og:locale" content="th_TH">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta property="og:image" content="https://beatp9696-arch.github.io/og-powers-07-process-power.png">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta name="twitter:image" content="https://beatp9696-arch.github.io/og-powers-07-process-power.png">
+  <meta name="author" content="Moatrices">
+  <link rel="canonical" href="https://beatp9696-arch.github.io/articles/powers-07-process-power.html">
+  <link rel="alternate" type="application/rss+xml" title="Moatrices RSS" href="/feed.xml">
+  <meta name="theme-color" media="(prefers-color-scheme: light)" content="#f7f5f0">
+  <meta name="theme-color" media="(prefers-color-scheme: dark)" content="#121417">
+  <link rel="icon" href="../favicon.svg" type="image/svg+xml">
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png">
+  <link rel="manifest" href="/site.webmanifest">
+  <link rel="preload" as="font" type="font/woff2" href="../fonts/sarabun-400-thai.woff2" crossorigin>
+  <link rel="preload" as="font" type="font/woff2" href="../fonts/sarabun-400-latin.woff2" crossorigin>
+  <link rel="stylesheet" href="../style.min.css">
+      <!-- SCENE-CSS -->
+      <link rel="stylesheet" href="../scenes/powers-07-process-power.min.css">
+      <!-- /SCENE-CSS -->
+  <script type="application/ld+json">
+  {"@context": "https://schema.org", "@type": "BlogPosting", "headline": "7 Powers ตอนที่ 7: Process Power — เครื่องเดียวกัน แต่ได้ชิปคนละโลก: สิ่งที่ Intel ซื้อไม่ได้จาก TSMC (และแผนที่รวมทั้ง 7 อำนาจ)", "description": "อำนาจที่เจ็ดใน 7 Powers: Process Power — ความสามารถที่ฝังอยู่ในวิธีทำงานขององค์กร ลอกได้แค่ด้วยเวลาหลายปี ผ่านเคสจริง TSMC: ทุกคนซื้อเครื่อง EUV จาก ASML ได้เหมือนกัน แต่มีเจ้าเดียวที่ได้ yield — gross margin 59.9% ขยับขึ้นทุกปี, ROIC 48%, goodwill แทบเป็นศูนย์ พร้อมบทสรุปแผนที่ทั้ง 7 อำนาจของซีรีส์", "image": ["https://beatp9696-arch.github.io/og-powers-07-process-power.png"], "author": {"@type": "Person", "name": "Moatrices"}, "publisher": {"@type": "Organization", "name": "Moatrices", "logo": {"@type": "ImageObject", "url": "https://beatp9696-arch.github.io/icon-512.png"}}, "mainEntityOfPage": {"@type": "WebPage", "@id": "https://beatp9696-arch.github.io/articles/powers-07-process-power.html"}, "inLanguage": "th", "datePublished": "2026-07-12", "dateModified": "2026-07-12"}
+  </script>
+  <script type="application/ld+json">
+  {"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "หน้าแรก", "item": "https://beatp9696-arch.github.io/"}, {"@type": "ListItem", "position": 2, "name": "7 Powers ตอนที่ 7: Process Power — เครื่องเดียวกัน แต่ได้ชิปคนละโลก: สิ่งที่ Intel ซื้อไม่ได้จาก TSMC (และแผนที่รวมทั้ง 7 อำนาจ)", "item": "https://beatp9696-arch.github.io/articles/powers-07-process-power.html"}]}
+  </script>
+</head>
+<body>
+
+  <div class="reading-progress"></div>
+  <div class="top-accent"></div>
+
+  <header class="site-header">
+    <div class="container">
+      <a href="../index.html" class="site-title">Moatrices</a>
+      <nav class="site-nav">
+        <a href="../index.html">หน้าแรก</a>
+        <a href="../articles.html">บทความ</a>
+        <a href="../stocks.html">หุ้น</a>
+        <a href="../tools.html">เครื่องมือ</a>
+        <a href="../dashboard.html">Dashboard</a>
+        <a href="../about.html">เกี่ยวกับ</a>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <div class="container">
+
+      <span class="kicker">ซีรีส์ · 7 Powers — ตอน 7/7 (ตอนจบ)</span>
+      <h1>7 Powers ตอนที่ 7: Process Power — เครื่องเดียวกัน แต่ได้ชิปคนละโลก: สิ่งที่ Intel ซื้อไม่ได้จาก TSMC (และแผนที่รวมทั้ง 7 อำนาจ)</h1>
+      <div class="byline">
+        <span class="byline-avatar">M</span>
+        <div>
+          <div class="byline-author">Moatrices</div>
+          <div class="byline-info">12 ก.ค. 2026 · อ่าน ~15 นาที</div>
+        </div>
+      </div>
+
+      <!-- TOC-START -->
+      <nav class="toc">
+        <div class="toc-title">ในบทความนี้</div>
+        <ol>
+          <li><a href="#sec-1">1. Process Power: อำนาจที่ไม่มีใครขายให้</a></li>
+          <li><a href="#sec-2">2. เครื่องเดียวกัน แต่ได้ชิปคนละโลก</a></li>
+          <li><a href="#sec-3">3. เครื่องยนต์การเรียนรู้: yield คือสมรภูมิที่ไม่มีทางลัด</a></li>
+          <li><a href="#sec-4">4. Barrier: ชั้นวางของที่เงินซื้อได้ — กับกล่องเดียวที่ซื้อไม่ได้</a></li>
+          <li><a href="#sec-5">5. ด้านมืด: อำนาจที่ต้องเลี้ยงด้วยทุนไปตลอดชีวิต</a></li>
+          <li><a href="#sec-6">6. หา Process Power ในงบตรงไหน</a></li>
+          <li><a href="#sec-7">7. Kill Conditions — สัญญาณว่าอำนาจนี้กำลังพัง</a></li>
+          <li><a href="#sec-8">8. ปิดซีรีส์: แผนที่ทั้ง 7 อำนาจ</a></li>
+        </ol>
+      </nav>
+      <!-- TOC-END -->
+
+      <p class="lead">
+        ตอนที่แล้วจบด้วยภาพนี้: <a href="powers-06-cornered-resource.html">ASML</a> ขายเครื่อง EUV
+        เครื่องละราว $200 ล้าน ให้ใครก็ได้ที่มีเงิน — TSMC ซื้อ, Samsung ซื้อ, Intel ก็ซื้อ
+        ทั้งสามรายไม่มีใครขาดเงิน ไม่มีใครขาดวิศวกร ไม่มีใครขาดโรงงาน
+        <strong>แต่ผ่านมาหลายปี มีเจ้าเดียวที่ครองโหนดล้ำสุดของโลกอยู่คนเดียว</strong>
+        — ถ้าเครื่องเหมือนกัน เงินเท่ากัน แล้วส่วนต่างมาจากไหน? คำตอบคืออำนาจสุดท้ายของซีรีส์:
+        <strong>Process Power — ความสามารถที่ฝังอยู่ใน "วิธีทำงาน" ขององค์กร
+        ที่ไม่มีใครขายให้ และลอกได้ทางเดียวคือใช้เวลาหลายปีสะสมเอง</strong>
+        นี่คืออำนาจที่หายากที่สุด สร้างช้าที่สุด และเป็นเหตุผลว่าทำไม
+        <a href="deep-dive-tsm.html">TSMC</a> มี goodwill ในงบแค่ ~$188 ล้าน —
+        เพราะแทบทุกอย่างที่มันเก่ง มัน<em>สร้างเอง</em> ไม่มีอะไรให้ซื้อ
+      </p>
+
+      <blockquote>
+        ตัวเลข TSMC อ้างอิง 20-F FY2025 (สกุล NT$ แปลงที่ NT$31.37 = US$1) + earnings call
+        ไตรมาส 1 ปี 2026 ผ่านบทวิเคราะห์ <a href="deep-dive-tsm.html">ผ่าธุรกิจ TSM</a> บนเว็บนี้ —
+        เป็นบันทึกการเรียนเพื่อการศึกษา ไม่ใช่คำแนะนำซื้อขาย
+      </blockquote>
+
+      <h2 id="sec-1">1. Process Power: อำนาจที่ไม่มีใครขายให้</h2>
+      <p>
+        นิยามของ Helmer: <strong>ชุดกิจกรรมและวิธีทำงานที่ฝังอยู่ในองค์กร
+        ซึ่งทำให้ต้นทุนต่ำกว่าหรือสินค้าดีกว่า — และคู่แข่งจะเทียบได้ก็ต่อเมื่อทุ่มเวลายาวนานเท่านั้น</strong>
+      </p>
+      <ul>
+        <li><strong>Benefit</strong> — ของดีกว่า/ถูกกว่าที่คู่แข่งขนาดเท่ากันทำไม่ได้
+        (TSMC: gross margin ไต่จาก 54.4% → 56.1% → 59.9% ใน 3 ปี ทั้งที่รายได้โต 30%+ ทุกปี
+        — margin ที่<em>ขยาย</em>ตอนโตเร็ว คือลายเซ็นว่าเก่งขึ้นจริง ไม่ใช่แค่ใหญ่ขึ้น)</li>
+        <li><strong>Barrier: hysteresis</strong> — ความรู้แบบนี้กระจายอยู่ในคนหลายหมื่น
+        ในสูตรที่ปรับมาแล้วนับหมื่นครั้ง ในบันทึกความผิดพลาดสิบปี
+        มันไม่ใช่ความลับที่ขโมยได้ มันคือ<em>นิสัย</em>ที่ต้องปลูก — และการปลูกใช้เวลาจริง
+        ที่ย่นด้วยเงินไม่ได้</li>
+      </ul>
+      <p>
+        หลักฐานคลาสสิกของ Barrier ตัวนี้อยู่นอกวงการชิป: Toyota เปิดโรงงานให้คู่แข่งเดินดู
+        ตีพิมพ์ตำรา Toyota Production System ขายทั่วโลก แม้กระทั่งตั้งโรงงานร่วมกับ GM
+        เพื่อสอนวิธีทำงานให้ตรงๆ — <strong>แล้วคู่แข่งก็ยังตามไม่ทันอยู่หลายทศวรรษ</strong>
+        นี่คือหัวใจของ Process Power: มันไม่ใช่ความลับ มันคือความสม่ำเสมอ
+        ที่ต้องทำซ้ำทุกวันจนกลายเป็นสัญชาตญาณขององค์กร — เห็นแล้วก็ยังลอกไม่ได้
+      </p>
+
+      <h2 id="sec-2">2. เครื่องเดียวกัน แต่ได้ชิปคนละโลก</h2>
+      <p>
+        นี่คือการทดลองที่ธรรมชาติจัดให้เราดูฟรีๆ ในอุตสาหกรรมเซมิคอนดักเตอร์:
+        <strong>ตัวแปรถูกคุมไว้เกือบหมดแล้ว</strong> — เครื่องมือสำคัญที่สุด (EUV จาก ASML)
+        ทุกคนซื้อได้เหมือนกัน, เงินทุนหาได้ทั้งสามราย (Samsung และ Intel ไม่ใช่บริษัทเล็ก),
+        ฟิสิกส์ก็ตัวเดียวกัน แต่ผลลัพธ์ต่างกันชัดเจน
+      </p>
+      <figure class="ph-fig"><div class="ph-panel pw7-panel"><div class="ph-eyebrow pw7">เครื่องเดียวกัน · เวเฟอร์เดียวกัน · ผลลัพธ์คนละโลก</div>
+        <svg viewBox="0 0 840 340" role="img" aria-label="three fabs buy the same EUV machine but only one converts it into leading-edge yield and margin"><defs><linearGradient id="pw7wafer" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#f0a860" stop-opacity=".9"/><stop offset="1" stop-color="#8a5a2c"/></linearGradient></defs>
+        <text class="pw7-t sm" x="86" y="44">ของที่ซื้อได้เหมือนกัน</text>
+        <g class="pw7-machine">
+        <rect x="30" y="66" width="112" height="66" rx="7" fill="#1c1409" stroke="#f0a860" stroke-width="1.6"/>
+        <text class="pw7-mono" x="86" y="92" style="text-anchor:middle" fill="#f6d5ac">เครื่อง EUV</text>
+        <text class="pw7-mono" x="86" y="112" style="text-anchor:middle" fill="#f0a860">~$200M/เครื่อง</text>
+        </g>
+        <text class="pw7-mono" x="86" y="156" style="text-anchor:middle">+ เงินทุน + วิศวกร</text>
+        <text class="pw7-mono" x="86" y="174" style="text-anchor:middle">+ เวเฟอร์เปล่าแบบเดียวกัน</text>
+        <g stroke="#6b5232" stroke-width="1.4" fill="none" class="pw7-feed">
+        <path d="M146,99 C200,99 200,110 250,110"/><path d="M146,105 C200,105 210,180 250,182"/><path d="M146,111 C200,111 210,252 250,254"/>
+        </g>
+        <g fill="#150f07" stroke="#6b5232" stroke-width="1.5">
+        <rect x="252" y="84" width="128" height="52" rx="7"/><rect x="252" y="156" width="128" height="52" rx="7"/><rect x="252" y="228" width="128" height="52" rx="7"/>
+        </g>
+        <text class="pw7-t" x="316" y="107" fill="#f6d5ac">TSMC</text>
+        <text class="pw7-mono" x="316" y="125" style="text-anchor:middle" fill="#5ee0c0">สูตรที่สะสมเอง 30 ปี</text>
+        <text class="pw7-t" x="316" y="179" fill="#a8977f">Samsung</text>
+        <text class="pw7-mono" x="316" y="197" style="text-anchor:middle">เครื่องเดียวกัน เงินไม่ขาด</text>
+        <text class="pw7-t" x="316" y="251" fill="#a8977f">Intel</text>
+        <text class="pw7-mono" x="316" y="269" style="text-anchor:middle">เครื่องเดียวกัน เงินไม่ขาด</text>
+        <g stroke="#5ee0c0" stroke-width="1.6" fill="none" class="pw7-out"><path d="M380,110 L470,110"/></g>
+        <g stroke="#6b5232" stroke-width="1.4" fill="none"><path d="M380,182 L470,182"/><path d="M380,254 L470,254"/></g>
+        <g class="pw7-good">
+        <circle cx="510" cy="110" r="34" fill="url(#pw7wafer)" stroke="#5ee0c0" stroke-width="2"/>
+        <g fill="#0d1f1a" opacity=".55"><rect x="492" y="92" width="8" height="8"/><rect x="520" y="120" width="8" height="8"/></g>
+        </g>
+        <circle cx="510" cy="182" r="34" fill="url(#pw7wafer)" stroke="#6b5232" stroke-width="1.6" opacity=".75"/>
+        <g fill="#150f07" opacity=".75"><rect x="492" y="164" width="9" height="9"/><rect x="514" y="170" width="9" height="9"/><rect x="500" y="192" width="9" height="9"/><rect x="522" y="196" width="9" height="9"/><rect x="490" y="182" width="9" height="9"/></g>
+        <circle cx="510" cy="254" r="34" fill="url(#pw7wafer)" stroke="#6b5232" stroke-width="1.6" opacity=".75"/>
+        <g fill="#150f07" opacity=".75"><rect x="494" y="236" width="9" height="9"/><rect x="518" y="244" width="9" height="9"/><rect x="498" y="264" width="9" height="9"/><rect x="524" y="268" width="9" height="9"/><rect x="486" y="256" width="9" height="9"/><rect x="510" y="228" width="9" height="9"/></g>
+        <text class="pw7-mono" x="510" y="300" style="text-anchor:middle">ชิปดีต่อแผ่น (yield) = สมรภูมิจริง</text>
+        <rect x="576" y="72" width="230" height="76" rx="8" fill="#0e2620" stroke="#5ee0c0" stroke-width="1.8"/>
+        <text class="pw7-mono" x="691" y="94" style="text-anchor:middle" fill="#9fe8d6">ผลที่โผล่ในงบ TSMC</text>
+        <text class="pw7-t" x="691" y="118" fill="#5ee0c0">GM 54.4% → 59.9%</text>
+        <text class="pw7-mono" x="691" y="138" style="text-anchor:middle" fill="#9fe8d6">FY23 → FY25 (Q1'26 แตะ 66.2%)</text>
+        <rect x="576" y="160" width="230" height="66" rx="8" fill="#150f07" stroke="#6b5232" stroke-width="1.4"/>
+        <text class="pw7-mono" x="691" y="182" style="text-anchor:middle">คู่แข่งมีเครื่อง มีเงิน มีสเกล</text>
+        <text class="pw7-mono" x="691" y="204" style="text-anchor:middle" fill="#f0a860">แต่ยังไม่ได้โหนดล้ำสุดในปริมาณมาก</text>
+        <text class="pw7-mono" x="691" y="256" style="text-anchor:middle" fill="#5ee0c0">≤7nm = 74% ของรายได้ wafer</text>
+        <text class="pw7-mono" x="691" y="274" style="text-anchor:middle" fill="#5ee0c0">ROIC ~48% (WACC ~9–10%)</text>
+        <text class="pw7-mono" x="420" y="326" style="text-anchor:middle" fill="#f0a860">ถ้าตัวแปรทุกตัวเท่ากันแล้วผลยังต่าง — ส่วนต่างนั้นคือ "วิธีทำงาน" ซึ่งไม่มีใครขายให้</text>
+        </svg>
+      </div><figcaption><strong>เครื่องมือซื้อได้ สูตรซื้อไม่ได้</strong> — ทุกโรงงานชิปในโลกซื้อ EUV จากซัพพลายเออร์รายเดียวกัน (ASML) เครื่องละราว $200 ล้าน แต่คนที่แปลงเครื่องเดียวกันนั้นเป็น yield สูงสุดคือ TSMC เจ้าเดียว — และมันโผล่ในงบเป็น gross margin ที่ไต่ขึ้นทุกปี 54.4% → 56.1% → 59.9% (FY2023–FY2025) แตะ 66.2% ในไตรมาสล่าสุด พร้อม ROIC ~48% บนต้นทุนเงินทุน ~9–10% ในธุรกิจที่ต้องเทเงินลงทุนหนักที่สุดในโลก ตัวเลขแบบนี้ไม่ได้มาจากเครื่องจักร มันมาจากคนที่รู้ว่าต้องหมุนน็อตตัวไหน</figcaption></figure>
+      <p>
+        <strong>จุดที่ต้องแยกให้ขาดจากตอนที่ 1 (Scale Economies):</strong> ถ้าคู่แข่ง
+        <em>ตัวเล็กกว่า</em> แล้วต้นทุนสูงกว่า นั่นคือ Scale — แต่ถ้าคู่แข่ง
+        <em>ขนาดพอกัน มีเครื่องเหมือนกัน มีเงินเท่ากัน</em> แล้วยังทำไม่ได้ นั่นคือ Process Power
+        Samsung ไม่ใช่บริษัทเล็ก Intel ไม่ใช่บริษัทจน ทั้งคู่มีทั้งสเกลและเครื่อง —
+        ส่วนที่ขาดคือสิ่งที่งบไม่มีบรรทัดให้ลง
+      </p>
+
+      <h2 id="sec-3">3. เครื่องยนต์การเรียนรู้: yield คือสมรภูมิที่ไม่มีทางลัด</h2>
+      <p>
+        กลไกจริงของ Process Power ใน TSMC คือวงจรที่หมุนมาสามสิบปี:
+        ผลิตเวเฟอร์จริง → เจอจุดบกพร่องจริง → วิศวกรแก้สูตรจริง → yield ขึ้นนิดหนึ่ง →
+        ต้นทุนต่อชิปลด → ลูกค้าเข้ามาเพิ่ม → ยิ่งผลิตเยอะยิ่งเจอเคสแปลกๆ ครบ → วนอีกรอบ
+      </p>
+      <figure class="ph-fig"><div class="ph-panel pw7-panel"><div class="ph-eyebrow pw7">วงจรการเรียนรู้ · หนึ่งรอบ = เวลาจริงของโรงงาน</div>
+        <svg viewBox="0 0 840 320" role="img" aria-label="the learning loop: real wafers, real defects, recipe fixes, higher yield, lower cost, more customers"><defs><linearGradient id="pw7ring" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#5ee0c0"/><stop offset="1" stop-color="#f0a860"/></linearGradient></defs>
+        <circle class="pw7-ring" cx="300" cy="160" r="112" fill="none" stroke="url(#pw7ring)" stroke-width="2" stroke-dasharray="9 8"/>
+        <g class="pw7-node">
+        <rect x="232" y="26" width="136" height="34" rx="7" fill="#150f07" stroke="#f0a860" stroke-width="1.5"/>
+        <text class="pw7-mono" x="300" y="48" style="text-anchor:middle" fill="#f6d5ac">ผลิตเวเฟอร์จริง (ล้านแผ่น)</text>
+        <rect x="404" y="122" width="120" height="34" rx="7" fill="#150f07" stroke="#f0a860" stroke-width="1.5"/>
+        <text class="pw7-mono" x="464" y="144" style="text-anchor:middle" fill="#f6d5ac">เจอ defect จริง</text>
+        <rect x="232" y="262" width="136" height="34" rx="7" fill="#150f07" stroke="#f0a860" stroke-width="1.5"/>
+        <text class="pw7-mono" x="300" y="284" style="text-anchor:middle" fill="#f6d5ac">แก้สูตร · ปรับพารามิเตอร์</text>
+        <rect x="82" y="122" width="120" height="34" rx="7" fill="#0e2620" stroke="#5ee0c0" stroke-width="1.5"/>
+        <text class="pw7-mono" x="142" y="144" style="text-anchor:middle" fill="#5ee0c0">yield ขึ้น · ต้นทุนลด</text>
+        </g>
+        <text class="pw7-t" x="300" y="150" fill="#f6d5ac">วงจรที่หมุนมา 30 ปี</text>
+        <text class="pw7-mono" x="300" y="172" style="text-anchor:middle" fill="#5ee0c0">ลูกค้าเข้ามาเพิ่ม → ยิ่งผลิตยิ่งเรียนรู้</text>
+        <g class="pw7-clock">
+        <circle cx="640" cy="112" r="42" fill="#150f07" stroke="#f0a860" stroke-width="1.8"/>
+        <line x1="640" y1="112" x2="640" y2="86" stroke="#f0a860" stroke-width="2.2"/>
+        <line class="pw7-hand" x1="640" y1="112" x2="662" y2="112" stroke="#5ee0c0" stroke-width="2"/>
+        </g>
+        <text class="pw7-mono" x="640" y="176" style="text-anchor:middle" fill="#f6d5ac">หนึ่งรอบต้องรอ "เวลาจริง"</text>
+        <text class="pw7-mono" x="640" y="194" style="text-anchor:middle">เงินซื้อรอบเพิ่มไม่ได้ — ต้องรันเท่านั้น</text>
+        <rect x="556" y="216" width="250" height="72" rx="8" fill="#0e2620" stroke="#5ee0c0" stroke-width="1.6"/>
+        <text class="pw7-mono" x="681" y="238" style="text-anchor:middle" fill="#9fe8d6">ค่าเลี้ยงวงจรนี้ต่อปี</text>
+        <text class="pw7-t" x="681" y="262" fill="#5ee0c0">capex $40.6B (2025)</text>
+        <text class="pw7-mono" x="681" y="280" style="text-anchor:middle" fill="#9fe8d6">ปี 2026 guide $52–56B · ~33% ของรายได้</text>
+        <text class="pw7-mono" x="420" y="312" style="text-anchor:middle" fill="#f0a860">คู่แข่งที่เริ่มวันนี้ ต้องรันวงจรเดียวกันอีกกี่ปีถึงจะถึงจุดที่ TSMC ยืนอยู่ตอนนี้ — และตอนนั้น TSMC ก็เดินไปไกลอีกแล้ว</text>
+        </svg>
+      </div><figcaption><strong>ความรู้ที่ต้อง "รัน" เท่านั้นถึงจะได้มา — ซื้อข้ามขั้นไม่ได้</strong> — ทุกครั้งที่ TSMC ผลิตเวเฟอร์จริงหลายล้านแผ่น มันเก็บข้อมูลความผิดพลาดที่คู่แข่งไม่มีทางได้เห็น แล้วแปลงเป็นการแก้สูตรทีละนิด วงจรนี้ไม่ได้เร่งด้วยเงิน เพราะหนึ่งรอบต้องใช้เวลาจริงในโรงงานจริง — และค่าเลี้ยงวงจรก็ไม่เบา: capex $40.6B ในปี 2025 (ราว 33% ของรายได้) และ guide ปี 2026 ที่ $52–56B ผลตอบแทนคือ ROIC ~48% ซึ่งพิสูจน์ว่ามันไม่ใช่การเผาเงิน แต่คือการเติมเชื้อเพลิงให้เครื่องยนต์ที่คู่แข่งสตาร์ทตามไม่ทัน</figcaption></figure>
+
+      <h2 id="sec-4">4. Barrier: ชั้นวางของที่เงินซื้อได้ — กับกล่องเดียวที่ซื้อไม่ได้</h2>
+      <p>
+        วิธีที่ตรงที่สุดในการเช็คว่าธุรกิจมี Process Power จริงไหม: ลองไล่รายการทุกอย่าง
+        ที่คู่แข่งกระเป๋าหนัก<em>ซื้อได้</em> ถ้าไล่จนหมดแล้วยังเหลือส่วนต่างอธิบายไม่ได้
+        — ส่วนที่เหลือนั่นแหละคืออำนาจตัวนี้
+      </p>
+      <figure class="ph-fig"><div class="ph-panel pw7-panel"><div class="ph-eyebrow pw7">ชั้นวางของ · ทุกอย่างมีป้ายราคา ยกเว้นกล่องเดียว</div>
+        <svg viewBox="0 0 840 320" role="img" aria-label="a shelf of things money can buy versus one locked box that money cannot buy"><defs><linearGradient id="pw7lock" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#123a32"/><stop offset="1" stop-color="#0a1f1b"/></linearGradient></defs>
+        <text class="pw7-t sm" x="230" y="40" fill="#f0a860">ของที่เงินซื้อได้ (คู่แข่งมีครบแล้ว)</text>
+        <g class="pw7-shelf" fill="#150f07" stroke="#6b5232" stroke-width="1.4">
+        <rect x="40" y="60" width="176" height="42" rx="6"/><rect x="240" y="60" width="176" height="42" rx="6"/>
+        <rect x="40" y="118" width="176" height="42" rx="6"/><rect x="240" y="118" width="176" height="42" rx="6"/>
+        <rect x="40" y="176" width="176" height="42" rx="6"/><rect x="240" y="176" width="176" height="42" rx="6"/>
+        </g>
+        <g class="pw7-mono" fill="#f6d5ac">
+        <text x="128" y="86" style="text-anchor:middle">เครื่อง EUV ✓</text>
+        <text x="328" y="86" style="text-anchor:middle">โรงงาน + ที่ดิน ✓</text>
+        <text x="128" y="144" style="text-anchor:middle">วิศวกรเก่งๆ ✓</text>
+        <text x="328" y="144" style="text-anchor:middle">สิทธิบัตร / IP ✓</text>
+        <text x="128" y="202" style="text-anchor:middle">เงินทุนไม่จำกัด ✓</text>
+        <text x="328" y="202" style="text-anchor:middle">เงินอุดหนุนรัฐ ✓</text>
+        </g>
+        <line x1="446" y1="46" x2="446" y2="270" stroke="#6b5232" stroke-width="1.2" stroke-dasharray="5 6"/>
+        <text class="pw7-t sm" x="640" y="40" fill="#5ee0c0">กล่องที่ไม่มีขาย</text>
+        <rect x="500" y="60" width="280" height="158" rx="10" fill="url(#pw7lock)" stroke="#5ee0c0" stroke-width="2"/>
+        <g class="pw7-keyhole" fill="none" stroke="#5ee0c0" stroke-width="2">
+        <rect x="626" y="80" width="28" height="22" rx="3"/><path d="M632,80 v-8 a8,8 0 0 1 16,0 v8"/>
+        </g>
+        <g class="pw7-mono" fill="#9fe8d6">
+        <text x="640" y="128" style="text-anchor:middle">บันทึก defect สิบปีของสายการผลิตจริง</text>
+        <text x="640" y="150" style="text-anchor:middle">สูตรที่ปรับมาแล้วนับหมื่นครั้ง</text>
+        <text x="640" y="172" style="text-anchor:middle">คนหลายหมื่นที่รู้ว่าต้องแตะอะไรตอนไหน</text>
+        <text x="640" y="196" style="text-anchor:middle" fill="#5ee0c0">ป้ายราคา: จ่ายด้วย "เวลา" เท่านั้น</text>
+        </g>
+        <text class="pw7-mono" x="640" y="248" style="text-anchor:middle" fill="#f0a860">หลักฐานในงบ: goodwill ~$188M เท่านั้น</text>
+        <text class="pw7-mono" x="640" y="268" style="text-anchor:middle">= แทบไม่เคยซื้อใครมาต่อความสามารถ — สร้างเองล้วนๆ</text>
+        <text class="pw7-mono" x="420" y="304" style="text-anchor:middle" fill="#5ee0c0">Cornered Resource = "ฉันมีของที่เธอไม่มี" · Process Power = "ของฉันเธอมีครบ แต่เธอก็ยังทำไม่ได้"</text>
+        </svg>
+      </div><figcaption><strong>บรรทัด goodwill คือหลักฐานเงียบๆ ว่าความเก่งนี้ซื้อไม่ได้</strong> — บริษัทที่โตด้วยการไล่ซื้อกิจการจะมี goodwill พองอยู่ในงบดุลเสมอ แต่ TSMC มี goodwill แค่ราว NT$5.9 พันล้าน (~$188 ล้าน) เทียบกับรายได้ $121.4 พันล้าน — แปลว่าความสามารถเกือบทั้งหมดที่มันมี ถูกสร้างขึ้นเองจากภายในทีละปี ไม่ได้ซื้อใครมาต่อ นี่คือความต่างสำคัญจากตอนที่แล้ว: Cornered Resource คือการถือของที่คนอื่นเข้าไม่ถึง แต่ Process Power คือคู่แข่งเข้าถึงทุกอย่างที่คุณมีได้หมด — แล้วก็ยังทำไม่ได้อยู่ดี</figcaption></figure>
+
+      <h2 id="sec-5">5. ด้านมืด: อำนาจที่ต้องเลี้ยงด้วยทุนไปตลอดชีวิต</h2>
+      <p>
+        Process Power เป็นอำนาจที่ทนทานที่สุด (hysteresis ทำงานเข้าข้างเจ้าของ) แต่มันมีราคาที่ต้องจ่ายจริงๆ
+        และนักลงทุนที่หลงแค่ ROIC 48% มักมองข้ามสามข้อนี้:
+      </p>
+      <ul>
+        <li><strong>ต้องเทเงินเข้าเตาตลอดเวลา</strong> — capex ~33% ของรายได้ทุกปี ($40.6B ในปี 2025,
+        guide $52–56B ในปี 2026) ธุรกิจนี้ไม่ใช่ "capital light" อย่างที่นักลงทุนสายซอฟต์แวร์ชอบ:
+        จากทุก ฿100 ที่ลูกค้าจ่าย เหลือกำไรสุทธิ ฿45 แต่ต้องตักกลับเข้าเตาถึง ฿33
+        เหลือเงินสดอิสระจริงราว ฿26 — margin สูงขนาดนี้จึงเป็น<em>ความจำเป็น</em> ไม่ใช่ความฟุ่มเฟือย</li>
+        <li><strong>margin ระดับพีคยืนยาก</strong> — 66.2% ในไตรมาสล่าสุดเกิดตอน utilization เต็มและ FX เอื้อ
+        ผู้บริหารเองบอกว่าโรงงานต่างประเทศ (Arizona/Kumamoto/Dresden) จะกด margin 2–4%
+        และการ ramp โหนด N2 กดอีก 2–3% — <em>ตัวเลขพีคไม่ใช่ตัวเลขที่ควรเอาไปคูณสิบปี</em></li>
+        <li><strong>อำนาจนี้ผูกกับ "ที่" และ "คน"</strong> — วิธีทำงานฝังอยู่ในองค์กรที่กระจุกตัวอยู่บนเกาะเดียว
+        การย้ายไปสร้างที่อื่นไม่ได้ก๊อปวางความรู้ตามไปด้วย (fab ต่างประเทศยังเล็ก ตามหลังโหนดล่าสุด
+        และ margin ต่ำกว่า) — ความเสี่ยงเชิงภูมิรัฐศาสตร์จึงไม่ใช่แค่ความเสี่ยงของโรงงาน แต่เป็นความเสี่ยงของ moat เอง</li>
+        <li><strong>วันที่กระบวนทัศน์เปลี่ยน ความเชี่ยวชาญกลายเป็นภาระ</strong> — Process Power คือความเก่งใน
+        "วิธีทำแบบเดิมให้ดีที่สุด" ถ้าโลกเปลี่ยนวิธีทำไปเลย ความรู้สิบปีที่สะสมมาก็ลดค่าลงทันที
+        (นี่คือกลไกเดียวกับที่ Counter-Positioning ในตอนที่ 3 ใช้ฆ่าเจ้าตลาด — อ่านคู่กันจะเห็นภาพ)</li>
+      </ul>
+
+      <h2 id="sec-6">6. หา Process Power ในงบตรงไหน</h2>
+      <ul>
+        <li><strong>Margin ขยายขึ้นขณะที่รายได้โตแรง</strong> — โตแล้ว margin คงที่ = สเกลธรรมดา
+        แต่โต 30%+ แล้ว gross margin ยัง<em>ไต่ขึ้น</em>ทุกปี (54.4 → 56.1 → 59.9%) = องค์กรเก่งขึ้นเร็วกว่าที่มันใหญ่ขึ้น</li>
+        <li><strong>ROIC สูงกว่าต้นทุนเงินทุนหลายเท่า อย่างต่อเนื่อง</strong> — ROIC ~48% เทียบ WACC ~9–10%
+        ในธุรกิจที่ต้องลงทุนหนักที่สุดในโลก คือหลักฐานว่าเงินทุกบาทที่เทลงไปถูกใช้เก่งกว่าคู่แข่งจริง</li>
+        <li><strong>Goodwill แทบเป็นศูนย์</strong> — ~$188M เทียบรายได้ $121.4B: ความสามารถถูกสร้างเอง ไม่ได้ซื้อมา
+        (บริษัทที่ประกาศว่ามี "process ที่เหนือกว่า" แต่ goodwill พองจากการไล่ซื้อ — ให้สงสัยไว้ก่อน)</li>
+        <li><strong>คู่แข่งขนาดใกล้กันทำตามไม่ได้เป็นปีๆ</strong> — เทสต์ที่ไม่มีในงบแต่สำคัญที่สุด:
+        ถ้าคู่แข่งเงินหนาพอกันประกาศว่า "ปีหน้าตามทัน" ทุกปี แล้วก็ไม่ทันทุกปี — นั่นคือ hysteresis ทำงานอยู่</li>
+      </ul>
+
+      <h2 id="sec-7">7. Kill Conditions — สัญญาณว่าอำนาจนี้กำลังพัง</h2>
+      <ul>
+        <li><strong>คู่แข่งแย่ง design win โหนดล้ำสุด (2nm/A16) จากลูกค้า top-5 ได้จริง</strong> —
+        ไม่ใช่ข่าวเปิดตัว ไม่ใช่ตัวอย่างในแล็บ แต่คือคำสั่งผลิตจริงในปริมาณจริง
+        นี่คือหลักฐานตรงที่สุดว่า lead ที่สะสมมาโดนไล่ทัน</li>
+        <li><strong>Gross margin หลุดต่ำกว่า 50% สองไตรมาสติด โดยไม่ใช่เพราะ FX</strong> —
+        มิเตอร์ของ Process Power อยู่ที่ margin ถ้ามันสึกโดยที่ยอดขายยังดี แปลว่าความได้เปรียบด้านต้นทุนหายไป</li>
+        <li><strong>AI/HPC พลิกเป็นช่วง digestion จน utilization ตกและ operating margin หลุด 40%</strong> —
+        ธุรกิจต้นทุนคงที่สูง เมื่อเตาเดินไม่เต็ม กำไรหายเร็วกว่ารายได้เสมอ</li>
+        <li><strong>capex ถูกตัดลงแรงเพื่อประคองกำไร</strong> — เหมือน R&D ของ ASML ในตอนที่แล้ว:
+        นี่คือการหยุดเลี้ยงวงจรการเรียนรู้ งบจะสวยขึ้นก่อน แล้วอำนาจจะหายไปเงียบๆ ในอีกสามปี</li>
+      </ul>
+
+      <h2 id="sec-8">8. ปิดซีรีส์: แผนที่ทั้ง 7 อำนาจ</h2>
+      <p>
+        ทั้งเจ็ดตอนมาถึงจุดนี้ — และนี่คือทั้งกรอบในหน้าเดียว
+        ทุกอำนาจต้องมีครบสองขา: <strong>Benefit</strong> (ทำไมถึงได้กำไรมากกว่า) และ
+        <strong>Barrier</strong> (ทำไมคู่แข่งถึงลอกไม่ได้ ทั้งที่เห็นอยู่โต้งๆ) — ขาดข้อใดข้อหนึ่ง = ไม่ใช่อำนาจ:
+      </p>
+      <table>
+        <thead>
+          <tr><th>อำนาจ</th><th>Benefit</th><th>Barrier</th><th>เคสในซีรีส์</th></tr>
+        </thead>
+        <tbody>
+          <tr><td><a href="powers-01-scale-economies.html">1. Scale Economies</a></td><td>ยิ่งใหญ่ ต้นทุนต่อหน่วยยิ่งต่ำ</td><td>คู่แข่งต้องยอมขาดทุนระหว่างไล่ขนาด</td><td>Costco</td></tr>
+          <tr><td><a href="powers-02-network-economies.html">2. Network Economies</a></td><td>ยิ่งคนเยอะ ของยิ่งมีค่ากับทุกคน</td><td>ปัญหาไก่-ไข่: ต้องดึงคนทั้งฝูงพร้อมกัน</td><td>MercadoLibre</td></tr>
+          <tr><td><a href="powers-03-counter-positioning.html">3. Counter-Positioning</a></td><td>โมเดลใหม่ที่ดีกว่าสำหรับลูกค้า</td><td>เจ้าตลาดลอกแล้วฆ่ากำไรตัวเอง จึงเลือกไม่ลอก</td><td>Netflix vs Blockbuster</td></tr>
+          <tr><td><a href="powers-04-switching-costs.html">4. Switching Costs</a></td><td>ลูกค้าเดิมจ่ายต่อโดยไม่ต่อรอง</td><td>ค่าย้ายออกแพงกว่าส่วนต่างราคาหลายเท่า</td><td>Synopsys</td></tr>
+          <tr><td><a href="powers-05-branding.html">5. Branding</a></td><td>ของใกล้เคียงกัน ขายแพงกว่าได้</td><td>ความเชื่อใจสร้างได้ด้วยเวลาเท่านั้น</td><td>Apple</td></tr>
+          <tr><td><a href="powers-06-cornered-resource.html">6. Cornered Resource</a></td><td>ถือของที่ทั้งอุตสาหกรรมขาดไม่ได้</td><td>คู่แข่งเข้าถึงไม่ได้เลย (กฎหมาย/สัญญา/ฟิสิกส์)</td><td>ASML</td></tr>
+          <tr><td>7. Process Power</td><td>ทำของเดียวกันได้ดีกว่า/ถูกกว่า</td><td>ลอกได้ทางเดียวคือทุ่มเวลาหลายปี (hysteresis)</td><td>TSMC</td></tr>
+        </tbody>
+      </table>
+      <p>
+        สามบทเรียนที่อยากให้ติดตัวไปจากซีรีส์นี้:
+      </p>
+      <ul>
+        <li><strong>ธุรกิจที่ดีที่สุดมักถือหลายอำนาจซ้อนกัน ไม่ใช่ก้อนเดียว</strong> —
+        Apple ถือ Branding + Switching Costs + Network Economies อ่อนๆ,
+        TSMC ถือ Process Power + Scale Economies เวลาวิเคราะห์ต้องแกะทีละชั้น
+        แล้วถามว่า<em>ชั้นไหนกำลังหนาขึ้น ชั้นไหนกำลังบางลง</em> เพราะแต่ละชั้นพังคนละแบบ</li>
+        <li><strong>"อำนาจ" ต้องมี Barrier เสมอ ไม่ใช่แค่ Benefit</strong> — สินค้าดี ทีมเก่ง แบรนด์ดัง
+        เทคโนโลยีล้ำ ล้วนเป็น Benefit ที่คู่แข่งลอกได้ ถ้าตอบไม่ได้ว่า
+        "ทำไมคู่แข่งที่เห็นทุกอย่างแล้วยังทำตามไม่ได้" — แปลว่ายังไม่เจอ moat จริง เจอแค่ผลประกอบการที่ดี</li>
+        <li><strong>moat ไม่ใช่เหตุผลในการซื้อ — มันเป็นแค่เงื่อนไขที่จำเป็น</strong>
+        ตอนที่ 6 สอนบทเรียนนี้แพงที่สุด: ASML ผูกขาด 100% แต่ที่ P/E 62 เท่า
+        ตลาดจ่ายให้ moat นั้นไปหมดแล้ว งานของเราคือหา<em>อำนาจที่ตลาดยังไม่ได้จ่ายเงินให้เต็มราคา</em>
+        แล้วเขียน Kill Conditions ให้ชัดก่อนกดซื้อทุกครั้ง — เพราะถ้าตอบไม่ได้ว่าเหตุการณ์แบบไหน
+        จะทำให้เราขาย ก็แปลว่ายังไม่เข้าใจอำนาจนั้นดีพอ</li>
+      </ul>
+      <p>
+        อ่านเคสเต็มของ TSMC ต่อได้ที่
+        <a href="deep-dive-tsm.html">ผ่าธุรกิจ TSM (TSMC) — โรงหล่อของโลก AI, คูเมืองที่ลอกไม่ได้ และหางเสี่ยงชื่อ Taiwan</a>
+        · หรือย้อนอ่านซีรีส์ทั้งหมดที่ <a href="../series-powers.html">หน้าซีรีส์ 7 Powers</a>
+      </p>
+
+    </div>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container footer-grid">
+      <div class="footer-brand">
+        <a href="../index.html" class="site-title">Moatrices</a>
+        <p>บันทึกการเรียนวิเคราะห์หุ้น US เชิงลึก ภาษาไทย — เน้นพื้นฐานธุรกิจ ไม่ใช่ราคา</p>
+      </div>
+      <nav class="footer-nav">
+        <a href="../index.html">หน้าแรก</a>
+        <a href="../articles.html">บทความ</a>
+        <a href="../stocks.html">หุ้น</a>
+        <a href="../tools.html">เครื่องมือ</a>
+        <a href="../dashboard.html">Dashboard</a>
+        <a href="../about.html">เกี่ยวกับ</a>
+      </nav>
+      <div class="footer-follow">
+        <span class="footer-follow-label">ติดตาม</span>
+        <div class="footer-social">
+          <a href="/feed.xml" class="social-btn" aria-label="RSS feed" title="RSS feed"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 11a9 9 0 0 1 9 9"/><path d="M4 4a16 16 0 0 1 16 16"/><circle cx="5" cy="19" r="1"/></svg></a>
+          <a href="mailto:beatp9696@gmail.com" class="social-btn" aria-label="อีเมล" title="อีเมล"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="m3 7 9 6 9-6"/></svg></a>
+        </div>
+      </div>
+    </div>
+    <div class="container footer-legal">
+      <p><strong>คำเตือน:</strong> เนื้อหาทั้งหมดเป็นบันทึกการเรียนและความเห็นส่วนตัว
+         เพื่อการศึกษาเท่านั้น <strong>ไม่ใช่คำแนะนำการลงทุน</strong> ไม่ใช่การชี้นำให้ซื้อหรือขายหลักทรัพย์ใดๆ
+         ตัวเลขอ้างอิงงบที่เผยแพร่ ณ ช่วงเวลาหนึ่งและอาจล้าสมัย การตัดสินใจลงทุนเป็นความรับผิดชอบของผู้อ่านเอง</p>
+      <p>© 2026 Moatrices · เผยแพร่ผ่าน GitHub Pages</p>
+    </div>
+  </footer>
+
+  <button class="to-top" aria-label="กลับขึ้นด้านบน">↑</button>
+  <script defer src="../app.js"></script>
+
+</body>
+</html>

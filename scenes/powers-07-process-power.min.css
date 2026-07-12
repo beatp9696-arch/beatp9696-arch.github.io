@@ -1,0 +1,40 @@
+.pw7-panel { background: radial-gradient(140% 120% at 50% 0%, #1d1408 0%, #0b0704 72%); border-color: #4a3a1e; }
+.ph-eyebrow.pw7 { color: #f0a860; }
+.pw7-panel .s-t { fill: #f6d5ac; }
+.pw7-panel .s-t.sm { fill: #a8977f; }
+.pw7-t { font-family: var(--font-head); fill: #f6d5ac; font-size: 13px; text-anchor: middle; font-weight: 600; }
+.pw7-t.sm { font-size: 11px; fill: #a8977f; }
+.pw7-mono { font-family: "IBM Plex Mono", ui-monospace, monospace; fill: #a8977f; font-size: 11px; }
+.pw7-machine { animation: pw7machine 3.8s ease-in-out infinite; }
+@keyframes pw7machine {
+0%, 100% { filter: drop-shadow(0 0 4px rgba(240,168,96,.25)) }
+50% { filter: drop-shadow(0 0 12px rgba(240,168,96,.5)) }
+}
+.pw7-feed { stroke-dasharray: 5 7; animation: pw7feed 3s linear infinite; }
+@keyframes pw7feed { to { stroke-dashoffset: -24 } }
+.pw7-out { stroke-dasharray: 7 6; animation: pw7out 1.8s linear infinite; }
+@keyframes pw7out { to { stroke-dashoffset: -26 } }
+.pw7-good { animation: pw7good 3.4s ease-in-out infinite; }
+@keyframes pw7good {
+0%, 100% { filter: drop-shadow(0 0 4px rgba(94,224,192,.3)) }
+50% { filter: drop-shadow(0 0 13px rgba(94,224,192,.7)) }
+}
+.pw7-ring { animation: pw7ring 14s linear infinite; transform-origin: center; transform-box: fill-box; }
+@keyframes pw7ring { to { transform: rotate(360deg) } }
+.pw7-node { animation: pw7node 4.6s ease-in-out infinite; }
+@keyframes pw7node { 0%, 100% { opacity: .9 } 50% { opacity: 1 } }
+.pw7-hand { animation: pw7hand 8s steps(8) infinite; transform-origin: 640px 112px; }
+@keyframes pw7hand { to { transform: rotate(360deg) } }
+.pw7-clock { animation: pw7clock 5s ease-in-out infinite; }
+@keyframes pw7clock { 0%, 100% { opacity: .88 } 50% { opacity: 1 } }
+.pw7-shelf { animation: pw7shelf 5.4s ease-in-out infinite; }
+@keyframes pw7shelf { 0%, 100% { opacity: .85 } 50% { opacity: 1 } }
+.pw7-keyhole { animation: pw7key 3s ease-in-out infinite; }
+@keyframes pw7key {
+0%, 100% { filter: drop-shadow(0 0 3px rgba(94,224,192,.35)) }
+50% { filter: drop-shadow(0 0 11px rgba(94,224,192,.8)) }
+}
+@media (prefers-reduced-motion: reduce) {
+.pw7-machine, .pw7-feed, .pw7-out, .pw7-good, .pw7-ring, .pw7-node,
+.pw7-hand, .pw7-clock, .pw7-shelf, .pw7-keyhole { animation: none; }
+}

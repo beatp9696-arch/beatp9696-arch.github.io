@@ -1,0 +1,57 @@
+/* ============================================================
+   powers-06-cornered-resource — scene CSS (โหลดเฉพาะบทนี้)
+   namespace .pw6-* — โลก ASML: ห้องสุญญากาศน้ำเงินเข้ม + พลาสมา EUV ฟ้าขาว
+   สีเตือน (กำไรรั่ว / รัฐถอดมุม) = ทองแดง #f0a35e
+   ============================================================ */
+
+.pw6-panel { background: radial-gradient(140% 120% at 50% 0%, #0a1e26 0%, #040d11 72%); border-color: #23515e; }
+.ph-eyebrow.pw6 { color: #6fe3f5; }
+.pw6-panel .s-t { fill: #d8f7ff; }
+.pw6-panel .s-t.sm { fill: #7e97a0; }
+.pw6-t { font-family: var(--font-head); fill: #d8f7ff; font-size: 13px; text-anchor: middle; font-weight: 600; }
+.pw6-t.sm { font-size: 11px; fill: #7e97a0; }
+.pw6-mono { font-family: "IBM Plex Mono", ui-monospace, monospace; fill: #7e97a0; font-size: 11px; }
+
+/* แหล่งกำเนิดพลาสมา — เต้นเป็นจังหวะ (หยดดีบุก 50,000 ครั้ง/วินาที ย่อให้ตาเห็น) */
+.pw6-plasma { animation: pw6plasma 2.4s ease-in-out infinite; transform-origin: center; transform-box: fill-box; }
+@keyframes pw6plasma {
+  0%, 100% { filter: drop-shadow(0 0 5px rgba(111,227,245,.5)); transform: scale(1) }
+  50% { filter: drop-shadow(0 0 16px rgba(216,247,255,.9)); transform: scale(1.08) }
+}
+
+/* ลำแสงจาก fab เข้าด่าน — ไหลเข้าหาเครื่องเดียว */
+.pw6-flow { stroke-dasharray: 6 8; animation: pw6flow 2.8s linear infinite; }
+@keyframes pw6flow { to { stroke-dashoffset: -28 } }
+
+/* ป้ายค่าผ่านทาง — หายใจเบาๆ */
+.pw6-toll { animation: pw6toll 4s ease-in-out infinite; }
+@keyframes pw6toll { 0%, 100% { opacity: .9 } 50% { opacity: 1 } }
+
+/* ซัพพลายเออร์ที่ถูกล็อกไว้ — นิ่งสนิท ส่วนแม่กุญแจวาบเป็นจังหวะ */
+.pw6-supp { animation: pw6supp 5s ease-in-out infinite; }
+@keyframes pw6supp { 0%, 100% { opacity: .92 } 50% { opacity: 1 } }
+.pw6-lock { animation: pw6lock 3.6s ease-in-out infinite; }
+@keyframes pw6lock { 0%, 100% { opacity: .55 } 50% { opacity: 1 } }
+
+/* ทรัพยากรที่เดินได้ — ก้าวออกจากบริษัทช้าๆ พร้อมกระเป๋าเงิน */
+.pw6-walk { animation: pw6walk 4.2s ease-in-out infinite; }
+@keyframes pw6walk { 0%, 100% { transform: translateX(0) } 50% { transform: translateX(10px) } }
+
+/* ท่อกำไรที่รั่วออกไปหาทรัพยากร */
+.pw6-drain { stroke-dasharray: 5 7; animation: pw6drain 1.9s linear infinite; }
+@keyframes pw6drain { to { stroke-dashoffset: -24 } }
+
+/* รถที่ด่าน — ขยับเข้าคิวทีละนิด (มีแค่ 5 คันในโลก) */
+.pw6-cars { animation: pw6cars 3.4s ease-in-out infinite; }
+@keyframes pw6cars { 0%, 100% { transform: translateX(0) } 50% { transform: translateX(6px) } }
+
+/* ช่องที่ถูกปิด (จีน) + สวิตช์ของรัฐ — กะพริบเตือน */
+.pw6-blocked { animation: pw6blocked 2.8s ease-in-out infinite; }
+@keyframes pw6blocked { 0%, 100% { opacity: .5 } 50% { opacity: 1 } }
+.pw6-switch { animation: pw6switch 3.2s ease-in-out infinite; }
+@keyframes pw6switch { 0%, 100% { opacity: .75 } 50% { opacity: 1 } }
+
+@media (prefers-reduced-motion: reduce) {
+  .pw6-plasma, .pw6-flow, .pw6-toll, .pw6-supp, .pw6-lock, .pw6-walk,
+  .pw6-drain, .pw6-cars, .pw6-blocked, .pw6-switch { animation: none; }
+}
