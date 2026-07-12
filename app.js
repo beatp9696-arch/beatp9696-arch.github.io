@@ -71,7 +71,8 @@
     { f: "powers-01-scale-economies.html", t: "7 Powers 1: Scale Economies (Costco)", sec: "basics" },
     { f: "powers-02-network-economies.html", t: "7 Powers 2: Network Economies (MercadoLibre)", sec: "basics" },
     { f: "powers-03-counter-positioning.html", t: "7 Powers 3: Counter-Positioning (Netflix)", sec: "basics" },
-    { f: "powers-04-switching-costs.html", t: "7 Powers 4: Switching Costs (Synopsys)", sec: "basics" }
+    { f: "powers-04-switching-costs.html", t: "7 Powers 4: Switching Costs (Synopsys)", sec: "basics" },
+    { f: "powers-05-branding.html", t: "7 Powers 5: Branding (Apple)", sec: "basics" }
   ];
 
   var progressBar = document.querySelector(".reading-progress");

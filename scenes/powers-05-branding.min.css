@@ -1,0 +1,24 @@
+.pw5-panel { background: radial-gradient(140% 120% at 50% 0%, #171b26 0%, #0a0c12 72%); border-color: #323a4a; }
+.ph-eyebrow.pw5 { color: #e5e9f0; }
+.pw5-panel .s-t { fill: #eceff5; }
+.pw5-panel .s-t.sm { fill: #9aa3b4; }
+.pw5-t { font-family: var(--font-head); fill: #eceff5; font-size: 13px; text-anchor: middle; font-weight: 600; }
+.pw5-t.sm { font-size: 11px; fill: #9aa3b4; }
+.pw5-mono { font-family: "IBM Plex Mono", ui-monospace, monospace; fill: #7e8798; font-size: 11px; }
+.pw5-hero { animation: pw5hero 3.6s ease-in-out infinite; }
+@keyframes pw5hero { 0%, 100% { filter: drop-shadow(0 0 6px rgba(229,233,240,.25)) } 50% { filter: drop-shadow(0 0 14px rgba(229,233,240,.5)) } }
+.pw5-tag { animation: pw5tag 3.2s ease-in-out infinite; transform-origin: 741px 120px; }
+@keyframes pw5tag { 0%, 100% { transform: rotate(0deg) } 50% { transform: rotate(-3deg) } }
+.pw5-q { animation: pw5q 2.6s ease-in-out infinite; }
+@keyframes pw5q { 0%, 100% { transform: translateX(0) } 50% { transform: translateX(7px) } }
+.pw5-note { animation: pw5note 4.4s ease-in-out infinite; }
+@keyframes pw5note { 0%, 100% { opacity: .88 } 50% { opacity: 1 } }
+.pw5-stampline { animation: pw5stamp 4.2s ease-in-out infinite; }
+@keyframes pw5stamp { 0%, 100% { opacity: .88 } 50% { opacity: 1 } }
+.pw5-fill { transform-origin: 82px 202px; animation: pw5fill 7s ease-out infinite; }
+@keyframes pw5fill { 0% { transform: scaleX(.72) } 55%, 100% { transform: scaleX(1) } }
+.pw5-adbtn { animation: pw5ad 3.4s ease-in-out infinite; }
+@keyframes pw5ad { 0%, 100% { transform: translateY(0) } 46%, 50% { transform: translateY(2px) } 54% { transform: translateY(0) } }
+@media (prefers-reduced-motion: reduce) {
+.pw5-hero, .pw5-tag, .pw5-q, .pw5-note, .pw5-stampline, .pw5-fill, .pw5-adbtn { animation: none; }
+}
