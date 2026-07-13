@@ -1,0 +1,69 @@
+.mb5-panel { background: radial-gradient(140% 120% at 50% 0%, #0a1220 0%, #05080e 72%); border-color: #1e3a5c; }
+.ph-eyebrow.mb5 { color: #5aa9e6; }
+.mb5-panel .sa-stage { container-type: inline-size; }
+.mb5-t      { font-family: var(--font-head); font-size: 13px; font-weight: 700; fill: #d7e5f4; letter-spacing: .04em; }
+.mb5-t.r    { fill: #f08b8b; }
+.mb5-t.g    { fill: #3ddc97; }
+.mb5-t.gold { fill: #e0a63c; }
+.mb5-num    { font-family: "IBM Plex Mono", ui-monospace, monospace; font-size: 15px; font-weight: 700; fill: #d7e5f4; }
+.mb5-num.r  { fill: #ed4245; }
+.mb5-num.g  { fill: #3ddc97; }
+.mb5-big    { font-family: var(--font-head); font-size: 24px; font-weight: 800; fill: #eaf1fb; }
+.mb5-huge   { font-family: var(--font-head); font-size: 40px; font-weight: 800; fill: #eaf1fb; }
+.mb5-huge.g { fill: #3ddc97; }
+.mb5-m      { font-family: "IBM Plex Mono", ui-monospace, monospace; font-size: 12px; fill: #93aac4; }
+.mb5-m.s    { font-size: 10.5px; fill: #67809c; }
+.mb5-m.g    { fill: #3ddc97; }
+.mb5-m.r    { fill: #ed4245; }
+.mb5-m.gold { fill: #e0a63c; }
+.mb5-m.b    { font-weight: 700; }
+.mb5-stamp  { font-family: var(--font-head); font-size: 15px; font-weight: 800; letter-spacing: .08em; }
+.mb5-stamp.r { fill: #ed4245; }
+.mb5-stamp.g { fill: #3ddc97; }
+.mb5-idx    { font-family: var(--font-head); font-size: 22px; font-weight: 800; fill: #5aa9e6; }
+.mb5-idx.g  { fill: #3ddc97; }
+.mb5-tag    { font-family: "IBM Plex Mono", ui-monospace, monospace; font-size: 10.5px;
+font-weight: 700; letter-spacing: .1em; fill: #4a6d94; }
+.mb5-tag.g  { fill: #2f9e6e; }
+.mb5-moat, .mb5-wealth, .mb5-btn, .mb5-card, .mb5-alive {
+transform-box: fill-box; transform-origin: center;
+}
+@keyframes mb5-rise { from { opacity: 0; transform: translateY(12px); } }
+@keyframes mb5-fade { from { opacity: 0; } }
+.playing .mb5-dmg    { animation: mb5-hit calc(var(--beat) * .8) var(--e-fail); }
+@keyframes mb5-hit   { from { opacity: 0; transform: translateX(-12px); } }
+.playing .mb5-should { animation: mb5-fade calc(var(--beat) * 1.2) var(--e-expo); }
+.playing .mb5-alive { animation: mb5-rise calc(var(--beat) * 2) var(--e-mass); }
+.playing .mb5-opt { animation: mb5-rise calc(var(--beat) * 1.2) var(--e-mass); }
+.playing .mb5-btn { animation: mb5-snapback calc(var(--beat) * 2.4) var(--e-snapback); }
+@keyframes mb5-snapback {
+0%   { opacity: 0; transform: translateY(10px); }
+30%  { opacity: 1; transform: translateY(0) scale(1); }
+46%  { transform: scale(.94); }
+58%  { transform: scale(.94) translateX(26px); }
+100% { transform: scale(1) translateX(0); }
+}
+.playing .mb5-reject  { animation: mb5-fade calc(var(--beat) * 1.2) var(--e-fail); }
+.playing .mb5-chain   { animation: mb5-hit calc(var(--beat) * .9) var(--e-mass); }
+.playing .mb5-verdict { animation: mb5-rise calc(var(--beat) * 1.6) var(--e-expo); }
+.playing .mb5-card     { animation: mb5-rise calc(var(--beat) * 1.4) var(--e-mass); }
+.playing .mb5-stamp-ok { animation: mb5-stamp calc(var(--beat) * 1) var(--e-mass); }
+@keyframes mb5-stamp   { from { opacity: 0; transform: scale(1.6); } }
+.playing .mb5-punch    { animation: mb5-rise calc(var(--beat) * 1.8) var(--e-expo); }
+.mb5-moat, .mb5-wealth { transform-origin: left center; }
+.playing .mb5-moat   { animation: mb5-fill calc(var(--beat) * 2.6) var(--e-mass); }
+@keyframes mb5-fill  { from { transform: scaleX(0); } }
+.playing .mb5-moatlab { animation: mb5-fade calc(var(--beat) * 1.2) var(--e-expo); }
+.playing .mb5-wealth { animation: mb5-burn calc(var(--beat) * 2.6) var(--e-fail); }
+@keyframes mb5-burn {
+0%   { transform: scaleX(0); }
+35%  { transform: scaleX(3.26); }
+100% { transform: scaleX(1); }
+}
+.playing .mb5-burn { animation: mb5-fade calc(var(--beat) * 1.2) var(--e-fail); }
+.playing .mb5-two  { animation: mb5-rise calc(var(--beat) * 1.6) var(--e-expo); }
+.playing .mb5-row   { animation: mb5-hit calc(var(--beat) * 1) var(--e-mass); }
+.playing .mb5-final { animation: mb5-rise calc(var(--beat) * 1.8) var(--e-expo); }
+@media (prefers-reduced-motion: reduce) {
+.ph-panel .sa { animation: none !important; }
+}
