@@ -48,3 +48,21 @@
 @keyframes pw4fill { from { transform: scaleX(0); } }
 .pw4-cal  { animation: pw4cal .6s var(--e-mass); }
 @keyframes pw4cal { from { opacity: 0; transform: translateY(8px); } }
+.pw4-pass  { transform: scaleX(1); animation: pw4pass 2.8s var(--e-expo); }
+@keyframes pw4pass { from { transform: scaleX(0); } }
+.pw4-slack { animation: pw4slack 1.3s var(--e-expo); }
+@keyframes pw4slack { from { opacity: .95; transform: translateY(-7px); } }
+.pw4-moot  { animation: pw4moot .6s var(--e-expo); }
+@keyframes pw4moot { from { opacity: 0; } }
+.pw4-level { animation: pw4level 1.6s var(--e-expo); transform-origin: 700px 128px; }
+@keyframes pw4level { from { transform: rotate(4.5deg); } }
+.pw4-rline { transform-origin: bottom center; transform-box: fill-box; animation: pw4rline 1s var(--e-mass); }
+@keyframes pw4rline { from { transform: scaleY(0); } }
+.pw4-hline { transform-origin: left center; transform-box: fill-box; animation: pw4hline 1s var(--e-mass); }
+@keyframes pw4hline { from { transform: scaleX(0); } }
+.pw4-meter { transform-origin: left center; transform-box: fill-box; animation: pw4meter 1.8s var(--e-mass); }
+@keyframes pw4meter { from { transform: scaleX(0); } }
+.pw4-tag   { animation: pw4tag .6s var(--e-snapback); transform-origin: center; transform-box: fill-box; }
+@keyframes pw4tag { 0% { opacity: 0; transform: scale(1.4) rotate(-6deg); } 74% { transform: scale(.97) rotate(-2deg); } }
+.pw4-cursor{ animation: pw4cursor .5s steps(2, jump-none); }
+@keyframes pw4cursor { from { opacity: 0; } }

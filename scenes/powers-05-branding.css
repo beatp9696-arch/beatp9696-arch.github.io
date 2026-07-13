@@ -97,4 +97,30 @@
 .pw5-trust { transform: scaleX(.2); animation: pw5trust 5s steps(2, end); }
 @keyframes pw5trust { from { transform: scaleX(0); } }
 
+/* ── ฉาก 4 · §5 หน้าเดิม — วันที่แบรนด์ต้องเริ่ม "ตะโกน" ───────
+   ★★ ฉากนี้ **จงใจละเมิดกฎการเคลื่อนไหวของตอนนี้** — และการละเมิดนั้นคืออาร์กิวเมนต์
+   ธีม Apple ห้าม "เร็ว / กะพริบ / เร่งเร้า" เด็ดขาด (SKILL ข้อ 6) — ฉากนี้จึงใส่มันเข้าไป
+   เพราะวันที่หน้าขายของ Apple ต้องใช้ภาษาเดียวกับหน้าคู่แข่งในฉาก 1 (ป้ายลด / นับถอยหลัง / สเปก)
+   คือวันที่แบรนด์ตายจากมือตัวเอง — **ห้ามแก้ฉากนี้ให้ "สงบ" ตามธีม มันต้องรู้สึกผิดที่ผิดทาง**
+   เหตุ (คำสัญญาที่เลื่อนซ้ำ) ต้องมาก่อนผล (ป้ายลดราคา) อย่างน้อย 2 beats */
+.pw5-slip  { animation: pw5slip 1.3s var(--e-expo); }
+@keyframes pw5slip { from { opacity: 0; transform: translateX(-12px); } }
+.pw5-shout { animation: pw5shout .45s var(--e-fail); transform-origin: center; transform-box: fill-box; }
+@keyframes pw5shout { 0% { opacity: 0; transform: scale(1.4) rotate(-5deg); } 70% { transform: scale(.96) rotate(1deg); } }
+.pw5-drain { transform: scaleX(.3); animation: pw5drain 2.2s var(--e-fail); }   /* ← ตรงข้ามกับ pw5-trust เป๊ะ */
+@keyframes pw5drain { from { transform: scaleX(1); } }                          /* 10 ปีเติม · เผาทิ้งในไม่กี่ไตรมาส */
+.pw5-cut   { animation: pw5cut 1.6s var(--e-expo); transform-origin: left center; transform-box: fill-box; }
+@keyframes pw5cut { from { transform: scaleX(0); } }
+
+/* ── ฉาก 5 · §7 THESIS MONITOR — เงียบที่สุดในซีรีส์ ────────────
+   ★ เส้นแดงถูกวาดก่อน เข็มขยับทีหลัง (เหมือนทุกตอน) แต่ที่นี่ทุกอย่างต้อง *เงียบ*:
+     ไม่มีตราปั๊ม ไม่มีเสียงกระแทก — เส้นถูก "สลัก" ลงไปเฉยๆ ด้วย --e-expo ยาว
+     ความยับยั้งชั่งใจของฉากนี้ = ตัวแบรนด์เอง (ต่างจากฉาก 4 ที่จงใจตะโกน) */
+.pw5-etch  { transform-origin: left center; transform-box: fill-box; animation: pw5etch 1.6s var(--e-expo); }
+@keyframes pw5etch { from { transform: scaleX(0); } }
+.pw5-read  { transform-origin: left center; transform-box: fill-box; animation: pw5read 2s var(--e-expo); }
+@keyframes pw5read { from { transform: scaleX(0); } }
+.pw5-mark  { animation: pw5mark 1.4s var(--e-expo); }
+@keyframes pw5mark { from { opacity: 0; transform: translateY(8px); } }
+
 @media (prefers-reduced-motion: reduce) { .pw5-amb { animation: none; } }

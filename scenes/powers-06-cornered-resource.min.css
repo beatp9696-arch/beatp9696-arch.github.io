@@ -46,3 +46,21 @@
 @keyframes pw6cut { from { filter: none; opacity: 1; } }
 .pw6-blocked { filter: saturate(.5); opacity: .55; }
 @media (prefers-reduced-motion: reduce) { .pw6-pulse { opacity: 0; } }
+.pw6-paid { transform-origin: left center; transform-box: fill-box; animation: pw6paid .8s var(--e-mech); }
+@keyframes pw6paid { from { transform: scaleX(0); } }
+.pw6-real { transform-origin: left center; transform-box: fill-box; animation: pw6real 2.4s var(--e-expo); }
+@keyframes pw6real { from { transform: scaleX(0); } }
+.pw6-gap  { animation: pw6gap .8s var(--e-expo); }
+@keyframes pw6gap { from { opacity: 0; transform: translateY(8px); } }
+.pw6-tick { animation: pw6tick .5s steps(4, jump-none); }
+@keyframes pw6tick { from { opacity: 0; } }
+.pw6-rl   { transform-origin: left center; transform-box: fill-box; animation: pw6rl .8s var(--e-mech); }
+@keyframes pw6rl { from { transform: scaleX(0); } }
+.pw6-rv   { transform-origin: bottom center; transform-box: fill-box; animation: pw6rv .8s var(--e-mech); }
+@keyframes pw6rv { from { transform: scaleY(0); } }
+.pw6-nd   { transform-origin: left center; transform-box: fill-box; animation: pw6nd 1.8s var(--e-expo); }
+@keyframes pw6nd { from { transform: scaleX(0); } }
+.pw6-led  { animation: pw6led .4s steps(2, jump-none); }
+@keyframes pw6led { from { opacity: 0; } }
+.pw6-big  { font-family: var(--font-head); font-size: 26px; font-weight: 800; fill: #f59e0b; letter-spacing: -.02em; }
+.pw6-big.c { fill: #7dd3fc; }

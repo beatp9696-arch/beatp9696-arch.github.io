@@ -96,4 +96,33 @@
 .pw2-l3 { animation: pw2l3 .7s var(--e-spread); transform-origin: center; transform-box: fill-box; }
 @keyframes pw2l3 { from { opacity: 0; transform: scale(.94); } }
 
+/* ── ฉาก 4 · §6 ฟีดใบเดิม — วันที่ cascade เดินถอยหลัง ────────
+   เทคนิค "จอเดียวกันเป๊ะ สองสถานะ" ชุดที่สอง — แต่คราวนี้สถานะที่สองคือ *อนาคตที่เป็นไปได้*
+   ★ ปมดับเป็นทอดๆ ตามระยะห่าง และ **เร่งขึ้นเหมือนตอนมันติดเป๊ะ** (--i ไล่แบบเดียวกับฉาก 1 กลับด้าน)
+     สมการเดียวกัน เครื่องหมายกลับข้าง — นี่คือเหตุผลที่เครือข่ายไม่ตายช้าๆ มันตายเป็นฝูง
+   markup = สถานะจบ: การ์ดถูกวาดเป็น "ร้านปิด" ไว้แล้ว → overlay จางเข้ามาเมื่อ cascade ผ่าน */
+.pw2-dead { animation: pw2dead .42s var(--e-spread); }
+@keyframes pw2dead { from { opacity: 0; } }
+.pw2-red  { animation: pw2red .5s var(--e-spread); }
+@keyframes pw2red { from { opacity: 0; transform: translateX(-18px); } }
+.pw2-back { animation: pw2back .6s var(--e-spread); }   /* ราคาที่เคยถูกลง ไต่กลับขึ้น */
+@keyframes pw2back { from { opacity: 0; transform: translateY(9px); } }
+
+/* ── ฉาก 5 · §7 แดชบอร์ดผู้ขาย = THESIS MONITOR ของ MELI ─────
+   ★ เส้นแดงถูกวาดก่อน เข็มขยับทีหลัง = เขียน Kill Condition ก่อนกดซื้อ
+   ฟิสิกส์แพร่ระบาด: เส้นแดงงอกออกจากจุดเดียวแล้วพุ่ง (--e-spread) ไม่ใช่ยืดเรียบๆ
+   มิเตอร์ที่ไม่มีเลขจริงใน sources จะไม่พิมพ์เลข — วางเข็มไว้ในโซนปลอดภัยเฉยๆ (ห้ามเดาเลข) */
+.pw2-line  { transform-origin: left center; transform-box: fill-box; animation: pw2line 1s var(--e-spread); }
+@keyframes pw2line { from { transform: scaleX(0); } }
+.pw2-bar   { transform-origin: bottom center; transform-box: fill-box; animation: pw2bar 1.4s var(--e-spread); }
+@keyframes pw2bar { from { transform: scaleY(0); } }
+.pw2-vline { transform-origin: bottom center; transform-box: fill-box; animation: pw2vline 1s var(--e-spread); }
+@keyframes pw2vline { from { transform: scaleY(0); } }
+.pw2-hbar  { transform-origin: left center; transform-box: fill-box; animation: pw2hbar 1.4s var(--e-spread); }
+@keyframes pw2hbar { from { transform: scaleX(0); } }
+.pw2-nd    { animation: pw2nd 1.6s var(--e-spread); }   /* เข็ม/หัวลูกศร คืบเข้าโซนปลอดภัย */
+@keyframes pw2nd { from { opacity: 0; transform: translateY(34px); } }
+.pw2-stamp { animation: pw2stamp .7s var(--e-spread); transform-origin: center; transform-box: fill-box; }
+@keyframes pw2stamp { 0% { opacity: 0; transform: scale(1.45) rotate(-7deg); } 78% { transform: scale(.98) rotate(-2deg); } }
+
 @media (prefers-reduced-motion: reduce) { .pw2-amb { animation: none; } }

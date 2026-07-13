@@ -39,3 +39,21 @@
 45%  { transform: scaleX(1); }
 100% { transform: scaleX(.05); }
 }
+.pw7-flow  { transform-origin: left center; transform-box: fill-box; animation: pw7flow 1.4s var(--e-mass); }
+@keyframes pw7flow { from { transform: scaleX(0); } }
+.pw7-scoop { animation: pw7scoop 1.2s var(--e-mass); transform-origin: center; transform-box: fill-box; }
+@keyframes pw7scoop { 0% { opacity: 0; transform: translateY(-26px) rotate(-10deg); } 72% { transform: translateY(3px) rotate(2deg); } }
+.pw7-left  { animation: pw7left 1s var(--e-mass); transform-origin: bottom center; transform-box: fill-box; }
+@keyframes pw7left { from { opacity: 0; transform: scaleY(0); } }
+.pw7-burn  { animation: pw7burn .8s var(--e-mass); }
+@keyframes pw7burn { from { opacity: 0; transform: translateY(9px); } }
+.pw7-rl    { transform-origin: left center; transform-box: fill-box; animation: pw7rl 1s var(--e-mass); }
+@keyframes pw7rl { from { transform: scaleX(0); } }
+.pw7-rv    { transform-origin: bottom center; transform-box: fill-box; animation: pw7rv 1s var(--e-mass); }
+@keyframes pw7rv { from { transform: scaleY(0); } }
+.pw7-nd    { transform-origin: left center; transform-box: fill-box; animation: pw7nd 1.8s var(--e-mass); }
+@keyframes pw7nd { from { transform: scaleX(0); } }
+.pw7-cut   { animation: pw7cut .7s var(--e-fail); transform-origin: center; transform-box: fill-box; }
+@keyframes pw7cut { 0% { opacity: 0; transform: scale(1.35); } 70% { transform: scale(.97); } }
+.pw7-undo  { animation: pw7undo 2.2s var(--e-mass); }
+@keyframes pw7undo { from { opacity: .25; transform: translateX(-30px); } }

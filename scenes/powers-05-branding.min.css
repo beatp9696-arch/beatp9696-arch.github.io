@@ -54,4 +54,18 @@
 @keyframes pw5aware { from { transform: scaleX(0); } }
 .pw5-trust { transform: scaleX(.2); animation: pw5trust 5s steps(2, end); }
 @keyframes pw5trust { from { transform: scaleX(0); } }
+.pw5-slip  { animation: pw5slip 1.3s var(--e-expo); }
+@keyframes pw5slip { from { opacity: 0; transform: translateX(-12px); } }
+.pw5-shout { animation: pw5shout .45s var(--e-fail); transform-origin: center; transform-box: fill-box; }
+@keyframes pw5shout { 0% { opacity: 0; transform: scale(1.4) rotate(-5deg); } 70% { transform: scale(.96) rotate(1deg); } }
+.pw5-drain { transform: scaleX(.3); animation: pw5drain 2.2s var(--e-fail); }
+@keyframes pw5drain { from { transform: scaleX(1); } }
+.pw5-cut   { animation: pw5cut 1.6s var(--e-expo); transform-origin: left center; transform-box: fill-box; }
+@keyframes pw5cut { from { transform: scaleX(0); } }
+.pw5-etch  { transform-origin: left center; transform-box: fill-box; animation: pw5etch 1.6s var(--e-expo); }
+@keyframes pw5etch { from { transform: scaleX(0); } }
+.pw5-read  { transform-origin: left center; transform-box: fill-box; animation: pw5read 2s var(--e-expo); }
+@keyframes pw5read { from { transform: scaleX(0); } }
+.pw5-mark  { animation: pw5mark 1.4s var(--e-expo); }
+@keyframes pw5mark { from { opacity: 0; transform: translateY(8px); } }
 @media (prefers-reduced-motion: reduce) { .pw5-amb { animation: none; } }

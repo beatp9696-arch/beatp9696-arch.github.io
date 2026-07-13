@@ -10,6 +10,7 @@
 .pw1-rc.b  { font-weight: 700; fill: #111; }
 .pw1-rc.s  { font-size: 9.5px; fill: #8a8172; }
 .pw1-rc.mk { fill: #b45309; font-size: 9.5px; }
+.pw1-rc.rd { fill: #b91c1c; font-weight: 700; }
 .pw1-panel .sa-stage { container-type: inline-size; }
 .pw1-panel .sa-chip { color: #d7e4f2; text-align: center; font-size: 13px; font-size: 1.55cqw; }
 .pw1-panel .sa-chip .k { display: block; color: #fbbf24; font-weight: 800; letter-spacing: -.02em; font-size: 27px; font-size: 3.2cqw; }
@@ -59,4 +60,28 @@
 @keyframes pw1bleed { from { transform: scaleY(0); } }
 .pw1-cush { animation: pw1cush .9s var(--e-mass); transform-origin: top center; transform-box: fill-box; }
 @keyframes pw1cush { from { opacity: 0; transform: scaleY(0); } }
+.pw1-out   { opacity: .22; transform: translateX(30px); animation: pw1out 1.5s var(--e-mass); }
+@keyframes pw1out { from { opacity: 1; transform: translateX(-34px); } }
+.pw1-rise  { transform: scaleX(.84); animation: pw1rise 3.4s var(--e-mass); }
+@keyframes pw1rise { from { transform: scaleX(.11); } }
+.pw1-rent  { animation: pw1rent .9s var(--e-mass); transform-origin: center; transform-box: fill-box; }
+@keyframes pw1rent { 0% { opacity: 0; transform: translateY(-15px); } 74% { transform: translateY(2.5px); } }
+.pw1-cheap { animation: pw1cheap 1.2s var(--e-mass); transform-origin: left center; transform-box: fill-box; }
+@keyframes pw1cheap { from { transform: scaleX(0); } }
+.pw1-void  { animation: pw1void 1s var(--e-mass); }
+@keyframes pw1void { from { opacity: 0; } }
+.pw1-line  { transform-origin: left center; transform-box: fill-box; animation: pw1line 1s var(--e-mass); }
+@keyframes pw1line { from { transform: scaleX(0); } }
+.pw1-fill  { transform-origin: bottom center; transform-box: fill-box; animation: pw1fill 2.2s var(--e-mass); }
+@keyframes pw1fill { from { transform: scaleY(0); } }
+.pw1-needle{ animation: pw1needle 2.4s var(--e-mass); }
+@keyframes pw1needle { from { transform: translateY(62px); opacity: 0; } }
+.pw1-gap   { animation: pw1gap .8s var(--e-mass); }
+@keyframes pw1gap { from { opacity: 0; transform: translateX(-9px); } }
+.pw1-trend { stroke-dasharray: 320; stroke-dashoffset: 0; animation: pw1trend 1.9s var(--e-mass); }
+@keyframes pw1trend { from { stroke-dashoffset: 320; } }
+.pw1-ghost { transform-origin: left center; transform-box: fill-box; animation: pw1ghost 1s var(--e-mass); }
+@keyframes pw1ghost { from { opacity: 0; transform: scaleX(0); } }
+.pw1-stamp { animation: pw1stamp .7s var(--e-mass); transform-origin: center; transform-box: fill-box; }
+@keyframes pw1stamp { 0% { opacity: 0; transform: scale(1.5) rotate(-8deg); } 76% { transform: scale(.98) rotate(-3deg); } }
 @media (prefers-reduced-motion: reduce) { .pw1-amb { animation: none; } }

@@ -74,3 +74,34 @@
   45%  { transform: scaleX(1); }        /* ถ้าความเก่งซื้อได้ บรรทัดนี้จะยาวแบบนี้ */
   100% { transform: scaleX(.05); }      /* แต่ของจริงคือเท่านี้ */
 }
+
+/* ── ฉาก 4 · §5 เตาที่ต้องเลี้ยงด้วยทุนไปตลอดชีวิต ──────────────
+   ฟิสิกส์เดิม (มวล/สะสม) แต่มองจากอีกด้าน: ทุกบาทที่เข้ามา ต้องถูก "ตัก" กลับเข้าเตา
+   ★ ลำดับสำคัญ: เงินไหลเข้า → กำไรก่อตัว → **ทัพพีตักกลับเข้าเตา** → เหลือ FCF จริงนิดเดียว
+     ทัพพีต้องขยับ *หลัง* กำไรก่อตัวแล้ว ≥1 beat — ไม่งั้นคนดูไม่เห็นว่ามันถูกตักไป */
+.pw7-flow  { transform-origin: left center; transform-box: fill-box; animation: pw7flow 1.4s var(--e-mass); }
+@keyframes pw7flow { from { transform: scaleX(0); } }
+.pw7-scoop { animation: pw7scoop 1.2s var(--e-mass); transform-origin: center; transform-box: fill-box; }
+@keyframes pw7scoop { 0% { opacity: 0; transform: translateY(-26px) rotate(-10deg); } 72% { transform: translateY(3px) rotate(2deg); } }
+.pw7-left  { animation: pw7left 1s var(--e-mass); transform-origin: bottom center; transform-box: fill-box; }
+@keyframes pw7left { from { opacity: 0; transform: scaleY(0); } }
+.pw7-burn  { animation: pw7burn .8s var(--e-mass); }
+@keyframes pw7burn { from { opacity: 0; transform: translateY(9px); } }
+
+/* ── ฉาก 5 · §7 THESIS MONITOR — วงรอบที่ "รีเซ็ต" ────────────
+   ★★ ฉากนี้ใช้ท่าที่ SKILL ข้อ 6 เขียนว่า **"ห้ามเด็ดขาด"** สำหรับตอนนี้:
+      loop ที่วนกลับไปสถานะเดิม — และนั่นคือเหตุผลเดียวที่มันอยู่ตรงนี้ได้
+      เพราะ "วงรอบที่รีเซ็ต" = อำนาจนี้กำลังตายจริงๆ (ไม่ใช่ฉากปกติ = ห้ามลอกไปใช้ที่อื่น)
+   capex ถูกตัด (เหตุ) → รอบหมุนช้าลงแล้วหยุด (ผล) → yield ที่สะสมมา ไหลกลับจุดเดิม
+   เส้นแดงถูกวาดก่อน เข็มขยับทีหลัง เหมือนทุกตอน */
+.pw7-rl    { transform-origin: left center; transform-box: fill-box; animation: pw7rl 1s var(--e-mass); }
+@keyframes pw7rl { from { transform: scaleX(0); } }
+.pw7-rv    { transform-origin: bottom center; transform-box: fill-box; animation: pw7rv 1s var(--e-mass); }
+@keyframes pw7rv { from { transform: scaleY(0); } }
+.pw7-nd    { transform-origin: left center; transform-box: fill-box; animation: pw7nd 1.8s var(--e-mass); }
+@keyframes pw7nd { from { transform: scaleX(0); } }
+.pw7-cut   { animation: pw7cut .7s var(--e-fail); transform-origin: center; transform-box: fill-box; }
+@keyframes pw7cut { 0% { opacity: 0; transform: scale(1.35); } 70% { transform: scale(.97); } }
+/* วงรอบที่ "หมุนกลับ" — ผลลัพธ์เดินถอยหลังไปจุดเริ่ม (ห้ามใช้ในฉากปกติของตอนนี้) */
+.pw7-undo  { animation: pw7undo 2.2s var(--e-mass); }
+@keyframes pw7undo { from { opacity: .25; transform: translateX(-30px); } }

@@ -325,6 +325,66 @@
       <p>
         กำแพงชนิดนี้ไม่ค่อยโดนเจาะ — มันโดน<strong>อ้อม</strong>:
       </p>
+      <figure class="ph-fig"><div class="ph-panel pw4-panel"><div class="ph-eyebrow pw4">Migration Wizard ใบเดิม · ครั้งที่ 4 — หลัง platform shift</div>
+        <div class="sa-stage">
+        <svg viewBox="0 0 840 430" role="img" aria-label="หน้าต่าง Migration Wizard ใบเดียวกับฉากก่อน แต่คราวนี้แถบความคืบหน้าวิ่งถึงร้อยเปอร์เซ็นต์อย่างลื่นไหล ไม่มีการดีดกลับแม้แต่ครั้งเดียว เพราะเหตุผลทั้งสามข้อที่เคยดึงลูกค้ากลับกลายเป็นโมฆะไปหมดหลังเกิด platform shift: สคริปต์ TCL หมื่นสองพันบรรทัดต้องเขียนใหม่อยู่แล้วเพราะ flow ใหม่ไม่ใช้ TCL, timing deck ต้องจูนใหม่ทั้งชุดอยู่แล้วเพราะเป็นโหนดใหม่, และความเสี่ยง tape-out ก็เท่ากันทั้งสองเจ้าเพราะทั้งคู่ต่างก็เป็นของใหม่ ค่าย้ายจากของเก่าจึงกลายเป็นศูนย์ เส้นสีส้มที่เคยมัดลูกค้าไว้จึงหย่อนลงเองโดยไม่มีใครไปตัดมัน และตาชั่งของ CFO ที่เคยเอียงกลับข้างเดิมทุกครั้งก็กลับมาสมดุล — กำแพงไม่ได้ถูกเจาะ มันถูกอ้อม">
+        <rect x="60" y="26" width="500" height="378" rx="8" fill="#0d1117" stroke="#2a3038" stroke-width="1.6"/>
+        <rect x="60" y="26" width="500" height="30" rx="8" fill="#161b22"/>
+        <text class="pw4-um" x="80" y="45">Migration Wizard — flow ใหม่ (AI-native) · ไม่ใช้ของเก่าต่อ</text>
+        <text class="pw4-um" x="540" y="45" style="text-anchor:end">✕</text>
+
+        <text class="pw4-uit" x="84" y="86">ความคืบหน้าการย้าย</text>
+        <rect x="84" y="98" width="452" height="20" rx="3" fill="#161b22" stroke="#2a3038" stroke-width="1.2"/>
+        <rect class="sa n pw4-pass ox0" style="--i:3" x="86" y="100" width="448" height="16" rx="2" fill="#34d399"/>
+        <text class="sa n pw4-moot pw4-uit" style="--i:7.4" x="84" y="136" fill="#34d399">ย้ายสำเร็จ 100% — ไม่มี rollback แม้แต่ครั้งเดียว</text>
+        <text class="sa n pw4-moot pw4-ot" style="--i:7.8" x="360" y="136">ค่าย้ายจากของเก่า = 0</text>
+
+        <g class="sa n pw4-moot" style="--i:1">
+          <rect x="84" y="152" width="452" height="46" rx="5" fill="#12181f" stroke="#3a4048" stroke-width="1.2"/>
+          <text class="pw4-um s" x="100" y="172" fill="#6e7681">เหตุผลเก่าข้อ 1 · สคริปต์ TCL 12,400 บรรทัด</text>
+          <text class="pw4-um c" x="100" y="190">เป็นโมฆะ — flow ใหม่ไม่ใช้ TCL ต้องเขียนใหม่อยู่แล้ว</text>
+          <line x1="100" y1="167" x2="330" y2="167" stroke="#6e7681" stroke-width="1"/>
+        </g>
+        <g class="sa n pw4-moot" style="--i:1.8">
+          <rect x="84" y="208" width="452" height="46" rx="5" fill="#12181f" stroke="#3a4048" stroke-width="1.2"/>
+          <text class="pw4-um s" x="100" y="228" fill="#6e7681">เหตุผลเก่าข้อ 2 · timing signoff ไม่ตรงซิลิคอน</text>
+          <text class="pw4-um c" x="100" y="246">เป็นโมฆะ — โหนดใหม่ ต้องจูนใหม่ทั้งชุดอยู่แล้ว</text>
+          <line x1="100" y1="223" x2="356" y2="223" stroke="#6e7681" stroke-width="1"/>
+        </g>
+        <g class="sa n pw4-moot" style="--i:2.6">
+          <rect x="84" y="264" width="452" height="46" rx="5" fill="#12181f" stroke="#3a4048" stroke-width="1.2"/>
+          <text class="pw4-um s" x="100" y="284" fill="#6e7681">เหตุผลเก่าข้อ 3 · ความเสี่ยง tape-out</text>
+          <text class="pw4-um c" x="100" y="302">เท่ากันทั้งสองเจ้า — เพราะทั้งคู่ก็เป็นของใหม่</text>
+          <line x1="100" y1="279" x2="300" y2="279" stroke="#6e7681" stroke-width="1"/>
+        </g>
+        <text class="sa n pw4-moot pw4-uit" style="--i:8" x="84" y="344" fill="#f59e0b">ไม่มีใครเจาะกำแพง — ทุกคนแค่เดินอ้อมมัน</text>
+        <text class="sa n pw4-moot pw4-um" style="--i:8.4" x="84" y="368">ประตูยังหนักเท่าเดิม แต่ไม่มีใครต้องผ่านประตูนั้นอีกแล้ว</text>
+
+        <text class="pw4-uit" x="700" y="70" style="text-anchor:middle">ตาชั่งของ CFO ลูกค้า</text>
+        <line x1="700" y1="88" x2="700" y2="128" stroke="#3a4048" stroke-width="2"/>
+        <g class="sa n pw4-level" style="--i:5.6">
+          <line x1="600" y1="128" x2="800" y2="128" stroke="#8b949e" stroke-width="2.6"/>
+          <g><rect x="602" y="136" width="94" height="60" rx="4" fill="#12212f" stroke="#38bdf8" stroke-width="1.2"/>
+          <text class="pw4-um c" x="649" y="156" style="text-anchor:middle">เริ่มใหม่</text>
+          <text class="pw4-um c" x="649" y="172" style="text-anchor:middle">กับเจ้าอื่น</text></g>
+          <g><rect x="704" y="136" width="94" height="60" rx="4" fill="#12212f" stroke="#38bdf8" stroke-width="1.2"/>
+          <text class="pw4-um c" x="751" y="156" style="text-anchor:middle">เริ่มใหม่</text>
+          <text class="pw4-um c" x="751" y="172" style="text-anchor:middle">กับเจ้าเดิม</text></g>
+        </g>
+        <text class="sa n pw4-moot pw4-um" x="700" y="228" style="--i:6.6;text-anchor:middle">สมดุล — เพราะทั้งสองข้าง</text>
+        <text class="sa n pw4-moot pw4-um" x="700" y="246" style="--i:6.6;text-anchor:middle">เริ่มจากศูนย์เท่ากัน</text>
+
+        <text class="pw4-um s" x="700" y="284" style="text-anchor:middle">เส้นที่ลูกค้าปลูกเอง — วันนี้หย่อน</text>
+        <g class="sa n pw4-slack" style="--i:4.4" fill="none" stroke="#7c5410" stroke-width="1.6">
+          <path d="M614 300 C 646 330, 678 330, 710 300"/>
+          <path d="M636 300 C 668 336, 700 336, 732 300"/>
+          <path d="M658 300 C 690 342, 722 342, 754 300"/>
+          <path d="M680 300 C 712 336, 744 336, 776 300"/>
+        </g>
+        <text class="sa n pw4-moot pw4-um s" x="700" y="366" style="--i:8;text-anchor:middle">ไม่มีใครไปตัดมัน — มันหย่อนเอง</text>
+        </svg>
+        </div>
+      </div><figcaption><strong>ความหนืดที่เป็นตัวบทของทั้งตอนนี้ หายไปเฉยๆ</strong> — สังเกตว่าฉากนี้เป็นฉากเดียวในบทที่ทุกอย่าง<em>ลื่น</em> ไม่มีอะไรถูกดีดกลับสักครั้ง ไม่ใช่เพราะกำแพงบางลง แต่เพราะ<strong>ไม่มีใครต้องผ่านกำแพงนั้นอีกแล้ว</strong> — เมื่อ platform เปลี่ยนรุ่นใหญ่ ทุกคนเริ่มเรียนใหม่พร้อมกัน ค่าย้าย "จากของเก่า" กลายเป็นศูนย์ ตาชั่งของ CFO จึงกลับมาสมดุลเป็นครั้งแรก คำถามที่คนถือ SNPS ต้องตามทุกไตรมาส: ยุค AI-assisted design จะเป็น shift แบบนี้ หรือเป็นแค่ฟีเจอร์ที่เจ้าเดิมกลืนได้?</figcaption></figure>
       <ul>
         <li><strong>Platform shift รีเซ็ตทุกอย่าง</strong> — เมื่อเทคโนโลยีเปลี่ยนรุ่นใหญ่
         ทุกคนต้องเริ่มเรียนใหม่พร้อมกัน ค่าย้าย "จากของเก่า" กลายเป็นศูนย์เพราะ
@@ -353,6 +413,63 @@
         แต่อนาคตถูกคู่แข่งเก็บไปเงียบๆ — นี่คือเหตุผลที่ต้องฟัง earnings call
         เรื่อง design win ไม่ใช่ดูแค่รายได้</li>
       </ul>
+
+      <figure class="ph-fig"><div class="ph-panel pw4-panel"><div class="ph-eyebrow pw4">THESIS MONITOR · เส้นแดงถูกเขียนก่อนกดซื้อ</div>
+        <div class="sa-stage">
+        <svg viewBox="0 0 840 430" role="img" aria-label="แผงเฝ้า Kill Conditions ของ Synopsys ที่สกินเป็นแดชบอร์ดสัญญาและ IDE: แถบ backlog เติมอย่างมั่นใจไปที่ 11.4 พันล้านดอลลาร์ ซึ่งเท่ากับรายได้ราวหนึ่งปีครึ่ง แต่แล้วก็ถูกตราปั๊มสีแดงคำว่า LAGGING ทับลงไป เพราะตัวเลขที่ดูดีที่สุดคือตัวที่บอกช้าที่สุด ถัดลงมาเป็นมิเตอร์ adjusted operating margin ที่วันนี้อยู่ราว 39.5 เปอร์เซ็นต์ โดยมีเส้นแดงตั้งไว้ที่ 35 เปอร์เซ็นต์สองไตรมาสติด ฝั่งขวาเป็นแผงเฝ้า dual-source ของทั้งห้าขั้นใน design flow ซึ่งวันนี้ยังเป็น single-source ทุกขั้น และแผง design win โหนดใหม่ที่ถูกติดป้าย LEADING เพราะมันคือสัญญาณที่มาก่อน ต้องฟังจาก earnings call ไม่ใช่รอดูรายได้">
+        <rect x="60" y="26" width="740" height="378" rx="8" fill="#0d1117" stroke="#2a3038" stroke-width="1.6"/>
+        <rect x="60" y="26" width="740" height="30" rx="8" fill="#161b22"/>
+        <text class="pw4-um" x="80" y="45">THESIS MONITOR — SNPS · เส้นแดงเขียนก่อน เข็มขยับทีหลัง</text>
+        <text class="pw4-um" x="780" y="45" style="text-anchor:end">Q2 FY2026</text>
+
+        <text class="pw4-uit" x="84" y="90">Backlog / RPO — $11.4B</text>
+        <rect x="84" y="104" width="346" height="24" rx="3" fill="#161b22" stroke="#2a3038" stroke-width="1.2"/>
+        <rect class="sa n pw4-meter" style="--i:4.5" x="86" y="106" width="258" height="20" rx="2" fill="#38bdf8"/>
+        <text class="pw4-um s" x="86" y="144">0</text>
+        <text class="pw4-um s" x="252" y="144">1 ปี</text>
+        <text class="pw4-um c" x="348" y="144">1.5 ปี ที่เซ็นไว้แล้ว</text>
+        <g class="sa n pw4-tag" style="--i:9">
+          <rect x="150" y="158" width="230" height="28" rx="4" fill="#2a1215" stroke="#f87171" stroke-width="1.6"/>
+          <text class="pw4-et" x="265" y="177" style="text-anchor:middle">LAGGING — บอกทีหลังเสมอ</text>
+        </g>
+        <text class="pw4-um s" x="84" y="204">ลูกค้าเซ็นสั้นลง / ratio หดต่อเนื่อง = ลูกค้ากำลังเปิดทางเลือกให้ตัวเอง</text>
+
+        <text class="pw4-uit" x="84" y="238">adj. operating margin</text>
+        <rect x="84" y="252" width="346" height="24" rx="3" fill="#161b22" stroke="#2a3038" stroke-width="1.2"/>
+        <rect class="sa n pw4-rline" style="--i:1" x="198" y="246" width="2" height="36" fill="#f87171"/>
+        <rect class="sa n pw4-meter" style="--i:5.2" x="86" y="254" width="217" height="20" rx="2" fill="#34d399"/>
+        <text class="sa n pw4-in pw4-um c" style="--i:7.4" x="310" y="269">39.5% วันนี้</text>
+        <text class="pw4-um s" x="86" y="294">30%</text>
+        <text class="pw4-um s" x="410" y="294">45%</text>
+        <text class="sa n pw4-in pw4-um r" style="--i:2" x="120" y="316">เส้นแดง 35%</text>
+        <text class="sa n pw4-in pw4-um r" style="--i:2.2" x="120" y="330">หลุด 2 ไตรมาสติด = ยิง</text>
+        <text class="pw4-um s" x="84" y="352">ต้องลดราคาแลก renewal = Benefit หายแล้ว แม้ Barrier ยังอยู่</text>
+
+        <text class="pw4-uit" x="458" y="90">Dual-source watch</text>
+        <text class="pw4-um s" x="458" y="106">5 ขั้นของ flow — วันนี้ single-source ทุกขั้น</text>
+        <g class="sa n pw4-in" style="--i:5.6"><rect x="458" y="116" width="240" height="20" rx="3" fill="#12212f" stroke="#38bdf8" stroke-width="1.1"/><text class="pw4-um c" x="470" y="130">Synthesis</text><text class="pw4-um s" x="688" y="130" style="text-anchor:end">single</text></g>
+        <g class="sa n pw4-in" style="--i:5.8"><rect x="458" y="140" width="240" height="20" rx="3" fill="#12212f" stroke="#38bdf8" stroke-width="1.1"/><text class="pw4-um c" x="470" y="154">Place &amp; Route</text><text class="pw4-um s" x="688" y="154" style="text-anchor:end">single</text></g>
+        <g class="sa n pw4-in" style="--i:6"><rect x="458" y="164" width="240" height="20" rx="3" fill="#12212f" stroke="#38bdf8" stroke-width="1.1"/><text class="pw4-um c" x="470" y="178">Timing signoff</text><text class="pw4-um s" x="688" y="178" style="text-anchor:end">single</text></g>
+        <g class="sa n pw4-in" style="--i:6.2"><rect x="458" y="188" width="240" height="20" rx="3" fill="#12212f" stroke="#38bdf8" stroke-width="1.1"/><text class="pw4-um c" x="470" y="202">Verification</text><text class="pw4-um s" x="688" y="202" style="text-anchor:end">single</text></g>
+        <g class="sa n pw4-in" style="--i:6.4"><rect x="458" y="212" width="240" height="20" rx="3" fill="#12212f" stroke="#38bdf8" stroke-width="1.1"/><text class="pw4-um c" x="470" y="226">Physical signoff</text><text class="pw4-um s" x="688" y="226" style="text-anchor:end">single</text></g>
+        <rect class="sa n pw4-hline" style="--i:1.6" x="458" y="242" width="318" height="2" fill="#f87171"/>
+        <text class="sa n pw4-in pw4-um r" style="--i:2.4" x="458" y="262">เส้นแดง: ลูกค้าใหญ่ validate ของคู่แข่งจริง</text>
+        <text class="sa n pw4-in pw4-um r" style="--i:2.6" x="458" y="276">แม้แค่ขั้นเดียว = กำแพงโดนเลื่อยแล้ว</text>
+
+        <g class="sa n pw4-tag" style="--i:9.6">
+          <rect x="458" y="296" width="150" height="24" rx="4" fill="#0f2a1d" stroke="#34d399" stroke-width="1.4"/>
+          <text class="pw4-um" x="533" y="312" fill="#6ee7b7" style="text-anchor:middle">LEADING</text>
+        </g>
+        <text class="pw4-uit" x="620" y="313">Design win โหนดใหม่</text>
+        <text class="pw4-um s" x="458" y="338">ฐานเก่ายังจ่ายอยู่ งบจึงยังสวย — อนาคตถูกเก็บไปเงียบๆ</text>
+        <text class="pw4-um s" x="458" y="352">ต้องฟังจาก earnings call ไม่ใช่รอดูรายได้</text>
+
+        <rect x="84" y="366" width="692" height="26" rx="4" fill="#0a0f14" stroke="#2a3038" stroke-width="1.2"/>
+        <text class="sa n pw4-cursor pw4-um" style="--i:11" x="98" y="383" fill="#34d399">$ assert kill_conditions --before-buy</text>
+        <text class="sa n pw4-cursor pw4-um s" style="--i:11.2" x="400" y="383">// เขียนเส้นให้เสร็จก่อน commit — ไม่ใช่หลังงบออก</text>
+        </svg>
+        </div>
+      </div><figcaption><strong>ตัวเลขที่ดูดีที่สุดในบทนี้ คือตัวที่บอกคุณช้าที่สุด</strong> — backlog $11.4B เท่ากับรายได้ปีครึ่งที่ล็อกไว้แล้ว ฟังดูเหมือนเกราะ แต่มันคือ <em>lagging indicator</em>: ฐานเก่ายังจ่ายอยู่ทำให้งบสวยต่อไปได้อีกหลายไตรมาส ขณะที่อำนาจกำลังไหลออกทาง design win ของโปรเจคใหม่ที่คู่แข่งเก็บไปเงียบๆ — เส้นแดงที่ต้องเฝ้าจริงจึงเป็นเส้นที่ยังไม่โผล่ในงบ: ลูกค้ารายใหญ่เริ่ม <strong>validate เครื่องมือคู่แข่งจริง</strong> แม้แค่ขั้นเดียวใน flow และ margin ที่ต้องยอมลดเพื่อรั้ง renewal (เส้นแดง 35% สองไตรมาสติด)</figcaption></figure>
 
       <h2 id="sec-9">สรุป: อำนาจที่ลูกค้าเป็นคนก่อสร้างให้</h2>
       <p>

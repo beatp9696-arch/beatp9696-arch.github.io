@@ -82,3 +82,33 @@
 .pw6-blocked { filter: saturate(.5); opacity: .55; }
 
 @media (prefers-reduced-motion: reduce) { .pw6-pulse { opacity: 0; } }
+
+/* ── ฉาก 4 · §6 กับดักตัวจริง: moat 10/10 ที่ราคาผิด ──────────
+   ★ ฝั่งเครื่อง = แม่นเป๊ะทุกเฟรมเหมือนเดิม (--e-mech) — เพราะ moat มัน *ไม่ได้เสีย* จริงๆ
+     สิ่งที่เสียอยู่คนละอย่าง: ราคา
+   ★ ท่าหลัก = divergence — สองแถบออกจากจุดเดียวกัน
+     "แถบที่ตลาดจ่ายไปแล้ว" ถูกเติมเต็มตั้งแต่ beat แรก (ตลาดจ่ายค่าอนาคตไปแล้ว)
+     "แถบที่ธุรกิจทำได้วันนี้" คืบขึ้นช้าๆ ทีหลัง — ช่องว่างระหว่างสองแถบ = ความเสี่ยงที่เราถือ
+   markup = สถานะจบ: ช่องว่างเปิดอยู่แล้ว */
+.pw6-paid { transform-origin: left center; transform-box: fill-box; animation: pw6paid .8s var(--e-mech); }
+@keyframes pw6paid { from { transform: scaleX(0); } }
+.pw6-real { transform-origin: left center; transform-box: fill-box; animation: pw6real 2.4s var(--e-expo); }
+@keyframes pw6real { from { transform: scaleX(0); } }
+.pw6-gap  { animation: pw6gap .8s var(--e-expo); }
+@keyframes pw6gap { from { opacity: 0; transform: translateY(8px); } }
+.pw6-tick { animation: pw6tick .5s steps(4, jump-none); }
+@keyframes pw6tick { from { opacity: 0; } }
+
+/* ── ฉาก 5 · §7 THESIS MONITOR — สกินเป็นแผงคุมเครื่อง EUV ────
+   ★ เส้นแดงถูกวาดก่อน เข็มขยับทีหลัง — แต่ที่นี่เส้นถูกวาดแบบ "เครื่องจักร" (--e-mech, steps)
+     ไม่มีอะไรลื่นไหล ฉากนี้ต้อง "แม่น" ทุกเฟรม เหมือนตัวเครื่องเอง */
+.pw6-rl   { transform-origin: left center; transform-box: fill-box; animation: pw6rl .8s var(--e-mech); }
+@keyframes pw6rl { from { transform: scaleX(0); } }
+.pw6-rv   { transform-origin: bottom center; transform-box: fill-box; animation: pw6rv .8s var(--e-mech); }
+@keyframes pw6rv { from { transform: scaleY(0); } }
+.pw6-nd   { transform-origin: left center; transform-box: fill-box; animation: pw6nd 1.8s var(--e-expo); }
+@keyframes pw6nd { from { transform: scaleX(0); } }
+.pw6-led  { animation: pw6led .4s steps(2, jump-none); }
+@keyframes pw6led { from { opacity: 0; } }
+.pw6-big  { font-family: var(--font-head); font-size: 26px; font-weight: 800; fill: #f59e0b; letter-spacing: -.02em; }
+.pw6-big.c { fill: #7dd3fc; }
