@@ -1,0 +1,129 @@
+/* ============================================================
+   moat-break-02-nokia — scene CSS (โหลดเฉพาะบทนี้)
+   ฟิสิกส์ของธุรกิจนี้: สนามที่หมุนไปจากใต้เท้า
+
+   "ถ้าธุรกิจนี้เป็นระบบทางฟิสิกส์ มันคือระบบอะไร แล้วอะไรคือแรงที่ทำให้มันชนะ"
+     → Nokia = เครื่องจักรที่แม่นยำที่สุดในโลก บนแกนวัดแกนหนึ่ง
+       แรงที่ทำให้ชนะ = ทำของถูกที่สุด ทนที่สุด แบตอึดที่สุด — ทีละร้อยล้านเครื่อง
+       การตาย = *แกนวัดหมุนไป 90 องศา* ตำแหน่งที่ดีที่สุดบนแกนเก่า = ศูนย์บนแกนใหม่
+
+   กฎการเคลื่อนไหวข้อเดียวที่สำคัญที่สุดของบทนี้:
+     **ห้ามทำให้ Nokia ดู "ช้าลง" "อ่อนแรง" หรือ "จางหาย" เด็ดขาด**
+     Nokia ขยับเร็ว แม่น และถูกต้องตลอดทั้งฉาก (--e-mass / steps = เครื่องจักรที่เดินเต็มกำลัง)
+     สิ่งที่เปลี่ยนคือ *พื้น* ไม่ใช่ตัวเขา — บรรทัดที่ 7 มาจากนอกตาราง (--e-spread)
+     แล้วชัยชนะทั้งหกบรรทัดก็จางลงพร้อมกัน โดยที่ Nokia ไม่ได้ทำอะไรผิดสักอย่าง
+
+   กฎไฟล์นี้: markup = สถานะจบเสมอ · ทุก @keyframes จบที่ 100% = สถานะใน markup
+   ============================================================ */
+
+.mb2-panel { background: radial-gradient(140% 120% at 50% 0%, #0d1526 0%, #05080f 72%); border-color: #1e3358; }
+.ph-eyebrow.mb2 { color: #4d90ff; }
+
+.mb2-panel .sa-stage { container-type: inline-size; }
+
+/* ── ภาษาของอุปกรณ์จริง: แผงตัวเลขผู้บริหาร / ตารางสเปก / บันทึกภายในบนกระดาษ ── */
+.mb2-t     { font-family: var(--font-head); font-size: 13px; font-weight: 700; fill: #dbe6f5; letter-spacing: .04em; }
+.mb2-t7    { font-family: var(--font-head); font-size: 14px; font-weight: 800; fill: #bcd8ff; }
+.mb2-lab   { font-family: var(--font-head); font-size: 12.5px; font-weight: 600; fill: #8296b3; }
+.mb2-big   { font-family: var(--font-head); font-size: 30px; font-weight: 800; fill: #eaf1fb; }
+.mb2-m     { font-family: "IBM Plex Mono", ui-monospace, monospace; font-size: 12px; fill: #9db0cc; }
+.mb2-m.s   { font-size: 10.5px; fill: #64789a; }
+.mb2-m.g   { fill: #3ddc97; }
+.mb2-m.r   { fill: #ed4245; }
+.mb2-m.b   { font-weight: 700; }
+.mb2-tick  { font-family: var(--font-head); font-size: 17px; font-weight: 800; fill: #3ddc97; }
+.mb2-tick.b { fill: #6bf0b4; }
+.mb2-cross { font-family: var(--font-head); font-size: 17px; font-weight: 800; fill: #ed4245; }
+/* กระดาษจริง = หมึกเข้มบนพื้นสว่าง */
+.mb2-p     { font-family: "IBM Plex Mono", ui-monospace, monospace; font-size: 12px; fill: #2d3646; }
+.mb2-p.b   { font-family: var(--font-head); font-weight: 800; font-size: 15px; fill: #10151f; }
+.mb2-p.s   { font-size: 10px; fill: #7b8698; }
+
+.mb2-chip   { font-size: 1.55cqw; color: #4d90ff; background: rgba(6,10,18,.88);
+              border: 1px solid #24406b; border-radius: 6px; padding: .35em .6em; opacity: 0; }
+.mb2-chip.r { color: #ed4245; border-color: #6b2626; }
+/* chip นี้ตั้งคลาสเอง จึงต้อง counter-reset เอง (.sa-num ใน style.css เป็นตัวพา counter-reset มา) */
+.mb2-chip.sa-lost        { counter-reset: n var(--n); }
+.mb2-chip.sa-lost::after { content: "−" counter(n) "% หลังผ่านไป 19 ปี"; }
+
+.mb2-bar1, .mb2-bar2, .mb2-now, .mb2-row7 {
+  transform-box: fill-box; transform-origin: center;
+}
+
+@keyframes mb2-rise { from { opacity: 0; transform: translateY(12px); } }
+@keyframes mb2-fade { from { opacity: 0; } }
+
+/* ============================================================
+   ฉาก 1 + ฉาก 4 — แผงตัวเลขผู้บริหาร (ใช้คลาสชุดเดียวกันโดยตั้งใจ)
+   ฉาก 4 คือ "แผงเดียวกันเป๊ะ 19 ปีต่อมา" — เขียวทุกช่องเหมือนเดิม ไม่มีสัญญาณเตือนเหมือนเดิม
+   ความหมายอยู่ที่ *ความเหมือน* ระหว่างสองฉากนี้ ไม่ใช่ที่ฉากใดฉากหนึ่ง
+   ============================================================ */
+.playing .mb2-kpi  { animation: mb2-rise calc(var(--beat) * 1.2) var(--e-mass); }
+.playing .mb2-warn { animation: mb2-fade calc(var(--beat) * 1.6) var(--e-expo); }
+
+/* ============================================================
+   ฉาก 2 — ตารางเทียบสเปก 2007  ★ ฉากหลักของบท
+   บรรทัด 1–6: Nokia ชนะขาด ขยับแบบเครื่องจักรที่แม่นยำ (ไม่ลังเล ไม่อ่อนแรง)
+   เงียบ 1 beat (beat 5) → บรรทัดที่ 7 ผุดจากนอกตาราง (--e-spread)
+   → ชัยชนะทั้งหกบรรทัดจางลงพร้อมกัน โดย Nokia ไม่ได้ทำอะไรผิดเลย
+   ============================================================ */
+.playing .mb2-row   { animation: mb2-row calc(var(--beat) * .9) var(--e-mass); }
+@keyframes mb2-row  { from { opacity: 0; transform: translateX(-14px); } }
+.playing .mb2-score { animation: mb2-rise calc(var(--beat) * 1.2) var(--e-mass); }
+
+/* บรรทัดที่ 7 — มาจากนอกตาราง แล้วแผ่ออก */
+.playing .mb2-row7 { animation: mb2-row7 calc(var(--beat) * 2) var(--e-spread); }
+@keyframes mb2-row7 { from { opacity: 0; transform: scaleY(.2) translateY(26px); } }
+
+/* หกบรรทัดที่ชนะ จางลงเมื่อบรรทัดที่ 7 มาถึง — สถานะจบ = .42 (ยังอ่านออก แต่หมดความสำคัญ) */
+.mb2-fade6 { opacity: .42; }
+.playing .mb2-fade6 { animation: mb2-irrelevant calc(var(--beat) * 2.4) var(--e-expo); }
+@keyframes mb2-irrelevant { from { opacity: 1; } to { opacity: .42; } }
+
+/* ============================================================
+   ฉาก 3 — 2011 burning platform + ราคาที่ธุรกิจถูกขายไป
+   ============================================================ */
+.playing .mb2-memo { animation: mb2-rise calc(var(--beat) * 1.6) var(--e-mass); }
+
+.mb2-bar1, .mb2-bar2 { transform-origin: left center; }
+.playing .mb2-bar1 { animation: mb2-grow calc(var(--beat) * 2) var(--e-mass); }
+.playing .mb2-bar2 { animation: mb2-grow calc(var(--beat) * 1.4) var(--e-fail); }
+@keyframes mb2-grow { from { transform: scaleX(0); } }
+.playing .mb2-verdict { animation: mb2-rise calc(var(--beat) * 1.6) var(--e-expo); }
+
+/* ambient (1 ท่า): เปลวไฟบนแท่นขุดเจาะ — ไฟที่ยังไหม้อยู่จริงตลอดฉาก */
+.mb2-flame { transform-box: fill-box; transform-origin: center bottom; }
+.playing .mb2-flame { animation: mb2-flame 1.6s ease-in-out calc(var(--i, 0) * .21s) infinite; }
+@keyframes mb2-flame { 0%, 100% { transform: scaleY(1); opacity: .8; } 50% { transform: scaleY(1.28); opacity: .92; } }
+
+/* ============================================================
+   ฉาก 5 — 2007 → 2026: เส้นธุรกิจฟื้น เส้นราคาไม่กลับ  ★ หมัดเด็ดของซีรีส์
+   divergence: ราคาดิ่ง (--e-fail) แล้วจมยาว · ธุรกิจฟื้นแรงตอนท้าย (--e-spread)
+   เส้นทุน $42.22 = เส้นเดียวในฉากที่ *ไม่ขยับเลยแม้แต่เฟรมเดียว* — นั่นคืออาร์กิวเมนต์
+   ============================================================ */
+.mb2-price { stroke-dasharray: 100; stroke-dashoffset: 0; }
+.playing .mb2-price { animation: mb2-draw calc(var(--beat) * 5) var(--e-fail); }
+@keyframes mb2-draw { from { stroke-dashoffset: 100; } }
+
+.mb2-biz { stroke-dasharray: 100; stroke-dashoffset: 0; }
+.playing .mb2-biz { animation: mb2-draw calc(var(--beat) * 2.6) var(--e-spread); }
+.playing .mb2-bizlab { animation: mb2-fade calc(var(--beat) * 1.6) var(--e-expo); }
+
+.playing .mb2-now { animation: mb2-pop calc(var(--beat) * .8) var(--e-mass); }
+@keyframes mb2-pop { from { opacity: 0; transform: scale(0); } }
+
+/* ช่องว่างที่ข่าวดีทั้งหมดของปี 2026 ยังปิดไม่ลง — ขยับท้ายสุด ให้สายตาถูกพาไปถึง */
+.playing .mb2-gap { animation: mb2-fade calc(var(--beat) * 1.8) var(--e-expo); }
+
+/* counter: −70% (จาก $42.22 พ.ย. 2007 → $12.44 วันที่ 10 ก.ค. 2026) */
+.playing .mb2-chip.sa-lost { animation: mb2-lost calc(var(--beat) * 2) var(--e-fail) calc(var(--beat) * 8.4) both; }
+@keyframes mb2-lost { from { --n: 0; opacity: 0; } 20% { opacity: 1; } to { --n: 70; opacity: 1; } }
+
+/* ============================================================
+   Accessibility — ปิด animation แล้วต้องตกที่ "สถานะจบ" พอดี
+   ============================================================ */
+@media (prefers-reduced-motion: reduce) {
+  .ph-panel .sa { animation: none !important; }
+  .mb2-chip { opacity: 1; }
+  .mb2-chip.sa-lost { --n: 70; }
+}
