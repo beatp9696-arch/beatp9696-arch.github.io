@@ -1,0 +1,164 @@
+/* ============================================================
+   moat-break-03-intel — scene CSS (โหลดเฉพาะบทนี้)
+   ฟิสิกส์ของธุรกิจนี้: วงรอบการเรียนรู้ที่ถูก reset
+
+   "ถ้าธุรกิจนี้เป็นระบบทางฟิสิกส์ มันคือระบบอะไร แล้วอะไรคือแรงที่ทำให้มันชนะ"
+     → Intel = วงล้อการเรียนรู้ (แบบเดียวกับ TSMC ใน powers-07) แต่ *ตัวเก็บค่าพัง*
+       แรงที่เคยทำให้ชนะ = ทุกโหนดที่ผ่านไป ความรู้ทับถมกัน จนคู่แข่งไล่ไม่ทัน (Tick-Tock)
+       การตาย = ล้อยังหมุนเต็มแรง (เงินเทมหาศาล คนเก่งเต็มบริษัท) แต่ทุกครั้งที่ครบรอบ
+                มาตรวัดถูกดีดกลับเป็นศูนย์ — เรียนรู้แล้วลืม
+
+   ★ powers-07 (TSMC) เขียนไว้ว่า "ห้ามเด็ดขาด: loop ที่วนกลับไปสถานะเดิม"
+     บทนี้คือบทที่ข้อห้ามนั้น *เป็นเนื้อหา* — ต้องเห็นล้อสองใบเทียบกันในฉากเดียว
+
+   กฎการเคลื่อนไหว:
+     ล้อทั้งสองใบ **หมุนด้วยความเร็วเท่ากันเป๊ะ** (ห้ามทำให้ล้อ Intel ดูช้าหรืออ่อนแรง —
+     ความพยายามไม่ใช่ปัญหา การไม่สะสมต่างหากที่เป็น)
+     ต่างกันที่ *มาตรวัด* เท่านั้น: ฝั่งหนึ่งค้าง ฝั่งหนึ่งถูกดีดกลับ (--e-fail)
+     ความรู้ที่สะสมได้จริง = ของหนักที่ไม่มีทางลัด (--e-mass)
+
+   กฎไฟล์นี้: markup = สถานะจบเสมอ · ทุก @keyframes จบที่ 100% = สถานะใน markup
+   ============================================================ */
+
+.mb3-panel { background: radial-gradient(140% 120% at 50% 0%, #0a141a 0%, #05090c 72%); border-color: #1d3a4a; }
+.ph-eyebrow.mb3 { color: #4bb3d4; }
+
+.mb3-panel .sa-stage { container-type: inline-size; }
+
+/* ── ภาษาของอุปกรณ์จริง: จอ roadmap โรงงาน / มาตรวัด / เอกสารจัดซื้อ ── */
+.mb3-t     { font-family: var(--font-head); font-size: 13px; font-weight: 700; fill: #d6e6ee; letter-spacing: .04em; }
+.mb3-t.r   { fill: #f08b8b; }
+.mb3-node  { font-family: "IBM Plex Mono", ui-monospace, monospace; font-size: 13px; font-weight: 700; fill: #8fd4ea; }
+.mb3-big   { font-family: var(--font-head); font-size: 28px; font-weight: 800; fill: #e6f2f7; }
+.mb3-m     { font-family: "IBM Plex Mono", ui-monospace, monospace; font-size: 12px; fill: #93aebb; }
+.mb3-m.s   { font-size: 10.5px; fill: #6b8794; }
+.mb3-m.g   { fill: #3ddc97; }
+.mb3-m.r   { fill: #ed4245; }
+.mb3-m.b   { font-weight: 700; }
+/* กระดาษจริง */
+.mb3-p     { font-family: "IBM Plex Mono", ui-monospace, monospace; font-size: 12px; fill: #333b46; }
+.mb3-p.b   { font-weight: 700; fill: #13181f; }
+.mb3-p.b.r { fill: #a01c22; }
+.mb3-p.s   { font-size: 10px; fill: #7e8896; }
+.mb3-stamp-t { font-family: var(--font-head); font-size: 16px; font-weight: 800; letter-spacing: .06em; fill: #a01c22; }
+
+.mb3-chip   { font-size: 1.55cqw; color: #4bb3d4; background: rgba(5,9,12,.88);
+              border: 1px solid #234b5c; border-radius: 6px; padding: .35em .6em; opacity: 0; }
+.mb3-chip.r { color: #ed4245; border-color: #6b2626; }
+/* chip ตั้งคลาสเอง → ต้อง counter-reset เอง (.sa-num ใน style.css เป็นตัวพา counter-reset มา) */
+.mb3-chip.sa-ext        { counter-reset: n var(--n); }
+.mb3-chip.sa-ext::after { content: "ลูกค้าภายนอก = " counter(n) "% ของรายได้ foundry"; }
+
+.mb3-gauge-i, .mb3-gauge-t1, .mb3-hold, .mb3-fbar, .mb3-fbar2, .mb3-lead, .mb3-stamp {
+  transform-box: fill-box; transform-origin: center;
+}
+
+@keyframes mb3-rise { from { opacity: 0; transform: translateY(12px); } }
+@keyframes mb3-fade { from { opacity: 0; } }
+@keyframes mb3-grow { from { transform: scaleX(0); } }
+
+/* ============================================================
+   ฉาก 1 — Tick-Tock: เมโทรนอมที่ไม่เคยพลาด
+   ทุกโหนดมาตรงเวลา = ขยับเป็นสเต็ปที่แม่นยำ ไม่มีลังเล
+   ============================================================ */
+.playing .mb3-tick { animation: mb3-tick calc(var(--beat) * .7) var(--e-mass); }
+@keyframes mb3-tick { from { opacity: 0; transform: translateY(10px) scaleY(.4); } }
+.mb3-tick { transform-box: fill-box; transform-origin: center bottom; }
+
+.mb3-lead { transform-origin: left center; }
+.playing .mb3-lead { animation: mb3-grow calc(var(--beat) * 2.2) var(--e-mass); }
+
+/* ============================================================
+   ฉาก 2 — วงล้อสองใบ  ★ ฉากหลักของบท
+   ล้อหมุนด้วย "ความเร็วเท่ากันเป๊ะ" ทั้งสองฝั่ง — ความต่างอยู่ที่มาตรวัดเท่านั้น
+   (ถ้าทำให้ล้อ Intel หมุนช้ากว่า = เล่าผิด แปลว่า Intel ไม่พยายาม ซึ่งไม่จริง)
+   ============================================================ */
+.mb3-wheel-i, .mb3-wheel-t { transform-box: fill-box; transform-origin: center; }
+.playing .mb3-wheel-i,
+.playing .mb3-wheel-t { animation: mb3-spin 2.4s linear infinite; }
+@keyframes mb3-spin { to { transform: rotate(360deg); } }
+
+/* ฝั่ง Intel: มาตรวัดเต็มแล้วถูกดีดกลับเป็นศูนย์ ซ้ำแล้วซ้ำเล่า
+   สถานะจบ = ว่างเปล่า (scaleX 0) — เพราะจบรอบสุดท้ายก็ยังไม่เหลืออะไร */
+.mb3-gauge-i { transform-origin: left center; transform: scaleX(0); }
+.playing .mb3-gauge-i { animation: mb3-reset calc(var(--beat) * 8) var(--e-fail); }
+@keyframes mb3-reset {
+  0%   { transform: scaleX(0); }
+  18%  { transform: scaleX(.72); }   /* สะสมได้ */
+  20%  { transform: scaleX(0); }     /* แล้วหาย */
+  43%  { transform: scaleX(.78); }
+  45%  { transform: scaleX(0); }
+  68%  { transform: scaleX(.7); }
+  70%  { transform: scaleX(0); }
+  93%  { transform: scaleX(.8); }
+  100% { transform: scaleX(0); }
+}
+.playing .mb3-reset  { animation: mb3-fade calc(var(--beat) * .8) var(--e-fail); }
+.playing .mb3-note-i { animation: mb3-fade calc(var(--beat) * 1.4) var(--e-expo); }
+
+/* ฝั่ง TSMC: มาตรวัดขึ้นทีละขั้น ไม่เคยถอย — ของหนักที่ไม่มีทางลัด
+   สถานะจบ = เต็ม (scaleX 1) */
+.mb3-gauge-t1 { transform-origin: left center; }
+.playing .mb3-gauge-t1 { animation: mb3-accumulate calc(var(--beat) * 8) var(--e-mass); }
+@keyframes mb3-accumulate {
+  0%   { transform: scaleX(0); }
+  25%  { transform: scaleX(.42); }
+  50%  { transform: scaleX(.68); }
+  75%  { transform: scaleX(.86); }
+  100% { transform: scaleX(1); }     /* ไม่มีจังหวะไหนที่ถอยกลับเลย */
+}
+.playing .mb3-step   { animation: mb3-rise calc(var(--beat) * 1) var(--e-mass); }
+.playing .mb3-note-t { animation: mb3-fade calc(var(--beat) * 1.4) var(--e-expo); }
+.playing .mb3-punch  { animation: mb3-rise calc(var(--beat) * 1.8) var(--e-expo); }
+
+/* ============================================================
+   ฉาก 3 — ใบสั่งซื้อที่หักตัวตนของบริษัทตัวเอง
+   ============================================================ */
+.playing .mb3-doc   { animation: mb3-rise calc(var(--beat) * 1.6) var(--e-mass); }
+.playing .mb3-creed { animation: mb3-fade calc(var(--beat) * 1.4) var(--e-expo); }
+
+/* เส้นขีดฆ่าคำขวัญ — ลากผ่านจากซ้ายไปขวา สถานะจบ = ขีดทับครบทั้งสามบรรทัด
+   (วาดด้วย stroke-dashoffset ไม่ใช่ animate x2 — geometry property ผ่าน CSS ไม่ชัวร์บน WebKit) */
+.mb3-strike { stroke-dasharray: 100; stroke-dashoffset: 0; }
+.playing .mb3-strike { animation: mb3-strike calc(var(--beat) * 1.6) var(--e-fail); }
+@keyframes mb3-strike { from { stroke-dashoffset: 100; } }
+
+.playing .mb3-stamp { animation: mb3-stamp calc(var(--beat) * 1) var(--e-mass); }
+@keyframes mb3-stamp { from { opacity: 0; transform: scale(1.6) rotate(-5deg); } }
+
+/* ============================================================
+   ฉาก 4 — 2026: มาตรวัดใบเดิม แต่คราวนี้ "ไม่ reset"
+   ความหมายอยู่ที่การเทียบกับฉาก 2 — ต้องใช้มาตรวัดหน้าตาเดียวกัน
+   ============================================================ */
+.mb3-hold { transform-origin: left center; }
+.playing .mb3-hold    { animation: mb3-accumulate calc(var(--beat) * 4.4) var(--e-mass); }
+.playing .mb3-holdlab { animation: mb3-fade calc(var(--beat) * 1.4) var(--e-expo); }
+.playing .mb3-kpi     { animation: mb3-rise calc(var(--beat) * 1.2) var(--e-mass); }
+
+/* ============================================================
+   ฉาก 5 — ใบเสร็จ: คูเมืองที่ซ่อมกลับมา เล็กกว่าเดิมมาก
+   หมัดเด็ด: แท่ง foundry $5.4B ยาวเต็ม ปะทะแท่งลูกค้าภายนอก $174M ที่แทบมองไม่เห็น
+   ============================================================ */
+.playing .mb3-item { animation: mb3-fade calc(var(--beat) * 1) var(--e-expo); }
+
+.mb3-fbar, .mb3-fbar2 { transform-origin: left center; }
+.playing .mb3-fbar  { animation: mb3-grow calc(var(--beat) * 2) var(--e-mass); }
+/* แท่งลูกค้าจริง: ออกตัวเหมือนจะยาว แล้วจบแค่นิดเดียว (--e-fail) */
+.playing .mb3-fbar2 { animation: mb3-grow calc(var(--beat) * 1.6) var(--e-fail); }
+.playing .mb3-fnum,
+.playing .mb3-fverdict { animation: mb3-fade calc(var(--beat) * 1.4) var(--e-expo); }
+
+/* counter: 3% (174 / 5,400) — เลขจริงจาก 10-Q Q1 2026 */
+.playing .mb3-chip.sa-ext { animation: mb3-ext calc(var(--beat) * 1.6) var(--e-fail) calc(var(--beat) * 9) both; }
+@keyframes mb3-ext { from { --n: 0; opacity: 0; } 20% { opacity: 1; } to { --n: 3; opacity: 1; } }
+
+/* ============================================================
+   Accessibility — ปิด animation แล้วต้องตกที่ "สถานะจบ" พอดี
+   ============================================================ */
+@media (prefers-reduced-motion: reduce) {
+  .ph-panel .sa { animation: none !important; }
+  .mb3-chip { opacity: 1; }
+  .mb3-chip.sa-ext { --n: 3; }
+  /* มาตรวัด Intel: สถานะจบคือว่างเปล่าอยู่แล้ว (ถูกต้องตามสาระ) แต่ต้องเห็นรางว่ามีอยู่ */
+  .mb3-gauge-i { transform: scaleX(0); }
+}

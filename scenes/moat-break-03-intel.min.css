@@ -1,0 +1,89 @@
+.mb3-panel { background: radial-gradient(140% 120% at 50% 0%, #0a141a 0%, #05090c 72%); border-color: #1d3a4a; }
+.ph-eyebrow.mb3 { color: #4bb3d4; }
+.mb3-panel .sa-stage { container-type: inline-size; }
+.mb3-t     { font-family: var(--font-head); font-size: 13px; font-weight: 700; fill: #d6e6ee; letter-spacing: .04em; }
+.mb3-t.r   { fill: #f08b8b; }
+.mb3-node  { font-family: "IBM Plex Mono", ui-monospace, monospace; font-size: 13px; font-weight: 700; fill: #8fd4ea; }
+.mb3-big   { font-family: var(--font-head); font-size: 28px; font-weight: 800; fill: #e6f2f7; }
+.mb3-m     { font-family: "IBM Plex Mono", ui-monospace, monospace; font-size: 12px; fill: #93aebb; }
+.mb3-m.s   { font-size: 10.5px; fill: #6b8794; }
+.mb3-m.g   { fill: #3ddc97; }
+.mb3-m.r   { fill: #ed4245; }
+.mb3-m.b   { font-weight: 700; }
+.mb3-p     { font-family: "IBM Plex Mono", ui-monospace, monospace; font-size: 12px; fill: #333b46; }
+.mb3-p.b   { font-weight: 700; fill: #13181f; }
+.mb3-p.b.r { fill: #a01c22; }
+.mb3-p.s   { font-size: 10px; fill: #7e8896; }
+.mb3-stamp-t { font-family: var(--font-head); font-size: 16px; font-weight: 800; letter-spacing: .06em; fill: #a01c22; }
+.mb3-chip   { font-size: 1.55cqw; color: #4bb3d4; background: rgba(5,9,12,.88);
+border: 1px solid #234b5c; border-radius: 6px; padding: .35em .6em; opacity: 0; }
+.mb3-chip.r { color: #ed4245; border-color: #6b2626; }
+.mb3-chip.sa-ext        { counter-reset: n var(--n); }
+.mb3-chip.sa-ext::after { content: "ลูกค้าภายนอก = " counter(n) "% ของรายได้ foundry"; }
+.mb3-gauge-i, .mb3-gauge-t1, .mb3-hold, .mb3-fbar, .mb3-fbar2, .mb3-lead, .mb3-stamp {
+transform-box: fill-box; transform-origin: center;
+}
+@keyframes mb3-rise { from { opacity: 0; transform: translateY(12px); } }
+@keyframes mb3-fade { from { opacity: 0; } }
+@keyframes mb3-grow { from { transform: scaleX(0); } }
+.playing .mb3-tick { animation: mb3-tick calc(var(--beat) * .7) var(--e-mass); }
+@keyframes mb3-tick { from { opacity: 0; transform: translateY(10px) scaleY(.4); } }
+.mb3-tick { transform-box: fill-box; transform-origin: center bottom; }
+.mb3-lead { transform-origin: left center; }
+.playing .mb3-lead { animation: mb3-grow calc(var(--beat) * 2.2) var(--e-mass); }
+.mb3-wheel-i, .mb3-wheel-t { transform-box: fill-box; transform-origin: center; }
+.playing .mb3-wheel-i,
+.playing .mb3-wheel-t { animation: mb3-spin 2.4s linear infinite; }
+@keyframes mb3-spin { to { transform: rotate(360deg); } }
+.mb3-gauge-i { transform-origin: left center; transform: scaleX(0); }
+.playing .mb3-gauge-i { animation: mb3-reset calc(var(--beat) * 8) var(--e-fail); }
+@keyframes mb3-reset {
+0%   { transform: scaleX(0); }
+18%  { transform: scaleX(.72); }
+20%  { transform: scaleX(0); }
+43%  { transform: scaleX(.78); }
+45%  { transform: scaleX(0); }
+68%  { transform: scaleX(.7); }
+70%  { transform: scaleX(0); }
+93%  { transform: scaleX(.8); }
+100% { transform: scaleX(0); }
+}
+.playing .mb3-reset  { animation: mb3-fade calc(var(--beat) * .8) var(--e-fail); }
+.playing .mb3-note-i { animation: mb3-fade calc(var(--beat) * 1.4) var(--e-expo); }
+.mb3-gauge-t1 { transform-origin: left center; }
+.playing .mb3-gauge-t1 { animation: mb3-accumulate calc(var(--beat) * 8) var(--e-mass); }
+@keyframes mb3-accumulate {
+0%   { transform: scaleX(0); }
+25%  { transform: scaleX(.42); }
+50%  { transform: scaleX(.68); }
+75%  { transform: scaleX(.86); }
+100% { transform: scaleX(1); }
+}
+.playing .mb3-step   { animation: mb3-rise calc(var(--beat) * 1) var(--e-mass); }
+.playing .mb3-note-t { animation: mb3-fade calc(var(--beat) * 1.4) var(--e-expo); }
+.playing .mb3-punch  { animation: mb3-rise calc(var(--beat) * 1.8) var(--e-expo); }
+.playing .mb3-doc   { animation: mb3-rise calc(var(--beat) * 1.6) var(--e-mass); }
+.playing .mb3-creed { animation: mb3-fade calc(var(--beat) * 1.4) var(--e-expo); }
+.mb3-strike { stroke-dasharray: 100; stroke-dashoffset: 0; }
+.playing .mb3-strike { animation: mb3-strike calc(var(--beat) * 1.6) var(--e-fail); }
+@keyframes mb3-strike { from { stroke-dashoffset: 100; } }
+.playing .mb3-stamp { animation: mb3-stamp calc(var(--beat) * 1) var(--e-mass); }
+@keyframes mb3-stamp { from { opacity: 0; transform: scale(1.6) rotate(-5deg); } }
+.mb3-hold { transform-origin: left center; }
+.playing .mb3-hold    { animation: mb3-accumulate calc(var(--beat) * 4.4) var(--e-mass); }
+.playing .mb3-holdlab { animation: mb3-fade calc(var(--beat) * 1.4) var(--e-expo); }
+.playing .mb3-kpi     { animation: mb3-rise calc(var(--beat) * 1.2) var(--e-mass); }
+.playing .mb3-item { animation: mb3-fade calc(var(--beat) * 1) var(--e-expo); }
+.mb3-fbar, .mb3-fbar2 { transform-origin: left center; }
+.playing .mb3-fbar  { animation: mb3-grow calc(var(--beat) * 2) var(--e-mass); }
+.playing .mb3-fbar2 { animation: mb3-grow calc(var(--beat) * 1.6) var(--e-fail); }
+.playing .mb3-fnum,
+.playing .mb3-fverdict { animation: mb3-fade calc(var(--beat) * 1.4) var(--e-expo); }
+.playing .mb3-chip.sa-ext { animation: mb3-ext calc(var(--beat) * 1.6) var(--e-fail) calc(var(--beat) * 9) both; }
+@keyframes mb3-ext { from { --n: 0; opacity: 0; } 20% { opacity: 1; } to { --n: 3; opacity: 1; } }
+@media (prefers-reduced-motion: reduce) {
+.ph-panel .sa { animation: none !important; }
+.mb3-chip { opacity: 1; }
+.mb3-chip.sa-ext { --n: 3; }
+.mb3-gauge-i { transform: scaleX(0); }
+}

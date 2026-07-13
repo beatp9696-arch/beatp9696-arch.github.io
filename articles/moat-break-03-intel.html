@@ -1,0 +1,555 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <script>try{var t=localStorage.getItem('theme');if(t)document.documentElement.setAttribute('data-theme',t);}catch(e){}</script>
+  <title>คูเมืองแตก ตอนที่ 3: Intel — คูเมืองที่รั่วแล้วซ่อมกลับได้ไหม (และมันยังเป็นคูเมืองเดิมอยู่หรือเปล่า) | Moatrices</title>
+  <meta name="description" content="Intel เคยมี Process Power แบบเดียวกับที่ TSMC มีอยู่วันนี้ แล้วมันรั่วออกไปทีละโหนด วันนี้ Intel กำลังฟื้นจริง หุ้นวิ่งกว่า 160% ในปี 2026 กระบวนการผลิต 18A เข้า risk production แต่รายได้ foundry จากลูกค้าภายนอกมีเพียง 174 ล้านดอลลาร์จาก 5.4 พันล้าน และต้องให้รัฐบาลสหรัฐถือหุ้น 9.9% กับ NVIDIA อีก 4% ถึงจะยืนได้ คำถามคือคูเมืองที่ซ่อมกลับมา ยังเป็นคูเมืองเดิมอยู่ไหม">
+  <meta property="og:type" content="article">
+  <meta property="og:site_name" content="Moatrices">
+  <meta property="og:title" content="คูเมืองแตก ตอนที่ 3: Intel — คูเมืองที่รั่วแล้วซ่อมกลับได้ไหม (และมันยังเป็นคูเมืองเดิมอยู่หรือเปล่า)">
+  <meta property="og:description" content="Intel เคยมี Process Power แบบเดียวกับที่ TSMC มีอยู่วันนี้ แล้วมันรั่วออกไปทีละโหนด วันนี้ Intel กำลังฟื้นจริง หุ้นวิ่งกว่า 160% ในปี 2026 กระบวนการผลิต 18A เข้า risk production แต่รายได้ foundry จากลูกค้าภายนอกมีเพียง 174 ล้านดอลลาร์จาก 5.4 พันล้าน และต้องให้รัฐบาลสหรัฐถือหุ้น 9.9% กับ NVIDIA อีก 4% ถึงจะยืนได้ คำถามคือคูเมืองที่ซ่อมกลับมา ยังเป็นคูเมืองเดิมอยู่ไหม">
+  <meta property="og:url" content="https://beatp9696-arch.github.io/articles/moat-break-03-intel.html">
+  <meta property="og:locale" content="th_TH">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta property="og:image" content="https://beatp9696-arch.github.io/og-moat-break-03-intel.png">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta name="twitter:image" content="https://beatp9696-arch.github.io/og-moat-break-03-intel.png">
+  <meta name="author" content="Moatrices">
+  <link rel="canonical" href="https://beatp9696-arch.github.io/articles/moat-break-03-intel.html">
+  <link rel="alternate" type="application/rss+xml" title="Moatrices RSS" href="/feed.xml">
+  <meta name="theme-color" media="(prefers-color-scheme: light)" content="#f7f5f0">
+  <meta name="theme-color" media="(prefers-color-scheme: dark)" content="#121417">
+  <link rel="icon" href="../favicon.svg" type="image/svg+xml">
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png">
+  <link rel="manifest" href="/site.webmanifest">
+  <link rel="preload" as="font" type="font/woff2" href="../fonts/sarabun-400-thai.woff2" crossorigin>
+  <link rel="preload" as="font" type="font/woff2" href="../fonts/sarabun-400-latin.woff2" crossorigin>
+  <link rel="stylesheet" href="../style.min.css">
+      <!-- SCENE-CSS -->
+      <link rel="stylesheet" href="../scenes/moat-break-03-intel.min.css">
+      <!-- /SCENE-CSS -->
+  <script type="application/ld+json">
+  {"@context": "https://schema.org", "@type": "BlogPosting", "headline": "คูเมืองแตก ตอนที่ 3: Intel — คูเมืองที่รั่วแล้วซ่อมกลับได้ไหม (และมันยังเป็นคูเมืองเดิมอยู่หรือเปล่า)", "description": "Intel เคยมี Process Power แบบเดียวกับที่ TSMC มีอยู่วันนี้ แล้วมันรั่วออกไปทีละโหนด วันนี้ Intel กำลังฟื้นจริง หุ้นวิ่งกว่า 160% ในปี 2026 กระบวนการผลิต 18A เข้า risk production แต่รายได้ foundry จากลูกค้าภายนอกมีเพียง 174 ล้านดอลลาร์จาก 5.4 พันล้าน และต้องให้รัฐบาลสหรัฐถือหุ้น 9.9% กับ NVIDIA อีก 4% ถึงจะยืนได้ คำถามคือคูเมืองที่ซ่อมกลับมา ยังเป็นคูเมืองเดิมอยู่ไหม", "image": ["https://beatp9696-arch.github.io/og-moat-break-03-intel.png"], "author": {"@type": "Person", "name": "Moatrices"}, "publisher": {"@type": "Organization", "name": "Moatrices", "logo": {"@type": "ImageObject", "url": "https://beatp9696-arch.github.io/icon-512.png"}}, "mainEntityOfPage": {"@type": "WebPage", "@id": "https://beatp9696-arch.github.io/articles/moat-break-03-intel.html"}, "inLanguage": "th", "datePublished": "2026-07-13", "dateModified": "2026-07-13"}
+  </script>
+  <script type="application/ld+json">
+  {"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "หน้าแรก", "item": "https://beatp9696-arch.github.io/"}, {"@type": "ListItem", "position": 2, "name": "คูเมืองแตก ตอนที่ 3: Intel — คูเมืองที่รั่วแล้วซ่อมกลับได้ไหม (และมันยังเป็นคูเมืองเดิมอยู่หรือเปล่า)", "item": "https://beatp9696-arch.github.io/articles/moat-break-03-intel.html"}]}
+  </script>
+</head>
+<body>
+
+  <div class="reading-progress"></div>
+  <div class="top-accent"></div>
+
+  <header class="site-header">
+    <div class="container">
+      <a href="../index.html" class="site-title">Moatrices</a>
+      <nav class="site-nav">
+        <a href="../index.html">หน้าแรก</a>
+        <a href="../articles.html">บทความ</a>
+        <a href="../stocks.html">หุ้น</a>
+        <a href="../tools.html">เครื่องมือ</a>
+        <a href="../dashboard.html">Dashboard</a>
+        <a href="../about.html">เกี่ยวกับ</a>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <div class="container">
+
+      <span class="kicker">ซีรีส์: คูเมืองแตก — ตอน 3/5</span>
+      <h1>คูเมืองแตก ตอนที่ 3: Intel — คูเมืองที่รั่วแล้วซ่อมกลับได้ไหม (และมันยังเป็นคูเมืองเดิมอยู่หรือเปล่า)</h1>
+      <div class="byline">
+        <span class="byline-avatar">M</span>
+        <div>
+          <div class="byline-author">Moatrices</div>
+          <div class="byline-info">13 ก.ค. 2026 · อ่าน ~15 นาที</div>
+        </div>
+      </div>
+
+      <!-- TOC-START -->
+      <nav class="toc">
+        <div class="toc-title">ในบทความนี้</div>
+        <ol>
+          <li><a href="#sec-1">ตอนนี้คือด้านกลับของตอนสุดท้ายใน 7 Powers</a></li>
+          <li><a href="#sec-2">Tick-Tock: เมโทรนอมที่ไม่เคยพลาดจังหวะ</a></li>
+          <li><a href="#sec-3">10 นาโน: วงล้อที่หมุนแล้วกลับไปที่เดิม</a></li>
+          <li><a href="#sec-4">ใบสั่งซื้อที่ไม่ควรมีอยู่จริง</a></li>
+          <li><a href="#sec-5">2026: เครื่องกำลังกลับมาเดิน — และนี่คือเรื่องจริง</a></li>
+          <li><a href="#sec-6">ใบเสร็จของการซ่อม — ราคาที่จ่ายไปแล้ว</a></li>
+          <li><a href="#sec-7">Kill Conditions — แม่แบบที่ได้จากตอนนี้</a></li>
+          <li><a href="#sec-8">สิ่งที่ยังต้องขุดต่อ (What to ask)</a></li>
+          <li><a href="#sec-9">สรุป: ซ่อมได้ — แต่ซ่อมกลับมาเป็นคนละหลัง</a></li>
+        </ol>
+      </nav>
+      <!-- TOC-END -->
+
+      <p class="lead">
+        Kodak ตาย · Nokia รอดแบบไม่ได้เงินคืน · แล้วมีทางที่สามไหม —
+        <strong>คูเมืองที่รั่วแล้ว ซ่อมกลับมาได้หรือเปล่า?</strong>
+        Intel คือการทดลองนั้น และมันยังรันอยู่<em>ตอนนี้</em> ขณะที่คุณอ่านบรรทัดนี้
+        ตอนนี้จึงเป็นตอนเดียวในซีรีส์ที่ยัง<strong>ไม่รู้ตอนจบ</strong> — และผมจะไม่แกล้งทำเป็นรู้
+      </p>
+
+      <blockquote>
+        ตัวเลขอ้างอิง: Intel 10-Q ไตรมาส 1/2026, ข่าวการเข้าถือหุ้นของรัฐบาลสหรัฐ (ส.ค. 2025)
+        และของ NVIDIA (ก.ย. 2025) — ระบุแหล่งไว้ตรงจุดที่ใช้
+        เป็นบันทึกการเรียนเพื่อการศึกษา ไม่ใช่คำแนะนำซื้อขาย
+      </blockquote>
+
+      <h2 id="sec-1">ตอนนี้คือด้านกลับของตอนสุดท้ายใน 7 Powers</h2>
+
+      <p>
+        ถ้าคุณอ่าน <a href="powers-07-process-power.html">7 Powers ตอนที่ 7 — Process Power (TSMC)</a> มาแล้ว
+        คุณจะจำกฎข้อเดียวที่ทำให้อำนาจชนิดนี้ทำงานได้:
+        <strong>วงรอบการเรียนรู้ต้องสะสม — ทุกรอบผลลัพธ์ต้องดีขึ้นจริง และห้าม reset</strong>
+        เวเฟอร์เสียลดลงทีละรอบ ความรู้ทับถมกันไปเรื่อยๆ จนคู่แข่งที่ซื้อเครื่องรุ่นเดียวกันมาตั้ง ก็ยังทำตามไม่ได้
+      </p>
+
+      <p>
+        <strong>ตอนนี้คือเรื่องของบริษัทที่วงล้อนั้นหมุนย้อนกลับ</strong> — และมันน่ากลัวกว่าที่คิด
+        เพราะยี่สิบปีก่อน คนที่ถือ Process Power ตัวจริงของโลกไม่ใช่ TSMC
+      </p>
+
+      <p>
+        <strong>มันคือ Intel</strong>
+      </p>
+
+      <h2 id="sec-2">Tick-Tock: เมโทรนอมที่ไม่เคยพลาดจังหวะ</h2>
+
+      <p>
+        ปี 2006 Intel ประกาศจังหวะการเดินที่ชื่อว่า <strong>Tick-Tock</strong> —
+        ปีคี่ย่อขนาดทรานซิสเตอร์ลง (tick) ปีคู่ปรับสถาปัตยกรรมใหม่บนขนาดเดิม (tock)
+        สลับกันไปทุกสองปี เหมือนเครื่องเคาะจังหวะที่ไม่เคยพลาด
+      </p>
+
+      <p>
+        และมันก็ไม่พลาดจริงๆ — 65 นาโน · 45 · 32 · 22 · 14 —
+        Intel นำหน้าทั้งโลกอยู่ราวสองถึงสามปีอย่างต่อเนื่อง
+        นี่ไม่ใช่แค่ "ผลิตชิปเก่ง" นี่คือ<strong>อำนาจ</strong>ในความหมายที่ Helmer พูดถึงเป๊ะๆ:
+        คู่แข่งมองเห็นทุกอย่าง รู้ว่าต้องทำอะไร ซื้อเครื่องเจ้าเดียวกันได้ — แต่ทำตามไม่ทัน
+      </p>
+
+      <figure class="ph-fig"><div class="ph-panel mb3-panel"><div class="ph-eyebrow mb3">2006–2014 · จอ roadmap ในโรงงาน — เมโทรนอมที่ไม่เคยพลาด</div>
+        <div class="sa-stage">
+        <svg viewBox="0 0 840 450" role="img" aria-label="แผนที่เดินทางของกระบวนการผลิต Intel ในยุค Tick-Tock ตั้งแต่ปี 2006 ถึง 2014 ย่อขนาดทรานซิสเตอร์ได้ตรงเวลาทุกสองปี จาก 65 นาโนเมตร ลงมา 45 32 22 และ 14 นาโนเมตร โดยนำหน้าคู่แข่งทั้งโลกอยู่สองถึงสามปีตลอด เป็นจังหวะที่แม่นยำเหมือนเครื่องเคาะจังหวะ">
+          <rect x="40" y="52" width="760" height="300" rx="10" fill="#0a0f14" stroke="#1d3a4a" stroke-width="1.4"/>
+          <text class="mb3-t" x="64" y="86">INTEL PROCESS ROADMAP — TICK / TOCK</text>
+          <text class="mb3-m s" x="776" y="86" style="text-anchor:end">ตรงเวลาทุกครั้ง</text>
+          <line x1="64" y1="102" x2="776" y2="102" stroke="#1d3a4a" stroke-width="1"/>
+
+          <!-- ราง -->
+          <line x1="92" y1="256" x2="768" y2="256" stroke="#1d3a4a" stroke-width="2"/>
+
+          <g class="sa n mb3-tick" style="--i:1">
+            <line x1="120" y1="240" x2="120" y2="272" stroke="#4bb3d4" stroke-width="2.4"/>
+            <text class="mb3-node" x="120" y="224" style="text-anchor:middle">65nm</text>
+            <text class="mb3-m s" x="120" y="296" style="text-anchor:middle">2006</text>
+          </g>
+          <g class="sa n mb3-tick" style="--i:2">
+            <line x1="252" y1="240" x2="252" y2="272" stroke="#4bb3d4" stroke-width="2.4"/>
+            <text class="mb3-node" x="252" y="224" style="text-anchor:middle">45nm</text>
+            <text class="mb3-m s" x="252" y="296" style="text-anchor:middle">2007</text>
+          </g>
+          <g class="sa n mb3-tick" style="--i:3">
+            <line x1="384" y1="240" x2="384" y2="272" stroke="#4bb3d4" stroke-width="2.4"/>
+            <text class="mb3-node" x="384" y="224" style="text-anchor:middle">32nm</text>
+            <text class="mb3-m s" x="384" y="296" style="text-anchor:middle">2010</text>
+          </g>
+          <g class="sa n mb3-tick" style="--i:4">
+            <line x1="516" y1="240" x2="516" y2="272" stroke="#4bb3d4" stroke-width="2.4"/>
+            <text class="mb3-node" x="516" y="224" style="text-anchor:middle">22nm</text>
+            <text class="mb3-m s" x="516" y="296" style="text-anchor:middle">2012</text>
+          </g>
+          <g class="sa n mb3-tick" style="--i:5">
+            <line x1="648" y1="240" x2="648" y2="272" stroke="#4bb3d4" stroke-width="2.4"/>
+            <text class="mb3-node" x="648" y="224" style="text-anchor:middle">14nm</text>
+            <text class="mb3-m s" x="648" y="296" style="text-anchor:middle">2014</text>
+          </g>
+
+          <!-- ระยะนำหน้าคู่แข่ง -->
+          <g class="sa n mb3-lead" style="--i:6.4">
+            <rect x="92" y="132" width="676" height="42" rx="6" fill="#0f2733" stroke="#2c6f8c" stroke-width="1.4"/>
+            <text class="mb3-t" x="110" y="159">นำหน้าทั้งโลกอยู่ 2–3 ปี — ทุกโหนด ทุกครั้ง</text>
+          </g>
+        </svg>
+        </div>
+      </div>
+      <figcaption><strong>นี่คือ Process Power ตัวจริง</strong> — จังหวะที่คู่แข่งมองเห็นหมด
+        รู้ว่าต้องทำอะไร ซื้อเครื่องจากผู้ขายรายเดียวกันได้ <em>และก็ยังตามไม่ทัน</em>
+        ยี่สิบปีก่อน อำนาจชนิดนี้เป็นของ Intel ไม่ใช่ TSMC</figcaption>
+      </figure>
+
+      <h2 id="sec-3">10 นาโน: วงล้อที่หมุนแล้วกลับไปที่เดิม</h2>
+
+      <p>
+        แล้วก็ถึงคิว 10 นาโนเมตร
+      </p>
+
+      <p>
+        Intel ตั้งเป้าไว้ว่าจะได้ในราวปี 2016 ตามจังหวะเดิม — แต่มันไม่มา
+        ปีต่อมาก็ไม่มา ปีต่อมาอีกก็ยังไม่มา กว่าจะผลิตออกมาได้ในปริมาณที่มีความหมายจริงๆ
+        ก็ล่วงเข้าปลายทศวรรษไปแล้ว <strong>ช้ากว่าแผนหลายปี</strong>
+      </p>
+
+      <p>
+        ระหว่างที่ Intel ติดหล่มอยู่กับโหนดเดียว TSMC เดินผ่าน <strong>10 → 7 → 5 → 3 นาโน</strong>
+        แล้วก็เดินต่อไปเรื่อยๆ ไม่ได้หยุดรอ
+      </p>
+
+      <p>
+        และนี่คือจุดสำคัญที่คนมักเล่าผิด: <strong>Intel ไม่ได้ "ขี้เกียจ" หรือ "หยุดลงทุน"</strong>
+        พวกเขาทุ่มเงินมหาศาล ทุ่มคนเก่งที่สุด และพยายามอย่างหนัก — <em>ครั้งแล้วครั้งเล่า</em>
+        แต่ทุกครั้งที่วงล้อหมุนครบรอบ ผลลัพธ์กลับ<strong>ไม่ได้ดีขึ้นจากรอบก่อน</strong>
+        ความรู้ที่ควรจะทับถมกัน กลับกระจายหาย — ทีมแตก คนเก่งลาออก แผนถูกรื้อใหม่
+      </p>
+
+      <figure class="ph-fig"><div class="ph-panel mb3-panel"><div class="ph-eyebrow mb3">วงรอบการเรียนรู้ · Intel ปะทะ TSMC — ล้อสองใบ กฎคนละข้อ</div>
+        <div class="sa-stage">
+        <svg viewBox="0 0 840 450" role="img" aria-label="เปรียบเทียบวงรอบการเรียนรู้สองแบบ ฝั่ง Intel วงล้อหมุนครบสี่รอบแต่มาตรวัด yield ถูกรีเซ็ตกลับไปที่จุดเดิมทุกรอบ ความรู้ไม่ถูกสะสม ส่วนฝั่ง TSMC วงล้อหมุนสี่รอบเช่นกันแต่ yield สูงขึ้นทุกรอบและไม่เคยถอยกลับ นี่คือความต่างระหว่างการเรียนรู้ที่สะสมกับการเรียนรู้ที่ถูกลืม และเป็นเหตุผลที่ Process Power ย้ายข้างไปอยู่กับ TSMC">
+          <!-- ฝั่ง Intel -->
+          <text class="mb3-t" x="64" y="72">INTEL — วงล้อที่ reset</text>
+          <rect x="56" y="88" width="352" height="272" rx="10" fill="#160d0d" stroke="#5c2626" stroke-width="1.4"/>
+          <circle class="sa mb3-wheel-i" cx="146" cy="196" r="46" fill="none" stroke="#a03a3a" stroke-width="3" stroke-dasharray="12 8"/>
+          <text class="mb3-m s" x="146" y="262" style="text-anchor:middle">หมุนเต็มแรง · ทุกรอบ</text>
+
+          <text class="mb3-m s" x="246" y="132">yield สะสม</text>
+          <!-- มาตรวัดที่ถูกรีเซ็ตทุกรอบ -->
+          <rect x="246" y="146" width="130" height="14" rx="4" fill="#2a1414"/>
+          <rect class="sa n mb3-gauge-i" x="246" y="146" width="130" height="14" rx="4" fill="#ed4245" style="--i:1"/>
+          <text class="sa n mb3-reset mb3-m r b" style="--i:2.6" x="246" y="186">RESET → 0</text>
+          <text class="sa n mb3-reset mb3-m r b" style="--i:4.6" x="246" y="212">RESET → 0</text>
+          <text class="sa n mb3-reset mb3-m r b" style="--i:6.6" x="246" y="238">RESET → 0</text>
+          <text class="sa n mb3-note-i mb3-m s" style="--i:8" x="246" y="286">ความรู้ไม่ทับถม</text>
+          <text class="sa n mb3-note-i mb3-m s" style="--i:8" x="246" y="306">ทีมแตก · แผนรื้อใหม่</text>
+
+          <!-- ฝั่ง TSMC -->
+          <text class="mb3-t" x="440" y="72">TSMC — วงล้อที่สะสม</text>
+          <rect x="432" y="88" width="352" height="272" rx="10" fill="#0b1a14" stroke="#1f5c42" stroke-width="1.4"/>
+          <circle class="sa mb3-wheel-t" cx="522" cy="196" r="46" fill="none" stroke="#2f9e6e" stroke-width="3" stroke-dasharray="12 8"/>
+          <text class="mb3-m s" x="522" y="262" style="text-anchor:middle">หมุนเต็มแรง · ทุกรอบ</text>
+
+          <text class="mb3-m s" x="622" y="132">yield สะสม</text>
+          <rect x="622" y="146" width="130" height="14" rx="4" fill="#12291f"/>
+          <rect class="sa n mb3-gauge-t1" x="622" y="146" width="130" height="14" rx="4" fill="#3ddc97" style="--i:1"/>
+          <g class="sa n mb3-step" style="--i:2.6"><text class="mb3-m g b" x="622" y="186">7nm  ▲ ดีขึ้น</text></g>
+          <g class="sa n mb3-step" style="--i:4.6"><text class="mb3-m g b" x="622" y="212">5nm  ▲ ดีขึ้นอีก</text></g>
+          <g class="sa n mb3-step" style="--i:6.6"><text class="mb3-m g b" x="622" y="238">3nm  ▲ ดีขึ้นอีก</text></g>
+          <text class="sa n mb3-note-t mb3-m s" style="--i:8" x="622" y="286">ความรู้ทับถม</text>
+          <text class="sa n mb3-note-t mb3-m s" style="--i:8" x="622" y="306">ไม่เคยถอยกลับ</text>
+
+          <text class="sa n mb3-punch mb3-t" x="420" y="400" style="--i:9.4;text-anchor:middle">เครื่องเหมือนกัน · แรงเท่ากัน · ต่างกันแค่ "รอบก่อนหน้าถูกเก็บไว้ไหม"</text>
+        </svg>
+        </div>
+      </div>
+      <figcaption><strong>ล้อสองใบหมุนแรงเท่ากัน — ต่างกันแค่ว่ารอบที่แล้วถูกเก็บไว้หรือถูกทิ้ง</strong>
+        นี่คือกฎที่ <a href="powers-07-process-power.html">ตอน TSMC</a> บอกไว้ว่า
+        "loop ที่วนกลับไปสถานะเดิม = เรียนรู้แล้วลืม" — และมันคือสิ่งที่เกิดขึ้นกับ Intel จริงๆ
+        <em>Process Power ไม่ได้ถูกขโมย มันแค่หยุดสะสม แล้วก็หมดอายุไปเอง</em></figcaption>
+      </figure>
+
+      <h2 id="sec-4">ใบสั่งซื้อที่ไม่ควรมีอยู่จริง</h2>
+
+      <p>
+        แล้วก็มาถึงวันที่ไม่มีใครใน Intel ยุค 2005 จะเชื่อว่าเป็นไปได้:
+        <strong>Intel เริ่มจ้าง TSMC ผลิตชิปให้ตัวเอง</strong>
+      </p>
+
+      <p>
+        ต้องเข้าใจก่อนว่าเรื่องนี้มันหนักแค่ไหน — ตัวตนทั้งหมดของ Intel ตลอดห้าสิบปี
+        คือประโยคที่ว่า <em>"เราออกแบบชิปเอง และเราผลิตมันเอง ด้วยกระบวนการที่ดีที่สุดในโลก"</em>
+        โมเดล IDM (Integrated Device Manufacturer) คือคูเมืองของพวกเขา
+        การต้องไปซื้อกำลังผลิตจากบริษัทที่เพิ่งแซงหน้าตัวเองไป
+        <strong>ไม่ใช่แค่การตัดสินใจทางธุรกิจ มันคือการยอมรับต่อสาธารณะว่าคูเมืองหายไปแล้ว</strong>
+      </p>
+
+      <figure class="ph-fig"><div class="ph-panel mb3-panel"><div class="ph-eyebrow mb3">ใบสั่งซื้อที่หักตัวตนของบริษัทตัวเอง</div>
+        <div class="sa-stage">
+        <svg viewBox="0 0 840 450" role="img" aria-label="ใบสั่งซื้อที่ Intel ส่งไปยัง TSMC เพื่อจ้างผลิตชิปให้ตัวเอง โดยด้านบนของเอกสารมีคำขวัญเดิมของบริษัทที่ว่าเราผลิตชิปของเราเองด้วยกระบวนการที่ดีที่สุดในโลก แล้วบรรทัดนั้นก็ถูกขีดฆ่าทิ้ง เพราะโมเดลผู้ผลิตครบวงจรซึ่งเคยเป็นคูเมืองของ Intel ไม่สามารถยืนได้อีกต่อไป">
+          <g class="sa n mb3-doc" style="--i:0">
+            <rect x="180" y="56" width="480" height="330" rx="5" fill="#eceff3" stroke="#9aa5b5" stroke-width="1.4"/>
+            <text class="mb3-p s" x="212" y="92">PURCHASE ORDER — WAFER SUPPLY</text>
+            <line x1="212" y1="104" x2="628" y2="104" stroke="#9aa5b5" stroke-width="1"/>
+            <text class="mb3-p" x="212" y="136">FROM</text>
+            <text class="mb3-p b" x="628" y="136" style="text-anchor:end">INTEL CORPORATION</text>
+            <text class="mb3-p" x="212" y="164">TO</text>
+            <text class="mb3-p b" x="628" y="164" style="text-anchor:end">TSMC</text>
+            <line x1="212" y1="182" x2="628" y2="182" stroke="#9aa5b5" stroke-width="1" stroke-dasharray="3 3"/>
+          </g>
+
+          <!-- คำขวัญเดิมของบริษัท — แล้วถูกขีดฆ่า -->
+          <g class="sa n mb3-creed" style="--i:2.4">
+            <text class="mb3-p" x="212" y="222">"เราออกแบบชิปเอง</text>
+            <text class="mb3-p" x="212" y="248">และเราผลิตมันเอง</text>
+            <text class="mb3-p" x="212" y="274">ด้วยกระบวนการที่ดีที่สุดในโลก"</text>
+          </g>
+          <!-- ขีดฆ่า *สองบรรทัด* เท่านั้น: Intel ยังออกแบบชิปเองอยู่จริง
+               สิ่งที่ตายคือ "ผลิตเอง" + "ด้วยกระบวนการที่ดีที่สุดในโลก" -->
+          <line class="sa n mb3-strike" x1="206" y1="242" x2="432" y2="242" pathLength="100"
+                stroke="#a01c22" stroke-width="3" stroke-linecap="round" style="--i:5"/>
+          <line class="sa n mb3-strike" x1="206" y1="268" x2="486" y2="268" pathLength="100"
+                stroke="#a01c22" stroke-width="3" stroke-linecap="round" style="--i:5.8"/>
+
+          <g class="sa n mb3-stamp" style="--i:7">
+            <rect x="392" y="298" width="236" height="46" rx="4" fill="none" stroke="#a01c22" stroke-width="2.4"/>
+            <text class="mb3-stamp-t" x="510" y="328" style="text-anchor:middle">IDM ยืนไม่ไหวแล้ว</text>
+          </g>
+        </svg>
+        </div>
+      </div>
+      <figcaption><strong>บริษัทที่ขายตัวตนว่า "เราผลิตเอง" ต้องไปสั่งซื้อเวเฟอร์จากคนที่แซงตัวเอง</strong> —
+        นี่คือช่วงเวลาที่คูเมืองแตกออกมาเป็นลายลักษณ์อักษร ไม่ใช่เป็นแค่ตัวเลขในงบ</figcaption>
+      </figure>
+
+      <h2 id="sec-5">2026: เครื่องกำลังกลับมาเดิน — และนี่คือเรื่องจริง</h2>
+
+      <p>
+        ทีนี้ต้องซื่อสัตย์ เพราะซีรีส์นี้มีอยู่เพื่อความซื่อสัตย์: <strong>Intel กำลังฟื้นจริง</strong>
+      </p>
+
+      <ul>
+        <li>กระบวนการ <strong>18A</strong> เดินหน้าแล้ว และรุ่นต่อยอด 18A-P เข้าสู่ <em>risk production</em> ซึ่งเป็นด่านก่อนผลิตจริงเต็มรูปแบบ</li>
+        <li>ไตรมาส 1/2026 รายได้รวม <strong>13.6 พันล้านดอลลาร์</strong> กลุ่มดาต้าเซ็นเตอร์และ AI โต <strong>22%</strong>
+          และหุ้นเด้งขึ้น <strong>24%</strong> หลังประกาศงบ</li>
+        <li><strong>หุ้น INTC วิ่งขึ้นกว่า 160% ในปี 2026</strong> — เป็นหนึ่งในการกลับตัวที่แรงที่สุดของกลุ่มเซมิคอนดักเตอร์</li>
+        <li>ซีอีโอคนใหม่ <strong>Lip-Bu Tan</strong> (รับตำแหน่ง มี.ค. 2025) — คนที่เคยเป็นซีอีโอ Cadence นาน 12 ปี
+          คือคนที่รู้จักโลกการออกแบบชิปดีที่สุดคนหนึ่ง</li>
+      </ul>
+
+      <figure class="ph-fig"><div class="ph-panel mb3-panel"><div class="ph-eyebrow mb3">2026 · มาตรวัดตัวเดิมกับฉากวงล้อ — แต่คราวนี้มันไม่ reset</div>
+        <div class="sa-stage">
+        <svg viewBox="0 0 840 450" role="img" aria-label="มาตรวัดความคืบหน้าของ Intel ในปี 2026 คราวนี้ค่าที่สะสมได้ไม่ถูกรีเซ็ตกลับไปที่ศูนย์อีกแล้ว กระบวนการ 18A เดินหน้าและรุ่น 18A-P เข้าสู่ risk production กลุ่มดาต้าเซ็นเตอร์และ AI โต 22 เปอร์เซ็นต์ รายได้รวมไตรมาสหนึ่ง 13.6 พันล้านดอลลาร์ และหุ้นวิ่งขึ้นกว่า 160 เปอร์เซ็นต์ในปี 2026 การฟื้นตัวครั้งนี้เป็นเรื่องจริง">
+          <rect x="40" y="46" width="760" height="326" rx="10" fill="#0a1418" stroke="#1f5c42" stroke-width="1.4"/>
+          <text class="mb3-t" x="64" y="80">INTEL · 2026 — วงล้อเริ่มเก็บของได้แล้ว</text>
+          <text class="mb3-m s g" x="776" y="80" style="text-anchor:end">ฟื้นจริง</text>
+          <line x1="64" y1="96" x2="776" y2="96" stroke="#1f5c42" stroke-width="1"/>
+
+          <!-- มาตรวัดตัวเดียวกับฉากวงล้อ — แต่รอบนี้ค้างอยู่ ไม่ถูกรีเซ็ต -->
+          <text class="mb3-m s" x="64" y="136">ความคืบหน้าสะสม (มาตรวัดใบเดิม)</text>
+          <rect x="64" y="150" width="440" height="20" rx="6" fill="#12291f"/>
+          <rect class="sa n mb3-hold" x="64" y="150" width="440" height="20" rx="6" fill="#3ddc97" style="--i:1"/>
+          <text class="sa n mb3-holdlab mb3-m g b" style="--i:4.4" x="520" y="166">ไม่ reset</text>
+
+          <g class="sa n mb3-kpi" style="--i:5.4">
+            <text class="mb3-m s" x="64" y="228">กระบวนการผลิต</text>
+            <text class="mb3-big" x="64" y="268">18A-P</text>
+            <text class="mb3-m g" x="64" y="292">▲ risk production</text>
+          </g>
+          <g class="sa n mb3-kpi" style="--i:6.2">
+            <text class="mb3-m s" x="266" y="228">ดาต้าเซ็นเตอร์ / AI</text>
+            <text class="mb3-big" x="266" y="268">+22%</text>
+            <text class="mb3-m g" x="266" y="292">▲ Q1 2026</text>
+          </g>
+          <g class="sa n mb3-kpi" style="--i:7">
+            <text class="mb3-m s" x="468" y="228">รายได้รวม Q1</text>
+            <text class="mb3-big" x="468" y="268">$13.6B</text>
+            <text class="mb3-m g" x="468" y="292">▲ หุ้นเด้ง 24%</text>
+          </g>
+          <g class="sa n mb3-kpi" style="--i:7.8">
+            <text class="mb3-m s" x="652" y="228">หุ้น INTC ปี 2026</text>
+            <text class="mb3-big" x="652" y="268">+160%</text>
+            <text class="mb3-m g" x="652" y="292">▲ กลับตัวแรง</text>
+          </g>
+        </svg>
+        </div>
+      </div>
+      <figcaption><strong>มาตรวัดใบเดียวกับฉากวงล้อ — แต่คราวนี้มันค้างอยู่ ไม่ถูกดีดกลับเป็นศูนย์</strong>
+        นี่คือความหมายทั้งหมดของคำว่า "ฟื้น" และมันเกิดขึ้นจริง
+        <em>คำถามที่เหลือคือ ฟื้นมาแล้วได้คูเมืองหลังเดิมกลับมาไหม — ฉากถัดไปคือใบเสร็จ</em></figcaption>
+      </figure>
+
+      <p>
+        ถ้าตัดสินจากราคาหุ้นอย่างเดียว นี่คือเรื่องราวการกลับมาที่งดงาม
+        <strong>แต่ราคาหุ้นไม่ใช่คูเมือง</strong> — และตอนนี้มีอยู่เพื่อแยกสองอย่างนี้ออกจากกัน
+      </p>
+
+      <h2 id="sec-6">ใบเสร็จของการซ่อม — ราคาที่จ่ายไปแล้ว</h2>
+
+      <p>
+        คำถามของตอนนี้ไม่ใช่ "Intel จะรอดไหม" (น่าจะรอด) คำถามคือ
+        <strong>"คูเมืองที่ซ่อมกลับมาได้ ยังเป็นคูเมืองเดิมอยู่หรือเปล่า"</strong> —
+        และคำตอบอยู่ในใบเสร็จนี้
+      </p>
+
+      <figure class="ph-fig"><div class="ph-panel mb3-panel"><div class="ph-eyebrow mb3">ใบเสร็จ · สิ่งที่ต้องจ่ายไปเพื่อให้ยังยืนอยู่ได้</div>
+        <div class="sa-stage">
+        <svg viewBox="0 0 840 450" role="img" aria-label="ใบเสร็จแสดงราคาที่ Intel จ่ายไปเพื่อพยุงตัวเอง รัฐบาลสหรัฐเข้าถือหุ้น 9.9 เปอร์เซ็นต์ด้วยเงิน 8.9 พันล้านดอลลาร์ที่ราคา 20.47 ดอลลาร์ต่อหุ้น NVIDIA ซึ่งเป็นคู่แข่งเข้าถือ 4 เปอร์เซ็นต์ด้วยเงิน 5 พันล้านดอลลาร์ และรายได้ธุรกิจ foundry ไตรมาส 1 ปี 2026 อยู่ที่ 5.4 พันล้านดอลลาร์ แต่มาจากลูกค้าภายนอกจริงเพียง 174 ล้านดอลลาร์ คิดเป็นราว 3 เปอร์เซ็นต์ ส่วนที่เหลือคือ Intel ขายให้ Intel เอง">
+          <g class="sa n mb3-doc" style="--i:0">
+            <rect x="60" y="46" width="380" height="360" rx="5" fill="#eceff3" stroke="#9aa5b5" stroke-width="1.4"/>
+            <text class="mb3-p s" x="88" y="80">ค่าใช้จ่ายในการกู้คูเมืองกลับมา</text>
+            <line x1="88" y1="92" x2="412" y2="92" stroke="#9aa5b5" stroke-width="1"/>
+          </g>
+          <g class="sa n mb3-item" style="--i:1.4">
+            <text class="mb3-p" x="88" y="126">เวลา</text>
+            <text class="mb3-p b" x="412" y="126" style="text-anchor:end">~1 ทศวรรษ</text>
+          </g>
+          <g class="sa n mb3-item" style="--i:2.2">
+            <text class="mb3-p" x="88" y="158">ตัวตน IDM ("เราผลิตเอง")</text>
+            <text class="mb3-p b" x="412" y="158" style="text-anchor:end">ยอมจ้าง TSMC</text>
+          </g>
+          <g class="sa n mb3-item" style="--i:3">
+            <text class="mb3-p" x="88" y="190">รัฐบาลสหรัฐถือหุ้น</text>
+            <text class="mb3-p b r" x="412" y="190" style="text-anchor:end">9.9% · $8.9B</text>
+          </g>
+          <g class="sa n mb3-item" style="--i:3.8">
+            <text class="mb3-p" x="88" y="222">NVIDIA (คู่แข่ง) ถือหุ้น</text>
+            <text class="mb3-p b r" x="412" y="222" style="text-anchor:end">~4% · $5.0B</text>
+          </g>
+          <line class="sa n mb3-item" x1="88" y1="244" x2="412" y2="244" stroke="#9aa5b5" stroke-width="1" stroke-dasharray="3 3" style="--i:4.4"/>
+          <g class="sa n mb3-item" style="--i:5">
+            <text class="mb3-p b" x="88" y="278">คูเมืองที่ได้กลับมา</text>
+            <text class="mb3-p b r" x="412" y="278" style="text-anchor:end">เล็กกว่าเดิมมาก</text>
+          </g>
+
+          <!-- ฝั่งขวา: foundry มีลูกค้าจริงแค่ไหน -->
+          <text class="mb3-t" x="484" y="80">รายได้ Intel Foundry · Q1 2026</text>
+          <text class="mb3-m s" x="484" y="112">รวมทั้งหมด</text>
+          <rect x="484" y="124" width="300" height="34" rx="5" fill="#1a2b36"/>
+          <rect class="sa n mb3-fbar" x="484" y="124" width="300" height="34" rx="5" fill="#2c6f8c" style="--i:6"/>
+          <text class="mb3-t" x="498" y="147">$5.4B</text>
+
+          <text class="mb3-m s" x="484" y="196">มาจากลูกค้าภายนอกจริง</text>
+          <rect x="484" y="208" width="300" height="34" rx="5" fill="#2a1414"/>
+          <rect class="sa n mb3-fbar2" x="484" y="208" width="10" height="34" rx="5" fill="#ed4245" style="--i:7.4"/>
+          <text class="sa n mb3-fnum mb3-t r" style="--i:8.2" x="506" y="231">$174M</text>
+
+          <text class="sa n mb3-fverdict mb3-m s" style="--i:9" x="484" y="278">ส่วนที่เหลือ = Intel ขายให้ Intel</text>
+        </svg>
+        <span class="sa-chip mb3-chip r sa-ext" style="left:75.5%; top:69%"></span>
+        </div>
+      </div>
+      <figcaption><strong>รายได้ foundry 5.4 พันล้าน — แต่มีลูกค้าภายนอกจริงแค่ 174 ล้าน (ราว 3%)</strong>
+        ส่วนที่เหลือคือ Intel ขายให้ Intel เอง ซึ่งไม่ใช่หลักฐานของอำนาจ มันคือการย้ายเงินจากกระเป๋าซ้ายไปขวา
+        <em>โรงหล่อที่ไม่มีลูกค้า ยังไม่ใช่โรงหล่อ</em></figcaption>
+      </figure>
+
+      <p>
+        อ่านใบเสร็จนี้ช้าๆ อีกรอบ แล้วถามตัวเองว่า:
+        <strong>Process Power ตัวจริง — แบบที่ TSMC มีอยู่วันนี้ — ต้องขอให้รัฐบาลของประเทศตัวเองเข้ามาถือหุ้นเกือบ 10%
+        และต้องให้คู่แข่งอย่าง NVIDIA ควักเงินอีก 5 พันล้านมาอุ้ม เพื่อจะยืนอยู่ได้หรือเปล่า?</strong>
+      </p>
+
+      <p>
+        คำตอบคือไม่ และนั่นแหละคือคำตอบของทั้งตอน — <strong>คูเมืองที่ต้องมีคนมาช่วยพยุงถึงจะยืนได้
+        ตามนิยามแล้วมันไม่ใช่คูเมืองอีกต่อไป</strong> มันคือ<em>ธุรกิจที่มีความสำคัญเชิงยุทธศาสตร์</em>
+        ซึ่งเป็นคนละเรื่องกันโดยสิ้นเชิง และได้ multiple คนละแบบ
+      </p>
+
+      <p>
+        Intel อาจกลายเป็นบริษัทที่ดีและทำเงินได้ในสิบปีข้างหน้า — ผมคิดว่ามีโอกาสจริงๆ
+        แต่มันจะเป็น <strong>โรงหล่อที่ต้องแข่งด้านราคา ภายใต้ร่มของรัฐบาล</strong>
+        ไม่ใช่บริษัทที่กำหนดจังหวะให้ทั้งอุตสาหกรรมเดินตามเหมือนยุค Tick-Tock อีกแล้ว
+        <em>คูเมืองซ่อมกลับมาได้ แต่มันซ่อมกลับมาเป็นคนละหลัง</em>
+      </p>
+
+      <h2 id="sec-7">Kill Conditions — แม่แบบที่ได้จากตอนนี้</h2>
+
+      <h3>1. วงรอบการเรียนรู้ต้อง "สะสม" ไม่ใช่ "หมุนฟรี"</h3>
+      <p>
+        สำหรับธุรกิจที่คูเมืองมาจากการทำซ้ำ (โรงงาน โรงหล่อ โลจิสติกส์ ประกัน)
+        ให้ตามตัวเลขที่บอกว่า<strong>รอบนี้ดีกว่ารอบที่แล้วจริงไหม</strong> — yield, ต้นทุนต่อหน่วย, เวลาส่งมอบ, อัตราของเสีย
+        <strong>ถ้าตัวเลขเหล่านี้แย่ลงสองรอบติดกัน ให้ถือว่าคูเมืองกำลังรั่ว</strong>
+        ไม่ต้องรอให้ผู้บริหารยอมรับ เพราะกว่าจะยอมรับก็อีกสามปี
+      </p>
+
+      <h3>2. แยก "รายได้จากลูกค้าจริง" ออกจาก "รายได้ที่ขายให้ตัวเอง"</h3>
+      <p>
+        Intel Foundry มีรายได้ 5.4 พันล้านต่อไตรมาส ตัวเลขนี้ดูน่าประทับใจมาก
+        จนกระทั่งคุณเห็นว่า<strong>ลูกค้าภายนอกจ่ายจริงแค่ 174 ล้าน</strong>
+        <strong>คำถามที่ต้องถามทุกครั้งที่เห็นตัวเลขเซกเมนต์: "คนนอกยอมจ่ายเท่าไหร่"</strong>
+        เพราะการขายให้ตัวเองไม่ได้พิสูจน์ว่าใครอยากได้ของของคุณ
+      </p>
+
+      <h3>3. คูเมืองที่ต้องมีคนอุ้ม = คูเมืองที่หายไปแล้ว (ต่อให้ราคาหุ้นวิ่ง)</h3>
+      <p>
+        <strong>สัญญาณอันตรายที่สุดของตอนนี้:</strong> เมื่อรัฐบาล คู่แข่ง หรือพันธมิตร
+        ต้องเข้ามาถือหุ้นเพื่อให้บริษัทเดินต่อได้ — นั่นแปลว่า <em>ตลาดเสรีตัดสินไปแล้ว</em>ว่าธุรกิจนี้ยืนเองไม่ไหว
+        และไม่ว่าราคาหุ้นจะวิ่งขึ้น 160% หรือ 500% ก็ไม่ได้เปลี่ยนข้อเท็จจริงข้อนั้น
+        <strong>ราคาหุ้นสะท้อนความคาดหวัง คูเมืองสะท้อนอำนาจ — อย่าสับสนสองอย่างนี้</strong>
+      </p>
+
+      <h3>สัญญาณที่วัดได้จริงในงบ</h3>
+      <ul>
+        <li><strong>capex สูงต่อเนื่อง แต่ ROIC ไม่ขยับขึ้นเลยหลายปี</strong> — เงินลงไปในวงล้อที่ไม่สะสม</li>
+        <li><strong>เซกเมนต์ที่โตเร็วที่สุด เป็นเซกเมนต์ที่ margin ต่ำที่สุด</strong> —
+          บริษัทกำลังโตไปสู่การเป็นบริษัทที่แย่กว่าเดิม (เหมือน Kodak ที่ชนะตลาดกล้องดิจิทัลแล้วขาดทุน)</li>
+        <li><strong>มีรายการ "การลงทุนเชิงกลยุทธ์จากภาครัฐ/พันธมิตร" โผล่ในงบดุล</strong> —
+          อ่านเป็นสัญญาณอันตราย ไม่ใช่ข่าวดี</li>
+      </ul>
+
+      <h2 id="sec-8">สิ่งที่ยังต้องขุดต่อ (What to ask)</h2>
+      <ul>
+        <li><strong>สำหรับคนที่ถือ TSM อยู่</strong> (ผมถือ) — Intel คือหลักฐานว่า Process Power
+          <em>หายไปได้จริง</em> ไม่ใช่อำนาจนิรันดร์ คำถามคือ: yield และจังหวะโหนดของ TSMC
+          ยังดีขึ้นทุกรอบอยู่ไหม และจะรู้ได้จากไหนถ้ามันเริ่มไม่ดีขึ้น</li>
+        <li>ถ้า 18A ของ Intel สำเร็จจริงและได้ลูกค้าใหญ่ภายนอกมาสักราย — <strong>ตัวเลขไหนที่ต้องเปลี่ยน</strong>
+          ถึงจะเรียกว่าคูเมืองกลับมาจริง? (คำตอบของผม: external foundry revenue ต้องขึ้นเป็นหลักพันล้านต่อไตรมาส
+          ไม่ใช่หลักร้อยล้าน — ต่ำกว่านั้นคือข่าว ไม่ใช่คูเมือง)</li>
+        <li>ในอุตสาหกรรมที่รัฐเข้ามาถือหุ้น <strong>ผลตอบแทนของผู้ถือหุ้นรายย่อยถูกจัดลำดับไว้ที่เท่าไหร่</strong> —
+          เมื่อเป้าหมายของผู้ถือหุ้นใหญ่คือความมั่นคงของชาติ ไม่ใช่ ROIC?</li>
+      </ul>
+
+      <h2 id="sec-9">สรุป: ซ่อมได้ — แต่ซ่อมกลับมาเป็นคนละหลัง</h2>
+
+      <p>
+        Intel ให้คำตอบกับคำถามของตอนนี้แบบครึ่งๆ: <strong>ใช่ คูเมืองที่รั่วแล้ว "ซ่อม" ได้ —
+        ถ้าคุณมีเงินระดับรัฐบาล เวลาระดับทศวรรษ และยอมทิ้งตัวตนเดิม</strong>
+        แต่สิ่งที่ซ่อมกลับมาไม่ใช่ของเดิม มันคือธุรกิจที่แข่งด้านต้นทุน ต้องพึ่งพา และไม่ได้กำหนดจังหวะให้ใครอีกแล้ว
+      </p>
+
+      <p>
+        และในฐานะนักลงทุน บทเรียนคือ: <strong>อย่าถือหุ้นข้ามช่วงที่คูเมืองกำลังรั่ว โดยหวังว่าเขาจะซ่อมทัน</strong>
+        คนที่ถือ Intel ผ่านช่วง 10 นาโนมาทั้งหมด ต้องรอเป็นสิบปี ผ่านการเปลี่ยนซีอีโอ
+        ผ่านการหั่นปันผล ผ่านการถูกถอดจากดัชนี — กว่าจะได้เห็นราคากลับมา
+        <em>ทศวรรษที่หายไป อีกครั้ง</em>
+      </p>
+
+      <p>
+        <strong>ตอนที่ 4: GE</strong> — Kodak คูเมืองพังเพราะเทคโนโลยี · Nokia เพราะสนามเปลี่ยน ·
+        Intel เพราะการเรียนรู้หยุดสะสม แล้วถ้าคูเมืองนั้น<em>ไม่เคยมีอยู่จริงตั้งแต่แรก</em>ล่ะ?
+        GE เคยเป็นบริษัทที่มีค่าที่สุดในโลก และกำไรที่ทุกคนชื่นชมว่ามาจาก "ความเป็นเลิศด้านการผลิต"
+        จริงๆ แล้วส่วนใหญ่มาจากธนาคารเงาที่ซ่อนอยู่ข้างใน
+        วันนี้ GE Vernova ทำจุดสูงสุดใหม่จากดีมานด์ไฟฟ้าของ AI — <em>แต่กว่าจะถึงวันนี้ ต้องผ่าตัวเองออกเป็นสามส่วนก่อน</em>
+      </p>
+
+    </div>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container footer-grid">
+      <div class="footer-brand">
+        <a href="../index.html" class="site-title">Moatrices</a>
+        <p>บันทึกการเรียนวิเคราะห์หุ้น US เชิงลึก ภาษาไทย — เน้นพื้นฐานธุรกิจ ไม่ใช่ราคา</p>
+      </div>
+      <nav class="footer-nav">
+        <a href="../index.html">หน้าแรก</a>
+        <a href="../articles.html">บทความ</a>
+        <a href="../stocks.html">หุ้น</a>
+        <a href="../tools.html">เครื่องมือ</a>
+        <a href="../dashboard.html">Dashboard</a>
+        <a href="../about.html">เกี่ยวกับ</a>
+      </nav>
+      <div class="footer-follow">
+        <span class="footer-follow-label">ติดตาม</span>
+        <div class="footer-social">
+          <a href="/feed.xml" class="social-btn" aria-label="RSS feed" title="RSS feed"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 11a9 9 0 0 1 9 9"/><path d="M4 4a16 16 0 0 1 16 16"/><circle cx="5" cy="19" r="1"/></svg></a>
+          <a href="mailto:beatp9696@gmail.com" class="social-btn" aria-label="อีเมล" title="อีเมล"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="m3 7 9 6 9-6"/></svg></a>
+        </div>
+      </div>
+    </div>
+    <div class="container footer-legal">
+      <p><strong>คำเตือน:</strong> เนื้อหาทั้งหมดเป็นบันทึกการเรียนและความเห็นส่วนตัว
+         เพื่อการศึกษาเท่านั้น <strong>ไม่ใช่คำแนะนำการลงทุน</strong> ไม่ใช่การชี้นำให้ซื้อหรือขายหลักทรัพย์ใดๆ
+         ตัวเลขอ้างอิงงบที่เผยแพร่ ณ ช่วงเวลาหนึ่งและอาจล้าสมัย การตัดสินใจลงทุนเป็นความรับผิดชอบของผู้อ่านเอง</p>
+      <p>© 2026 Moatrices · เผยแพร่ผ่าน GitHub Pages</p>
+    </div>
+  </footer>
+
+  <button class="to-top" aria-label="กลับขึ้นด้านบน">↑</button>
+  <script defer src="../app.js"></script>
+
+</body>
+</html>
