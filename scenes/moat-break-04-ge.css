@@ -1,0 +1,142 @@
+/* ============================================================
+   moat-break-04-ge — scene CSS (โหลดเฉพาะบทนี้)
+   ฟิสิกส์ของธุรกิจนี้: คานงัด (lever) ที่ต้องมีจุดหมุน
+
+   "ถ้าธุรกิจนี้เป็นระบบทางฟิสิกส์ มันคือระบบอะไร แล้วอะไรคือแรงที่ทำให้มันชนะ"
+     → GE = คานยาวมาก งัดกำไรขึ้นได้มหาศาลจากทุนก้อนเล็ก
+       จุดหมุน = ตลาดตราสารหนี้ระยะสั้น (commercial paper) ที่ยอมให้ต่ออายุหนี้ไปเรื่อยๆ
+       แรงที่ทำให้ "เหมือน" ชนะ = คานยาว ไม่ใช่กล้ามเนื้อ
+       การตาย = **จุดหมุนหายไปในหนึ่งสัปดาห์** แล้วคานทั้งอันฟาดลง
+                กำไรที่หายไปพร้อมคาน = กำไรที่ไม่เคยมาจากคูเมืองเลย
+
+   กฎการเคลื่อนไหว:
+     ยุครุ่งเรือง ทุกอย่างต้อง **เรียบเนียนผิดธรรมชาติ** — ไม่มีสะดุด ไม่มีกระตุก
+       (นี่คืออาร์กิวเมนต์: ความเรียบคือเบาะแส ไม่ใช่ความเก่ง) → --e-expo เส้นตรงยาว
+     ตอนพัง ห้าม "ค่อยๆ จาง" — คานต้อง **ฟาดลงในจังหวะเดียว** (--e-fail)
+       เพราะสิ่งที่หายไปไม่ใช่ธุรกิจ (เครื่องยนต์เจ็ทยังบินอยู่) แต่คือจุดหมุน ซึ่งหายพรึ่บเดียว
+     ห้ามเด็ดขาด: ทำให้ธุรกิจอุตสาหกรรมดูพังไปด้วย — มันไม่ได้พัง มันแค่เล็กกว่าที่ทุกคนคิดมาก
+
+   กฎไฟล์นี้: markup = สถานะจบเสมอ · ทุก @keyframes จบที่ 100% = สถานะใน markup
+   ============================================================ */
+
+.mb4-panel { background: radial-gradient(140% 120% at 50% 0%, #0d1524 0%, #05080e 72%); border-color: #22406b; }
+.ph-eyebrow.mb4 { color: #5b9bd5; }
+
+.mb4-panel .sa-stage { container-type: inline-size; }
+
+/* ── ภาษาของอุปกรณ์จริง: จอ IR / แผงเครื่องจักร / สวิตช์ ── */
+.mb4-t      { font-family: var(--font-head); font-size: 13px; font-weight: 700; fill: #dbe7f5; letter-spacing: .04em; }
+.mb4-t.r    { fill: #f08b8b; }
+.mb4-t.gold { fill: #e0a63c; }
+.mb4-big    { font-family: var(--font-head); font-size: 24px; font-weight: 800; fill: #eaf1fb; }
+.mb4-big.g  { fill: #3ddc97; }
+.mb4-huge   { font-family: var(--font-head); font-size: 46px; font-weight: 800; fill: #eaf1fb; }
+.mb4-m      { font-family: "IBM Plex Mono", ui-monospace, monospace; font-size: 12px; fill: #93a9c4; }
+.mb4-m.s    { font-size: 10.5px; fill: #6a809c; }
+.mb4-m.g    { fill: #3ddc97; }
+.mb4-m.r    { fill: #ed4245; }
+.mb4-m.gold { fill: #e0a63c; }
+.mb4-m.b    { font-weight: 700; }
+/* ตัวหนังสือที่วางทับแถบสีสว่าง (ทอง/ฟ้า) ต้องเป็นหมึกเข้ม — เช็คคอนทราสต์ที่ "สถานะจบ" เสมอ */
+.mb4-onbar  { font-family: "IBM Plex Mono", ui-monospace, monospace; font-size: 11px;
+              font-weight: 700; fill: #0d1524; }
+
+.mb4-chip   { font-size: 1.55cqw; color: #e0a63c; background: rgba(5,8,14,.9);
+              border: 1px solid #6b4a1e; border-radius: 6px; padding: .35em .6em; opacity: 0; }
+/* chip ตั้งคลาสเอง → ต้อง counter-reset เอง (.sa-num ใน style.css เป็นตัวพา counter-reset มา) */
+.mb4-chip.sa-yrs        { counter-reset: n var(--n); }
+.mb4-chip.sa-yrs::after { content: counter(n) " ปี เพื่อโตราว 17%"; }
+
+.mb4-fin, .mb4-core1, .mb4-core2, .mb4-knob, .mb4-lever, .mb4-fall, .mb4-dot {
+  transform-box: fill-box; transform-origin: center;
+}
+
+@keyframes mb4-rise { from { opacity: 0; transform: translateY(12px); } }
+@keyframes mb4-fade { from { opacity: 0; } }
+
+/* ============================================================
+   ฉาก 1 — กำไรที่เรียบเนียนเกินธรรมชาติ
+   วัฏจักรจริงวาดก่อน (เหตุ) → เส้นกำไรที่เรียบวาดทีหลัง (ผล) ห่างกัน ≥ 1 beat
+   ความเรียบของเส้นบน = ตัวอาร์กิวเมนต์เอง จึงต้องไม่มีจังหวะกระตุกเลยแม้แต่นิดเดียว
+   ============================================================ */
+.mb4-cycle  { stroke-dasharray: 100; stroke-dashoffset: 0; }
+.mb4-smooth { stroke-dasharray: 100; stroke-dashoffset: 0; }
+.playing .mb4-cycle  { animation: mb4-draw calc(var(--beat) * 3.4) var(--e-mass); }
+.playing .mb4-smooth { animation: mb4-draw calc(var(--beat) * 3.6) linear; }   /* linear = ไม่มีลีลา ไม่มีสะดุด */
+@keyframes mb4-draw  { from { stroke-dashoffset: 100; } }
+
+.playing .mb4-dot { animation: mb4-pop calc(var(--beat) * .8) var(--e-mass); }
+@keyframes mb4-pop { from { opacity: 0; transform: scale(0); } }
+.playing .mb4-ask { animation: mb4-rise calc(var(--beat) * 1.6) var(--e-expo); }
+
+/* ============================================================
+   ฉาก 2 — เปิดฝาเครื่อง: คานงัดที่ซ่อนอยู่  ★ ฉากหลักของบท
+   จุดหมุนต้องโผล่ *ก่อน* คาน และคานต้องโผล่ก่อนกำไรที่ถูกงัดขึ้น (เหตุ → ผล)
+   ============================================================ */
+.playing .mb4-ind     { animation: mb4-rise calc(var(--beat) * 1.4) var(--e-mass); }
+.playing .mb4-lever-g { animation: mb4-fade calc(var(--beat) * 1.4) var(--e-expo); }
+
+/* คานเอียงขึ้น = กำไรถูกงัด (สถานะจบ = เอียงขึ้นแล้ว) */
+.mb4-lever { transform-origin: 20% 50%; }
+.playing .mb4-lever { animation: mb4-tilt calc(var(--beat) * 2) var(--e-expo); }
+@keyframes mb4-tilt { from { transform: rotate(9deg); } }   /* เริ่มแนวราบ → จบที่เอียงขึ้น */
+
+.playing .mb4-push  { animation: mb4-rise calc(var(--beat) * 1.2) var(--e-mass); }
+.playing .mb4-lift  { animation: mb4-rise calc(var(--beat) * 1.4) var(--e-expo); }
+.playing .mb4-punch { animation: mb4-rise calc(var(--beat) * 1.8) var(--e-expo); }
+
+/* ============================================================
+   ฉาก 3 — 2008: จุดหมุนหาย คานฟาดลง
+   คานต้องฟาด *ในจังหวะเดียว* ห้ามค่อยๆ จาง (--e-fail)
+   ============================================================ */
+.playing .mb4-fulcrum-gone { animation: mb4-fade calc(var(--beat) * 1.2) var(--e-fail); }
+
+/* สถานะจบ = คานนอนราบกับพื้น (ฟาดลงแล้ว) */
+.mb4-fall { transform-origin: left center; }
+.playing .mb4-fall { animation: mb4-crash calc(var(--beat) * 1.2) var(--e-fail); }
+@keyframes mb4-crash { from { transform: rotate(-9deg); } }
+
+.playing .mb4-cost    { animation: mb4-rise calc(var(--beat) * 1.2) var(--e-mass); }
+.playing .mb4-verdict { animation: mb4-rise calc(var(--beat) * 1.6) var(--e-expo); }
+
+/* ============================================================
+   ฉาก 4 — 2000 ปะทะ 2026: มูลค่ากลับมาตอนที่บริษัทเดิมไม่มีแล้ว
+   ============================================================ */
+.playing .mb4-old   { animation: mb4-rise calc(var(--beat) * 1.6) var(--e-mass); }
+.playing .mb4-arrow { animation: mb4-fade calc(var(--beat) * 1.6) var(--e-expo); }
+.playing .mb4-new   { animation: mb4-rise calc(var(--beat) * 1.2) var(--e-mass); }
+.playing .mb4-total { animation: mb4-rise calc(var(--beat) * 1.6) var(--e-expo); }
+
+/* counter: 26 ปี (2000 → 2026) — ของหนัก ไม่มีทางลัด */
+.playing .mb4-chip.sa-yrs { animation: mb4-yrs calc(var(--beat) * 3) var(--e-mass) calc(var(--beat) * 2) both; }
+@keyframes mb4-yrs { from { --n: 0; opacity: 0; } 15% { opacity: 1; } to { --n: 26; opacity: 1; } }
+
+/* ============================================================
+   ฉาก 5 — เครื่องมือ: สวิตช์ "ตัดคานทิ้ง"
+   สับสวิตช์ (เหตุ) → แท่งการเงินหายไป (ผล) → กำไรที่เหลือหดลงจริง
+   ★ สถานะจบ: แท่งซ้ายยังมีทั้งสองส่วน / แท่งขวาเหลือแค่ธุรกิจแกน — เทียบกันได้ตลอด
+   ============================================================ */
+.playing .mb4-core1  { animation: mb4-grow-y calc(var(--beat) * 1.4) var(--e-mass); }
+.playing .mb4-fin    { animation: mb4-grow-y calc(var(--beat) * 1.4) var(--e-expo); }
+.mb4-core1, .mb4-fin { transform-origin: center bottom; }
+@keyframes mb4-grow-y { from { transform: scaleY(0); } }
+
+.playing .mb4-switch { animation: mb4-fade calc(var(--beat) * 1.2) var(--e-expo); }
+/* ลูกบิดสับจากซ้ายไปขวา = สับสวิตช์ (สถานะจบ = สับแล้ว) */
+.playing .mb4-knob { animation: mb4-flip calc(var(--beat) * .8) var(--e-snapback); }
+@keyframes mb4-flip { from { transform: translateX(-48px); } }
+
+/* แท่งกำไรที่เหลือ — ขึ้นมาหลังสับสวิตช์ ≥ 1 beat */
+.mb4-core2 { transform-origin: center bottom; }
+.playing .mb4-core2   { animation: mb4-grow-y calc(var(--beat) * 1.2) var(--e-mass); }
+.playing .mb4-shrunk,
+.playing .mb4-verdict2 { animation: mb4-rise calc(var(--beat) * 1.4) var(--e-expo); }
+
+/* ============================================================
+   Accessibility — ปิด animation แล้วต้องตกที่ "สถานะจบ" พอดี
+   ============================================================ */
+@media (prefers-reduced-motion: reduce) {
+  .ph-panel .sa { animation: none !important; }
+  .mb4-chip { opacity: 1; }
+  .mb4-chip.sa-yrs { --n: 26; }
+}
