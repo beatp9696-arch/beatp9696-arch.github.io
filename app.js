@@ -260,6 +260,24 @@
     el.textContent = ARTICLES.length;
   });
 
+  // ---- เลข hero นับขึ้นตอนโหลด (ครั้งเดียว, เคารพ reduced-motion) ----
+  var rm = window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  if (!rm) {
+    Array.prototype.slice.call(document.querySelectorAll(".hero-stat-num")).forEach(function (el) {
+      var target = parseInt(el.textContent, 10);
+      if (!target || target < 2) return;
+      var t0 = null, dur = 900;
+      el.textContent = "0";
+      var tick = function (ts) {
+        if (!t0) t0 = ts;
+        var p = Math.min(1, (ts - t0) / dur);
+        el.textContent = Math.round(target * (1 - Math.pow(1 - p, 3)));
+        if (p < 1) requestAnimationFrame(tick);
+      };
+      requestAnimationFrame(tick);
+    });
+  }
+
   // ---- แท็บกรองบทความ (หมวด × กลุ่มธุรกิจ) — เฉพาะหน้าคลังบทความ ----
   var postList = document.querySelector(".post-list--all");
   if (postList) {

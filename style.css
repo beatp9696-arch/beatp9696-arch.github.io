@@ -2180,3 +2180,79 @@ h2:hover > .heading-anchor, h3:hover > .heading-anchor { opacity: 0.45; }
    scenes: indirect-method bridge / 3-pocket engine + spouts /
    NVDA-vs-TSMC capex funnels / SBC-inflated FCF tank
    ============================================================ *//* liquid flow in pipes (cyan) *//* amber flow — paper gains / SBC (money that isn't the company's cash) *//* drips into working-capital tanks *//* water-surface shimmer *//* pump / valve pulse */
+/* ============================================================
+   Premium pass (13 ก.ค. 2026) — hero scene "เจาะลงหาคูเมือง",
+   หัว section แบบ editorial, เลข stats แบบ tabular
+   ============================================================ */
+
+/* ---------- hero 2 คอลัมน์ ---------- */
+.hero-scene { margin-top: 34px; }
+@media (min-width: 920px) {
+  .hero-inner { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, .92fr); gap: 44px; align-items: center; }
+  .hero-scene { margin-top: 0; }
+}
+.hero-scene svg { display: block; width: 100%; height: auto; max-width: 470px; margin: 0 auto; }
+.hs-cap {
+  max-width: 470px; margin: 10px auto 0; text-align: center;
+  font-family: "IBM Plex Mono", ui-monospace, monospace;
+  font-size: 12px; letter-spacing: .05em; color: var(--muted);
+}
+
+/* ---------- ฉากเจาะ: ชั้นข้อมูล 5 ชั้น (สถานะจบ = ค่า base อ่านรู้เรื่องเสมอ) ---------- */
+.hs-lab { font-family: var(--font-head); font-size: 14.5px; font-weight: 600; fill: var(--text); }
+.hs-sub { font-family: "IBM Plex Mono", ui-monospace, monospace; font-size: 10.5px; letter-spacing: .06em; fill: var(--muted); }
+.hs-band rect.hs-bg { fill: var(--surface-2); stroke: var(--border); stroke-width: 1; }
+.hs-tex { stroke: var(--muted); opacity: .22; fill: none; }
+.hs-b1, .hs-b2, .hs-b3, .hs-b4 { opacity: .45; }
+.hs-b1 { animation: hsDim .5s ease .9s both; }
+.hs-b2 { animation: hsDim .5s ease 1.65s both; }
+.hs-b3 { animation: hsDim .5s ease 2.4s both; }
+.hs-b4 { animation: hsDim .5s ease 3.15s both; }
+@keyframes hsDim { from { opacity: 1; } to { opacity: .45; } }
+
+.hs-moat rect.hs-vein { fill: var(--accent); }
+.hs-moat .hs-lab, .hs-moat .hs-sub { fill: var(--surface); }
+.hs-moat { animation: hsLight .7s ease 3.9s both; }
+@keyframes hsLight { from { opacity: .32; } to { opacity: 1; } }
+
+.hs-rig { animation: hsDrill 3.6s cubic-bezier(.3, .6, .2, 1) .4s both; }
+@keyframes hsDrill {
+  0%   { transform: translateY(-290px); }
+  14%  { transform: translateY(-236px); }
+  20%  { transform: translateY(-236px); }
+  34%  { transform: translateY(-178px); }
+  40%  { transform: translateY(-178px); }
+  54%  { transform: translateY(-118px); }
+  60%  { transform: translateY(-118px); }
+  74%  { transform: translateY(-50px); }
+  80%  { transform: translateY(-50px); }
+  100% { transform: translateY(0); }
+}
+.hs-pulse {
+  fill: none; stroke: var(--accent); stroke-width: 2;
+  transform-box: fill-box; transform-origin: center;
+  opacity: 0; animation: hsPulse 3s ease-in-out 4.8s infinite;
+}
+@keyframes hsPulse {
+  0% { opacity: 0; transform: scale(.4); }
+  35% { opacity: .3; }
+  70%, 100% { opacity: 0; transform: scale(1.5); }
+}
+@media (prefers-reduced-motion: reduce) {
+  .hero-scene * { animation: none !important; }
+}
+
+/* ---------- หัว section แบบ editorial: เลขลำดับ + เส้น hairline ---------- */
+h2.sec { display: flex; align-items: center; gap: 12px; }
+h2.sec::after {
+  content: ""; flex: 1; height: 1px; margin-left: 4px;
+  background: linear-gradient(90deg, var(--border), transparent);
+}
+.sec-no {
+  font-family: "IBM Plex Mono", ui-monospace, monospace;
+  font-size: .68em; font-weight: 500; color: var(--accent);
+  letter-spacing: .1em;
+}
+
+/* ---------- เลข hero ไม่ขยับซ้ายขวาตอนนับ ---------- */
+.hero-stat-num { font-variant-numeric: tabular-nums; }
