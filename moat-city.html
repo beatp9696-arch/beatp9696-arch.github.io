@@ -1,0 +1,594 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <script>try{var t=localStorage.getItem('theme');if(t)document.documentElement.setAttribute('data-theme',t);}catch(e){}</script>
+  <title>เมืองคูเมือง — แผนที่ 3D ของ 20 ธุรกิจที่ผ่าแล้ว — Moatrices</title>
+  <meta name="description" content="เมือง 3D กลางคืนที่สร้างจากบทวิเคราะห์จริง — ตึก 20 หลังคือ 20 ธุรกิจที่ผ่าแล้ว สูงตามขนาดธุรกิจ ล้อมด้วยคูน้ำเรืองแสงกว้างตามความแข็งของ moat และนอกหมอกคือ 5 บริษัทจากซีรีส์คูเมืองแตก ลากหมุน ซูม คลิกตึกเพื่อเข้า deep-dive">
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="Moatrices">
+  <meta property="og:title" content="เมืองคูเมือง — แผนที่ 3D ของ 20 ธุรกิจที่ผ่าแล้ว — Moatrices">
+  <meta property="og:description" content="ตึกสูงตามขนาดธุรกิจ คูเรืองแสงกว้างตาม moat นอกหมอกคือคูเมืองแตก — ลากหมุน ซูม คลิกตึกเพื่อเข้า deep-dive ทั้ง 20 ตัว">
+  <meta property="og:url" content="https://beatp9696-arch.github.io/moat-city.html">
+  <meta property="og:locale" content="th_TH">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta property="og:image" content="https://beatp9696-arch.github.io/og-moat-city.png">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta name="twitter:image" content="https://beatp9696-arch.github.io/og-moat-city.png">
+  <meta name="author" content="Moatrices">
+  <link rel="canonical" href="https://beatp9696-arch.github.io/moat-city.html">
+  <link rel="alternate" type="application/rss+xml" title="Moatrices RSS" href="/feed.xml">
+  <meta name="theme-color" content="#0b0d10">
+  <link rel="icon" href="favicon.svg" type="image/svg+xml">
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png">
+  <link rel="manifest" href="/site.webmanifest">
+  <link rel="stylesheet" href="style.min.css">
+  <style>
+  /* ─── เมืองคูเมือง (mc) — หน้า immersive: canvas เต็มจอ ไม่มี footer ─── */
+  html, body { height: 100%; overflow: hidden; }
+  body { background: #0b0d10; }
+  .site-header { position: relative; z-index: 20; }
+  #city { position: fixed; inset: 0; z-index: 0; }
+  #city canvas { display: block; }
+
+  .mc-hud { position: fixed; top: 86px; left: 26px; z-index: 5; pointer-events: none; max-width: 480px; }
+  .mc-hud .kick { font-family: "IBM Plex Mono", ui-monospace, monospace; font-size: 11px; letter-spacing: .3em;
+    color: #8a8f96; text-transform: uppercase; margin-bottom: 8px; }
+  .mc-hud h1 { font-family: var(--font-head); font-size: clamp(21px, 3vw, 29px); font-weight: 600;
+    color: #e8eaed; line-height: 1.35; margin: 0; }
+  .mc-hud h1 b { color: #4ecaa0; font-weight: 600; }
+  .mc-hud .hint { font-family: "IBM Plex Mono", ui-monospace, monospace; font-size: 11.5px;
+    color: #6c7177; margin-top: 10px; letter-spacing: .05em; }
+
+  .mc-legend { position: fixed; left: 26px; bottom: 20px; z-index: 5; display: flex; gap: 16px; flex-wrap: wrap;
+    pointer-events: none; font-family: "IBM Plex Mono", ui-monospace, monospace; font-size: 11.5px;
+    color: #8a8f96; letter-spacing: .03em; max-width: 88vw; }
+  .mc-legend i { display: inline-block; width: 10px; height: 10px; border-radius: 50%; margin-right: 7px; vertical-align: -1px; }
+
+  .mc-tag { position: fixed; z-index: 4; transform: translate(-50%, -100%); pointer-events: none;
+    font-family: "IBM Plex Mono", ui-monospace, monospace; font-size: 11px; letter-spacing: .08em;
+    color: #c3c8ce; text-shadow: 0 1px 6px #000; white-space: nowrap; transition: opacity .25s; }
+  .mc-tag small { display: block; text-align: center; color: #8a8f96; font-size: 9.5px; letter-spacing: .05em; }
+  .mc-tag.dead { color: #9a6a64; }
+
+  .mc-card { position: fixed; right: 20px; top: 86px; z-index: 6; width: min(310px, calc(100vw - 40px));
+    background: rgba(18, 21, 25, .94); border: 1px solid #2b2f36; border-radius: 12px;
+    padding: 18px 18px 16px; color: #e8eaed; backdrop-filter: blur(6px); display: none; }
+  .mc-card.show { display: block; animation: mcIn .3s cubic-bezier(.2,.7,.2,1) both; }
+  @keyframes mcIn { from { opacity: 0; transform: translateY(-8px); } to { opacity: 1; transform: none; } }
+  .mc-card .tk { font-family: "IBM Plex Mono", ui-monospace, monospace; font-size: 12px; color: #4ecaa0;
+    letter-spacing: .12em; margin-bottom: 4px; }
+  .mc-card h2 { font-family: var(--font-head); font-size: 17px; font-weight: 600; line-height: 1.45; margin: 0 0 8px; }
+  .mc-card p { font-family: var(--font-body); font-size: 13.5px; line-height: 1.65; color: #a9aeb5; margin: 0 0 12px; }
+  .mc-card .moat-row { display: flex; align-items: center; gap: 10px; margin-bottom: 12px;
+    font-family: "IBM Plex Mono", ui-monospace, monospace; font-size: 11px; color: #8a8f96; }
+  .mc-card .moat-bar { flex: 1; height: 5px; border-radius: 99px; background: #23272d; overflow: hidden; }
+  .mc-card .moat-bar i { display: block; height: 100%; border-radius: 99px; background: linear-gradient(90deg, #0c6b52, #4ecaa0); }
+  .mc-card a { display: inline-block; font-size: 13.5px; font-weight: 600; color: #4ecaa0; }
+  .mc-card .x { position: absolute; top: 10px; right: 12px; background: none; border: 0; color: #6c7177;
+    font-size: 16px; cursor: pointer; }
+
+  .mc-fallback { position: fixed; inset: 0; z-index: 8; display: none; place-items: center;
+    background: #0b0d10; color: #c3c8ce; text-align: center; padding: 30px; }
+  .mc-fallback.show { display: grid; }
+  .mc-fallback p { max-width: 46ch; line-height: 1.8; }
+  .mc-fallback a { color: #4ecaa0; font-weight: 600; }
+
+  /* โหมดถ่ายปก OG (?og=1): ตัด chrome ออก เหลือเมือง + ชื่อ */
+  body.og .site-header, body.og .top-accent, body.og .mc-hud .hint { display: none; }
+  body.og .mc-hud { top: 44px; }
+
+  @media (max-width: 700px) {
+    .mc-hud { top: 74px; left: 18px; }
+    .mc-legend { left: 18px; gap: 10px 14px; font-size: 10.5px; }
+    .mc-card { top: auto; bottom: 64px; right: 20px; }
+  }
+  </style>
+</head>
+<body>
+
+  <div class="top-accent"></div>
+
+  <header class="site-header">
+    <div class="container">
+      <a href="index.html" class="site-title">Moatrices</a>
+      <nav class="site-nav">
+        <a href="index.html">หน้าแรก</a>
+        <a href="articles.html">บทความ</a>
+        <a href="stocks.html">หุ้น</a>
+        <a href="tools.html">เครื่องมือ</a>
+        <a href="dashboard.html">Dashboard</a>
+        <a href="about.html">เกี่ยวกับ</a>
+      </nav>
+    </div>
+  </header>
+
+  <div id="city"></div>
+
+  <div class="mc-hud">
+    <div class="kick">MOATRICES · 3D</div>
+    <h1>เมืองคูเมือง — <b>20 ธุรกิจที่ผ่าแล้ว</b></h1>
+    <div class="hint">ลากหมุน · สกรอลล์ซูม · คลิกตึกเพื่อดูข้อมูล</div>
+  </div>
+
+  <div class="mc-legend">
+    <span><i style="background:#4ecaa0"></i>คูกว้าง = moat แข็ง</span>
+    <span><i style="background:#d8a33a"></i>ตึกสูง = ขนาดธุรกิจ</span>
+    <span><i style="background:#5a3a36"></i>นอกหมอก = คูเมืองแตก</span>
+  </div>
+
+  <div class="mc-card" id="card">
+    <button class="x" id="cardX" aria-label="ปิด">✕</button>
+    <div class="tk" id="cTk"></div>
+    <h2 id="cName"></h2>
+    <p id="cBlurb"></p>
+    <div class="moat-row"><span>MOAT</span><div class="moat-bar"><i id="cMoat"></i></div><span id="cMoatN"></span></div>
+    <a id="cLink" href="#">อ่าน deep-dive →</a>
+  </div>
+
+  <div class="mc-fallback" id="fallback">
+    <p>เครื่องนี้เปิด WebGL ไม่ได้ เลยเข้าเมือง 3D ไม่ได้ —
+      แต่ธุรกิจทั้ง 20 ตัวยังอยู่ครบที่ <a href="stocks.html">หน้าหุ้น</a>
+      และซีรีส์คูเมืองแตกอยู่ที่ <a href="series-moat-break.html">หน้าซีรีส์</a></p>
+  </div>
+
+<script type="importmap">{"imports":{"three":"./vendor/three/three.module.min.js"}}</script>
+<script type="module">
+import * as THREE from 'three';
+import {OrbitControls} from './vendor/three/OrbitControls.js';
+
+/* ============================================================
+   เมืองคูเมือง — ทุกตึกคือ deep-dive จริง ทุกตัวเลขคือความเห็นใน analysis
+   cap = market cap คร่าวๆ ($B) → ความสูง · moat 0–5 → รัศมีคู (PP เป็นเจ้าของตัวเลข)
+   sig = ลายเซ็นประจำธุรกิจ (เอกลักษณ์หอ)
+   ============================================================ */
+const CITY = [
+  {t:'NVDA', n:'Nvidia',           cap:4500, moat:4.0, d:'semi',  b:'ขายพลั่วให้ยุคตื่นทอง AI — CUDA คือคูที่ลึกกว่าชิป'},
+  {t:'TSM',  n:'TSMC',             cap:1500, moat:5.0, d:'semi',  b:'Process Power ตัวจริง — วงรอบเรียนรู้ที่คู่แข่งตามไม่ทัน'},
+  {t:'ASML', n:'ASML',             cap:400,  moat:5.0, d:'semi',  b:'Cornered Resource — เครื่อง EUV เจ้าเดียวในโลก'},
+  {t:'SNPS', n:'Synopsys',         cap:90,   moat:5.0, d:'semi',  b:'EDA duopoly + switching cost ระดับ "ย้ายแล้วชิปพัง"'},
+  {t:'AVGO', n:'Broadcom',         cap:1300, moat:4.0, d:'semi',  b:'ซื้อกิจการเก่ง เก็บค่าเช่าจาก silicon + software'},
+  {t:'MRVL', n:'Marvell',          cap:70,   moat:3.0, d:'semi',  b:'custom silicon ให้ hyperscaler — โตตาม AI capex'},
+  {t:'MU',   n:'Micron',           cap:250,  moat:2.0, d:'semi',  b:'memory = commodity วัฏจักร — คูตื้นโดยธรรมชาติ'},
+  {t:'COHR', n:'Coherent',         cap:15,   moat:2.5, d:'semi',  b:'photonics เข้ายุค AI datacenter — คูยังต้องพิสูจน์'},
+  {t:'AAPL', n:'Apple',            cap:3400, moat:4.5, d:'plat',  b:'ระบบนิเวศที่คุมทุกพิกเซล — switching cost ระดับชีวิต'},
+  {t:'MSFT', n:'Microsoft',        cap:3800, moat:4.5, d:'plat',  b:'เก็บค่าเช่าจากทุกออฟฟิศบนโลก + Azure'},
+  {t:'GOOGL',n:'Alphabet',         cap:2900, moat:4.0, d:'plat',  b:'ผูกขาด search + YouTube — โดน AI ท้าทายแต่ยังถือแต้มต่อ'},
+  {t:'NFLX', n:'Netflix',          cap:550,  moat:3.5, d:'plat',  b:'Scale Economies ของ content — จ่ายครั้งเดียว ฉายทั้งโลก'},
+  {t:'MELI', n:'MercadoLibre',     cap:130,  moat:4.0, d:'plat',  b:'Network Economies ของ LatAm — marketplace + fintech'},
+  {t:'COST', n:'Costco',           cap:450,  moat:4.5, d:'fin',   b:'Counter-Positioning — กำไรจากค่าสมาชิก ไม่ใช่ markup (ตึกเดียวในเมืองที่เตี้ยแต่คูกว้าง)'},
+  {t:'AXP',  n:'American Express', cap:240,  moat:4.0, d:'fin',   b:'เครือข่ายปิด + แบรนด์ — ลูกค้าจ่ายเพื่อถือบัตร'},
+  {t:'SPGI', n:'S&P Global',       cap:170,  moat:5.0, d:'fin',   b:'เก็บค่าผ่านทางจากตลาดทุนโลก — rating ที่ใครก็ต้องใช้'},
+  {t:'LLY',  n:'Eli Lilly',        cap:900,  moat:4.0, d:'health',b:'GLP-1 duopoly — สิทธิบัตร + กำลังผลิตคือคู'},
+  {t:'UNH',  n:'UnitedHealth',     cap:350,  moat:3.5, d:'health',b:'scale ของระบบประกันสุขภาพสหรัฐ — คูใหญ่แต่การเมืองเสี่ยง'},
+  {t:'LMT',  n:'Lockheed Martin',  cap:110,  moat:3.5, d:'ind',   b:'ลูกค้าคือรัฐ — สัญญายาวเป็นทศวรรษ'},
+  {t:'SPACEX',n:'SpaceX',          cap:400,  moat:4.0, d:'ind',   b:'reusable rocket = ต้นทุนที่คู่แข่งไล่ไม่ทัน (นอกตลาด)'},
+];
+const FALLEN = [
+  {t:'KODAK', n:'Kodak',  cap:30,  moat:0,   b:'ชนะสงครามดิจิทัล เบอร์ 1 ปี 2005 — ล้มละลาย 2012', link:'articles/moat-break-01-kodak.html'},
+  {t:'NOKIA', n:'Nokia',  cap:80,  moat:0,   b:'บริษัทรอด แต่คนซื้อปี 2007 ติดดอย 19 ปี', link:'articles/moat-break-02-nokia.html'},
+  {t:'INTC',  n:'Intel',  cap:180, moat:0.5, b:'กำลังซ่อมคู — แต่โรงหล่อที่ไม่มีลูกค้ายังไม่ใช่โรงหล่อ', link:'articles/moat-break-03-intel.html'},
+  {t:'GE',    n:'GE',     cap:120, moat:0,   b:'คูเมืองที่ไม่เคยมีจริง — สุดท้ายถูกผ่าเป็นสามบริษัท', link:'articles/moat-break-04-ge.html'},
+  {t:'BA',    n:'Boeing', cap:130, moat:3.5, b:'ตึกพังแต่คูยังเรืองแสง — moat ทนผู้บริหารห่วยได้', link:'articles/moat-break-05-boeing.html'},
+];
+
+const DISTRICTS = {
+  semi:  {cx:-30, cz:-20},
+  plat:  {cx: 34, cz:-24},
+  fin:   {cx: 32, cz: 26},
+  health:{cx: -6, cz: 36},
+  ind:   {cx:-40, cz: 22},
+};
+
+const capH = c => 5 + 21 * Math.log10(c/12) / Math.log10(4500/12);
+const capW = c => 3.2 + 2.4 * Math.log10(c/12) / Math.log10(4500/12);
+const moatR = (m, w) => w*0.85 + 1.2 + m*1.35;
+
+/* ---------- scene ---------- */
+const BG = 0x0b0d10;
+let renderer;
+try {
+  const STILL = new URLSearchParams(location.search).has('still');
+  renderer = new THREE.WebGLRenderer({antialias: !STILL});
+  renderer.setPixelRatio(STILL ? 1 : Math.min(devicePixelRatio, 2));
+  window.__STILL = STILL;
+} catch (e) {
+  document.getElementById('fallback').classList.add('show');
+  throw e;
+}
+const scene = new THREE.Scene();
+scene.background = new THREE.Color(BG);
+scene.fog = new THREE.Fog(BG, 150, 330);
+
+const camera = new THREE.PerspectiveCamera(42, innerWidth/innerHeight, 0.1, 600);
+camera.position.set(80, 78, 100);
+
+renderer.setSize(innerWidth, innerHeight);
+document.getElementById('city').appendChild(renderer.domElement);
+
+const controls = new OrbitControls(camera, renderer.domElement);
+controls.target.set(0, 2, 0);
+controls.enableDamping = true; controls.dampingFactor = .06;
+controls.minDistance = 40; controls.maxDistance = 175;
+controls.maxPolarAngle = Math.PI * .46; controls.minPolarAngle = Math.PI * .12;
+const q = new URLSearchParams(location.search);
+if (q.has('og')) document.body.classList.add('og');
+if (q.has('cam')){ const [cx,cy,cz] = q.get('cam').split(',').map(Number); camera.position.set(cx,cy,cz); }
+if (q.has('tgt')){ const [tx,ty,tz] = q.get('tgt').split(',').map(Number); controls.target.set(tx,ty,tz); }
+const REDUCE = matchMedia('(prefers-reduced-motion: reduce)').matches;
+controls.autoRotate = !REDUCE && !window.__STILL;
+controls.autoRotateSpeed = .4;
+['pointerdown','wheel','touchstart'].forEach(e =>
+  renderer.domElement.addEventListener(e, () => controls.autoRotate = false));
+
+scene.add(new THREE.AmbientLight(0x8a93a8, .55));
+const key = new THREE.DirectionalLight(0xbfd0e8, .8); key.position.set(-40, 70, 30); scene.add(key);
+const warm = new THREE.PointLight(0xd8a33a, .5, 120); warm.position.set(0, 30, 0); scene.add(warm);
+
+const ground = new THREE.Mesh(
+  new THREE.CircleGeometry(320, 72),
+  new THREE.MeshStandardMaterial({color:0x0e1116, roughness:.95})
+);
+ground.rotation.x = -Math.PI/2; scene.add(ground);
+
+{ /* ดาว */
+  const g = new THREE.BufferGeometry(), N = 700, pos = new Float32Array(N*3);
+  for (let i=0;i<N;i++){ const r=260+Math.random()*140, th=Math.random()*Math.PI*2, ph=Math.random()*Math.PI*.42;
+    pos[i*3]=r*Math.sin(ph)*Math.cos(th); pos[i*3+1]=r*Math.cos(ph)+8; pos[i*3+2]=r*Math.sin(ph)*Math.sin(th); }
+  g.setAttribute('position', new THREE.BufferAttribute(pos,3));
+  scene.add(new THREE.Points(g, new THREE.PointsMaterial({color:0x9fb4d8, size:.7, transparent:true, opacity:.7})));
+}
+
+/* ---------- textures ---------- */
+function windowsTexture(litRatio, tint='#e8c06a'){
+  const c = document.createElement('canvas'); c.width = 64; c.height = 128;
+  const x = c.getContext('2d');
+  x.fillStyle = '#151a21'; x.fillRect(0,0,64,128);
+  for (let r=2; r<126; r+=7) for (let col=3; col<61; col+=9){
+    if (Math.random() < litRatio){ x.fillStyle = Math.random()<.85 ? tint : '#f5ead0'; x.globalAlpha = .55+Math.random()*.45; }
+    else { x.fillStyle = '#1d232c'; x.globalAlpha = 1; }
+    x.fillRect(col, r, 5, 4);
+  }
+  const t = new THREE.CanvasTexture(c); t.colorSpace = THREE.SRGBColorSpace; return t;
+}
+/* ลายวงจร (SNPS) — เส้น trace เขียวบนผนังส่วนบน */
+function circuitTexture(){
+  const c = document.createElement('canvas'); c.width = 64; c.height = 128;
+  const x = c.getContext('2d');
+  x.fillStyle = '#10151c'; x.fillRect(0,0,64,128);
+  x.strokeStyle = '#3fae8b'; x.lineWidth = 1.6; x.globalAlpha = .9;
+  for (let i=0;i<9;i++){
+    x.beginPath();
+    let px = 4+Math.random()*56, py = 124;
+    x.moveTo(px,py);
+    for (let s=0;s<4;s++){ py -= 14+Math.random()*16; x.lineTo(px,py); px += (Math.random()<.5?-1:1)*(6+Math.random()*14); x.lineTo(px,py); }
+    x.stroke();
+    x.fillStyle = '#7de3bd'; x.fillRect(px-1.6, py-1.6, 3.2, 3.2);
+  }
+  const t = new THREE.CanvasTexture(c); t.colorSpace = THREE.SRGBColorSpace; return t;
+}
+const mistTex = (() => {
+  const c = document.createElement('canvas'); c.width = c.height = 128;
+  const x = c.getContext('2d');
+  const g = x.createRadialGradient(64,64,8, 64,64,64);
+  g.addColorStop(0,'rgba(150,160,175,.55)'); g.addColorStop(.6,'rgba(150,160,175,.18)'); g.addColorStop(1,'rgba(150,160,175,0)');
+  x.fillStyle = g; x.fillRect(0,0,128,128);
+  return new THREE.CanvasTexture(c);
+})();
+
+/* ---------- วัสดุช่วย ---------- */
+const glow = (color, opacity=1) => new THREE.MeshBasicMaterial({color, transparent: opacity<1, opacity});
+const darkMat = (color=0x1c222b) => new THREE.MeshStandardMaterial({color, roughness:.8});
+
+/* ============================================================
+   ลายเซ็นประจำหอ — เอกลักษณ์ธุรกิจ อ่านออกใน 1 วินาที
+   (g = กลุ่มของตึก, w/h = ฐาน/สูง, top = y ยอดตึก)
+   ============================================================ */
+const SIG = {
+  NVDA(g, w, h, top){ /* ตะแกรง die เรืองเขียว 3×3 บนยอด — ชิปคือมงกุฎ */
+    for (let i=0;i<3;i++) for (let j=0;j<3;j++){
+      const c = new THREE.Mesh(new THREE.BoxGeometry(w*.2, .5, w*.2), glow(0x4ecaa0, .95));
+      c.position.set((i-1)*w*.27, top+.35, (j-1)*w*.27); g.add(c);
+    }
+  },
+  TSM(g, w, h, top){ /* แผ่นเวเฟอร์เงินลอยเหนือยอด */
+    const wafer = new THREE.Mesh(new THREE.CylinderGeometry(w*.72, w*.72, .35, 40),
+      new THREE.MeshStandardMaterial({color:0xb9c4d0, metalness:.9, roughness:.22, emissive:0x9fb4d8, emissiveIntensity:.28}));
+    wafer.position.y = top + 1.7; g.add(wafer);
+    const stem = new THREE.Mesh(new THREE.CylinderGeometry(.16,.16,1.4,8), darkMat());
+    stem.position.y = top + .8; g.add(stem);
+  },
+  ASML(g, w, h, top){ /* ลำแสง EUV ม่วงยิงขึ้นฟ้า — เจ้าเดียวในโลกที่ยิงแสงนี้ได้ */
+    const beam = new THREE.Mesh(new THREE.CylinderGeometry(.75, .2, 16, 12, 1, true),
+      new THREE.MeshBasicMaterial({color:0xb39ddb, transparent:true, opacity:.32, side:THREE.DoubleSide, depthWrite:false}));
+    beam.position.y = top + 8; g.add(beam);
+    const src = new THREE.Mesh(new THREE.BoxGeometry(w*.3, .6, w*.3), glow(0xd5c8f0)); src.position.y = top + .4; g.add(src);
+  },
+  SNPS(g, w, h, top, body){ /* ผนังส่วนบนเป็นลายวงจรเรืองแสง — ตึกที่ถูก "ออกแบบ" */
+    const t = circuitTexture();
+    const shell = new THREE.Mesh(new THREE.BoxGeometry(w+.06, h*.34, w+.06),
+      new THREE.MeshStandardMaterial({map:t, emissiveMap:t, emissive:0xffffff, emissiveIntensity:1.1, color:0x10151c, transparent:true}));
+    shell.position.y = top - h*.17; g.add(shell);
+  },
+  AVGO(g, w, h, top){ /* เสาอากาศ 3 ต้น + ไฟแดงเตือนเครื่องบิน — มรดก RF */
+    [[-.28,4.4],[0,6],[.3,3.6]].forEach(([dx, mh]) => {
+      const m = new THREE.Mesh(new THREE.CylinderGeometry(.07,.09,mh,6), darkMat(0x39414c));
+      m.position.set(dx*w, top+mh/2, dx*w*.6); g.add(m);
+      const tip = new THREE.Mesh(new THREE.SphereGeometry(.16,8,8), glow(0xd2564b));
+      tip.position.set(dx*w, top+mh+.1, dx*w*.6); g.add(tip);
+    });
+  },
+  MRVL(g, w, h, top){ /* ชิป custom สองก้อนบนมุมยอด */
+    [[-.3,-.3],[.3,.3]].forEach(([i,j]) => {
+      const c = new THREE.Mesh(new THREE.BoxGeometry(w*.26,.45,w*.26), glow(0x4ecaa0,.85));
+      c.position.set(i*w, top+.3, j*w); g.add(c);
+    });
+  },
+  MU(g, w, h, top, body){ /* ตึกซ้อนเป็นแผง DRAM — สี่แผ่นมีร่องคั่น */
+    body.visible = false;
+    const tex = body.material[0].map, n = 4, gap = .55, sh = (h - gap*(n-1)) / n;
+    for (let i=0;i<n;i++){
+      const s = new THREE.Mesh(new THREE.BoxGeometry(w, sh, w), body.material);
+      s.position.y = 1.1 + sh/2 + i*(sh+gap); s.userData = body.userData; g.add(s); pickables.push(s);
+    }
+  },
+  COHR(g, w, h, top){ /* ลำเลเซอร์แดงยิงเฉียงออกจากยอด — photonics */
+    const beam = new THREE.Mesh(new THREE.CylinderGeometry(.1, .1, 17, 8),
+      new THREE.MeshBasicMaterial({color:0xff5544, transparent:true, opacity:.65, depthWrite:false}));
+    beam.position.set(5.4, top+5.8, 0); beam.rotation.z = -.72; g.add(beam);
+    const emitter = new THREE.Mesh(new THREE.BoxGeometry(.7,.7,.7), glow(0xff8a75)); emitter.position.y = top+.4; g.add(emitter);
+  },
+  AAPL(g, w, h, top, body){ /* โมโนลิธขาว — ตึกสว่างตึกเดียวในเมือง (ธุรกิจมันสว่าง) */
+    const tex = body.material[0].map;
+    body.material = body.material.map((m, i) => [1,1,0,0,1,1][i]
+      ? new THREE.MeshStandardMaterial({map:tex, color:0xe6e9ee, roughness:.38, metalness:.08,
+          emissive:0xffffff, emissiveMap:tex, emissiveIntensity:.4})
+      : new THREE.MeshStandardMaterial({color:0xd6dae0, roughness:.4}));
+    const ring = new THREE.Mesh(new THREE.TorusGeometry(w*.42, .1, 8, 40), glow(0xf5f7fa,.9));
+    ring.rotation.x = Math.PI/2; ring.position.y = top + .8; g.add(ring);
+  },
+  MSFT(g, w, h, top, body){ /* บานหน้าต่างยักษ์ 2×2 เรืองแสงบนผนัง */
+    [[-.22,.24],[.22,.24],[-.22,-.05],[.22,-.05]].forEach(([dx, dy]) => {
+      const p = new THREE.Mesh(new THREE.BoxGeometry(w*.34, h*.13, .18), glow(0xf3e9d2,.95));
+      p.position.set(dx*w, top - h*.18 + dy*h, w/2+.09); g.add(p);
+    });
+  },
+  GOOGL(g, w, h, top){ /* บีคอนสี่สีเรียงขอบยอด — เล็กพอไม่เป็นการ์ตูน */
+    [0x4a8cf7, 0xd2564b, 0xe8c06a, 0x4ecaa0].forEach((c, i) => {
+      const b = new THREE.Mesh(new THREE.SphereGeometry(.22, 10, 10), glow(c));
+      b.position.set((i-1.5)*w*.24, top+.35, w*.32); g.add(b);
+    });
+  },
+  NFLX(g, w, h, top){ /* จอยักษ์สีแดงบนผนัง — จ่ายครั้งเดียว ฉายทั้งโลก */
+    const scr = new THREE.Mesh(new THREE.BoxGeometry(w*.78, h*.4, .2), glow(0xe50914,.85));
+    scr.position.set(0, top - h*.28, w/2+.1); g.add(scr);
+    const bezel = new THREE.Mesh(new THREE.BoxGeometry(w*.86, h*.44, .1), darkMat(0x0d0f13));
+    bezel.position.set(0, top - h*.28, w/2+.02); g.add(bezel);
+  },
+  MELI(g, w, h, top){ /* กองตู้คอนเทนเนอร์ที่ตีนตึก — marketplace ของทวีป */
+    [[0xd8a33a,-1.1,0],[0x3f8f74,1.15,.35],[0x39414c,0,-1.2],[0xd8a33a,.2,1.3]].forEach(([c,dx,dz], i) => {
+      const box = new THREE.Mesh(new THREE.BoxGeometry(1.7,.85,.9), new THREE.MeshStandardMaterial({color:c, roughness:.7}));
+      box.position.set(dx + w*.9*Math.sign(dx||1), 1.55 + (i>2?.9:0), dz + w*.7); g.add(box);
+    });
+  },
+  COST(g, w, h, top, body){ /* skylight โกดังเรียงแถวบนหลังคากว้าง */
+    for (let i=-2;i<=2;i++){
+      const s = new THREE.Mesh(new THREE.BoxGeometry(w*.72, .22, .5), glow(0xf3e9d2,.8));
+      s.position.set(0, top+.15, i*w*.16); g.add(s);
+    }
+  },
+  AXP(g, w, h, top){ /* ชิปการ์ดทองบนผนัง — ตึกทรงบัตร (สัดส่วนพิเศษ) */
+    const chip = new THREE.Mesh(new THREE.BoxGeometry(w*.3, w*.24, .2), glow(0xd8a33a,.95));
+    chip.position.set(-w*.22, top - h*.3, w*.225+.1); g.add(chip);
+  },
+  SPGI(g, w, h, top){ /* แถบทิกเกอร์ทองพันรอบยอด — ค่าผ่านทางของตลาดทุน */
+    const band = new THREE.Mesh(new THREE.BoxGeometry(w+.5, .8, w+.5), glow(0xd8a33a,.9));
+    band.position.y = top - h*.12; g.add(band);
+  },
+  LLY(g, w, h, top){ /* โดมแคปซูลขาว-แดงบนยอด */
+    const dome = new THREE.Mesh(new THREE.SphereGeometry(w*.42, 20, 14, 0, Math.PI*2, 0, Math.PI/2), glow(0xf0f2f5,.95));
+    dome.position.y = top + .1; g.add(dome);
+    const band = new THREE.Mesh(new THREE.CylinderGeometry(w*.43, w*.43, .3, 20), glow(0xd2564b,.9));
+    band.position.y = top + .12; g.add(band);
+  },
+  UNH(g, w, h, top){ /* กากบาทสุขภาพเรืองฟ้าบนผนัง */
+    const v = new THREE.Mesh(new THREE.BoxGeometry(w*.16, h*.3, .18), glow(0x7cc0ea,.9));
+    const hz = new THREE.Mesh(new THREE.BoxGeometry(w*.42, h*.11, .18), glow(0x7cc0ea,.9));
+    v.position.set(0, top-h*.22, w/2+.09); hz.position.copy(v.position); g.add(v, hz);
+  },
+  LMT(g, w, h, top){ /* จานเรดาร์บนยอด */
+    const dish = new THREE.Mesh(new THREE.SphereGeometry(w*.4, 16, 10, 0, Math.PI*2, 0, Math.PI/2.6),
+      new THREE.MeshStandardMaterial({color:0x9aa4af, roughness:.5, side:THREE.DoubleSide}));
+    dish.rotation.x = Math.PI*.72; dish.position.set(0, top+1.1, 0); g.add(dish);
+    const mast = new THREE.Mesh(new THREE.CylinderGeometry(.12,.12,1.6,8), darkMat(0x39414c));
+    mast.position.y = top+.6; g.add(mast);
+  },
+  SPACEX(g, w, h, top){ /* จรวดขาวบนแท่นข้างตึก + gantry */
+    const R = w*1.25;
+    const rocket = new THREE.Group();
+    const bodyR = new THREE.Mesh(new THREE.CylinderGeometry(.5,.5,6.2,14),
+      new THREE.MeshStandardMaterial({color:0xe8eaed, roughness:.4}));
+    const nose = new THREE.Mesh(new THREE.ConeGeometry(.5,1.3,14),
+      new THREE.MeshStandardMaterial({color:0xd0d4da, roughness:.4}));
+    nose.position.y = 3.75; rocket.add(bodyR, nose);
+    const flame = new THREE.Mesh(new THREE.ConeGeometry(.32,1,10), glow(0xd8a33a,.9));
+    flame.rotation.x = Math.PI; flame.position.y = -3.6; rocket.add(flame);
+    rocket.position.set(R, 4.3, R*.4); g.add(rocket);
+    const gantry = new THREE.Mesh(new THREE.BoxGeometry(.5, 7.4, .5), darkMat(0x39414c));
+    gantry.position.set(R+1.3, 4.8, R*.4); g.add(gantry);
+  },
+  /* — คูเมืองแตก — */
+  INTC(g, w, h, top){ /* เครนก่อสร้าง — กำลังซ่อมคู */
+    const mast = new THREE.Mesh(new THREE.BoxGeometry(.5, h*1.05, .5), darkMat(0x6a5a2a));
+    mast.position.set(w*1.15, h*.55, 0); g.add(mast);
+    const jib = new THREE.Mesh(new THREE.BoxGeometry(7.5, .4, .4), darkMat(0x6a5a2a));
+    jib.position.set(w*1.15+2.4, h*1.05, 0); g.add(jib);
+    const line = new THREE.Mesh(new THREE.CylinderGeometry(.05,.05,3.4,6), darkMat(0x39414c));
+    line.position.set(w*1.15+5.2, h*1.05-1.8, 0); g.add(line);
+  },
+  GE(g, w, h, top, body){ /* ถูกผ่าเป็นสามตึกเล็กบนเกาะเดียว */
+    body.visible = false;
+    [[-.55, .62, -.3], [.45, .5, .35], [0, .38, -.55]].forEach(([dx, hf, dz]) => {
+      const s = new THREE.Mesh(new THREE.BoxGeometry(w*.5, h*hf, w*.5), body.material);
+      s.position.set(dx*w, 1.1 + h*hf/2, dz*w); s.userData = body.userData; g.add(s); pickables.push(s);
+    });
+  },
+  KODAK(g, w, h, top){ /* ม้วนฟิล์มล้มกลิ้งข้างตึก */
+    const reel = new THREE.Mesh(new THREE.CylinderGeometry(1.5, 1.5, .5, 20),
+      new THREE.MeshStandardMaterial({color:0x8a6a1f, roughness:.6}));
+    reel.rotation.z = Math.PI/2; reel.position.set(w*1.3, 1.6, w*.5); g.add(reel);
+  },
+  BA(g, w, h, top, body){ /* ยอดตึกหัก — แต่คูยังเรืองแสง (จัดการโดย moat>0 อยู่แล้ว) */
+    const broken = new THREE.Mesh(new THREE.BoxGeometry(w*.7, 1.6, w*.7), body.material);
+    broken.position.set(w*.34, top+.4, -w*.2); broken.rotation.set(.3, .5, -.35); g.add(broken);
+  },
+};
+
+/* ---------- สร้างตึก ---------- */
+const pickables = [], tags = [], pulses = [];
+function tower(e, x, z, opt={}){
+  const dead = !!opt.dead;
+  let h = capH(e.cap), w = capW(e.cap);
+  if (e.t === 'COST'){ h *= .34; w *= 2.5; }         /* โกดังเตี้ยแต่กว้าง */
+  if (e.t === 'AXP') { h *= 1.05; }
+  const g = new THREE.Group(); g.position.set(x, 0, z);
+
+  const isle = new THREE.Mesh(
+    new THREE.CylinderGeometry(w*0.95+1.1, w*0.95+1.5, 1.1, 28),
+    new THREE.MeshStandardMaterial({color: dead?0x14151a:0x181d25, roughness:.9})
+  ); isle.position.y = .55; g.add(isle);
+
+  const tex = windowsTexture(dead ? .05 : .38 + e.moat*.06);
+  const geo = e.t === 'AXP'
+    ? new THREE.BoxGeometry(w*1.3, h, w*.45)          /* ตึกทรงบัตรเครดิต */
+    : new THREE.BoxGeometry(w, h, w);
+  const body = new THREE.Mesh(geo,
+    [1,1,0,0,1,1].map(side => side
+      ? new THREE.MeshStandardMaterial({map:tex, emissive:0xffffff, emissiveMap:tex, emissiveIntensity: dead?.25:.9, color:0x2a313c, roughness:.7})
+      : new THREE.MeshStandardMaterial({color: dead?0x181a1f:0x232a35, roughness:.8}))
+  );
+  body.position.y = 1.1 + h/2;
+  if (dead && opt.tilt) body.rotation.z = opt.tilt;
+  body.userData = {entry:e, dead, link: e.link || ('articles/deep-dive-' + e.t.toLowerCase() + '.html')};
+  g.add(body); pickables.push(body);
+
+  if (!dead && e.t !== 'AAPL' && e.t !== 'LLY'){
+    const cap = new THREE.Mesh(new THREE.BoxGeometry(w*.42, .7, w*.42),
+      new THREE.MeshStandardMaterial({color:0x1c222b, emissive:0xd8a33a, emissiveIntensity:.55}));
+    cap.position.y = 1.1 + h + .35; g.add(cap);
+  }
+
+  if (e.moat > 0){
+    const rIn = w*0.85 + .9, rOut = moatR(e.moat, w);
+    const water = new THREE.Mesh(new THREE.RingGeometry(rIn, rOut, 48),
+      new THREE.MeshBasicMaterial({color: dead?0x1d4438:0x0f3c30, transparent:true, opacity: dead?.5:.75, side:THREE.DoubleSide}));
+    water.rotation.x = -Math.PI/2; water.position.y = .12; g.add(water);
+    const edge = new THREE.Mesh(new THREE.RingGeometry(rOut-.32, rOut, 48),
+      new THREE.MeshBasicMaterial({color:0x4ecaa0, transparent:true, opacity: dead?.5:.95, side:THREE.DoubleSide}));
+    edge.rotation.x = -Math.PI/2; edge.position.y = .14; g.add(edge);
+    edge.userData.pulse = Math.random()*Math.PI*2; pulses.push(edge);
+  } else {
+    const dry = new THREE.Mesh(new THREE.RingGeometry(w*0.85+.9, w*0.85+2.6, 40),
+      new THREE.MeshBasicMaterial({color:0x2a211d, transparent:true, opacity:.85, side:THREE.DoubleSide}));
+    dry.rotation.x = -Math.PI/2; dry.position.y = .12; g.add(dry);
+  }
+
+  /* ลายเซ็นประจำหอ */
+  if (SIG[e.t]) SIG[e.t](g, w, h, 1.1 + h, body);
+
+  scene.add(g);
+
+  const el = document.createElement('div');
+  el.className = 'mc-tag' + (dead ? ' dead' : '');
+  el.innerHTML = e.t + (dead ? '<small>คูเมืองแตก</small>' : '');
+  document.body.appendChild(el);
+  tags.push({el, x, y: 1.1 + h + (dead?1.5:3.4), z});
+}
+
+const byD = {};
+CITY.forEach(e => (byD[e.d] = byD[e.d] || []).push(e));
+Object.entries(byD).forEach(([d, list]) => {
+  const {cx, cz} = DISTRICTS[d];
+  list.sort((a,b) => b.cap - a.cap);
+  list.forEach((e, i) => {
+    if (i === 0) return tower(e, cx, cz);
+    const ang = (i-1) / (list.length-1) * Math.PI*2 + cx;
+    const rad = 14 + (i%2)*6.5 + capW(e.cap);
+    tower(e, cx + Math.cos(ang)*rad, cz + Math.sin(ang)*rad);
+  });
+});
+
+function mist(x, z, r){
+  const m = new THREE.Mesh(new THREE.CircleGeometry(r, 36),
+    new THREE.MeshBasicMaterial({map:mistTex, transparent:true, opacity:.42, depthWrite:false}));
+  m.rotation.x = -Math.PI/2; m.position.set(x, .5, z); scene.add(m);
+}
+FALLEN.forEach((e, i) => {
+  const ang = -.65 + i*.3, R = 72 + (i%2)*9;
+  const fx = Math.cos(ang)*R, fz = Math.sin(ang)*R;
+  tower(e, fx, fz, {dead:true, tilt:(e.t==='NOKIA'||e.t==='KODAK') ? (i%2? .05 : -.06) : 0});
+  mist(fx, fz, 10 + capW(e.cap)*1.2);
+});
+
+/* ---------- interaction ---------- */
+const ray = new THREE.Raycaster(), mouse = new THREE.Vector2();
+let hovered = null;
+function setHover(o, on){
+  if (!o) return;
+  o.material.forEach(m => { if (m.emissiveMap) m.emissiveIntensity = on ? 1.45 : (o.userData.dead ? .25 : .9); });
+}
+function pick(ev){
+  const r = renderer.domElement.getBoundingClientRect();
+  mouse.x = ((ev.clientX-r.left)/r.width)*2-1; mouse.y = -((ev.clientY-r.top)/r.height)*2+1;
+  ray.setFromCamera(mouse, camera);
+  const hit = ray.intersectObjects(pickables)[0];
+  return hit ? hit.object : null;
+}
+addEventListener('pointermove', ev => {
+  if (ev.pointerType === 'touch') return;
+  const o = pick(ev);
+  if (hovered !== o){ setHover(hovered, false); setHover(o, true); }
+  document.body.style.cursor = o ? 'pointer' : '';
+  hovered = o;
+});
+const card = document.getElementById('card');
+addEventListener('click', ev => {
+  if (ev.target.closest('.mc-card') || ev.target.closest('.site-header')) return;
+  const o = pick(ev);
+  if (!o){ card.classList.remove('show'); return; }
+  const {entry, dead, link} = o.userData;
+  document.getElementById('cTk').textContent = entry.t + (dead ? ' · คูเมืองแตก' : '');
+  document.getElementById('cName').textContent = entry.n;
+  document.getElementById('cBlurb').textContent = entry.b;
+  document.getElementById('cMoat').style.width = (entry.moat/5*100) + '%';
+  document.getElementById('cMoatN').textContent = entry.moat.toFixed(1) + '/5';
+  document.getElementById('cLink').href = link;
+  card.classList.add('show');
+});
+document.getElementById('cardX').onclick = () => card.classList.remove('show');
+
+/* ---------- loop ---------- */
+const v = new THREE.Vector3();
+let t0 = 0;
+function frame(t){
+  const dt = (t - t0)/1000; t0 = t;
+  controls.update();
+  if (!REDUCE) pulses.forEach(p => { p.userData.pulse += dt*1.6; p.material.opacity = .72 + Math.sin(p.userData.pulse)*.22; });
+  tags.forEach(({el, x, y, z}) => {
+    v.set(x, y, z).project(camera);
+    el.style.opacity = v.z > 1 ? 0 : Math.max(0, 1.15 - camera.position.distanceTo(new THREE.Vector3(x,0,z))/260);
+    el.style.left = ((v.x+1)/2*innerWidth) + 'px';
+    el.style.top  = ((-v.y+1)/2*innerHeight) + 'px';
+  });
+  renderer.render(scene, camera);
+}
+renderer.setAnimationLoop(frame);
+addEventListener('resize', () => {
+  camera.aspect = innerWidth/innerHeight; camera.updateProjectionMatrix();
+  renderer.setSize(innerWidth, innerHeight);
+});
+</script>
+</body>
+</html>

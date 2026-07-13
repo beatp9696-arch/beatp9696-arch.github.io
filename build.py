@@ -31,7 +31,8 @@ from xml.sax.saxutils import escape
 BASE_URL = "https://beatp9696-arch.github.io"
 TOOLS = ["follow-the-money-nvda.html", "compound-interest.html", "reverse-dcf.html",
          "ai-iceberg.html", "econ-lessons.html",
-         "moat-break-game-kodak.html"]  # เครื่องมือ interactive — นับเป็น hero stat + ลิสต์ใน tools.html
+         "moat-break-game-kodak.html",
+         "moat-city.html"]  # เครื่องมือ interactive — นับเป็น hero stat + ลิสต์ใน tools.html
 ROOT_PAGES = ["", "articles.html", "stocks.html", "tools.html", "dashboard.html",
               "about.html"] + TOOLS
 ARCHIVE = "articles.html"   # คลังบทความ = source of truth ของรายการบทความ
@@ -219,6 +220,9 @@ FEED_EXTRAS = [
     {"file": "econ-lessons.html", "date": "2026-07-11",
      "title": "เศรษฐศาสตร์ 4 บทที่โรงเรียนไม่สอน แต่ตลาดหุ้นสอบทุกวัน — Interactive Scrollytelling",
      "excerpt": "ทำไมสายการบินจนทั้งแผงแต่ซอฟต์แวร์ชิปรวยทั้งแผง ค่าตัดผมแพงขึ้นแต่ทีวีถูกลง ชิปยิ่งถูกยิ่งขายดี และอเมริกาต้องง้อไต้หวัน — เลื่อนผ่าน 4 เลนส์พร้อมตัวเลขจริง"},
+    {"file": "moat-city.html", "date": "2026-07-13",
+     "title": "เมืองคูเมือง — แผนที่ 3D ของ 20 ธุรกิจที่ผ่าแล้ว",
+     "excerpt": "เมืองกลางคืนที่สร้างจากบทวิเคราะห์จริง — ตึกสูงตามขนาดธุรกิจ คูน้ำเรืองแสงกว้างตาม moat แต่ละหอมีลายเซ็นธุรกิจของตัวเอง และนอกหมอกคือ 5 บริษัทจากซีรีส์คูเมืองแตก"},
     {"file": "moat-break-game-kodak.html", "date": "2026-07-13",
      "title": "10 ปีที่คูเมืองแตก: คุณคือซีอีโอ Kodak ปี 1996 — เกมจำลองการตัดสินใจ",
      "excerpt": "ตัดสินใจ 5 ครั้งจากเหตุการณ์จริง — Kodak รู้ล่วงหน้าสิบปี เป็นเบอร์ 1 กล้องดิจิทัลโดยขาดทุน $60 ต่อกล้อง แล้วยังล้มละลาย ลองดูว่าคุณจะหาทางออกที่พวกเขาหาไม่เจอได้ไหม"},
