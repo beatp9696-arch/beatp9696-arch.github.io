@@ -74,7 +74,8 @@
     { f: "powers-04-switching-costs.html", t: "7 Powers 4: Switching Costs (Synopsys)", sec: "basics" },
     { f: "powers-05-branding.html", t: "7 Powers 5: Branding (Apple)", sec: "basics" },
     { f: "powers-06-cornered-resource.html", t: "7 Powers 6: Cornered Resource (ASML)", sec: "basics" },
-    { f: "powers-07-process-power.html", t: "7 Powers 7: Process Power (TSMC)", sec: "basics" }
+    { f: "powers-07-process-power.html", t: "7 Powers 7: Process Power (TSMC)", sec: "basics" },
+    { f: "moat-break-01-kodak.html", t: "คูเมืองแตก 1: Kodak", sec: "basics" }
   ];
 
   var progressBar = document.querySelector(".reading-progress");

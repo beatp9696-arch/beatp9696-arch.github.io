@@ -1,0 +1,107 @@
+.mb1-panel { background: radial-gradient(140% 120% at 50% 0%, #17130c 0%, #0a0806 72%); border-color: #3a3020; }
+.ph-eyebrow.mb1 { color: #ffb700; }
+.mb1-panel .sa-stage { container-type: inline-size; }
+.mb1-t     { font-family: var(--font-head); font-size: 13px; font-weight: 700; fill: #e8ddc8; letter-spacing: .04em; }
+.mb1-lab   { font-family: var(--font-head); font-size: 12.5px; font-weight: 600; fill: #9a8f78; }
+.mb1-lab.r { fill: #e0776f; }
+.mb1-m     { font-family: "IBM Plex Mono", ui-monospace, monospace; font-size: 12px; fill: #b5a88c; }
+.mb1-m.s   { font-size: 10.5px; fill: #7a7160; }
+.mb1-m.g   { fill: #ffb700; }
+.mb1-m.r   { fill: #ed4245; }
+.mb1-m.b   { font-weight: 700; }
+.mb1-p     { font-family: "IBM Plex Mono", ui-monospace, monospace; font-size: 12px; fill: #3a352c; }
+.mb1-p.b   { font-weight: 700; fill: #14120e; }
+.mb1-p.s   { font-size: 10px; fill: #8a8172; }
+.mb1-p.r   { fill: #a01c22; }
+.mb1-p.g   { fill: #1f6b3a; }
+.mb1-stamp-t { font-family: var(--font-head); font-size: 20px; font-weight: 800; letter-spacing: .16em; fill: #a01c22; }
+.mb1-chip   { font-size: 1.55cqw; color: #ffb700; background: rgba(12,10,7,.86);
+border: 1px solid #5c4a1e; border-radius: 6px; padding: .35em .6em;
+opacity: 0; }
+.mb1-chip.r { color: #ed4245; border-color: #6b2626; }
+.mb1-chip.sa-num::before { content: "GM ฟิล์ม > "; color: #9a8f78; }
+.mb1-chip.sa-num::after  { content: counter(n) "%"; }
+.mb1-chip.sa-neg         { counter-reset: n var(--n); }
+.mb1-chip.sa-neg::after  { content: "−$" counter(n) " ต่อกล้อง"; }
+.mb1-fill, .mb1-drain, .mb1-timeline, .mb1-alloc, .mb1-alloc2,
+.mb1-share, .mb1-share2, .mb1-flash, .mb1-dot, .mb1-stamp, .mb1-scan {
+transform-box: fill-box; transform-origin: center;
+}
+@keyframes mb1-rise { from { opacity: 0; transform: translateY(14px); } }
+@keyframes mb1-pay  { from { opacity: 0; transform: translateY(10px); } }
+.playing .mb1-cam { animation: mb1-rise calc(var(--beat) * 1.4) var(--e-mass); }
+.mb1-flash { opacity: 0; }
+.playing .mb1-flash { animation: mb1-click calc(var(--beat) * 1.2) var(--e-expo); }
+@keyframes mb1-click { from { opacity: .9; transform: scale(.28); } to { opacity: 0; transform: scale(1); } }
+.playing .mb1-pay { animation: mb1-pay calc(var(--beat) * 1.2) var(--e-expo); }
+.playing .mb1-pipe { animation: mb1-fade calc(var(--beat) * 1.6) var(--e-expo); }
+@keyframes mb1-fade { from { opacity: 0; } }
+.mb1-coin1, .mb1-coin2 { offset-rotate: 0deg; offset-distance: 100%; opacity: 0; }
+.mb1-coin1 { offset-path: path("M276 206 C 276 140, 640 150, 664 176"); }
+.mb1-coin2 { offset-path: path("M432 206 C 432 150, 640 160, 664 182"); }
+.playing .mb1-coin1,
+.playing .mb1-coin2 { animation: mb1-coin calc(var(--beat) * 2.2) var(--e-expo); }
+@keyframes mb1-coin {
+from { offset-distance: 0%; opacity: 0; }
+12%  { opacity: 1; }
+86%  { opacity: 1; }
+to   { offset-distance: 100%; opacity: 0; }
+}
+.mb1-fill { transform-origin: center bottom; }
+.playing .mb1-fill { animation: mb1-fill calc(var(--beat) * 3) var(--e-mass),
+mb1-surface 4.6s ease-in-out calc(var(--beat) * 8.4) infinite; }
+@keyframes mb1-fill    { from { transform: scaleY(0); } }
+@keyframes mb1-surface { 0%, 100% { opacity: .85; } 50% { opacity: .95; } }
+.playing .mb1-chip.sa-num { animation: mb1-gm calc(var(--beat) * 3.4) var(--e-mass) calc(var(--beat) * 5.4) both; }
+@keyframes mb1-gm { from { --n: 0; opacity: 0; } 25% { opacity: 1; } to { --n: 60; opacity: 1; } }
+.playing .mb1-loop { animation: mb1-loop calc(var(--beat) * 2.4) var(--e-expo); }
+@keyframes mb1-loop { from { opacity: 0; stroke-dashoffset: 60; } }
+.playing .mb1-loop-t { animation: mb1-pay calc(var(--beat) * 1.4) var(--e-expo); }
+.playing .mb1-rig { animation: mb1-rise calc(var(--beat) * 1.6) var(--e-mass); }
+.playing .mb1-tv  { animation: mb1-pay calc(var(--beat) * 1.4) var(--e-expo); }
+.playing .mb1-scan { animation: mb1-scan calc(var(--beat) * 3.6) steps(9, end); }
+@keyframes mb1-scan { from { clip-path: inset(100% 0 0 0); } to { clip-path: inset(0 0 0 0); } }
+.playing .mb1-clock { animation: mb1-pay calc(var(--beat) * 1.2) var(--e-expo); }
+.mb1-hand { transform-box: view-box; transform-origin: 516px 232px; }
+.playing .mb1-hand { animation: mb1-hand calc(var(--beat) * 3.6) steps(23, end); }
+@keyframes mb1-hand { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
+.playing .mb1-cut { animation: mb1-cut calc(var(--beat) * 1) var(--e-fail); }
+@keyframes mb1-cut { from { opacity: 0; transform: scale(1.5); } }
+.playing .mb1-cut-t,
+.playing .mb1-empty { animation: mb1-pay calc(var(--beat) * 1.4) var(--e-expo); }
+.playing .mb1-doc  { animation: mb1-rise calc(var(--beat) * 1.6) var(--e-mass); }
+.playing .mb1-line { animation: mb1-pay calc(var(--beat) * 1.2) var(--e-expo); }
+.mb1-timeline { transform-origin: left center; }
+.playing .mb1-timeline { animation: mb1-grow calc(var(--beat) * 4) var(--e-mass); }
+@keyframes mb1-grow { from { transform: scaleX(0); } }
+.mb1-alloc, .mb1-alloc2 { transform-origin: left center; }
+.playing .mb1-alloc  { animation: mb1-grow calc(var(--beat) * 2.6) var(--e-mass); }
+.playing .mb1-alloc2 { animation: mb1-grow calc(var(--beat) * .5) var(--e-mass); }
+.playing .mb1-bar     { animation: mb1-pay calc(var(--beat) * 1.2) var(--e-expo); }
+.playing .mb1-verdict { animation: mb1-pay calc(var(--beat) * 1.6) var(--e-expo); }
+.mb1-share, .mb1-share2 { transform-origin: left center; }
+.playing .mb1-share  { animation: mb1-grow calc(var(--beat) * 2.4) var(--e-expo); }
+.playing .mb1-share2 { animation: mb1-grow calc(var(--beat) * 2) var(--e-expo); }
+.playing .mb1-trophy { animation: mb1-pay calc(var(--beat) * 1.2) var(--e-expo); }
+.mb1-profit { stroke-dasharray: 100; stroke-dashoffset: 0; }
+.playing .mb1-profit { animation: mb1-dive calc(var(--beat) * 3) var(--e-fail); }
+@keyframes mb1-dive { from { stroke-dashoffset: 100; } }
+.playing .mb1-dot { animation: mb1-dot calc(var(--beat) * .8) var(--e-mass); }
+@keyframes mb1-dot { from { opacity: 0; transform: scale(0); } }
+.playing .mb1-chip.sa-neg { animation: mb1-loss calc(var(--beat) * 1.6) var(--e-fail) calc(var(--beat) * 7) both; }
+@keyframes mb1-loss { from { --n: 0; opacity: 0; } 20% { opacity: 1; } to { --n: 60; opacity: 1; } }
+.playing .mb1-stamp { animation: mb1-stamp calc(var(--beat) * 1) var(--e-mass); }
+@keyframes mb1-stamp { from { opacity: 0; transform: scale(1.7) rotate(-6deg); } }
+.mb1-drain { transform-origin: center bottom; }
+.playing .mb1-drain { animation: mb1-drain calc(var(--beat) * 3.4) var(--e-mass); }
+@keyframes mb1-drain { from { transform: scaleY(6.5); } }
+.mb1-blink { opacity: .18; }
+.playing .mb1-blink { animation: mb1-blink 1.9s var(--e-expo) calc(var(--i, 0) * .18s) infinite; }
+@keyframes mb1-blink { 0%, 72%, 100% { opacity: .18; } 80% { opacity: 1; } }
+@media (prefers-reduced-motion: reduce) {
+.ph-panel .sa { animation: none !important; }
+.mb1-chip { opacity: 1; }
+.mb1-chip.sa-num,
+.mb1-chip.sa-neg { --n: 60; }
+.mb1-blink { opacity: .8; }
+}
