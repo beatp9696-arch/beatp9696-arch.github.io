@@ -86,6 +86,8 @@
 html {
   -webkit-text-size-adjust: 100%;
   scroll-behavior: smooth;
+  scrollbar-width: thin;
+  scrollbar-color: color-mix(in srgb, var(--muted) 45%, transparent) transparent;
 }
 
 body {
@@ -335,6 +337,7 @@ tr.total td {
   font-size: 15px;
 }/* ---------- Footer ---------- */
 .site-footer {
+  position: relative;
   border-top: 1px solid var(--border);
   background: var(--surface-2);
   padding: 30px 0 56px;
@@ -342,7 +345,29 @@ tr.total td {
   font-size: 14px;
   line-height: 1.7;
 }
+/* เส้น gradient ปิดท้ายหน้า — รับกับ .top-accent ด้านบนสุด ให้ทั้งหน้าเป็นกรอบเดียวกัน */
+.site-footer::before {
+  content: "";
+  position: absolute;
+  top: -1px; left: 0; right: 0; height: 2px;
+  background: linear-gradient(90deg, transparent, var(--accent) 24%, var(--accent-bright) 76%, transparent);
+  opacity: 0.6;
+}
+/* dot-grid จางๆ ไล่ขึ้นจากขอบล่าง — motif เดียวกับ .hero::before */
+.site-footer::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background-image: radial-gradient(var(--border) 1px, transparent 1.4px);
+  background-size: 22px 22px;
+  -webkit-mask-image: linear-gradient(to top, #000 0%, transparent 72%);
+  mask-image: linear-gradient(to top, #000 0%, transparent 72%);
+  opacity: 0.45;
+  pointer-events: none;
+}
 .site-footer .container {
+  position: relative;
+  z-index: 1;
   border-left: 3px solid var(--border);
   padding-left: 18px;
 }
@@ -457,10 +482,30 @@ main p a:hover, main li a:hover { text-decoration-color: var(--accent); }
   border-radius: 50%;
   border: 1px solid var(--border);
   background: var(--surface); color: var(--muted);
-  transition: color 0.15s ease, border-color 0.15s ease, background 0.15s ease;
+  transition: color 0.15s ease, border-color 0.15s ease, background 0.15s ease, transform 0.15s ease;
 }
-.social-btn:hover { color: var(--accent); border-color: var(--accent); background: var(--surface-2); }
+.social-btn:hover { color: var(--accent); border-color: var(--accent); background: var(--surface-2); transform: translateY(-2px); }
 .site-footer .footer-legal { border-left: none; padding-left: 0; }
+
+/* ---------- หน้า 404: ลิสต์บทความแนะนำ (app.js เติม li>a เปล่าๆ — ห้าม assume class ใน li) ---------- */
+.nf-links { list-style: none; padding: 0; margin: 20px 0 0; max-width: 620px; }
+.nf-links li + li { border-top: 1px solid var(--border); }
+.nf-links a {
+  display: block;
+  padding: 12px 4px 12px 0;
+  font-family: var(--font-head);
+  font-weight: 600;
+  color: var(--text);
+}
+.nf-links a::before {
+  content: "→";
+  color: var(--accent);
+  margin-right: 12px;
+  display: inline-block;
+  transition: transform 0.15s ease;
+}
+.nf-links a:hover { color: var(--accent); }
+.nf-links a:hover::before { transform: translateX(4px); }
 
 @media (max-width: 600px) {
   .to-top { right: 16px; bottom: 16px; }

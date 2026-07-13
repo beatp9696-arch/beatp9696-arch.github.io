@@ -209,6 +209,30 @@
     revealEls.forEach(function (el) { el.classList.add("reveal"); io.observe(el); });
   }
 
+  // ---- scroll-reveal การ์ด grid (featured/series/stock) ไล่จังหวะตามลำดับในแถว
+  //      จบแล้วถอด .reveal ทิ้ง — ไม่งั้น transition 0.6s ของ .reveal ทับ hover 0.18s ของการ์ด ----
+  if ("IntersectionObserver" in window) {
+    var gridCards = document.querySelectorAll(".featured-card, .series-card, .stock-card");
+    var gio = new IntersectionObserver(function (entries, obs) {
+      entries.forEach(function (e) {
+        if (!e.isIntersecting) return;
+        var el = e.target;
+        el.classList.add("is-visible");
+        obs.unobserve(el);
+        window.setTimeout(function () {
+          el.classList.remove("reveal", "is-visible");
+          el.style.transitionDelay = "";
+        }, 1000);
+      });
+    }, { rootMargin: "0px 0px -8% 0px", threshold: 0.05 });
+    gridCards.forEach(function (el) {
+      var i = Array.prototype.indexOf.call(el.parentElement.children, el);
+      el.style.transitionDelay = (Math.min(i, 5) * 60) + "ms";
+      el.classList.add("reveal");
+      gio.observe(el);
+    });
+  }
+
   // ---- scene player: ฉากเริ่มเล่นเมื่อเลื่อนมาถึง (เล่นครั้งเดียว จบแล้วค้างที่สถานะจบ) ----
   if ("IntersectionObserver" in window) {
     var scenePanels = document.querySelectorAll(".ph-panel");

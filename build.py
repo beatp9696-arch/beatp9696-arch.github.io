@@ -504,6 +504,7 @@ def render_stocks_grid(articles):
     sec_by_tk = {a["tk"].upper(): a["sec"] for a in articles if a["tk"]}
     file_by_tk = {a["tk"].upper(): a["f"] for a in articles if a["tk"]}
     parts = []
+    n_sec = 0
     for sec_key, heading in STOCK_SECTORS:
         cards = [
             _stock_card_html(tk, file_by_tk[tk], STOCK_META[tk])
@@ -511,7 +512,9 @@ def render_stocks_grid(articles):
             if sec_by_tk.get(tk) == sec_key and tk in STOCK_META and tk in file_by_tk
         ]
         if cards:
-            parts.append(f'      <h2>{heading}</h2>\n      <ul class="stock-grid">\n'
+            n_sec += 1
+            parts.append(f'      <h2 class="sec"><span class="sec-no">{n_sec:02d}</span>{heading}</h2>\n'
+                         '      <ul class="stock-grid">\n'
                          + "\n".join(cards) + "\n      </ul>")
     return "\n\n".join(parts)
 
