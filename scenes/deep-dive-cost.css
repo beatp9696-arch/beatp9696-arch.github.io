@@ -62,3 +62,37 @@
 @keyframes feedraw { 0%{stroke-dashoffset:640} 55%{stroke-dashoffset:0} 100%{stroke-dashoffset:0} }
 .fee-dot { fill: #34d399; filter: drop-shadow(0 0 6px #34d399); opacity: 0; animation: feedot 3.8s ease-out infinite; }
 @keyframes feedot { 0%,52%{opacity:0} 62%{opacity:1} 100%{opacity:1} }
+/* ============================================================
+   ฉากชุดใหม่ 14 ก.ค. 2026 — มาตรฐาน scene-animation (narrative play-once)
+   ฟิสิกส์ของธุรกิจนี้: มวล + แรงโน้มถ่วง — ของหนัก ออกตัวช้า จอดแล้วนิ่งสนิท
+   (--e-mass ทุกที่ ห้ามเด้ง ห้ามลอย) · markup = สถานะจบเสมอ ทุก keyframes ใช้ from
+   ============================================================ */
+.cost-panel .sa-stage { container-type: inline-size; }
+.cost-panel .sa-chip { color: #e6d8da; text-align: center; font-size: 13px; font-size: 1.55cqw; }
+.cost-panel .sa-chip .k { display: block; color: #f4c15b; font-weight: 800; letter-spacing: -.02em; font-size: 27px; font-size: 3.2cqw; }
+.cost-panel .sa-chip .d { color: #b89aa0; font-weight: 600; font-size: 11.5px; font-size: 1.37cqw; }
+
+/* ท่าหลัก — ของหนักวางตัวลง แล้วนิ่ง */
+.cdd-in { animation: cddIn calc(var(--beat) * 1.3) var(--e-mass); }
+@keyframes cddIn { from { opacity: 0; transform: translateY(8px); } }
+.cdd-drop { animation: cddDrop calc(var(--beat) * 1.4) var(--e-mass); }
+@keyframes cddDrop { from { opacity: 0; transform: translateY(-24px); } }
+.cdd-rise { animation: cddRise calc(var(--beat) * 1.6) var(--e-mass); transform-box: fill-box; transform-origin: bottom; }
+@keyframes cddRise { from { transform: scaleY(0); } }
+.cdd-draw { stroke-dasharray: var(--len); animation: cddDraw calc(var(--beat) * 3) var(--e-mass); }
+@keyframes cddDraw { from { stroke-dashoffset: var(--len); } }
+.cdd-stamp { animation: cddStamp calc(var(--beat) * .9) var(--e-mass); transform-box: fill-box; transform-origin: center; }
+@keyframes cddStamp { from { opacity: 0; transform: scale(1.8); } }
+
+/* ตัวเลขวิ่ง — เลขจริงจาก 10-K FY2025 เท่านั้น */
+.cdd-n81 { --n: 81; animation: cddN81 calc(var(--beat) * 2.5) var(--e-mass); }
+@keyframes cddN81 { from { --n: 0; } }
+.cdd-n94 { --n: 94; animation: cddN94 calc(var(--beat) * 2.5) var(--e-mass); }
+@keyframes cddN94 { from { --n: 0; } }
+
+/* หมึกบนกระดาษใบเสร็จ (ฉาก Capital Allocation) */
+.cdd-rc { font-family: "IBM Plex Mono", ui-monospace, monospace; font-size: 12px; fill: #3a352c; }
+.cdd-rc.b { font-weight: 700; fill: #191511; }
+.cdd-rc.s { font-size: 10px; fill: #8a8172; }
+.cdd-rc.rd { fill: #b91c1c; font-weight: 700; }
+.cdd-dash { stroke: #b9ad95; stroke-width: 1.2; stroke-dasharray: 4 5; }
