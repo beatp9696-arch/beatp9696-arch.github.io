@@ -2,7 +2,7 @@
 // ใช้ app contract เดิม { id, name, icon, mount(body) } เหมือน window manager ทุกประการ
 
 import { getApp } from "./app-registry.js";
-import { load, save } from "./storage.js";
+import { dumpAll, hasSnapshot, load, replaceAll, save, storageInfo, undoRestore } from "./storage.js";
 
 const I = (d) =>
   `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round">${d}</svg>`;
@@ -123,11 +123,14 @@ function renderMore() {
   const pane = document.createElement("div");
   pane.className = "view more-view";
   const name = load("os.name", "");
-  const used = Math.round(
-    Object.keys(localStorage)
-      .filter((k) => k.startsWith("pp-os:"))
-      .reduce((s, k) => s + (localStorage.getItem(k)?.length ?? 0), 0) / 1024
-  );
+  const lastExport = load("os.lastExport");
+  const backupAge = lastExport ? Math.floor((Date.now() - lastExport) / 86400000) : null;
+  const backupNote =
+    backupAge === null
+      ? "Never backed up — this device is the only copy"
+      : backupAge === 0
+        ? "Backed up today"
+        : `Last backup ${backupAge} day${backupAge > 1 ? "s" : ""} ago`;
 
   pane.innerHTML = `
     <h1 class="more-h">More</h1>
@@ -171,13 +174,37 @@ function renderMore() {
         <span class="mr-txt"><b>Switch to desktop mode</b><small>Draggable windows and a taskbar</small></span>
         <span class="mr-chev">${ICONS.chev}</span>
       </button>
+    </div>
+
+    <div class="more-sec">Data</div>
+    <div class="more-list">
       <button class="more-row" data-act="export">
         <span class="mr-ico">⬇️</span>
-        <span class="mr-txt"><b>Export all data</b><small>A JSON backup on this device · ${used} KB in use</small></span>
+        <span class="mr-txt"><b>Back up to a file</b><small>${backupNote}</small></span>
         <span class="mr-chev">${ICONS.chev}</span>
       </button>
+      <button class="more-row" data-act="restore">
+        <span class="mr-ico">⬆️</span>
+        <span class="mr-txt"><b>Restore from a backup</b><small>Shows you what's inside before it overwrites anything</small></span>
+        <span class="mr-chev">${ICONS.chev}</span>
+      </button>
+      ${
+        hasSnapshot()
+          ? `<button class="more-row" data-act="undo">
+              <span class="mr-ico">↩️</span>
+              <span class="mr-txt"><b>Undo the last restore</b><small>Put back the data that was here before</small></span>
+              <span class="mr-chev">${ICONS.chev}</span>
+            </button>`
+          : ""
+      }
+      <div class="more-row static">
+        <span class="mr-ico">🗄️</span>
+        <span class="mr-txt"><b>Storage</b><small class="store-info">checking…</small></span>
+      </div>
     </div>
+
     <div class="more-foot">PP OS · Everything stays on this device. Nothing is sent to a server.</div>
+    <div class="sheet-host"></div>
   `;
   view.append(pane);
 
@@ -195,7 +222,130 @@ function renderMore() {
     save("os.mode", "desktop");
     location.replace(location.pathname);
   });
-  pane.querySelector('[data-act="export"]').addEventListener("click", exportData);
+  pane.querySelector('[data-act="export"]').addEventListener("click", () => {
+    exportData();
+    goTab("more"); // วาดใหม่ให้เห็นว่า "Backed up today" แล้ว
+  });
+  pane.querySelector('[data-act="restore"]').addEventListener("click", () => openRestore(pane));
+  pane.querySelector('[data-act="undo"]')?.addEventListener("click", () => {
+    if (undoRestore()) {
+      toast(pane, "✓ Restored the data that was here before");
+      goTab("more");
+    }
+  });
+
+  // ข้อมูลที่เก็บอยู่จริง + เบราว์เซอร์รับปากว่าจะไม่ลบทิ้งหรือยัง
+  storageInfo().then((info) => {
+    const el = pane.querySelector(".store-info");
+    if (!el || !pane.isConnected) return;
+    const size = info.usedKB == null ? "" : ` · ${info.usedKB < 1024 ? `${info.usedKB} KB` : `${(info.usedKB / 1024).toFixed(1)} MB`}`;
+    el.textContent = info.persisted
+      ? `${info.engine} · protected from auto-cleanup${size}`
+      : `${info.engine} · not protected yet — install to the Home Screen${size}`;
+    el.classList.toggle("warn", !info.persisted);
+  });
+}
+
+// ---- Restore: ต้องเห็นก่อนว่าไฟล์มีอะไร แล้วค่อยตัดสินใจทับ ----
+const plural = (n, one, many = one + "s") => `${n} ${n === 1 ? one : many}`;
+
+const COUNTS = [
+  ["health.days", (v) => `${plural(Object.keys(v).length, "day")} of health data`],
+  ["money.entries", (v) => `${plural(v.length, "money entry", "money entries")}`],
+  ["todo.items", (v) => plural(v.length, "task")],
+  ["notes.text", (v) => `${plural(v.length, "character")} of notes`],
+  ["os.name", (v) => `name: ${v}`],
+];
+
+function summarize(data) {
+  const lines = [];
+  for (const [key, fmt] of COUNTS) {
+    const v = data[key];
+    if (v == null) continue;
+    try {
+      lines.push(fmt(v));
+    } catch {}
+  }
+  return lines;
+}
+
+function openRestore(morePane) {
+  const host = morePane.querySelector(".sheet-host");
+  host.innerHTML = `
+    <div class="sheet">
+      <div class="sheet-card">
+        <div class="sheet-h">
+          <span>⬆️ Restore from a backup</span>
+          <button class="sheet-x" aria-label="Close">✕</button>
+        </div>
+        <p class="sheet-p">Pick a <code>pp-os-backup-*.json</code> file. Nothing is overwritten until you confirm — and you can undo it afterwards.</p>
+        <label class="sheet-drop">
+          <input type="file" accept=".json,application/json" hidden>
+          <b>Choose a backup file</b>
+          <small>Exported from PP OS on any device</small>
+        </label>
+        <div class="sheet-status"></div>
+        <div class="sheet-actions hidden">
+          <button class="btn-ghost sheet-cancel">Cancel</button>
+          <button class="btn sheet-go">Overwrite my data</button>
+        </div>
+      </div>
+    </div>
+  `;
+
+  const sheet = host.querySelector(".sheet");
+  const status = host.querySelector(".sheet-status");
+  const actions = host.querySelector(".sheet-actions");
+  const close = () => (host.innerHTML = "");
+  let payload = null;
+
+  sheet.addEventListener("click", (e) => e.target === sheet && close());
+  host.querySelector(".sheet-x").addEventListener("click", close);
+  host.querySelector(".sheet-cancel").addEventListener("click", close);
+
+  host.querySelector('input[type="file"]').addEventListener("change", async (e) => {
+    const file = e.target.files?.[0];
+    if (!file) return;
+    e.target.value = "";
+    payload = null;
+    actions.classList.add("hidden");
+
+    try {
+      const raw = JSON.parse(await file.text());
+      // ไฟล์ที่ export ไปคือ { exported, data: {...} } — แต่รับไฟล์ที่เป็น data ล้วนด้วย
+      const data = raw?.data && typeof raw.data === "object" ? raw.data : raw;
+      if (!data || typeof data !== "object" || Array.isArray(data)) throw new Error("unexpected shape");
+
+      const known = summarize(data);
+      if (!known.length) throw new Error("no PP OS data inside");
+
+      payload = data;
+      const when = raw.exported ? new Date(raw.exported).toLocaleString("en-US", { dateStyle: "medium", timeStyle: "short" }) : "unknown date";
+      status.className = "sheet-status ok";
+      status.textContent = `Backup from ${when}\n${known.map((l) => "· " + l).join("\n")}\n\nThis replaces everything currently on this device.`;
+      actions.classList.remove("hidden");
+    } catch (err) {
+      status.className = "sheet-status err";
+      status.textContent = `That file isn't a PP OS backup — ${err.message}`;
+    }
+  });
+
+  host.querySelector(".sheet-go").addEventListener("click", () => {
+    if (!payload) return;
+    replaceAll(payload);
+    close();
+    goTab("more");
+    toast(document.querySelector(".more-view"), "✓ Data restored — you can undo this from More");
+  });
+}
+
+function toast(root, text) {
+  if (!root) return;
+  const el = document.createElement("div");
+  el.className = "toast";
+  el.textContent = text;
+  root.append(el);
+  setTimeout(() => el.remove(), 4000);
 }
 
 // โครงหน้าซ้อนของ More: แถบบน (ย้อนกลับ + ชื่อ + ปุ่มเสริม) แล้วคืน pane ว่างให้เอาไปใส่อะไรก็ได้
@@ -271,12 +421,10 @@ function openWeb(path, title) {
   });
 }
 
-function exportData() {
-  const data = {};
-  for (const k of Object.keys(localStorage)) {
-    if (k.startsWith("pp-os:")) data[k.slice(6)] = JSON.parse(localStorage.getItem(k));
-  }
-  const blob = new Blob([JSON.stringify({ exported: new Date().toISOString(), data }, null, 2)], {
+// export อ่านจาก storage (ไม่ใช่ localStorage ตรงๆ อีกแล้ว — ข้อมูลจริงอยู่ใน IndexedDB)
+export function exportData() {
+  const data = dumpAll();
+  const blob = new Blob([JSON.stringify({ app: "pp-os", exported: new Date().toISOString(), data }, null, 2)], {
     type: "application/json",
   });
   const a = document.createElement("a");
@@ -284,4 +432,5 @@ function exportData() {
   a.download = `pp-os-backup-${new Date().toISOString().slice(0, 10)}.json`;
   a.click();
   setTimeout(() => URL.revokeObjectURL(a.href), 1000);
+  save("os.lastExport", Date.now());
 }

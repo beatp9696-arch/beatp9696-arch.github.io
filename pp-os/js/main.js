@@ -8,7 +8,7 @@ import { openApp } from "./core/window-manager.js";
 import { initTaskbar } from "./core/taskbar.js";
 import { initShell } from "./core/app-shell.js";
 import { importFromURL } from "./core/apple-health.js";
-import { load, save } from "./core/storage.js";
+import { initStorage, load, save } from "./core/storage.js";
 
 import me from "./apps/me.js";
 import health from "./apps/health.js";
@@ -19,6 +19,10 @@ import todo from "./apps/todo.js";
 import calculator from "./apps/calculator.js";
 
 [me, health, money, weather, notes, todo, calculator].forEach(register);
+
+// ต้องรอ storage โหลดเข้า cache ให้ครบก่อน ไม่งั้นหน้าแรกวาดตอนยังไม่มีข้อมูล = เห็นเป็นศูนย์หมด
+// (top-level await ใน ES module — เบราว์เซอร์ที่รองรับ ES modules ทั้งหมดรองรับอันนี้)
+await initStorage();
 
 // Shortcut ยิงข้อมูลสุขภาพมาทาง ?hk=<base64> — เขียนลง storage ก่อนแอปเริ่มวาด
 importFromURL();

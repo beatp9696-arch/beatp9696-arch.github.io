@@ -1,4 +1,5 @@
 import { load, save } from "../core/storage.js";
+import { exportData } from "../core/app-shell.js";
 import { DEFAULT_LOC, describe, fetchForecast } from "./weather.js";
 import { countUp, flush, stagger, money0, dateLong } from "../core/ui.js";
 
@@ -88,6 +89,12 @@ export default {
       const hasApple = !!load("health.lastImport");
       const steps = t.steps ?? 0;
 
+      // เตือน backup: ข้อมูลอยู่ในเครื่องนี้ที่เดียว — เตือนเมื่อไม่เคย backup (แต่มีข้อมูลแล้ว) หรือเกิน 30 วัน
+      const lastExport = load("os.lastExport");
+      const hasStuff = Object.keys(days).length > 0 || entries.length > 0 || todos.length > 0;
+      const staleDays = lastExport ? Math.floor((Date.now() - lastExport) / 86400000) : null;
+      const needBackup = hasStuff && (lastExport == null || staleDays >= 30);
+
       body.innerHTML = `
         <header class="me-head">
           <div>
@@ -97,6 +104,23 @@ export default {
           </div>
           <div class="me-av">${name ? name.trim().slice(0, 2) : "PP"}</div>
         </header>
+
+        ${
+          needBackup
+            ? `<button class="backup-nudge">
+                <span class="bn-ico">🛟</span>
+                <span class="bn-txt">
+                  <b>Back up your data</b>
+                  <small>${
+                    lastExport == null
+                      ? "This device is the only copy. One tap saves a file you can restore anywhere."
+                      : `Last backup was ${staleDays} days ago.`
+                  }</small>
+                </span>
+                <span class="bn-go">Back up</span>
+              </button>`
+            : ""
+        }
 
         <button class="card" data-go="health">
           <div class="card-head">
@@ -202,6 +226,12 @@ export default {
       for (const card of body.querySelectorAll("[data-go]")) {
         card.addEventListener("click", () => go(card.dataset.go));
       }
+
+      // แตะครั้งเดียว = ได้ไฟล์ backup เลย (ไม่ต้องเดินไปหาเมนู More ตามที่ข้อความสัญญาไว้)
+      body.querySelector(".backup-nudge")?.addEventListener("click", () => {
+        exportData();
+        render();
+      });
 
       // ---- อากาศ: cache ก่อนเสมอ แล้วค่อยอัปเดตเบื้องหลัง ----
       const wxBody = body.querySelector(".wx-body");

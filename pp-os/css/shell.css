@@ -389,3 +389,200 @@ body.mode-app {
   border-color: var(--accent);
   color: var(--accent);
 }
+
+/* ============================================================
+   Sheet กลาง (ใช้ใน More: restore) + toast + แบนเนอร์เตือน backup
+   ต้องเป็น fixed ไม่ใช่ absolute — pane สูงกว่าจอ absolute จะกางตามความสูงเนื้อหา
+   แล้วการ์ดไปโผล่ท้ายสุดที่มองไม่เห็น (เคยพลาดมาแล้วกับชีต Apple Health)
+   ============================================================ */
+.sheet {
+  position: fixed;
+  inset: 0;
+  z-index: 500;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 16px;
+  background: rgba(6, 10, 12, 0.55);
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
+  animation: sheet-fade 0.2s var(--ease);
+}
+
+body.mode-app .sheet {
+  align-items: flex-end;
+  padding-bottom: calc(16px + env(safe-area-inset-bottom, 0px));
+}
+
+@keyframes sheet-fade {
+  from { opacity: 0; }
+}
+
+.sheet-card {
+  width: 100%;
+  max-width: 460px;
+  max-height: 88%;
+  overflow-y: auto;
+  border: 1px solid var(--border);
+  border-radius: var(--r-xl);
+  background: var(--surface);
+  padding: 18px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  box-shadow: var(--shadow-lg);
+  animation: sheet-up 0.3s var(--ease);
+}
+
+@keyframes sheet-up {
+  from { transform: translateY(24px); opacity: 0; }
+}
+
+.sheet-h {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  font-family: var(--font-head);
+  font-weight: 700;
+  font-size: 16px;
+}
+
+.sheet-x {
+  border: 0;
+  background: transparent;
+  color: var(--muted);
+  font-size: 13px;
+  cursor: pointer;
+  padding: 6px;
+  border-radius: 8px;
+}
+
+.sheet-p {
+  font-size: 12.5px;
+  line-height: 1.65;
+  color: var(--muted);
+}
+
+.sheet-p code {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  background: var(--key);
+  border-radius: 5px;
+  padding: 2px 5px;
+  color: var(--text);
+}
+
+.sheet-drop {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 3px;
+  padding: 20px;
+  border: 1.5px dashed color-mix(in srgb, var(--accent) 45%, transparent);
+  border-radius: var(--r-lg);
+  background: var(--accent-tint);
+  cursor: pointer;
+  text-align: center;
+}
+
+.sheet-drop b {
+  font-family: var(--font-head);
+  font-size: 15px;
+  color: var(--accent);
+}
+
+.sheet-drop small {
+  font-size: 11.5px;
+  color: var(--muted);
+}
+
+.sheet-status:empty { display: none; }
+
+.sheet-status {
+  font-size: 12.5px;
+  line-height: 1.6;
+  white-space: pre-line;
+  border-radius: var(--r-md);
+  padding: 11px 12px;
+  background: var(--key);
+  border: 1px solid var(--border);
+}
+
+.sheet-status.ok { border-color: color-mix(in srgb, var(--accent) 45%, transparent); }
+.sheet-status.err { border-color: rgba(229, 72, 77, 0.5); color: #e5484d; }
+
+.sheet-actions {
+  display: flex;
+  gap: 8px;
+  justify-content: flex-end;
+}
+
+/* ปุ่มทับข้อมูลต้องดูอันตราย ไม่ใช่สีเดียวกับปุ่มทั่วไป */
+.sheet-go {
+  background: #e5484d !important;
+  border-color: #e5484d !important;
+  color: #fff !important;
+}
+
+.toast {
+  position: fixed;
+  left: 50%;
+  bottom: calc(74px + env(safe-area-inset-bottom, 0px));
+  transform: translateX(-50%);
+  z-index: 600;
+  max-width: 92vw;
+  padding: 11px 16px;
+  border-radius: 999px;
+  background: var(--text);
+  color: var(--bg);
+  font-family: var(--font-head);
+  font-size: 13px;
+  font-weight: 600;
+  box-shadow: var(--shadow-lg);
+  animation: toast-in 0.28s var(--spring);
+}
+
+@keyframes toast-in {
+  from { transform: translate(-50%, 14px); opacity: 0; }
+}
+
+.store-info.warn { color: #c2410c; }
+
+/* ---- แบนเนอร์เตือน backup ในหน้า Me ---- */
+.backup-nudge {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  width: 100%;
+  text-align: left;
+  border: 1px solid color-mix(in srgb, var(--a) 35%, transparent);
+  background: var(--a-soft);
+  border-radius: var(--r-lg);
+  padding: 12px 14px;
+  cursor: pointer;
+  font: inherit;
+  color: var(--ink);
+}
+
+.backup-nudge:active { transform: scale(0.99); }
+
+.bn-ico { font-size: 20px; }
+
+.bn-txt {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.bn-txt b { font-family: var(--font-head); font-size: 13.5px; }
+.bn-txt small { font-size: 11.5px; color: var(--dim); line-height: 1.45; }
+
+.bn-go {
+  flex-shrink: 0;
+  font-family: var(--font-head);
+  font-size: 12.5px;
+  font-weight: 700;
+  color: var(--a);
+}
