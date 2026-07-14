@@ -468,7 +468,7 @@ transition: transform 0.15s ease;
 .nf-links a:hover { color: var(--accent); }
 .nf-links a:hover::before { transform: translateX(4px); }
 @media (max-width: 600px) {
-.to-top { right: 16px; bottom: 16px; }
+.to-top { right: 16px; bottom: calc(74px + env(safe-area-inset-bottom, 0px)); }
 .footer-grid { gap: 16px; }
 }
 #tv-ticker { border-bottom: 1px solid var(--border); margin-bottom: 8px; min-height: 46px; }
@@ -2117,3 +2117,51 @@ h2.sec .sec-art svg { width: 84px; height: 34px; display: block; }
 .sig-stamp .sg-rl { fill: none; stroke: #e0604f; stroke-width: 1.8; stroke-linecap: round; }
 .byline .sig-stamp { margin-left: auto; opacity: .95; }
 @media (max-width: 600px) { .company-header .sig-stamp svg, .byline .sig-stamp svg { width: 44px; height: 44px; } }
+.os-tabbar { display: none; }
+body.has-os-tabbar { padding-bottom: 0; }
+@media (max-width: 700px) {
+.os-tabbar {
+position: fixed;
+left: 0;
+right: 0;
+bottom: 0;
+z-index: 60;
+display: grid;
+grid-template-columns: repeat(5, 1fr);
+height: calc(60px + env(safe-area-inset-bottom, 0px));
+padding-bottom: env(safe-area-inset-bottom, 0px);
+background: var(--header-bg);
+-webkit-backdrop-filter: saturate(180%) blur(14px);
+backdrop-filter: saturate(180%) blur(14px);
+border-top: 1px solid var(--border);
+}
+.os-tabbar a {
+position: relative;
+display: flex;
+flex-direction: column;
+align-items: center;
+justify-content: center;
+gap: 5px;
+color: var(--muted);
+text-decoration: none;
+-webkit-tap-highlight-color: transparent;
+}
+.os-tabbar a svg { width: 23px; height: 23px; }
+.os-tabbar a span {
+font-family: var(--font-head);
+font-size: 10px;
+font-weight: 600;
+}
+.os-tabbar a.on { color: var(--accent); }
+.os-tabbar a.on::before {
+content: "";
+position: absolute;
+top: 0;
+width: 20px;
+height: 2px;
+border-radius: 0 0 3px 3px;
+background: var(--accent);
+}
+.os-tabbar a:active svg { transform: scale(0.9); }
+body.has-os-tabbar { padding-bottom: calc(62px + env(safe-area-inset-bottom, 0px)); }
+}

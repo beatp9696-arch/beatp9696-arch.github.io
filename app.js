@@ -940,3 +940,41 @@
   }
 
 })();
+
+/* ============================================================
+   OS tab bar — แถบล่างชุดเดียวกับ PP OS (Me / Health / Money / Weather / More)
+   โผล่เฉพาะจอมือถือ: เว็บกับแอปเลยรู้สึกเป็นแอปเดียวกัน สลับไปมาได้จากทุกหน้า
+   ซ่อนตัวเองเมื่อถูกฝังใน iframe ของแอป (More ในแอปมี tabbar ของมันอยู่แล้ว = ห้ามซ้อนสองแถบ)
+   ============================================================ */
+(function () {
+  if (window.self !== window.top) return;
+
+  var APP = "/pp-os/?mode=app&tab=";
+  var svg = function (d) {
+    return '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" ' +
+      'stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">' + d + "</svg>";
+  };
+
+  var TABS = [
+    { id: "me", label: "Me", icon: svg('<circle cx="12" cy="8" r="3.6"/><path d="M4.8 20a7.2 7.2 0 0 1 14.4 0"/>') },
+    { id: "health", label: "Health", icon: svg('<path d="M20.4 6.9a4.6 4.6 0 0 0-7.8-2L12 5.6l-.6-.7a4.6 4.6 0 0 0-7.8 2c-.5 2 .3 3.9 1.8 5.5L12 19l6.6-6.6c1.5-1.6 2.3-3.5 1.8-5.5Z"/><path d="M3.4 12h3.3l1.5-2.4 2 4.4 1.6-3 1.1 1h4.2"/>') },
+    { id: "money", label: "Money", icon: svg('<rect x="3" y="6" width="18" height="13" rx="3"/><path d="M3 10h18"/><circle cx="16.5" cy="14.5" r="1.4"/><path d="M6.5 3.8 15 6"/>') },
+    { id: "weather", label: "Weather", icon: svg('<circle cx="8.2" cy="8.2" r="3"/><path d="M8.2 2.4v1.3M8.2 12.7V14M2.4 8.2h1.3M12.7 8.2H14M4.1 4.1l.9.9M11.4 11.4l.9.9M12.3 4.1l-.9.9M5 11.4l-.9.9"/><path d="M9 20h8.5a3.5 3.5 0 0 0 .3-7 5 5 0 0 0-9.4-1.1A3.6 3.6 0 0 0 9 20Z"/>') },
+    { id: "more", label: "More", icon: svg('<path d="M4 7h16M4 12h16M4 17h16"/>') }
+  ];
+
+  var bar = document.createElement("nav");
+  bar.className = "os-tabbar";
+  bar.setAttribute("aria-label", "PP OS");
+
+  var html = "";
+  for (var i = 0; i < TABS.length; i++) {
+    var t = TABS[i];
+    // อยู่บนเว็บ = อยู่ใต้ More ของแอป (เว็บถูกฝังใน More) → ไฮไลต์ More ไว้
+    var on = t.id === "more" ? ' class="on" aria-current="page"' : "";
+    html += '<a href="' + APP + t.id + '"' + on + ">" + t.icon + "<span>" + t.label + "</span></a>";
+  }
+  bar.innerHTML = html;
+  document.body.appendChild(bar);
+  document.body.classList.add("has-os-tabbar");
+})();
