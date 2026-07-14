@@ -264,24 +264,27 @@
   }
 
   // ---- hero stats + ปุ่มดูทั้งหมด (หน้าแรก) — นับจาก ARTICLES (SoT) ----
-  // หน้าแรกโชว์แค่บทล่าสุด นับจาก DOM ไม่ได้แล้ว: deep-dive = มี ticker (tk),
-  // ซีรีส์อ่านงบ = ไฟล์ financials-*
-  var nDeep = 0, nFin = 0;
+  // หน้าแรกโชว์แค่บทล่าสุด นับจาก DOM ไม่ได้แล้ว: deep-dive = มี ticker (tk)
+  // "บทความ" นับซีรีส์ทั้งชุดเป็น 1 เรื่อง — prefix ต้อง sync กับ SERIES ใน build.py
+  var SERIES_PREFIXES = ["financials-", "buffett-talks-", "munger-talks-", "powers-", "moat-break-"];
+  var nDeep = 0, nEp = 0, seriesSeen = {};
   ARTICLES.forEach(function (a) {
     if (a.tk) nDeep++;
-    if (a.f.indexOf("financials-") === 0) nFin++;
+    SERIES_PREFIXES.forEach(function (p) {
+      if (a.f.indexOf(p) === 0) { nEp++; seriesSeen[p] = 1; }
+    });
   });
+  var nWorks = ARTICLES.length - nEp + Object.keys(seriesSeen).length;
   document.querySelectorAll(".hero-stat").forEach(function (st) {
     var label = st.querySelector(".hero-stat-label");
     var num = st.querySelector(".hero-stat-num");
     if (!label || !num) return;
     var lt = label.textContent.trim();
-    if (lt === "บทความ") num.textContent = ARTICLES.length;
+    if (lt === "บทความ") num.textContent = nWorks;
     else if (lt === "Deep-dive") num.textContent = nDeep;
-    else if (lt === "ซีรีส์อ่านงบ") num.textContent = nFin;
   });
   document.querySelectorAll(".view-all-count").forEach(function (el) {
-    el.textContent = ARTICLES.length;
+    el.textContent = nWorks;
   });
 
   // ---- เลข hero นับขึ้นตอนโหลด (ครั้งเดียว, เคารพ reduced-motion) ----

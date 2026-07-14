@@ -601,24 +601,35 @@ def write_stocks(articles):
     print(f"stocks.html : {n_cards} การ์ดหุ้น" + ("" if new != src else " (ไม่เปลี่ยน)"))
 
 
+def count_works(articles):
+    """นับ "เรื่อง": ซีรีส์ทั้งชุดนับเป็น 1 (PP สั่ง 14 ก.ค. 2026 — 7 Powers 7 ตอน = 1 เรื่อง)
+    ตอนซีรีส์ = ไฟล์ขึ้นต้นด้วย prefix ใน SERIES; ต้อง sync กับ SERIES_PREFIXES ใน app.js"""
+    n_ep = sum(1 for a in articles
+               if any(a["f"].startswith(s["prefix"]) for s in SERIES))
+    n_series = sum(1 for s in SERIES
+                   if any(a["f"].startswith(s["prefix"]) for a in articles))
+    return len(articles) - n_ep + n_series
+
+
 def write_hero_stats(articles):
     """อัปเดตตัวเลข hero (บทความ/Deep-dive/เครื่องมือ Interactive) + view-all-count ใน index.html
     ให้ตรง ARTICLES/TOOLS — HTML ดิบไม่ค้าง (app.js เขียนทับตอน runtime อยู่แล้ว แต่ no-JS/SEO เห็นค่านิ่ง)"""
-    n_all = len(articles)
+    n_works = count_works(articles)
     n_deep = sum(1 for a in articles if a["tk"])
     n_tools = len(TOOLS)
     src = open("index.html", encoding="utf-8").read()
     new = src
-    for label, val in [("บทความ", n_all), ("Deep-dive", n_deep), ("เครื่องมือ Interactive", n_tools)]:
+    for label, val in [("บทความ", n_works), ("Deep-dive", n_deep), ("เครื่องมือ Interactive", n_tools)]:
         new = re.sub(
             r'(<span class="hero-stat-num">)\d+(</span>\s*'
             r'<span class="hero-stat-label">' + re.escape(label) + r'</span>)',
             lambda m: m.group(1) + str(val) + m.group(2), new, count=1)
     new = re.sub(r'(<span class="view-all-count">)\d+(</span>)',
-                 lambda m: m.group(1) + str(n_all) + m.group(2), new)
+                 lambda m: m.group(1) + str(n_works) + m.group(2), new)
     if new != src:
         open("index.html", "w", encoding="utf-8").write(new)
-    print(f"hero stats  : บทความ {n_all} · deep-dive {n_deep} · เครื่องมือ {n_tools}"
+    print(f"hero stats  : บทความ {n_works} เรื่อง (ซีรีส์นับเป็น 1, จาก {len(articles)} ชิ้น)"
+          f" · deep-dive {n_deep} · เครื่องมือ {n_tools}"
           + ("" if new != src else " (ไม่เปลี่ยน)"))
 
 
