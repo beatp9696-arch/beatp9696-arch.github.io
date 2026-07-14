@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <script>try{var t=localStorage.getItem('theme');if(t)document.documentElement.setAttribute('data-theme',t);}catch(e){}</script>
   <title>ผ่าธุรกิจ MELI (MercadoLibre) — โตเร็วที่สุด แต่ margin กำลังร่วง | Moatrices</title>
-  <meta name="description" content="ผ่าธุรกิจ MercadoLibre (MELI) — ecosystem e-commerce + fintech ของลาตินอเมริกา, ความตึงเครียดระหว่างโตเร็วกับ margin ที่ร่วง, moat และ Kill Conditions อ้างอิงงบ FY2025 + Q1 2026">
+  <meta name="description" content="ผ่าธุรกิจ MercadoLibre (MELI) — รายได้ ฿100 ไปไหน (ด่านหนี้เสีย ฿10.7 โตเร็วกว่ารายได้), การกลายร่างเป็นธนาคาร, OCF $12B ที่เหลือจริง $1.5B และแผงมอนิเตอร์ 5 สัญญาณ">
   <meta property="og:type" content="article">
   <meta property="og:site_name" content="Moatrices">
   <meta property="og:title" content="ผ่าธุรกิจ MELI (MercadoLibre) — โตเร็วที่สุด แต่ margin กำลังร่วง">
@@ -32,7 +32,7 @@
       <link rel="stylesheet" href="../scenes/deep-dive-meli.min.css">
       <!-- /SCENE-CSS -->
   <script type="application/ld+json">
-  {"@context": "https://schema.org", "@type": "BlogPosting", "headline": "ผ่าธุรกิจ MELI (MercadoLibre) — โตเร็วที่สุด แต่ margin กำลังร่วง", "description": "ผ่าธุรกิจ MercadoLibre (MELI) — ecosystem e-commerce + fintech ของลาตินอเมริกา, ความตึงเครียดระหว่างโตเร็วกับ margin ที่ร่วง, moat และ Kill Conditions อ้างอิงงบ FY2025 + Q1 2026", "image": ["https://beatp9696-arch.github.io/og-deep-dive-meli.png"], "author": {"@type": "Person", "name": "Moatrices"}, "publisher": {"@type": "Organization", "name": "Moatrices", "logo": {"@type": "ImageObject", "url": "https://beatp9696-arch.github.io/icon-512.png"}}, "mainEntityOfPage": {"@type": "WebPage", "@id": "https://beatp9696-arch.github.io/articles/deep-dive-meli.html"}, "inLanguage": "th", "datePublished": "2026-06-28", "dateModified": "2026-06-28"}
+  {"@context": "https://schema.org", "@type": "BlogPosting", "headline": "ผ่าธุรกิจ MELI (MercadoLibre) — โตเร็วที่สุด แต่ margin กำลังร่วง", "description": "ผ่าธุรกิจ MercadoLibre (MELI) — รายได้ ฿100 ไปไหน (ด่านหนี้เสีย ฿10.7 โตเร็วกว่ารายได้), การกลายร่างเป็นธนาคาร, OCF $12B ที่เหลือจริง $1.5B และแผงมอนิเตอร์ 5 สัญญาณ", "image": ["https://beatp9696-arch.github.io/og-deep-dive-meli.png"], "author": {"@type": "Person", "name": "Moatrices"}, "publisher": {"@type": "Organization", "name": "Moatrices", "logo": {"@type": "ImageObject", "url": "https://beatp9696-arch.github.io/icon-512.png"}}, "mainEntityOfPage": {"@type": "WebPage", "@id": "https://beatp9696-arch.github.io/articles/deep-dive-meli.html"}, "inLanguage": "th", "datePublished": "2026-06-28", "dateModified": "2026-07-14"}
   </script>
   <script type="application/ld+json">
   {"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "หน้าแรก", "item": "https://beatp9696-arch.github.io/"}, {"@type": "ListItem", "position": 2, "name": "ผ่าธุรกิจ MELI (MercadoLibre) — โตเร็วที่สุด แต่ margin กำลังร่วง", "item": "https://beatp9696-arch.github.io/articles/deep-dive-meli.html"}]}
@@ -74,7 +74,7 @@
         <span class="byline-avatar">M</span>
         <div>
           <div class="byline-author">Moatrices</div>
-          <div class="byline-info">28 มิ.ย. 2026 · อ่าน ~13 นาที</div>
+          <div class="byline-info">28 มิ.ย. 2026 · ปรับปรุงใหญ่ 14 ก.ค. 2026 · อ่าน ~16 นาที</div>
         </div>
       </div>
 
@@ -86,11 +86,10 @@
           <li><a href="#sec-2">2. Moat: ทำไมมันยาก disrupt</a></li>
           <li><a href="#sec-3">3. Mercado Pago — fintech ที่กำลังกลายเป็น "ธนาคาร"</a></li>
           <li><a href="#sec-4">4. ความตึงเครียดหลัก: โตเร็ว แต่ margin ร่วง</a></li>
-          <li><a href="#sec-5">5. Bull Case</a></li>
-          <li><a href="#sec-6">6. Bear Case / จุดเปราะ</a></li>
-          <li><a href="#sec-7">7. Kill Conditions</a></li>
-          <li><a href="#sec-8">8. สิ่งที่ยังต้องขุดต่อ (What to ask)</a></li>
-          <li><a href="#sec-9">สรุป</a></li>
+          <li><a href="#sec-5">5. รายได้ ฿100 — ด่านที่โตเร็วสุดคือหนี้เสีย</a></li>
+          <li><a href="#sec-6">6. ตลาดกำลังเถียงอะไรกัน</a></li>
+          <li><a href="#sec-7">7. แผงมอนิเตอร์ thesis — ตอนนี้ห่างเส้นแดงแค่ไหน</a></li>
+          <li><a href="#sec-8">สรุป</a></li>
         </ol>
       </nav>
       <!-- TOC-END -->
@@ -104,6 +103,12 @@
       <blockquote>
         ตัวเลขอ้างอิงงบ FY2025 (10-K) และ earnings call ไตรมาส 1 ปี FY2026
         เป็นการวิเคราะห์เพื่อการศึกษา ไม่ใช่คำแนะนำซื้อขาย
+      </blockquote>
+      <blockquote>
+        <strong>เปลี่ยนจากฉบับแรก (28 มิ.ย.):</strong> ฉบับแรกจับความตึงเครียด margin ได้แล้ว
+        ฉบับนี้ยกขึ้นมาตรฐานบท SNPS — เพิ่มเส้นทางเงิน ฿100 (พระเอกคือด่านหนี้เสีย ฿10.7
+        ที่โตเร็วกว่ารายได้), แฉความต่างระหว่าง OCF $12.1B กับเงินสดจริง $1.5B,
+        เปลี่ยน Bull/Bear เป็นดีเบต 3 ยกพร้อมตัวตัดสิน และย่อทั้ง thesis ลงแผงมอนิเตอร์ 5 สัญญาณ
       </blockquote>
 
 
@@ -153,10 +158,15 @@
         <li><strong>Fintech (Mercado Pago)</strong> — payment processing, ดอกเบี้ยสินเชื่อ, asset management</li>
       </ul>
       <p>
-        สเกล Q1 FY2026: ผู้ซื้อ active 84 ล้านคน, fintech MAU 83 ล้านคน
-        ตลาดหลักคือ <strong>บราซิล (~54% ของรายได้)</strong>, เม็กซิโก (~22%), อาร์เจนตินา (~19%)
-        รายได้รวม FY2025 = <strong>$28.9 พันล้าน (+39% YoY)</strong> และ Q1 FY2026 พุ่ง
-        <strong>+49% YoY สู่ $8.8 พันล้าน</strong> — fintech (+51%) โตเร็วกว่า commerce (+47%)
+        สเกลปี 2025 ทั้งปี: ผู้ซื้อ unique <strong>121 ล้านคน</strong> ซื้อของ <strong>2,429 ล้านชิ้น</strong>
+        (GMV $65.0B) และ fintech MAU <strong>78 ล้านคน</strong> ทำยอดธุรกรรม (TPV) <strong>$277.8B —
+        ใหญ่กว่า GMV ฝั่งขายของ 4 เท่า</strong>: เงินส่วนใหญ่ที่วิ่งผ่าน MELI วันนี้ไม่ใช่ค่าซื้อของในแอปแล้ว
+        แต่เป็นการจ่ายเงินในชีวิตจริงของคนลาตินอเมริกา
+      </p>
+      <p>
+        รายได้ FY2025 = <strong>$28.9B (+39% YoY / +52% FX-neutral)</strong> แบ่งเป็น commerce $16.3B (+34%)
+        กับ fintech $12.6B (+46%) — รายประเทศ: <strong>บราซิล $15.2B</strong>, เม็กซิโก $6.5B,
+        อาร์เจนตินา $6.0B (+56% — ฟื้นแรงสุด) และ Q1 FY2026 ยังเร่งต่อ <strong>+49% สู่ $8.8B</strong>
       </p>
 
       <h2 id="sec-2">2. Moat: ทำไมมันยาก disrupt</h2>
@@ -265,41 +275,190 @@
         — นี่คือเส้นแบ่งที่ตัดสินทั้ง thesis
       </blockquote>
 
-      <h2 id="sec-5">5. Bull Case</h2>
+      <h2 id="sec-5">5. รายได้ ฿100 — ด่านที่โตเร็วสุดคือหนี้เสีย</h2>
+      <p>
+        เอางบปี 2025 ทั้งปีมากางเป็นเส้นทางเดียว: รายได้ทุก ฿100 ของ MELI
+        (รวมค่าธรรมเนียมร้านค้า ค่าส่ง โฆษณา และดอกเบี้ยสินเชื่อ — $28.9B)
+        ต้องเดินผ่านด่านพวกนี้ก่อนถึงมือผู้ถือหุ้น:
+      </p>
+      <figure class="ph-fig"><div class="ph-panel meli-panel"><div class="ph-eyebrow meli">Follow the money · รายได้ ฿100 (FY2025)</div>
+        <svg viewBox="0 0 840 330" role="img" aria-label="รายได้ทุก 100 บาทของ MELI: 55.5 เป็นต้นทุน 22.7 เป็นทีมงาน 10.7 เป็นหนี้เสีย เหลือสุทธิ 6.9">
+          <text class="sim-mono" x="40" y="26" style="text-anchor:start">INCOME STATEMENT · FY2025 · หน่วย = ส่วนแบ่งจากทุก ฿100</text>
+          <path d="M30,66 H235 L265,76 H445 L475,86 H620 L650,94 H780 V100 H650 L620,106 H475 L445,112 H265 L235,122 H30 Z"
+                fill="#facc15" opacity=".14" stroke="#2a2009" stroke-width="1.5"/>
+          <rect x="238" y="118" width="24" height="86" fill="#facc15" opacity=".12" stroke="#2a2009" stroke-width="1.2"/>
+          <rect x="448" y="108" width="24" height="96" fill="#facc15" opacity=".12" stroke="#2a2009" stroke-width="1.2"/>
+          <rect x="623" y="100" width="24" height="104" fill="#f87171" opacity=".18" stroke="#7f1d1d" stroke-width="1.4"/>
+          <text class="sim-mono" x="635" y="40" style="text-anchor:middle" fill="#fca5a5">ด่านหนี้เสีย — โตเร็วกว่ารายได้</text>
+          <circle cx="635" cy="50" r="4" fill="#f87171"><animate attributeName="opacity" values="1;.15;1" dur="1.6s" repeatCount="indefinite"/></circle>
+          <text class="s-t sm" x="130" y="46">รายได้เข้า</text>
+          <text class="s-t" x="130" y="60" style="font-size:15px" fill="#facc15">฿100</text>
+          <text class="s-t" x="355" y="60" fill="#e8e0c8">฿44.5</text>
+          <text class="s-t" x="550" y="72" fill="#e8e0c8">฿21.8</text>
+          <rect x="180" y="204" width="120" height="60" rx="8" fill="#16130a" stroke="#2a2009" stroke-width="1.5"/>
+          <rect x="184" y="232" width="112" height="28" rx="5" fill="#facc15" opacity=".25"/>
+          <text class="s-t" x="240" y="243" fill="#facc15">฿55.5</text>
+          <text class="s-t sm" x="240" y="284">ต้นทุนขาย+ส่งฟรี</text>
+          <text class="s-t sm" x="240" y="300" style="font-size:10.5px">+ ต้นทุนเงินทุน fintech</text>
+          <rect x="390" y="204" width="120" height="60" rx="8" fill="#16130a" stroke="#2a2009" stroke-width="1.5"/>
+          <rect x="394" y="242" width="112" height="18" rx="5" fill="#facc15" opacity=".18"/>
+          <text class="s-t" x="450" y="243" fill="#e8e0c8">฿22.7</text>
+          <text class="s-t sm" x="450" y="284">เทค ฿7.9 · ขาย ฿11.1</text>
+          <text class="s-t sm" x="450" y="300" style="font-size:10.5px">บริหาร ฿3.7</text>
+          <rect x="575" y="204" width="120" height="60" rx="8" fill="#1a0f10" stroke="#7f1d1d" stroke-width="1.5"/>
+          <rect x="579" y="244" width="112" height="16" rx="5" fill="#f87171" opacity=".3"/>
+          <text class="s-t" x="635" y="243" fill="#fca5a5">฿10.7</text>
+          <text class="s-t sm" x="635" y="284" fill="#d98a8a">ค่าเผื่อหนี้เสีย</text>
+          <text class="s-t sm" x="635" y="300" style="font-size:10.5px" fill="#d98a8a">$3,091M · +66% YoY</text>
+          <rect x="782" y="68" width="46" height="46" rx="9" fill="#16130a" stroke="#34d399" stroke-width="1.5"/>
+          <text class="s-t" x="805" y="96" fill="#34d399">฿6.9</text>
+          <text class="s-t sm" x="805" y="132">กำไรสุทธิ</text>
+          <text class="s-t sm" x="805" y="148" style="font-size:10.5px">($1,997M)</text>
+          <circle cx="30" cy="94" r="6" fill="#facc15" opacity=".85"><animateMotion dur="4.2s" repeatCount="indefinite" path="m0,0 h748"/></circle>
+          <circle cx="30" cy="94" r="3.5" fill="#facc15" opacity=".7"><animateMotion dur="3.4s" begin=".6s" repeatCount="indefinite" path="m0,0 h210 v140"/></circle>
+          <circle cx="30" cy="94" r="3.5" fill="#f87171" opacity=".8"><animateMotion dur="4s" begin="1.4s" repeatCount="indefinite" path="m0,0 h605 v140"/></circle>
+        </svg>
+      </div><figcaption>ทุก ฿100 ของรายได้: ฿55.5 เป็นต้นทุนขาย/ส่งฟรี/ทุน fintech · ฿22.7 เป็นทีมงานทั้งบริษัท · และด่านที่ต้องจ้องคือ<strong>ค่าเผื่อหนี้เสีย ฿10.7</strong> ($3,091M, +66% YoY — โตเร็วกว่ารายได้ที่ +39%) เหลือถึงบรรทัดสุดท้าย <strong>฿6.9</strong> — ด่านหนี้เสียนี้คือราคาของการกลายร่างเป็นธนาคาร และมันกำลังกว้างขึ้นทุกไตรมาส</figcaption></figure>
+      <p>
+        และกับดักที่อ่านงบ MELI ต้องไม่พลาด: กระแสเงินสดดำเนินงาน <strong>$12.1B</strong> ดูมโหฬาร
+        แต่เกือบทั้งหมดคือกลไกบัญชีของธุรกิจปล่อยกู้ — เงินไหลออกไป<em>ปล่อยสินเชื่อใหม่</em> $6.7B
+        อยู่ฝั่ง investing ทันที บริษัทเองรายงาน <strong>adjusted FCF แค่ $1.48B</strong>
+        (5% ของรายได้) — ตัวเลขนี้ต่างหากคือเงินสดจริงที่เหลือ ใครเอา OCF ไปเทียบกับบริษัท
+        ที่ไม่ได้ปล่อยกู้ จะเข้าใจกำลังสร้างเงินสดผิดไปเกือบสิบเท่า
+      </p>
+
+      <h2 id="sec-6">6. ตลาดกำลังเถียงอะไรกัน</h2>
+      <h3>ยกที่ 1: margin ร่วง = ลงทุน หรือเสื่อม?</h3>
       <ul>
-        <li><strong>Network + switching cost ที่เสริมกันเอง</strong> — ยิ่งข้อมูลชำระเงินเยอะ credit model ยิ่งแม่น วงจรนี้ disrupt ยากใน 5-10 ปี</li>
-        <li><strong>Penetration ยังต่ำ + logistics เป็น process power</strong> — รันเวย์การเติบโตยาว และคูเมืองด้านโลจิสติกส์ลึกขึ้นเรื่อยๆ</li>
-        <li><strong>Mercado Pago เป็น optionality ใหญ่</strong> — ถ้าได้ banking license ต้นทุนเงินทุนลด NIMAL ฟื้น และกลายเป็น full financial services provider ในภูมิภาคที่ underbanked</li>
+        <li><strong>ฝั่งลงทุน ชี้ไปที่</strong> — รายได้ FX-neutral +52%, ลด threshold ส่งฟรีบราซิล
+          คือการซื้อ market share ด้วยตาเปิด, ส่งของวันเดียว/วันถัดไป +39%,
+          contribution margin อาร์เจนตินายังยืน 41.6% = โมเดลทำกำไรได้จริงเมื่อ scale ถึง</li>
+        <li><strong>ฝั่งเสื่อม ชี้ไปที่</strong> — บราซิล (ตลาดใหญ่สุด) contribution margin ร่วงจาก
+          20.0% → 13.7% ในปีเดียว และ Q1'26 operating margin เหลือ 6.9% ต่ำสุดในรอบหลายปี
+          — "ลงทุน" ที่ไม่มีวันจบก็คือต้นทุนถาวรดีๆ นี่เอง</li>
+        <li><strong>ตัวตัดสิน</strong> — ครึ่งหลังปี 2026: ถ้า operating margin ไม่เริ่มโค้งกลับขึ้น
+          ทั้งที่บริษัทบอกว่า bad debt จะ normalize ข้ออ้าง "ลงทุน" จะหมดอายุ</li>
+      </ul>
+      <h3>ยกที่ 2: การกลายเป็นธนาคาร — ข้อมูลเหนือกว่า หรือแค่ธนาคารที่ยังไม่เจอพายุ?</h3>
+      <ul>
+        <li><strong>ฝั่งเชื่อ ชี้ไปที่</strong> — MELI เห็นกระแสเงินสดร้านค้าและพฤติกรรมจ่ายเงินผู้ซื้อ
+          แบบเรียลไทม์ก่อนธนาคารทุกเจ้า, NIMAL ที่ลดคือ<em>การเลือก</em>ขยายเข้า credit card
+          เพื่อยึดลูกค้าทั้งชีวิตการเงิน, banking license ที่รอจะลดต้นทุนเงินทุนอีกชั้น</li>
+        <li><strong>ฝั่งไม่เชื่อ ชี้ไปที่</strong> — NIMAL ไหล 36.2% → 22.4% → 17.8% สามปีติดโดยยังไม่มีพื้น,
+          credit card = 45% ของพอร์ต (สินเชื่อเสี่ยงสุดในเครื่องมือทั้งหมด), NPL &gt;90 วัน 17.6%,
+          และพอร์ตขนาดนี้ ($14.6B, +87%) ยังไม่เคยเจอ recession ลาตินอเมริกาเต็มรอบสักครั้ง</li>
+        <li><strong>ตัวตัดสิน</strong> — vintage ของสินเชื่อที่ปล่อยช่วงโตแรงนี้เมื่อครบ 12-18 เดือน
+          + จังหวะแรก that provisions โตเร็วกว่าพอร์ต = ความเสี่ยงเริ่มแซงการเติบโต</li>
+      </ul>
+      <h3>ยกที่ 3: Temu/Shopee/Amazon — สงครามราคาข้ามพรมแดน</h3>
+      <ul>
+        <li><strong>ฝั่งกังวล ชี้ไปที่</strong> — ผู้เล่นเอเชียขายของถูกตรงจากจีนเข้าหมวดที่ MELI
+          พึ่ง 3P seller (electronics, fashion) และงบการตลาด MELI ที่ +47% YoY
+          ก็คือหลักฐานว่าต้องจ่ายแพงขึ้นเพื่อรั้งผู้ซื้อ</li>
+        <li><strong>ฝั่งไม่กังวล ชี้ไปที่</strong> — คูเมืองจริงคือ fulfillment ในประเทศ (ส่งวันเดียว
+          ที่ cross-border ทำไม่ได้) + การเงินครบวงจรสำหรับภูมิภาคที่คนจำนวนมากไม่มีบัตรเครดิต
+          — Temu ขายของได้ แต่ปล่อยกู้ให้คนซื้อไม่ได้</li>
+        <li><strong>ตัวตัดสิน</strong> — GMV FX-neutral (+36% วันนี้): ถ้าหลุดต่ำกว่า ~20%
+          พร้อม take rate ที่ลดลง = สงครามราคาเริ่มกัดถึงกระดูก</li>
       </ul>
 
-      <h2 id="sec-6">6. Bear Case / จุดเปราะ</h2>
+      <h2 id="sec-7">7. แผงมอนิเตอร์ thesis — ตอนนี้ห่างเส้นแดงแค่ไหน</h2>
+      <p>
+        MELI คือหุ้นที่เข็มขยับเร็วที่สุดในบรรดาที่เราผ่ามา — สัญญาณชีพ 5 เส้นนี้ต้องเปิดดูทุก earnings
+        ไม่ใช่ปีละครั้ง:
+      </p>
+      <figure class="ph-fig"><div class="ph-panel meli-panel"><div class="ph-eyebrow meli">Thesis Monitor · ระยะห่างจากเส้นแดง</div>
+        <svg viewBox="0 0 840 470" role="img" aria-label="แผงมอนิเตอร์ 5 สัญญาณของ thesis MercadoLibre พร้อมเส้นแดงที่วัดได้">
+          <text class="sim-mono" x="40" y="34" style="text-anchor:start">THESIS MONITOR · MELI · Q1 FY2026</text>
+          <circle cx="620" cy="30" r="4" fill="#34d399"/>
+          <text class="sim-mono" x="630" y="34" style="text-anchor:start" fill="#34d399">2 OK</text>
+          <circle cx="690" cy="30" r="4" fill="#fbbf24"><animate attributeName="opacity" values="1;.2;1" dur="1.6s" repeatCount="indefinite"/></circle>
+          <text class="sim-mono" x="700" y="34" style="text-anchor:start" fill="#fbbf24">3 WATCH</text>
+          <line x1="40" y1="52" x2="790" y2="52" stroke="#2a2009" stroke-width="1.5"/>
+
+          <circle cx="48" cy="96" r="5" fill="#fbbf24"><animate attributeName="opacity" values="1;.25;1" dur="1.4s" repeatCount="indefinite"/></circle>
+          <text class="s-t" x="64" y="92" style="text-anchor:start">Operating margin ฟื้น</text>
+          <text class="sim-mono" x="64" y="110" style="text-anchor:start" fill="#fbbf24">Q1'26 = 6.9% (จาก 11.1% ทั้งปี 2025)</text>
+          <rect x="330" y="91" width="420" height="10" rx="5" fill="#16130a" stroke="#2a2009"/>
+          <rect x="330" y="91" width="300" height="10" rx="5" fill="#fbbf24" opacity=".3"/>
+          <rect x="670" y="91" width="80" height="10" rx="5" fill="#f87171" opacity=".22"/>
+          <line x1="670" y1="86" x2="670" y2="106" stroke="#f87171" stroke-width="1.5" stroke-dasharray="3 3"/>
+          <text class="sim-mono" x="670" y="122" style="text-anchor:middle" fill="#d98a8a">เส้นแดง: ไม่โค้งกลับเหนือ ~10% ภายใน 4-6 ไตรมาส</text>
+          <circle cx="630" cy="96" r="5.5" fill="#fbbf24"/>
+          <line x1="40" y1="130" x2="790" y2="130" stroke="#1c1707"/>
+
+          <circle cx="48" cy="168" r="5" fill="#fbbf24"><animate attributeName="opacity" values="1;.25;1" dur="1.4s" begin=".3s" repeatCount="indefinite"/></circle>
+          <text class="s-t" x="64" y="164" style="text-anchor:start">NIMAL (ดอกเบี้ยหลังหนี้เสีย)</text>
+          <text class="sim-mono" x="64" y="182" style="text-anchor:start" fill="#fbbf24">17.8% — ไหลลง 3 ปีติด ยังไม่เห็นพื้น</text>
+          <rect x="330" y="163" width="420" height="10" rx="5" fill="#16130a" stroke="#2a2009"/>
+          <rect x="330" y="163" width="270" height="10" rx="5" fill="#fbbf24" opacity=".3"/>
+          <rect x="670" y="163" width="80" height="10" rx="5" fill="#f87171" opacity=".22"/>
+          <line x1="670" y1="158" x2="670" y2="178" stroke="#f87171" stroke-width="1.5" stroke-dasharray="3 3"/>
+          <text class="sim-mono" x="670" y="194" style="text-anchor:middle" fill="#d98a8a">เส้นแดง: ต่ำกว่า 15% พร้อม NPL&gt;90วัน เกิน 20%</text>
+          <circle cx="600" cy="168" r="5.5" fill="#fbbf24"/>
+          <line x1="40" y1="202" x2="790" y2="202" stroke="#1c1707"/>
+
+          <circle cx="48" cy="240" r="5" fill="#34d399"/>
+          <text class="s-t" x="64" y="236" style="text-anchor:start">Provisions vs พอร์ตสินเชื่อ</text>
+          <text class="sim-mono" x="64" y="254" style="text-anchor:start" fill="#34d399">provision +66% &lt; พอร์ต +87% — ยังคุมได้</text>
+          <rect x="330" y="235" width="420" height="10" rx="5" fill="#16130a" stroke="#2a2009"/>
+          <rect x="330" y="235" width="180" height="10" rx="5" fill="#34d399" opacity=".3"/>
+          <rect x="670" y="235" width="80" height="10" rx="5" fill="#f87171" opacity=".22"/>
+          <line x1="670" y1="230" x2="670" y2="250" stroke="#f87171" stroke-width="1.5" stroke-dasharray="3 3"/>
+          <text class="sim-mono" x="670" y="266" style="text-anchor:middle" fill="#d98a8a">เส้นแดง: provision โตแซงพอร์ต 2 ไตรมาสติด</text>
+          <circle cx="510" cy="240" r="5.5" fill="#34d399"/>
+          <line x1="40" y1="274" x2="790" y2="274" stroke="#1c1707"/>
+
+          <circle cx="48" cy="312" r="5" fill="#34d399"/>
+          <text class="s-t" x="64" y="308" style="text-anchor:start">รายได้ FX-neutral โต</text>
+          <text class="sim-mono" x="64" y="326" style="text-anchor:start" fill="#34d399">+46% Q1'26 — เครื่องยนต์หลักยังแรง</text>
+          <rect x="330" y="307" width="420" height="10" rx="5" fill="#16130a" stroke="#2a2009"/>
+          <rect x="330" y="307" width="90" height="10" rx="5" fill="#34d399" opacity=".3"/>
+          <rect x="670" y="307" width="80" height="10" rx="5" fill="#f87171" opacity=".22"/>
+          <line x1="670" y1="302" x2="670" y2="322" stroke="#f87171" stroke-width="1.5" stroke-dasharray="3 3"/>
+          <text class="sim-mono" x="670" y="338" style="text-anchor:middle" fill="#d98a8a">เส้นแดง: FXN ต่ำกว่า 25%</text>
+          <circle cx="420" cy="312" r="5.5" fill="#34d399"/>
+          <line x1="40" y1="346" x2="790" y2="346" stroke="#1c1707"/>
+
+          <circle cx="48" cy="384" r="5" fill="#fbbf24"><animate attributeName="opacity" values="1;.25;1" dur="1.4s" begin=".7s" repeatCount="indefinite"/></circle>
+          <text class="s-t" x="64" y="380" style="text-anchor:start">สงครามราคา (GMV FXN + take rate)</text>
+          <text class="sim-mono" x="64" y="398" style="text-anchor:start" fill="#fbbf24">GMV FXN +36% แต่ S&amp;M +47% — จ่ายแพงขึ้นเพื่อโต</text>
+          <rect x="330" y="379" width="420" height="10" rx="5" fill="#16130a" stroke="#2a2009"/>
+          <rect x="330" y="379" width="200" height="10" rx="5" fill="#fbbf24" opacity=".3"/>
+          <rect x="670" y="379" width="80" height="10" rx="5" fill="#f87171" opacity=".22"/>
+          <line x1="670" y1="374" x2="670" y2="394" stroke="#f87171" stroke-width="1.5" stroke-dasharray="3 3"/>
+          <text class="sim-mono" x="670" y="410" style="text-anchor:middle" fill="#d98a8a">เส้นแดง: GMV FXN &lt;20% + take rate ลด &gt;200bps/ปี</text>
+          <circle cx="530" cy="384" r="5.5" fill="#fbbf24"/>
+
+          <circle cx="48" cy="448" r="4" fill="#34d399"/>
+          <text class="sim-mono" x="58" y="452" style="text-anchor:start">ปลอดภัย</text>
+          <circle cx="148" cy="448" r="4" fill="#fbbf24"/>
+          <text class="sim-mono" x="158" y="452" style="text-anchor:start">ต้องจับตา</text>
+          <rect x="262" y="442" width="14" height="10" rx="3" fill="#f87171" opacity=".3" stroke="#f87171" stroke-width="1"/>
+          <text class="sim-mono" x="282" y="452" style="text-anchor:start">โซนเส้นแดง — เข็มแตะเมื่อไหร่ = เรื่องเล่ากำลังพัง</text>
+        </svg>
+      </div><figcaption>เข็มที่จ่อเส้นแดงสุดคือ <strong>operating margin</strong> (Q1'26 = 6.9% — ต่ำกว่าระดับที่ต้องกลับไปยืนแล้ว เหลือแค่คำถามว่าโค้งกลับทันเวลาไหม) ตามด้วย NIMAL ที่ยังไม่เห็นพื้น — ฝั่งเครื่องยนต์รายได้ (FXN +46%) ยังเขียวสบาย</figcaption></figure>
+      <p>ความหมายของแต่ละเส้น ถ้าเข็มแตะโซนแดง:</p>
       <ul>
-        <li><strong>NIMAL compression อาจยังไม่จบ</strong> — ถ้า scale credit card ต่อจน 50%+ ของ portfolio, 17.8% อาจเป็นแค่จุดแวะ ถ้า bad debt พุ่งในภาวะเศรษฐกิจแย่ provision $3B+/ปีจะกินกำไรเร็วมาก</li>
-        <li><strong>คู่แข่งเอเชีย (Temu, Shopee)</strong> — ขาย ultra-low-price ตรงจากจีน ดึง buyer ที่อ่อนไหวเรื่องราคาในบราซิล/เม็กซิโก โดยเฉพาะ electronics/fashion ที่ MELI พึ่ง 3P seller</li>
-        <li><strong>Operating leverage ยังหายไป</strong> — รายได้ +49% แต่ operating income −20% ใน Q1'26 = ลงทุนหนักในช่วงที่ยังพิสูจน์ไม่ได้ว่า credit card จะ break even ที่ NIMAL เท่าไหร่ ถ้า margin ไม่ฟื้นใน 4-6 ไตรมาส narrative "growth at all costs" จะถูก re-rate</li>
+        <li><strong>Operating margin ไม่ฟื้นเหนือ ~10% ใน 4-6 ไตรมาส</strong> = เรื่องเล่า "ลงทุนเพื่อโต" หมดอายุ — ต้นทุนพวกนี้คือโครงสร้าง ไม่ใช่การลงทุน</li>
+        <li><strong>NIMAL &lt;15% + NPL&gt;90วัน เกิน 20%</strong> = ปล่อยกู้ซื้อการโตด้วยความเสี่ยงที่ชดเชยไม่ไหว — ธนาคารที่ตั้งราคาความเสี่ยงผิดในบริษัทที่ leverage สูง</li>
+        <li><strong>Provisions โตแซงพอร์ต 2 ไตรมาสติด</strong> = คุณภาพหนี้เสื่อมจริง ไม่ใช่แค่ mix เปลี่ยน — สัญญาณนำก่อน NIMAL พัง</li>
+        <li><strong>รายได้ FXN &lt;25%</strong> = เครื่องยนต์โตหมดแรงก่อน margin ฟื้น — สถานการณ์อันตรายสุดของหุ้น growth</li>
+        <li><strong>GMV FXN &lt;20% พร้อม take rate ลดต่อเนื่อง</strong> = สงครามราคากับผู้เล่นเอเชียเริ่มชนะ — ต้องประเมิน moat ฝั่ง commerce ใหม่ทั้งแผง</li>
       </ul>
+      <p>
+        คำถามเปิดที่ยังรอ management ตอบ (จดไว้ฟังทุก earnings call): NIMAL จะมีพื้นที่ระดับไหน
+        — บริษัทไม่เคยให้ target; และ vintage สินเชื่อยุคโตแรงนี้ เมื่อครบ 12-18 เดือนหน้าตาเป็นยังไง
+      </p>
 
-      <h2 id="sec-7">7. Kill Conditions</h2>
-      <ul>
-        <li><strong>NIMAL ต่ำกว่า 15% พร้อม NPL >90 วันเกิน 20%</strong> → credit ซื้อ growth ด้วยความเสี่ยงที่ชดเชยไม่ไหว ธุรกิจสินเชื่อขาดทุนในบริษัทที่ leverage สูง = ปัญหาเชิงโครงสร้าง ไม่ใช่ cyclical</li>
-        <li><strong>คู่แข่งได้ fulfillment ครอบคลุมบราซิล+เม็กซิโก และ 3P seller เริ่มย้ายออก + take rate ลด >200bps/ปีต่อเนื่อง</strong> → counter-positioning ไม่แข็งพอ กำลังเข้า price war ที่ชนะระยะยาวไม่ได้</li>
-        <li><strong>ไม่ได้ banking license ในเม็กซิโก/อาร์เจนตินา + ถูกบังคับเพิ่ม capital requirement</strong> → ต้นทุน funding สูงขึ้น กด NIMAL ต่อ และ credit book $14.6B กลายเป็นภาระ → thesis "Mercado Pago = ธนาคาร" ต้องคิดใหม่</li>
-      </ul>
-
-      <h2 id="sec-8">8. สิ่งที่ยังต้องขุดต่อ (What to ask)</h2>
-      <ol>
-        <li>NIMAL จะ floor ที่ระดับไหน? MELI ไม่เคยบอก target ชัดเจน — ถ้าตอบไม่ได้ว่า credit card break even ที่ NIMAL เท่าไหร่ ก็ price in ยาก</li>
-        <li>คุณภาพสินเชื่อผู้บริโภคบราซิลจะ hold ไหมเมื่อ loan duration ยาวขึ้น (ต้องดู vintage ของ loan ที่ปล่อยช่วง high-growth นี้เมื่อครบ 12-18 เดือน)?</li>
-        <li>Temu/Shopee จะสร้าง local fulfillment ในบราซิล/เม็กซิโกได้เมื่อไหร่ (ตราบใดที่ยังพึ่ง cross-border MELI ได้เปรียบ)?</li>
-        <li>Operating margin จะกลับไป 10%+ ได้ยังไงและเมื่อไหร่ — management เห็น inflection ของ bad debt ที่ไหน?</li>
-      </ol>
-
-      <h2 id="sec-9">สรุป</h2>
+      <h2 id="sec-8">สรุป</h2>
       <p>
         MELI เป็น franchise ชั้นยอด — network effect + logistics + fintech ในภูมิภาคที่ penetration ยังต่ำ
-        แต่มันกำลัง<strong>เทรดความสามารถทำกำไรระยะสั้นแลกการยึดตลาดสินเชื่อและโลจิสติกส์</strong>
-        คำถามหลักไม่ใช่ "โตไหม" (โตแรงมาก) แต่คือ <strong>"การโตที่ขับด้วยสินเชื่อนี้ จะกลายเป็นกำไรที่ยั่งยืนหรือเปล่า"</strong>
-        — ซึ่งวัดได้ชัดจาก NIMAL, NPL และการฟื้นของ operating margin ใครจะถือต้องจับ 3 ตัวนี้ให้มั่น
+        แต่เส้นทางเงิน ฿100 บอกความจริงที่พาดหัว "+49%" ไม่บอก: ด่านที่โตเร็วสุดในงบคือ<strong>หนี้เสีย</strong>
+        และเงินสดจริงเหลือแค่ $1.5B จาก OCF ที่โชว์ $12.1B มันกำลัง<strong>เทรดกำไรระยะสั้น
+        แลกการยึดตลาดสินเชื่อและโลจิสติกส์</strong> คำถามหลักไม่ใช่ "โตไหม" (โตแรงมาก)
+        แต่คือ <strong>"การโตที่ขับด้วยสินเชื่อนี้ จะกลายเป็นกำไรที่ยั่งยืนหรือเปล่า"</strong>
+        — เข็มทั้งห้าบนแผงมอนิเตอร์มีคำตอบก่อนพาดหัวข่าวเสมอ
       </p>
 
       <!-- RELATED-START -->
