@@ -154,14 +154,20 @@ a:hover { color: var(--accent-strong); }
   width: 22px; height: 22px;
   background: url("favicon.svg") center / contain no-repeat;
 }
+/* flex + nowrap: ปุ่มค้นหา/ธีมถูก inject เข้ามาใน .site-nav ด้วย (app.js)
+   ถ้าปล่อยเป็น inline flow พอลิงก์เยอะขึ้น (7 อัน) ปุ่มจะตกไปบรรทัดสอง หัวเว็บสูงขึ้น 20px */
 .site-nav {
   font-family: var(--font-head);
   font-size: 15px;
   font-weight: 500;
+  display: flex;
+  align-items: center;
+  flex-wrap: nowrap;
+  white-space: nowrap;
 }
 .site-nav a {
   color: var(--muted);
-  margin-left: 22px;
+  margin-left: 20px;
   position: relative;
 }
 .site-nav a::after {

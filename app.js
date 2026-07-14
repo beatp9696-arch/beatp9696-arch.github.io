@@ -771,7 +771,8 @@
       { href: base + "stocks.html", label: "หุ้นทั้งหมด" },
       { href: base + "tools.html", label: "เครื่องมือ" },
       { href: base + "dashboard.html", label: "Dashboard" },
-      { href: base + "about.html", label: "เกี่ยวกับ" }
+      { href: base + "about.html", label: "เกี่ยวกับ" },
+      { href: "/pp-os/", label: "แอป (PP OS)" }
     ];
 
     var drawer = document.createElement("div");

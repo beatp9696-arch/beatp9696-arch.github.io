@@ -139,10 +139,14 @@ background: url("favicon.svg") center / contain no-repeat;
 font-family: var(--font-head);
 font-size: 15px;
 font-weight: 500;
+display: flex;
+align-items: center;
+flex-wrap: nowrap;
+white-space: nowrap;
 }
 .site-nav a {
 color: var(--muted);
-margin-left: 22px;
+margin-left: 20px;
 position: relative;
 }
 .site-nav a::after {
