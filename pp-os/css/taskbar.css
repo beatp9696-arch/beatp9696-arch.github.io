@@ -1,0 +1,117 @@
+#taskbar {
+  height: calc(var(--taskbar-h) + env(safe-area-inset-bottom, 0px));
+  padding: 0 10px env(safe-area-inset-bottom, 0px);
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  background: var(--surface-glass);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border-top: 1px solid var(--border);
+}
+
+#start-btn {
+  width: 36px;
+  height: 36px;
+  padding: 0;
+  border: 0;
+  border-radius: 10px;
+  background: transparent;
+  cursor: pointer;
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+#start-btn img {
+  width: 30px;
+  height: 30px;
+  display: block;
+}
+
+#start-btn:hover {
+  background: var(--accent-tint);
+}
+
+#task-buttons {
+  flex: 1;
+  display: flex;
+  gap: 6px;
+  overflow-x: auto;
+}
+
+.task-btn {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  padding: 7px 12px;
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  background: var(--surface);
+  color: var(--muted);
+  cursor: pointer;
+  font-family: var(--font-head);
+  font-size: 13px;
+  font-weight: 600;
+  white-space: nowrap;
+}
+
+.task-btn:hover {
+  background: var(--accent-tint);
+}
+
+.task-btn.active {
+  background: var(--accent-tint);
+  border-color: color-mix(in srgb, var(--accent) 45%, var(--border));
+  color: var(--accent-strong);
+}
+
+#clock {
+  font-family: var(--font-mono);
+  font-size: 13px;
+  color: var(--muted);
+  padding: 0 8px;
+  font-variant-numeric: tabular-nums;
+}
+
+#start-menu {
+  position: fixed;
+  left: 8px;
+  bottom: calc(var(--taskbar-h) + env(safe-area-inset-bottom, 0px) + 8px);
+  min-width: 230px;
+  padding: 8px;
+  border-radius: var(--radius);
+  background: var(--surface);
+  border: 1px solid var(--border);
+  box-shadow: var(--shadow-lg);
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  z-index: 9999;
+}
+
+.menu-item {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 10px 12px;
+  border: 0;
+  border-radius: 10px;
+  background: transparent;
+  cursor: pointer;
+  font-family: var(--font-head);
+  font-size: 14px;
+  font-weight: 600;
+  text-align: left;
+}
+
+.menu-item:hover {
+  background: var(--accent-tint);
+  color: var(--accent-strong);
+}
+
+.menu-item .glyph {
+  font-size: 20px;
+  line-height: 1;
+}

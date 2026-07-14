@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <title>PP OS</title>
+  <meta name="description" content="PP OS — a personal app: Me, Health, Money, Weather. Everything stays on your device.">
+  <meta name="theme-color" media="(prefers-color-scheme: light)" content="#f6f4ef">
+  <meta name="theme-color" media="(prefers-color-scheme: dark)" content="#0f1215">
+  <link rel="manifest" href="manifest.webmanifest">
+  <link rel="icon" href="assets/icons/favicon.svg" type="image/svg+xml">
+  <link rel="apple-touch-icon" href="assets/icons/apple-touch-icon.png">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="default">
+  <meta name="apple-mobile-web-app-title" content="PP OS">
+  <link rel="stylesheet" href="css/base.css">
+  <link rel="stylesheet" href="css/desktop.css">
+  <link rel="stylesheet" href="css/window.css">
+  <link rel="stylesheet" href="css/taskbar.css">
+  <link rel="stylesheet" href="css/shell.css">
+  <link rel="stylesheet" href="css/apps.css">
+</head>
+<body>
+  <main id="desktop">
+    <div id="icons"></div>
+    <div id="windows"></div>
+  </main>
+
+  <div id="start-menu" class="hidden"></div>
+
+  <footer id="taskbar">
+    <button id="start-btn" title="Start">
+      <img src="assets/icons/favicon.svg" alt="Start">
+    </button>
+    <div id="task-buttons"></div>
+    <time id="clock"></time>
+  </footer>
+
+  <script type="module" src="js/main.js"></script>
+</body>
+</html>
