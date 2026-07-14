@@ -7,21 +7,21 @@
 
 ---
 
-## 🔴 P0 — ทำก่อน ไม่ทำแล้วเจ็บ (data safety)
+## ✅ P0 — เสร็จแล้ว (14 ก.ค. 2026, sw v10)
 
-### 0.1 Restore ข้อมูลจากไฟล์ backup  ·  S
+### ✅ 0.1 Restore ข้อมูลจากไฟล์ backup  ·  DONE
 - **ทำอะไร:** More → มีปุ่ม "Export all data" แล้ว แต่ **ยังไม่มีปุ่ม Import กลับ** — ตอนนี้ backup ที่ดาวน์โหลดไปเอากลับเข้าแอปไม่ได้เลย
 - **ทำไม:** backup ที่ restore ไม่ได้ = ไม่ใช่ backup; เปลี่ยนเครื่อง/ล้าง Safari = ข้อมูลหายถาวร
 - **ทำยังไง:** `app-shell.js` → แถว "Restore from backup" → file input → parse JSON → merge/replace ทีละ key (`pp-os:*`) → ถามยืนยันก่อนทับ + โชว์ว่าจะทับกี่วัน/กี่รายการ
 - **ความเสี่ยง:** ต้อง validate schema ก่อนเขียนทับ ไม่งั้น backup พังทำข้อมูลดีพัง — เขียน guard + preview ก่อน commit
 
-### 0.2 ย้าย localStorage → IndexedDB + ขอ persistent storage  ·  M
+### ✅ 0.2 ย้าย localStorage → IndexedDB + ขอ persistent storage  ·  DONE
 - **ทำอะไร:** เก็บข้อมูลใน IndexedDB แทน localStorage + เรียก `navigator.storage.persist()`
 - **ทำไม:** **Safari ลบข้อมูลของเว็บที่ไม่ได้เปิด 7 วัน (ITP)** — ถ้า PP ไม่ได้ติดตั้งเป็นแอปหน้าจอโฮม ข้อมูลสุขภาพ/เงินหายเงียบๆ ได้จริง; localStorage ยังมีเพดาน ~5MB (Apple Health หลายร้อยวันชนได้)
 - **ทำยังไง:** `js/core/storage.js` เป็น facade อยู่แล้ว (load/save/remove) → เปลี่ยนไส้ในเป็น IndexedDB (idb-keyval แบบเขียนเอง ~40 บรรทัด) + migrate ครั้งเดียวจาก localStorage + ขอ persist ตอน boot
 - **ความเสี่ยง:** API เป็น sync อยู่ (`load()` คืนค่าเลย) แต่ IndexedDB เป็น async → ต้อง preload ทั้ง store ตอน boot เข้า memory cache แล้ว write-behind (แก้ storage.js ที่เดียว แอปอื่นไม่ต้องแตะ)
 
-### 0.3 Auto-backup เตือนความจำ  ·  S
+### ✅ 0.3 Auto-backup เตือนความจำ  ·  DONE
 - **ทำอะไร:** ถ้าไม่ได้ export เกิน 30 วัน → ขึ้น banner ในหน้า Me
 - **ทำไม:** backup ที่ต้องจำเอง = ไม่มีวันได้ทำ
 - **ทำยังไง:** เก็บ `os.lastExport` ตอนกด export → เช็คในหน้า Me
@@ -131,9 +131,9 @@
 
 ## ลำดับที่แนะนำจริงๆ ถ้ามีเวลาจำกัด
 
-1. **0.1 Restore** (S) — กันข้อมูลหาย ทำวันเดียวจบ
-2. **0.2 IndexedDB + persist** (M) — กัน Safari ลบข้อมูลทิ้ง
-3. **1.1 Sync ข้ามเครื่อง ทาง Gist** (L) — ปลดล็อกให้แอป "ใช้จริง" ได้
+1. ~~**0.1 Restore**~~ ✅ เสร็จ 14 ก.ค.
+2. ~~**0.2 IndexedDB + persist**~~ ✅ เสร็จ 14 ก.ค.
+3. **1.1 Sync ข้ามเครื่อง ทาง Gist** (L) ← **งานถัดไป** — ปลดล็อกให้แอป "ใช้จริง" ได้
 4. **2.3 HRV/resting HR → Recovery จริง** (M) — ทำให้ Health มีค่ามากกว่าที่ Apple ให้อยู่แล้ว
 5. **3.1 งบต่อหมวด** (M) — ทำให้ Money เปลี่ยนพฤติกรรมจริง
 6. **5.1 smoke test ใน CI** (M) — จากนี้ไปแก้อะไรก็ไม่พังของเก่า
