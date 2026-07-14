@@ -2301,3 +2301,78 @@ h2.sec::after {
 
 /* ---------- เลข hero ไม่ขยับซ้ายขวาตอนนับ ---------- */
 .hero-stat-num { font-variant-numeric: tabular-nums; }
+
+/* ============================================================
+   Decoration pass 3 (14 ก.ค. 2026) — ตราประจำซีรีส์ · ป้ายเขตหุ้น · ตราลายเซ็นบท
+   มาตรฐาน: .claude/skills/scene-animation (markup = สถานะจบ, play-once ผ่าน .ph-panel)
+   ============================================================ */
+
+/* ---------- ตราประจำซีรีส์ (series-*.html hero) ---------- */
+.hero:has(.series-emblem) { display: grid; grid-template-columns: minmax(0,1fr) 212px; column-gap: 36px; align-items: center; }
+.hero:has(.series-emblem) > :not(.series-emblem) { grid-column: 1; }
+.hero .series-emblem { grid-column: 2; grid-row: 1 / span 9; align-self: center; background: none; border: 0; padding: 0; }
+.series-emblem svg { width: 100%; height: auto; display: block; }
+.series-emblem { --se-gold: #a8801e; --se-red: #bf4a3d; }
+@media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) .series-emblem { --se-gold: #d8a33a; --se-red: #d2564b; } }
+:root[data-theme="dark"] .series-emblem { --se-gold: #d8a33a; --se-red: #d2564b; }
+@media (max-width: 700px) {
+  .hero:has(.series-emblem) { display: block; }
+  .hero .series-emblem { width: 156px; margin: 22px auto 0; }
+}
+
+/* ชิ้นส่วนพื้นฐานของตรา */
+.se-line { fill: none; stroke: var(--text); stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
+.se-dim  { fill: none; stroke: var(--muted); stroke-width: 1.6; stroke-linecap: round; stroke-linejoin: round; opacity: .75; }
+.se-gold { fill: none; stroke: var(--se-gold); stroke-width: 2.4; stroke-linecap: round; stroke-linejoin: round; }
+.se-red  { fill: none; stroke: var(--se-red); stroke-width: 2.2; stroke-linecap: round; stroke-linejoin: round; }
+.se-fillg { fill: var(--se-gold); stroke: none; }
+.se-fillt { fill: var(--text); stroke: none; }
+.se-node  { fill: var(--bg); stroke: var(--text); stroke-width: 2; }
+
+/* ท่า (เล่นครั้งเดียว ค้างสถานะจบ — global .sa.n จัดการ play-state/delay/fill) */
+.se-rise  { animation: seRise calc(var(--beat)*2) var(--e-expo); }
+.se-pop   { animation: sePop calc(var(--beat)*1.5) var(--e-spread); }
+.se-fade  { animation: seFade calc(var(--beat)*1.5) var(--e-mass); }
+.se-draw  { stroke-dasharray: var(--len); animation: seDraw calc(var(--beat)*3.5) var(--e-expo); }
+.se-drawf { stroke-dasharray: var(--len); animation: seDraw calc(var(--beat)*2) var(--e-fail); }
+.se-stamp { animation: seStamp var(--beat) var(--e-snapback); transform-box: fill-box; transform-origin: center; }
+.se-drop  { animation: seDrop calc(var(--beat)*1.2) var(--e-mass); }
+.se-grow  { animation: seGrow calc(var(--beat)*1.4) var(--e-mass); transform-box: fill-box; transform-origin: left center; }
+.se-pop, .se-rise { transform-box: fill-box; transform-origin: center; }
+@keyframes seRise  { from { opacity: 0; transform: translateY(12px); } }
+@keyframes sePop   { from { opacity: 0; transform: scale(.3); } }
+@keyframes seFade  { from { opacity: 0; } }
+@keyframes seDraw  { from { stroke-dashoffset: var(--len); } }
+@keyframes seStamp { from { opacity: 0; transform: scale(2.1); } }
+@keyframes seDrop  { from { opacity: 0; transform: translateY(-26px); } }
+@keyframes seGrow  { from { transform: scaleX(0); } }
+/* ambient เดียว: ใจกลางตราหายใจเบาๆ หลัง narrative จบ (amplitude ต่ำตามเพดาน) */
+.se-amb { animation: seAmb calc(var(--beat)*7) ease-in-out infinite; animation-delay: calc(var(--beat)*10); }
+@keyframes seAmb { 0%, 100% { opacity: .32; } 50% { opacity: .44; } }
+
+/* คูเมืองแตก: ป้อมเอียง (สถานะจบ = เอียงค้าง) */
+.mb-tilt { transform: rotate(16deg) translateY(2px); transform-box: fill-box; transform-origin: 40% 85%; }
+.se-tilt { animation: seTilt calc(var(--beat)*1.5) var(--e-fail); }
+@keyframes seTilt { from { transform: rotate(0deg) translateY(0); } }
+
+/* ---------- ป้ายเขตกลุ่มธุรกิจ (stocks.html) ---------- */
+h2.sec .sec-art { margin-left: auto; display: inline-flex; align-items: center; opacity: .9; }
+h2.sec .sec-art svg { width: 84px; height: 34px; display: block; }
+.sca-l { fill: none; stroke: var(--muted); stroke-width: 1.7; stroke-linecap: round; stroke-linejoin: round; }
+.sca-g { fill: none; stroke: #d8a33a; stroke-width: 1.8; stroke-linecap: round; stroke-linejoin: round; }
+.sca-fg { fill: #d8a33a; stroke: none; }
+@media (max-width: 600px) { h2.sec .sec-art svg { width: 64px; height: 28px; } }
+
+/* ---------- ตราลายเซ็นธุรกิจ (หัวบท deep-dive — ลายเดียวกับหอในเมืองคูเมือง 3D) ---------- */
+.company-header .sig-stamp { margin-left: auto; align-self: center; opacity: .95; }
+.company-header .sig-stamp svg, .byline .sig-stamp svg { width: 52px; height: 52px; display: block; }
+.sig-stamp .sg-l { fill: none; stroke: var(--muted); stroke-width: 1.6; stroke-linecap: round; stroke-linejoin: round; }
+.sig-stamp .sg-t { fill: none; stroke: var(--text); stroke-width: 1.8; stroke-linecap: round; stroke-linejoin: round; }
+.sig-stamp .sg-g { fill: #d8a33a; stroke: none; }
+.sig-stamp .sg-gl { fill: none; stroke: #d8a33a; stroke-width: 1.8; stroke-linecap: round; }
+.sig-stamp .sg-a { fill: var(--accent); stroke: none; }
+.sig-stamp .sg-r { fill: #d2564b; stroke: none; }
+.sig-stamp .sg-p { fill: none; stroke: #a78bda; stroke-width: 1.8; stroke-linecap: round; }
+.sig-stamp .sg-rl { fill: none; stroke: #e0604f; stroke-width: 1.8; stroke-linecap: round; }
+.byline .sig-stamp { margin-left: auto; opacity: .95; }
+@media (max-width: 600px) { .company-header .sig-stamp svg, .byline .sig-stamp svg { width: 44px; height: 44px; } }
