@@ -2,6 +2,11 @@
 
 แอปส่วนตัวในเบราว์เซอร์ — เขียนด้วย vanilla JS (ES modules) ไม่มี build step ติดตั้งเป็นแอปบนมือถือได้
 
+> **อยู่ใน repo เว็บ Moatrices แล้ว** (14 ก.ค. 2026) — เดิมเป็น repo แยก `beatp9696-arch/pp-os` ตอนนี้ยุบรวมมาเป็นโฟลเดอร์ `pp-os/` ของ user site (repo `beatp9696-arch.github.io`) แล้ว repo เก่าปิด GitHub Pages ทิ้ง เพราะ **project page override path เดียวกันของ user site เสมอ** — ถ้าเปิด Pages ของ repo เก่าอีกครั้ง เว็บจะกลับไปเสิร์ฟของเก่าทันที
+>
+> - URL เดิมไม่เปลี่ยน: https://beatp9696-arch.github.io/pp-os/ · publish = push repo เว็บ (ไม่มี build step ของแอปเอง; `build.py` ของเว็บอ่านแค่ `articles/` กับ `scenes/` ไม่แตะโฟลเดอร์นี้)
+> - เว็บ Moatrices ฝังอยู่ใน More ของแอป (iframe, same-origin) และเมนูของเว็บมีลิงก์ "แอป" กลับมาที่นี่
+
 **สองโหมดจาก codebase เดียว** (แอปตัวเดียวกัน ใช้ contract `mount(body)` เหมือนกัน):
 
 - **app mode** — แอปมือถือเต็มจอ + แท็บล่าง `Me / Health / Money / Weather / More` (ดีฟอลต์เมื่อจอ ≤820px หรือเปิดจากไอคอน PWA)
