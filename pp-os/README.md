@@ -5,18 +5,19 @@
 > **อยู่ใน repo เว็บ Moatrices แล้ว** (14 ก.ค. 2026) — เดิมเป็น repo แยก `beatp9696-arch/pp-os` ตอนนี้ยุบรวมมาเป็นโฟลเดอร์ `pp-os/` ของ user site (repo `beatp9696-arch.github.io`) แล้ว repo เก่าปิด GitHub Pages ทิ้ง เพราะ **project page override path เดียวกันของ user site เสมอ** — ถ้าเปิด Pages ของ repo เก่าอีกครั้ง เว็บจะกลับไปเสิร์ฟของเก่าทันที
 >
 > - URL เดิมไม่เปลี่ยน: https://beatp9696-arch.github.io/pp-os/ · publish = push repo เว็บ (ไม่มี build step ของแอปเอง; `build.py` ของเว็บอ่านแค่ `articles/` กับ `scenes/` ไม่แตะโฟลเดอร์นี้)
-> - เว็บ Moatrices ฝังอยู่ใน More ของแอป (iframe, same-origin) และเมนูของเว็บมีลิงก์ "แอป" กลับมาที่นี่
+> - เว็บ Moatrices เป็น **แท็บแรก** ของแอป (iframe เต็มจอ, same-origin) และเมนูของเว็บมีลิงก์ "แอป" กลับมาที่นี่
 
 **สองโหมดจาก codebase เดียว** (แอปตัวเดียวกัน ใช้ contract `mount(body)` เหมือนกัน):
 
-- **app mode** — แอปมือถือเต็มจอ + แท็บล่าง `Me / Health / Money / Weather / More` (ดีฟอลต์เมื่อจอ ≤820px หรือเปิดจากไอคอน PWA)
+- **app mode** — แอปมือถือเต็มจอ + แท็บล่าง `Moatrices / Health / Money / Weather / Me` (ดีฟอลต์เมื่อจอ ≤820px หรือเปิดจากไอคอน PWA) · แท็บ Moatrices = หน้าเว็บ index.html เต็มจอในแอป · ตั้งค่า/Sync/Backup อยู่ที่ **เฟือง ⚙️ มุมขวาบนของแท็บ Me** (เดิมอยู่ใต้ More — ตัด More ออกแล้ว)
 - **desktop mode** — desktop + หน้าต่างลาก/ย่อ/focus + taskbar + start menu (ดีฟอลต์บนจอกว้าง)
 
-สลับโหมดได้สองทาง (ปุ่มใต้นาฬิกาบน desktop / More ในแอป) หรือบังคับด้วย `?mode=app|desktop`
+สลับโหมดได้สองทาง (ปุ่มใต้นาฬิกาบน desktop / Me → เฟือง → Device ในแอป) หรือบังคับด้วย `?mode=app|desktop`
 
 - **UI เป็นภาษาอังกฤษล้วน** (14 ก.ค. 2026) — ฟอนต์ Inter (variable, self-hosted) + Instrument Serif เฉพาะหัวเรื่อง Weather + IBM Plex Mono เฉพาะ eyebrow/label เครื่องมือ
 - **Design system ชั้นเดียว** — component (`.card` / `.page-head` / `.chip` / `.seg` / `.list` / `.btn`) นิยามครั้งเดียวใน `css/apps.css` แล้วแต่ละแอปประกาศแค่ **จานสี 8 ตัวแปร** ที่ราก `.app-<id>` (`--canvas --card --line --ink --dim --a --a-soft --on-a`); แต่ละแอปเลยมีบุคลิกของตัวเอง (Health = จอดำ WHOOP, Weather = กระดาษครีม Acme, Money = ดำ-เขียวมะนาว FinTrack) แต่โครงเหมือนกันหมด
-- **ข้อมูลอยู่ในเครื่องล้วนๆ** — localStorage ต่ออุปกรณ์ ไม่มีเซิร์ฟเวอร์ ไม่มี tracking (More → ดาวน์โหลดข้อมูลทั้งหมดเป็น JSON ได้)
+- **ข้อมูลอยู่ในเครื่อง** — IndexedDB ต่ออุปกรณ์ ไม่มีเซิร์ฟเวอร์ของเราเอง ไม่มี tracking (Me → เฟือง → Data → ดาวน์โหลดเป็น JSON ได้)
+- **Sync ข้ามเครื่อง (ออปชัน)** — Me → เฟือง → Sync → ต่อ GitHub Gist ส่วนตัวด้วย token (scope `gist`) ที่เก็บในเครื่องเท่านั้น · merge แบบ last-write-wins ต่อ key + snapshot ให้กด Undo ได้ · token/ความลับไม่ถูก sync/ใส่ backup (`js/core/sync.js`)
 
 ## รันยังไง
 
@@ -63,7 +64,8 @@ js/
 │   ├── taskbar.js          # ปุ่มแอป + นาฬิกา + start menu
 │   ├── apple-health.js     # แกะ export.zip / JSON → merge เข้า health.days
 │   ├── app-registry.js     # ทะเบียนแอป
-│   └── storage.js          # wrapper localStorage (namespace pp-os:)
+│   ├── storage.js          # IndexedDB (+ fallback localStorage) + timestamp ต่อ key สำหรับ sync
+│   └── sync.js             # Sync ข้ามเครื่องผ่าน GitHub Gist ส่วนตัว (merge last-write-wins)
 └── apps/               # หนึ่งไฟล์ = หนึ่งแอป (me, health, money, weather, notes, todo, calculator)
 ```
 
@@ -84,7 +86,7 @@ export default {
 ```
 
 2. import + เพิ่มเข้า array ใน `js/main.js` — จบ ไม่ต้องแตะ core
-   (ถ้าไม่มีแท็บของตัวเอง จะไปโผล่ใต้ More เป็นหน้าซ้อนอัตโนมัติ — เพิ่มชื่อใน `MORE_APPS` ของ `app-shell.js`)
+   (แอปมีที่ทางเป็นแท็บใน `TABS` ของ `app-shell.js`; ถ้าเป็นข้อมูลที่อยากให้ sync ข้ามเครื่อง เพิ่ม key ใน `SYNC_KEYS` ของ `js/core/sync.js` ด้วย)
 
 ## Roadmap
 
@@ -95,4 +97,6 @@ export default {
 - [x] นำเข้าจาก Apple Health (export.zip / Shortcut JSON / URL)
 - [x] กราฟน้ำหนัก + แนวโน้มระยะยาว (สลับช่วง 7/30/90/365 วัน + เส้นเฉลี่ยเคลื่อนที่)
 - [x] งบต่อหมวดต่อเดือนใน Money (ตั้งเพดาน + แถบเปลี่ยนสี >80% + เตือนในหน้า Me)
+- [x] Moatrices เป็นแท็บแรก + หน้า Settings (เฟืองในแท็บ Me) รวม Data/Device
+- [x] Sync ข้ามเครื่องผ่าน GitHub Gist ส่วนตัว (merge last-write-wins + Undo)
 ```

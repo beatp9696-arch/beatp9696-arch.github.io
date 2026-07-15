@@ -2,8 +2,9 @@
 // ใช้ app contract เดิม { id, name, icon, mount(body) } เหมือน window manager ทุกประการ
 
 import { getApp } from "./app-registry.js";
-import { dumpAll, load, save } from "./storage.js";
+import { dumpAll, hasSnapshot, load, replaceAll, save, storageInfo, undoRestore } from "./storage.js";
 import { CATS as MONEY_CATS, localDate } from "../apps/money.js";
+import * as sync from "./sync.js";
 
 const I = (d) =>
   `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round">${d}</svg>`;
@@ -16,6 +17,9 @@ const ICONS = {
   money: I('<rect x="3" y="6" width="18" height="13" rx="3"/><path d="M3 10h18"/><circle cx="16.5" cy="14.5" r="1.4"/><path d="M6.5 3.8 15 6"/>'),
   weather: I('<circle cx="8.2" cy="8.2" r="3"/><path d="M8.2 2.4v1.3M8.2 12.7V14M2.4 8.2h1.3M12.7 8.2H14M4.1 4.1l.9.9M11.4 11.4l.9.9M12.3 4.1l-.9.9M5 11.4l-.9.9"/><path d="M9 20h8.5a3.5 3.5 0 0 0 .3-7 5 5 0 0 0-9.4-1.1A3.6 3.6 0 0 0 9 20Z"/>'),
   plus: I('<path d="M12 5v14M5 12h14"/>'),
+  chev: I('<path d="M9 5l7 7-7 7"/>'),
+  back: I('<path d="M15 5l-7 7 7 7"/>'),
+  sync: I('<path d="M4 9a8 8 0 0 1 13.7-3.3L20 8"/><path d="M20 4v4h-4"/><path d="M20 15a8 8 0 0 1-13.7 3.3L4 16"/><path d="M4 20v-4h4"/>'),
 };
 
 const TABS = [
@@ -72,9 +76,12 @@ export function initShell() {
 
   // การ์ดในหน้า Me กดแล้วเด้งไปแท็บที่ลึกกว่า
   document.addEventListener("pp-go", (e) => goTab(e.detail));
+  // ปุ่มเฟืองในหน้า Me เปิดหน้า Settings (Sync / Data / Device)
+  document.addEventListener("pp-settings", openSettings);
 
   buildQuickAdd();
   wireSwipe();
+  sync.initSync(); // ดึงของใหม่จาก cloud ถ้าตั้ง sync ไว้ + ตั้ง auto-sync เวลาข้อมูลเปลี่ยน
 
   const start = new URLSearchParams(location.search).get("tab");
   goTab(TABS.some((t) => t.id === start) ? start : "me");
@@ -161,6 +168,309 @@ function toast(root, text) {
   el.textContent = text;
   root.append(el);
   setTimeout(() => el.remove(), 4000);
+}
+
+// ---- Settings: หน้าซ้อนเต็มจอ เปิดจากปุ่มเฟืองในหน้า Me (Sync / Data / Device) ----
+// More ถูกตัดออกไปแล้ว — ของตั้งค่าที่ยังจำเป็น (โดยเฉพาะ Restore ตามหลัก P0 "backup ที่ restore
+// ไม่ได้ = ไม่ใช่ backup") ย้ายมาอยู่ที่นี่ พร้อม Sync ข้ามเครื่อง
+
+function timeAgo(ts) {
+  if (!ts) return "never";
+  const s = Math.floor((Date.now() - ts) / 1000);
+  if (s < 45) return "just now";
+  const m = Math.floor(s / 60);
+  if (m < 60) return `${m}m ago`;
+  const h = Math.floor(m / 60);
+  if (h < 24) return `${h}h ago`;
+  return `${Math.floor(h / 24)}d ago`;
+}
+
+function openSettings() {
+  if (document.querySelector(".settings-ov")) return; // กันเปิดซ้อน
+
+  const ov = document.createElement("div");
+  ov.className = "settings-ov";
+  ov.innerHTML = `
+    <header class="set-bar">
+      <button class="set-close" aria-label="Back">${ICONS.back}</button>
+      <span class="set-title">Settings</span>
+    </header>
+    <div class="set-body">
+      <div class="more-sec">Sync across devices</div>
+      <div class="more-list" id="set-sync"></div>
+
+      <div class="more-sec">Data</div>
+      <div class="more-list" id="set-data"></div>
+
+      <div class="more-sec">Device</div>
+      <div class="more-list">
+        <button class="more-row" data-act="desktop">
+          <span class="mr-ico">🖥️</span>
+          <span class="mr-txt"><b>Switch to desktop mode</b><small>Draggable windows and a taskbar</small></span>
+          <span class="mr-chev">${ICONS.chev}</span>
+        </button>
+      </div>
+
+      <div class="more-foot">PP OS · Your data lives on your own devices. Sync uses a private GitHub Gist that you own — there is no PP OS server.</div>
+      <div class="sheet-host"></div>
+    </div>
+  `;
+  document.body.append(ov);
+  requestAnimationFrame(() => ov.classList.add("open"));
+
+  let unsub = null;
+  const close = () => {
+    unsub?.();
+    removeEventListener("keydown", onKey);
+    ov.classList.remove("open");
+    setTimeout(() => ov.remove(), 220);
+  };
+  const onKey = (e) => e.key === "Escape" && close();
+  addEventListener("keydown", onKey);
+  ov.querySelector(".set-close").addEventListener("click", close);
+
+  ov.querySelector('[data-act="desktop"]').addEventListener("click", () => {
+    save("os.mode", "desktop");
+    location.replace(location.pathname);
+  });
+
+  // ---- Data (backup / restore / undo / storage) ----
+  const dataEl = ov.querySelector("#set-data");
+  const renderData = () => {
+    const lastExport = load("os.lastExport");
+    const age = lastExport ? Math.floor((Date.now() - lastExport) / 86400000) : null;
+    const note = age === null ? "Never backed up to a file" : age === 0 ? "Backed up today" : `Last file backup ${age} day${age > 1 ? "s" : ""} ago`;
+    dataEl.innerHTML = `
+      <button class="more-row" data-d="export">
+        <span class="mr-ico">⬇️</span>
+        <span class="mr-txt"><b>Back up to a file</b><small>${note}</small></span>
+        <span class="mr-chev">${ICONS.chev}</span>
+      </button>
+      <button class="more-row" data-d="restore">
+        <span class="mr-ico">⬆️</span>
+        <span class="mr-txt"><b>Restore from a backup</b><small>Shows what's inside before it overwrites anything</small></span>
+        <span class="mr-chev">${ICONS.chev}</span>
+      </button>
+      ${
+        hasSnapshot()
+          ? `<button class="more-row" data-d="undo">
+              <span class="mr-ico">↩️</span>
+              <span class="mr-txt"><b>Undo the last change</b><small>Put back the data from before the last sync or restore</small></span>
+              <span class="mr-chev">${ICONS.chev}</span>
+            </button>`
+          : ""
+      }
+      <div class="more-row static">
+        <span class="mr-ico">🗄️</span>
+        <span class="mr-txt"><b>Storage</b><small class="store-info">checking…</small></span>
+      </div>`;
+    dataEl.querySelector('[data-d="export"]').addEventListener("click", () => {
+      exportData();
+      renderData();
+    });
+    dataEl.querySelector('[data-d="restore"]').addEventListener("click", () => openRestore(ov, renderData));
+    dataEl.querySelector('[data-d="undo"]')?.addEventListener("click", () => {
+      if (undoRestore()) {
+        toast(ov, "✓ Restored the previous data");
+        renderData();
+      }
+    });
+    storageInfo().then((info) => {
+      const el = dataEl.querySelector(".store-info");
+      if (!el || !dataEl.isConnected) return;
+      const size = info.usedKB == null ? "" : ` · ${info.usedKB < 1024 ? `${info.usedKB} KB` : `${(info.usedKB / 1024).toFixed(1)} MB`}`;
+      el.textContent = info.persisted
+        ? `${info.engine} · protected from auto-cleanup${size}`
+        : `${info.engine} · not protected — install to the Home Screen${size}`;
+      el.classList.toggle("warn", !info.persisted);
+    });
+  };
+  renderData();
+
+  // ---- Sync (วาดตามสถานะแบบ live) ----
+  const syncEl = ov.querySelector("#set-sync");
+  unsub = sync.onSyncStatus((st) => renderSync(syncEl, st, ov));
+}
+
+function renderSync(el, st, ov) {
+  if (!sync.isConfigured()) {
+    el.innerHTML = `
+      <button class="more-row" data-s="connect">
+        <span class="mr-ico">${ICONS.sync}</span>
+        <span class="mr-txt"><b>Connect this device</b><small>${
+          st.error ? "⚠ " + st.error : "Keep every device on the same data — via a private GitHub Gist you own"
+        }</small></span>
+        <span class="mr-chev">${ICONS.chev}</span>
+      </button>`;
+    el.querySelector('[data-s="connect"]').addEventListener("click", () => openConnect(ov));
+    return;
+  }
+
+  const line = st.busy
+    ? "Syncing…"
+    : st.error
+      ? "⚠ " + st.error
+      : `Last synced ${timeAgo(st.at)}${st.device ? " · " + st.device : ""}${st.pulled ? ` · pulled ${st.pulled}` : ""}`;
+  el.innerHTML = `
+    <div class="more-row static">
+      <span class="mr-ico${st.busy ? " spin" : ""}">${ICONS.sync}</span>
+      <span class="mr-txt"><b>Sync is on</b><small class="${st.error ? "warn" : ""}">${line}</small></span>
+    </div>
+    <button class="more-row" data-s="now">
+      <span class="mr-ico">⟳</span>
+      <span class="mr-txt"><b>Sync now</b><small>Pull the latest, push your changes</small></span>
+      <span class="mr-chev">${ICONS.chev}</span>
+    </button>
+    <button class="more-row" data-s="off">
+      <span class="mr-ico">🔌</span>
+      <span class="mr-txt"><b>Disconnect this device</b><small>Removes the token here — your data stays put</small></span>
+      <span class="mr-chev">${ICONS.chev}</span>
+    </button>`;
+  el.querySelector('[data-s="now"]').addEventListener("click", () => sync.syncNow().catch(() => {}));
+  el.querySelector('[data-s="off"]').addEventListener("click", () => sync.disconnect());
+}
+
+function openConnect(ov) {
+  const host = ov.querySelector(".sheet-host");
+  const tokenUrl = "https://github.com/settings/tokens/new?scopes=gist&description=PP+OS+sync";
+  host.innerHTML = `
+    <div class="sheet">
+      <div class="sheet-card">
+        <div class="sheet-h"><span>${ICONS.sync} Connect sync</span><button class="sheet-x" aria-label="Close">✕</button></div>
+        <p class="sheet-p">Sync keeps your devices on one set of data using a <b>private GitHub Gist</b> that only you can see. You need a token with the <code>gist</code> scope.</p>
+        <ol class="set-steps">
+          <li><a href="${tokenUrl}" target="_blank" rel="noopener">Create a token</a> — tick only <code>gist</code>, then copy it.</li>
+          <li>Paste it below. It's kept on this device only — never synced or backed up.</li>
+          <li>On your other device, connect the same way — it finds this Gist automatically.</li>
+        </ol>
+        <form class="qa-form set-connect">
+          <input name="token" type="password" placeholder="github_pat_… or ghp_…" autocomplete="off" spellcheck="false" required>
+          <button class="qa-submit" type="submit">Connect</button>
+        </form>
+        <div class="sheet-status"></div>
+      </div>
+    </div>`;
+
+  const sheet = host.querySelector(".sheet");
+  const status = host.querySelector(".sheet-status");
+  const form = host.querySelector("form");
+  const close = () => (host.innerHTML = "");
+
+  sheet.addEventListener("click", (e) => e.target === sheet && close());
+  host.querySelector(".sheet-x").addEventListener("click", close);
+
+  form.addEventListener("submit", async (e) => {
+    e.preventDefault();
+    const token = form.token.value.trim();
+    if (!token) return;
+    const btn = form.querySelector("button");
+    btn.disabled = true;
+    status.className = "sheet-status";
+    status.textContent = "Connecting…";
+    const r = await sync.connect(token);
+    if (r.ok) {
+      close(); // renderSync อัปเดตเองผ่าน onSyncStatus
+    } else {
+      status.className = "sheet-status err";
+      status.textContent = r.error || "Couldn't connect";
+      btn.disabled = false;
+    }
+  });
+  form.token.focus();
+}
+
+// ---- Restore: ต้องเห็นก่อนว่าไฟล์มีอะไร แล้วค่อยตัดสินใจทับ ----
+const plural = (n, one, many = one + "s") => `${n} ${n === 1 ? one : many}`;
+
+const COUNTS = [
+  ["health.days", (v) => `${plural(Object.keys(v).length, "day")} of health data`],
+  ["money.entries", (v) => `${plural(v.length, "money entry", "money entries")}`],
+  ["todo.items", (v) => plural(v.length, "task")],
+  ["notes.text", (v) => `${plural(v.length, "character")} of notes`],
+  ["os.name", (v) => `name: ${v}`],
+];
+
+function summarize(data) {
+  const lines = [];
+  for (const [key, fmt] of COUNTS) {
+    const v = data[key];
+    if (v == null) continue;
+    try {
+      lines.push(fmt(v));
+    } catch {}
+  }
+  return lines;
+}
+
+function openRestore(ov, afterChange) {
+  const host = ov.querySelector(".sheet-host");
+  host.innerHTML = `
+    <div class="sheet">
+      <div class="sheet-card">
+        <div class="sheet-h">
+          <span>⬆️ Restore from a backup</span>
+          <button class="sheet-x" aria-label="Close">✕</button>
+        </div>
+        <p class="sheet-p">Pick a <code>pp-os-backup-*.json</code> file. Nothing is overwritten until you confirm — and you can undo it afterwards.</p>
+        <label class="sheet-drop">
+          <input type="file" accept=".json,application/json" hidden>
+          <b>Choose a backup file</b>
+          <small>Exported from PP OS on any device</small>
+        </label>
+        <div class="sheet-status"></div>
+        <div class="sheet-actions hidden">
+          <button class="btn-ghost sheet-cancel">Cancel</button>
+          <button class="btn sheet-go">Overwrite my data</button>
+        </div>
+      </div>
+    </div>
+  `;
+
+  const sheet = host.querySelector(".sheet");
+  const status = host.querySelector(".sheet-status");
+  const actions = host.querySelector(".sheet-actions");
+  const close = () => (host.innerHTML = "");
+  let payload = null;
+
+  sheet.addEventListener("click", (e) => e.target === sheet && close());
+  host.querySelector(".sheet-x").addEventListener("click", close);
+  host.querySelector(".sheet-cancel").addEventListener("click", close);
+
+  host.querySelector('input[type="file"]').addEventListener("change", async (e) => {
+    const file = e.target.files?.[0];
+    if (!file) return;
+    e.target.value = "";
+    payload = null;
+    actions.classList.add("hidden");
+
+    try {
+      const raw = JSON.parse(await file.text());
+      const data = raw?.data && typeof raw.data === "object" ? raw.data : raw;
+      if (!data || typeof data !== "object" || Array.isArray(data)) throw new Error("unexpected shape");
+
+      const known = summarize(data);
+      if (!known.length) throw new Error("no PP OS data inside");
+
+      payload = data;
+      const when = raw.exported
+        ? new Date(raw.exported).toLocaleString("en-US", { dateStyle: "medium", timeStyle: "short" })
+        : "unknown date";
+      status.className = "sheet-status ok";
+      status.textContent = `Backup from ${when}\n${known.map((l) => "· " + l).join("\n")}\n\nThis replaces everything currently on this device.`;
+      actions.classList.remove("hidden");
+    } catch (err) {
+      status.className = "sheet-status err";
+      status.textContent = `That file isn't a PP OS backup — ${err.message}`;
+    }
+  });
+
+  host.querySelector(".sheet-go").addEventListener("click", () => {
+    if (!payload) return;
+    replaceAll(payload);
+    close();
+    afterChange?.();
+    toast(ov, "✓ Data restored — you can undo this from Data");
+  });
 }
 
 // ---- Quick add: ปุ่มลอย + ชีตบันทึกเร็วจากทุกแท็บ (จ่าย/งาน/น้ำ ใน 2 แตะ) ----

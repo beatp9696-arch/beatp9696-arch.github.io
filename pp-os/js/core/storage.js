@@ -19,6 +19,28 @@ const pending = new Map(); // key -> value | DELETE
 const DELETE = Symbol("delete");
 let flushTimer = null;
 
+// ---- sync bookkeeping ----
+// จำ "แก้ครั้งล่าสุดเมื่อไหร่" ต่อ key ไว้ทำ merge แบบ last-write-wins ตอน sync ข้ามเครื่อง
+// เก็บใน key ระบบ "_syncmeta" (ขึ้นต้น _ → ไม่ติดไปกับ backup และไม่ถูก sync เอง)
+const syncMeta = new Map();
+const changeListeners = new Set();
+
+// key ที่ควร sync/แปะ timestamp: ข้ามของระบบ (_), cache ที่สร้างใหม่ได้ (.cache) และความลับของ sync (sync.*)
+const isSyncable = (k) => !k.startsWith("_") && !k.endsWith(".cache") && !k.startsWith("sync.");
+
+function stampMeta(key) {
+  if (!isSyncable(key)) return;
+  syncMeta.set(key, Date.now());
+  const obj = Object.fromEntries(syncMeta);
+  cache.set("_syncmeta", obj);
+  queue("_syncmeta", obj);
+  for (const cb of changeListeners) {
+    try {
+      cb(key);
+    } catch {}
+  }
+}
+
 function openDB() {
   return new Promise((resolve, reject) => {
     const req = indexedDB.open(DB_NAME, 1);
@@ -118,6 +140,12 @@ export async function initStorage() {
     for (const [k, v] of legacyEntries()) cache.set(k, v);
   }
 
+  // โหลด timestamp ต่อ key ที่เก็บไว้ กลับเข้า memory (ต้องหลัง cache ครบทั้ง IDB และ fallback)
+  const savedMeta = cache.get("_syncmeta");
+  if (savedMeta && typeof savedMeta === "object") {
+    for (const [k, t] of Object.entries(savedMeta)) syncMeta.set(k, t);
+  }
+
   // ขอให้เบราว์เซอร์อย่าลบข้อมูลนี้ทิ้ง (Safari ให้เมื่อแอปถูกติดตั้งบนหน้าจอโฮม / ถูกใช้บ่อย)
   try {
     await navigator.storage?.persist?.();
@@ -131,11 +159,13 @@ export function load(key, fallback = null) {
 export function save(key, value) {
   cache.set(key, value);
   queue(key, value);
+  stampMeta(key);
 }
 
 export function remove(key) {
   cache.delete(key);
   queue(key, DELETE);
+  stampMeta(key);
 }
 
 // ---- backup / restore ----
@@ -170,6 +200,42 @@ export function undoRestore() {
 }
 
 export const hasSnapshot = () => !!load("_snapshot");
+
+// ---- sync API (ใช้โดย js/core/sync.js) ----
+
+/** subscribe การเปลี่ยนข้อมูลผู้ใช้ (เรียก cb(key) ทุกครั้งที่ save/remove key ที่ sync ได้) */
+export function onDataChange(cb) {
+  changeListeners.add(cb);
+  return () => changeListeners.delete(cb);
+}
+
+/** ภาพรวมข้อมูลที่ sync ได้ + เวลาที่แก้ล่าสุดต่อ key (ฝั่ง local ตอน merge / payload ส่งขึ้น cloud) */
+export function syncSnapshot() {
+  const data = {};
+  const meta = {};
+  for (const [k, v] of cache) {
+    if (!isSyncable(k)) continue;
+    data[k] = v;
+    // baseline 1 = ข้อมูลเก่าก่อนมี sync ให้ push ขึ้น cloud ครั้งแรกได้ แต่แพ้การแก้จริง (now()) เสมอ
+    meta[k] = syncMeta.get(k) ?? 1;
+  }
+  return { data, meta };
+}
+
+/** เขียนผล merge ลงเครื่อง — เก็บ snapshot ของเดิมไว้ให้กด Undo ได้ (กัน merge พลาดทำข้อมูลหาย) */
+export function applySync(data, meta) {
+  save("_snapshot", { at: Date.now(), data: dumpAll(), reason: "sync" });
+  for (const [k, v] of Object.entries(data)) {
+    if (!isSyncable(k)) continue;
+    cache.set(k, v); // เขียนตรง ไม่ผ่าน save() เพื่อไม่ให้ stampMeta ตีตรา now() แล้ว echo push วน
+    queue(k, v);
+    syncMeta.set(k, meta[k] ?? Date.now());
+  }
+  const obj = Object.fromEntries(syncMeta);
+  cache.set("_syncmeta", obj);
+  queue("_syncmeta", obj);
+  flush();
+}
 
 export async function storageInfo() {
   const est = (await navigator.storage?.estimate?.()) ?? {};
