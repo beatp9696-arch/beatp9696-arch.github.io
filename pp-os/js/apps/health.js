@@ -13,6 +13,51 @@ const METRICS = [
 const GOAL = { steps: 8000, water: 8, ex: 45, sleep: 8 };
 const RING_C = 2 * Math.PI * 36; // r=36 ใน viewBox 86
 
+// ช่วงเวลาของกราฟแนวโน้ม — วันสั้นดูรายวัน, ยาวขึ้นจับกลุ่มเป็นสัปดาห์/เดือน ไม่งั้นแท่งบางจนอ่านไม่ออก
+const RANGE_BUCKET = { 7: "day", 30: "day", 90: "week", 365: "month" };
+
+// รวมค่ารายเมตริกในช่วงที่เลือก → คืนแท่งพร้อม avg (จับกลุ่มตาม bucket) เฉลี่ยเฉพาะวันที่มีข้อมูล
+function bucketize(days, m, rangeDays, val) {
+  const bucket = RANGE_BUCKET[rangeDays];
+  const avg = (arr) => (arr.length ? arr.reduce((s, x) => s + x, 0) / arr.length : null);
+  const out = [];
+
+  if (bucket === "day") {
+    for (let off = rangeDays - 1; off >= 0; off--) {
+      const key = dayKey(off);
+      const rec = days[key];
+      const v = rec ? val(rec, m) : null;
+      out.push({ v, title: `${key}: ${v == null ? "no data" : v}`, last: off === 0 });
+    }
+  } else if (bucket === "week") {
+    for (let start = rangeDays - 1; start >= 0; start -= 7) {
+      const vals = [];
+      let head = dayKey(start), tail = dayKey(Math.max(0, start - 6));
+      for (let off = start; off > start - 7 && off >= 0; off--) {
+        const rec = days[dayKey(off)];
+        if (rec) vals.push(val(rec, m));
+      }
+      const v = avg(vals);
+      out.push({ v, title: `${tail} – ${head}: ${v == null ? "no data" : "avg " + Math.round(v)}`, last: start < 7 });
+    }
+  } else {
+    const map = new Map();
+    for (let off = rangeDays - 1; off >= 0; off--) {
+      const key = dayKey(off);
+      const ym = key.slice(0, 7);
+      if (!map.has(ym)) map.set(ym, []);
+      const rec = days[key];
+      if (rec) map.get(ym).push(val(rec, m));
+    }
+    const arr = [...map.entries()];
+    arr.forEach(([ym, vals], i) => {
+      const v = avg(vals);
+      out.push({ v, title: `${ym}: ${v == null ? "no data" : "avg " + Math.round(v)}`, last: i === arr.length - 1 });
+    });
+  }
+  return out;
+}
+
 function dayKey(offset = 0) {
   const d = new Date();
   d.setDate(d.getDate() - offset);
@@ -164,15 +209,29 @@ export default {
         </div>
       </div>
 
-      <div class="sec">Last 7 days</div>
-      <div class="card">
-        ${METRICS.map(
-          ({ m, ico, lbl }) => `
-          <div class="trend" data-m="${m}">
-            <div class="trend-head"><span>${ico} ${lbl}</span><span class="cap"></span></div>
-            <div class="bars"></div>
-          </div>`
-        ).join("")}
+      <div class="sec">Trends</div>
+      <div class="card trends-card">
+        <div class="seg range-seg">
+          <button type="button" data-d="7" class="on">7D</button>
+          <button type="button" data-d="30">30D</button>
+          <button type="button" data-d="90">90D</button>
+          <button type="button" data-d="365">1Y</button>
+        </div>
+
+        <div class="weight-block">
+          <div class="wt-head"><span class="wt-lbl">⚖️ Weight</span><span class="wt-stat"></span></div>
+          <div class="wt-chart"></div>
+        </div>
+
+        <div class="metric-trends">
+          ${METRICS.map(
+            ({ m, ico, lbl }) => `
+            <div class="trend" data-m="${m}">
+              <div class="trend-head"><span>${ico} ${lbl}</span><span class="cap"></span></div>
+              <div class="bars"></div>
+            </div>`
+          ).join("")}
+        </div>
       </div>
 
       <div class="h-src"></div>
@@ -180,6 +239,7 @@ export default {
     `;
 
     const persist = () => save("health.days", days);
+    let rangeDays = 7;
 
     const setRing = (id, frac, center, sub) => {
       const ring = body.querySelector(`.ring[data-r="${id}"]`);
@@ -223,30 +283,82 @@ export default {
         b.classList.toggle("sel", Number(b.dataset.i) === t.mood);
       });
 
-      for (const { m } of METRICS) {
-        const trend = body.querySelector(`.trend[data-m="${m}"]`);
-        const vals = [];
-        for (let off = 6; off >= 0; off--) {
-          const rec = days[dayKey(off)];
-          vals.push({ key: dayKey(off), v: rec ? val(rec, m) : null });
-        }
-        const max = Math.max(1, ...vals.map((x) => x.v ?? 0));
-        trend.querySelector(".bars").innerHTML = vals
-          .map(
-            (x, i) =>
-              `<div class="bar${i === 6 ? " today" : ""}" style="height:${((x.v ?? 0) / max) * 100}%" title="${x.key}: ${x.v ?? "no data"}"></div>`
-          )
-          .join("");
-        const logged7 = vals.filter((x) => x.v !== null);
-        const avg = logged7.length ? Math.round((logged7.reduce((s, x) => s + x.v, 0) / logged7.length) * 10) / 10 : 0;
-        trend.querySelector(".cap").textContent = `today ${num(val(t, m))} · avg ${num(avg)}`;
-      }
+      renderTrends();
 
       const last = load("health.lastImport");
       body.querySelector(".h-src").textContent = last
         ? `⌚ Last synced from Apple Health ${dateShort(new Date(last.at))}, ${timeShort(new Date(last.at))} · ${last.days} days`
         : "Never synced with Apple Health — tap ⌚ above to stop logging by hand";
     };
+
+    const renderTrends = () => {
+      for (const { m } of METRICS) {
+        const trend = body.querySelector(`.trend[data-m="${m}"]`);
+        const buckets = bucketize(days, m, rangeDays, val);
+        const max = Math.max(1, ...buckets.map((b) => b.v ?? 0));
+        trend.querySelector(".bars").innerHTML = buckets
+          .map((b) => `<div class="bar${b.last ? " today" : ""}" style="height:${((b.v ?? 0) / max) * 100}%" title="${b.title}"></div>`)
+          .join("");
+        const logged = buckets.filter((b) => b.v !== null);
+        const avg = logged.length ? Math.round((logged.reduce((s, b) => s + b.v, 0) / logged.length) * 10) / 10 : 0;
+        const unit = rangeDays <= 30 ? "avg/day" : RANGE_BUCKET[rangeDays] === "week" ? "avg/wk" : "avg/mo";
+        trend.querySelector(".cap").textContent = logged.length ? `${num(avg)} ${unit}` : "no data";
+      }
+      renderWeight();
+    };
+
+    // กราฟน้ำหนัก — จุดดิบ + เส้นเฉลี่ยเคลื่อนที่ (น้ำหนักรายวัน noise เยอะ ดูเส้นดิบไม่มีประโยชน์)
+    const renderWeight = () => {
+      const chart = body.querySelector(".wt-chart");
+      const statEl = body.querySelector(".wt-stat");
+      const pts = [];
+      for (let off = rangeDays - 1; off >= 0; off--) {
+        const rec = days[dayKey(off)];
+        if (rec && rec.weight != null) pts.push({ x: rangeDays - 1 - off, w: rec.weight });
+      }
+
+      if (pts.length < 2) {
+        chart.innerHTML = `<div class="wt-empty">${pts.length ? `${pts[0].w} kg logged — one more day draws the line` : "Log your weight to see the trend"}</div>`;
+        statEl.textContent = pts.length ? `${pts[0].w} kg` : "";
+        return;
+      }
+
+      // เส้นเฉลี่ยเคลื่อนที่แบบ trailing 7 จุด (สมูทตาม noise)
+      const ma = pts.map((p, i) => {
+        const win = pts.slice(Math.max(0, i - 6), i + 1);
+        return { x: p.x, w: win.reduce((s, q) => s + q.w, 0) / win.length };
+      });
+
+      const first = pts[0].w, latest = pts[pts.length - 1].w;
+      const delta = Math.round((latest - first) * 10) / 10;
+      statEl.textContent = `${latest} kg · ${delta >= 0 ? "+" : ""}${delta} over ${rangeDays <= 30 ? rangeDays + "d" : rangeDays === 90 ? "90d" : "1y"}`;
+
+      const W = 300, H = 92, padX = 8, padT = 10, padB = 12;
+      const xs = Math.max(1, rangeDays - 1);
+      const ws = pts.map((p) => p.w).concat(ma.map((p) => p.w));
+      let lo = Math.min(...ws), hi = Math.max(...ws);
+      if (hi - lo < 1) { hi += 0.5; lo -= 0.5; }
+      const px = (x) => padX + (x / xs) * (W - padX * 2);
+      const py = (w) => padT + (1 - (w - lo) / (hi - lo)) * (H - padT - padB);
+
+      const linePath = ma.map((p, i) => `${i ? "L" : "M"}${px(p.x).toFixed(1)} ${py(p.w).toFixed(1)}`).join(" ");
+      const areaPath = `${linePath} L${px(ma[ma.length - 1].x).toFixed(1)} ${H - padB} L${px(ma[0].x).toFixed(1)} ${H - padB} Z`;
+      const dots = pts.map((p) => `<circle cx="${px(p.x).toFixed(1)}" cy="${py(p.w).toFixed(1)}" r="1.5"/>`).join("");
+
+      chart.innerHTML = `<svg viewBox="0 0 ${W} ${H}" class="wt-svg" role="img" aria-label="Weight trend, ${latest} kg">
+        <path class="wt-area" d="${areaPath}"/>
+        <path class="wt-line" d="${linePath}"/>
+        <g class="wt-dots">${dots}</g>
+      </svg>`;
+    };
+
+    body.querySelector(".range-seg").addEventListener("click", (e) => {
+      const btn = e.target.closest("button[data-d]");
+      if (!btn) return;
+      rangeDays = Number(btn.dataset.d);
+      body.querySelectorAll(".range-seg button").forEach((b) => b.classList.toggle("on", b === btn));
+      renderTrends();
+    });
 
     body.addEventListener("click", (e) => {
       const stepBtn = e.target.closest(".step-btn");

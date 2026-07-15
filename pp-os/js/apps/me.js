@@ -83,6 +83,16 @@ export default {
         .filter((e) => e.date === dayKey() && e.type === "out")
         .reduce((s, e) => s + e.amount, 0);
 
+      // งบต่อหมวดที่ใกล้เต็ม/เกิน — เอาตัวที่ตึงสุดมาเตือนบนแดชบอร์ด
+      const budgets = load("money.budgets", {});
+      const spentByCat = {};
+      for (const e of monthRows) if (e.type === "out") spentByCat[e.cat] = (spentByCat[e.cat] ?? 0) + e.amount;
+      const overCats = Object.entries(budgets)
+        .filter(([c, cap]) => cap > 0 && (spentByCat[c] ?? 0) / cap >= 0.8)
+        .map(([c, cap]) => ({ c, cap, spent: spentByCat[c] ?? 0, pct: (spentByCat[c] ?? 0) / cap }))
+        .sort((a, b) => b.pct - a.pct);
+      const topOver = overCats[0];
+
       const undone = todos.filter((x) => !x.done);
       const streak = streakOf(days);
       const logged = [t.water > 0, t.ex > 0, t.sleep > 0, t.weight != null, t.mood != null].filter(Boolean).length;
@@ -118,6 +128,21 @@ export default {
                   }</small>
                 </span>
                 <span class="bn-go">Back up</span>
+              </button>`
+            : ""
+        }
+
+        ${
+          topOver
+            ? `<button class="backup-nudge budget-nudge${topOver.pct >= 1 ? " over" : ""}" data-go="money">
+                <span class="bn-ico">${topOver.pct >= 1 ? "🚨" : "⚠️"}</span>
+                <span class="bn-txt">
+                  <b>${topOver.pct >= 1 ? "Over budget" : "Nearing budget"} · ${topOver.c}</b>
+                  <small>${money0(topOver.spent)} of ${money0(topOver.cap)} this month${
+                    overCats.length > 1 ? ` · +${overCats.length - 1} more` : ""
+                  }</small>
+                </span>
+                <span class="bn-go">Review</span>
               </button>`
             : ""
         }

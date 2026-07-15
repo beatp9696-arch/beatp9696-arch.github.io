@@ -586,3 +586,22 @@ body.mode-app .sheet {
   font-weight: 700;
   color: var(--a);
 }
+
+/* เตือนงบใกล้เต็ม (เหลือง) / เกิน (แดง) — ใช้โครงเดียวกับแบนเนอร์ backup */
+.budget-nudge {
+  border-color: color-mix(in srgb, #e0a92e 45%, transparent);
+  background: color-mix(in srgb, #e0a92e 12%, transparent);
+}
+
+.budget-nudge .bn-go {
+  color: #c98a1a;
+}
+
+.budget-nudge.over {
+  border-color: color-mix(in srgb, #e5484d 45%, transparent);
+  background: color-mix(in srgb, #e5484d 12%, transparent);
+}
+
+.budget-nudge.over .bn-go {
+  color: #e5484d;
+}

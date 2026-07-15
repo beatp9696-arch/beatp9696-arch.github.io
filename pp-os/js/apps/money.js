@@ -46,6 +46,7 @@ export default {
   mount(body) {
     body.classList.add("app-pane", "app-money");
     let entries = migrate(load("money.entries", []));
+    let budgets = load("money.budgets", {}); // { Food: 3000, ... } เพดานต่อหมวด/เดือน (THB)
     const now = new Date();
     let ym = { y: now.getFullYear(), m: now.getMonth() };
     let filter = "all"; // all | out | in
@@ -102,6 +103,9 @@ export default {
 
       <div class="sec">Spending by category</div>
       <div class="card breakdown"></div>
+
+      <div class="sec">Monthly budgets</div>
+      <div class="card budgets"></div>
 
       <div class="sec">Transactions</div>
       <div class="card">
@@ -185,6 +189,63 @@ export default {
             )
             .join("")
         : `<div class="empty">No spending this month</div>`;
+
+      // ---- งบต่อหมวด: แถบเทียบจ่ายจริง/เพดาน เปลี่ยนสีตอนใกล้เต็ม (>80%) และเกิน (>100%) ----
+      const budgetBox = body.querySelector(".budgets");
+      budgetBox.innerHTML = CATS.out
+        .map(([c, emoji]) => {
+          const spent = byCat[c] ?? 0;
+          const cap = budgets[c] ?? 0;
+          const pct = cap > 0 ? spent / cap : 0;
+          const state = cap === 0 ? "" : pct >= 1 ? "over" : pct >= 0.8 ? "warn" : "ok";
+          const capBtn =
+            cap > 0
+              ? `${Math.round(pct * 100)}%`
+              : `<span class="b-set">Set</span>`;
+          return `<div class="budget-row ${state}" data-cat="${c}">
+            <span class="b-emoji">${emoji}</span>
+            <div class="b-main">
+              <div class="b-top">
+                <span class="b-name">${c}</span>
+                <span class="b-fig">${cap > 0 ? `${money0(spent)} / ${money0(cap)}` : money0(spent)}</span>
+              </div>
+              <span class="b-track"><span class="b-fill" style="width:${Math.min(pct, 1) * 100}%"></span></span>
+            </div>
+            <button class="b-cap" title="Set monthly budget for ${c}">${capBtn}</button>
+          </div>`;
+        })
+        .join("");
+
+      budgetBox.querySelectorAll(".b-cap").forEach((btn) => {
+        btn.addEventListener("click", () => {
+          const cat = btn.closest(".budget-row").dataset.cat;
+          const input = document.createElement("input");
+          input.type = "number";
+          input.min = "0";
+          input.step = "100";
+          input.className = "b-cap-input";
+          input.value = budgets[cat] ?? "";
+          input.placeholder = "฿ / mo";
+          const commit = () => {
+            const v = parseFloat(input.value);
+            if (Number.isFinite(v) && v > 0) budgets[cat] = Math.round(v);
+            else delete budgets[cat];
+            save("money.budgets", budgets);
+            update();
+          };
+          input.addEventListener("blur", commit);
+          input.addEventListener("keydown", (ev) => {
+            if (ev.key === "Enter") input.blur();
+            if (ev.key === "Escape") {
+              input.value = budgets[cat] ?? "";
+              input.blur();
+            }
+          });
+          btn.replaceWith(input);
+          input.focus();
+          input.select();
+        });
+      });
 
       const list = body.querySelector(".entries");
       list.innerHTML = "";

@@ -633,6 +633,84 @@ button.card:hover {
   --bar: var(--sleep);
 }
 
+/* ---- การ์ด Trends: ตัวเลือกช่วง + กราฟน้ำหนัก + แท่งเมตริก ---- */
+.trends-card {
+  gap: 0;
+}
+
+.range-seg {
+  display: flex;
+  width: 100%;
+}
+
+.range-seg button {
+  flex: 1;
+  padding: 7px 0;
+}
+
+.weight-block {
+  margin-top: 15px;
+}
+
+.wt-head {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  font-size: 12.5px;
+  margin-bottom: 9px;
+}
+
+.wt-stat {
+  font-family: var(--font-head);
+  font-weight: 500;
+  font-size: 11px;
+  color: var(--dim);
+  font-variant-numeric: tabular-nums;
+}
+
+.wt-chart {
+  min-height: 40px;
+}
+
+.wt-svg {
+  width: 100%;
+  height: auto;
+  display: block;
+  overflow: visible;
+}
+
+.wt-area {
+  fill: var(--a);
+  opacity: 0.1;
+}
+
+.wt-line {
+  fill: none;
+  stroke: var(--a);
+  stroke-width: 2;
+  vector-effect: non-scaling-stroke;
+  stroke-linejoin: round;
+  stroke-linecap: round;
+  filter: drop-shadow(0 0 4px color-mix(in srgb, var(--a) 40%, transparent));
+}
+
+.wt-dots circle {
+  fill: color-mix(in srgb, var(--a) 55%, transparent);
+}
+
+.wt-empty {
+  font-size: 12px;
+  color: var(--dim);
+  text-align: center;
+  padding: 16px 0;
+}
+
+.metric-trends {
+  margin-top: 16px;
+  padding-top: 15px;
+  border-top: 1px solid var(--line);
+}
+
 .h-src {
   font-size: 11.5px;
   color: var(--dim);
@@ -1255,6 +1333,127 @@ body.mode-app .hk-sheet {
 
 .entry .amt.out {
   color: var(--neg);
+}
+
+/* ---- งบต่อหมวด ---- */
+.budgets {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+}
+
+.budget-row {
+  display: flex;
+  align-items: center;
+  gap: 11px;
+  padding: 9px 0;
+}
+
+.b-emoji {
+  font-size: 16px;
+  width: 20px;
+  text-align: center;
+  flex-shrink: 0;
+}
+
+.b-main {
+  flex: 1;
+  min-width: 0;
+}
+
+.b-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  gap: 8px;
+  margin-bottom: 6px;
+}
+
+.b-name {
+  font-size: 13px;
+}
+
+.b-fig {
+  font-family: var(--font-head);
+  font-weight: 500;
+  font-size: 11.5px;
+  color: var(--dim);
+  font-variant-numeric: tabular-nums;
+}
+
+.budget-row.over .b-fig {
+  color: var(--neg);
+}
+
+.b-track {
+  display: block;
+  height: 6px;
+  border-radius: 3px;
+  background: var(--card-2);
+  overflow: hidden;
+}
+
+.b-fill {
+  display: block;
+  height: 100%;
+  border-radius: 3px;
+  background: linear-gradient(90deg, color-mix(in srgb, var(--a) 55%, transparent), var(--a));
+  transition: width 600ms var(--ease);
+}
+
+.budget-row.warn .b-fill {
+  background: linear-gradient(90deg, color-mix(in srgb, #f7c948 55%, transparent), #f7c948);
+}
+
+.budget-row.over .b-fill {
+  background: var(--neg);
+}
+
+.b-cap {
+  flex-shrink: 0;
+  min-width: 46px;
+  border: 1px solid var(--line);
+  background: var(--card-2);
+  color: var(--dim);
+  border-radius: 9px;
+  padding: 6px 9px;
+  font-family: var(--font-head);
+  font-weight: 500;
+  font-size: 11px;
+  cursor: pointer;
+  font-variant-numeric: tabular-nums;
+  transition: border-color var(--dur) var(--ease), color var(--dur) var(--ease);
+}
+
+.b-cap:hover {
+  border-color: var(--a);
+  color: var(--ink);
+}
+
+.b-cap .b-set {
+  color: var(--a);
+}
+
+.budget-row.warn .b-cap {
+  color: #f7c948;
+}
+
+.budget-row.over .b-cap {
+  color: var(--neg);
+  border-color: color-mix(in srgb, var(--neg) 40%, transparent);
+}
+
+.b-cap-input {
+  width: 74px;
+  flex-shrink: 0;
+  border: 1px solid var(--a);
+  background: var(--card);
+  color: var(--ink);
+  border-radius: 9px;
+  padding: 6px 8px;
+  font-size: 12px;
+  outline: none;
+  font-variant-numeric: tabular-nums;
 }
 
 /* ============================================================
