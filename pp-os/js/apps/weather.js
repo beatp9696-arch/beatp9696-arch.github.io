@@ -34,12 +34,36 @@ const WMO = [
   [[96, 99], "Hailstorm", "storm"],
 ];
 
-// ไอคอนเสริม: หมุด, รีเฟรช, หยดน้ำ (สำหรับ % ฝน)
+// ไอคอนเสริม (หมุด/รีเฟรช/หยดฝน) + ไอคอนหัว tile ใน Highlights
+const usvg = (p) =>
+  `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">${p}</svg>`;
+
 export const WX_UI = {
-  pin: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 21s7-6.3 7-11a7 7 0 1 0-14 0c0 4.7 7 11 7 11Z"/><circle cx="12" cy="10" r="2.5"/></svg>',
-  refresh: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 12a9 9 0 1 1-2.64-6.36M21 3v5h-5"/></svg>',
+  pin: usvg('<path d="M12 21s7-6.3 7-11a7 7 0 1 0-14 0c0 4.7 7 11 7 11Z"/><circle cx="12" cy="10" r="2.5"/>'),
+  refresh: usvg('<path d="M21 12a9 9 0 1 1-2.64-6.36M21 3v5h-5"/>'),
   drop: '<svg class="wx-drop" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 3s6 6.4 6 10.5A6 6 0 0 1 6 13.5C6 9.4 12 3 12 3Z"/></svg>',
+  uv: usvg('<circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/>'),
+  air: usvg('<path d="M11 20A7 7 0 0 1 9.8 6.1C15.5 5 17 4.5 19 2c1 2 2 4.2 2 8 0 5.5-4.8 10-10 10Z"/><path d="M2 21c0-3 1.85-5.4 5-6"/>'),
+  humid: usvg('<path d="M12 3s6 6.4 6 10.5A6 6 0 0 1 6 13.5C6 9.4 12 3 12 3Z"/>'),
+  wind: usvg('<path d="M4 8h11a2.5 2.5 0 1 0-2.5-2.5M4 16h13a2.5 2.5 0 1 1-2.5 2.5M4 12h8"/>'),
+  sunrise: usvg('<path d="M12 9V3M9 5.5 12 3l3 2.5M4 20h16M17 20a5 5 0 0 0-10 0M5 13l1.4 1.4M19 13l-1.4 1.4"/>'),
+  sunset: usvg('<path d="M12 3v6M9 6.5 12 9l3-2.5M4 20h16M17 20a5 5 0 0 0-10 0M5 13l1.4 1.4M19 13l-1.4 1.4"/>'),
 };
+
+// UV index → ระดับ + สี + สัดส่วน (มาตรฐาน WHO)
+export function uvLevel(uv) {
+  if (uv == null || !Number.isFinite(uv)) return null;
+  const v = Math.round(uv);
+  const f = Math.min(v / 11, 1);
+  if (v <= 2) return { v, label: "Low", c: "#3fb950", f };
+  if (v <= 5) return { v, label: "Moderate", c: "#d4a72c", f };
+  if (v <= 7) return { v, label: "High", c: "#f0883e", f };
+  if (v <= 10) return { v, label: "Very high", c: "#e5534b", f };
+  return { v, label: "Extreme", c: "#bc4fce", f: 1 };
+}
+
+const COMPASS = ["N", "NE", "E", "SE", "S", "SW", "W", "NW"];
+const compass = (deg) => (deg == null ? "" : COMPASS[Math.round((deg % 360) / 45) % 8]);
 
 export function describe(code) {
   const hit = WMO.find(([codes]) => codes.includes(code));
@@ -52,9 +76,9 @@ export async function fetchForecast({ lat, lon }) {
   u.search = new URLSearchParams({
     latitude: lat,
     longitude: lon,
-    current: "temperature_2m,apparent_temperature,relative_humidity_2m,weather_code,wind_speed_10m",
+    current: "temperature_2m,apparent_temperature,relative_humidity_2m,weather_code,wind_speed_10m,wind_direction_10m,uv_index",
     hourly: "temperature_2m",
-    daily: "weather_code,temperature_2m_max,temperature_2m_min,precipitation_probability_max",
+    daily: "weather_code,temperature_2m_max,temperature_2m_min,precipitation_probability_max,uv_index_max,sunrise,sunset",
     timezone: "auto",
     forecast_days: "6",
   });
@@ -190,6 +214,10 @@ export default {
       const d = data.daily;
       const aqi = air?.current?.us_aqi;
       const lvl = aqiLevel(aqi);
+      const uv = uvLevel(c.uv_index ?? d.uv_index_max?.[0]);
+      const sunrise = d.sunrise?.[0] ? timeShort(new Date(d.sunrise[0])) : "—";
+      const sunset = d.sunset?.[0] ? timeShort(new Date(d.sunset[0])) : "—";
+      const windDir = compass(c.wind_direction_10m);
 
       // สเกลร่วมทั้งสัปดาห์ — pill ของแต่ละวันวางบนแกน min→max เดียวกัน เทียบข้ามวันได้ด้วยตา
       const weekMin = Math.min(...d.temperature_2m_min);
@@ -204,15 +232,12 @@ export default {
             <span class="emoji">${now.icon}</span>
             <div>
               <div class="t"></div>
-              <div class="desc">${now.t}</div>
+              <div class="desc">${now.t} · feels ${Math.round(c.apparent_temperature)}°</div>
             </div>
           </div>
-          <div class="chips">
-            <span class="chip">Feels like <b>${Math.round(c.apparent_temperature)}°</b></span>
-            <span class="chip">High / Low <b>${Math.round(d.temperature_2m_max[0])}° / ${Math.round(d.temperature_2m_min[0])}°</b></span>
-            <span class="chip">Humidity <b>${c.relative_humidity_2m}%</b></span>
-            <span class="chip">Wind <b>${Math.round(c.wind_speed_10m)}</b> km/h</span>
-            ${lvl ? `<span class="chip aqi"><i class="aqi-dot" style="background:${lvl.c}"></i>AQI <b>${Math.round(aqi)}</b> ${lvl.label}</span>` : ""}
+          <div class="wx-hilo">
+            <span class="up">H:${Math.round(d.temperature_2m_max[0])}°</span>
+            <span class="dn">L:${Math.round(d.temperature_2m_min[0])}°</span>
           </div>
         </div>
 
@@ -247,6 +272,49 @@ export default {
                 </div>`;
               })
               .join("")}
+          </div>
+        </div>
+
+        <div class="card">
+          <div class="card-head"><span class="card-title">Highlights</span></div>
+          <div class="wx-tiles">
+            ${
+              uv
+                ? `<div class="wx-tile">
+                    <div class="wt-head">${WX_UI.uv}<span>UV Index</span></div>
+                    <div class="wt-big">${uv.v}</div>
+                    <div class="wt-meter"><i class="wt-mark" style="left:${uv.f * 100}%"></i></div>
+                    <div class="wt-sub">${uv.label}</div>
+                  </div>`
+                : ""
+            }
+            ${
+              lvl
+                ? `<div class="wx-tile">
+                    <div class="wt-head">${WX_UI.air}<span>Air Quality</span></div>
+                    <div class="wt-big">${Math.round(aqi)}</div>
+                    <div class="wt-sub"><i class="aqi-dot" style="background:${lvl.c}"></i>${lvl.label}</div>
+                  </div>`
+                : ""
+            }
+            <div class="wx-tile">
+              <div class="wt-head">${WX_UI.humid}<span>Humidity</span></div>
+              <div class="wt-big">${c.relative_humidity_2m}<span class="wt-unit">%</span></div>
+              <div class="wt-bar"><span style="width:${c.relative_humidity_2m}%"></span></div>
+            </div>
+            <div class="wx-tile">
+              <div class="wt-head">${WX_UI.wind}<span>Wind</span></div>
+              <div class="wt-big">${Math.round(c.wind_speed_10m)}<span class="wt-unit">km/h</span></div>
+              <div class="wt-sub">${windDir ? "from " + windDir : "light air"}</div>
+            </div>
+            <div class="wx-tile">
+              <div class="wt-head">${WX_UI.sunrise}<span>Sunrise</span></div>
+              <div class="wt-big wt-time">${sunrise}</div>
+            </div>
+            <div class="wx-tile">
+              <div class="wt-head">${WX_UI.sunset}<span>Sunset</span></div>
+              <div class="wt-big wt-time">${sunset}</div>
+            </div>
           </div>
         </div>
 

@@ -1067,6 +1067,124 @@ body.mode-app .hk-sheet {
   height: 18px;
 }
 
+.wx-hilo {
+  display: flex;
+  gap: 14px;
+  margin-top: 12px;
+  font-family: var(--font-head);
+  font-weight: 600;
+  font-size: 14px;
+  font-variant-numeric: tabular-nums;
+}
+
+.wx-hilo .up {
+  color: var(--ink);
+}
+
+.wx-hilo .dn {
+  color: var(--dim);
+}
+
+/* Highlights — tile grid สไตล์ Apple Weather (เติมช่องว่าง + ดูพรีเมียม) */
+.wx-tiles {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 11px;
+  margin-top: 4px;
+}
+
+.wx-tile {
+  background: var(--card-2);
+  border: 1px solid var(--line);
+  border-radius: 14px;
+  padding: 12px 13px;
+  display: flex;
+  flex-direction: column;
+  gap: 7px;
+  min-height: 98px;
+}
+
+.wt-head {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-family: var(--font-mono);
+  font-size: 9.5px;
+  font-weight: 500;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--dim);
+}
+
+.wt-head svg {
+  width: 13px;
+  height: 13px;
+  flex-shrink: 0;
+}
+
+.wt-big {
+  font-family: var(--font-head);
+  font-weight: 600;
+  font-size: 27px;
+  letter-spacing: -0.02em;
+  line-height: 1;
+  color: var(--ink);
+  font-variant-numeric: tabular-nums;
+  margin-top: auto;
+}
+
+.wt-time {
+  font-size: 22px;
+}
+
+.wt-unit {
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--dim);
+  margin-left: 2px;
+}
+
+.wt-sub {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  font-size: 12px;
+  color: var(--dim);
+}
+
+.wt-meter {
+  height: 6px;
+  border-radius: 3px;
+  position: relative;
+  background: linear-gradient(90deg, #3fb950, #d4a72c 38%, #f0883e 58%, #e5534b 78%, #bc4fce);
+}
+
+.wt-mark {
+  position: absolute;
+  top: 50%;
+  width: 11px;
+  height: 11px;
+  border-radius: 50%;
+  background: #fff;
+  border: 2px solid var(--card);
+  transform: translate(-50%, -50%);
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.45);
+}
+
+.wt-bar {
+  height: 6px;
+  border-radius: 3px;
+  background: var(--card);
+  overflow: hidden;
+}
+
+.wt-bar span {
+  display: block;
+  height: 100%;
+  border-radius: 3px;
+  background: var(--rain);
+}
+
 .wx-chart {
   margin: 4px -4px -2px;
 }
