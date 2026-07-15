@@ -6,22 +6,45 @@ import { countUp, stagger, timeShort } from "../core/ui.js";
 export const DEFAULT_LOC = { lat: 13.7563, lon: 100.5018, label: "Bangkok" };
 const DAY_EN = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
 
+// ไอคอนสภาพอากาศแบบเส้น (Lucide-style) แทนอิโมจิ — โทน monochrome คมชัด ดูโปร
+const wsvg = (p) =>
+  `<svg class="wx-ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">${p}</svg>`;
+
+const WX_ICONS = {
+  sun: wsvg('<circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/>'),
+  partly: wsvg('<path d="M12 2v2M4.9 4.9l1.4 1.4M20 12h2M18.7 5.3l-1.4 1.4M15.9 12.6A4 4 0 1 0 10 8.1"/><path d="M13 22H7a5 5 0 1 1 4.9-6H13a3 3 0 0 1 0 6Z"/>'),
+  cloud: wsvg('<path d="M17.5 19H9a7 7 0 1 1 6.7-9h1.8a4.5 4.5 0 1 1 0 9Z"/>'),
+  fog: wsvg('<path d="M4 14.9A7 7 0 1 1 15.7 8h1.8a4.5 4.5 0 0 1 2.5 8.2"/><path d="M16 17H7M17 21H9"/>'),
+  drizzle: wsvg('<path d="M4 14.9A7 7 0 1 1 15.7 8h1.8a4.5 4.5 0 0 1 2.5 8.2"/><path d="M8 19v1M8 14v1M16 19v1M16 14v1M12 21v1M12 16v1"/>'),
+  rain: wsvg('<path d="M4 14.9A7 7 0 1 1 15.7 8h1.8a4.5 4.5 0 0 1 2.5 8.2"/><path d="M16 14v6M8 14v6M12 16v6"/>'),
+  snow: wsvg('<path d="M4 14.9A7 7 0 1 1 15.7 8h1.8a4.5 4.5 0 0 1 2.5 8.2"/><path d="M8 15h.01M8 19h.01M12 17h.01M12 21h.01M16 15h.01M16 19h.01"/>'),
+  storm: wsvg('<path d="M6 16.3A7 7 0 1 1 15.7 8h1.8a4.5 4.5 0 0 1 .5 9"/><path d="m13 12-3 5h4l-3 5"/>'),
+};
+
 const WMO = [
-  [[0], "Clear", "☀️"],
-  [[1, 2], "Partly cloudy", "🌤️"],
-  [[3], "Overcast", "☁️"],
-  [[45, 48], "Fog", "🌫️"],
-  [[51, 53, 55, 56, 57], "Drizzle", "🌦️"],
-  [[61, 63, 65, 66, 67], "Rain", "🌧️"],
-  [[71, 73, 75, 77, 85, 86], "Snow", "🌨️"],
-  [[80, 81, 82], "Showers", "🌧️"],
-  [[95], "Thunderstorm", "⛈️"],
-  [[96, 99], "Hailstorm", "⛈️"],
+  [[0], "Clear", "sun"],
+  [[1, 2], "Partly cloudy", "partly"],
+  [[3], "Overcast", "cloud"],
+  [[45, 48], "Fog", "fog"],
+  [[51, 53, 55, 56, 57], "Drizzle", "drizzle"],
+  [[61, 63, 65, 66, 67], "Rain", "rain"],
+  [[71, 73, 75, 77, 85, 86], "Snow", "snow"],
+  [[80, 81, 82], "Showers", "rain"],
+  [[95], "Thunderstorm", "storm"],
+  [[96, 99], "Hailstorm", "storm"],
 ];
+
+// ไอคอนเสริม: หมุด, รีเฟรช, หยดน้ำ (สำหรับ % ฝน)
+export const WX_UI = {
+  pin: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 21s7-6.3 7-11a7 7 0 1 0-14 0c0 4.7 7 11 7 11Z"/><circle cx="12" cy="10" r="2.5"/></svg>',
+  refresh: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 12a9 9 0 1 1-2.64-6.36M21 3v5h-5"/></svg>',
+  drop: '<svg class="wx-drop" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 3s6 6.4 6 10.5A6 6 0 0 1 6 13.5C6 9.4 12 3 12 3Z"/></svg>',
+};
 
 export function describe(code) {
   const hit = WMO.find(([codes]) => codes.includes(code));
-  return hit ? { t: hit[1], e: hit[2] } : { t: "—", e: "🌡️" };
+  const key = hit ? hit[2] : "cloud";
+  return { t: hit ? hit[1] : "—", icon: WX_ICONS[key], key };
 }
 
 export async function fetchForecast({ lat, lon }) {
@@ -150,8 +173,8 @@ export default {
           <h1 class="page-title loc"></h1>
         </div>
         <div class="head-actions">
-          <button class="icon-btn use-geo" title="Use current location" aria-label="Use current location">📍</button>
-          <button class="icon-btn refresh" title="Refresh" aria-label="Refresh">⟳</button>
+          <button class="icon-btn use-geo" title="Use current location" aria-label="Use current location">${WX_UI.pin}</button>
+          <button class="icon-btn refresh" title="Refresh" aria-label="Refresh">${WX_UI.refresh}</button>
         </div>
       </header>
       <div class="wx-main"><div class="card"><div class="empty">Loading…</div></div></div>
@@ -176,11 +199,11 @@ export default {
 
       main.innerHTML = `
         <div class="card">
-          <div class="card-head"><span class="card-title serif">Right Now</span></div>
+          <div class="card-head"><span class="card-title">Right Now</span></div>
           <div class="wx-now">
-            <span class="emoji">${now.e}</span>
+            <span class="emoji">${now.icon}</span>
             <div>
-              <div class="t serif"></div>
+              <div class="t"></div>
               <div class="desc">${now.t}</div>
             </div>
           </div>
@@ -196,14 +219,14 @@ export default {
         ${
           chart
             ? `<div class="card">
-                <div class="card-head"><span class="card-title serif">Next 24 Hours</span></div>
+                <div class="card-head"><span class="card-title">Next 24 Hours</span></div>
                 <div class="wx-chart">${chart}</div>
               </div>`
             : ""
         }
 
         <div class="card">
-          <div class="card-head"><span class="card-title serif">Next 6 Days</span></div>
+          <div class="card-head"><span class="card-title">Next 6 Days</span></div>
           <div class="list wx-days">
             ${d.time
               .map((t, i) => {
@@ -214,8 +237,8 @@ export default {
                 const left = ((lo - weekMin) / weekSpan) * 100;
                 const width = Math.max(8, ((hi - lo) / weekSpan) * 100);
                 return `<div class="wx-day">
-                  <span class="d">${day}</span><span class="e">${w.e}</span>
-                  <span class="rain">💧${d.precipitation_probability_max[i] ?? 0}%</span>
+                  <span class="d">${day}</span><span class="e">${w.icon}</span>
+                  <span class="rain">${WX_UI.drop}${d.precipitation_probability_max[i] ?? 0}%</span>
                   <span class="wx-range">
                     <span class="lo">${Math.round(lo)}°</span>
                     <span class="track"><span class="pill" style="left:${left.toFixed(1)}%;width:${width.toFixed(1)}%;animation-delay:${i * 60}ms"></span></span>

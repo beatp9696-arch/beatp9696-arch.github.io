@@ -1004,49 +1004,67 @@ body.mode-app .hk-sheet {
     var(--canvas);
 }
 
-.serif {
-  font-family: var(--font-serif);
-  font-weight: 400;
-  letter-spacing: 0;
-}
-
+/* Weather เลิกใช้ serif (ตัวเก่าดูขัดกับธีมดำ) → Inter สะอาดแบบ Apple Weather */
 .app-weather .page-title {
-  font-family: var(--font-serif);
-  font-weight: 400;
-  letter-spacing: 0;
+  font-family: var(--font-head);
+  font-weight: 800;
+  letter-spacing: -0.03em;
   font-size: 30px;
 }
 
-.app-weather .card-title.serif {
-  font-size: 21px;
+.app-weather .card-title {
+  font-size: 16px;
+  font-weight: 700;
+  letter-spacing: -0.01em;
   line-height: 1.2;
 }
 
 .wx-now {
   display: flex;
   align-items: center;
-  gap: 16px;
-  margin-top: 6px;
+  gap: 14px;
+  margin-top: 8px;
 }
 
 .wx-now .emoji {
-  font-size: 50px;
-  line-height: 1;
+  width: 64px;
+  height: 64px;
+  flex-shrink: 0;
+  display: grid;
+  place-items: center;
+  color: var(--ink);
+}
+
+.wx-now .emoji svg {
+  width: 56px;
+  height: 56px;
+  stroke-width: 1.4;
 }
 
 .wx-now .t {
-  font-size: 54px;
+  font-family: var(--font-head);
+  font-weight: 300;
+  font-size: 62px;
   line-height: 1;
+  letter-spacing: -0.045em;
   font-variant-numeric: tabular-nums;
 }
 
 .wx-now .desc {
-  font-size: 14px;
-  margin-top: 5px;
+  font-size: 14.5px;
+  font-weight: 500;
+  color: var(--dim);
+  margin-top: 6px;
 }
 
 .app-weather .chips {
   margin-top: 12px;
+}
+
+/* ปุ่มหมุด/รีเฟรชบนหัว Weather เป็น SVG แล้ว */
+.icon-btn svg {
+  width: 18px;
+  height: 18px;
 }
 
 .wx-chart {
@@ -1073,12 +1091,32 @@ body.mode-app .hk-sheet {
   font-weight: 600;
 }
 
+.wx-day .e {
+  display: grid;
+  place-items: center;
+  color: var(--ink);
+}
+
+.wx-day .e svg {
+  width: 22px;
+  height: 22px;
+}
+
 .wx-day .rain {
+  display: inline-flex;
+  align-items: center;
+  gap: 3px;
   font-family: var(--font-head);
   font-weight: 500;
   font-size: 11px;
   color: var(--rain);
   font-variant-numeric: tabular-nums;
+}
+
+.wx-day .rain .wx-drop {
+  width: 11px;
+  height: 11px;
+  flex-shrink: 0;
 }
 
 .wx-range {
@@ -1715,8 +1753,17 @@ body.mode-app .hk-sheet {
 }
 
 .wx-line .e {
-  font-size: 26px;
-  line-height: 1;
+  display: grid;
+  place-items: center;
+  width: 30px;
+  height: 30px;
+  flex-shrink: 0;
+  color: var(--ink);
+}
+
+.wx-line .e svg {
+  width: 28px;
+  height: 28px;
 }
 
 .wx-line .t {

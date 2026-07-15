@@ -276,7 +276,7 @@ export default {
         const aqi = air?.current?.us_aqi;
         const lvl = aqiLevel(aqi);
         wxBody.innerHTML = `
-          <div class="wx-line"><span class="e">${w.e}</span><span class="t">${Math.round(c.temperature_2m)}°</span></div>
+          <div class="wx-line"><span class="e">${w.icon}</span><span class="t">${Math.round(c.temperature_2m)}°</span></div>
           <div class="fin-sub">${w.t} · high ${Math.round(data.daily.temperature_2m_max[0])}°</div>
           <div class="wx-meta">
             <span class="wx-m">Humidity <b>${c.relative_humidity_2m}%</b></span>
