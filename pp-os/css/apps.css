@@ -490,9 +490,17 @@ button.card:hover {
 }
 
 .metric-row .ico {
-  width: 24px;
-  font-size: 17px;
-  text-align: center;
+  width: 26px;
+  height: 26px;
+  display: grid;
+  place-items: center;
+  color: var(--ink);
+  flex-shrink: 0;
+}
+
+.metric-row .ico .hi {
+  width: 21px;
+  height: 21px;
 }
 
 .metric-row .lbl {
@@ -556,25 +564,93 @@ button.card:hover {
 }
 
 .mood-seg button {
-  font-size: 19px;
+  display: grid;
+  place-items: center;
   background: transparent;
   border: 1px solid transparent;
   border-radius: 10px;
-  padding: 4px 6px;
+  padding: 5px;
   cursor: pointer;
-  filter: grayscale(0.75) opacity(0.6);
+  color: var(--dim);
+  opacity: 0.65;
   transition: all var(--dur) var(--ease);
 }
 
+.mood-seg button .hi {
+  width: 25px;
+  height: 25px;
+}
+
 .mood-seg button:hover {
-  filter: none;
+  opacity: 1;
+  color: var(--ink);
 }
 
 .mood-seg button.sel {
   background: var(--a-soft);
   border-color: color-mix(in srgb, var(--a) 45%, transparent);
-  filter: none;
+  color: var(--a);
+  opacity: 1;
   transform: scale(1.08);
+}
+
+/* ---- ไอคอนเส้น (.hi) ในแอป Health ทุกจุด ---- */
+svg.hi {
+  width: 18px;
+  height: 18px;
+  display: inline-block;
+  vertical-align: middle;
+  flex-shrink: 0;
+}
+
+.chip .hi {
+  width: 14px;
+  height: 14px;
+}
+
+.trend-head .hi,
+.wt-lbl .hi {
+  width: 15px;
+  height: 15px;
+  vertical-align: -3px;
+  margin-right: 3px;
+}
+
+.btn-soft {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.btn-soft .hi {
+  width: 15px;
+  height: 15px;
+}
+
+.hk-h .hi {
+  width: 17px;
+  height: 17px;
+  vertical-align: -3px;
+  margin-right: 5px;
+}
+
+/* ปุ่มวาง JSON จากคลิปบอร์ด — รอง จาก "เลือกไฟล์" */
+.hk-paste {
+  border: 1px solid var(--line);
+  background: var(--card-2);
+  color: var(--ink);
+  border-radius: 11px;
+  padding: 10px;
+  font-family: var(--font-head);
+  font-weight: 600;
+  font-size: 12.5px;
+  cursor: pointer;
+  transition: border-color var(--dur) var(--ease), background var(--dur) var(--ease);
+}
+
+.hk-paste:hover {
+  border-color: var(--a);
+  color: var(--a);
 }
 
 /* กราฟแท่ง 7 วัน */

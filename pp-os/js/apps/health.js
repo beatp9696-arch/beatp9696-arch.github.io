@@ -2,12 +2,36 @@ import { load, save } from "../core/storage.js";
 import { parseAppleExport, parseHealthJSON, mergeDays } from "../core/apple-health.js";
 import { flush, stagger, num, dateLong, dateShort, timeShort } from "../core/ui.js";
 
-const MOODS = ["😫", "😕", "😐", "🙂", "😄"];
+// ไอคอนเส้น (stroke) แทนอิโมจิ — โทน monochrome ให้ดูเนี้ยบแบบ WHOOP/Oura ไม่ใช่อิโมจิสีเด้ง
+const ic = (p) =>
+  `<svg class="hi" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">${p}</svg>`;
+
+const IC = {
+  steps: ic('<path d="M4 16v-2.4C4 11.5 3 10.5 3 8c0-2.7 1.5-6 4.5-6C9.4 2 10 3.8 10 5.5c0 3.1-2 5.7-2 8.7V16a2 2 0 1 1-4 0Z"/><path d="M20 20v-2.4c0-2.1 1-3.1 1-5.6 0-2.7-1.5-6-4.5-6C14.6 6 14 7.8 14 9.5c0 3.1 2 5.7 2 8.7V20a2 2 0 1 0 4 0Z"/><path d="M16 17h4M4 13h4"/>'),
+  water: ic('<path d="M12 22a7 7 0 0 0 7-7c0-2-1-3.9-3-5.5s-3.5-4-4-6.5c-.5 2.5-2 4.9-4 6.5C6 11.1 5 13 5 15a7 7 0 0 0 7 7Z"/>'),
+  ex: ic('<path d="M22 12h-3.5l-2.5 7L11 5l-2.5 7H2"/>'),
+  sleep: ic('<path d="M12 3a6.4 6.4 0 0 0 9 9 9 9 0 1 1-9-9Z"/>'),
+  weight: ic('<circle cx="12" cy="6.5" r="2.8"/><path d="M6.9 9.3h10.2a2 2 0 0 1 1.95 1.55l1.8 8A2 2 0 0 1 18.9 21.3H5.1a2 2 0 0 1-1.95-2.45l1.8-8A2 2 0 0 1 6.9 9.3Z"/>'),
+  mood: ic('<circle cx="12" cy="12" r="9"/><path d="M8 14.5a4.5 4.5 0 0 0 8 0"/><path d="M9 9.5h.01M15 9.5h.01"/>'),
+  watch: ic('<rect x="7" y="7" width="10" height="10" rx="2.6"/><path d="M9 7l.5-3a2 2 0 0 1 2-1.7h1a2 2 0 0 1 2 1.7L15 7M15 17l.5 3a2 2 0 0 1-2 1.7h-1a2 2 0 0 1-2-1.7L9 17"/>'),
+};
+
+// ใบหน้าอารมณ์แบบเส้น 5 ระดับ — โครงเดียวกัน ต่างที่ปาก (คว่ำ→ตรง→ยิ้ม)
+const face = (mouth) => ic(`<circle cx="12" cy="12" r="9"/><path d="M9 10h.01M15 10h.01"/>${mouth}`);
+const MOOD_ICONS = [
+  face('<path d="M8 16a4 4 0 0 1 8 0"/>'),
+  face('<path d="M9 15.4c.9-.7 5.1-.7 6 0"/>'),
+  face('<path d="M8.5 15h7"/>'),
+  face('<path d="M9 14.6c.9.7 5.1.7 6 0"/>'),
+  face('<path d="M8 14a4 4 0 0 0 8 0"/>'),
+];
+const MOOD_WORDS = ["Low", "Poor", "Okay", "Good", "Great"];
+
 const METRICS = [
-  { m: "steps", ico: "👟", lbl: "Steps", step: 500 },
-  { m: "water", ico: "💧", lbl: "Water", unit: "glasses", step: 1 },
-  { m: "ex", ico: "🏃", lbl: "Exercise", unit: "min", step: 10 },
-  { m: "sleep", ico: "😴", lbl: "Sleep", unit: "hrs", step: 0.5 },
+  { m: "steps", ico: IC.steps, lbl: "Steps", step: 500 },
+  { m: "water", ico: IC.water, lbl: "Water", unit: "glasses", step: 1 },
+  { m: "ex", ico: IC.ex, lbl: "Exercise", unit: "min", step: 10 },
+  { m: "sleep", ico: IC.sleep, lbl: "Sleep", unit: "hrs", step: 0.5 },
 ];
 
 const GOAL = { steps: 8000, water: 8, ex: 45, sleep: 8 };
@@ -106,16 +130,17 @@ const SHEET = `
   <div class="hk-sheet hidden">
     <div class="hk-card">
       <div class="hk-h">
-        <span>⌚ Import from Apple Health</span>
+        <span>${IC.watch} Import from Apple Health</span>
         <button class="hk-x" title="Close" aria-label="Close">✕</button>
       </div>
-      <p class="hk-p">The web can't read Apple Health directly — Apple only opens HealthKit to native apps. Pick a file instead: it's parsed on this device and never uploaded anywhere.</p>
+      <p class="hk-p">The web can't read your Apple Watch or Health app directly — Apple only opens HealthKit to native apps. But everything your Series 5 records lands in the Health app, and PP OS reads it from there. Pick a file or paste it — parsed on this device, never uploaded.</p>
 
       <label class="hk-drop">
         <input type="file" accept=".zip,.xml,.json" class="hk-file" hidden>
         <b>Choose a file</b>
         <small>export.zip from the Health app · or .json from a Shortcut</small>
       </label>
+      <button type="button" class="hk-paste">Paste JSON from clipboard</button>
       <div class="hk-status"></div>
 
       <details class="hk-how">
@@ -165,7 +190,7 @@ export default {
           <div class="page-sub">${dateLong()}</div>
         </div>
         <div class="head-actions">
-          <button class="btn-soft h-import">⌚ Apple Health</button>
+          <button class="btn-soft h-import">${IC.watch} Apple Health</button>
         </div>
       </header>
 
@@ -181,8 +206,8 @@ export default {
 
       <div class="chips">
         <span class="chip mon">✓ Logged <b></b></span>
-        <span class="chip steps">👟 <b></b> steps</span>
-        <span class="chip water">💧 <b></b> glasses</span>
+        <span class="chip steps">${IC.steps} <b></b> steps</span>
+        <span class="chip water">${IC.water} <b></b> glasses</span>
       </div>
 
       <div class="sec">Log today</div>
@@ -199,12 +224,12 @@ export default {
             </div>`
           ).join("")}
           <div class="metric-row">
-            <span class="ico">⚖️</span><span class="lbl">Weight <span class="unit">kg</span></span>
+            <span class="ico">${IC.weight}</span><span class="lbl">Weight <span class="unit">kg</span></span>
             <input class="weight-input" type="number" min="0" step="0.1" placeholder="—" aria-label="Weight">
           </div>
           <div class="metric-row">
-            <span class="ico">🧠</span><span class="lbl">Mood</span>
-            <span class="mood-seg">${MOODS.map((e, i) => `<button data-i="${i}" aria-label="Mood level ${i + 1}">${e}</button>`).join("")}</span>
+            <span class="ico">${IC.mood}</span><span class="lbl">Mood</span>
+            <span class="mood-seg">${MOOD_ICONS.map((s, i) => `<button data-i="${i}" aria-label="Mood level ${i + 1}">${s}</button>`).join("")}</span>
           </div>
         </div>
       </div>
@@ -219,7 +244,7 @@ export default {
         </div>
 
         <div class="weight-block">
-          <div class="wt-head"><span class="wt-lbl">⚖️ Weight</span><span class="wt-stat"></span></div>
+          <div class="wt-head"><span class="wt-lbl">${IC.weight} Weight</span><span class="wt-stat"></span></div>
           <div class="wt-chart"></div>
         </div>
 
@@ -256,7 +281,7 @@ export default {
       const sleepFrac = sleep / GOAL.sleep;
       setRing("sleep", sleepFrac, `${Math.round(sleepFrac * 100)}%`, `${sleep} hrs`);
       if (t.mood == null) setRing("rec", 0, "—", "no mood yet");
-      else setRing("rec", (t.mood + 1) / 5, `${(t.mood + 1) * 20}%`, MOODS[t.mood]);
+      else setRing("rec", (t.mood + 1) / 5, `${(t.mood + 1) * 20}%`, MOOD_WORDS[t.mood]);
       setRing("strain", ex / GOAL.ex, `${ex}`, `min · goal ${GOAL.ex}`);
 
       const logged = [water > 0, ex > 0, sleep > 0, t.weight != null, t.mood != null].filter(Boolean).length;
@@ -287,8 +312,8 @@ export default {
 
       const last = load("health.lastImport");
       body.querySelector(".h-src").textContent = last
-        ? `⌚ Last synced from Apple Health ${dateShort(new Date(last.at))}, ${timeShort(new Date(last.at))} · ${last.days} days`
-        : "Never synced with Apple Health — tap ⌚ above to stop logging by hand";
+        ? `Last synced from Apple Health ${dateShort(new Date(last.at))}, ${timeShort(new Date(last.at))} · ${last.days} days`
+        : "Never synced with Apple Health — tap Apple Health above to stop logging by hand";
     };
 
     const renderTrends = () => {
@@ -397,6 +422,20 @@ export default {
     addEventListener("keydown", (e) => e.key === "Escape" && body.isConnected && closeSheet());
     document.addEventListener("pp-hk-open", () => body.isConnected && openSheet());
 
+    // นำผลที่ parse แล้วเข้าระบบ — ใช้ร่วมกันทั้งเลือกไฟล์และวางจากคลิปบอร์ด
+    const applyImport = (imported) => {
+      const res = mergeDays(imported);
+      Object.assign(days, load("health.days", {})); // days ใน closure เป็นสำเนาเก่า ต้องดึงของที่ merge แล้วมาทับ
+
+      status.className = "hk-status ok";
+      const got = Object.entries(res.filled)
+        .filter(([, n]) => n > 0)
+        .map(([k, n]) => `${{ steps: "steps", water: "water", ex: "exercise", sleep: "sleep", weight: "weight" }[k]} ${n}d`)
+        .join(" · ");
+      status.textContent = `✓ Imported ${res.days} days (${res.from} → ${res.to})\n${got || "No supported metrics found"}`;
+      update();
+    };
+
     body.querySelector(".hk-file").addEventListener("change", async (e) => {
       const file = e.target.files?.[0];
       if (!file) return;
@@ -410,20 +449,24 @@ export default {
           : await parseAppleExport(file, ({ mb, records }) => {
               status.textContent = `Reading ${mb.toFixed(1)} MB · ${num(records)} records…`;
             });
-
-        const res = mergeDays(imported);
-        Object.assign(days, load("health.days", {})); // days ใน closure เป็นสำเนาเก่า ต้องดึงของที่ merge แล้วมาทับ
-
-        status.className = "hk-status ok";
-        const got = Object.entries(res.filled)
-          .filter(([, n]) => n > 0)
-          .map(([k, n]) => `${{ steps: "steps", water: "water", ex: "exercise", sleep: "sleep", weight: "weight" }[k]} ${n}d`)
-          .join(" · ");
-        status.textContent = `✓ Imported ${res.days} days (${res.from} → ${res.to})\n${got || "No supported metrics found in this file"}`;
-        update();
+        applyImport(imported);
       } catch (err) {
         status.className = "hk-status err";
         status.textContent = `Import failed — ${err.message}`;
+      }
+    });
+
+    // วาง JSON จาก Shortcut โดยตรง (2 แตะ ไม่ต้องเปิด Files) — Shortcut อ่าน Apple Watch → คัดลอก → วางที่นี่
+    body.querySelector(".hk-paste").addEventListener("click", async () => {
+      status.className = "hk-status busy";
+      status.textContent = "Reading clipboard…";
+      try {
+        const text = await navigator.clipboard.readText();
+        if (!text || !text.trim()) throw new Error("clipboard is empty");
+        applyImport(parseHealthJSON(text));
+      } catch (err) {
+        status.className = "hk-status err";
+        status.textContent = `Paste failed — ${err.message}`;
       }
     });
 
