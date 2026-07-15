@@ -1,7 +1,7 @@
 // Service worker — precache app shell ทั้งหมด ใช้ offline ได้เต็มตัว
 // เปลี่ยนไฟล์เมื่อไหร่ให้ bump VERSION เพื่อบังคับ cache ใหม่
 
-const VERSION = "pp-os-v11";
+const VERSION = "pp-os-v12";
 
 const SHELL = [
   "./",

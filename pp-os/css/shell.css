@@ -50,6 +50,33 @@ body.mode-app {
   }
 }
 
+/* สลับแท็บด้วยการปัด/กด = สไลด์ตามทิศ (ขวา→ไปแท็บถัดไป, ซ้าย→ย้อนกลับ) */
+#shell-view[data-dir="1"] > .view,
+#shell-view[data-dir="1"] > .sub-wrap {
+  animation: slide-in-right 280ms var(--ease);
+}
+
+#shell-view[data-dir="-1"] > .view,
+#shell-view[data-dir="-1"] > .sub-wrap {
+  animation: slide-in-left 280ms var(--ease);
+}
+
+@keyframes slide-in-right {
+  from { opacity: 0; transform: translateX(26px); }
+}
+
+@keyframes slide-in-left {
+  from { opacity: 0; transform: translateX(-26px); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  #shell-view > .view,
+  #shell-view[data-dir] > .view,
+  #shell-view[data-dir] > .sub-wrap {
+    animation: none;
+  }
+}
+
 .sub-wrap > .view {
   flex: 1;
   display: flex;
@@ -155,6 +182,185 @@ body.mode-app {
 
 .tab:active svg {
   transform: scale(0.88);
+}
+
+/* ---- Quick-add: ปุ่มลอย (FAB) เหนือแถบล่าง เห็นได้ทุกแท็บหลัก ---- */
+#quick-fab {
+  position: fixed;
+  right: 16px;
+  bottom: calc(60px + env(safe-area-inset-bottom, 0px) + 16px);
+  z-index: 400;
+  width: 52px;
+  height: 52px;
+  display: grid;
+  place-items: center;
+  border: 0;
+  border-radius: 50%;
+  background: var(--accent);
+  color: var(--on-accent);
+  box-shadow:
+    0 10px 24px -8px color-mix(in srgb, var(--accent) 65%, transparent),
+    0 2px 6px rgba(0, 0, 0, 0.22);
+  cursor: pointer;
+  -webkit-tap-highlight-color: transparent;
+  transition: transform var(--dur) var(--ease), background var(--dur) var(--ease),
+    opacity var(--dur) var(--ease);
+  animation: fab-in 0.3s var(--ease) both;
+}
+
+#quick-fab svg {
+  width: 24px;
+  height: 24px;
+}
+
+#quick-fab:active {
+  transform: scale(0.9);
+}
+
+@keyframes fab-in {
+  from { transform: scale(0); opacity: 0; }
+}
+
+/* FAB กลืนสีกับแท็บที่เปิดอยู่ (เหมือนแถบล่าง) */
+#shell[data-tab="health"] #quick-fab { background: #2fd287; color: #05130c; }
+#shell[data-tab="money"] #quick-fab { background: #cdf463; color: #161b07; }
+#shell[data-tab="weather"] #quick-fab { background: #b4552d; color: #fff; }
+
+/* อยู่หน้าซ้อน (Notes / เว็บ / Restore) = ซ่อน FAB ไม่ให้เกะกะ */
+#shell.in-sub #quick-fab {
+  opacity: 0;
+  pointer-events: none;
+  transform: scale(0.6);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  #quick-fab { animation: none; }
+}
+
+/* ---- Quick-add sheet ---- */
+.qa-seg {
+  display: flex;
+  gap: 3px;
+  padding: 3px;
+  border: 1px solid var(--border);
+  border-radius: var(--r-md);
+  background: var(--accent-tint);
+}
+
+.qa-seg button {
+  flex: 1;
+  border: 0;
+  background: transparent;
+  color: var(--muted);
+  border-radius: 9px;
+  padding: 9px 0;
+  font-family: var(--font-head);
+  font-weight: 600;
+  font-size: 13px;
+  cursor: pointer;
+  transition: background var(--dur) var(--ease), color var(--dur) var(--ease);
+}
+
+.qa-seg button.on {
+  background: var(--surface);
+  color: var(--accent);
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.1);
+}
+
+.qa-form {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.qa-form input,
+.qa-form select {
+  width: 100%;
+  border: 1px solid var(--border);
+  border-radius: var(--r-md);
+  background: var(--surface);
+  color: var(--text);
+  padding: 13px 14px;
+  font: inherit;
+  font-size: 15px;
+  outline: none;
+  transition: border-color var(--dur) var(--ease);
+}
+
+.qa-form input:focus,
+.qa-form select:focus {
+  border-color: var(--accent);
+}
+
+.qa-submit {
+  border: 0;
+  border-radius: var(--r-md);
+  background: var(--accent);
+  color: var(--on-accent);
+  padding: 13px;
+  font-family: var(--font-head);
+  font-weight: 700;
+  font-size: 15px;
+  cursor: pointer;
+  transition: background var(--dur) var(--ease), transform var(--dur) var(--ease);
+}
+
+.qa-submit:hover { background: var(--accent-strong); }
+.qa-submit:active { transform: scale(0.98); }
+
+.qa-water {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 14px;
+  padding: 4px 2px;
+}
+
+.qa-water-now {
+  display: flex;
+  flex-direction: column;
+}
+
+.qa-water-now b {
+  font-family: var(--font-head);
+  font-size: 34px;
+  font-weight: 700;
+  line-height: 1;
+  color: var(--accent);
+  font-variant-numeric: tabular-nums;
+}
+
+.qa-water-now small {
+  font-size: 12px;
+  color: var(--muted);
+  margin-top: 4px;
+}
+
+.qa-water-btns {
+  display: flex;
+  gap: 8px;
+}
+
+.qa-water-btns button {
+  border: 1px solid var(--border);
+  background: var(--surface);
+  color: var(--text);
+  border-radius: var(--r-md);
+  padding: 12px 15px;
+  font: inherit;
+  font-size: 15px;
+  cursor: pointer;
+  transition: transform var(--dur) var(--ease);
+}
+
+.qa-water-btns button:active { transform: scale(0.94); }
+
+.qa-water-btns .add {
+  background: var(--accent);
+  color: var(--on-accent);
+  border-color: var(--accent);
+  font-family: var(--font-head);
+  font-weight: 700;
 }
 
 /* ---- หน้าซ้อนใน More (Notes / To-do / Calculator) ---- */

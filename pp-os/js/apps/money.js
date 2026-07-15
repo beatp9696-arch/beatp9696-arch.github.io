@@ -1,10 +1,16 @@
 import { load, save } from "../core/storage.js";
 import { countUp, flush, stagger, money, money0, dateShort } from "../core/ui.js";
 
-const CATS = {
+export const CATS = {
   out: [["Food", "🍜"], ["Transport", "🚗"], ["Home", "🛒"], ["Fun", "🎮"], ["Health", "💊"], ["Other", "📦"]],
   in: [["Salary", "💼"], ["Investments", "📈"], ["Other", "💵"]],
 };
+
+// วันที่ท้องถิ่น YYYY-MM-DD — quick-add ใน shell ก็ต้องใช้ให้ตรงกับที่ money.js บันทึก
+export function localDate() {
+  const d = new Date();
+  return `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, "0")}-${String(d.getDate()).padStart(2, "0")}`;
+}
 
 const RING_C = 2 * Math.PI * 30; // r=30 ใน viewBox 72
 
@@ -31,11 +37,6 @@ function migrate(entries) {
   }
   if (changed) save("money.entries", entries);
   return entries;
-}
-
-function localDate() {
-  const d = new Date();
-  return `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, "0")}-${String(d.getDate()).padStart(2, "0")}`;
 }
 
 export default {
