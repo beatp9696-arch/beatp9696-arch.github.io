@@ -17,8 +17,9 @@ import weather from "./apps/weather.js";
 import notes from "./apps/notes.js";
 import todo from "./apps/todo.js";
 import calculator from "./apps/calculator.js";
+import discover from "./apps/discover.js";
 
-[me, health, money, weather, notes, todo, calculator].forEach(register);
+[me, health, money, weather, notes, todo, calculator, discover].forEach(register);
 
 // ต้องรอ storage โหลดเข้า cache ให้ครบก่อน ไม่งั้นหน้าแรกวาดตอนยังไม่มีข้อมูล = เห็นเป็นศูนย์หมด
 // (top-level await ใน ES module — เบราว์เซอร์ที่รองรับ ES modules ทั้งหมดรองรับอันนี้)

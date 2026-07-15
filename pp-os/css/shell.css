@@ -567,6 +567,26 @@ body.mode-app {
   height: 16px;
 }
 
+/* ไอคอนแถว More เป็น SVG แล้ว (เดิมอิโมจิ) */
+.mr-ico {
+  color: var(--accent);
+}
+
+.mr-ico svg {
+  width: 20px;
+  height: 20px;
+}
+
+/* แถวเด่น Discover ในหมวด Moatrices */
+.disc-feature .mr-ico-sq {
+  background: color-mix(in srgb, var(--accent) 18%, transparent);
+  color: var(--accent);
+}
+
+.disc-feature b {
+  color: var(--accent);
+}
+
 .more-foot {
   margin-top: 22px;
   font-size: 11.5px;

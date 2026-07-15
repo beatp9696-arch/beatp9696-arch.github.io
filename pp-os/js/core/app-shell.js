@@ -18,6 +18,11 @@ const ICONS = {
   chev: I('<path d="M9 5l7 7-7 7"/>'),
   ext: I('<path d="M14 4h6v6"/><path d="M20 4 11 13"/><path d="M18 14v4a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4"/>'),
   plus: I('<path d="M12 5v14M5 12h14"/>'),
+  home: I('<path d="M4 11 12 4l8 7"/><path d="M6 10v9h12v-9"/><path d="M10 19v-5h4v5"/>'),
+  articles: I('<path d="M5 4h10l4 4v12H5Z"/><path d="M8 9h6M8 13h8M8 17h5"/>'),
+  stocks: I('<path d="M4 18 9 12l4 4 7-8"/><path d="M20 6h-4M20 6v4"/>'),
+  tools: I('<path d="M14.6 5.6a3.5 3.5 0 0 0-4.8 4.3L4 15.6 6.4 18l5.7-5.7a3.5 3.5 0 0 0 4.3-4.8l-2.2 2.2-1.6-.4-.4-1.6Z"/>'),
+  gauge: I('<path d="M4 15a8 8 0 0 1 16 0"/><path d="M12 15l4.5-4"/><circle cx="12" cy="15" r="1.2"/>'),
 };
 
 const TABS = [
@@ -45,11 +50,11 @@ const SITE = location.pathname.includes("/pp-os/")
   : "https://beatp9696-arch.github.io/";
 
 const WEB_VIEWS = [
-  ["Moatrices", "index.html", "📈", "Home — latest pieces and series"],
-  ["Articles", "articles.html", "📰", "Every deep dive in one list"],
-  ["Stocks", "stocks.html", "🏛️", "The portfolio companies"],
-  ["Tools", "tools.html", "🧰", "Reverse DCF and the rest"],
-  ["Dashboard", "dashboard.html", "📊", "Indices and the MAG7 tape"],
+  ["Moatrices", "index.html", ICONS.home, "Home — latest pieces and series"],
+  ["Articles", "articles.html", ICONS.articles, "Every deep dive in one list"],
+  ["Stocks", "stocks.html", ICONS.stocks, "The portfolio companies"],
+  ["Tools", "tools.html", ICONS.tools, "Reverse DCF and the rest"],
+  ["Dashboard", "dashboard.html", ICONS.gauge, "Indices and the MAG7 tape"],
 ];
 
 // สีแถบสถานะของมือถือ ให้กลืนกับพื้นหลังของแท็บที่เปิดอยู่
@@ -172,6 +177,11 @@ function renderMore() {
 
     <div class="more-sec">Moatrices</div>
     <div class="more-list">
+      <button class="more-row disc-feature" data-act="discover">
+        <span class="mr-ico mr-ico-sq">${ICONS.stocks}</span>
+        <span class="mr-txt"><b>Discover stocks</b><small>Browse 20 deep dives by sector — read in-app</small></span>
+        <span class="mr-chev">${ICONS.chev}</span>
+      </button>
       ${WEB_VIEWS.map(
         ([title, path, ico, desc]) => `<button class="more-row" data-web="${path}" data-title="${title}">
           <span class="mr-ico">${ico}</span>
@@ -249,6 +259,7 @@ function renderMore() {
   for (const row of pane.querySelectorAll("[data-web]")) {
     row.addEventListener("click", () => openWeb(row.dataset.web, row.dataset.title));
   }
+  pane.querySelector('[data-act="discover"]').addEventListener("click", openDiscover);
   pane.querySelector('[data-act="hk"]').addEventListener("click", () => {
     goTab("health"); // ชีตนำเข้าอยู่ในแอป Health — เด้งไปแล้วสั่งเปิดให้เลย
     document.dispatchEvent(new CustomEvent("pp-hk-open"));
@@ -426,6 +437,13 @@ function subShell(id, titleHTML, actionHTML = "") {
 function openSub(appId) {
   const app = getApp(appId);
   const { pane } = subShell(appId, `${app.icon} ${app.name}`);
+  app.mount(pane);
+}
+
+// Discover เปิดเป็นหน้าซ้อน (ชื่อล้วน ไม่มีไอคอนนำ) — ตัวมันจัดหัวเรื่อง/reader เอง
+function openDiscover() {
+  const app = getApp("discover");
+  const { pane } = subShell("discover", "Discover");
   app.mount(pane);
 }
 
