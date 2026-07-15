@@ -53,7 +53,7 @@ const WEB_VIEWS = [
 ];
 
 // สีแถบสถานะของมือถือ ให้กลืนกับพื้นหลังของแท็บที่เปิดอยู่
-const THEME = { health: "#0c1014", money: "#0f120e", weather: "#faf4e4" };
+const THEME = { me: "#0f1215", more: "#0f1215", health: "#0c1014", money: "#0f120e", weather: "#14100b" };
 
 let shell, view, bar, themeMeta;
 let curIdx = 0; // แท็บที่เปิดอยู่ (index ใน TABS) — ใช้คำนวณทิศสไลด์เวลากดหรือปัด
@@ -106,9 +106,7 @@ function goTab(id, opts = {}) {
   shell.dataset.tab = id;
   for (const b of bar.children) b.classList.toggle("on", b.dataset.tab === id);
 
-  const bg = THEME[id];
-  themeMeta.content =
-    bg ?? (matchMedia("(prefers-color-scheme: dark)").matches ? "#121417" : "#f7f5f0");
+  themeMeta.content = THEME[id] ?? "#0f1215";
 
   const tab = TABS.find((t) => t.id === id);
   view.scrollTop = 0;

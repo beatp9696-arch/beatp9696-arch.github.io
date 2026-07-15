@@ -31,7 +31,7 @@ body.mode-app {
 }
 
 #shell[data-tab="weather"] #shell-view {
-  background: #faf5e9;
+  background: #14100b;
 }
 
 #shell-view > .view,
@@ -121,10 +121,10 @@ body.mode-app {
 }
 
 #shell[data-tab="weather"] #tabbar {
-  background: rgba(250, 245, 233, 0.92);
-  border-top-color: #e7ddc7;
-  --tb-muted: #9c9078;
-  --tb-on: #b4552d;
+  background: rgba(20, 16, 11, 0.9);
+  border-top-color: rgba(255, 255, 255, 0.08);
+  --tb-muted: #8a7d6b;
+  --tb-on: #e58a4d;
 }
 
 .tab {

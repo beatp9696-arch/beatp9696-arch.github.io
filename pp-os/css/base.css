@@ -41,23 +41,23 @@
   --font-mono: "IBM Plex Mono", ui-monospace, SFMono-Regular, monospace;
   --font-serif: "Instrument Serif", "Iowan Old Style", Georgia, serif;
 
-  /* พื้นผิว: ครีมอุ่นแบบ Moatrices — ปรับให้สะอาดขึ้น คอนทราสต์คมขึ้น */
-  --bg: #f6f4ef;
-  --surface: #ffffff;
-  --surface-glass: rgba(255, 255, 255, 0.82);
-  --text: #14181b;
-  --muted: #6b7178;
-  --accent: #0c6b52;
-  --accent-strong: #095842;
-  --accent-tint: #e8f1ed;
-  --on-accent: #ffffff;
-  --border: #e6e2d9;
-  --key: #f0ede6;
+  /* ธีมดำทั้งแอป (บังคับ ไม่ตามระบบ) — ทุกแอปอยู่บนพื้นเข้มชุดเดียวกัน ให้รู้สึกเป็น OS เดียว */
+  --bg: #0f1215;
+  --surface: #171b1f;
+  --surface-glass: rgba(23, 27, 31, 0.84);
+  --text: #e9edf1;
+  --muted: #949aa1;
+  --accent: #4ecaa0;
+  --accent-strong: #6fd9b4;
+  --accent-tint: #14302a;
+  --on-accent: #0f1215;
+  --border: #282d33;
+  --key: #21262c;
 
   /* เงาเป็นชั้น (ambient + direct) แบบเดียวกับ UI ของ Apple — ใบเดียวจะดูแบน */
-  --shadow-sm: 0 1px 2px rgba(16, 20, 24, 0.05);
-  --shadow-md: 0 1px 2px rgba(16, 20, 24, 0.05), 0 8px 24px -12px rgba(16, 20, 24, 0.18);
-  --shadow-lg: 0 2px 6px rgba(16, 20, 24, 0.06), 0 24px 60px -20px rgba(16, 20, 24, 0.3);
+  --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.4);
+  --shadow-md: 0 1px 2px rgba(0, 0, 0, 0.4), 0 12px 32px -16px rgba(0, 0, 0, 0.8);
+  --shadow-lg: 0 2px 8px rgba(0, 0, 0, 0.5), 0 30px 70px -24px rgba(0, 0, 0, 0.9);
 
   --radius: 14px;
   --taskbar-h: 52px;
@@ -70,25 +70,6 @@
   --ease: cubic-bezier(0.22, 0.7, 0.2, 1);
   --spring: cubic-bezier(0.34, 1.4, 0.5, 1);
   --dur: 240ms;
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --bg: #0f1215;
-    --surface: #171b1f;
-    --surface-glass: rgba(23, 27, 31, 0.84);
-    --text: #e9edf1;
-    --muted: #949aa1;
-    --accent: #4ecaa0;
-    --accent-strong: #6fd9b4;
-    --accent-tint: #14302a;
-    --on-accent: #0f1215;
-    --border: #282d33;
-    --key: #21262c;
-    --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.4);
-    --shadow-md: 0 1px 2px rgba(0, 0, 0, 0.4), 0 12px 32px -16px rgba(0, 0, 0, 0.8);
-    --shadow-lg: 0 2px 8px rgba(0, 0, 0, 0.5), 0 30px 70px -24px rgba(0, 0, 0, 0.9);
-  }
 }
 
 html,

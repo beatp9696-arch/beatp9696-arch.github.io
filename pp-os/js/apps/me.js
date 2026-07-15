@@ -1,6 +1,6 @@
 import { load, save } from "../core/storage.js";
 import { exportData } from "../core/app-shell.js";
-import { DEFAULT_LOC, describe, fetchForecast } from "./weather.js";
+import { DEFAULT_LOC, aqiLevel, describe, fetchAirQuality, fetchForecast } from "./weather.js";
 import { countUp, flush, stagger, money0, dateLong } from "../core/ui.js";
 
 // หน้า Me — แดชบอร์ดชีวิตวันนี้ อ่านข้อมูลจากทุกแอปมารวมในจอเดียว
@@ -260,19 +260,26 @@ export default {
 
       // ---- อากาศ: cache ก่อนเสมอ แล้วค่อยอัปเดตเบื้องหลัง ----
       const wxBody = body.querySelector(".wx-body");
-      const paint = (data) => {
+      const paint = (data, air) => {
         const c = data.current;
         const w = describe(c.weather_code);
+        const aqi = air?.current?.us_aqi;
+        const lvl = aqiLevel(aqi);
         wxBody.innerHTML = `
           <div class="wx-line"><span class="e">${w.e}</span><span class="t">${Math.round(c.temperature_2m)}°</span></div>
-          <div class="fin-sub">${w.t} · high ${Math.round(data.daily.temperature_2m_max[0])}°</div>`;
+          <div class="fin-sub">${w.t} · high ${Math.round(data.daily.temperature_2m_max[0])}°</div>
+          <div class="wx-meta">
+            <span class="wx-m">Humidity <b>${c.relative_humidity_2m}%</b></span>
+            ${lvl ? `<span class="wx-m"><i class="aqi-dot" style="background:${lvl.c}"></i>AQI <b>${Math.round(aqi)}</b></span>` : ""}
+          </div>`;
       };
+      const loc = load("weather.loc", DEFAULT_LOC);
       const cached = load("weather.cache");
-      if (cached) paint(cached.data);
-      fetchForecast(load("weather.loc", DEFAULT_LOC))
-        .then((data) => {
-          save("weather.cache", { data, ts: Date.now() });
-          if (body.isConnected) paint(data);
+      if (cached) paint(cached.data, cached.air);
+      Promise.all([fetchForecast(loc), fetchAirQuality(loc).catch(() => null)])
+        .then(([data, air]) => {
+          save("weather.cache", { data, air, ts: Date.now() });
+          if (body.isConnected) paint(data, air);
         })
         .catch(() => {
           if (!cached && body.isConnected) wxBody.innerHTML = `<div class="fin-sub">Offline</div>`;

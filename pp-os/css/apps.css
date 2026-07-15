@@ -988,19 +988,19 @@ body.mode-app .hk-sheet {
    Weather — Acme: กระดาษครีม หัวเรื่อง serif
    ============================================================ */
 .app-weather {
-  --canvas: #faf5e9;
-  --card: #fffdf7;
-  --card-2: rgba(51, 41, 28, 0.04);
-  --line: #e7ddc7;
-  --ink: #2f261a;
-  --dim: #8d8168;
-  --a: #b4552d;
-  --a-soft: rgba(180, 85, 45, 0.09);
-  --on-a: #fff;
-  --rain: #3f7bbf;
-  --elev: 0 1px 2px rgba(80, 62, 35, 0.05), 0 10px 26px -16px rgba(80, 62, 35, 0.3);
+  --canvas: #14100b;
+  --card: #1e1811;
+  --card-2: rgba(255, 255, 255, 0.045);
+  --line: rgba(255, 255, 255, 0.08);
+  --ink: #f2ebe0;
+  --dim: #a99a85;
+  --a: #e58a4d;
+  --a-soft: rgba(229, 138, 77, 0.13);
+  --on-a: #17110b;
+  --rain: #5aa0e0;
+  --elev: 0 1px 2px rgba(0, 0, 0, 0.4), 0 12px 32px -18px rgba(0, 0, 0, 0.9);
   background:
-    radial-gradient(700px 400px at 88% -12%, rgba(180, 85, 45, 0.07), transparent 66%),
+    radial-gradient(700px 400px at 88% -12%, rgba(229, 138, 77, 0.12), transparent 66%),
     var(--canvas);
 }
 
@@ -1713,6 +1713,43 @@ body.mode-app .hk-sheet {
   font-size: 11.5px;
   color: var(--dim);
   line-height: 1.45;
+}
+
+/* ความชื้น + AQI ใต้การ์ดอากาศในหน้า Me */
+.wx-meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 3px 12px;
+  margin-top: 9px;
+  font-size: 11.5px;
+  color: var(--dim);
+}
+
+.wx-m {
+  display: inline-flex;
+  align-items: center;
+}
+
+.wx-meta b {
+  color: var(--ink);
+  font-weight: 600;
+  font-variant-numeric: tabular-nums;
+  margin-left: 3px;
+}
+
+/* จุดสีระดับ AQI — ใช้ทั้งการ์ด Me และชิปในแอป Weather */
+.aqi-dot {
+  display: inline-block;
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  margin-right: 5px;
+  vertical-align: middle;
+  flex-shrink: 0;
+}
+
+.chip.aqi {
+  align-items: center;
 }
 
 .me-todo-add {

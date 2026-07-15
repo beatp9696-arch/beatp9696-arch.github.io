@@ -40,6 +40,31 @@ export async function fetchForecast({ lat, lon }) {
   return res.json();
 }
 
+// คุณภาพอากาศ — คนละ endpoint กับพยากรณ์ (Open-Meteo Air Quality) ฟรี ไม่ต้องมี key เหมือนกัน
+export async function fetchAirQuality({ lat, lon }) {
+  const u = new URL("https://air-quality-api.open-meteo.com/v1/air-quality");
+  u.search = new URLSearchParams({
+    latitude: lat,
+    longitude: lon,
+    current: "us_aqi,pm2_5",
+    timezone: "auto",
+  });
+  const res = await fetch(u);
+  if (!res.ok) throw new Error(`HTTP ${res.status}`);
+  return res.json();
+}
+
+// แปลงค่า US AQI → ระดับ + สีเตือน (มาตรฐาน EPA)
+export function aqiLevel(aqi) {
+  if (aqi == null || !Number.isFinite(aqi)) return null;
+  if (aqi <= 50) return { label: "Good", c: "#3fb950" };
+  if (aqi <= 100) return { label: "Moderate", c: "#d4a72c" };
+  if (aqi <= 150) return { label: "Sensitive", c: "#f0883e" };
+  if (aqi <= 200) return { label: "Unhealthy", c: "#e5534b" };
+  if (aqi <= 300) return { label: "Very unhealthy", c: "#bc4fce" };
+  return { label: "Hazardous", c: "#a11f2f" };
+}
+
 // เส้นโค้งลื่นผ่านทุกจุด (Catmull-Rom → Bézier) — เส้นหักศอกทำให้กราฟดูเป็นแผนภูมิราชการ
 function smoothPath(pts) {
   if (pts.length < 3) return pts.map((p, i) => `${i ? "L" : "M"}${p.x},${p.y}`).join(" ");
@@ -136,10 +161,12 @@ export default {
     const main = body.querySelector(".wx-main");
     locEl.textContent = loc.label;
 
-    const render = (data, ts, stale = false) => {
+    const render = (data, ts, stale = false, air = null) => {
       const c = data.current;
       const now = describe(c.weather_code);
       const d = data.daily;
+      const aqi = air?.current?.us_aqi;
+      const lvl = aqiLevel(aqi);
 
       // สเกลร่วมทั้งสัปดาห์ — pill ของแต่ละวันวางบนแกน min→max เดียวกัน เทียบข้ามวันได้ด้วยตา
       const weekMin = Math.min(...d.temperature_2m_min);
@@ -162,6 +189,7 @@ export default {
             <span class="chip">High / Low <b>${Math.round(d.temperature_2m_max[0])}° / ${Math.round(d.temperature_2m_min[0])}°</b></span>
             <span class="chip">Humidity <b>${c.relative_humidity_2m}%</b></span>
             <span class="chip">Wind <b>${Math.round(c.wind_speed_10m)}</b> km/h</span>
+            ${lvl ? `<span class="chip aqi"><i class="aqi-dot" style="background:${lvl.c}"></i>AQI <b>${Math.round(aqi)}</b> ${lvl.label}</span>` : ""}
           </div>
         </div>
 
@@ -211,12 +239,15 @@ export default {
 
     const refresh = async () => {
       const cache = load("weather.cache");
-      if (cache) render(cache.data, cache.ts, true);
+      if (cache) render(cache.data, cache.ts, true, cache.air);
       try {
-        const data = await fetchForecast(loc);
+        const [data, air] = await Promise.all([
+          fetchForecast(loc),
+          fetchAirQuality(loc).catch(() => null), // AQI ล้มก็ยังโชว์อากาศได้ ไม่ให้ทั้งหน้าพัง
+        ]);
         const ts = Date.now();
-        save("weather.cache", { data, ts });
-        render(data, ts);
+        save("weather.cache", { data, air, ts });
+        render(data, ts, false, air);
       } catch {
         if (!cache) main.innerHTML = `<div class="card"><div class="empty">Couldn't load — check your connection and hit ⟳</div></div>`;
       }
