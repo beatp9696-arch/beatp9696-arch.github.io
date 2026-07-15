@@ -226,8 +226,9 @@ body.mode-app {
 #shell[data-tab="money"] #quick-fab { background: #cdf463; color: #161b07; }
 #shell[data-tab="weather"] #quick-fab { background: #b4552d; color: #fff; }
 
-/* อยู่หน้าซ้อน (Notes / เว็บ / Restore) = ซ่อน FAB ไม่ให้เกะกะ */
-#shell.in-sub #quick-fab {
+/* อยู่หน้าซ้อน (Notes / เว็บ / Restore) หรือแท็บ Moatrices (web view) = ซ่อน FAB ไม่ให้เกะกะ */
+#shell.in-sub #quick-fab,
+#shell[data-tab="moatrices"] #quick-fab {
   opacity: 0;
   pointer-events: none;
   transform: scale(0.6);
