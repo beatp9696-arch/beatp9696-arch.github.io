@@ -133,7 +133,7 @@ const SHEET = `
         <span>${IC.watch} Import from Apple Health</span>
         <button class="hk-x" title="Close" aria-label="Close">✕</button>
       </div>
-      <p class="hk-p">The web can't read your Apple Watch or Health app directly — Apple only opens HealthKit to native apps. But everything your Series 5 records lands in the Health app, and PP OS reads it from there. Pick a file or paste it — parsed on this device, never uploaded.</p>
+      <p class="hk-p">The web can't read your Apple Watch or Health app directly — Apple only opens HealthKit to native apps. But everything your Series 5 records lands in the Health app, and Moatrices reads it from there. Pick a file or paste it — parsed on this device, never uploaded.</p>
 
       <label class="hk-drop">
         <input type="file" accept=".zip,.xml,.json" class="hk-file" hidden>
@@ -185,7 +185,7 @@ export default {
     body.innerHTML = `
       <header class="page-head">
         <div>
-          <div class="eyebrow">PP · Health</div>
+          <div class="eyebrow">Moatrices · Health</div>
           <h1 class="page-title">Today</h1>
           <div class="page-sub">${dateLong()}</div>
         </div>

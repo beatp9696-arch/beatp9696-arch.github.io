@@ -14,7 +14,7 @@ import { load, save, remove, syncSnapshot, applySync, onDataChange } from "./sto
 
 const API = "https://api.github.com";
 const FILE = "pp-os.json";
-const DESC = "PP OS — private sync (do not edit by hand)";
+const DESC = "Moatrices — private sync (do not edit by hand)";
 const PUSH_DEBOUNCE = 4000; // รอ 4 วิหลังหยุดพิมพ์/แก้ ค่อย sync — กันยิงถี่
 
 // เฉพาะข้อมูลผู้ใช้จริงที่ควรข้ามเครื่อง (allowlist — ปลอดภัยกว่า denylist: ของใหม่ที่ยังไม่ตั้งใจ

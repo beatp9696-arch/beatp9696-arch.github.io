@@ -28,6 +28,24 @@
   <link rel="preload" as="font" type="font/woff2" href="fonts/sarabun-400-thai.woff2" crossorigin>
   <link rel="preload" as="font" type="font/woff2" href="fonts/sarabun-400-latin.woff2" crossorigin>
   <link rel="stylesheet" href="style.min.css">
+  <style>
+    /* ปุ่มเข้าแอป Moatrices บนหน้าแรก */
+    .app-cta{display:flex;align-items:center;gap:16px;margin:0 0 38px;padding:17px 20px;
+      background:var(--surface);border:1px solid var(--border);border-radius:16px;
+      box-shadow:var(--shadow-sm);text-decoration:none;color:var(--text);
+      transition:border-color .16s ease,transform .12s ease,box-shadow .16s ease}
+    .app-cta:hover{border-color:var(--accent);transform:translateY(-1px);box-shadow:var(--shadow-md)}
+    .app-cta-icon{width:48px;height:48px;flex:none;border-radius:13px;display:grid;place-items:center;
+      background:var(--accent-tint);color:var(--accent)}
+    .app-cta-icon svg{width:26px;height:26px}
+    .app-cta-body{flex:1;min-width:0;display:flex;flex-direction:column;gap:3px}
+    .app-cta-kicker{font-family:var(--font-head);font-size:11px;font-weight:600;letter-spacing:.06em;
+      text-transform:uppercase;color:var(--accent)}
+    .app-cta-title{font-family:var(--font-head);font-size:18px;font-weight:700;color:var(--text);line-height:1.25}
+    .app-cta-sub{font-size:13.5px;color:var(--muted);line-height:1.5}
+    .app-cta-go{flex:none;font-family:var(--font-head);font-weight:700;font-size:14px;color:var(--accent)}
+    @media(max-width:540px){.app-cta{gap:13px;padding:15px 16px}.app-cta-go{display:none}}
+  </style>
   <script type="application/ld+json">
   {"@context": "https://schema.org", "@type": "WebSite", "name": "Moatrices", "url": "https://beatp9696-arch.github.io/", "description": "บันทึกการเรียนวิเคราะห์หุ้น US เชิงลึก เน้นพื้นฐานธุรกิจ ไม่ใช่ราคา", "inLanguage": "th", "author": {"@type": "Person", "name": "Moatrices"}}
   </script>
@@ -136,6 +154,18 @@
         </div>
         </div>
       </div>
+
+      <a class="app-cta" href="/pp-os/">
+        <span class="app-cta-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 20h16"/><rect x="5" y="12" width="3.4" height="6" rx="1"/><rect x="10.3" y="8" width="3.4" height="10" rx="1"/><rect x="15.6" y="4" width="3.4" height="14" rx="1"/></svg>
+        </span>
+        <span class="app-cta-body">
+          <span class="app-cta-kicker">แอป · ใหม่</span>
+          <span class="app-cta-title">เปิดแอป Moatrices</span>
+          <span class="app-cta-sub">สุขภาพ · การเงิน · อากาศ · Discover หุ้น — รวมในแอปเดียว ติดตั้งบนมือถือได้ ข้อมูลอยู่ในเครื่องคุณ</span>
+        </span>
+        <span class="app-cta-go">เปิด →</span>
+      </a>
 
       <p>
         ที่นี่ไม่ใช่ที่บอกว่า "ซื้อตัวไหนดี" แต่เป็นที่ผมหัด<strong>อ่านธุรกิจให้เป็น</strong>

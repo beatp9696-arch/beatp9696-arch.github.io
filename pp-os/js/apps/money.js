@@ -56,7 +56,7 @@ export default {
     body.innerHTML = `
       <header class="page-head">
         <div>
-          <div class="eyebrow">PP · Money</div>
+          <div class="eyebrow">Moatrices · Money</div>
           <h1 class="page-title">Balance</h1>
         </div>
         <div class="head-actions">

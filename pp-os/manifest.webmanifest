@@ -1,13 +1,13 @@
 {
-  "name": "PP OS — personal app",
-  "short_name": "PP OS",
-  "description": "Me, Health, Money, Weather — one personal app. Data stays on your device and works offline.",
+  "name": "Moatrices — personal app",
+  "short_name": "Moatrices",
+  "description": "Health, Money, Weather, Stocks — one personal app. Data stays on your device and works offline.",
   "start_url": "./",
   "scope": "./",
   "display": "standalone",
   "orientation": "portrait",
-  "background_color": "#f6f4ef",
-  "theme_color": "#0c6b52",
+  "background_color": "#0f1215",
+  "theme_color": "#0f1215",
   "lang": "en",
   "icons": [
     { "src": "assets/icons/icon-192.png", "sizes": "192x192", "type": "image/png" },

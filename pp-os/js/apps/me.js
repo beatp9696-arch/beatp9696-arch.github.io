@@ -116,7 +116,7 @@ export default {
             <button class="me-gear" aria-label="Settings" title="Settings">
               <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3.2"/><path d="M12 3.5v2M12 18.5v2M3.5 12h2M18.5 12h2M5.9 5.9l1.4 1.4M16.7 16.7l1.4 1.4M18.1 5.9l-1.4 1.4M7.3 16.7l-1.4 1.4"/></svg>
             </button>
-            <div class="me-av">${name ? name.trim().slice(0, 2) : "PP"}</div>
+            <div class="me-av">${name ? name.trim().slice(0, 2) : "MO"}</div>
           </div>
         </header>
 

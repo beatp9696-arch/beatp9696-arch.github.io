@@ -211,7 +211,7 @@ function openSettings() {
         </button>
       </div>
 
-      <div class="more-foot">PP OS · Your data lives on your own devices. Sync uses a private GitHub Gist that you own — there is no PP OS server.</div>
+      <div class="more-foot">Moatrices · Your data lives on your own devices. Sync uses a private GitHub Gist that you own — there is no Moatrices server.</div>
       <div class="sheet-host"></div>
     </div>
   `;
@@ -415,7 +415,7 @@ function openRestore(ov, afterChange) {
         <label class="sheet-drop">
           <input type="file" accept=".json,application/json" hidden>
           <b>Choose a backup file</b>
-          <small>Exported from PP OS on any device</small>
+          <small>Exported from Moatrices on any device</small>
         </label>
         <div class="sheet-status"></div>
         <div class="sheet-actions hidden">
@@ -449,7 +449,7 @@ function openRestore(ov, afterChange) {
       if (!data || typeof data !== "object" || Array.isArray(data)) throw new Error("unexpected shape");
 
       const known = summarize(data);
-      if (!known.length) throw new Error("no PP OS data inside");
+      if (!known.length) throw new Error("no Moatrices data inside");
 
       payload = data;
       const when = raw.exported
@@ -460,7 +460,7 @@ function openRestore(ov, afterChange) {
       actions.classList.remove("hidden");
     } catch (err) {
       status.className = "sheet-status err";
-      status.textContent = `That file isn't a PP OS backup — ${err.message}`;
+      status.textContent = `That file isn't a Moatrices backup — ${err.message}`;
     }
   });
 
