@@ -1,0 +1,883 @@
+<title>สรุปผู้บริหาร — Personal Life Management App</title>
+<style>
+:root {
+  --bg: #F2F0F9;
+  --surface: #FFFFFF;
+  --surface-2: #E8E3F8;
+  --ink: #1C1830;
+  --ink-2: #443D6A;
+  --muted: #7B729C;
+  --accent: #5A4EDE;
+  --accent-lt: #EBE8FD;
+  --gold: #CC7A1A;
+  --gold-lt: #FDF3E3;
+  --ok: #1A9C68;
+  --ok-lt: #E2F6EF;
+  --warn: #B87D00;
+  --warn-lt: #FFF6DC;
+  --risk: #C43434;
+  --risk-lt: #FDE8E8;
+  --border: #DDD7EF;
+  --sw: 210px;
+  --cmax: 740px;
+  --r: 8px;
+  --r-sm: 5px;
+}
+@media (prefers-color-scheme: dark) {
+  :root {
+    --bg: #0F0D1C;
+    --surface: #19162E;
+    --surface-2: #221E3D;
+    --ink: #E8E3FF;
+    --ink-2: #B3ABDC;
+    --muted: #9288BB;
+    --accent: #8B7EFF;
+    --accent-lt: #231B50;
+    --gold: #F09A3A;
+    --gold-lt: #3A200D;
+    --ok: #2CC07E;
+    --ok-lt: #0D3025;
+    --warn: #F0C040;
+    --warn-lt: #342700;
+    --risk: #F07070;
+    --risk-lt: #3D0F0F;
+    --border: #2B2645;
+  }
+}
+:root[data-theme="dark"] {
+  --bg: #0F0D1C; --surface: #19162E; --surface-2: #221E3D;
+  --ink: #E8E3FF; --ink-2: #B3ABDC; --muted: #9288BB;
+  --accent: #8B7EFF; --accent-lt: #231B50;
+  --gold: #F09A3A; --gold-lt: #3A200D;
+  --ok: #2CC07E; --ok-lt: #0D3025;
+  --warn: #F0C040; --warn-lt: #342700;
+  --risk: #F07070; --risk-lt: #3D0F0F;
+  --border: #2B2645;
+}
+:root[data-theme="light"] {
+  --bg: #F2F0F9; --surface: #FFFFFF; --surface-2: #E8E3F8;
+  --ink: #1C1830; --ink-2: #443D6A; --muted: #7B729C;
+  --accent: #5A4EDE; --accent-lt: #EBE8FD;
+  --gold: #CC7A1A; --gold-lt: #FDF3E3;
+  --ok: #1A9C68; --ok-lt: #E2F6EF;
+  --warn: #B87D00; --warn-lt: #FFF6DC;
+  --risk: #C43434; --risk-lt: #FDE8E8;
+  --border: #DDD7EF;
+}
+
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{font-size:16px;scroll-behavior:smooth}
+body{background:var(--bg);color:var(--ink);font-family:ui-sans-serif,system-ui,-apple-system,sans-serif;font-size:1rem;line-height:1.72;min-height:100vh}
+
+#prog{position:fixed;top:0;left:0;height:3px;background:var(--accent);width:0;z-index:999;pointer-events:none;transition:width .08s linear}
+
+.wrap{display:flex;max-width:calc(var(--sw) + var(--cmax) + 88px);margin:0 auto;padding:0 24px;gap:48px;align-items:flex-start}
+
+/* ── Sidebar ── */
+.toc{width:var(--sw);flex:none;position:sticky;top:36px;padding:32px 0 32px;max-height:calc(100vh - 72px);overflow-y:auto}
+.toc-head{font-size:.68rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);margin-bottom:14px;padding-left:10px}
+.toc ul{list-style:none}
+.toc li{margin-bottom:1px}
+.toc a{display:block;padding:6px 10px;border-radius:var(--r-sm);font-size:.8rem;color:var(--muted);text-decoration:none;transition:color .12s,background .12s;line-height:1.45}
+.toc a:hover{color:var(--accent);background:var(--accent-lt)}
+.toc a.on{color:var(--accent);background:var(--accent-lt);font-weight:600}
+
+/* ── Content ── */
+.content{flex:1;min-width:0;max-width:var(--cmax);padding:48px 0 96px}
+
+/* ── Doc header ── */
+.doc-eye{display:block;font-size:.68rem;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--accent);margin-bottom:12px}
+.doc-title{font-size:clamp(1.8rem,5vw,2.6rem);font-weight:900;line-height:1.18;letter-spacing:-.02em;color:var(--ink);text-wrap:balance;margin-bottom:14px}
+.doc-meta{display:flex;flex-wrap:wrap;gap:8px 16px;font-size:.78rem;color:var(--muted);margin-bottom:28px}
+.doc-meta span+span::before{content:'·';margin-right:16px}
+.exec-box{background:var(--accent-lt);border-left:3px solid var(--accent);border-radius:0 var(--r) var(--r) 0;padding:20px 24px;font-size:.92rem;line-height:1.78;color:var(--ink-2);margin-bottom:56px}
+
+/* ── Section ── */
+.sec{margin-bottom:64px}
+.sec-eye{font-size:.65rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--accent);margin-bottom:8px;display:flex;align-items:center;gap:8px}
+.sec-eye::before{content:'';display:inline-block;width:18px;height:2px;background:var(--accent);opacity:.45}
+.sec-h{font-size:1.45rem;font-weight:800;color:var(--ink);text-wrap:balance;margin-bottom:6px}
+.sec-sub{font-size:.85rem;color:var(--muted);line-height:1.6;margin-bottom:20px}
+
+/* ── Chips ── */
+.chip{display:inline-block;font-size:.65rem;font-weight:700;padding:2px 7px;border-radius:3px;letter-spacing:.02em}
+.c-acc{background:var(--accent-lt);color:var(--accent)}
+.c-ok{background:var(--ok-lt);color:var(--ok)}
+.c-warn{background:var(--warn-lt);color:var(--warn)}
+.c-risk{background:var(--risk-lt);color:var(--risk)}
+.c-neu{background:var(--surface-2);color:var(--muted)}
+
+/* ── Competitor cards ── */
+.comp-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+.comp-card{background:var(--surface);border:1px solid var(--border);border-radius:var(--r);padding:18px 20px;transition:border-color .15s,box-shadow .15s}
+.comp-card:hover{border-color:var(--accent);box-shadow:0 2px 12px color-mix(in srgb,var(--accent) 12%,transparent)}
+.comp-top{display:flex;justify-content:space-between;align-items:flex-start;gap:8px;margin-bottom:8px}
+.comp-name{font-size:.95rem;font-weight:800;color:var(--ink)}
+.plat{font-size:.63rem;font-weight:700;padding:2px 7px;border-radius:99px;background:var(--surface-2);color:var(--muted);white-space:nowrap;flex:none}
+.comp-feat{font-size:.78rem;color:var(--ink-2);line-height:1.55;margin-bottom:10px}
+.pc-row{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:10px}
+.pc-block{font-size:.74rem;line-height:1.5}
+.pc-lbl{font-size:.62rem;font-weight:700;text-transform:uppercase;letter-spacing:.08em;margin-bottom:3px}
+.pc-ok .pc-lbl{color:var(--ok)}
+.pc-bad .pc-lbl{color:var(--muted)}
+.pc-ok p{color:var(--ink-2)}
+.pc-bad p{color:var(--muted)}
+.price-row{display:flex;gap:6px;flex-wrap:wrap;align-items:center}
+
+/* ── Feature list ── */
+.feat-list{display:flex;flex-direction:column;gap:12px}
+.feat-card{background:var(--surface);border:1px solid var(--border);border-radius:var(--r);padding:18px 22px;display:grid;grid-template-columns:44px 1fr;gap:0 16px}
+.feat-icon{width:44px;height:44px;border-radius:var(--r-sm);background:var(--accent-lt);display:flex;align-items:center;justify-content:center;font-size:20px;flex:none;grid-row:1/4;align-self:start}
+.feat-name{font-size:.95rem;font-weight:800;color:var(--ink);margin-bottom:4px}
+.feat-desc{font-size:.82rem;color:var(--ink-2);line-height:1.56;margin-bottom:8px}
+.feat-chips{display:flex;flex-wrap:wrap;gap:5px}
+
+/* ── Integration grid ── */
+.int-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.int-card{background:var(--surface);border:1px solid var(--border);border-radius:var(--r);padding:16px 18px}
+.int-head{display:flex;align-items:center;gap:10px;margin-bottom:6px}
+.int-ico{width:28px;height:28px;border-radius:5px;background:var(--accent-lt);display:flex;align-items:center;justify-content:center;font-size:14px;flex:none}
+.int-title{font-size:.85rem;font-weight:700;color:var(--ink)}
+.int-body{font-size:.78rem;color:var(--muted);line-height:1.55}
+
+/* ── ER Diagram ── */
+.diagram-wrap{background:var(--surface);border:1px solid var(--border);border-radius:var(--r);padding:24px;overflow-x:auto}
+.diagram-cap{font-size:.75rem;color:var(--muted);text-align:center;margin-top:10px}
+
+/* ── Checklist ── */
+.cl-list{display:flex;flex-direction:column}
+.cl-item{display:grid;grid-template-columns:28px 1fr;gap:12px;padding:14px 0;border-bottom:1px solid var(--border);align-items:flex-start}
+.cl-item:last-child{border-bottom:none}
+.cl-dot{width:22px;height:22px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:.7rem;font-weight:800;flex:none;margin-top:1px}
+.cl-dot-ok{background:var(--ok-lt);color:var(--ok)}
+.cl-dot-warn{background:var(--warn-lt);color:var(--warn)}
+.cl-name{font-size:.88rem;font-weight:700;color:var(--ink);margin-bottom:3px}
+.cl-body{font-size:.78rem;color:var(--muted);line-height:1.55}
+
+/* ── A/B cards ── */
+.ab-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.ab-card{background:var(--surface);border:1px solid var(--border);border-radius:var(--r);padding:16px 18px}
+.ab-lbl{font-size:.62rem;font-weight:700;text-transform:uppercase;letter-spacing:.1em;color:var(--accent);margin-bottom:6px}
+.ab-h{font-size:.88rem;font-weight:700;color:var(--ink);line-height:1.4;margin-bottom:6px}
+.ab-m{font-size:.75rem;color:var(--muted)}
+
+/* ── Metrics row ── */
+.metrics-row{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-bottom:24px}
+.metric-box{background:var(--surface);border:1px solid var(--border);border-radius:var(--r);padding:14px 18px}
+.metric-val{font-size:1.3rem;font-weight:800;color:var(--accent);font-variant-numeric:tabular-nums;line-height:1}
+.metric-lbl{font-size:.72rem;color:var(--muted);margin-top:4px}
+
+/* ── Roadmap ── */
+.roadmap{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
+.rm-card{background:var(--surface);border:1px solid var(--border);border-radius:var(--r);overflow:hidden}
+.rm-head{padding:16px 18px;border-bottom:1px solid var(--border)}
+.rm-mvp .rm-head{background:var(--accent-lt);border-color:color-mix(in srgb,var(--accent) 20%,transparent)}
+.rm-p2 .rm-head{background:var(--gold-lt);border-color:color-mix(in srgb,var(--gold) 20%,transparent)}
+.rm-p3 .rm-head{background:var(--surface-2)}
+.rm-phase{font-size:.6rem;font-weight:700;text-transform:uppercase;letter-spacing:.12em;color:var(--muted);margin-bottom:3px}
+.rm-name{font-size:1rem;font-weight:900;color:var(--ink);margin-bottom:2px}
+.rm-time{font-size:.72rem;color:var(--muted)}
+.rm-body{padding:14px 18px}
+.rm-list{list-style:none;display:flex;flex-direction:column;gap:6px}
+.rm-list li{font-size:.78rem;color:var(--ink-2);display:flex;gap:7px;line-height:1.45;align-items:flex-start}
+.rm-arr{color:var(--accent);flex:none;margin-top:1px;font-size:.72rem}
+.rm-effort{font-size:.72rem;color:var(--muted);margin-top:12px;padding-top:10px;border-top:1px solid var(--border)}
+
+/* ── Personalization cards ── */
+.pers-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.pers-card{background:var(--surface);border:1px solid var(--border);border-radius:var(--r);padding:16px 18px}
+.pers-head{display:flex;align-items:center;gap:10px;margin-bottom:6px}
+.pers-ico{font-size:20px}
+.pers-title{font-size:.88rem;font-weight:700;color:var(--ink)}
+.pers-body{font-size:.78rem;color:var(--muted);line-height:1.55}
+
+/* ── Microcopy ── */
+.mc-group{margin-bottom:20px}
+.mc-lbl{font-size:.65rem;font-weight:700;text-transform:uppercase;letter-spacing:.1em;color:var(--muted);margin-bottom:8px}
+.mc-list{display:flex;flex-direction:column;gap:5px}
+.mc-item{background:var(--surface);border:1px solid var(--border);border-radius:var(--r-sm);padding:9px 13px;font-size:.84rem;color:var(--ink-2);display:flex;align-items:flex-start;gap:10px;line-height:1.5}
+.mc-tag{font-size:.6rem;font-weight:700;background:var(--accent-lt);color:var(--accent);padding:2px 6px;border-radius:3px;white-space:nowrap;flex:none;margin-top:2px}
+.mc-tag-notif{background:var(--gold-lt);color:var(--gold)}
+.mc-tag-btn{background:var(--ok-lt);color:var(--ok)}
+.mc-tag-err{background:var(--risk-lt);color:var(--risk)}
+
+/* ── Responsive ── */
+@media(max-width:900px){
+  .wrap{flex-direction:column;gap:0;padding:0 16px}
+  .toc{display:none}
+  .content{padding:24px 0 64px}
+  .comp-grid,.int-grid,.ab-grid,.pers-grid,.roadmap{grid-template-columns:1fr}
+  .pc-row{grid-template-columns:1fr}
+  .metrics-row{grid-template-columns:1fr 1fr}
+}
+@media(max-width:480px){
+  .feat-card{grid-template-columns:1fr}
+  .feat-icon{display:none}
+  .metrics-row{grid-template-columns:1fr}
+}
+@media(prefers-reduced-motion:reduce){*{transition:none!important}}
+</style>
+
+<div id="prog"></div>
+
+<div class="wrap">
+
+  <!-- ── Sidebar TOC ── -->
+  <aside class="toc">
+    <p class="toc-head">สารบัญ</p>
+    <ul>
+      <li><a href="#exec">บทสรุปผู้บริหาร</a></li>
+      <li><a href="#competitors">แอปคู่แข่ง</a></li>
+      <li><a href="#features">ฟีเจอร์สำคัญ</a></li>
+      <li><a href="#architecture">Information Architecture</a></li>
+      <li><a href="#integrations">การบูรณาการ</a></li>
+      <li><a href="#personalization">Personalization</a></li>
+      <li><a href="#data-model">Data Model</a></li>
+      <li><a href="#microcopy">UI Microcopy</a></li>
+      <li><a href="#privacy">ความเป็นส่วนตัว & กฎหมาย</a></li>
+      <li><a href="#ab">A/B Testing</a></li>
+      <li><a href="#roadmap">MVP Roadmap</a></li>
+    </ul>
+  </aside>
+
+  <!-- ── Main Content ── -->
+  <main class="content">
+
+    <!-- Header -->
+    <header style="margin-bottom:0">
+      <span class="doc-eye">เอกสารกลยุทธ์ผลิตภัณฑ์ · 2026</span>
+      <h1 class="doc-title">Personal Life<br>Management App</h1>
+      <div class="doc-meta">
+        <span>Product Strategy</span>
+        <span>Executive Summary</span>
+        <span>ภาษาไทย</span>
+      </div>
+    </header>
+
+    <!-- Exec Summary -->
+    <section class="sec" id="exec">
+      <div class="sec-eye">บทสรุป</div>
+      <h2 class="sec-h">บทสรุปผู้บริหาร</h2>
+      <div class="exec-box">
+        แอปจัดการชีวิตส่วนบุคคลควรมุ่ง <strong>รวมศูนย์</strong> ฟังก์ชันหลักในชีวิตประจำวันเข้าไว้ด้วยกัน — งาน, เป้าหมายและนิสัย, สุขภาพ, โภชนาการ, การนอน, สุขภาพจิต, การเงิน, ความสัมพันธ์ และบริบทภายนอก — เพื่อให้ผู้ใช้เห็นภาพรวมและจัดการตนเองได้ง่ายขึ้น
+        <br><br>
+        แอปที่ประสบความสำเร็จเชื่อมโยง <strong>เป้าหมายระยะยาว</strong> กับ <strong>กิจกรรมประจำวัน</strong> มีเครื่องมือวิเคราะห์ข้อมูลส่วนบุคคล และสร้างคุณค่าที่วัดได้จริง เช่น อัตราการทำงานเสร็จ จำนวนวันออกกำลังกาย และอัตราการออมเงิน
+        <br><br>
+        ข้อมูลสุขภาพและการเงินมีความอ่อนไหวสูง ต้องปฏิบัติตาม <strong>PDPA/GDPR</strong> อย่างเคร่งครัด และพัฒนาเป็นระยะ <strong>MVP → Phase 2 → Phase 3</strong> โดยเน้นฟีเจอร์หลักก่อนเพื่อ time-to-market ที่เร็วที่สุด
+      </div>
+
+      <!-- Key metrics -->
+      <div class="metrics-row">
+        <div class="metric-box">
+          <div class="metric-val">8</div>
+          <div class="metric-lbl">โดเมนหลักที่ครอบคลุม</div>
+        </div>
+        <div class="metric-box">
+          <div class="metric-val">6</div>
+          <div class="metric-lbl">แอปคู่แข่งที่วิเคราะห์</div>
+        </div>
+        <div class="metric-box">
+          <div class="metric-val">3–6m</div>
+          <div class="metric-lbl">เป้าหมาย MVP</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Competitors -->
+    <section class="sec" id="competitors">
+      <div class="sec-eye">01 · การวิเคราะห์ตลาด</div>
+      <h2 class="sec-h">เปรียบเทียบแอปคู่แข่ง</h2>
+      <p class="sec-sub">แอปที่มีอยู่ในตลาดแต่ละแบบโดดเด่นในด้านใดด้านหนึ่ง แต่ยังขาดการรวมทุกโดเมนไว้ในที่เดียว</p>
+
+      <div class="comp-grid">
+
+        <div class="comp-card">
+          <div class="comp-top">
+            <div class="comp-name">Loom</div>
+            <span class="plat">iOS เท่านั้น</span>
+          </div>
+          <p class="comp-feat">จัดการชีวิตครบวงจร: เชื่อมงาน, เป้าหมาย, ตาราง พร้อม LoomAI แนะนำ และผูก Apple Health</p>
+          <div class="pc-row">
+            <div class="pc-block pc-ok">
+              <div class="pc-lbl">จุดเด่น</div>
+              <p>ครบทุกมิติในแอปเดียว มี AI ช่วยแนะนำ UI ดูดี</p>
+            </div>
+            <div class="pc-block pc-bad">
+              <div class="pc-lbl">ข้อจำกัด</div>
+              <p>จำกัดเฉพาะ iOS ต้องสมัครสมาชิกเพื่อใช้เต็มฟีเจอร์</p>
+            </div>
+          </div>
+          <div class="price-row"><span class="chip c-warn">Freemium</span><span class="chip c-neu">รายเดือน</span></div>
+        </div>
+
+        <div class="comp-card">
+          <div class="comp-top">
+            <div class="comp-name">Life Planner</div>
+            <span class="plat">Android · iOS</span>
+          </div>
+          <p class="comp-feat">จัดการงาน (Todo+ปฏิทิน), เงิน (รายรับ-รายจ่าย), นิสัย, ไดอารี่แบบปลอดภัย พร้อมธีมปรับได้</p>
+          <div class="pc-row">
+            <div class="pc-block pc-ok">
+              <div class="pc-lbl">จุดเด่น</div>
+              <p>All-in-one รวมงาน การเงิน นิสัย บันทึก มีรายงานกราฟการเงิน</p>
+            </div>
+            <div class="pc-block pc-bad">
+              <div class="pc-lbl">ข้อจำกัด</div>
+              <p>ทดลองฟรีเพียง 7–14 วัน UI ไม่ทันสมัยเท่าค่ายใหญ่</p>
+            </div>
+          </div>
+          <div class="price-row"><span class="chip c-warn">Freemium</span><span class="chip c-neu">รายเดือน/ปี</span></div>
+        </div>
+
+        <div class="comp-card">
+          <div class="comp-top">
+            <div class="comp-name">Todoist</div>
+            <span class="plat">ทุกแพลตฟอร์ม</span>
+          </div>
+          <p class="comp-feat">รายการงานและปฏิทิน, ติดตามนิสัย (Recurring Tasks), โปรเจกต์ย่อย, แท็ก, สั่งด้วยเสียง</p>
+          <div class="pc-row">
+            <div class="pc-block pc-ok">
+              <div class="pc-lbl">จุดเด่น</div>
+              <p>UI เรียบง่าย เริ่มใช้ทันที Sync ข้ามอุปกรณ์ วิดเจ็ตหน้าจอ</p>
+            </div>
+            <div class="pc-block pc-bad">
+              <div class="pc-lbl">ข้อจำกัด</div>
+              <p>ฟรีจำกัดจำนวนโปรเจกต์ ฟีเจอร์ปฏิทินขั้นสูงต้องเสียเงิน</p>
+            </div>
+          </div>
+          <div class="price-row"><span class="chip c-ok">Free tier</span><span class="chip c-acc">Pro ~$4/mo</span></div>
+        </div>
+
+        <div class="comp-card">
+          <div class="comp-top">
+            <div class="comp-name">Money Lover</div>
+            <span class="plat">Android · iOS · Web</span>
+          </div>
+          <p class="comp-feat">ติดตามค่าใช้จ่าย, งบประมาณ, เตือนบิล, Sync หลายอุปกรณ์, ผูกธนาคาร (Linked Wallets)</p>
+          <div class="pc-row">
+            <div class="pc-block pc-ok">
+              <div class="pc-lbl">จุดเด่น</div>
+              <p>UI สวย หมวดหมู่ละเอียด รองรับหลายสกุลเงิน เตือนบิลอัตโนมัติ</p>
+            </div>
+            <div class="pc-block pc-bad">
+              <div class="pc-lbl">ข้อจำกัด</div>
+              <p>ผูกบัญชีและสแกนใบเสร็จเป็น Premium ทดลองฟรีแค่ 7 วัน</p>
+            </div>
+          </div>
+          <div class="price-row"><span class="chip c-ok">Free</span><span class="chip c-warn">Premium</span></div>
+        </div>
+
+        <div class="comp-card">
+          <div class="comp-top">
+            <div class="comp-name">MyFitnessPal</div>
+            <span class="plat">Android · iOS · Web</span>
+          </div>
+          <p class="comp-feat">บันทึกแคลอรีและสารอาหาร ฐานข้อมูลอาหาร 20.5 ล้านรายการ, ออกกำลังกาย, เป้าน้ำหนัก</p>
+          <div class="pc-row">
+            <div class="pc-block pc-ok">
+              <div class="pc-lbl">จุดเด่น</div>
+              <p>ฐานข้อมูลอาหารใหญ่ที่สุด Sync Apple Health / Fitbit แผนมื้ออาหาร</p>
+            </div>
+            <div class="pc-block pc-bad">
+              <div class="pc-lbl">ข้อจำกัด</div>
+              <p>สแกนบาร์โค้ดและคำแนะนำส่วนตัวต้อง Premium ~$10/เดือน</p>
+            </div>
+          </div>
+          <div class="price-row"><span class="chip c-ok">Free</span><span class="chip c-acc">Premium $10/mo</span></div>
+        </div>
+
+        <div class="comp-card">
+          <div class="comp-top">
+            <div class="comp-name">Sleep Cycle</div>
+            <span class="plat">Android · iOS · Wear OS</span>
+          </div>
+          <p class="comp-feat">ติดตามการนอน, ตรวจจับคุณภาพ, จับเสียงกรน, นาฬิกาปลุกอัจฉริยะ, เสียงปรับบรรยากาศ</p>
+          <div class="pc-row">
+            <div class="pc-block pc-ok">
+              <div class="pc-lbl">จุดเด่น</div>
+              <p>ผู้ใช้ 72% นอนดีขึ้น คำแนะนำส่วนบุคคล บันทึกเสียงกลางคืน</p>
+            </div>
+            <div class="pc-block pc-bad">
+              <div class="pc-lbl">ข้อจำกัด</div>
+              <p>เสียงพิเศษและสมุดบันทึกต้องจ่าย Premium</p>
+            </div>
+          </div>
+          <div class="price-row"><span class="chip c-ok">Free</span><span class="chip c-warn">Premium</span></div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- Features -->
+    <section class="sec" id="features">
+      <div class="sec-eye">02 · Feature Priority</div>
+      <h2 class="sec-h">ฟีเจอร์สำคัญ</h2>
+      <p class="sec-sub">เรียงตามลำดับความสำคัญ — <span class="chip c-risk">สูง</span> = ยากหรือ privacy-sensitive สูง · <span class="chip c-warn">กลาง</span> · <span class="chip c-ok">ต่ำ</span></p>
+
+      <div class="feat-list">
+
+        <div class="feat-card">
+          <div class="feat-icon">📅</div>
+          <div class="feat-name">การจัดการงานและเวลา</div>
+          <div class="feat-desc">ปฏิทิน, เตือนนัด, แผนงานรายสัปดาห์ — ช่วยลดการลืมงานและความเครียดจากปริมาณงาน</div>
+          <div class="feat-chips">
+            <span class="chip c-acc">KPI: งานสำเร็จ/สัปดาห์</span>
+            <span class="chip c-acc">Retention rate</span>
+            <span class="chip c-warn">ความยาก: กลาง</span>
+            <span class="chip c-ok">Privacy: ต่ำ</span>
+          </div>
+        </div>
+
+        <div class="feat-card">
+          <div class="feat-icon">🎯</div>
+          <div class="feat-name">ติดตามนิสัยและเป้าหมาย</div>
+          <div class="feat-desc">ตั้งนิสัยประจำวัน, เป้าหมายระยะยาว, ระบบ Streak — สร้างวินัยและความคืบหน้าที่จับต้องได้</div>
+          <div class="feat-chips">
+            <span class="chip c-acc">KPI: วัน Streak</span>
+            <span class="chip c-acc">% เป้าหมายสำเร็จ</span>
+            <span class="chip c-warn">ความยาก: กลาง</span>
+            <span class="chip c-ok">Privacy: ต่ำ</span>
+          </div>
+        </div>
+
+        <div class="feat-card">
+          <div class="feat-icon">🏃</div>
+          <div class="feat-name">สุขภาพและกิจกรรมทางกาย</div>
+          <div class="feat-desc">นับก้าวเดิน, ออกกำลังกาย, สัญญาณชีวภาพ — เชื่อมต่อ Apple Health / Google Fit / Wearables</div>
+          <div class="feat-chips">
+            <span class="chip c-acc">KPI: ก้าว/วัน</span>
+            <span class="chip c-acc">นาที/สัปดาห์</span>
+            <span class="chip c-warn">ความยาก: กลาง-สูง</span>
+            <span class="chip c-risk">Privacy: สูง</span>
+          </div>
+        </div>
+
+        <div class="feat-card">
+          <div class="feat-icon">🥗</div>
+          <div class="feat-name">โภชนาการ</div>
+          <div class="feat-desc">บันทึกมื้ออาหาร, คำนวณแคลอรีและสารอาหาร, สแกนบาร์โค้ด — สนับสนุนเป้าหมายสุขภาพ</div>
+          <div class="feat-chips">
+            <span class="chip c-acc">KPI: แคลอรีเฉลี่ย/วัน</span>
+            <span class="chip c-acc">มื้อที่บันทึก</span>
+            <span class="chip c-warn">ความยาก: กลาง</span>
+            <span class="chip c-warn">Privacy: กลาง</span>
+          </div>
+        </div>
+
+        <div class="feat-card">
+          <div class="feat-icon">😴</div>
+          <div class="feat-name">การนอนและสุขภาพจิต</div>
+          <div class="feat-desc">คุณภาพการนอน, อารมณ์/ความเครียด, ไดอารี่ — ข้อมูล sensitive ที่สุด ต้องรักษาอย่างรัดกุม</div>
+          <div class="feat-chips">
+            <span class="chip c-acc">KPI: คะแนนการนอน</span>
+            <span class="chip c-acc">ชั่วโมงนอน</span>
+            <span class="chip c-risk">ความยาก: สูง</span>
+            <span class="chip c-risk">Privacy: สูงมาก</span>
+          </div>
+        </div>
+
+        <div class="feat-card">
+          <div class="feat-icon">💰</div>
+          <div class="feat-name">การเงินส่วนบุคคล</div>
+          <div class="feat-desc">รายรับ-รายจ่าย, งบประมาณ, เป้าหมายออม — ผูกบัญชีธนาคารผ่าน Open Banking API (ถ้ามี)</div>
+          <div class="feat-chips">
+            <span class="chip c-acc">KPI: % อยู่ในงบ</span>
+            <span class="chip c-acc">อัตราการออม</span>
+            <span class="chip c-warn">ความยาก: กลาง</span>
+            <span class="chip c-risk">Privacy: PII สูง</span>
+          </div>
+        </div>
+
+        <div class="feat-card">
+          <div class="feat-icon">👥</div>
+          <div class="feat-name">ความสัมพันธ์และสังคม</div>
+          <div class="feat-desc">แจ้งเตือนวันเกิด/ครบรอบ, นัดหมายเพื่อน, บันทึกกิจกรรมสังคม — เสริมสร้างความสัมพันธ์</div>
+          <div class="feat-chips">
+            <span class="chip c-acc">KPI: การติดต่อที่สำเร็จ</span>
+            <span class="chip c-ok">ความยาก: ต่ำ-กลาง</span>
+            <span class="chip c-warn">Privacy: กลาง</span>
+          </div>
+        </div>
+
+        <div class="feat-card">
+          <div class="feat-icon">🆘</div>
+          <div class="feat-name">ความปลอดภัยและการเดินทาง</div>
+          <div class="feat-desc">ปุ่ม SOS ส่งโลเคชัน, แผนที่ (Google Maps API), วางแผนเวลาเดินทาง — ฟีเจอร์ต้องการ real-time backend</div>
+          <div class="feat-chips">
+            <span class="chip c-acc">KPI: เวลาเดินทาง</span>
+            <span class="chip c-risk">ความยาก: สูง</span>
+            <span class="chip c-risk">Privacy: Location สูง</span>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- Architecture -->
+    <section class="sec" id="architecture">
+      <div class="sec-eye">03 · UX Structure</div>
+      <h2 class="sec-h">Information Architecture</h2>
+      <p class="sec-sub">โครงสร้างโมดูลและหน้าจอหลัก — แต่ละโมดูลมีหน้า Dashboard → รายการ → รายละเอียด</p>
+
+      <div class="int-grid">
+        <div class="int-card">
+          <div class="int-head"><div class="int-ico">📊</div><div class="int-title">Dashboard (หน้าแรก)</div></div>
+          <p class="int-body">ภาพรวมประจำวัน: งานคงค้าง, กราฟการเงิน, กิจวัตรวันนี้, คะแนนสุขภาพ — สแกนได้ภายใน 5 วินาที</p>
+        </div>
+        <div class="int-card">
+          <div class="int-head"><div class="int-ico">✅</div><div class="int-title">Tasks & Calendar</div></div>
+          <p class="int-body">To-Do List ใส่แท็กและเตือน, ปฏิทินรายสัปดาห์/เดือน, เชื่อม Google/Outlook Calendar</p>
+        </div>
+        <div class="int-card">
+          <div class="int-head"><div class="int-ico">🔁</div><div class="int-title">Habits & Goals</div></div>
+          <p class="int-body">Grid tracker นิสัยประจำวัน, เส้นทางเป้าหมาย SMART, Streak counter พร้อม badge rewards</p>
+        </div>
+        <div class="int-card">
+          <div class="int-head"><div class="int-ico">💳</div><div class="int-title">Finance</div></div>
+          <p class="int-body">บันทึกรายรับ-รายจ่ายแบบหมวดหมู่, กราฟวงกลมงบประมาณ, ส่งออกรายงานรายเดือน</p>
+        </div>
+        <div class="int-card">
+          <div class="int-head"><div class="int-ico">❤️</div><div class="int-title">Health & Sleep</div></div>
+          <p class="int-body">กราฟสัญญาณชีวภาพ, คุณภาพการนอน, แผนภูมิสารอาหาร — ดึงจาก Wearables อัตโนมัติ</p>
+        </div>
+        <div class="int-card">
+          <div class="int-head"><div class="int-ico">⚙️</div><div class="int-title">Settings & Profile</div></div>
+          <p class="int-body">โปรไฟล์ผู้ใช้, ตั้งค่าความเป็นส่วนตัว, การแจ้งเตือน, การส่งออกข้อมูล (PDPA compliant)</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Integrations -->
+    <section class="sec" id="integrations">
+      <div class="sec-eye">04 · Ecosystem</div>
+      <h2 class="sec-h">โอกาสในการบูรณาการ</h2>
+      <p class="sec-sub">ข้อมูลจากเซ็นเซอร์และบริการภายนอกคือเชื้อเพลิงของฟีเจอร์ AI</p>
+
+      <div class="int-grid">
+        <div class="int-card">
+          <div class="int-head"><div class="int-ico">⌚</div><div class="int-title">Wearables & Sensors</div></div>
+          <p class="int-body">Apple HealthKit, Google Fit, Fitbit, Garmin — ก้าวเดิน, HR, การนอน; GPS/Accelerometer สำหรับ SOS; กล้องสแกนบาร์โค้ด</p>
+        </div>
+        <div class="int-card">
+          <div class="int-head"><div class="int-ico">📆</div><div class="int-title">Calendar & Productivity</div></div>
+          <p class="int-body">Google Calendar API, Outlook Calendar — ดึงนัดหมายและแจ้งเตือนอัตโนมัติ</p>
+        </div>
+        <div class="int-card">
+          <div class="int-head"><div class="int-ico">🏦</div><div class="int-title">Open Banking</div></div>
+          <p class="int-body">ผูกบัญชีธนาคารผ่าน Open Banking (ตามประกาศ ธปท.) หรือ Money Lover-style Linked Wallets ดึงธุรกรรมอัตโนมัติ</p>
+        </div>
+        <div class="int-card">
+          <div class="int-head"><div class="int-ico">🗺️</div><div class="int-title">Maps & Weather</div></div>
+          <p class="int-body">Google Maps API สำหรับเส้นทาง, OpenWeatherMap / AQI API สำหรับแจ้งอากาศร้อน/PM2.5 กระตุ้นดื่มน้ำ</p>
+        </div>
+        <div class="int-card">
+          <div class="int-head"><div class="int-ico">🤖</div><div class="int-title">AI & Machine Learning</div></div>
+          <p class="int-body">LLM API สำหรับแนะนำเป้าหมาย สรุป insight ส่วนบุคคล วิเคราะห์อารมณ์จากไดอารี่</p>
+        </div>
+        <div class="int-card">
+          <div class="int-head"><div class="int-ico">🏠</div><div class="int-title">IoT & Smart Home</div></div>
+          <p class="int-body">อุปกรณ์สมาร์ตโฮม, นาฬิกาวัดความดัน — เพิ่มมิติข้อมูลสุขภาพในระยะ Phase 3</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Personalization -->
+    <section class="sec" id="personalization">
+      <div class="sec-eye">05 · Behavior Design</div>
+      <h2 class="sec-h">Personalization & การเปลี่ยนพฤติกรรม</h2>
+      <p class="sec-sub">เทคนิคพฤติกรรมศาสตร์ที่พิสูจน์แล้วว่าเพิ่ม Engagement และ Retention</p>
+
+      <div class="pers-grid">
+        <div class="pers-card">
+          <div class="pers-head"><div class="pers-ico">🎮</div><div class="pers-title">Gamification</div></div>
+          <p class="pers-body">Badge, คะแนนสะสม, Leaderboard, เลเวลเลื่อนขั้น — งานวิจัยยืนยันว่าเพิ่ม Engagement และผลลัพธ์สุขภาพเชิงบวก</p>
+        </div>
+        <div class="pers-card">
+          <div class="pers-head"><div class="pers-ico">💬</div><div class="pers-title">Nudges</div></div>
+          <p class="pers-body">Push Notification แบบมิตร "ดื่มน้ำ 1 แก้วไหม?" หรือ "ใกล้สำเร็จแล้ว!" — ใช้ contextual triggers ตามกิจวัตรเดิม</p>
+        </div>
+        <div class="pers-card">
+          <div class="pers-head"><div class="pers-ico">🔔</div><div class="pers-title">Smart Reminders</div></div>
+          <p class="pers-body">เตือนซ้ำ (Recurring), รองรับ Widget บนหน้าโฮม, ปรับช่วงเวลาแจ้งเตือนตาม pattern ผู้ใช้</p>
+        </div>
+        <div class="pers-card">
+          <div class="pers-head"><div class="pers-ico">📈</div><div class="pers-title">Adaptive Goals</div></div>
+          <p class="pers-body">ปรับเป้าหมายอัตโนมัติตามประวัติ — ถ้าเดินเกิน 10,000 ก้าวทุกวัน ระบบจะเพิ่มเป้าเป็น 12,000 ก้าว</p>
+        </div>
+        <div class="pers-card">
+          <div class="pers-head"><div class="pers-ico">🎨</div><div class="pers-title">Personalized UI</div></div>
+          <p class="pers-body">ผู้ใช้เลือกหมวดความสำคัญ (งาน/สุขภาพ/ครอบครัว) แล้วปรับ Dashboard ให้เหมาะกับโปรไฟล์ ช่วงเช้า vs ช่วงเย็น</p>
+        </div>
+        <div class="pers-card">
+          <div class="pers-head"><div class="pers-ico">🔓</div><div class="pers-title">Feature Unlock</div></div>
+          <p class="pers-body">ระบบ Tier ปลดล็อกฟีเจอร์เจาะลึกหลังใช้ครบ 30 วัน — สร้างแรงจูงใจใช้งานต่อเนื่อง</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Data Model -->
+    <section class="sec" id="data-model">
+      <div class="sec-eye">06 · Data Architecture</div>
+      <h2 class="sec-h">Data Model & Entity Relationships</h2>
+      <p class="sec-sub">USER เป็นแกนกลาง มีความสัมพันธ์แบบ 1:N กับทุก domain entity</p>
+
+      <div class="diagram-wrap">
+<pre class="mermaid">
+erDiagram
+    USER ||--o{ TASK : มี
+    USER ||--o{ HABIT : กำหนด
+    USER ||--o{ GOAL : ตั้ง
+    USER ||--o{ TRANSACTION : บันทึก
+    USER ||--o{ BUDGET : กำหนด
+    USER ||--o{ SLEEP_RECORD : ติดตาม
+    USER ||--o{ MEAL : บันทึก
+    USER ||--o{ JOURNAL_ENTRY : เขียน
+    TASK }o--|| CATEGORY : จัดหมวด
+    TRANSACTION }o--|| ACCOUNT : เก็บในบัญชี
+    GOAL ||--o{ TASK : มี
+    GOAL ||--o{ HABIT : รวม
+</pre>
+      </div>
+      <p class="diagram-cap">ER Diagram — entities และความสัมพันธ์หลักของระบบ</p>
+    </section>
+
+    <!-- Microcopy -->
+    <section class="sec" id="microcopy">
+      <div class="sec-eye">07 · Writing & Voice</div>
+      <h2 class="sec-h">UI Microcopy ตัวอย่าง</h2>
+      <p class="sec-sub">ภาษาที่ใช้ในแอป — กระชับ, เป็นมิตร, ชัดเจน, และกระตุ้น Action</p>
+
+      <div class="mc-group">
+        <div class="mc-lbl">ปุ่มและ CTA</div>
+        <div class="mc-list">
+          <div class="mc-item"><span class="mc-tag mc-tag-btn">ปุ่ม</span>+ เพิ่มงานใหม่</div>
+          <div class="mc-item"><span class="mc-tag mc-tag-btn">ปุ่ม</span>บันทึกเป้าหมาย</div>
+          <div class="mc-item"><span class="mc-tag mc-tag-btn">ปุ่ม</span>ดูสถิติทั้งหมด</div>
+          <div class="mc-item"><span class="mc-tag mc-tag-btn">ปุ่ม</span>ตั้งค่าการแจ้งเตือน</div>
+        </div>
+      </div>
+
+      <div class="mc-group">
+        <div class="mc-lbl">ข้อความแจ้งเตือน (Push Notifications)</div>
+        <div class="mc-list">
+          <div class="mc-item"><span class="mc-tag mc-tag-notif">แจ้งเตือน</span>คุณเดิน 10,000 ก้าวแล้ววันนี้ — ยอดเยี่ยมมาก!</div>
+          <div class="mc-item"><span class="mc-tag mc-tag-notif">แจ้งเตือน</span>🚰 ยังดื่มน้ำได้อีก 2 แก้วเพื่อครบเป้าหมายวันนี้</div>
+          <div class="mc-item"><span class="mc-tag mc-tag-notif">แจ้งเตือน</span>💤 ถึงเวลาผ่อนคลายก่อนนอนแล้วนะ</div>
+          <div class="mc-item"><span class="mc-tag mc-tag-notif">แจ้งเตือน</span>เป้าหมายของคุณใกล้สำเร็จแล้ว! ลุยต่อ!</div>
+          <div class="mc-item"><span class="mc-tag mc-tag-notif">แจ้งเตือน</span>สัปดาห์นี้คุณอยู่ในงบประมาณที่ตั้งไว้ — ดีมากครับ</div>
+        </div>
+      </div>
+
+      <div class="mc-group">
+        <div class="mc-lbl">Dashboard Cards</div>
+        <div class="mc-list">
+          <div class="mc-item"><span class="mc-tag">สรุป</span>คุณทำเป้าหมายครบ 80% ในเดือนนี้แล้ว</div>
+          <div class="mc-item"><span class="mc-tag">สรุป</span>งบเดือนนี้เหลืออีก 2,000 บาท</div>
+          <div class="mc-item"><span class="mc-tag">สรุป</span>คุณบริโภค 1,800 แคลอรีในวันนี้</div>
+        </div>
+      </div>
+
+      <div class="mc-group">
+        <div class="mc-lbl">Placeholder & Form Copy</div>
+        <div class="mc-list">
+          <div class="mc-item"><span class="mc-tag mc-tag-err">Field</span>เช่น ซื้อของ, ประชุมทีม, เลี้ยงน้องหมา</div>
+          <div class="mc-item"><span class="mc-tag mc-tag-err">Field</span>เขียนบันทึกความรู้สึกวันนี้...</div>
+          <div class="mc-item"><span class="mc-tag mc-tag-err">Field</span>กรุณาตั้งเป้าน้ำหนักเพื่อช่วยวางแผนได้ดียิ่งขึ้น</div>
+        </div>
+      </div>
+
+    </section>
+
+    <!-- Privacy -->
+    <section class="sec" id="privacy">
+      <div class="sec-eye">08 · Compliance</div>
+      <h2 class="sec-h">เช็คลิสต์ความเป็นส่วนตัวและกฎหมาย</h2>
+      <p class="sec-sub">ข้อมูลสุขภาพและการเงินมีความอ่อนไหวสูง — ต้องผ่านทุกข้อก่อน Launch</p>
+
+      <div class="cl-list">
+        <div class="cl-item">
+          <div class="cl-dot cl-dot-ok">✓</div>
+          <div>
+            <div class="cl-name">PDPA (พ.ร.บ.คุ้มครองข้อมูลส่วนบุคคล พ.ศ.2562)</div>
+            <div class="cl-body">ขอความยินยอมก่อนเก็บข้อมูล, มีนโยบาย Privacy อธิบายรูปแบบการเก็บ-ใช้, เปิดให้ผู้ใช้ขอเข้าถึงและลบข้อมูลได้</div>
+          </div>
+        </div>
+        <div class="cl-item">
+          <div class="cl-dot cl-dot-warn">!</div>
+          <div>
+            <div class="cl-name">GDPR (EU) — หากมีผู้ใช้ชาว EU</div>
+            <div class="cl-body">อาจต้องมี Data Protection Officer, แจ้งสิทธิ์ (access, rectification, erasure) และทำ Data Processing Agreement กับ third-parties</div>
+          </div>
+        </div>
+        <div class="cl-item">
+          <div class="cl-dot cl-dot-ok">✓</div>
+          <div>
+            <div class="cl-name">Encryption & Security</div>
+            <div class="cl-body">ข้อมูลสุขภาพและการเงินต้องเข้ารหัส TLS/HTTPS ขณะส่ง และ AES ขณะเก็บ; ใช้ OAuth/OpenID; มี Audit Log; Penetration Testing</div>
+          </div>
+        </div>
+        <div class="cl-item">
+          <div class="cl-dot cl-dot-ok">✓</div>
+          <div>
+            <div class="cl-name">Data Minimization</div>
+            <div class="cl-body">เก็บเฉพาะข้อมูลที่จำเป็น — ไม่บังคับ field ที่ไม่ได้ใช้, ถ้าไม่เปิดฟีเจอร์การเงินก็ไม่ต้องกรอกบัญชีธนาคาร</div>
+          </div>
+        </div>
+        <div class="cl-item">
+          <div class="cl-dot cl-dot-warn">!</div>
+          <div>
+            <div class="cl-name">Open Banking — กฎหมายการเงิน (ธปท.)</div>
+            <div class="cl-body">หากเชื่อมต่อบัญชีธนาคารต้องปฏิบัติตามประกาศ ธปท. เรื่อง Open Banking และอาจต้องมีใบอนุญาตเฉพาะ</div>
+          </div>
+        </div>
+        <div class="cl-item">
+          <div class="cl-dot cl-dot-ok">✓</div>
+          <div>
+            <div class="cl-name">Consent & Opt-in</div>
+            <div class="cl-body">แสดง Consent Form ก่อนขอ Location, Microphone, Health data; ทำการตลาดได้ต่อเมื่อผู้ใช้ opt-in เท่านั้น</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- A/B Testing -->
+    <section class="sec" id="ab">
+      <div class="sec-eye">09 · Experimentation</div>
+      <h2 class="sec-h">A/B Testing ที่แนะนำ</h2>
+      <p class="sec-sub">เริ่มทดสอบตั้งแต่ Phase 2 — วัดผลก่อนตัดสินใจ</p>
+
+      <div style="margin-bottom:20px">
+        <div class="mc-lbl" style="margin-bottom:10px">Metrics หลัก</div>
+        <div class="feat-chips" style="display:flex;flex-wrap:wrap;gap:6px">
+          <span class="chip c-acc">DAU / WAU</span>
+          <span class="chip c-acc">30-day Retention</span>
+          <span class="chip c-acc">Conversion Rate</span>
+          <span class="chip c-acc">Feature Usage %</span>
+          <span class="chip c-acc">% เป้าหมายสำเร็จ</span>
+          <span class="chip c-acc">NPS</span>
+        </div>
+      </div>
+
+      <div class="ab-grid">
+        <div class="ab-card">
+          <div class="ab-lbl">Notification Tone</div>
+          <div class="ab-h">เตือนแบบตรง vs เตือนให้กำลังใจ</div>
+          <div class="ab-m">วัด: อัตราตอบสนองและ action rate — ภาษาไหนกระตุ้นพฤติกรรมได้ดีกว่า</div>
+        </div>
+        <div class="ab-card">
+          <div class="ab-lbl">Theme</div>
+          <div class="ab-h">Dark Mode vs Light Mode default</div>
+          <div class="ab-m">วัด: Session length และ engagement — ธีมใดดึงเวลาใช้งานนานกว่า</div>
+        </div>
+        <div class="ab-card">
+          <div class="ab-lbl">Dashboard Layout</div>
+          <div class="ab-h">กราฟตาราง vs Card vs List view</div>
+          <div class="ab-m">วัด: ความเข้าใจข้อมูลและความพึงพอใจผ่าน task-completion rate</div>
+        </div>
+        <div class="ab-card">
+          <div class="ab-lbl">Onboarding Flow</div>
+          <div class="ab-h">แนะนำทีละน้อย vs เข้าถึงครบทันที</div>
+          <div class="ab-m">วัด: Activation rate ใน 7 วันแรกและ Feature adoption ใน 30 วัน</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Roadmap -->
+    <section class="sec" id="roadmap">
+      <div class="sec-eye">10 · Execution Plan</div>
+      <h2 class="sec-h">MVP Roadmap</h2>
+      <p class="sec-sub">ทีม 3 คน (Mobile Dev ×2, Backend ×1) — พัฒนาทีละระยะเพื่อ time-to-market เร็วที่สุด</p>
+
+      <div class="roadmap">
+        <div class="rm-card rm-mvp">
+          <div class="rm-head">
+            <div class="rm-phase">Phase 1 · MVP</div>
+            <div class="rm-name">Core Launch</div>
+            <div class="rm-time">3–6 เดือน · ~3–4 คน-เดือน</div>
+          </div>
+          <div class="rm-body">
+            <ul class="rm-list">
+              <li><span class="rm-arr">→</span>To-Do List + ปฏิทินพื้นฐาน</li>
+              <li><span class="rm-arr">→</span>Habit Tracker แบบง่าย</li>
+              <li><span class="rm-arr">→</span>Expense Tracker บันทึกรายรับ-รายจ่าย</li>
+              <li><span class="rm-arr">→</span>Dashboard สรุปภาพรวม</li>
+              <li><span class="rm-arr">→</span>ระบบบัญชีผู้ใช้ / Authentication</li>
+              <li><span class="rm-arr">→</span>Push Notifications พื้นฐาน</li>
+            </ul>
+            <div class="rm-effort">เป้าหมาย: user flow ทำงานจริงได้ก่อน ค่อยปรับ UX</div>
+          </div>
+        </div>
+        <div class="rm-card rm-p2">
+          <div class="rm-head">
+            <div class="rm-phase">Phase 2 · Growth</div>
+            <div class="rm-name">Personalize</div>
+            <div class="rm-time">6–12 เดือน · ~6–8 คน-เดือน</div>
+          </div>
+          <div class="rm-body">
+            <ul class="rm-list">
+              <li><span class="rm-arr">→</span>Habit Tracker เต็มรูปแบบ + Streak</li>
+              <li><span class="rm-arr">→</span>Apple Health / Google Fit integration</li>
+              <li><span class="rm-arr">→</span>Expense categories + กราฟงบประมาณ</li>
+              <li><span class="rm-arr">→</span>Goals & Milestones (SMART)</li>
+              <li><span class="rm-arr">→</span>AI แนะนำ insight ส่วนบุคคล</li>
+              <li><span class="rm-arr">→</span>A/B Testing + Analytics</li>
+            </ul>
+            <div class="rm-effort">ผสาน Maps/Calendar API; เก็บ feedback ผู้ใช้จริง</div>
+          </div>
+        </div>
+        <div class="rm-card rm-p3">
+          <div class="rm-head">
+            <div class="rm-phase">Phase 3 · Scale</div>
+            <div class="rm-name">Full Platform</div>
+            <div class="rm-time">12–18 เดือน · ~8–10 คน-เดือน</div>
+          </div>
+          <div class="rm-body">
+            <ul class="rm-list">
+              <li><span class="rm-arr">→</span>Sleep tracking + สุขภาพจิต</li>
+              <li><span class="rm-arr">→</span>Gamification (Badge, Leaderboard)</li>
+              <li><span class="rm-arr">→</span>ML Recommendation Engine</li>
+              <li><span class="rm-arr">→</span>โซเชียล / เชิญเพื่อน</li>
+              <li><span class="rm-arr">→</span>Multi-language (TH/EN เต็มรูปแบบ)</li>
+              <li><span class="rm-arr">→</span>Marketing & PR launch</li>
+            </ul>
+            <div class="rm-effort">รวม 12–18 เดือน ทีม 3 คน Full-time</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="exec-box" style="margin-top:24px">
+        <strong>ข้อสรุปสำคัญ:</strong> การพัฒนาแอปจัดการชีวิตต้องเติมเต็ม <strong>ช่องว่างที่แอปคู่แข่งยังขาด</strong> — การรวมทุกโดเมนในที่เดียว ด้วย personalization สูง และ UX ที่ไม่ซับซ้อน เริ่มจาก MVP ที่ทำได้จริงก่อน แล้วค่อยขยายตาม feedback จริงจากผู้ใช้
+      </div>
+    </section>
+
+  </main>
+</div>
+
+<script>
+// Progress bar
+var prog = document.getElementById('prog');
+window.addEventListener('scroll', function() {
+  var h = document.documentElement.scrollHeight - window.innerHeight;
+  prog.style.width = (h > 0 ? window.scrollY / h * 100 : 0) + '%';
+}, {passive: true});
+
+// Active TOC link via IntersectionObserver
+var secs = document.querySelectorAll('.sec[id]');
+var links = document.querySelectorAll('.toc a');
+var active = null;
+
+var obs = new IntersectionObserver(function(entries) {
+  entries.forEach(function(e) {
+    if (e.isIntersecting) {
+      var id = e.target.id;
+      links.forEach(function(a) {
+        var on = a.getAttribute('href') === '#' + id;
+        a.classList.toggle('on', on);
+        if (on) active = a;
+      });
+    }
+  });
+}, {rootMargin: '-20% 0px -70% 0px'});
+
+secs.forEach(function(s){ obs.observe(s); });
+</script>
