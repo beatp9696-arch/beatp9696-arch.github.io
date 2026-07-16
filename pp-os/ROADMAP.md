@@ -55,10 +55,14 @@
 ### 2.2 Goals ตั้งเองได้  ·  S
 - ตอนนี้เป้าฝังในโค้ด (steps 8000 / water 8 / ex 45 / sleep 8) → ย้ายไป Settings เก็บใน `health.goals`
 
-### 2.3 ดึงตัวชี้วัดเพิ่มจาก Apple Health export  ·  M
-- ที่ export มีแต่ยังไม่ได้อ่าน: **resting heart rate, HRV, VO2max, workouts (ชนิด+ระยะเวลา), mindful minutes, State of Mind (iOS 17+)**
-- HRV + resting HR = วัตถุดิบจริงของ "Recovery" แบบ WHOOP (ตอนนี้ Recovery ใช้ mood ที่กดเอง = อ่อน)
-- **ทำยังไง:** เพิ่ม TYPE_MAP ใน `apple-health.js` (โครง parser รองรับอยู่แล้ว) + สูตร recovery = f(sleep, HRV vs baseline 30 วัน, resting HR vs baseline)
+### ❌ 2.3 HRV → Recovery แบบ WHOOP  ·  ยกเลิก (16 ก.ค. 2026) — เปลี่ยนทิศเป็น coin economy
+- **ทำไมยกเลิก:** PP แทบไม่เคย import + เพิ่งเริ่มใส่นาฬิกานอน → Recovery จาก HRV จะเป็นวงแหวนที่ไม่มีข้อมูลจริงหล่อเลี้ยง = WHOOP cosplay เดิมในหน้ากากใหม่ (RECOVERY ring ที่รื้อทิ้งไปคำนวณจากปุ่ม mood — โรคเดียวกัน) **อย่าเสนอกลับมา**
+- **สิ่งที่ทำแทน:** ✅ **Health = coin economy + Dr. Murph** (16 ก.ค. 2026, sw v22)
+  - 1 เหรียญ = 1 kcal จริงจาก workout (Watch วัด หรือ log มือ — ค่าวัด/ค่าประเมินติดป้ายแยกเสมอ) · treat หักเหรียญตามราคา kcal อ้างอิงจริง (`health.treatMenu` PP แก้ได้) · มื้อปกติฟรี · **ยอดติดลบได้ ห้ามบล็อกการบันทึก** · ไม่มี bonus multiplier ทุกชนิด · ยอดคงเหลือ derive เสมอ ไม่ store
+  - แท็บ Today / Fit / Food / Trends (NAV pattern เดียวกับ money) — SLEEP/RECOVERY/STRAIN rings รื้อทิ้งแล้ว
+  - `apple-health.js` อ่าน `<Workout>` แล้ว (ทั้ง export เก่าและ iOS 16+ ที่ kcal อยู่ใน `<WorkoutStatistics>`) + resting HR
+  - Dr. Murph = template engine อ่าน ledger: การ์ดรายวัน + chart review รายสัปดาห์ + ธง "ควรพบหมอจริง" (resting HR / น้ำหนักผิด baseline — **สังเกต ไม่วินิจฉัย**) · ข้อมูลไม่พอ = บอกว่าไม่พอ · โครงแยกชั้น facts/ถ้อยคำ ไว้สลับเป็น LLM ทีหลัง (GitHub Action → Claude → Gist) โดยไม่รื้อ
+- **ต่อยอด:** Shortcut → Gist auto-import (ข้อ 1.2) เพื่อให้เหรียญเข้าเองโดยไม่ต้องเปิด Files
 
 ---
 
@@ -131,5 +135,5 @@
 2. ~~**0.2 IndexedDB + persist**~~ ✅ เสร็จ 14 ก.ค.
 3. ~~**1.1 Sync ข้ามเครื่อง ทาง Gist**~~ ✅ เสร็จ 15 ก.ค. — ต้องทดสอบ round-trip จริงบนเครื่อง PP ด้วย token จริง
 4. **5.1 smoke test ใน CI** (M) ← **งานถัดไป** — โครงแท็บ + storage + sync เปลี่ยนหนักรอบนี้ ควรมี test ถาวรกันพัง (โดยเฉพาะ merge/sync)
-5. **1.2 Shortcut → Gist = ซิงก์สุขภาพอัตโนมัติ** (M) — ต่อยอดจาก 1.1 ที่เพิ่งเสร็จ
-6. **2.3 HRV/resting HR → Recovery จริง** (M) — ทำให้ Health มีค่ามากกว่าที่ Apple ให้อยู่แล้ว
+5. **1.2 Shortcut → Gist = ซิงก์สุขภาพอัตโนมัติ** (M) — ต่อยอดจาก 1.1 ที่เพิ่งเสร็จ ยิ่งสำคัญขึ้นหลัง Health เป็น coin economy (เหรียญเข้าเองไม่ต้องเปิด Files)
+6. ~~2.3 HRV → Recovery~~ ❌ ยกเลิก 16 ก.ค. — Health เป็น coin economy + Dr. Murph แล้ว (ดูข้อ 2.3)

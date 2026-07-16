@@ -5,6 +5,8 @@
 //   1. export.zip จากแอป "สุขภาพ" → แกะ zip + สตรีมอ่าน export.xml ในเครื่อง (ย้อนหลังทั้งหมด)
 //   2. JSON จาก Shortcut (ไฟล์ หรือส่งมาทาง ?hk=<base64>) → อัปเดตรายวันแบบอัตโนมัติ
 // ทุกอย่างทำในเครื่อง 100% ไม่มีการอัปโหลดไปไหน
+//
+// อ่านสองอย่างจาก export: <Record> (ยอดต่อวัน) และ <Workout> (พลังงานต่อครั้ง → เหรียญของ Health)
 
 import { load, save } from "./storage.js";
 
@@ -17,6 +19,8 @@ const TYPE_MAP = {
   HKQuantityTypeIdentifierDietaryWater: "water",
   HKQuantityTypeIdentifierBodyMass: "weight",
   HKCategoryTypeIdentifierSleepAnalysis: "sleep",
+  // resting HR = วัตถุดิบของธง "ควรไปหาหมอจริง" ของ Dr. Murph — ของแถม ถ้าไม่มีข้อมูลแอปต้องไม่พัง
+  HKQuantityTypeIdentifierRestingHeartRate: "rhr",
 };
 
 const cutoffKey = () => {
@@ -47,7 +51,7 @@ function toMl(value, unit) {
 class DayAgg {
   constructor() {
     this.perSource = {}; // metric -> day -> source -> number
-    this.weight = {}; // day -> { ts, kg }
+    this.latest = { weight: {}, rhr: {} }; // ค่าที่เอา "ครั้งล่าสุดของวัน" ไม่ใช่ผลรวม
   }
 
   add(metric, day, source, amount) {
@@ -56,9 +60,9 @@ class DayAgg {
     srcs[source] = (srcs[source] ?? 0) + amount;
   }
 
-  setWeight(day, ts, kg) {
-    const cur = this.weight[day];
-    if (!cur || ts >= cur.ts) this.weight[day] = { ts, kg };
+  setLatest(metric, day, ts, v) {
+    const cur = this.latest[metric][day];
+    if (!cur || ts >= cur.ts) this.latest[metric][day] = { ts, v };
   }
 
   result() {
@@ -69,8 +73,11 @@ class DayAgg {
         (days[day] ??= {})[metric] = top;
       }
     }
-    for (const [day, w] of Object.entries(this.weight)) {
-      (days[day] ??= {}).weight = Math.round(w.kg * 10) / 10;
+    for (const [day, w] of Object.entries(this.latest.weight)) {
+      (days[day] ??= {}).weight = Math.round(w.v * 10) / 10;
+    }
+    for (const [day, r] of Object.entries(this.latest.rhr)) {
+      (days[day] ??= {}).rhr = Math.round(r.v);
     }
     // ปัดให้อยู่ในหน่วยที่แอปใช้: น้ำ = แก้ว, ออกกำลังกาย = นาที, ก้าว = จำนวนเต็ม
     for (const d of Object.values(days)) {
@@ -106,7 +113,9 @@ function handleRecord(attrs, agg, cutoff) {
 
   if (metric === "weight") {
     const kg = attrs.unit === "lb" ? v * 0.453592 : v;
-    agg.setWeight(day, toDate(attrs.startDate).getTime(), kg);
+    agg.setLatest("weight", day, toDate(attrs.startDate).getTime(), kg);
+  } else if (metric === "rhr") {
+    agg.setLatest("rhr", day, toDate(attrs.startDate).getTime(), v); // Apple ให้วันละค่า (count/min)
   } else if (metric === "water") {
     agg.add("water", day, source, toMl(v, attrs.unit));
   } else {
@@ -162,13 +171,93 @@ async function xmlTextStream(file) {
   return raw.pipeThrough(new TextDecoderStream("utf-8"));
 }
 
-const RECORD_RE = /<Record\s([^>]*?)\/?>/g;
+// จับทีละ token: <Record …/> หรือ <Workout …>…</Workout> ทั้งบล็อก
+// (Workout เป็น element มีลูก — MetadataEntry/WorkoutEvent/WorkoutStatistics — ไม่ใช่ tag เดี่ยวแบบ Record
+//  และตั้งแต่ iOS 16 พลังงานย้ายจาก attribute ไปอยู่ในลูก <WorkoutStatistics> เลยต้องเก็บทั้งบล็อก)
+const TOKEN_RE = /<Record\s([^>]*?)\/?>|<Workout\s([^>]*?)(?:\/>|>([\s\S]*?)<\/Workout>)/g;
 const ATTR_RE = /([\w-]+)="([^"]*)"/g;
+const STAT_RE = /<WorkoutStatistics\s[^>]*?>/g;
+
+function parseAttrs(s) {
+  const attrs = {};
+  ATTR_RE.lastIndex = 0;
+  let a;
+  while ((a = ATTR_RE.exec(s))) attrs[a[1]] = a[2];
+  return attrs;
+}
+
+// ชื่อที่คนอ่านรู้เรื่องสำหรับ HKWorkoutActivityType ที่เจอบ่อย — ที่เหลือถอด camelCase เป็นคำ
+const WORKOUT_NAMES = {
+  Running: "Run",
+  Walking: "Walk",
+  Hiking: "Hike",
+  Cycling: "Cycle",
+  Swimming: "Swim",
+  TraditionalStrengthTraining: "Strength",
+  FunctionalStrengthTraining: "Functional",
+  HighIntensityIntervalTraining: "HIIT",
+  CoreTraining: "Core",
+  CrossTraining: "Cross-training",
+  Elliptical: "Elliptical",
+  Rowing: "Row",
+  StairClimbing: "Stairs",
+  Yoga: "Yoga",
+  Pilates: "Pilates",
+  Soccer: "Soccer",
+  Basketball: "Basketball",
+  Badminton: "Badminton",
+  Tennis: "Tennis",
+  MartialArts: "Martial arts",
+  Dance: "Dance",
+};
+const workoutName = (t) => {
+  const raw = (t ?? "").replace("HKWorkoutActivityType", "");
+  return WORKOUT_NAMES[raw] ?? (raw ? raw.replace(/([a-z])([A-Z])/g, "$1 $2") : "Workout");
+};
+
+function handleWorkout(attrs, inner, out, cutoff) {
+  const day = dayOf(attrs.startDate ?? "");
+  if (!day || day < cutoff) return;
+
+  // export เก่า: totalEnergyBurned เป็น attribute · iOS 16+: อยู่ใน <WorkoutStatistics …ActiveEnergyBurned sum="…">
+  let kcal = parseFloat(attrs.totalEnergyBurned);
+  let unit = attrs.totalEnergyBurnedUnit;
+  if (!Number.isFinite(kcal) && inner) {
+    STAT_RE.lastIndex = 0;
+    let s;
+    while ((s = STAT_RE.exec(inner))) {
+      const sa = parseAttrs(s[0]);
+      if (/ActiveEnergyBurned/.test(sa.type ?? "")) {
+        kcal = parseFloat(sa.sum);
+        unit = sa.unit;
+        break;
+      }
+    }
+  }
+  if (!Number.isFinite(kcal) || kcal <= 0) return; // ไม่มีพลังงานที่วัดจริง = ไม่มีเหรียญให้ตี
+  if (unit === "kJ") kcal /= 4.184; // ปกติ Apple ให้ kcal/Cal อยู่แล้ว
+
+  let min = parseFloat(attrs.duration);
+  if (Number.isFinite(min)) {
+    if (/^sec/.test(attrs.durationUnit ?? "")) min /= 60;
+    else if (/^h/.test(attrs.durationUnit ?? "")) min *= 60;
+  } else min = 0;
+
+  out.push({
+    id: attrs.startDate, // เวลาเริ่มเป็นเอกลักษณ์พอ → import ไฟล์เดิมซ้ำไม่เบิ้ลรายการ
+    date: day,
+    type: workoutName(attrs.workoutActivityType),
+    minutes: Math.round(min),
+    kcal: Math.round(kcal),
+    source: "watch",
+  });
+}
 
 export async function parseAppleExport(file, onProgress) {
   const stream = await xmlTextStream(file);
   const reader = stream.getReader();
   const agg = new DayAgg();
+  const workouts = [];
   const cutoff = cutoffKey();
   let buf = "";
   let bytes = 0;
@@ -180,30 +269,29 @@ export async function parseAppleExport(file, onProgress) {
     bytes += value.length;
     buf += value;
 
-    RECORD_RE.lastIndex = 0;
+    TOKEN_RE.lastIndex = 0;
     let m;
     let last = 0;
-    while ((m = RECORD_RE.exec(buf))) {
-      const attrs = {};
-      ATTR_RE.lastIndex = 0;
-      let a;
-      while ((a = ATTR_RE.exec(m[1]))) attrs[a[1]] = a[2];
-      handleRecord(attrs, agg, cutoff);
+    while ((m = TOKEN_RE.exec(buf))) {
+      if (m[1] != null) handleRecord(parseAttrs(m[1]), agg, cutoff);
+      else handleWorkout(parseAttrs(m[2]), m[3] ?? "", workouts, cutoff);
       records++;
-      last = RECORD_RE.lastIndex;
+      last = TOKEN_RE.lastIndex;
     }
+    // เหลือท้าย buffer ไว้เสมอ — <Workout> ที่ยังไม่เจอ </Workout> จะถูกอ่านต่อรอบหน้า
     buf = buf.slice(last);
-    if (buf.length > 2_000_000) buf = buf.slice(-4000); // กันบัฟเฟอร์บวมถ้าเจอบล็อกที่ไม่ใช่ Record
+    if (buf.length > 2_000_000) buf = buf.slice(-4000); // กันบัฟเฟอร์บวมถ้าเจอบล็อกที่ไม่ใช่ token ที่รู้จัก
 
     onProgress?.({ mb: bytes / 1e6, records });
     await new Promise((r) => setTimeout(r)); // คืนคิวให้ UI ได้วาด progress
   }
 
-  return agg.result();
+  return { days: agg.result(), workouts };
 }
 
 // ---- JSON จาก Shortcut ----
 // รับได้ทั้ง {days:{...}}, {"2026-07-14":{...}} และ [{date, sleep, ...}]
+// เสริม: {workouts:[{date, type, minutes, kcal}]} — Shortcut อ่าน workout จาก HealthKit ได้ตรงๆ
 export function parseHealthJSON(text) {
   const raw = JSON.parse(text);
   const src = raw.days ?? raw;
@@ -212,7 +300,7 @@ export function parseHealthJSON(text) {
   const put = (day, o) => {
     if (!/^\d{4}-\d{2}-\d{2}$/.test(day)) return;
     const d = {};
-    for (const k of ["water", "ex", "sleep", "steps", "weight"]) {
+    for (const k of ["water", "ex", "sleep", "steps", "weight", "rhr"]) {
       const v = Number(o[k]);
       if (Number.isFinite(v)) d[k] = Math.round(v * 10) / 10;
     }
@@ -220,10 +308,27 @@ export function parseHealthJSON(text) {
   };
 
   if (Array.isArray(src)) for (const row of src) put(row.date ?? row.day, row);
-  else for (const [day, o] of Object.entries(src)) put(day, o ?? {});
+  else if (src && typeof src === "object") for (const [day, o] of Object.entries(src)) put(day, o ?? {});
 
-  if (!Object.keys(out).length) throw new Error("No days with data found in this file");
-  return out;
+  const workouts = [];
+  if (Array.isArray(raw.workouts)) {
+    for (const w of raw.workouts) {
+      const date = w.date ?? w.day;
+      const kcal = Math.round(Number(w.kcal));
+      if (!/^\d{4}-\d{2}-\d{2}$/.test(date ?? "") || !Number.isFinite(kcal) || kcal <= 0) continue;
+      workouts.push({
+        id: w.id ?? `${date} ${w.type ?? "Workout"} ${kcal}`, // ยิงซ้ำวันเดิม = รายการเดิม ไม่เบิ้ล
+        date,
+        type: String(w.type ?? "Workout"),
+        minutes: Math.round(Number(w.minutes)) || 0,
+        kcal,
+        source: "watch", // มาจาก HealthKit ผ่าน Shortcut = ค่าวัด ไม่ใช่ค่าประเมิน
+      });
+    }
+  }
+
+  if (!Object.keys(out).length && !workouts.length) throw new Error("No days with data found in this file");
+  return { days: out, workouts };
 }
 
 // ---- เขียนลง storage ----
@@ -253,6 +358,26 @@ export function mergeDays(imported) {
   return { days: touched, from: keys[0], to: keys.at(-1), filled };
 }
 
+// workout จาก Watch ทับ/เติมเข้าลิสต์เดิมโดย dedupe ด้วย id (= startDate ของ Apple)
+// รายการที่ PP log มือ (id เป็น timestamp ตอนกด) ไม่มีวันชนกับ id ของ Apple → ไม่หาย
+export function mergeWorkouts(imported) {
+  if (!imported?.length) return 0;
+  const list = load("health.workouts", []);
+  const seen = new Set(list.map((w) => w.id));
+  let added = 0;
+  for (const w of imported) {
+    if (seen.has(w.id)) continue;
+    seen.add(w.id);
+    list.push(w);
+    added++;
+  }
+  if (added) {
+    list.sort((a, b) => (a.date < b.date ? -1 : a.date > b.date ? 1 : 0));
+    save("health.workouts", list);
+  }
+  return added;
+}
+
 // ---- Shortcut ส่งข้อมูลมาทาง URL: ?hk=<base64 ของ JSON> ----
 export function importFromURL() {
   const url = new URL(location.href);
@@ -261,7 +386,9 @@ export function importFromURL() {
 
   try {
     const json = decodeURIComponent(escape(atob(decodeURIComponent(raw).replace(/-/g, "+").replace(/_/g, "/"))));
-    const res = mergeDays(parseHealthJSON(json));
+    const parsed = parseHealthJSON(json);
+    const res = mergeDays(parsed.days);
+    res.workoutsAdded = mergeWorkouts(parsed.workouts);
     url.searchParams.delete("hk");
     history.replaceState(null, "", url.pathname + url.search); // ล้าง URL ไม่ให้ import ซ้ำตอน refresh
     return res;

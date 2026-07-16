@@ -390,95 +390,290 @@ button.card:hover {
   position: relative;
 }
 
-.rings {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 4px;
+/* ---- Health 2.0: coin economy (1 เหรียญ = 1 kcal) ---- */
+.hero.coin .k svg.hi {
+  width: 14px;
+  height: 14px;
+  vertical-align: -2px;
+  margin-right: 4px;
 }
 
-.ring {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 6px;
-}
-
-.ring .dial {
-  position: relative;
-  width: 86px;
-  height: 86px;
-}
-
-.ring svg {
-  width: 100%;
-  height: 100%;
-  transform: rotate(-90deg);
-}
-
-.ring .ring-track {
-  stroke-width: 6;
-}
-
-.ring .ring-val {
-  stroke-width: 6;
-}
-
-.ring[data-c="green"] .ring-val {
-  stroke: var(--a);
-  filter: drop-shadow(0 0 4px color-mix(in srgb, var(--a) 45%, transparent));
-}
-
-.ring[data-c="blue"] .ring-val {
-  stroke: var(--sleep);
-  filter: drop-shadow(0 0 4px rgba(110, 168, 254, 0.45));
-}
-
-.ring[data-c="cyan"] .ring-val {
-  stroke: var(--strain);
-  filter: drop-shadow(0 0 4px rgba(56, 214, 227, 0.45));
-}
-
-.ring .pct {
-  position: absolute;
-  inset: 0;
-  display: grid;
-  place-items: center;
+.coin-day {
   font-family: var(--font-head);
-  font-size: 17px;
-  font-weight: 700;
-  letter-spacing: -0.01em;
+  font-weight: 500;
+  font-size: 12px;
+  color: var(--dim);
+  margin-top: 4px;
   font-variant-numeric: tabular-nums;
 }
 
-.ring .name {
+.coin-src {
   font-family: var(--font-mono);
-  font-size: 9.5px;
-  letter-spacing: 0.16em;
+  font-size: 10px;
   color: var(--dim);
+  margin-top: 8px;
+  font-variant-numeric: tabular-nums;
 }
 
-.ring .sub {
+.coin-note {
   font-size: 11px;
   color: var(--dim);
-  margin-top: -4px;
+  margin-top: 3px;
+  opacity: 0.8;
 }
 
-.insight .t {
-  font-family: var(--font-mono);
-  font-size: 10.5px;
-  letter-spacing: 0.16em;
-  text-transform: uppercase;
+/* Dr. Murph — หมออ่านงบร่างกาย */
+.murph-head {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.murph-ava {
+  width: 36px;
+  height: 36px;
+  flex-shrink: 0;
+  display: grid;
+  place-items: center;
+  border-radius: 50%;
+  background: var(--a-soft);
+  border: 1px solid color-mix(in srgb, var(--a) 35%, transparent);
   color: var(--a);
-  margin-bottom: 5px;
 }
 
-.insight.warn .t {
+.murph-ava svg.hi {
+  width: 20px;
+  height: 20px;
+}
+
+.murph-name {
+  font-family: var(--font-head);
+  font-weight: 700;
+  font-size: 13.5px;
+}
+
+.murph-role {
+  font-family: var(--font-mono);
+  font-size: 9px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--dim);
+}
+
+.murph-say {
+  margin-top: 10px;
+  font-size: 13.5px;
+  line-height: 1.65;
+  font-variant-numeric: tabular-nums;
+}
+
+.murph-quest {
+  margin-top: 9px;
+  padding-top: 9px;
+  border-top: 1px solid var(--line);
+  font-size: 12px;
+  color: var(--dim);
+  line-height: 1.55;
+}
+
+.mw-row {
+  padding: 10px 0;
+  font-size: 13px;
+  line-height: 1.6;
+  display: block;
+  font-variant-numeric: tabular-nums;
+}
+
+.mw-row .mw-k {
+  display: block;
+  font-family: var(--font-mono);
+  font-size: 9.5px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--dim);
+  margin-bottom: 3px;
+}
+
+.mw-row.warn {
   color: #f0b429;
 }
 
-.insight .d {
+.mw-row.warn .mw-k {
+  color: #f0b429;
+}
+
+/* ป้ายแหล่งที่มา — ค่าวัด (watch) กับค่าประเมิน/มือ ต้องแยกให้เห็นทุกที่ */
+.tag-src {
+  font-family: var(--font-mono);
+  font-size: 8.5px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  padding: 1px 6px;
+  border-radius: 999px;
+  border: 1px solid var(--line);
+  color: var(--dim);
+  vertical-align: 1px;
+}
+
+.tag-src.watch {
+  color: var(--a);
+  border-color: color-mix(in srgb, var(--a) 40%, transparent);
+}
+
+.tag-src.free {
+  color: var(--sleep);
+  border-color: color-mix(in srgb, var(--sleep) 40%, transparent);
+}
+
+/* Fit: บรรทัดประเมิน MET */
+.wo-est {
+  font-size: 11.5px;
+  color: var(--dim);
+  line-height: 1.55;
+  font-variant-numeric: tabular-nums;
+}
+
+.wo-est .use-est {
+  background: none;
+  border: 0;
+  padding: 0;
+  color: var(--a);
+  font: inherit;
+  text-decoration: underline;
+  cursor: pointer;
+}
+
+/* Fit: coin flow 30 วัน — เข้าขึ้นบน (เขียว) ออกลงล่าง (แดง) สเกลเดียวกันสองทิศ */
+.flow-svg {
+  width: 100%;
+  display: block;
+}
+
+.flow-svg .zero {
+  stroke: var(--line);
+  stroke-width: 1;
+}
+
+.flow-svg .fc .in {
+  fill: var(--a);
+}
+
+.flow-svg .fc .out {
+  fill: var(--neg);
+  opacity: 0.85;
+}
+
+.flow-svg .fc .hit {
+  fill: transparent;
+}
+
+.flow-svg .fc:hover .in,
+.flow-svg .fc:hover .out {
+  filter: brightness(1.25);
+}
+
+.flow-svg .fc.today .in {
+  filter: drop-shadow(0 0 3px color-mix(in srgb, var(--a) 55%, transparent));
+}
+
+.flow-cap {
+  font-family: var(--font-mono);
+  font-size: 10.5px;
+  color: var(--dim);
+  margin-top: 8px;
+  font-variant-numeric: tabular-nums;
+}
+
+/* Food: treat shop */
+.shop-bal {
+  font-family: var(--font-head);
+  font-size: 12.5px;
+  color: var(--dim);
+  margin-bottom: 4px;
+}
+
+.shop-bal b {
+  font-variant-numeric: tabular-nums;
+  color: var(--a);
+  transition: none;
+}
+
+.shop-bal b.neg {
+  color: var(--neg);
+}
+
+.shop-bal.flash b {
+  animation: shop-flash 0.6s var(--ease);
+}
+
+@keyframes shop-flash {
+  0% { opacity: 0.2; }
+  100% { opacity: 1; }
+}
+
+.shop-item {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  width: 100%;
+  text-align: left;
+  padding: 10px 0;
+  background: none;
+  border: 0;
+  color: inherit;
+  cursor: pointer;
+  font: inherit;
+}
+
+.shop-item:hover .s-price {
+  color: var(--ink);
+}
+
+.shop-item .s-info b {
+  display: block;
   font-size: 13.5px;
-  line-height: 1.6;
+  font-weight: 600;
+}
+
+.shop-item .s-info small {
+  display: block;
+  font-size: 10.5px;
+  color: var(--dim);
+  margin-top: 1px;
+}
+
+.shop-item .s-price {
+  margin-left: auto;
+  flex-shrink: 0;
+  font-family: var(--font-mono);
+  font-size: 12.5px;
+  color: var(--neg);
+  font-variant-numeric: tabular-nums;
+  transition: color var(--dur) var(--ease);
+}
+
+.shop-item.edit {
+  display: block;
+  cursor: default;
+}
+
+.s-edit-row {
+  display: flex;
+  gap: 6px;
+  align-items: center;
+}
+
+.s-edit-row + .s-edit-row {
+  margin-top: 5px;
+}
+
+.s-edit-row input {
+  flex: 1;
+  min-width: 0;
+}
+
+.s-edit-row input.s-kcal {
+  flex: 0 0 72px;
 }
 
 /* แถวบันทึกค่า — อยู่ในการ์ดเดียว คั่นด้วยเส้นผม (เดิมเป็น 6 กล่องลอย = รกตา) */
@@ -556,42 +751,6 @@ button.card:hover {
   font-weight: 500;
   padding: 7px 10px !important;
   font-variant-numeric: tabular-nums;
-}
-
-.mood-seg {
-  display: flex;
-  gap: 2px;
-}
-
-.mood-seg button {
-  display: grid;
-  place-items: center;
-  background: transparent;
-  border: 1px solid transparent;
-  border-radius: 10px;
-  padding: 5px;
-  cursor: pointer;
-  color: var(--dim);
-  opacity: 0.65;
-  transition: all var(--dur) var(--ease);
-}
-
-.mood-seg button .hi {
-  width: 25px;
-  height: 25px;
-}
-
-.mood-seg button:hover {
-  opacity: 1;
-  color: var(--ink);
-}
-
-.mood-seg button.sel {
-  background: var(--a-soft);
-  border-color: color-mix(in srgb, var(--a) 45%, transparent);
-  color: var(--a);
-  opacity: 1;
-  transform: scale(1.08);
 }
 
 /* ---- ไอคอนเส้น (.hi) ในแอป Health ทุกจุด ---- */
