@@ -251,16 +251,41 @@ export default {
       <!-- ============ CARD ============ -->
       <section class="m-view hidden" data-v="card">
         <div class="vcard">
-          <div class="vc-row">
-            <span class="vc-brand">PP·OS</span>
-            <svg class="vc-nfc" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round">
-              <path d="M6 9a9 9 0 0 1 0 6M10 7a12 12 0 0 1 0 10M14 5a15.5 15.5 0 0 1 0 14"/>
+          <div class="vc-frame" aria-hidden="true"></div>
+          <svg class="vc-nfc" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round">
+            <path d="M6 9a9 9 0 0 1 0 6M10 7a12 12 0 0 1 0 10M14 5a15.5 15.5 0 0 1 0 14"/>
+          </svg>
+          <div class="vc-brand">PP·OS</div>
+          <div class="vc-mid">
+            <svg class="vc-chip" viewBox="0 0 34 26" aria-hidden="true">
+              <defs>
+                <linearGradient id="ppcChip" x1="0" y1="0" x2="1" y2="1">
+                  <stop offset="0" stop-color="#efece3"/>
+                  <stop offset=".55" stop-color="#b3ad9c"/>
+                  <stop offset="1" stop-color="#ddd8ca"/>
+                </linearGradient>
+              </defs>
+              <rect x="1" y="1" width="32" height="24" rx="4.5" fill="url(#ppcChip)" stroke="rgba(0,0,0,.35)"/>
+              <path d="M1 9.5h10.5M1 16.5h10.5M22.5 9.5H33M22.5 16.5H33M11.5 9.5v7M22.5 9.5v7M17 1v8.5M17 16.5V25" fill="none" stroke="rgba(58,52,40,.5)" stroke-width="1.1"/>
+            </svg>
+            <svg class="vc-emblem" viewBox="0 0 120 148" aria-hidden="true">
+              <defs>
+                <pattern id="ppcHatch" width="2.6" height="2.6" patternUnits="userSpaceOnUse" patternTransform="rotate(24)">
+                  <line x1="0" y1="0" x2="0" y2="2.6" stroke="#c9b98c" stroke-width="0.55" opacity="0.45"/>
+                </pattern>
+              </defs>
+              <ellipse cx="60" cy="74" rx="55" ry="69" fill="url(#ppcHatch)" opacity=".55"/>
+              <ellipse cx="60" cy="74" rx="55" ry="69" fill="none" stroke="#c9b98c" stroke-width="1.5" opacity=".85"/>
+              <ellipse cx="60" cy="74" rx="48.5" ry="62.5" fill="none" stroke="#c9b98c" stroke-width=".7" opacity=".5"/>
+              <text x="60" y="97" text-anchor="middle" class="vc-emb-p" paint-order="stroke" stroke="#08080a" stroke-width="4">P</text>
+            </svg>
+            <svg class="vc-since" viewBox="0 0 96 46" aria-hidden="true">
+              <path d="M6 15 Q48 4 90 15 L92 29 Q48 18 4 29 Z" fill="rgba(201,185,140,.07)" stroke="#c9b98c" stroke-width="1" opacity=".85"/>
+              <path id="ppcArc" d="M8 26 Q48 15 88 26" fill="none"/>
+              <text class="vc-since-t"><textPath href="#ppcArc" startOffset="50%" text-anchor="middle">MEMBER SINCE</textPath></text>
+              <text x="48" y="43" text-anchor="middle" class="vc-since-y">03</text>
             </svg>
           </div>
-          <svg class="vc-chip" viewBox="0 0 34 24">
-            <rect x="1" y="1" width="32" height="22" rx="5"></rect>
-            <path d="M1 9h10M1 15h10M23 9h10M23 15h10M17 1v22" fill="none"></path>
-          </svg>
           <div class="vc-num">•••• 9696</div>
           <div class="vc-row vc-foot"><span class="vc-name">PP</span><span class="vc-tag">$pp</span></div>
           <div class="vc-lockover"><span class="lk">🔒</span><span class="lk-t">Card locked</span></div>
