@@ -1302,6 +1302,10 @@ body.mode-app .hk-sheet {
   --a-soft: rgba(205, 244, 99, 0.12);
   --on-a: #161b07;
   --neg: #ff8177;
+  /* สามกระเป๋า: cash = accent มะนาว, savings = เขียวมิ้นต์, invest = ทอง (โทน Robinhood Gold) */
+  --c-cash: #cdf463;
+  --c-save: #53e0a6;
+  --c-inv: #f2cd68;
   --elev: 0 1px 2px rgba(0, 0, 0, 0.4), 0 12px 32px -18px rgba(0, 0, 0, 0.9);
   background:
     radial-gradient(560px 300px at 85% -8%, rgba(205, 244, 99, 0.1), transparent 66%),
@@ -1686,6 +1690,909 @@ body.mode-app .hk-sheet {
   font-size: 12px;
   outline: none;
   font-variant-numeric: tabular-nums;
+}
+
+/* ---- Money 2.0: views + bottom nav ---- */
+.m-view {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.m-nav {
+  position: sticky;
+  bottom: 8px;
+  z-index: 5;
+  margin-top: auto;
+  align-self: center;
+  display: flex;
+  gap: 2px;
+  padding: 5px;
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  background: color-mix(in srgb, var(--card) 86%, transparent);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  box-shadow: var(--elev);
+}
+
+.m-nav button {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2px;
+  border: 0;
+  background: transparent;
+  color: var(--dim);
+  border-radius: 999px;
+  padding: 7px 15px;
+  font-family: var(--font-head);
+  font-weight: 600;
+  font-size: 10px;
+  cursor: pointer;
+  transition: color var(--dur) var(--ease), background var(--dur) var(--ease);
+}
+
+.m-nav button svg {
+  width: 19px;
+  height: 19px;
+}
+
+.m-nav button.on {
+  color: var(--a);
+  background: var(--a-soft);
+}
+
+/* ---- Home: net-worth hero + กราฟแบบ Robinhood ---- */
+.nw .delta {
+  font-family: var(--font-head);
+  font-weight: 500;
+  font-size: 12px;
+  color: var(--dim);
+  margin-top: 4px;
+  font-variant-numeric: tabular-nums;
+}
+
+.nw .delta.up {
+  color: var(--a);
+}
+
+.nw .delta.down {
+  color: var(--neg);
+}
+
+.nw-chart {
+  position: relative;
+  height: 110px;
+  margin: 10px -4px 2px;
+}
+
+.nwc {
+  width: 100%;
+  height: 100%;
+  display: block;
+  overflow: visible;
+}
+
+.nwc .line {
+  fill: none;
+  stroke: var(--a);
+  stroke-width: 2;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  filter: drop-shadow(0 0 5px color-mix(in srgb, var(--a) 40%, transparent));
+}
+
+.nwc .dot-end {
+  fill: var(--a);
+  filter: drop-shadow(0 0 6px var(--a));
+}
+
+.nwc .guide {
+  stroke: color-mix(in srgb, var(--ink) 30%, transparent);
+  stroke-width: 1;
+  stroke-dasharray: 3 3;
+}
+
+.nwc .dot-scrub {
+  fill: var(--ink);
+}
+
+.scrub-tip {
+  position: absolute;
+  top: -6px;
+  transform: translateX(-50%);
+  font-family: var(--font-head);
+  font-weight: 600;
+  font-size: 11px;
+  color: var(--ink);
+  background: var(--card-2);
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  padding: 3px 8px;
+  white-space: nowrap;
+  pointer-events: none;
+  font-variant-numeric: tabular-nums;
+}
+
+.nwc-empty {
+  position: absolute;
+  inset: 0;
+  display: grid;
+  place-items: center;
+  font-size: 12px;
+  color: var(--dim);
+  text-align: center;
+  padding: 0 24px;
+  line-height: 1.5;
+}
+
+.seg.seg-sm {
+  align-self: flex-start;
+}
+
+.seg.seg-sm button {
+  padding: 5px 10px;
+  font-size: 10.5px;
+  letter-spacing: 0.04em;
+}
+
+/* ---- Home: accounts (แถวบัญชีแบบ Robinhood Banking) ---- */
+.accounts {
+  display: flex;
+  flex-direction: column;
+  padding: 6px 16px;
+}
+
+.acct {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  width: 100%;
+  border: 0;
+  background: transparent;
+  color: inherit;
+  font: inherit;
+  text-align: left;
+  padding: 11px 0;
+  cursor: pointer;
+}
+
+.acct + .acct {
+  border-top: 1px solid var(--line);
+}
+
+.acct-ic {
+  width: 36px;
+  height: 36px;
+  border-radius: 12px;
+  display: grid;
+  place-items: center;
+  font-size: 16px;
+  flex-shrink: 0;
+  background: var(--card-2);
+}
+
+.acct-ic.cash {
+  background: color-mix(in srgb, var(--c-cash) 14%, transparent);
+}
+
+.acct-ic.savings {
+  background: color-mix(in srgb, var(--c-save) 14%, transparent);
+}
+
+.acct-ic.invest {
+  background: color-mix(in srgb, var(--c-inv) 14%, transparent);
+}
+
+.acct-info {
+  flex: 1;
+  min-width: 0;
+}
+
+.acct-info b {
+  display: block;
+  font-family: var(--font-head);
+  font-weight: 600;
+  font-size: 13.5px;
+}
+
+.acct-info small {
+  display: block;
+  font-size: 11px;
+  color: var(--dim);
+  margin-top: 1px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.acct-v {
+  font-family: var(--font-head);
+  font-weight: 600;
+  font-size: 14px;
+  font-variant-numeric: tabular-nums;
+}
+
+.acct-v.neg {
+  color: var(--neg);
+}
+
+.acct-chev {
+  color: var(--dim);
+  font-size: 15px;
+}
+
+.acct:hover .acct-chev {
+  color: var(--a);
+}
+
+/* ---- Home: quick add ---- */
+.quick-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+}
+
+.q-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  border: 1px solid var(--line);
+  border-radius: var(--r-lg);
+  background: var(--card);
+  color: var(--ink);
+  padding: 13px 10px;
+  font-family: var(--font-head);
+  font-weight: 600;
+  font-size: 13px;
+  cursor: pointer;
+  box-shadow: var(--elev);
+  transition: border-color var(--dur) var(--ease), transform 0.1s var(--ease);
+}
+
+.q-btn:active {
+  transform: scale(0.97);
+}
+
+.q-btn .q-ic {
+  width: 22px;
+  height: 22px;
+  border-radius: 8px;
+  display: grid;
+  place-items: center;
+  font-size: 11px;
+}
+
+.q-in .q-ic {
+  background: var(--a-soft);
+  color: var(--a);
+}
+
+.q-out .q-ic {
+  background: rgba(255, 129, 119, 0.14);
+  color: var(--neg);
+}
+
+.q-btn:hover {
+  border-color: color-mix(in srgb, var(--a) 45%, var(--line));
+}
+
+.split-note {
+  font-size: 11px;
+  color: var(--dim);
+  font-variant-numeric: tabular-nums;
+}
+
+.more-btn {
+  margin-top: 8px;
+  width: 100%;
+}
+
+/* ---- Save: donut แบ่งรายรับ (แบบ Distribute paycheck ของ Cash App) ---- */
+.dist-wrap {
+  position: relative;
+  width: 180px;
+  height: 180px;
+  margin: 8px auto 4px;
+}
+
+.dist-wrap svg {
+  width: 100%;
+  height: 100%;
+}
+
+.dist-track {
+  fill: none;
+  stroke: color-mix(in srgb, var(--ink) 7%, transparent);
+  stroke-width: 9;
+}
+
+.dist-arc {
+  fill: none;
+  stroke-width: 9;
+  stroke-linecap: round;
+  transition: stroke-dasharray 650ms var(--ease), stroke-dashoffset 650ms var(--ease), opacity 300ms;
+}
+
+.dist-arc[data-s="cash"] {
+  stroke: var(--c-cash);
+  filter: drop-shadow(0 0 5px color-mix(in srgb, var(--c-cash) 35%, transparent));
+}
+
+.dist-arc[data-s="savings"] {
+  stroke: var(--c-save);
+}
+
+.dist-arc[data-s="invest"] {
+  stroke: var(--c-inv);
+}
+
+.dist-center {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 1px;
+  pointer-events: none;
+}
+
+.dist-center b {
+  font-family: var(--font-head);
+  font-size: 30px;
+  font-weight: 700;
+  letter-spacing: -0.03em;
+  font-variant-numeric: tabular-nums;
+}
+
+.dist-center .dc-lbl {
+  font-size: 11px;
+  color: var(--dim);
+}
+
+.dist-rows {
+  display: flex;
+  flex-direction: column;
+  margin-top: 6px;
+}
+
+.d-row {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 10px 0;
+  font-size: 13px;
+}
+
+.d-row + .d-row {
+  border-top: 1px solid var(--line);
+}
+
+.d-dot {
+  width: 9px;
+  height: 9px;
+  border-radius: 50%;
+  flex-shrink: 0;
+}
+
+.d-dot.cash {
+  background: var(--c-cash);
+}
+
+.d-dot.savings {
+  background: var(--c-save);
+}
+
+.d-dot.invest {
+  background: var(--c-inv);
+}
+
+.d-name {
+  flex: 1;
+  font-family: var(--font-head);
+  font-weight: 600;
+  font-size: 13px;
+}
+
+.d-lock {
+  font-size: 11px;
+  opacity: 0.7;
+}
+
+.d-step {
+  display: inline-flex;
+  gap: 4px;
+}
+
+.d-step button {
+  width: 28px;
+  height: 28px;
+  border: 1px solid var(--line);
+  border-radius: 9px;
+  background: var(--card-2);
+  color: var(--ink);
+  font-size: 13px;
+  cursor: pointer;
+  transition: border-color var(--dur) var(--ease), background var(--dur) var(--ease);
+}
+
+.d-step button:hover {
+  border-color: var(--a);
+  background: var(--a-soft);
+  color: var(--a);
+}
+
+.d-pct {
+  font-family: var(--font-head);
+  font-weight: 600;
+  font-size: 13.5px;
+  min-width: 42px;
+  text-align: right;
+  font-variant-numeric: tabular-nums;
+}
+
+/* ---- Save: goals ---- */
+.g-avail {
+  font-size: 12px;
+  color: var(--dim);
+  padding-bottom: 10px;
+  border-bottom: 1px solid var(--line);
+}
+
+.g-avail b {
+  font-family: var(--font-head);
+  color: var(--c-save);
+  font-variant-numeric: tabular-nums;
+}
+
+.goal {
+  padding: 12px 0;
+}
+
+.goal + .goal {
+  border-top: 1px solid var(--line);
+}
+
+.g-top {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.g-emoji {
+  width: 34px;
+  height: 34px;
+  border-radius: 11px;
+  display: grid;
+  place-items: center;
+  font-size: 16px;
+  background: var(--card-2);
+  flex-shrink: 0;
+}
+
+.g-info {
+  flex: 1;
+  min-width: 0;
+}
+
+.g-name {
+  font-family: var(--font-head);
+  font-weight: 600;
+  font-size: 13px;
+}
+
+.g-eta {
+  font-weight: 500;
+  font-size: 10.5px;
+  color: var(--dim);
+  margin-left: 4px;
+}
+
+.g-badge {
+  font-size: 10px;
+  font-weight: 600;
+  color: var(--c-inv);
+  background: color-mix(in srgb, var(--c-inv) 14%, transparent);
+  border-radius: 999px;
+  padding: 2px 7px;
+  margin-left: 4px;
+}
+
+.g-nums {
+  font-size: 11px;
+  color: var(--dim);
+  margin-top: 2px;
+  font-variant-numeric: tabular-nums;
+}
+
+.g-open {
+  padding: 5px 10px;
+}
+
+.goal .track {
+  display: block;
+  height: 6px;
+  border-radius: 3px;
+  background: var(--card-2);
+  overflow: hidden;
+  margin-top: 9px;
+}
+
+.goal .fill {
+  display: block;
+  height: 100%;
+  border-radius: 3px;
+  background: linear-gradient(90deg, color-mix(in srgb, var(--c-save) 55%, transparent), var(--c-save));
+  transition: width 650ms var(--ease);
+}
+
+.goal.done .fill {
+  background: linear-gradient(90deg, color-mix(in srgb, var(--c-inv) 55%, transparent), var(--c-inv));
+}
+
+.g-add {
+  display: flex;
+  gap: 7px;
+  margin-top: 10px;
+}
+
+.g-add input {
+  flex: 1;
+  padding: 8px 11px;
+}
+
+.g-form {
+  margin-top: 12px;
+  padding-top: 12px;
+  border-top: 1px solid var(--line);
+}
+
+.g-form select {
+  width: 58px;
+}
+
+/* ---- Insights: แท่งคู่ 6 เดือน ---- */
+.trend-bars {
+  display: grid;
+  grid-template-columns: repeat(6, 1fr);
+  gap: 8px;
+  align-items: end;
+}
+
+.tm {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+  border-radius: 10px;
+  padding: 6px 2px 4px;
+}
+
+.tm.on {
+  background: var(--card-2);
+}
+
+.tm .bars {
+  display: flex;
+  align-items: flex-end;
+  gap: 3px;
+  height: 86px;
+}
+
+.tm .bars i {
+  display: block;
+  width: 9px;
+  border-radius: 4px 4px 2px 2px;
+  min-height: 2px;
+  animation: grow-y 600ms var(--ease) both;
+  transform-origin: bottom;
+}
+
+@keyframes grow-y {
+  from {
+    transform: scaleY(0);
+  }
+}
+
+.tm .bi {
+  background: linear-gradient(180deg, var(--a), color-mix(in srgb, var(--a) 55%, transparent));
+}
+
+.tm .bo {
+  background: linear-gradient(180deg, var(--neg), color-mix(in srgb, var(--neg) 45%, transparent));
+  opacity: 0.85;
+}
+
+.tm span {
+  font-family: var(--font-mono);
+  font-size: 9.5px;
+  color: var(--dim);
+  letter-spacing: 0.1em;
+}
+
+.tm.on span {
+  color: var(--a);
+}
+
+.trend-legend {
+  display: flex;
+  gap: 14px;
+  justify-content: center;
+  margin-top: 10px;
+  font-size: 10.5px;
+  color: var(--dim);
+}
+
+.trend-legend span {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+}
+
+.trend-legend .lg {
+  width: 8px;
+  height: 8px;
+  border-radius: 3px;
+}
+
+.trend-legend .lg.in {
+  background: var(--a);
+}
+
+.trend-legend .lg.out {
+  background: var(--neg);
+}
+
+/* ---- Insights: feed ---- */
+.feed {
+  display: flex;
+  flex-direction: column;
+}
+
+.ins {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  padding: 10px 0;
+  font-size: 12.5px;
+  line-height: 1.55;
+}
+
+.ins + .ins {
+  border-top: 1px solid var(--line);
+}
+
+.ins-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  margin-top: 5px;
+  flex-shrink: 0;
+  background: var(--dim);
+}
+
+.ins-dot.up {
+  background: var(--a);
+  box-shadow: 0 0 6px color-mix(in srgb, var(--a) 55%, transparent);
+}
+
+.ins-dot.down {
+  background: var(--neg);
+}
+
+.ins-dot.gold {
+  background: var(--c-inv);
+  box-shadow: 0 0 6px color-mix(in srgb, var(--c-inv) 45%, transparent);
+}
+
+/* ---- Card: บัตรเสมือน (lock แบบ Cash App) ---- */
+.vcard {
+  position: relative;
+  aspect-ratio: 1.586;
+  border-radius: 20px;
+  border: 1px solid rgba(255, 255, 255, 0.09);
+  padding: 18px 20px;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  cursor: pointer;
+  background:
+    radial-gradient(130% 100% at 88% -12%, rgba(205, 244, 99, 0.22), transparent 55%),
+    radial-gradient(90% 70% at -8% 110%, rgba(83, 224, 166, 0.12), transparent 60%),
+    linear-gradient(135deg, #1b2213, #0b0e08 58%, #131a09);
+  box-shadow: var(--elev);
+  animation: card-in 420ms var(--ease) both;
+}
+
+.vcard::before {
+  /* แสงเฉียงบนหน้าบัตร */
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(115deg, transparent 42%, rgba(255, 255, 255, 0.05) 46%, transparent 58%);
+  pointer-events: none;
+}
+
+.vc-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.vc-brand {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  letter-spacing: 0.22em;
+  color: var(--a);
+}
+
+.vc-nfc {
+  width: 18px;
+  height: 18px;
+  color: rgba(255, 255, 255, 0.45);
+}
+
+.vc-chip {
+  width: 38px;
+  margin-top: auto;
+  fill: none;
+  stroke: rgba(242, 205, 104, 0.85);
+  stroke-width: 1.4;
+}
+
+.vc-chip rect {
+  fill: rgba(242, 205, 104, 0.12);
+}
+
+.vc-num {
+  font-family: var(--font-mono);
+  font-size: 17px;
+  letter-spacing: 0.14em;
+  margin-top: 10px;
+  color: var(--ink);
+  transition: filter 350ms var(--ease), opacity 350ms var(--ease);
+}
+
+.vc-foot {
+  margin-top: 8px;
+  font-family: var(--font-head);
+  font-weight: 600;
+  font-size: 12px;
+  color: rgba(255, 255, 255, 0.75);
+}
+
+.vc-tag {
+  color: var(--a);
+}
+
+.vc-lockover {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  background: rgba(6, 8, 4, 0.55);
+  backdrop-filter: blur(2px);
+  -webkit-backdrop-filter: blur(2px);
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 350ms var(--ease);
+}
+
+.vc-lockover .lk {
+  font-size: 26px;
+}
+
+.vc-lockover .lk-t {
+  font-family: var(--font-head);
+  font-weight: 600;
+  font-size: 11.5px;
+  color: rgba(255, 255, 255, 0.85);
+}
+
+.vcard.locked .vc-lockover {
+  opacity: 1;
+}
+
+.vcard.locked .vc-num {
+  filter: blur(6px);
+  opacity: 0.6;
+}
+
+.vc-actions {
+  align-items: center;
+  justify-content: space-between;
+}
+
+.vc-toggle {
+  padding: 9px 22px;
+  border-radius: 999px;
+}
+
+.p-note {
+  font-size: 11.5px;
+  color: var(--dim);
+  line-height: 1.55;
+  margin-top: 4px;
+}
+
+.ru-stat {
+  font-size: 12.5px;
+  margin-top: 8px;
+  font-variant-numeric: tabular-nums;
+}
+
+.ru-stat b {
+  font-family: var(--font-head);
+  color: var(--c-save);
+}
+
+.cs-big {
+  font-family: var(--font-head);
+  font-size: 26px;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  margin: 2px 0 6px;
+  font-variant-numeric: tabular-nums;
+}
+
+/* ---- toggle switch ---- */
+.sw {
+  position: relative;
+  display: inline-block;
+  width: 40px;
+  height: 24px;
+  flex-shrink: 0;
+  cursor: pointer;
+}
+
+.sw input {
+  position: absolute;
+  opacity: 0;
+  inset: 0;
+  margin: 0;
+  cursor: pointer;
+}
+
+.sw .knob {
+  position: absolute;
+  inset: 0;
+  border-radius: 999px;
+  background: var(--card-2);
+  border: 1px solid var(--line);
+  transition: background var(--dur) var(--ease), border-color var(--dur) var(--ease);
+}
+
+.sw .knob::after {
+  content: "";
+  position: absolute;
+  top: 2px;
+  left: 2px;
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  background: var(--dim);
+  transition: transform var(--dur) var(--spring), background var(--dur) var(--ease);
+}
+
+.sw input:checked + .knob {
+  background: var(--a-soft);
+  border-color: color-mix(in srgb, var(--a) 45%, transparent);
+}
+
+.sw input:checked + .knob::after {
+  transform: translateX(16px);
+  background: var(--a);
+}
+
+.sw input:focus-visible + .knob {
+  outline: 2px solid var(--a);
+  outline-offset: 2px;
 }
 
 /* ============================================================

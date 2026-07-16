@@ -26,14 +26,18 @@ export function openApp(app) {
   }
 
   const desktop = document.getElementById("desktop");
-  const { w = 480, h = 360 } = app.defaultSize ?? {};
+  let { w = 480, h = 360 } = app.defaultSize ?? {};
+  // จอเตี้ยกว่า defaultSize ของแอป → หดหน้าต่างให้พ้น taskbar (ไม่งั้นท้ายแอปโดนบังถาวร)
+  const top = 60 + cascade * 30;
+  w = Math.min(w, desktop.clientWidth - 24);
+  h = Math.min(h, desktop.clientHeight - top - 14);
 
   const el = document.createElement("section");
   el.className = "window";
   el.style.width = `${w}px`;
   el.style.height = `${h}px`;
   el.style.left = `${Math.min(90 + cascade * 34, Math.max(10, desktop.clientWidth - w - 20))}px`;
-  el.style.top = `${60 + cascade * 30}px`;
+  el.style.top = `${top}px`;
   cascade = (cascade + 1) % 7;
 
   el.innerHTML = `
