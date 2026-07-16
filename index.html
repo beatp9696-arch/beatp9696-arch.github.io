@@ -102,12 +102,45 @@
         <!-- ฉากประจำเว็บ: เจาะผ่านชั้นข้อมูล 4 ชั้นที่เปลี่ยนเร็ว ลงไปหาชั้นที่เว็บนี้สนใจ -->
         <div class="hero-scene">
           <svg viewBox="0 0 470 400" role="img"
-            aria-label="ภาพตัดขวางชั้นข้อมูลการลงทุน: ราคา ข่าว งบการเงิน โครงสร้างธุรกิจ และชั้นล่างสุดคือคูเมือง — หัวเจาะหยุดที่ชั้นคูเมือง">
+            aria-label="ภาพตัดขวางชั้นข้อมูลการลงทุน เรียงตามความเร็วที่มันเปลี่ยน: ราคา (วินาที) ข่าว (ชั่วโมง) งบการเงิน (ไตรมาส) โครงสร้างธุรกิจ (ปี) และชั้นล่างสุดคือคูเมือง (ทศวรรษ) — หัวเจาะหยุดที่ชั้นคูเมือง">
+            <defs>
+              <linearGradient id="hsGlass" x1="0" y1="0" x2="0" y2="1">
+                <stop offset="0" stop-color="var(--surface)"/>
+                <stop offset="1" stop-color="var(--surface-2)"/>
+              </linearGradient>
+              <linearGradient id="hsVein" x1="0" y1="0" x2="1" y2="1">
+                <stop offset="0" stop-color="var(--accent-strong)"/>
+                <stop offset="1" stop-color="var(--accent)"/>
+              </linearGradient>
+              <linearGradient id="hsShine" x1="0" y1="0" x2="1" y2="0">
+                <stop offset="0" stop-color="#ffffff" stop-opacity="0"/>
+                <stop offset=".5" stop-color="#ffffff" stop-opacity=".28"/>
+                <stop offset="1" stop-color="#ffffff" stop-opacity="0"/>
+              </linearGradient>
+              <clipPath id="hsMoatClip"><rect x="64" y="268" width="336" height="88" rx="3"/></clipPath>
+            </defs>
+
+            <!-- แกนเวลา: ยิ่งลึกยิ่งเปลี่ยนช้า — หน่วยเป็นอักษรละตินล้วน จึงใช้ mono ได้โดยไม่ทำสระไทยเพี้ยน -->
+            <g class="hs-axis">
+              <line class="hs-axis-line" x1="56" y1="30" x2="56" y2="356"/>
+              <g class="hs-tick">
+                <line x1="50" y1="54" x2="56" y2="54"/>
+                <line x1="50" y1="108" x2="56" y2="108"/>
+                <line x1="50" y1="167" x2="56" y2="167"/>
+                <line x1="50" y1="232" x2="56" y2="232"/>
+                <line x1="50" y1="312" x2="56" y2="312"/>
+              </g>
+              <text class="hs-unit" x="44" y="58" text-anchor="end">1s</text>
+              <text class="hs-unit" x="44" y="112" text-anchor="end">1h</text>
+              <text class="hs-unit" x="44" y="171" text-anchor="end">3M</text>
+              <text class="hs-unit" x="44" y="236" text-anchor="end">1Y</text>
+              <text class="hs-unit hs-unit-on" x="44" y="316" text-anchor="end">10Y+</text>
+            </g>
+
             <g class="hs-band hs-b1">
               <rect class="hs-bg" x="64" y="30" width="336" height="48" rx="3"/>
               <polyline class="hs-tex" points="196,58 214,44 230,62 248,48 264,60 280,46 292,56" stroke-width="1.6"/>
               <text class="hs-lab" x="78" y="59">ราคา</text>
-              <text class="hs-sub" x="386" y="58" text-anchor="end">เปลี่ยนทุกวินาที</text>
             </g>
             <g class="hs-band hs-b2">
               <rect class="hs-bg" x="64" y="82" width="336" height="52" rx="3"/>
@@ -115,7 +148,6 @@
                 <path d="M196 102 H292"/><path d="M196 116 H272"/>
               </g>
               <text class="hs-lab" x="78" y="113">ข่าว · เสียงตลาด</text>
-              <text class="hs-sub" x="386" y="112" text-anchor="end">เปลี่ยนทุกชั่วโมง</text>
             </g>
             <g class="hs-band hs-b3">
               <rect class="hs-bg" x="64" y="138" width="336" height="58" rx="3"/>
@@ -123,7 +155,6 @@
                 <path d="M196 155 H292"/><path d="M196 167 H292"/><path d="M196 179 H268"/>
               </g>
               <text class="hs-lab" x="78" y="171">งบการเงิน</text>
-              <text class="hs-sub" x="386" y="170" text-anchor="end">ทุกไตรมาส</text>
             </g>
             <g class="hs-band hs-b4">
               <rect class="hs-bg" x="64" y="200" width="336" height="64" rx="3"/>
@@ -132,7 +163,6 @@
                 <rect x="246" y="217" width="40" height="30" rx="2"/>
               </g>
               <text class="hs-lab" x="78" y="236">โครงสร้างธุรกิจ</text>
-              <text class="hs-sub" x="386" y="236" text-anchor="end">เปลี่ยนเป็นปี</text>
             </g>
             <g class="hs-moat">
               <rect class="hs-vein" x="64" y="268" width="336" height="88" rx="3"/>
@@ -140,8 +170,11 @@
                 <path d="M84 340 H380"/>
               </g>
               <text class="hs-lab" x="78" y="304">คูเมือง</text>
-              <text class="hs-sub" x="78" y="324">ของจริงอยู่ชั้นนี้</text>
-              <text class="hs-sub" x="386" y="314" text-anchor="end">วัดกันเป็นทศวรรษ</text>
+              <text class="hs-sub" x="78" y="325">ของจริงอยู่ชั้นนี้</text>
+              <!-- แสงกวาดครั้งเดียวตอนหัวเจาะถึงชั้นนี้ = จังหวะ "เจอ" ไม่ใช่ไฟกะพริบประดับ -->
+              <g clip-path="url(#hsMoatClip)">
+                <rect class="hs-shine" x="64" y="268" width="336" height="88" fill="url(#hsShine)"/>
+              </g>
             </g>
             <!-- หัวเจาะ: เริ่มที่ผิวดิน หยุดที่ชั้นคูเมือง (สถานะจบ = จอดในคูเมือง) -->
             <g class="hs-rig">

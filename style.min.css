@@ -2006,12 +2006,19 @@ padding: 2px 8px;
 .hero-scene svg { display: block; width: 100%; height: auto; max-width: 470px; margin: 0 auto; }
 .hs-cap {
 max-width: 470px; margin: 10px auto 0; text-align: center;
-font-family: "IBM Plex Mono", ui-monospace, monospace;
-font-size: 12px; letter-spacing: .05em; color: var(--muted);
+font-family: var(--font-head);
+font-size: 12.5px; color: var(--muted);
 }
 .hs-lab { font-family: var(--font-head); font-size: 14.5px; font-weight: 600; fill: var(--text); }
-.hs-sub { font-family: "IBM Plex Mono", ui-monospace, monospace; font-size: 10.5px; letter-spacing: .06em; fill: var(--muted); }
-.hs-band rect.hs-bg { fill: var(--surface-2); stroke: var(--border); stroke-width: 1; }
+.hs-sub { font-family: var(--font-head); font-size: 11px; font-weight: 500; fill: var(--muted); }
+.hs-unit {
+font-family: "IBM Plex Mono", ui-monospace, monospace;
+font-size: 9.5px; letter-spacing: .06em; fill: var(--muted); opacity: .75;
+}
+.hs-unit-on { fill: var(--accent); opacity: 1; font-weight: 500; }
+.hs-axis-line { stroke: var(--border); stroke-width: 1; }
+.hs-tick line { stroke: var(--border); stroke-width: 1; }
+.hs-band rect.hs-bg { fill: url(#hsGlass); stroke: var(--border); stroke-width: 1; }
 .hs-tex { stroke: var(--muted); opacity: .22; fill: none; }
 .hs-b1, .hs-b2, .hs-b3, .hs-b4 { opacity: .45; }
 .hs-b1 { animation: hsDim .5s ease .9s both; }
@@ -2019,10 +2026,16 @@ font-size: 12px; letter-spacing: .05em; color: var(--muted);
 .hs-b3 { animation: hsDim .5s ease 2.4s both; }
 .hs-b4 { animation: hsDim .5s ease 3.15s both; }
 @keyframes hsDim { from { opacity: 1; } to { opacity: .45; } }
-.hs-moat rect.hs-vein { fill: var(--accent); }
+.hs-moat rect.hs-vein { fill: url(#hsVein); }
 .hs-moat .hs-lab, .hs-moat .hs-sub { fill: var(--surface); }
+.hs-moat .hs-sub { opacity: .78; }
 .hs-moat { animation: hsLight .7s ease 3.9s both; }
 @keyframes hsLight { from { opacity: .32; } to { opacity: 1; } }
+.hs-shine { animation: hsShine 1.15s cubic-bezier(.32, .7, .2, 1) 4.25s both; }
+@keyframes hsShine {
+from { transform: translateX(-336px); }
+to { transform: translateX(336px); }
+}
 .hs-rig { animation: hsDrill 3.6s cubic-bezier(.3, .6, .2, 1) .4s both; }
 @keyframes hsDrill {
 0%   { transform: translateY(-290px); }
