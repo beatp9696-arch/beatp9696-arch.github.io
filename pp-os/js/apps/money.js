@@ -1,5 +1,5 @@
 import { load, save } from "../core/storage.js";
-import { countUp, flush, stagger, money, money0, dateShort } from "../core/ui.js";
+import { countUp, esc, flush, stagger, money, money0, dateShort } from "../core/ui.js";
 
 export const CATS = {
   out: [["Food", "🍜"], ["Transport", "🚗"], ["Home", "🛒"], ["Fun", "🎮"], ["Health", "💊"], ["Other", "📦"]],
@@ -673,7 +673,7 @@ export default {
           <div class="g-top">
             <span class="g-emoji">${g.emoji}</span>
             <div class="g-info">
-              <div class="g-name">${g.name} ${done ? `<span class="g-badge">✓ Funded</span>` : eta ? `<span class="g-eta">${eta}</span>` : ""}</div>
+              <div class="g-name">${esc(g.name)} ${done ? `<span class="g-badge">✓ Funded</span>` : eta ? `<span class="g-eta">${eta}</span>` : ""}</div>
               <div class="g-nums">${money(g.saved)} / ${money(g.target)} · ${Math.round((g.saved / g.target) * 100)}%</div>
             </div>
             <button type="button" class="btn-soft g-open">＋</button>
@@ -732,6 +732,8 @@ export default {
         month: "short",
         year: "numeric",
       });
+      // เดือนอนาคตไม่มีข้อมูลให้ดู — หยุดปุ่ม › ไว้ที่เดือนปัจจุบัน
+      monthPick.querySelector(".next").disabled = ym.y === now0.getFullYear() && ym.m === now0.getMonth();
       const rows = entries.filter(inMonth);
       const { in: sumIn, out: sumOut } = monthSums(ym.y, ym.m);
       const net = sumIn - sumOut;
@@ -915,7 +917,7 @@ export default {
       const rate = monthlySavingsInflow();
       const next = goals.filter((g) => g.saved < g.target).sort((a, b) => a.target - a.saved - (b.target - b.saved))[0];
       if (next && rate > 0)
-        items.push({ tone: "gold", text: `At this pace, ${next.emoji} ${next.name} is ≈ ${Math.min(Math.ceil((next.target - next.saved) / rate), 99)} months away.` });
+        items.push({ tone: "gold", text: `At this pace, ${next.emoji} ${esc(next.name)} is ≈ ${Math.min(Math.ceil((next.target - next.saved) / rate), 99)} months away.` });
 
       $(".feed").innerHTML = items.length
         ? items.slice(0, 4).map((x) => `<div class="ins"><i class="ins-dot ${x.tone}"></i><span>${x.text}</span></div>`).join("")

@@ -30,6 +30,10 @@ export function stagger(root) {
   root.querySelectorAll(".card").forEach((el, i) => el.style.setProperty("--i", i));
 }
 
+// ข้อความที่ผู้ใช้พิมพ์เอง (ชื่อ, goal) ก่อนฉีดเข้า template string ของ innerHTML ต้องผ่านตัวนี้เสมอ
+export const esc = (s) =>
+  String(s).replace(/[&<>"']/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]));
+
 // ฟอร์แมตอังกฤษล้วน — ตัวเลข/วันที่/เวลา ต้องมาจากที่เดียวกันหมด ไม่งั้นแต่ละหน้าจะเพี้ยนกันเอง
 export const num = (n, opts = {}) => n.toLocaleString("en-US", opts);
 

@@ -1096,8 +1096,17 @@ export default {
     $(".h-import").addEventListener("click", openSheet);
     $(".hk-x").addEventListener("click", closeSheet);
     sheet.addEventListener("click", (e) => e.target === sheet && closeSheet());
-    addEventListener("keydown", (e) => e.key === "Escape" && body.isConnected && closeSheet());
-    document.addEventListener("pp-hk-open", () => body.isConnected && openSheet());
+    // global listener ต้องถอดตัวเองเมื่อ pane ถูกถอด — ไม่งั้นสลับแท็บกลับมาแต่ละครั้งจะสะสมเพิ่ม
+    const onEsc = (e) => {
+      if (!body.isConnected) return removeEventListener("keydown", onEsc);
+      if (e.key === "Escape") closeSheet();
+    };
+    addEventListener("keydown", onEsc);
+    const onHkOpen = () => {
+      if (!body.isConnected) return document.removeEventListener("pp-hk-open", onHkOpen);
+      openSheet();
+    };
+    document.addEventListener("pp-hk-open", onHkOpen);
 
     // นำผลที่ parse แล้วเข้าระบบ — ใช้ร่วมกันทั้งเลือกไฟล์และวางจากคลิปบอร์ด
     const applyImport = (parsed) => {

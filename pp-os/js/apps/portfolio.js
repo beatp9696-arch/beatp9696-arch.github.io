@@ -141,6 +141,8 @@ export default {
     const write = (hs) => save(KEY, hs);
 
     const render = () => {
+      // อนิเมชันการ์ดเล่นเฉพาะเข้าหน้าครั้งแรก — แก้ราคา/แก้หุ้นแล้ว re-render ไม่ต้องกระพริบทั้งหน้า
+      if (!firstPaint) body.classList.add("settled");
       const holdings = read();
       const total = holdings.reduce((s, h) => s + val(h), 0);
       const cost = holdings.reduce((s, h) => s + basis(h), 0);
@@ -471,7 +473,8 @@ export default {
 
       form.addEventListener("submit", (e) => {
         e.preventDefault();
-        const tk = form.tk.value.trim().toUpperCase();
+        // ticker เข้า innerHTML/attribute หลายจุด — รับเฉพาะอักขระที่ ticker จริงมีได้
+        const tk = form.tk.value.trim().toUpperCase().replace(/[^A-Z0-9.\-]/g, "");
         const shares = parseFloat(form.shares.value);
         const cost = parseFloat(form.cost.value);
         const price = parseFloat(form.price.value);

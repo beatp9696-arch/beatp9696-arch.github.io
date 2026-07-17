@@ -1,7 +1,7 @@
 import { load, save } from "../core/storage.js";
 import { exportData } from "../core/app-shell.js";
 import { DEFAULT_LOC, aqiLevel, describe, fetchAirQuality, fetchForecast } from "./weather.js";
-import { countUp, flush, stagger, money0, dateLong } from "../core/ui.js";
+import { countUp, esc, flush, stagger, money0, dateLong } from "../core/ui.js";
 
 // หน้า Me — แดชบอร์ดชีวิตวันนี้ อ่านข้อมูลจากทุกแอปมารวมในจอเดียว
 // ทุกการ์ดกดแล้วกระโดดไปแท็บที่ลึกกว่าได้ (ยิง event ให้ shell จัดการ)
@@ -64,6 +64,8 @@ export default {
     const go = (tab) => document.dispatchEvent(new CustomEvent("pp-go", { detail: tab }));
 
     const render = () => {
+      // การ์ดเล่นอนิเมชันเข้าเฉพาะครั้งแรก — re-render จาก interaction เล็กๆ (ติ๊ก task) ไม่ต้องกระพริบทั้งหน้า
+      if (!firstPaint) body.classList.add("settled");
       const days = load("health.days", {});
       const t = days[dayKey()] ?? { steps: 0, water: 0, ex: 0, sleep: 0, weight: null, mood: null };
       const entries = load("money.entries", []);
@@ -73,7 +75,8 @@ export default {
 
       const ym = { y: now.getFullYear(), m: now.getMonth() };
       const monthRows = entries.filter((e) => {
-        const d = new Date(e.date);
+        // เที่ยงวันกันเหลื่อม timezone — วิธีเดียวกับ money.js ไม่งั้นเลขสองหน้าไม่ตรงกัน
+        const d = new Date(e.date + "T12:00:00");
         return d.getFullYear() === ym.y && d.getMonth() === ym.m;
       });
       const sumIn = monthRows.filter((e) => e.type === "in").reduce((s, e) => s + e.amount, 0);
@@ -109,14 +112,14 @@ export default {
         <header class="me-head">
           <div>
             <div class="page-sub">${greet(now.getHours())}</div>
-            <button class="me-name">${name || "Set your name"}</button>
+            <button class="me-name">${esc(name) || "Set your name"}</button>
             <div class="page-sub">${dateLong(now)}</div>
           </div>
           <div class="me-head-actions">
             <button class="me-gear" aria-label="Settings" title="Settings">
               <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3.2"/><path d="M12 3.5v2M12 18.5v2M3.5 12h2M18.5 12h2M5.9 5.9l1.4 1.4M16.7 16.7l1.4 1.4M18.1 5.9l-1.4 1.4M7.3 16.7l-1.4 1.4"/></svg>
             </button>
-            <div class="me-av">${name ? name.trim().slice(0, 2) : "MO"}</div>
+            <div class="me-av">${name ? esc(name.trim().slice(0, 2)) : "MO"}</div>
           </div>
         </header>
 
@@ -270,7 +273,8 @@ export default {
       });
 
       // แตะครั้งเดียว = ได้ไฟล์ backup เลย (ไม่ต้องเดินไปหาเมนู More ตามที่ข้อความสัญญาไว้)
-      body.querySelector(".backup-nudge")?.addEventListener("click", () => {
+      // ต้อง :not(.budget-nudge) — แบนเนอร์งบใช้ class ร่วมกัน ถ้าไม่กันไว้ กด Review งบจะได้ไฟล์ backup แทน
+      body.querySelector(".backup-nudge:not(.budget-nudge)")?.addEventListener("click", () => {
         exportData();
         render();
       });

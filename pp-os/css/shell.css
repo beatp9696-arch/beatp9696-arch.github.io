@@ -283,7 +283,7 @@ body.mode-app {
   color: var(--text);
   padding: 13px 14px;
   font: inherit;
-  font-size: 15px;
+  font-size: 16px; /* < 16px = iOS ซูมหน้าจอเองตอนโฟกัส */
   outline: none;
   transition: border-color var(--dur) var(--ease);
 }
