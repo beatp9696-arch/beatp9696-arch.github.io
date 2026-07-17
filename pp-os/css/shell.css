@@ -30,8 +30,8 @@ body.mode-app {
   background: #0d100c;
 }
 
-#shell[data-tab="weather"] #shell-view {
-  background: #14100b;
+#shell[data-tab="portfolio"] #shell-view {
+  background: #0b0e13;
 }
 
 #shell-view > .view,
@@ -120,11 +120,11 @@ body.mode-app {
   --tb-on: #cdf463;
 }
 
-#shell[data-tab="weather"] #tabbar {
-  background: rgba(20, 16, 11, 0.9);
+#shell[data-tab="portfolio"] #tabbar {
+  background: rgba(11, 14, 19, 0.9);
   border-top-color: rgba(255, 255, 255, 0.08);
-  --tb-muted: #8a7d6b;
-  --tb-on: #e58a4d;
+  --tb-muted: #6f7887;
+  --tb-on: #6aa9ff;
 }
 
 .tab {
@@ -224,7 +224,7 @@ body.mode-app {
 /* FAB กลืนสีกับแท็บที่เปิดอยู่ (เหมือนแถบล่าง) */
 #shell[data-tab="health"] #quick-fab { background: #2fd287; color: #05130c; }
 #shell[data-tab="money"] #quick-fab { background: #cdf463; color: #161b07; }
-#shell[data-tab="weather"] #quick-fab { background: #b4552d; color: #fff; }
+#shell[data-tab="portfolio"] #quick-fab { background: #6aa9ff; color: #071426; }
 
 /* อยู่หน้าซ้อน (Notes / เว็บ / Restore) หรือแท็บ Moatrices (web view) = ซ่อน FAB ไม่ให้เกะกะ */
 #shell.in-sub #quick-fab,
@@ -838,6 +838,38 @@ body.mode-app .sheet {
   overflow-y: auto;
   -webkit-overflow-scrolling: touch;
   padding: 8px 16px calc(28px + env(safe-area-inset-bottom, 0px));
+}
+
+/* ---- หน้าซ้อนเต็มจอ: Weather (ไม่มีแท็บแล้ว) + บทความจากเว็บ ----
+   ใช้โครง .settings-ov ทั้งดุ้น ต่างแค่เนื้อในเป็นแอปจริงๆ ไม่ใช่ลิสต์ตั้งค่า */
+.ov-body {
+  flex: 1;
+  min-height: 0;
+  display: flex;
+  flex-direction: column;
+  overflow-y: auto;
+  -webkit-overflow-scrolling: touch;
+  overscroll-behavior-y: contain;
+}
+
+/* แอปที่มาอยู่ในหน้าซ้อนไม่มีแท็บล่างมาบัง แต่ยังต้องเว้น safe area ของเครื่อง */
+.ov-body > .app-pane {
+  padding-bottom: calc(24px + env(safe-area-inset-bottom, 0px));
+}
+
+.ov-body.ov-web {
+  position: relative;
+  overflow: hidden;
+}
+
+/* หัวแถบต้องกลืนกับพื้นของแอปที่อยู่ข้างใน ไม่งั้นเห็นเป็นสองชิ้นเย็บกัน */
+.app-ov[data-tone="weather"] {
+  background: #14100b;
+}
+
+.app-ov[data-tone="weather"] .set-bar {
+  background: rgba(30, 24, 17, 0.82);
+  border-bottom-color: rgba(255, 255, 255, 0.08);
 }
 
 /* ขั้นตอนตอนต่อ token ในชีต Connect */

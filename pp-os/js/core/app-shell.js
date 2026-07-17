@@ -15,18 +15,22 @@ const ICONS = {
   me: I('<circle cx="12" cy="8" r="3.6"/><path d="M4.8 20a7.2 7.2 0 0 1 14.4 0"/>'),
   health: I('<path d="M20.4 6.9a4.6 4.6 0 0 0-7.8-2L12 5.6l-.6-.7a4.6 4.6 0 0 0-7.8 2c-.5 2 .3 3.9 1.8 5.5L12 19l6.6-6.6c1.5-1.6 2.3-3.5 1.8-5.5Z"/><path d="M3.4 12h3.3l1.5-2.4 2 4.4 1.6-3 1.1 1h4.2"/>'),
   money: I('<rect x="3" y="6" width="18" height="13" rx="3"/><path d="M3 10h18"/><circle cx="16.5" cy="14.5" r="1.4"/><path d="M6.5 3.8 15 6"/>'),
-  weather: I('<circle cx="8.2" cy="8.2" r="3"/><path d="M8.2 2.4v1.3M8.2 12.7V14M2.4 8.2h1.3M12.7 8.2H14M4.1 4.1l.9.9M11.4 11.4l.9.9M12.3 4.1l-.9.9M5 11.4l-.9.9"/><path d="M9 20h8.5a3.5 3.5 0 0 0 .3-7 5 5 0 0 0-9.4-1.1A3.6 3.6 0 0 0 9 20Z"/>'),
+  // แท็บ Portfolio — โดนัทสามชิ้น ล้อกับกราฟวงในแอปเอง
+  portfolio: I('<circle cx="12" cy="12" r="8.4"/><circle cx="12" cy="12" r="3.2"/><path d="M12 3.6v5.2M14.8 13.6l4.5 2.6M9.2 13.6l-4.5 2.6"/>'),
   plus: I('<path d="M12 5v14M5 12h14"/>'),
   chev: I('<path d="M9 5l7 7-7 7"/>'),
   back: I('<path d="M15 5l-7 7 7 7"/>'),
   sync: I('<path d="M4 9a8 8 0 0 1 13.7-3.3L20 8"/><path d="M20 4v4h-4"/><path d="M20 15a8 8 0 0 1-13.7 3.3L4 16"/><path d="M4 20v-4h4"/>'),
 };
 
+// 5 ช่องคือของหายาก — ให้เฉพาะของที่เปิดทุกวันและตัดสินใจอะไรบางอย่าง
+// Weather ไม่ได้อยู่ตรงนี้แล้ว (ดูวันละครั้ง ไม่ได้ตัดสินใจอะไรต่อ) → เข้าทางการ์ดในหน้า Me แทน
+// หน้าเต็มของมันยังอยู่ครบเหมือนเดิม แค่เปิดเป็นหน้าซ้อน
 const TABS = [
   { id: "moatrices", label: "Moatrices", app: null }, // แท็บแรก = เปิดหน้าเว็บ Moatrices ในแอปเต็มจอ
   { id: "health", label: "Health", app: "health" },
   { id: "money", label: "Money", app: "money" },
-  { id: "weather", label: "Weather", app: "weather" },
+  { id: "portfolio", label: "Portfolio", app: "portfolio" },
   { id: "me", label: "Me", app: "me" },
 ];
 
@@ -35,12 +39,20 @@ const TABS = [
 // ไม่ส่ง X-Frame-Options → ฝังเป็น web view ในแอปได้เลย ไม่ต้องเด้งออกเบราว์เซอร์
 // แอปถูกเสิร์ฟที่ <root>/pp-os/ เสมอ → เว็บคือระดับบนขึ้นไปหนึ่งชั้น (same origin จริงๆ)
 // ถ้ารัน pp-os เดี่ยวๆ ตอน dev (ไม่มี /pp-os/ ใน path) ค่อย fallback ไปเว็บจริง
-const SITE = location.pathname.includes("/pp-os/")
+// export ให้แอปอื่นใช้ต่อได้ (Portfolio ดึงโลโก้ + ลิงก์บทความ deep-dive จากเว็บเดียวกันนี้)
+export const SITE = location.pathname.includes("/pp-os/")
   ? location.pathname.replace(/pp-os\/.*$/, "")
   : "https://beatp9696-arch.github.io/";
 
-// สีแถบสถานะของมือถือ ให้กลืนกับพื้นหลังของแท็บที่เปิดอยู่
-const THEME = { moatrices: "#0f1215", me: "#0f1215", health: "#0c1014", money: "#0f120e", weather: "#14100b" };
+// สีแถบสถานะของมือถือ ให้กลืนกับพื้นหลังของแท็บ/หน้าซ้อนที่เปิดอยู่
+const THEME = {
+  moatrices: "#0f1215",
+  me: "#0f1215",
+  health: "#0c1014",
+  money: "#0f120e",
+  portfolio: "#0b0e13",
+  weather: "#14100b",
+};
 
 let shell, view, bar, themeMeta;
 let curIdx = 0; // แท็บที่เปิดอยู่ (index ใน TABS) — ใช้คำนวณทิศสไลด์เวลากดหรือปัด
@@ -78,6 +90,10 @@ export function initShell() {
   document.addEventListener("pp-go", (e) => goTab(e.detail));
   // ปุ่มเฟืองในหน้า Me เปิดหน้า Settings (Sync / Data / Device)
   document.addEventListener("pp-settings", openSettings);
+  // แอปที่ไม่มีแท็บของตัวเอง (Weather) เปิดเป็นหน้าซ้อนจากการ์ดในหน้า Me
+  document.addEventListener("pp-open", (e) => openAppOverlay(e.detail));
+  // หน้าเว็บ Moatrices ที่เปิดจากในแอป (บทความ deep-dive จากหน้า Portfolio)
+  document.addEventListener("pp-open-web", (e) => openWebOverlay(e.detail));
 
   buildQuickAdd();
   wireSwipe();
@@ -158,6 +174,70 @@ function renderMoatrices() {
   frame.addEventListener("load", () => {
     pane.querySelector(".web-load")?.remove();
     frame.classList.add("ready");
+  });
+}
+
+// ---- หน้าซ้อนเต็มจอ: แอปที่ไม่มีแท็บของตัวเอง (Weather) และหน้าเว็บที่เปิดจากในแอป ----
+// โครงเดียวกับ Settings ทุกอย่าง — สไลด์มาจากขวา มีปุ่มย้อนกลับ ปิดด้วย Esc
+// ตัวแท็บล่างไม่หายไปไหน แค่ถูกทับ กดย้อนกลับก็อยู่แท็บเดิมที่ค้างไว้
+function overlay({ title, tone, fill }) {
+  if (document.querySelector(".app-ov")) return; // กันเปิดซ้อนกันเอง
+
+  const ov = document.createElement("div");
+  ov.className = "app-ov settings-ov";
+  if (tone) ov.dataset.tone = tone;
+  ov.innerHTML = `
+    <header class="set-bar">
+      <button class="set-close" aria-label="Back">${ICONS.back}</button>
+      <span class="set-title">${title}</span>
+    </header>
+    <div class="ov-body"></div>`;
+  document.body.append(ov);
+  requestAnimationFrame(() => ov.classList.add("open"));
+
+  const prevTheme = themeMeta.content;
+  if (THEME[tone]) themeMeta.content = THEME[tone];
+
+  const close = () => {
+    removeEventListener("keydown", onKey);
+    themeMeta.content = prevTheme;
+    ov.classList.remove("open");
+    setTimeout(() => ov.remove(), 220);
+  };
+  const onKey = (e) => e.key === "Escape" && close();
+  addEventListener("keydown", onKey);
+  ov.querySelector(".set-close").addEventListener("click", close);
+
+  fill(ov.querySelector(".ov-body"), close);
+}
+
+function openAppOverlay(id) {
+  const app = getApp(id);
+  if (!app) return;
+  overlay({
+    title: app.name,
+    tone: id,
+    fill: (host) => {
+      const pane = document.createElement("div");
+      host.append(pane);
+      app.mount(pane); // contract เดิม — แอปไม่รู้เลยว่าตัวเองอยู่ในแท็บหรือหน้าซ้อน
+    },
+  });
+}
+
+function openWebOverlay({ url, title }) {
+  overlay({
+    title,
+    fill: (host) => {
+      host.classList.add("ov-web");
+      host.innerHTML = `<div class="web-load">Loading…</div>
+        <iframe class="web-frame" src="${url}" title="${title}" referrerpolicy="no-referrer"></iframe>`;
+      const frame = host.querySelector(".web-frame");
+      frame.addEventListener("load", () => {
+        host.querySelector(".web-load")?.remove();
+        frame.classList.add("ready");
+      });
+    },
   });
 }
 

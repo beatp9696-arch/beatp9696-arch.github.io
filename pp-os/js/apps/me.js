@@ -173,7 +173,7 @@ export default {
         </button>
 
         <div class="me-duo">
-          <button class="card" data-go="weather">
+          <button class="card" data-open="weather">
             <div class="card-title">Weather</div>
             <div class="wx-body"><div class="fin-sub">Loading…</div></div>
           </button>
@@ -255,6 +255,13 @@ export default {
 
       for (const card of body.querySelectorAll("[data-go]")) {
         card.addEventListener("click", () => go(card.dataset.go));
+      }
+
+      // Weather ไม่มีแท็บแล้ว — การ์ดนี้คือทางเข้าหน้าเต็มของมัน (เปิดเป็นหน้าซ้อน)
+      for (const card of body.querySelectorAll("[data-open]")) {
+        card.addEventListener("click", () =>
+          document.dispatchEvent(new CustomEvent("pp-open", { detail: card.dataset.open }))
+        );
       }
 
       // เฟือง → เปิดหน้า Settings (Sync / Data / Device) ที่ app-shell คุมอยู่

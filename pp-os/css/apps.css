@@ -3570,3 +3570,681 @@ body.mode-app .hk-sheet {
 .dr-frame.ready {
   opacity: 1;
 }
+
+/* ============================================================
+   Portfolio — พอร์ตส่วนตัว (ROADMAP 4.1)
+   โทน: กรมท่าเกือบดำ + ฟ้าน้ำเงิน ไม่ชนกับ Money (มะนาว) และ Health (มิ้นต์)
+   สีของกำไร/ขาดทุนเป็นสีข้อมูล ไม่ใช่สีแบรนด์ — accent เลยต้องไม่ใช่เขียวหรือแดง
+   ============================================================ */
+.app-pf {
+  --canvas: #0b0e13;
+  --card: #141922;
+  --card-2: rgba(255, 255, 255, 0.045);
+  --line: rgba(255, 255, 255, 0.08);
+  --ink: #e8edf5;
+  --dim: #7d8798;
+  --a: #6aa9ff;
+  --a-soft: rgba(106, 169, 255, 0.12);
+  --on-a: #071426;
+  --up: #3ddc97;
+  --down: #ff7b72;
+  --warn: #e0a92e;
+  --elev: 0 1px 2px rgba(0, 0, 0, 0.4), 0 12px 32px -18px rgba(0, 0, 0, 0.9);
+  background:
+    radial-gradient(620px 340px at 88% -10%, rgba(106, 169, 255, 0.13), transparent 66%),
+    var(--canvas);
+}
+
+.app-pf .up { color: var(--up); }
+.app-pf .down { color: var(--down); }
+
+/* ---- หัวหน้า: มูลค่ารวมคือพระเอก ---- */
+.pf-head {
+  align-items: flex-start;
+}
+
+.pf-total {
+  font-family: var(--font-head);
+  font-size: 38px;
+  font-weight: 800;
+  letter-spacing: -0.035em;
+  line-height: 1.1;
+  margin-top: 4px;
+  font-variant-numeric: tabular-nums;
+}
+
+.pf-delta {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  margin-top: 5px;
+  font-family: var(--font-head);
+  font-size: 13px;
+  font-weight: 600;
+  font-variant-numeric: tabular-nums;
+}
+
+.pf-arrow {
+  font-size: 9px;
+  line-height: 1;
+}
+
+/* ---- แถบราคา: ตัวเลขทั้งหน้ามีอายุ ต้องบอกว่าแก่แค่ไหน ---- */
+.pf-asof {
+  display: flex;
+  align-items: center;
+  gap: 11px;
+  width: 100%;
+  text-align: left;
+  border: 1px solid var(--line);
+  border-radius: var(--r-lg);
+  background: var(--card-2);
+  padding: 11px 13px;
+  cursor: pointer;
+  font: inherit;
+  color: var(--ink);
+  transition: border-color var(--dur) var(--ease), background var(--dur) var(--ease);
+}
+
+.pf-asof:active { transform: scale(0.99); }
+
+.pf-asof.stale {
+  border-color: color-mix(in srgb, var(--warn) 42%, transparent);
+  background: color-mix(in srgb, var(--warn) 10%, transparent);
+}
+
+.pf-asof .pf-dot {
+  width: 8px;
+  height: 8px;
+  flex-shrink: 0;
+  border-radius: 50%;
+  background: var(--up);
+  box-shadow: 0 0 0 3px color-mix(in srgb, var(--up) 22%, transparent);
+}
+
+.pf-asof.stale .pf-dot {
+  background: var(--warn);
+  box-shadow: 0 0 0 3px color-mix(in srgb, var(--warn) 22%, transparent);
+  animation: pf-pulse 2.4s var(--ease) infinite;
+}
+
+@keyframes pf-pulse {
+  50% { box-shadow: 0 0 0 6px color-mix(in srgb, var(--warn) 6%, transparent); }
+}
+
+.pf-asof-t {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.pf-asof-t b { font-family: var(--font-head); font-size: 13px; }
+.pf-asof-t small { font-size: 11.5px; color: var(--dim); }
+
+.pf-asof-go {
+  flex-shrink: 0;
+  font-family: var(--font-head);
+  font-size: 12.5px;
+  font-weight: 700;
+  color: var(--a);
+}
+
+.pf-asof.stale .pf-asof-go { color: var(--warn); }
+
+/* ---- โดนัท ---- */
+.pf-chart-card {
+  padding: 10px 16px 16px;
+}
+
+.pf-chart {
+  position: relative;
+  width: 100%;
+  max-width: 300px;
+  margin: 0 auto;
+}
+
+.pf-ring {
+  display: block;
+  width: 100%;
+  height: auto;
+  overflow: visible;
+}
+
+.pf-track {
+  stroke: rgba(255, 255, 255, 0.04);
+}
+
+/* ชิ้นโดนัทกวาดขึ้นทีละชิ้นตามน้ำหนัก — ตาไล่จากตัวใหญ่ไปเล็กเองโดยไม่ต้องมีลูกศรชี้ */
+.pf-arc {
+  cursor: pointer;
+  transform-origin: 110px 110px;
+  transition: opacity var(--dur) var(--ease), stroke-width var(--dur) var(--ease);
+  animation: pf-arc-in 720ms var(--ease) both;
+  animation-delay: calc(var(--i, 0) * 55ms);
+}
+
+@keyframes pf-arc-in {
+  from { stroke-dasharray: 0 var(--c); }
+}
+
+.pf-ring.dim .pf-arc {
+  opacity: 0.22;
+}
+
+.pf-ring.dim .pf-arc.on {
+  opacity: 1;
+  stroke-width: 28;
+}
+
+/* ---- ใจกลางโดนัท ---- */
+.pf-mid {
+  position: absolute;
+  inset: 28%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 1px;
+  text-align: center;
+  pointer-events: none;
+}
+
+.pf-mid-k {
+  font-family: var(--font-mono);
+  font-size: 9.5px;
+  font-weight: 500;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--dim);
+}
+
+.pf-mid-v {
+  font-family: var(--font-head);
+  font-size: 30px;
+  font-weight: 800;
+  letter-spacing: -0.03em;
+  line-height: 1.15;
+  font-variant-numeric: tabular-nums;
+  transition: color var(--dur) var(--ease);
+}
+
+.pf-mid-s {
+  font-size: 11.5px;
+  color: var(--dim);
+  font-variant-numeric: tabular-nums;
+}
+
+.pf-mid-s i { font-style: normal; font-weight: 600; }
+
+/* ---- Concentration ---- */
+.pf-conc {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.pf-stack {
+  display: flex;
+  gap: 2px;
+  height: 9px;
+  margin-top: 4px;
+}
+
+.pf-stack-seg {
+  width: var(--w);
+  background: var(--c);
+  border-radius: 3px;
+  animation: pf-grow 620ms var(--ease) both;
+}
+
+@keyframes pf-grow {
+  from { transform: scaleX(0); transform-origin: left; }
+}
+
+.pf-legend {
+  display: flex;
+  flex-direction: column;
+  gap: 9px;
+}
+
+.pf-leg {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+}
+
+.pf-leg-dot {
+  width: 9px;
+  height: 9px;
+  flex-shrink: 0;
+  border-radius: 3px;
+}
+
+.pf-leg-l {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 1px;
+}
+
+.pf-leg-l b { font-family: var(--font-head); font-size: 12.5px; font-weight: 600; }
+
+.pf-leg-l small {
+  font-family: var(--font-mono);
+  font-size: 10px;
+  color: var(--dim);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.pf-leg-v {
+  font-family: var(--font-head);
+  font-size: 13px;
+  font-weight: 700;
+  font-variant-numeric: tabular-nums;
+}
+
+/* ข้อสังเกตที่ตัวเลขบังคับให้พูด — ไม่ใช่คำสอน */
+.pf-flag {
+  border-left: 2px solid color-mix(in srgb, var(--a) 55%, transparent);
+  padding: 2px 0 2px 10px;
+  font-size: 12px;
+  line-height: 1.55;
+  color: var(--dim);
+}
+
+.pf-flag b { color: var(--ink); font-weight: 600; }
+
+/* ---- ลิสต์หุ้น ---- */
+.pf-book { padding-bottom: 6px; }
+
+.pf-list > * + * { border-top: 1px solid var(--line); }
+
+.pf-row {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: 11px;
+  width: 100%;
+  padding: 11px 0 13px;
+  border: 0;
+  background: none;
+  color: inherit;
+  font: inherit;
+  text-align: left;
+  cursor: pointer;
+  transition: opacity var(--dur) var(--ease);
+}
+
+.pf-row:active { opacity: 0.6; }
+
+.pf-logo {
+  position: relative;
+  width: 34px;
+  height: 34px;
+  flex-shrink: 0;
+}
+
+.pf-logo img {
+  width: 34px;
+  height: 34px;
+  border-radius: 9px;
+  background: #fff;
+  object-fit: contain;
+  padding: 3px;
+}
+
+/* โลโก้ที่เป็น wordmark ยาวๆ (ASML/AVGO/MU/LMT) หรือรูปโหลดไม่ขึ้น = ตัวย่อบนสีประจำกลุ่ม */
+.pf-mono {
+  width: 34px;
+  height: 34px;
+  display: grid;
+  place-items: center;
+  border-radius: 9px;
+  background: color-mix(in srgb, var(--c) 20%, transparent);
+  border: 1px solid color-mix(in srgb, var(--c) 45%, transparent);
+  color: var(--c);
+  font-family: var(--font-head);
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.01em;
+}
+
+.pf-logo img + .pf-mono { display: none; }
+
+.pf-name {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.pf-name b {
+  font-family: var(--font-head);
+  font-size: 14.5px;
+  font-weight: 700;
+  letter-spacing: -0.01em;
+}
+
+.pf-name small {
+  font-size: 11.5px;
+  color: var(--dim);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.pf-num {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 2px;
+  flex-shrink: 0;
+}
+
+.pf-num b {
+  font-family: var(--font-head);
+  font-size: 14px;
+  font-weight: 700;
+  font-variant-numeric: tabular-nums;
+}
+
+.pf-num small {
+  font-size: 11px;
+  color: var(--dim);
+  font-variant-numeric: tabular-nums;
+}
+
+.pf-gl {
+  width: 58px;
+  flex-shrink: 0;
+  text-align: right;
+  font-family: var(--font-head);
+  font-size: 12px;
+  font-weight: 600;
+  font-variant-numeric: tabular-nums;
+}
+
+/* น้ำหนักอ่านได้โดยไม่ต้องอ่านเลข — เส้นใต้แถวยาวตามสัดส่วนของตัวที่ใหญ่ที่สุด */
+.pf-bar {
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  height: 2px;
+  width: var(--w);
+  border-radius: 2px;
+  background: var(--c);
+  opacity: 0.55;
+  animation: pf-grow 700ms var(--ease) both;
+}
+
+.pf-row.on .pf-bar { opacity: 1; }
+
+.pf-row.on .pf-name b { color: var(--a); }
+
+.pf-stale {
+  margin-left: 6px;
+  font-size: 6px;
+  font-style: normal;
+  vertical-align: middle;
+  color: var(--warn);
+}
+
+.pf-foot {
+  font-size: 11px;
+  line-height: 1.6;
+  color: var(--dim);
+  text-align: center;
+  margin-top: 2px;
+}
+
+/* ---- ยังไม่มีหุ้นในพอร์ต ---- */
+.pf-blank {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 9px;
+  text-align: center;
+  padding: 22px 18px 24px;
+}
+
+.pf-blank-art {
+  width: 120px;
+  height: 120px;
+  margin-bottom: 2px;
+}
+
+.pf-blank-art circle {
+  stroke: rgba(255, 255, 255, 0.05);
+}
+
+/* วงประที่ค่อยๆ กวาด = ที่ว่างรอถูกเติม ไม่ใช่หน้าพัง */
+.pf-blank-art .pf-blank-hint {
+  stroke: var(--a);
+  stroke-dasharray: 0 490;
+  animation: pf-hint 3.4s var(--ease) infinite;
+  transform: rotate(-90deg);
+  transform-origin: 110px 110px;
+  opacity: 0.55;
+}
+
+@keyframes pf-hint {
+  0% { stroke-dasharray: 0 490; }
+  55%, 100% { stroke-dasharray: 172 490; }
+}
+
+.pf-blank b {
+  font-family: var(--font-head);
+  font-size: 17px;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+}
+
+.pf-blank p {
+  font-size: 12.5px;
+  line-height: 1.65;
+  color: var(--dim);
+  max-width: 32ch;
+}
+
+.pf-blank .btn { margin-top: 4px; }
+
+.pf-quick-l {
+  margin-top: 8px;
+  font-size: 11px;
+  color: var(--dim);
+}
+
+.pf-quick { justify-content: center; }
+
+.pf-quick .chip {
+  font-family: var(--font-head);
+  font-weight: 600;
+  cursor: pointer;
+  color: var(--ink);
+}
+
+.pf-quick .chip:hover {
+  border-color: color-mix(in srgb, var(--a) 45%, transparent);
+  background: var(--a-soft);
+  color: var(--a);
+}
+
+/* ---- ชีตของ Portfolio (เพิ่ม/แก้หุ้น + อัปเดตราคา) ---- */
+.pf-sheet .sheet-card {
+  background: var(--card);
+  border-color: var(--line);
+  color: var(--ink);
+}
+
+.pf-sheet .sheet-h { color: var(--ink); }
+.pf-sheet .sheet-x { color: var(--dim); }
+.pf-sheet .sheet-p { color: var(--dim); }
+
+.pf-sheet .qa-submit {
+  background: var(--a);
+  color: var(--on-a);
+  margin-top: 2px;
+}
+
+.pf-sheet .qa-submit:hover { background: var(--a); filter: brightness(1.08); }
+
+/* สรุปตัวเลขของหุ้นตัวนั้นบนหัวชีต — แก้ค่าอะไรก็เห็นว่ากำลังแก้อะไรอยู่ */
+.pf-stat {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 8px;
+  padding: 12px;
+  border: 1px solid var(--line);
+  border-radius: var(--r-md);
+  background: var(--card-2);
+}
+
+.pf-stat > div {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  align-items: center;
+}
+
+.pf-stat b {
+  font-family: var(--font-head);
+  font-size: 16px;
+  font-weight: 700;
+  font-variant-numeric: tabular-nums;
+}
+
+.pf-stat small {
+  font-family: var(--font-mono);
+  font-size: 9.5px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--dim);
+}
+
+.pf-form { gap: 11px; }
+
+.pf-f {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+
+.pf-f > span {
+  font-size: 11.5px;
+  color: var(--dim);
+  padding-left: 2px;
+}
+
+.pf-f input,
+.pf-f select {
+  background: var(--card-2);
+  border-color: var(--line);
+  color: var(--ink);
+}
+
+.pf-f input:focus,
+.pf-f select:focus { border-color: var(--a); }
+
+.pf-f input[readonly] {
+  color: var(--dim);
+  cursor: not-allowed;
+}
+
+.pf-f2 {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 9px;
+}
+
+.pf-known:empty { display: none; }
+
+.pf-known {
+  margin-top: -6px;
+  padding-left: 2px;
+  font-size: 11.5px;
+  font-weight: 600;
+  color: var(--a);
+}
+
+.pf-read {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  padding: 11px 12px;
+  border: 1px solid color-mix(in srgb, var(--a) 30%, transparent);
+  border-radius: var(--r-md);
+  background: var(--a-soft);
+  color: var(--a);
+  text-decoration: none;
+}
+
+.pf-read svg { width: 17px; height: 17px; flex-shrink: 0; }
+.pf-read b { flex: 1; font-family: var(--font-head); font-size: 13px; font-weight: 600; }
+.pf-read span { opacity: 0.7; }
+.pf-read:hover { background: color-mix(in srgb, var(--a) 20%, transparent); }
+
+.pf-del {
+  border: 1px solid var(--line);
+  border-radius: var(--r-md);
+  background: transparent;
+  color: var(--dim);
+  padding: 11px;
+  font-family: var(--font-head);
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all var(--dur) var(--ease);
+}
+
+.pf-del:hover { color: var(--down); border-color: color-mix(in srgb, var(--down) 45%, transparent); }
+
+.pf-del.armed {
+  background: var(--down);
+  border-color: var(--down);
+  color: #1a0808;
+}
+
+.pf-prices {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.pf-price-row {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.pf-price-t {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 1px;
+}
+
+.pf-price-t b { font-family: var(--font-head); font-size: 13.5px; font-weight: 700; }
+.pf-price-t small { font-size: 11px; color: var(--dim); font-variant-numeric: tabular-nums; }
+
+.pf-price-row input {
+  width: 108px;
+  flex-shrink: 0;
+  text-align: right;
+  font-variant-numeric: tabular-nums;
+  background: var(--card-2);
+  border-color: var(--line);
+  color: var(--ink);
+}
+
+.pf-price-row.stale input {
+  border-color: color-mix(in srgb, var(--warn) 45%, transparent);
+}
+
+.pf-price-row input:focus { border-color: var(--a); }
