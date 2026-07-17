@@ -196,9 +196,11 @@ body.mode-app {
   place-items: center;
   border: 0;
   border-radius: 50%;
-  background: var(--accent);
+  /* แสงตกจากบน: ไล่สว่าง→เข้ม + เส้น highlight ในขอบบน = ปุ่มนูนจริง ไม่ใช่วงกลมแบน */
+  background: linear-gradient(180deg, color-mix(in srgb, var(--accent) 84%, #fff), var(--accent) 78%);
   color: var(--on-accent);
   box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.28),
     0 10px 24px -8px color-mix(in srgb, var(--accent) 65%, transparent),
     0 2px 6px rgba(0, 0, 0, 0.22);
   cursor: pointer;
@@ -221,10 +223,21 @@ body.mode-app {
   from { transform: scale(0); opacity: 0; }
 }
 
-/* FAB กลืนสีกับแท็บที่เปิดอยู่ (เหมือนแถบล่าง) */
-#shell[data-tab="health"] #quick-fab { background: #2fd287; color: #05130c; }
-#shell[data-tab="money"] #quick-fab { background: #cdf463; color: #161b07; }
-#shell[data-tab="portfolio"] #quick-fab { background: #6aa9ff; color: #071426; }
+/* FAB กลืนสีกับแท็บที่เปิดอยู่ (เหมือนแถบล่าง) — gradient แสงบนชุดเดียวกับตัวหลัก */
+#shell[data-tab="health"] #quick-fab {
+  background: linear-gradient(180deg, color-mix(in srgb, #2fd287 84%, #fff), #2fd287 78%);
+  color: #05130c;
+}
+
+#shell[data-tab="money"] #quick-fab {
+  background: linear-gradient(180deg, color-mix(in srgb, #cdf463 84%, #fff), #cdf463 78%);
+  color: #161b07;
+}
+
+#shell[data-tab="portfolio"] #quick-fab {
+  background: linear-gradient(180deg, color-mix(in srgb, #6aa9ff 84%, #fff), #6aa9ff 78%);
+  color: #071426;
+}
 
 /* อยู่หน้าซ้อน (Notes / เว็บ / Restore) หรือแท็บ Moatrices (web view) = ซ่อน FAB ไม่ให้เกะกะ */
 #shell.in-sub #quick-fab,

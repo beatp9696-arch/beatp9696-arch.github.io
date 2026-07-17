@@ -40,7 +40,7 @@ function greet(h) {
 
 function miniRing(cls, frac, label, center) {
   const f = Math.max(0, Math.min(frac, 1));
-  return `<div class="mini ${cls}">
+  return `<div class="mini ${cls}${f >= 1 ? " done" : ""}">
     <div class="dial">
       <svg viewBox="0 0 54 54">
         <circle class="ring-track" cx="27" cy="27" r="23"></circle>

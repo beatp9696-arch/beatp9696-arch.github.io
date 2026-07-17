@@ -21,7 +21,7 @@
 
   display: flex;
   flex-direction: column;
-  gap: 14px;
+  gap: 16px;
   padding: 18px 16px 24px;
   min-height: 100%;
   background: var(--canvas);
@@ -190,9 +190,15 @@ body.mode-app .app-pane textarea {
 .card {
   border: 1px solid var(--line);
   border-radius: var(--r-lg);
-  background: var(--card);
+  /* แสงตกจากบน (key light) แบบวัสดุจริง: sheen ไล่จางช่วงบนของการ์ด
+     + เส้น highlight 1px ที่ขอบบน — การ์ดหลุดจากความเป็นกล่องแบน */
+  background:
+    linear-gradient(180deg, color-mix(in srgb, var(--ink) 3.5%, transparent), transparent 32%),
+    var(--card);
   padding: 16px;
-  box-shadow: var(--elev);
+  box-shadow:
+    inset 0 1px 0 color-mix(in srgb, var(--ink) 6%, transparent),
+    var(--elev);
   /* การ์ดไล่กันเข้ามาทีละใบ — ตาไล่ลำดับความสำคัญจากบนลงล่างเองโดยไม่ต้องคิด */
   animation: card-in 420ms var(--ease) both;
   animation-delay: calc(var(--i, 0) * 55ms);
@@ -252,15 +258,27 @@ button.card:hover {
   font-variant-numeric: tabular-nums;
 }
 
-/* หัวข้อคั่นส่วน */
+/* หัวข้อคั่นส่วน — ขีด accent สั้นๆ นำหน้า ล้อกับ h2.sec ของเว็บ Moatrices */
 .sec {
+  display: flex;
+  align-items: center;
+  gap: 8px;
   font-family: var(--font-head);
   font-size: 11px;
   font-weight: 700;
   letter-spacing: 0.14em;
   text-transform: uppercase;
   color: var(--dim);
-  margin: 6px 2px -4px;
+  margin: 8px 2px -4px;
+}
+
+.sec::before {
+  content: "";
+  width: 14px;
+  height: 2px;
+  border-radius: 1px;
+  background: linear-gradient(90deg, var(--a), color-mix(in srgb, var(--a) 30%, transparent));
+  flex-shrink: 0;
 }
 
 /* ---- ชิป ---- */
@@ -431,6 +449,48 @@ button.card:hover {
 }
 
 /* ---- Health 2.0: coin economy (1 เหรียญ = 1 kcal) ---- */
+/* ลายเหรียญจางๆ มุมขวาบน — วงนอก + วงใน ล้อกับไอคอน coin ของแอปเอง */
+.hero.coin {
+  position: relative;
+  overflow: hidden;
+}
+
+.hero.coin::before {
+  content: "";
+  position: absolute;
+  right: -42px;
+  top: -48px;
+  width: 176px;
+  height: 176px;
+  border-radius: 50%;
+  border: 1.5px solid color-mix(in srgb, var(--a) 26%, transparent);
+  background: radial-gradient(closest-side, transparent 55%, color-mix(in srgb, var(--a) 6%, transparent) 56%);
+  pointer-events: none;
+}
+
+.hero.coin::after {
+  content: "";
+  position: absolute;
+  right: 4px;
+  top: -2px;
+  width: 84px;
+  height: 84px;
+  border-radius: 50%;
+  border: 1.5px solid color-mix(in srgb, var(--a) 15%, transparent);
+  pointer-events: none;
+}
+
+/* ยอดคงเหลือเรืองแสงตามเครื่องหมาย — เขียว = สะสมได้, แดง = ติดลบ (สีข้อมูล ไม่ใช่สีตกแต่ง) */
+.app-health .coin-big {
+  color: var(--a);
+  text-shadow: 0 0 22px color-mix(in srgb, var(--a) 35%, transparent);
+}
+
+.app-health .coin-big.neg {
+  color: var(--neg);
+  text-shadow: 0 0 22px color-mix(in srgb, var(--neg) 30%, transparent);
+}
+
 .hero.coin .k svg.hi {
   width: 14px;
   height: 14px;
@@ -461,7 +521,24 @@ button.card:hover {
   margin-top: 3px;
 }
 
-/* Dr. Murph — หมออ่านงบร่างกาย */
+/* Dr. Murph — หมออ่านงบร่างกาย: เส้น accent ซ้ายแบบขอบใบ chart */
+.card.murph {
+  position: relative;
+  overflow: hidden;
+}
+
+.card.murph::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  width: 2.5px;
+  background: linear-gradient(180deg, var(--a), color-mix(in srgb, var(--a) 20%, transparent) 88%);
+  opacity: 0.75;
+  pointer-events: none;
+}
+
 .murph-head {
   display: flex;
   align-items: center;
@@ -1964,21 +2041,44 @@ body.mode-app .hk-sheet {
 }
 
 /* ---- Home: net-worth hero + กราฟแบบ Robinhood ---- */
+/* ตัวเลขพระเอกไล่แสงจางลงล่างเบาๆ — โลหะขัดเงา ไม่ใช่ตัวอักษรแปะ */
+.nw .nw-big {
+  background: linear-gradient(180deg, var(--ink) 35%, color-mix(in srgb, var(--ink) 60%, transparent));
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.nw .nw-big.neg {
+  background: linear-gradient(180deg, var(--neg) 35%, color-mix(in srgb, var(--neg) 60%, transparent));
+  -webkit-background-clip: text;
+  background-clip: text;
+}
+
+/* ตัวเลขเปลี่ยนแปลงอยู่ใน pill สีจางตามทิศ — ลายเซ็น Robinhood */
 .nw .delta {
+  display: inline-flex;
+  align-items: center;
+  align-self: flex-start;
+  padding: 5px 11px;
+  border-radius: 999px;
+  background: var(--card-2);
   font-family: var(--font-head);
-  font-weight: 500;
+  font-weight: 600;
   font-size: 12px;
   color: var(--dim);
-  margin-top: 4px;
+  margin-top: 7px;
   font-variant-numeric: tabular-nums;
 }
 
 .nw .delta.up {
   color: var(--a);
+  background: color-mix(in srgb, var(--a) 11%, transparent);
 }
 
 .nw .delta.down {
   color: var(--neg);
+  background: color-mix(in srgb, var(--neg) 11%, transparent);
 }
 
 .nw-chart {
@@ -2905,7 +3005,7 @@ body.mode-app .hk-sheet {
    Me — แดชบอร์ดวันนี้ (ธีมตาม OS)
    ============================================================ */
 .app-me {
-  gap: 13px;
+  gap: 15px;
   /* แสง radial จางๆ แบบเดียวกับ Health/Money/Portfolio — หน้าแรกไม่ควรเป็นหน้าเดียวที่พื้นแบน */
   background:
     radial-gradient(620px 320px at 12% -10%, color-mix(in srgb, var(--a) 9%, transparent), transparent 70%),
@@ -3032,22 +3132,33 @@ body.mode-app .hk-sheet {
 
 .mini .ring-val {
   stroke-width: 5;
+  stroke: var(--ring-c, var(--a));
 }
 
-.mini.sleep .ring-val {
-  stroke: #6ea8fe;
+.mini.sleep {
+  --ring-c: #6ea8fe;
 }
 
-.mini.water .ring-val {
-  stroke: #2fd287;
+.mini.water {
+  --ring-c: #2fd287;
 }
 
-.mini.ex .ring-val {
-  stroke: #38d6e3;
+.mini.ex {
+  --ring-c: #38d6e3;
 }
 
-.mini.steps .ring-val {
-  stroke: #f0b429;
+.mini.steps {
+  --ring-c: #f0b429;
+}
+
+/* ครบเป้า = วงเรืองแสง + ตัวเลขกลางติดสี — รางวัลเล็กๆ ที่ตาจับได้ทันที */
+.mini.done .ring-val {
+  filter: drop-shadow(0 0 3.5px color-mix(in srgb, var(--ring-c) 75%, transparent));
+}
+
+.mini.done .c {
+  color: var(--ring-c);
+  font-weight: 600;
 }
 
 .mini .c {
@@ -3678,17 +3789,31 @@ body.mode-app .hk-sheet {
   line-height: 1.1;
   margin-top: 4px;
   font-variant-numeric: tabular-nums;
+  background: linear-gradient(180deg, var(--ink) 35%, color-mix(in srgb, var(--ink) 60%, transparent));
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
 }
 
 .pf-delta {
-  display: flex;
+  display: inline-flex;
   align-items: center;
   gap: 5px;
-  margin-top: 5px;
+  margin-top: 7px;
+  padding: 5px 11px;
+  border-radius: 999px;
   font-family: var(--font-head);
   font-size: 13px;
   font-weight: 600;
   font-variant-numeric: tabular-nums;
+}
+
+.pf-delta.up {
+  background: color-mix(in srgb, var(--up) 10%, transparent);
+}
+
+.pf-delta.down {
+  background: color-mix(in srgb, var(--down) 10%, transparent);
 }
 
 .pf-arrow {
