@@ -1,0 +1,203 @@
+<!doctype html>
+<html lang="th">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Endurance — Spin to Dock</title>
+<style>
+  @font-face{font-family:'IBM Plex Sans Thai';font-style:normal;font-weight:500;font-display:swap;src:url('../fonts/ibm-plex-sans-thai-500-thai.woff2') format('woff2');unicode-range:U+0E01-0E5B,U+200C-200D,U+25CC;}
+  @font-face{font-family:'IBM Plex Sans Thai';font-style:normal;font-weight:500;font-display:swap;src:url('../fonts/ibm-plex-sans-thai-500-latin.woff2') format('woff2');unicode-range:U+0000-00FF,U+2000-206F,U+2191,U+2193,U+2212,U+FEFF,U+FFFD;}
+  @font-face{font-family:'IBM Plex Sans Thai';font-style:normal;font-weight:600;font-display:swap;src:url('../fonts/ibm-plex-sans-thai-600-thai.woff2') format('woff2');unicode-range:U+0E01-0E5B,U+200C-200D,U+25CC;}
+  @font-face{font-family:'IBM Plex Sans Thai';font-style:normal;font-weight:600;font-display:swap;src:url('../fonts/ibm-plex-sans-thai-600-latin.woff2') format('woff2');unicode-range:U+0000-00FF,U+2000-206F,U+2191,U+2193,U+2212,U+FEFF,U+FFFD;}
+  @font-face{font-family:'IBM Plex Sans Thai';font-style:normal;font-weight:700;font-display:swap;src:url('../fonts/ibm-plex-sans-thai-700-thai.woff2') format('woff2');unicode-range:U+0E01-0E5B,U+200C-200D,U+25CC;}
+  @font-face{font-family:'IBM Plex Sans Thai';font-style:normal;font-weight:700;font-display:swap;src:url('../fonts/ibm-plex-sans-thai-700-latin.woff2') format('woff2');unicode-range:U+0000-00FF,U+2000-206F,U+2191,U+2193,U+2212,U+FEFF,U+FFFD;}
+  @font-face{font-family:'IBM Plex Mono';font-style:normal;font-weight:500;font-display:swap;src:url('../fonts/ibm-plex-mono-500-latin.woff2') format('woff2');unicode-range:U+0000-00FF,U+2000-206F;}
+  :root{
+    --ink:#e9ecf2; --muted:#98a0b0; --line:rgba(255,255,255,.13);
+    --panel:rgba(8,11,20,.62); --green:#5fe0a6; --amber:#ffc24b; --red:#ff6b5e; --blue:#8ec7ff;
+    --font-head:"IBM Plex Sans Thai",-apple-system,"Segoe UI",sans-serif;
+    --font-mono:"IBM Plex Mono",ui-monospace,Menlo,monospace;
+  }
+  *{box-sizing:border-box}
+  html,body{margin:0;height:100%;background:#03050a;color:var(--ink);font-family:var(--font-head);overflow:hidden;user-select:none}
+  #c{position:fixed;inset:0;width:100%;height:100%;display:block;touch-action:none}
+  .title{position:fixed;top:max(16px,env(safe-area-inset-top));left:22px;z-index:5;pointer-events:none;text-shadow:0 2px 30px #000}
+  .title h1{margin:0;font-size:clamp(20px,3.8vw,34px);font-weight:700;letter-spacing:.15em}
+  .title .sub{margin-top:5px;font-family:var(--font-mono);font-size:11px;letter-spacing:.2em;color:var(--amber);text-transform:uppercase}
+  .title .backlink{display:inline-block;margin-top:10px;pointer-events:auto;color:var(--muted);
+    font-size:12px;text-decoration:none;border-bottom:1px solid rgba(255,255,255,.25);padding-bottom:1px;transition:.18s}
+  .title .backlink:hover{color:var(--blue);border-color:var(--blue)}
+  .hud{position:fixed;left:50%;bottom:max(18px,env(safe-area-inset-bottom));transform:translateX(-50%);z-index:6;
+    display:flex;gap:14px;align-items:center;padding:12px 16px;background:var(--panel);border:1px solid var(--line);
+    border-radius:16px;backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);font-family:var(--font-mono);
+    font-size:11px;letter-spacing:.06em;max-width:calc(100vw - 24px)}
+  .gauge{text-align:center;min-width:76px}
+  .gauge .lab{color:var(--muted);text-transform:uppercase;font-size:10px;font-family:var(--font-head)}
+  .gauge .val{font-size:16px;margin-top:3px;color:var(--ink)}
+  .bar{height:6px;width:88px;border-radius:4px;background:rgba(255,255,255,.1);overflow:hidden;margin-top:6px}
+  .bar>i{display:block;height:100%;width:0;background:var(--green);transition:width .05s linear}
+  .thrust{padding:10px 18px;border-radius:12px;border:1px solid var(--amber);color:var(--amber);
+    background:rgba(255,194,75,.08);font-family:var(--font-head);font-weight:600;font-size:13px;cursor:pointer;white-space:nowrap}
+  .thrust.active{background:var(--amber);color:#0a0f18}
+  /* ไทยห้าม mono+tracking (iOS Safari ทำสระหลุด) */
+  .instr{position:fixed;left:50%;top:max(18px,env(safe-area-inset-top));transform:translateX(-50%);z-index:5;
+    color:var(--muted);font-family:var(--font-head);font-size:12px;text-align:center;
+    pointer-events:none;max-width:90vw;line-height:1.7}
+  .win{position:fixed;inset:0;z-index:20;display:none;place-items:center;background:rgba(3,5,10,.72);backdrop-filter:blur(6px)}
+  .win.show{display:grid}
+  .card{max-width:min(440px,88vw);text-align:center;padding:34px 30px;border:1px solid var(--line);border-radius:20px;background:rgba(10,14,22,.9)}
+  .card .big{font-size:26px;font-weight:700;letter-spacing:.14em;color:var(--green)}
+  .card p{color:var(--muted);font-size:14px;line-height:1.75;margin:16px 0 22px}
+  .card b{color:var(--ink)}
+  .card button{padding:11px 26px;border-radius:12px;border:none;background:var(--blue);color:#06121f;font-weight:600;font-size:14px;cursor:pointer;font-family:var(--font-head)}
+  @media (max-width:560px){ .gauge:nth-child(3){display:none} }
+</style>
+</head>
+<body>
+<canvas id="c"></canvas>
+<div class="title"><h1>ENDURANCE</h1><div class="sub">Spin to Dock · Docking Protocol</div>
+  <a class="backlink" href="../articles/interstellar-investing.html" target="_top">← อ่านบทความ: Interstellar สอนอะไรนักลงทุนระยะยาว</a></div>
+<div class="instr" id="instr">สถานีหมุนเร็วเกินไป — จับสปินของคุณให้ <b style="color:#8ec7ff">เท่ากับสถานี</b> แล้วเล็ง <b style="color:#5fe0a6">พอร์ตสีเขียว</b> ให้ตรง</div>
+
+<div class="hud">
+  <div class="gauge"><div class="lab">สปินสัมพัทธ์</div><div class="val" id="grel">— rpm</div></div>
+  <div class="gauge"><div class="lab">เล็งพอร์ต</div><div class="val" id="galign">—°</div></div>
+  <div class="gauge"><div class="lab">Lock</div><div class="bar"><i id="lockbar"></i></div></div>
+  <button class="thrust" id="thrust">กดค้าง = จุดไอพ่น ▲</button>
+</div>
+
+<div class="win" id="win">
+  <div class="card">
+    <div class="big" id="wintitle">DOCKED ✓</div>
+    <p id="winmsg"></p>
+    <button id="retry">ลองใหม่</button>
+  </div>
+</div>
+
+<script>
+(function(){
+  // ซ่อนลิงก์กลับบทความเมื่อถูกฝังใน iframe ของบทความเอง
+  if(self!==top){var bl=document.querySelector('.backlink');if(bl)bl.style.display='none';}
+
+  const cv=document.getElementById('c'),ctx=cv.getContext('2d');
+  let W,H,DPR=Math.min(devicePixelRatio||1,2),CX,CY,R;
+  function resize(){W=innerWidth;H=innerHeight;cv.width=W*DPR;cv.height=H*DPR;cv.style.width=W+'px';cv.style.height=H+'px';
+    ctx.setTransform(DPR,0,0,DPR,0,0);CX=W/2;CY=H/2;R=Math.min(W,H)*0.30;}
+  addEventListener('resize',resize);resize();
+
+  // stars
+  const stars=[];for(let i=0;i<160;i++)stars.push({x:Math.random(),y:Math.random(),r:Math.random()*1.3+.2,t:Math.random()});
+
+  const st={
+    aT:0, wT:0.95,            // station angle & angular vel (rad/s)
+    aP:0, wP:0,               // player angle & angular vel
+    lock:0, docked:false, N:12
+  };
+  function reset(){st.aT=0;st.wT=0.95;st.aP=Math.random()*6.28;st.wP=0;st.lock=0;st.docked=false;win.classList.remove('show');}
+
+  // thrust control
+  let thrusting=false;
+  const tb=document.getElementById('thrust');
+  const on=()=>thrusting=true, off=()=>thrusting=false;
+  tb.addEventListener('pointerdown',e=>{e.preventDefault();on();});
+  addEventListener('pointerup',off);
+  cv.addEventListener('pointerdown',on);
+  addEventListener('keydown',e=>{if(e.code==='Space'){e.preventDefault();on();}});
+  addEventListener('keyup',e=>{if(e.code==='Space')off();});
+  const win=document.getElementById('win');
+  document.getElementById('retry').addEventListener('click',reset);
+
+  const norm=a=>{a%=Math.PI*2;if(a>Math.PI)a-=Math.PI*2;if(a<-Math.PI)a+=Math.PI*2;return a;};
+  let last=performance.now();
+
+  function step(dt){
+    if(st.docked)return;
+    // station spins, slight wobble (tension)
+    st.wT=0.95+0.06*Math.sin(performance.now()*0.0007);
+    st.aT+=st.wT*dt;
+    // player physics: thrust up, gentle RCS damping down
+    st.wP += (thrusting? 1.5:0)*dt;
+    st.wP -= 0.30*dt;                 // damping (release → decays)
+    st.wP=Math.max(0,Math.min(2.4,st.wP));
+    st.aP+=st.wP*dt;
+
+    const relW=st.wP-st.wT;                    // rad/s
+    const alignErr=norm(st.aP-st.aT);          // rad
+    const matched=Math.abs(relW)<0.14 && Math.abs(alignErr)<0.16;
+    if(matched) st.lock=Math.min(1,st.lock+dt/1.3);
+    else        st.lock=Math.max(0,st.lock-dt*1.4);
+    if(st.lock>=1){st.docked=true;showWin();}
+
+    // HUD
+    const rpm=relW*60/(2*Math.PI);
+    const gr=document.getElementById('grel');
+    gr.textContent=(rpm>=0?'+':'')+rpm.toFixed(1)+' rpm';
+    gr.style.color=Math.abs(relW)<0.14?'#5fe0a6':(Math.abs(relW)<0.4?'#ffc24b':'#ff6b5e');
+    const ga=document.getElementById('galign');
+    ga.textContent=(alignErr*57.3).toFixed(0)+'°';
+    ga.style.color=Math.abs(alignErr)<0.16?'#5fe0a6':'#98a0b0';
+    document.getElementById('lockbar').style.width=(st.lock*100)+'%';
+    tb.classList.toggle('active',thrusting);
+  }
+
+  function showWin(){
+    document.getElementById('winmsg').innerHTML=
+      'คุณไม่ได้<b>หยุด</b>การหมุนของ Endurance — คุณแค่หมุน<b>ตาม</b>ให้เท่ากัน<br><br>'+
+      'การลงทุนก็เหมือนกัน: กิจการที่ทบต้นมี momentum ของมันเอง หน้าที่คุณไม่ใช่ฝืนหรือจับจังหวะตลาด แต่คือ<b>ปรับคาบเวลาการถือของคุณให้เข้ากับคาบของกิจการ</b> แล้วล็อกไว้';
+    win.classList.add('show');
+  }
+
+  function draw(){
+    // bg
+    ctx.setTransform(DPR,0,0,DPR,0,0);
+    ctx.fillStyle='#03050a';ctx.fillRect(0,0,W,H);
+    for(const s of stars){const tw=0.4+0.6*Math.abs(Math.sin(performance.now()*0.001+s.t*10));
+      ctx.fillStyle=`rgba(200,215,255,${0.25+0.5*tw})`;ctx.beginPath();ctx.arc(s.x*W,s.y*H,s.r,0,7);ctx.fill();}
+
+    // ---- Endurance ring (rotating) ----
+    ctx.save();ctx.translate(CX,CY);ctx.rotate(st.aT);
+    // hub spokes
+    ctx.strokeStyle='rgba(150,170,200,.28)';ctx.lineWidth=2;
+    for(let i=0;i<st.N;i++){const a=i/st.N*6.283;ctx.beginPath();ctx.moveTo(0,0);ctx.lineTo(Math.cos(a)*R,Math.sin(a)*R);ctx.stroke();}
+    // outer ring
+    ctx.strokeStyle='rgba(180,196,220,.5)';ctx.lineWidth=10;ctx.beginPath();ctx.arc(0,0,R,0,7);ctx.stroke();
+    // modules
+    for(let i=0;i<st.N;i++){const a=i/st.N*6.283;const mx=Math.cos(a)*R,my=Math.sin(a)*R;
+      const isPort=(i===0);
+      ctx.save();ctx.translate(mx,my);ctx.rotate(a+Math.PI/2);
+      ctx.fillStyle=isPort?'rgba(95,224,166,.9)':'rgba(120,140,170,.85)';
+      if(isPort){ctx.shadowColor='#5fe0a6';ctx.shadowBlur=18;}
+      roundRect(ctx,-15,-11,30,22,5);ctx.fill();ctx.shadowBlur=0;
+      ctx.restore();
+    }
+    // port marker (docking axis pointing outward from port module)
+    ctx.strokeStyle='rgba(95,224,166,.55)';ctx.lineWidth=2;ctx.setLineDash([5,5]);
+    ctx.beginPath();ctx.moveTo(R-20,0);ctx.lineTo(R+42,0);ctx.stroke();ctx.setLineDash([]);
+    ctx.restore();
+
+    // ---- player Ranger (center, rotating) ----
+    ctx.save();ctx.translate(CX,CY);ctx.rotate(st.aP);
+    // probe pointing along +x (toward where the port must be)
+    const aligned=Math.abs(norm(st.aP-st.aT))<0.16 && Math.abs(st.wP-st.wT)<0.14;
+    ctx.strokeStyle=aligned?'#5fe0a6':'#8ec7ff';ctx.lineWidth=3;ctx.shadowColor=ctx.strokeStyle;ctx.shadowBlur=12;
+    ctx.beginPath();ctx.moveTo(0,0);ctx.lineTo(R-24,0);ctx.stroke();ctx.shadowBlur=0;
+    // craft body
+    ctx.fillStyle=aligned?'#5fe0a6':'#cfe3ff';
+    ctx.beginPath();ctx.moveTo(20,0);ctx.lineTo(-12,-11);ctx.lineTo(-6,0);ctx.lineTo(-12,11);ctx.closePath();ctx.fill();
+    // thrust flame
+    if(thrusting){ctx.fillStyle='rgba(255,180,80,'+(0.5+0.5*Math.random())+')';
+      ctx.beginPath();ctx.moveTo(-6,0);ctx.lineTo(-20-Math.random()*12,-5);ctx.lineTo(-20-Math.random()*12,5);ctx.closePath();ctx.fill();}
+    ctx.restore();
+
+    // lock reticle when close
+    if(st.lock>0){ctx.strokeStyle=`rgba(95,224,166,${0.3+0.7*st.lock})`;ctx.lineWidth=2;
+      ctx.beginPath();ctx.arc(CX,CY,R+52,-1.57,-1.57+6.283*st.lock);ctx.stroke();}
+  }
+  function roundRect(c,x,y,w,h,r){c.beginPath();c.moveTo(x+r,y);c.arcTo(x+w,y,x+w,y+h,r);c.arcTo(x+w,y+h,x,y+h,r);c.arcTo(x,y+h,x,y,r);c.arcTo(x,y,x+w,y,r);c.closePath();}
+
+  function loop(now){const dt=Math.min(0.05,(now-last)/1000);last=now;step(dt);draw();requestAnimationFrame(loop);}
+  reset();requestAnimationFrame(loop);
+})();
+</script>
+</body>
+</html>

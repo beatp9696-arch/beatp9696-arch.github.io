@@ -79,7 +79,8 @@
     { f: "moat-break-02-nokia.html", t: "คูเมืองแตก 2: Nokia", sec: "basics" },
     { f: "moat-break-03-intel.html", t: "คูเมืองแตก 3: Intel", sec: "semi" },
     { f: "moat-break-04-ge.html", t: "คูเมืองแตก 4: GE", sec: "basics" },
-    { f: "moat-break-05-boeing.html", t: "คูเมืองแตก 5: Boeing", sec: "basics" }
+    { f: "moat-break-05-boeing.html", t: "คูเมืองแตก 5: Boeing", sec: "basics" },
+    { f: "interstellar-investing.html", t: "Interstellar × การลงทุน", sec: "basics" }
   ];
 
   var progressBar = document.querySelector(".reading-progress");

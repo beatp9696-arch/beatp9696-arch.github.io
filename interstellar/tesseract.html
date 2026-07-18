@@ -1,0 +1,177 @@
+<!doctype html>
+<html lang="th">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Tesseract — ห้อง 5 มิติ (4D Hypercube)</title>
+<style>
+  @font-face{font-family:'IBM Plex Sans Thai';font-style:normal;font-weight:500;font-display:swap;src:url('../fonts/ibm-plex-sans-thai-500-thai.woff2') format('woff2');unicode-range:U+0E01-0E5B,U+200C-200D,U+25CC;}
+  @font-face{font-family:'IBM Plex Sans Thai';font-style:normal;font-weight:500;font-display:swap;src:url('../fonts/ibm-plex-sans-thai-500-latin.woff2') format('woff2');unicode-range:U+0000-00FF,U+2000-206F,U+2191,U+2193,U+2212,U+FEFF,U+FFFD;}
+  @font-face{font-family:'IBM Plex Sans Thai';font-style:normal;font-weight:600;font-display:swap;src:url('../fonts/ibm-plex-sans-thai-600-thai.woff2') format('woff2');unicode-range:U+0E01-0E5B,U+200C-200D,U+25CC;}
+  @font-face{font-family:'IBM Plex Sans Thai';font-style:normal;font-weight:600;font-display:swap;src:url('../fonts/ibm-plex-sans-thai-600-latin.woff2') format('woff2');unicode-range:U+0000-00FF,U+2000-206F,U+2191,U+2193,U+2212,U+FEFF,U+FFFD;}
+  @font-face{font-family:'IBM Plex Sans Thai';font-style:normal;font-weight:700;font-display:swap;src:url('../fonts/ibm-plex-sans-thai-700-thai.woff2') format('woff2');unicode-range:U+0E01-0E5B,U+200C-200D,U+25CC;}
+  @font-face{font-family:'IBM Plex Sans Thai';font-style:normal;font-weight:700;font-display:swap;src:url('../fonts/ibm-plex-sans-thai-700-latin.woff2') format('woff2');unicode-range:U+0000-00FF,U+2000-206F,U+2191,U+2193,U+2212,U+FEFF,U+FFFD;}
+  @font-face{font-family:'IBM Plex Mono';font-style:normal;font-weight:500;font-display:swap;src:url('../fonts/ibm-plex-mono-500-latin.woff2') format('woff2');unicode-range:U+0000-00FF,U+2000-206F;}
+  :root{
+    --ink:#e9ecf2; --muted:#98a0b0; --line:rgba(255,255,255,.13);
+    --panel:rgba(8,11,20,.6); --gold:#ffcf8a; --blue:#8ec7ff;
+    --font-head:"IBM Plex Sans Thai",-apple-system,"Segoe UI",sans-serif;
+    --font-mono:"IBM Plex Mono",ui-monospace,Menlo,monospace;
+  }
+  *{box-sizing:border-box}
+  html,body{margin:0;height:100%;background:#04060c;color:var(--ink);
+    font-family:var(--font-head);overflow:hidden}
+  #c{position:fixed;inset:0;width:100%;height:100%;display:block;touch-action:none;cursor:grab}
+  #c:active{cursor:grabbing}
+  .title{position:fixed;top:max(18px,env(safe-area-inset-top));left:22px;z-index:5;pointer-events:none;
+    text-shadow:0 2px 30px #000}
+  .title h1{margin:0;font-size:clamp(22px,4.2vw,40px);font-weight:700;letter-spacing:.16em}
+  .title .sub{margin-top:5px;font-family:var(--font-mono);font-size:11px;letter-spacing:.22em;
+    color:var(--gold);text-transform:uppercase}
+  .title .thai{margin-top:10px;max-width:min(360px,54vw);font-size:13.5px;line-height:1.65;color:var(--muted)}
+  .title .thai b{color:var(--gold);font-weight:600}
+  .title .backlink{display:inline-block;margin-top:10px;pointer-events:auto;color:var(--muted);
+    font-size:12px;text-decoration:none;border-bottom:1px solid rgba(255,255,255,.25);padding-bottom:1px;transition:.18s}
+  .title .backlink:hover{color:var(--blue);border-color:var(--blue)}
+  /* ไทยห้าม mono+tracking (iOS Safari ทำสระหลุด) — คำไทยใช้ font-head, ตัวเลขคง mono ผ่าน b */
+  .readout{position:fixed;top:max(18px,env(safe-area-inset-top));right:20px;z-index:5;text-align:right;
+    font-family:var(--font-head);font-size:11px;color:var(--muted);line-height:1.9;pointer-events:none}
+  .readout b{font-family:var(--font-mono)}
+  .readout b{color:var(--blue)}
+  .dock{position:fixed;left:50%;bottom:max(18px,env(safe-area-inset-bottom));transform:translateX(-50%);
+    z-index:6;display:flex;gap:8px;align-items:center;flex-wrap:wrap;justify-content:center;
+    padding:9px 11px;background:var(--panel);border:1px solid var(--line);border-radius:16px;
+    backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);max-width:calc(100vw - 24px)}
+  .seg{padding:6px 13px;border-radius:11px;cursor:pointer;font-size:12.5px;color:var(--muted);
+    border:1px solid transparent;user-select:none;transition:.18s;white-space:nowrap}
+  .seg:hover{color:var(--ink);background:rgba(255,255,255,.05)}
+  .seg.on{color:#0a0f18;background:var(--gold);border-color:var(--gold);font-weight:600}
+  .slider{display:flex;align-items:center;gap:8px;padding:6px 10px;color:var(--muted);font-size:12px}
+  .slider input{accent-color:var(--gold);width:96px}
+  .hint{position:fixed;left:50%;bottom:calc(env(safe-area-inset-bottom) + 74px);transform:translateX(-50%);
+    z-index:4;color:var(--muted);font-family:var(--font-head);font-size:12px;opacity:.7;
+    pointer-events:none;animation:fade 5.5s ease forwards}
+  @keyframes fade{0%,55%{opacity:.7}100%{opacity:0}}
+  @media (max-width:560px){ .title .thai{display:none} }
+</style>
+</head>
+<body>
+<canvas id="c"></canvas>
+<div class="title">
+  <h1>TESSERACT</h1>
+  <div class="sub">4D Hypercube · Projected to your world</div>
+  <div class="thai">Cooper เห็นทุกช่วงเวลาเป็น "สถานที่" — มิติที่สี่กลายเป็นพื้นที่ที่เดินเข้าไปได้ นี่คือลูกบาศก์ 4 มิติหมุนจริง ฉายลงโลก 3 มิติของคุณ<br><b>นักลงทุนระยะยาวยืนตรงนี้:</b> เห็นสิบปีของกิจการเป็นชั้นหนังสือ 40 ไตรมาส — ไตรมาสเดียวคือสันหนังสือเล่มเดียว ไม่ใช่ทั้งเรื่อง ตัดสินธุรกิจจากรูปทรง 4 มิติของมัน อย่าตัดสินจากเงาที่สั่นวันนี้</div>
+  <a class="backlink" href="../articles/interstellar-investing.html" target="_top">← อ่านบทความ: Interstellar สอนอะไรนักลงทุนระยะยาว</a>
+</div>
+<div class="readout" id="ro"></div>
+<div class="dock">
+  <div class="seg on" data-t="shelf">ชั้นเวลา (bookshelf)</div>
+  <div class="seg on" data-t="spin">หมุนเอง</div>
+  <label class="slider">ความลึก 4มิติ<input id="wdist" type="range" min="2.2" max="5" step="0.05" value="3"></label>
+</div>
+<div class="hint">ลากเพื่อหมุนทะลุมิติ · สกรอลล์เพื่อดันเข้า-ออก</div>
+<script>
+(function(){
+  // ซ่อนลิงก์กลับบทความเมื่อถูกฝังใน iframe ของบทความเอง
+  if(self!==top){var bl=document.querySelector('.backlink');if(bl)bl.style.display='none';}
+
+  const cv=document.getElementById('c'), ctx=cv.getContext('2d');
+  let W,H,DPR=Math.min(devicePixelRatio||1,2);
+  function resize(){W=innerWidth;H=innerHeight;cv.width=W*DPR;cv.height=H*DPR;cv.style.width=W+'px';cv.style.height=H+'px';ctx.setTransform(DPR,0,0,DPR,0,0);}
+  addEventListener('resize',resize);resize();
+
+  // ---- 4-cube: 16 vertices, 32 edges ----
+  const V=[]; for(let i=0;i<16;i++){V.push([(i&1?1:-1),(i&2?1:-1),(i&4?1:-1),(i&8?1:-1)]);}
+  const E=[]; for(let i=0;i<16;i++)for(let b=0;b<4;b++){const j=i^(1<<b); if(j>i)E.push([i,j,b]);}
+
+  const state={shelf:1,spin:1,wdist:3.0};
+  let rot={xw:.0,yw:.0,zw:.0,xy:.0,yz:.0}, vel={xw:.0007,yw:.0011,zw:.0005,xy:.0003,yz:0};
+  let drag=false,px=0,py=0,zoom=1;
+
+  cv.addEventListener('pointerdown',e=>{drag=true;px=e.clientX;py=e.clientY;cv.setPointerCapture(e.pointerId);});
+  cv.addEventListener('pointermove',e=>{if(!drag)return;vel.yw+=(e.clientX-px)*0.00004;vel.xw+=(e.clientY-py)*0.00004;px=e.clientX;py=e.clientY;});
+  cv.addEventListener('pointerup',()=>drag=false);
+  cv.addEventListener('wheel',e=>{e.preventDefault();zoom*=(1-Math.sign(e.deltaY)*0.07);zoom=Math.max(.5,Math.min(2.2,zoom));},{passive:false});
+  document.querySelectorAll('.seg[data-t]').forEach(el=>el.addEventListener('click',()=>{const k=el.dataset.t;state[k]=state[k]?0:1;el.classList.toggle('on',!!state[k]);}));
+  document.getElementById('wdist').addEventListener('input',e=>state.wdist=parseFloat(e.target.value));
+
+  function rot4(p){
+    let[x,y,z,w]=p, c,s;
+    c=Math.cos(rot.xw);s=Math.sin(rot.xw);[x,w]=[x*c-w*s,x*s+w*c];
+    c=Math.cos(rot.yw);s=Math.sin(rot.yw);[y,w]=[y*c-w*s,y*s+w*c];
+    c=Math.cos(rot.zw);s=Math.sin(rot.zw);[z,w]=[z*c-w*s,z*s+w*c];
+    c=Math.cos(rot.xy);s=Math.sin(rot.xy);[x,y]=[x*c-y*s,x*s+y*c];
+    c=Math.cos(rot.yz);s=Math.sin(rot.yz);[y,z]=[y*c-z*s,y*s+z*c];
+    return [x,y,z,w];
+  }
+  // project 4D->3D->2D; .ok=false when a point folds too near a camera plane
+  function project(p,ox,oy,ow){
+    let[x,y,z,w]=rot4(p);
+    w+=ow;
+    const d4=state.wdist - w, k4=1/Math.max(d4,0.001);   // 4D perspective
+    x*=k4;y*=k4;z*=k4;
+    const zc=4.4, d3=zc - z, k3=1/Math.max(d3,0.001);    // 3D perspective
+    const sc=Math.min(W,H)*0.36*zoom;
+    return {x:W/2+ (x+ox)*sc*k3, y:H/2+ (y+oy)*sc*k3, d:k4*k3, w:w, ok:(d4>0.4 && d3>0.6)};
+  }
+
+  function drawCube(ox,oy,ow,alpha){
+    const P=V.map(v=>project(v,ox,oy,ow));
+    // edges
+    for(const[a,b,axis] of E){
+      const A=P[a],B=P[b];
+      if(!A.ok||!B.ok) continue;                          // cull folded edges
+      const dep=(A.d+B.d)*0.5;
+      const t=Math.max(0,Math.min(1,(dep-0.05)/0.28));
+      // color: inner (4th-dim) cube bluer, outer gold
+      const g=Math.round(150+90*t), bl=Math.round(120+120*(1-t));
+      ctx.strokeStyle=`rgba(255,${g},${bl},${(0.16+0.7*t)*alpha})`;
+      ctx.lineWidth=(0.5+2.4*t);
+      ctx.shadowColor=`rgba(255,${g},${bl},${0.9*alpha})`;
+      ctx.shadowBlur=14*t;
+      ctx.beginPath();ctx.moveTo(A.x,A.y);ctx.lineTo(B.x,B.y);ctx.stroke();
+    }
+    // nodes
+    ctx.shadowBlur=0;
+    for(const p of P){
+      if(!p.ok) continue;
+      const t=Math.max(0,Math.min(1,(p.d-0.05)/0.28));
+      const r=(1+3.4*t);
+      const pulse=0.6+0.4*Math.sin(perf*0.003 + p.w*3.0);
+      ctx.fillStyle=`rgba(255,238,205,${(0.2+0.7*t)*alpha*pulse})`;
+      ctx.beginPath();ctx.arc(p.x,p.y,r,0,7);ctx.fill();
+    }
+  }
+
+  let perf=0;
+  function frame(now){
+    perf=now;
+    if(state.spin){for(const k in vel)rot[k]+=vel[k];}
+    else{for(const k in vel)rot[k]+=vel[k]*0.02;}
+    for(const k in vel)vel[k]*=0.992; // damping toward base
+    vel.xw+=(0.0007-vel.xw)*0.01; vel.yw+=(0.0011-vel.yw)*0.01;
+
+    ctx.globalCompositeOperation='source-over';
+    ctx.fillStyle='rgba(4,6,12,0.34)'; // motion trails
+    ctx.fillRect(0,0,W,H);
+    ctx.globalCompositeOperation='lighter';
+
+    // bookshelf: faint repeated tesseracts stretching in time (offset along a line)
+    if(state.shelf){
+      for(let i=-2;i<=2;i++){ if(i===0)continue;
+        const f=1-Math.abs(i)/3;
+        drawCube(i*0.95, i*0.06, i*0.20, 0.11*f);
+      }
+    }
+    drawCube(0,0,0,1.0);
+
+    // readout
+    const ro=document.getElementById('ro');
+    ro.innerHTML=`มิติ <b>4</b> · จุดยอด <b>16</b> · ขอบ <b>32</b><br>W-depth <b>${state.wdist.toFixed(2)}</b> · ระนาบหมุน <b>5</b>`;
+    requestAnimationFrame(frame);
+  }
+  requestAnimationFrame(frame);
+})();
+</script>
+</body>
+</html>

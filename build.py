@@ -34,7 +34,9 @@ TOOLS = ["follow-the-money-nvda.html", "compound-interest.html", "reverse-dcf.ht
          "moat-break-game-kodak.html",
          "moat-city.html"]  # เครื่องมือ interactive — นับเป็น hero stat + ลิสต์ใน tools.html
 ROOT_PAGES = ["", "articles.html", "stocks.html", "tools.html", "dashboard.html",
-              "about.html"] + TOOLS
+              "about.html"] + TOOLS + [
+    # ซิมูเลชันประกอบบทความ interstellar-investing (ไม่ใช่ tool เดี่ยว — เข้าถึงผ่านบทความ)
+    "interstellar/gargantua.html", "interstellar/endurance.html", "interstellar/tesseract.html"]
 ARCHIVE = "articles.html"   # คลังบทความ = source of truth ของรายการบทความ
 TZ = datetime.timezone(datetime.timedelta(hours=7))
 THUMB_DIR = "img/thumbs"   # thumbnail ย่อของ og image (ใช้เป็นภาพการ์ดในหน้า index)
