@@ -1,88 +1,320 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="th">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <script>try{var t=localStorage.getItem('theme');if(t)document.documentElement.setAttribute('data-theme',t);}catch(e){}</script>
-  <title>ไม่พบหน้านี้ (404) — Moatrices</title>
-  <meta name="robots" content="noindex">
-  <meta name="theme-color" media="(prefers-color-scheme: light)" content="#f7f5f0">
-  <meta name="theme-color" media="(prefers-color-scheme: dark)" content="#121417">
-  <link rel="icon" href="/favicon.svg" type="image/svg+xml">
-  <link rel="preload" as="font" type="font/woff2" href="fonts/sarabun-400-thai.woff2" crossorigin>
-  <link rel="preload" as="font" type="font/woff2" href="fonts/sarabun-400-latin.woff2" crossorigin>
-  <link rel="stylesheet" href="/style.min.css">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>404 — เลยขอบฟ้าเหตุการณ์ไปแล้ว · Moatrices</title>
+<meta name="robots" content="noindex">
+<meta name="theme-color" content="#05060a">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<style>
+  @font-face{font-family:'IBM Plex Sans Thai';font-weight:500;font-display:swap;src:url('/fonts/ibm-plex-sans-thai-500-thai.woff2') format('woff2');unicode-range:U+0E01-0E5B,U+200C-200D,U+25CC;}
+  @font-face{font-family:'IBM Plex Sans Thai';font-weight:500;font-display:swap;src:url('/fonts/ibm-plex-sans-thai-500-latin.woff2') format('woff2');unicode-range:U+0000-00FF,U+2000-206F,U+2191,U+2193,U+2212,U+FEFF,U+FFFD;}
+  @font-face{font-family:'IBM Plex Sans Thai';font-weight:600;font-display:swap;src:url('/fonts/ibm-plex-sans-thai-600-thai.woff2') format('woff2');unicode-range:U+0E01-0E5B,U+200C-200D,U+25CC;}
+  @font-face{font-family:'IBM Plex Sans Thai';font-weight:600;font-display:swap;src:url('/fonts/ibm-plex-sans-thai-600-latin.woff2') format('woff2');unicode-range:U+0000-00FF,U+2000-206F,U+2191,U+2193,U+2212,U+FEFF,U+FFFD;}
+  @font-face{font-family:'IBM Plex Sans Thai';font-weight:700;font-display:swap;src:url('/fonts/ibm-plex-sans-thai-700-thai.woff2') format('woff2');unicode-range:U+0E01-0E5B,U+200C-200D,U+25CC;}
+  @font-face{font-family:'IBM Plex Sans Thai';font-weight:700;font-display:swap;src:url('/fonts/ibm-plex-sans-thai-700-latin.woff2') format('woff2');unicode-range:U+0000-00FF,U+2000-206F,U+2191,U+2193,U+2212,U+FEFF,U+FFFD;}
+  @font-face{font-family:'IBM Plex Mono';font-weight:500;font-display:swap;src:url('/fonts/ibm-plex-mono-500-latin.woff2') format('woff2');unicode-range:U+0000-00FF,U+2000-206F;}
+  :root{
+    --ink:#e9ecf2; --muted:#9aa1ad; --line:rgba(255,255,255,.14);
+    --panel:rgba(10,12,18,.62); --accent:#ffb763; --accent2:#7fc7ff;
+    --font-head:"IBM Plex Sans Thai",-apple-system,"Segoe UI",sans-serif;
+    --font-mono:"IBM Plex Mono",ui-monospace,SFMono-Regular,Menlo,monospace;
+  }
+  *{box-sizing:border-box}
+  html,body{margin:0;min-height:100%;background:#05060a;color:var(--ink);
+    font-family:var(--font-head);-webkit-text-size-adjust:100%;overflow-x:hidden}
+  a{color:inherit}
+
+  /* ---- black hole canvas (background) ---- */
+  #bh{position:fixed;inset:0;width:100%;height:100%;display:block;z-index:0;pointer-events:none}
+  #bh.fallback{background:radial-gradient(120% 80% at 50% 42%,#0a0b12 0%,#05060a 55%),
+    radial-gradient(closest-side at 50% 42%,transparent 58px,rgba(255,183,99,.28) 66px,rgba(255,120,40,.10) 92px,transparent 150px)}
+  .vignette{position:fixed;inset:0;z-index:1;pointer-events:none;
+    background:
+      radial-gradient(130% 90% at 50% 40%,transparent 38%,rgba(5,6,10,.55) 76%,rgba(5,6,10,.9) 100%),
+      linear-gradient(rgba(5,6,10,.34),rgba(5,6,10,.34))}
+
+  /* ---- top brand bar (escape hatch) ---- */
+  .nav{position:relative;z-index:5;display:flex;align-items:center;justify-content:space-between;
+    gap:14px;flex-wrap:wrap;padding:16px clamp(16px,5vw,40px);
+    max-width:1080px;margin:0 auto}
+  .brand{font-weight:700;letter-spacing:.02em;font-size:18px;text-decoration:none;color:var(--ink)}
+  .navlinks{display:flex;gap:4px;flex-wrap:wrap}
+  .navlinks a{text-decoration:none;color:var(--muted);font-size:13.5px;padding:6px 11px;border-radius:9px;transition:.16s}
+  .navlinks a:hover{color:var(--ink);background:rgba(255,255,255,.06)}
+
+  /* ---- main ---- */
+  main{position:relative;z-index:4;max-width:760px;margin:0 auto;
+    padding:clamp(20px,6vh,64px) clamp(20px,6vw,40px) 40px;text-align:center;
+    min-height:calc(100vh - 132px);display:flex;flex-direction:column;justify-content:center}
+  .kicker{display:inline-block;max-width:100%;font-family:var(--font-mono);font-size:11px;letter-spacing:.24em;
+    color:var(--accent);text-transform:uppercase;margin:0 auto 16px;
+    padding:5px 14px;border:1px solid var(--line);border-radius:999px;background:var(--panel);
+    backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px)}
+  h1{margin:0 0 16px;font-size:clamp(30px,7vw,58px);font-weight:700;line-height:1.12;letter-spacing:.01em;
+    text-shadow:0 4px 34px rgba(0,0,0,.7)}
+  .grad{background:linear-gradient(96deg,var(--accent) 8%,#ff8a3c 52%,var(--accent2) 100%);
+    -webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent}
+  .lead{max-width:520px;margin:0 auto 30px;font-size:clamp(14.5px,2.4vw,16.5px);line-height:1.75;
+    color:#c7ccd6;text-shadow:0 1px 3px rgba(0,0,0,.95),0 2px 22px rgba(0,0,0,.82)}
+
+  /* ---- TARS ---- */
+  .tars-row{display:flex;align-items:center;justify-content:center;gap:clamp(14px,3vw,26px);
+    margin:2px auto 34px;max-width:560px;flex-wrap:wrap}
+  .tars{width:clamp(72px,14vw,104px);height:auto;flex:none;filter:drop-shadow(0 18px 26px rgba(0,0,0,.6));
+    animation:tars-bob 5s ease-in-out infinite}
+  .tars .seam{stroke:#0a0c10;stroke-width:1.4}
+  .tars .lit{stroke:#3a4049;stroke-width:.7;opacity:.6}
+  .tars-led{animation:tars-blink 2.4s steps(1) infinite}
+  .tars-scan{animation:tars-scan 3.2s ease-in-out infinite}
+  .tars-cap{max-width:320px;text-align:left;background:var(--panel);border:1px solid var(--line);
+    border-radius:14px;padding:13px 16px;backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);
+    box-shadow:0 10px 30px rgba(0,0,0,.4)}
+  .tars-cap .tag{display:flex;align-items:center;gap:7px;font-family:var(--font-mono);font-size:10px;
+    letter-spacing:.18em;text-transform:uppercase;color:var(--accent);margin-bottom:7px}
+  .tars-cap .tag .d{width:6px;height:6px;border-radius:50%;background:var(--accent);
+    box-shadow:0 0 8px var(--accent);animation:tars-blink 2.4s steps(1) infinite}
+  #tline{margin:0;font-size:13.5px;line-height:1.65;color:var(--ink);min-height:2.6em}
+  #tline::before{content:"» ";color:var(--accent2)}
+
+  /* ---- buttons ---- */
+  .cta{display:flex;gap:12px;justify-content:center;flex-wrap:wrap}
+  .btn{display:inline-flex;align-items:center;gap:8px;text-decoration:none;font-size:14.5px;font-weight:600;
+    padding:12px 20px;border-radius:12px;border:1px solid var(--line);color:var(--ink);
+    background:rgba(255,255,255,.04);transition:.18s;backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px)}
+  .btn:hover{border-color:var(--accent2);background:rgba(127,199,255,.10);transform:translateY(-1px)}
+  .btn.primary{background:var(--accent2);color:#06121f;border-color:var(--accent2)}
+  .btn.primary:hover{background:#a3d7ff;box-shadow:0 8px 26px rgba(127,199,255,.28)}
+
+  footer{position:relative;z-index:4;text-align:center;padding:22px 20px 30px;
+    font-size:11.5px;color:#5a6170;line-height:1.6}
+
+  @keyframes tars-bob{0%,100%{transform:translateY(0)}50%{transform:translateY(-7px)}}
+  @keyframes tars-blink{0%,60%{opacity:1}61%,100%{opacity:.15}}
+  @keyframes tars-scan{0%,100%{transform:translateY(0);opacity:.5}50%{transform:translateY(30px);opacity:.95}}
+
+  @media (max-width:560px){
+    .nav{justify-content:center;gap:10px}
+    .navlinks{flex:1 1 100%;justify-content:center}
+    .navlinks a{padding:5px 9px}
+    .tars-row{gap:14px} .tars-cap{max-width:100%;flex:1 1 100%}
+    .kicker{font-size:9.5px;letter-spacing:.13em;white-space:normal;line-height:1.55}
+  }
+  @media (prefers-reduced-motion:reduce){
+    .tars,.tars-led,.tars-scan,.tars-cap .tag .d{animation:none}
+  }
+</style>
 </head>
 <body>
+<canvas id="bh"></canvas>
+<div class="vignette"></div>
 
-  <div class="top-accent"></div>
+<header class="nav">
+  <a class="brand" href="/index.html">Moatrices</a>
+  <nav class="navlinks">
+    <a href="/index.html">หน้าแรก</a>
+    <a href="/articles.html">บทความ</a>
+    <a href="/stocks.html">หุ้น</a>
+    <a href="/tools.html">เครื่องมือ</a>
+    <a href="/about.html">เกี่ยวกับ</a>
+  </nav>
+</header>
 
-  <header class="site-header">
-    <div class="container">
-      <a href="/index.html" class="site-title">Moatrices</a>
-      <nav class="site-nav">
-        <a href="/index.html">หน้าแรก</a>
-        <a href="/articles.html">บทความ</a>
-        <a href="/stocks.html">หุ้น</a>
-        <a href="/tools.html">เครื่องมือ</a>
-        <a href="/dashboard.html">Dashboard</a>
-        <a href="/about.html">เกี่ยวกับ</a>
-        <a href="/pp-os/">แอป</a>
-      </nav>
+<main>
+  <span class="kicker">Error · 404 · Past the event horizon</span>
+  <h1>404 — หน้านี้เลย<span class="grad">ขอบฟ้าเหตุการณ์</span>ไปแล้ว</h1>
+  <p class="lead">ไม่พบหน้าที่คุณกำลังหา — อาจถูกย้าย ลบ หรือ URL พิมพ์ผิดไปนิด
+     เลยเส้นนี้ไปแล้วแม้แต่แสงยังหนีไม่ออก ผมก็ดึงกลับให้ไม่ได้ แต่ทางกลับบ้านยังเปิดอยู่</p>
+
+  <div class="tars-row">
+    <!-- TARS: หุ่นยนต์แท่งโมโนลิธจาก Interstellar -->
+    <svg class="tars" viewBox="0 0 200 250" role="img" aria-label="TARS หุ่นยนต์">
+      <defs>
+        <linearGradient id="steel" x1="0" y1="0" x2="1" y2="0">
+          <stop offset="0" stop-color="#31363f"/>
+          <stop offset="0.18" stop-color="#20242b"/>
+          <stop offset="0.5" stop-color="#13161b"/>
+          <stop offset="0.82" stop-color="#1c2027"/>
+          <stop offset="1" stop-color="#0e1116"/>
+        </linearGradient>
+        <clipPath id="clip0"><rect x="0" y="6" width="38" height="238" rx="3"/></clipPath>
+        <g id="slab">
+          <rect x="0" y="6" width="38" height="238" rx="3" fill="url(#steel)" stroke="#05070b" stroke-width="1"/>
+          <rect x="1.5" y="8" width="3" height="234" fill="#fff" opacity="0.06"/>
+          <rect x="1.5" y="8" width="35" height="2.4" fill="#fff" opacity="0.08"/>
+          <g clip-path="url(#clip0)">
+            <line class="seam" x1="0" y1="40"  x2="38" y2="40"/><line class="lit" x1="0" y1="41.4" x2="38" y2="41.4"/>
+            <line class="seam" x1="0" y1="74"  x2="38" y2="74"/><line class="lit" x1="0" y1="75.4" x2="38" y2="75.4"/>
+            <line class="seam" x1="0" y1="108" x2="38" y2="108"/><line class="lit" x1="0" y1="109.4" x2="38" y2="109.4"/>
+            <line class="seam" x1="0" y1="142" x2="38" y2="142"/><line class="lit" x1="0" y1="143.4" x2="38" y2="143.4"/>
+            <line class="seam" x1="0" y1="176" x2="38" y2="176"/><line class="lit" x1="0" y1="177.4" x2="38" y2="177.4"/>
+            <line class="seam" x1="0" y1="210" x2="38" y2="210"/><line class="lit" x1="0" y1="211.4" x2="38" y2="211.4"/>
+          </g>
+        </g>
+      </defs>
+
+      <!-- 4 แท่ง: แท่งที่ 3 ยกขึ้น (ท่าเดินแบบ TARS) -->
+      <use href="#slab" x="8"   y="0"/>
+      <use href="#slab" x="54"  y="0"/>
+      <use href="#slab" x="100" y="-10"/>
+      <use href="#slab" x="146" y="0"/>
+
+      <!-- จอ readout (หน้าของ TARS) บนแท่งซ้าย -->
+      <g>
+        <rect x="14" y="20" width="26" height="15" rx="2" fill="#06121f" stroke="#7fc7ff" stroke-width="1"/>
+        <rect class="tars-scan" x="15.5" y="22" width="23" height="2" rx="1" fill="#7fc7ff" opacity="0.6"/>
+        <circle cx="20" cy="27.5" r="1.3" fill="#7fc7ff"/><circle cx="25" cy="27.5" r="1.3" fill="#7fc7ff" opacity="0.5"/>
+        <circle cx="30" cy="27.5" r="1.3" fill="#7fc7ff" opacity="0.8"/>
+      </g>
+      <!-- ไฟสถานะ + ป้ายชื่อ -->
+      <circle class="tars-led" cx="165" cy="24" r="3" fill="#ffb763"/>
+      <rect x="154" y="228" width="26" height="9" rx="1.5" fill="#06121f" stroke="#ffb763" stroke-width="0.8" opacity="0.85"/>
+    </svg>
+
+    <div class="tars-cap">
+      <div class="tag"><span class="d"></span>TARS · Humor 75% · Honesty 90%</div>
+      <p id="tline">กำลังปรับเทียบ…</p>
     </div>
-  </header>
+  </div>
 
-  <main>
-    <div class="container">
-      <div class="hero">
-        <span class="kicker">Error · 404</span>
-        <h1>404 — หน้านี้อยู่นอก<span class="grad-text">คูเมือง</span></h1>
-        <p class="lead">ไม่พบหน้าที่คุณกำลังหา — อาจถูกย้าย ลบ
-           หรือพิมพ์ URL ผิดไปนิด ลองกลับไปเริ่มที่หน้าแรกดูครับ</p>
-      </div>
+  <div class="cta">
+    <a class="btn primary" href="/index.html">← หาทางกลับบ้าน</a>
+    <a class="btn" href="/articles/interstellar-investing.html">อ่านบทความ Interstellar</a>
+  </div>
+</main>
 
-      <h2 class="sec">หรืออ่านบทความล่าสุดแทน</h2>
-      <ul id="suggested-articles" class="nf-links">
-        <li><a href="/articles/deep-dive-asml.html">ผ่าธุรกิจ ASML</a></li>
-        <li><a href="/articles/deep-dive-lmt.html">ผ่าธุรกิจ LMT (Lockheed Martin)</a></li>
-        <li><a href="/articles/deep-dive-avgo.html">ผ่าธุรกิจ AVGO (Broadcom)</a></li>
-      </ul>
+<footer>© 2026 Moatrices · เนื้อหาเพื่อการศึกษา ไม่ใช่คำแนะนำการลงทุน</footer>
 
-      <p style="margin: 34px 0 60px;"><a class="view-all-btn" href="/index.html">← กลับหน้าแรก</a></p>
-    </div>
-  </main>
+<!-- ================= TARS dialogue ================= -->
+<script>
+(function(){
+  var lines=[
+    "หน้านี้ไม่มีอยู่จริงครับ — และนั่นคือความจริง 100% ไม่ได้ลดให้ ทั้งที่ตั้ง honesty ไว้แค่ 90%",
+    "อยากให้ผมโทษว่าใครพิมพ์ URL ผิดไหม? ผมตั้ง humor ไว้ 75% พอจะเล่นด้วยได้",
+    "เลยขอบฟ้าเหตุการณ์ไปแล้วไม่มีอะไรน่ากลัวหรอก… นอกจากตรงนี้ไม่มีปุ่ม back",
+    "แผนคือ: กดปุ่มข้างล่าง แล้วผมพากลับเข้าวงโคจรหน้าแรก ไม่ต้องผ่านหลุมดำ"
+  ];
+  var el=document.getElementById('tline'), i=0;
+  var reduce=matchMedia('(prefers-reduced-motion:reduce)').matches;
+  el.textContent=lines[0];
+  if(!reduce){
+    i=1;
+    setInterval(function(){ el.style.opacity=0;
+      setTimeout(function(){ el.textContent=lines[i%lines.length]; i++; el.style.opacity=1; },260);
+    },5200);
+    el.style.transition='opacity .26s ease';
+  }
+})();
+</script>
 
-  <footer class="site-footer">
-    <div class="container footer-grid">
-      <div class="footer-brand">
-        <a href="/index.html" class="site-title">Moatrices</a>
-        <p>บันทึกการเรียนวิเคราะห์หุ้น US เชิงลึก ภาษาไทย — เน้นพื้นฐานธุรกิจ ไม่ใช่ราคา</p>
-      </div>
-      <nav class="footer-nav">
-        <a href="/index.html">หน้าแรก</a>
-        <a href="/articles.html">บทความ</a>
-        <a href="/stocks.html">หุ้น</a>
-        <a href="/tools.html">เครื่องมือ</a>
-        <a href="/dashboard.html">Dashboard</a>
-        <a href="/about.html">เกี่ยวกับ</a>
-        <a href="/pp-os/">แอป</a>
-      </nav>
-      <div class="footer-follow">
-        <span class="footer-follow-label">ติดตาม</span>
-        <div class="footer-social">
-          <a href="/feed.xml" class="social-btn" aria-label="RSS feed" title="RSS feed"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 11a9 9 0 0 1 9 9"/><path d="M4 4a16 16 0 0 1 16 16"/><circle cx="5" cy="19" r="1"/></svg></a>
-          <a href="mailto:beatp9696@gmail.com" class="social-btn" aria-label="อีเมล" title="อีเมล"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="m3 7 9 6 9-6"/></svg></a>
-        </div>
-      </div>
-    </div>
-    <div class="container footer-legal">
-      <p><strong>คำเตือน:</strong> เนื้อหาทั้งหมดเป็นบันทึกการเรียนและความเห็นส่วนตัว
-         เพื่อการศึกษาเท่านั้น <strong>ไม่ใช่คำแนะนำการลงทุน</strong> การตัดสินใจลงทุนเป็นความรับผิดชอบของผู้อ่านเอง</p>
-      <p>© 2026 Moatrices · เผยแพร่ผ่าน GitHub Pages</p>
-    </div>
-  </footer>
+<!-- ================= Gargantua (lightweight, non-interactive) ================= -->
+<script type="text/plain" id="vs">#version 300 es
+in vec2 aPos; void main(){ gl_Position=vec4(aPos,0.0,1.0); }
+</script>
+<script type="text/plain" id="fs">#version 300 es
+precision highp float;
+out vec4 fragColor;
+uniform vec2 iResolution; uniform float iTime;
+uniform vec3 camPos,camRight,camUp,camFwd;
+const int STEPS=170; const float Ri=2.6,Ro=9.5;
+float hash13(vec3 p){ p=fract(p*0.1031); p+=dot(p,p.zyx+31.32); return fract((p.x+p.y)*p.z); }
+float noise(vec3 x){ vec3 i=floor(x),f=fract(x); f=f*f*(3.0-2.0*f);
+  return mix(mix(mix(hash13(i+vec3(0,0,0)),hash13(i+vec3(1,0,0)),f.x),
+                 mix(hash13(i+vec3(0,1,0)),hash13(i+vec3(1,1,0)),f.x),f.y),
+             mix(mix(hash13(i+vec3(0,0,1)),hash13(i+vec3(1,0,1)),f.x),
+                 mix(hash13(i+vec3(0,1,1)),hash13(i+vec3(1,1,1)),f.x),f.y),f.z); }
+float fbm(vec3 p){ float v=0.0,a=0.5; for(int i=0;i<5;i++){ v+=a*noise(p); p=p*2.02+1.7; a*=0.5; } return v; }
+vec3 starField(vec3 d){ vec3 col=vec3(0.0);
+  float neb=pow(max(fbm(d*2.6+7.0),0.0),3.2); col+=neb*vec3(0.10,0.09,0.20)*0.9;
+  float neb2=pow(max(fbm(d*4.0-3.0),0.0),4.0); col+=neb2*vec3(0.14,0.06,0.03)*0.6;
+  for(int k=0;k<3;k++){ float sc=130.0+float(k)*170.0; vec3 gp=d*sc,id=floor(gp);
+    float h=hash13(id+float(k)*19.3);
+    if(h>0.982){ vec3 fp=fract(gp)-0.5; float s=smoothstep(0.5,0.0,length(fp))*(h-0.982)/0.018;
+      float tw=0.65+0.35*sin(iTime*2.5+h*90.0);
+      col+=vec3(s)*tw*(0.7+0.5*hash13(id+3.0))*vec3(0.9,0.95,1.0); } }
+  return col; }
+vec4 diskColor(vec3 hit,float rr){ float t=clamp((rr-Ri)/(Ro-Ri),0.0,1.0);
+  vec3 inner=vec3(1.0,0.93,0.80),mid=vec3(1.0,0.52,0.16),outer=vec3(0.62,0.12,0.03);
+  vec3 base=mix(inner,mix(mid,outer,smoothstep(0.0,1.0,t)),t);
+  float ang=atan(hit.z,hit.x),spin=iTime*0.42;
+  float wrap=ang+spin*(2.4/(rr*0.16+0.25));
+  float band=fbm(vec3(cos(wrap)*rr,sin(wrap)*rr,rr*0.5)*0.7);
+  float fine=fbm(vec3(cos(wrap)*rr,sin(wrap)*rr,iTime*0.15)*1.9);
+  float dens=clamp(band*fine*1.7-0.12,0.0,1.0); dens=pow(dens,1.3);
+  dens*=smoothstep(Ri,Ri+0.6,rr)*smoothstep(Ro,Ro-3.0,rr);
+  float bright=mix(1.85,0.16,t); return vec4(base*bright*dens,dens); }
+void main(){
+  vec2 uv=(gl_FragCoord.xy-0.5*iResolution.xy)/iResolution.y;
+  vec3 rd=normalize(uv.x*camRight+uv.y*camUp+1.5*camFwd);
+  float Rh=1.0; vec3 p=camPos,v=rd,h=cross(p,v); float h2=dot(h,h);
+  vec3 color=vec3(0.0); float transmit=1.0; bool sw=false; float minR=1e9;
+  for(int i=0;i<STEPS;i++){ float r=length(p); minR=min(minR,r);
+    if(r<Rh){ sw=true; break; } if(r>46.0&&dot(v,p)>0.0) break;
+    float dt=clamp(r*0.085,0.02,0.6); vec3 prev=p;
+    v+=(-1.5*h2*p/pow(dot(p,p),2.5))*dt; p+=v*dt;
+    if(prev.y*p.y<0.0){ float f=prev.y/(prev.y-p.y); vec3 hit=mix(prev,p,f); float rr=length(hit.xz);
+      if(rr>Ri&&rr<Ro){ vec4 dk=diskColor(hit,rr);
+        vec3 toCam=normalize(camPos-hit),velDir=normalize(cross(vec3(0.0,1.0,0.0),hit));
+        float beta=clamp(0.52/sqrt(max(rr,0.6)),0.0,0.72),cosA=dot(velDir,toCam);
+        float boost=pow(1.0/max(1.0-beta*cosA,0.05),3.0); vec3 dc=dk.rgb*boost;
+        dc=mix(dc,dc*vec3(0.55,0.8,1.5),clamp( cosA*beta*1.6,0.0,0.6));
+        dc=mix(dc,dc*vec3(1.5,0.65,0.45),clamp(-cosA*beta*1.6,0.0,0.6));
+        color+=dc*transmit; transmit*=(1.0-clamp(dk.a*0.92,0.0,1.0));
+        if(transmit<0.02) break; } } }
+  if(!sw){ float ring=smoothstep(1.85,1.5,minR)*smoothstep(1.2,1.48,minR);
+    color+=vec3(1.0,0.86,0.62)*ring*1.7*transmit; color+=starField(normalize(v))*transmit; }
+  color*=0.82; color=(color*(2.51*color+0.03))/(color*(2.43*color+0.59)+0.14);
+  color=pow(clamp(color,0.0,1.0),vec3(1.0/2.2)); fragColor=vec4(color,1.0);
+}
+</script>
+<script>
+(function(){
+  var cv=document.getElementById('bh');
+  var gl=cv.getContext('webgl2',{antialias:false,powerPreference:'high-performance',preserveDrawingBuffer:true});
+  if(!gl){ cv.classList.add('fallback'); return; }   // graceful fallback
+  function compile(t,s){ var sh=gl.createShader(t); gl.shaderSource(sh,s.trim()); gl.compileShader(sh);
+    if(!gl.getShaderParameter(sh,gl.COMPILE_STATUS)) throw gl.getShaderInfoLog(sh); return sh; }
+  var prog=gl.createProgram();
+  try{
+    gl.attachShader(prog,compile(gl.VERTEX_SHADER,document.getElementById('vs').textContent));
+    gl.attachShader(prog,compile(gl.FRAGMENT_SHADER,document.getElementById('fs').textContent));
+  }catch(e){ cv.classList.add('fallback'); return; }
+  gl.bindAttribLocation(prog,0,'aPos'); gl.linkProgram(prog);
+  if(!gl.getProgramParameter(prog,gl.LINK_STATUS)){ cv.classList.add('fallback'); return; }
+  gl.useProgram(prog);
+  var buf=gl.createBuffer(); gl.bindBuffer(gl.ARRAY_BUFFER,buf);
+  gl.bufferData(gl.ARRAY_BUFFER,new Float32Array([-1,-1,3,-1,-1,3]),gl.STATIC_DRAW);
+  gl.enableVertexAttribArray(0); gl.vertexAttribPointer(0,2,gl.FLOAT,false,0,0);
+  var U={}; ['iResolution','iTime','camPos','camRight','camUp','camFwd'].forEach(function(n){U[n]=gl.getUniformLocation(prog,n);});
 
-  <script defer src="/app.js"></script>
+  var az=0.9, el=0.20, dist=15.5;
+  var RS=Math.min(window.devicePixelRatio||1,1.4);
+  function resize(){ var w=Math.floor(innerWidth*RS),hh=Math.floor(innerHeight*RS);
+    if(cv.width!==w||cv.height!==hh){cv.width=w;cv.height=hh;} cv.style.width=innerWidth+'px';cv.style.height=innerHeight+'px';
+    gl.viewport(0,0,cv.width,cv.height); }
+  window.addEventListener('resize',resize); resize();
+  function cross(a,b){return[a[1]*b[2]-a[2]*b[1],a[2]*b[0]-a[0]*b[2],a[0]*b[1]-a[1]*b[0]];}
+  function norm(a){var l=Math.hypot(a[0],a[1],a[2])||1;return[a[0]/l,a[1]/l,a[2]/l];}
 
+  var reduce=matchMedia('(prefers-reduced-motion:reduce)').matches;
+  var t0=performance.now(), fAcc=0,fN=0,fLast=t0;
+  function frame(now){
+    if(!reduce) az+=0.0011;
+    var cp=[dist*Math.cos(el)*Math.sin(az),dist*Math.sin(el),dist*Math.cos(el)*Math.cos(az)];
+    var fwd=norm([-cp[0],-cp[1],-cp[2]]), right=norm(cross(fwd,[0,1,0])), up=cross(right,fwd);
+    gl.uniform2f(U.iResolution,cv.width,cv.height);
+    gl.uniform1f(U.iTime,reduce?12.0:(now-t0)*0.001);
+    gl.uniform3fv(U.camPos,cp); gl.uniform3fv(U.camRight,right);
+    gl.uniform3fv(U.camUp,up); gl.uniform3fv(U.camFwd,fwd);
+    gl.drawArrays(gl.TRIANGLES,0,3);
+    fN++; fAcc+=now-fLast; fLast=now;
+    if(fAcc>500){ var fps=1000*fN/fAcc; if(fps<26&&RS>0.6){RS=Math.max(0.6,RS-0.15);resize();} fAcc=0;fN=0; }
+    if(reduce && now-t0>1200) return;   // reduced-motion: render a couple frames then stop
+    requestAnimationFrame(frame);
+  }
+  requestAnimationFrame(frame);
+})();
+</script>
 </body>
 </html>
