@@ -674,6 +674,7 @@
       }
       return last;
     }
+    var lastDepthHtml = "";
     function apply(f) {
       var s = stageAt(f);
       var vh = stage.clientHeight;
@@ -681,7 +682,9 @@
       // ฉากหลัง parallax ช้ากว่า
       var bgRange = bg.offsetHeight - vh;
       bg.style.transform = "translate3d(0," + (-(s.camY / WORLD) * bgRange) + "px,0)";
-      depthEl.innerHTML = renderDepth(s.d);
+      // เลขความลึก round เป็นจำนวนเต็ม — เขียน DOM เฉพาะเฟรมที่ค่าเปลี่ยนจริง
+      var dh = renderDepth(s.d);
+      if (dh !== lastDepthHtml) { depthEl.innerHTML = dh; lastDepthHtml = dh; }
       railSub.style.setProperty("--p", (s.camY / WORLD).toFixed(4));
       stage.classList.toggle("under", s.camY > WATER + 60);
     }

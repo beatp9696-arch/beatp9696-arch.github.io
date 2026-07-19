@@ -47,7 +47,7 @@
     color: #8a8f96; letter-spacing: .03em; max-width: 88vw; }
   .mc-legend i { display: inline-block; width: 10px; height: 10px; border-radius: 50%; margin-right: 7px; vertical-align: -1px; }
 
-  .mc-tag { position: fixed; z-index: 4; transform: translate(-50%, -100%); pointer-events: none;
+  .mc-tag { position: fixed; z-index: 4; left: 0; top: 0; transform: translate(-50%, -100%); pointer-events: none;
     font-family: "IBM Plex Mono", ui-monospace, monospace; font-size: 11px; letter-spacing: .08em;
     color: #c3c8ce; text-shadow: 0 1px 6px #000; white-space: nowrap; transition: opacity .25s; }
   .mc-tag small { display: block; text-align: center; color: #8a8f96; font-size: 9.5px; letter-spacing: .05em; }
@@ -572,6 +572,7 @@ document.getElementById('cardX').onclick = () => card.classList.remove('show');
 
 /* ---------- loop ---------- */
 const v = new THREE.Vector3();
+const vGround = new THREE.Vector3(); // scratch — เลี่ยง alloc ทุกเฟรม (GC churn)
 let t0 = 0;
 function frame(t){
   const dt = (t - t0)/1000; t0 = t;
@@ -579,9 +580,10 @@ function frame(t){
   if (!REDUCE) pulses.forEach(p => { p.userData.pulse += dt*1.6; p.material.opacity = .72 + Math.sin(p.userData.pulse)*.22; });
   tags.forEach(({el, x, y, z}) => {
     v.set(x, y, z).project(camera);
-    el.style.opacity = v.z > 1 ? 0 : Math.max(0, 1.15 - camera.position.distanceTo(new THREE.Vector3(x,0,z))/260);
-    el.style.left = ((v.x+1)/2*innerWidth) + 'px';
-    el.style.top  = ((-v.y+1)/2*innerHeight) + 'px';
+    el.style.opacity = v.z > 1 ? 0 : Math.max(0, 1.15 - camera.position.distanceTo(vGround.set(x,0,z))/260);
+    // transform แทน left/top — ป้ายเลื่อนบน compositor ไม่ trigger layout ทุกเฟรม
+    el.style.transform = 'translate(' + ((v.x+1)/2*innerWidth) + 'px,' +
+      ((-v.y+1)/2*innerHeight) + 'px) translate(-50%, -100%)';
   });
   renderer.render(scene, camera);
 }

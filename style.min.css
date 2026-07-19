@@ -226,6 +226,7 @@ border-radius: 12px;
 overflow: hidden;
 box-shadow: var(--shadow-sm);
 }
+.table-scroll { overflow-x: auto; -webkit-overflow-scrolling: touch; }
 th, td {
 padding: 11px 15px;
 border-bottom: 1px solid var(--border);
@@ -363,10 +364,12 @@ th, td { padding: 9px 11px; }
 .top-accent { height: 3px; background: var(--grad); }
 .reading-progress {
 position: fixed; top: 0; left: 0;
-height: 3px; width: 0;
+height: 3px; width: 100%;
 background: var(--grad);
 z-index: 100;
-transition: width 0.1s linear;
+transform: scaleX(0);
+transform-origin: 0 0;
+transition: transform 0.1s linear;
 }
 .kicker {
 display: inline-block;
@@ -1512,6 +1515,7 @@ h2:hover > .heading-anchor, h3:hover > .heading-anchor { opacity: 0.45; }
 .clk-sec { opacity: 0.85; }
 .company-header {
 display: flex;
+flex-wrap: wrap;
 align-items: center;
 gap: 14px;
 margin: 0 0 24px;

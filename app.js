@@ -86,17 +86,26 @@
   var progressBar = document.querySelector(".reading-progress");
   var btn = document.querySelector(".to-top");
 
-  function onScroll() {
+  // rAF-throttle: scroll ยิงถี่กว่า frame — อัปเดตครั้งเดียวต่อเฟรมพอ
+  var scrollTicking = false;
+  function onScrollWork() {
+    scrollTicking = false;
     if (progressBar) {
       var h = document.documentElement;
       var max = h.scrollHeight - h.clientHeight;
-      var pct = max > 0 ? (h.scrollTop / max) * 100 : 0;
-      progressBar.style.width = pct + "%";
+      var pct = max > 0 ? h.scrollTop / max : 0;
+      // scaleX แทน width — งานอยู่ฝั่ง compositor ไม่ trigger layout
+      progressBar.style.transform = "scaleX(" + pct + ")";
     }
     if (btn) {
       if (window.scrollY > 400) btn.classList.add("show");
       else btn.classList.remove("show");
     }
+  }
+  function onScroll() {
+    if (scrollTicking) return;
+    scrollTicking = true;
+    requestAnimationFrame(onScrollWork);
   }
 
   document.addEventListener("scroll", onScroll, { passive: true });
@@ -198,6 +207,15 @@
     document.addEventListener("scroll", condense, { passive: true });
     condense();
   }
+
+  // ---- ห่อตารางด้วยกรอบเลื่อนแนวนอน (กันตารางกว้างดันหน้าล้นบนมือถือ) ----
+  document.querySelectorAll("main table").forEach(function (t) {
+    if (t.parentElement && t.parentElement.classList.contains("table-scroll")) return;
+    var w = document.createElement("div");
+    w.className = "table-scroll";
+    t.parentNode.insertBefore(w, t);
+    w.appendChild(t);
+  });
 
   // ---- scroll-reveal ----
   if ("IntersectionObserver" in window) {
