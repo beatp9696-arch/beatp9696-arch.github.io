@@ -2475,3 +2475,34 @@ body.has-os-tabbar { padding-bottom: 0; }
   /* เนื้อหาหน้าเว็บต้องไม่ถูกแถบทับบรรทัดสุดท้าย */
   body.has-os-tabbar { padding-bottom: calc(62px + env(safe-area-inset-bottom, 0px)); }
 }
+
+/* ============================================================
+   TARS — มาสคอตบอกสถานะ (inject จาก app.js ทุกหน้าที่โหลด app.js)
+   ธีม-aware ผ่าน token; มือถือ (≤700px) ยกเหนือ .os-tabbar
+   ============================================================ */
+.tarsb { position: fixed; z-index: 60; right: 18px; bottom: 18px; font-family: var(--font-head); }
+.tarsb, .tarsb * { box-sizing: border-box; }
+@media (max-width: 700px) {
+  .tarsb { right: 12px; bottom: calc(72px + env(safe-area-inset-bottom, 0px)); }
+}
+.tarsb-card { display: flex; align-items: flex-end; gap: 9px; max-width: min(330px, calc(100vw - 24px)); }
+.tarsb-bubble { position: relative; background: var(--surface); color: var(--text); border: 1px solid var(--border); border-radius: 14px; padding: 10px 13px 11px; box-shadow: var(--shadow-md); font-size: 12.5px; line-height: 1.62; min-width: 0; }
+.tarsb-bubble::after { content: ""; position: absolute; right: -6px; bottom: 15px; width: 11px; height: 11px; background: var(--surface); border-right: 1px solid var(--border); border-bottom: 1px solid var(--border); transform: rotate(-45deg); }
+.tarsb-head { display: flex; align-items: center; gap: 6px; margin-bottom: 5px; }
+.tarsb-name { font-family: var(--font-mono); font-size: 9px; letter-spacing: .16em; text-transform: uppercase; color: var(--muted); }
+.tarsb-dot { width: 7px; height: 7px; border-radius: 50%; background: var(--muted); flex: none; }
+.tarsb-dot.open { background: #1fa971; box-shadow: 0 0 7px rgba(31, 169, 113, 0.6); }
+.tarsb-dot.closed { background: #c77d18; }
+.tarsb-dot.idle { background: var(--accent); }
+.tarsb-min { margin-left: auto; border: none; background: none; color: var(--muted); cursor: pointer; font-family: var(--font-mono); font-size: 16px; line-height: 1; padding: 0 3px; border-radius: 6px; }
+.tarsb-min:hover { color: var(--text); background: var(--accent-tint); }
+.tarsb-msg { margin: 0; }
+.tarsb-msg b { color: var(--accent-strong); font-weight: 600; }
+.tarsb-bot { width: 44px; height: auto; flex: none; filter: drop-shadow(0 6px 11px rgba(0, 0, 0, 0.28)); animation: tarsb-bob 5s ease-in-out infinite; cursor: pointer; }
+.tarsb-tab { display: none; width: 52px; height: 52px; border-radius: 50%; border: 1px solid var(--border); background: var(--surface); box-shadow: var(--shadow-md); cursor: pointer; padding: 7px; position: relative; align-items: center; justify-content: center; }
+.tarsb-tab .tarsb-bot { width: 30px; animation: none; filter: none; }
+.tarsb-tab .tarsb-dot { position: absolute; top: 7px; right: 7px; }
+.tarsb[data-collapsed="true"] .tarsb-card { display: none; }
+.tarsb[data-collapsed="true"] .tarsb-tab { display: inline-flex; }
+@keyframes tarsb-bob { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-4px); } }
+@media (prefers-reduced-motion: reduce) { .tarsb-bot { animation: none; } }

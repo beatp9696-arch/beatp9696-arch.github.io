@@ -1001,3 +1001,121 @@
   document.body.appendChild(bar);
   document.body.classList.add("has-os-tabbar");
 })();
+
+/* ============================================================
+   TARS — มาสคอตบอกสถานะ (ลอยมุมล่างขวาทุกหน้าที่โหลด app.js)
+   หมุนสลับ: สถานะตลาดสหรัฐ (NYSE) ⇄ ทักทาย + คำคมลงทุน
+   static ล้วน (ไม่มี backend); ไม่โผล่บน 404 (หน้านั้นไม่โหลด app.js)
+   ============================================================ */
+(function () {
+  "use strict";
+  if (document.getElementById("tars-buddy")) return;   // กันซ้ำ
+  if (window.self !== window.top) return;               // ไม่โผล่ในกรอบ iframe (ฉากฝัง)
+
+  // ---- ตลาดสหรัฐ: อ่านเวลา ET ผ่าน Intl (จัดการ DST เอง) ----
+  var HAS_TZ = true;
+  try { new Intl.DateTimeFormat("en-US", { timeZone: "America/New_York" }).format(new Date()); }
+  catch (e) { HAS_TZ = false; }
+  // NYSE full-day holidays 2026 (ไม่รวมครึ่งวัน) — ปีอื่นตรรกะเสาร์-อาทิตย์ยังถูก แค่วันหยุดอาจคลาด
+  var HOLIDAYS = ["2026-01-01", "2026-01-19", "2026-02-16", "2026-04-03", "2026-05-25",
+    "2026-06-19", "2026-07-03", "2026-09-07", "2026-11-26", "2026-12-25"];
+  function etParts(offsetDays) {
+    var d = new Date(Date.now() + (offsetDays || 0) * 86400000);
+    var f = new Intl.DateTimeFormat("en-US", { timeZone: "America/New_York", weekday: "short",
+      year: "numeric", month: "2-digit", day: "2-digit", hour: "2-digit", minute: "2-digit", hour12: false });
+    var p = {}; f.formatToParts(d).forEach(function (x) { p[x.type] = x.value; });
+    var hh = parseInt(p.hour, 10); if (hh === 24) hh = 0;
+    var wk = { Sun: 0, Mon: 1, Tue: 2, Wed: 3, Thu: 4, Fri: 5, Sat: 6 };
+    return { min: hh * 60 + parseInt(p.minute, 10), dow: wk[p.weekday], ymd: p.year + "-" + p.month + "-" + p.day };
+  }
+  function tradingDay(pp) { return pp.dow >= 1 && pp.dow <= 5 && HOLIDAYS.indexOf(pp.ymd) === -1; }
+  function fmtDur(m) {
+    if (m < 60) return m + " นาที";
+    if (m < 1440) { var h = Math.floor(m / 60), mm = m % 60; return h + " ชม" + (mm ? " " + mm + " น" : ""); }
+    var dd = Math.floor(m / 1440), h2 = Math.floor((m % 1440) / 60); return dd + " วัน" + (h2 ? " " + h2 + " ชม" : "");
+  }
+  function marketLine() {
+    var p = etParts(0);
+    if (tradingDay(p) && p.min >= 570 && p.min < 960) {
+      return { t: "ตลาดสหรัฐ<b>เปิดอยู่</b> · ปิดใน " + fmtDur(960 - p.min), cls: "open" };
+    }
+    var mins = null;
+    if (tradingDay(p) && p.min < 570) { mins = 570 - p.min; }
+    else { for (var off = 1; off <= 8; off++) { var q = etParts(off); if (tradingDay(q)) { mins = (1440 - p.min) + (off - 1) * 1440 + 570; break; } } }
+    return { t: "ตลาดสหรัฐ<b>ปิด</b>" + (mins != null ? " · เปิดอีก " + fmtDur(mins) : ""), cls: "closed" };
+  }
+
+  // ---- ทักทายตามเวลาเครื่องผู้อ่าน + คำคมลงทุน ----
+  var QUOTES = [
+    { q: "ราคาคือสิ่งที่คุณจ่าย มูลค่าคือสิ่งที่คุณได้", a: "Buffett" },
+    { q: "จงกลัวเมื่อคนอื่นโลภ และโลภเมื่อคนอื่นกลัว", a: "Buffett" },
+    { q: "เวลาคือเพื่อนของธุรกิจที่ยอดเยี่ยม และเป็นศัตรูของธุรกิจธรรมดา", a: "Buffett" },
+    { q: "ซื้อบริษัทยอดเยี่ยมในราคาเหมาะสม ดีกว่าบริษัทเหมาะสมในราคายอดเยี่ยม", a: "Buffett" },
+    { q: "เงินก้อนใหญ่ไม่ได้อยู่ที่การซื้อขาย แต่อยู่ที่การรอเป็น", a: "Munger" },
+    { q: "ลงทุนเฉพาะในสิ่งที่คุณเข้าใจจริงๆ", a: "Buffett" }
+  ];
+  function greetLine() {
+    var h = new Date().getHours();
+    var g = h < 5 ? "ดึกแล้วนะครับ พักบ้างนะ" : h < 12 ? "สวัสดีตอนเช้าครับ" :
+      h < 17 ? "สวัสดีตอนบ่ายครับ" : h < 21 ? "สวัสดีตอนเย็นครับ" : "สวัสดีตอนค่ำครับ";
+    var q = QUOTES[Math.floor(Math.random() * QUOTES.length)];
+    return { t: "<b>" + g + "</b> «" + q.q + "» — " + q.a, cls: "idle" };
+  }
+
+  var PROVIDERS = HAS_TZ ? [marketLine, greetLine] : [greetLine];
+
+  // ---- TARS SVG (ใช้ทั้งการ์ดและปุ่มพับ) ----
+  var TARS_SVG =
+    '<svg class="tarsb-bot" viewBox="0 0 47 58" role="img" aria-label="TARS">' +
+    '<defs><linearGradient id="tarsbSteel" x1="0" y1="0" x2="1" y2="0">' +
+    '<stop offset="0" stop-color="#3b414a"/><stop offset=".45" stop-color="#171a20"/>' +
+    '<stop offset="1" stop-color="#0d1015"/></linearGradient></defs>' +
+    '<g fill="url(#tarsbSteel)" stroke="#05070b" stroke-width=".6">' +
+    '<rect x="3.5" y="6" width="8.6" height="48" rx="1.6"/>' +
+    '<rect x="14.2" y="6" width="8.6" height="48" rx="1.6"/>' +
+    '<rect x="24.9" y="2" width="8.6" height="48" rx="1.6"/>' +
+    '<rect x="35.6" y="6" width="8.6" height="48" rx="1.6"/></g>' +
+    '<g stroke="#05070b" stroke-width=".7" opacity=".75">' +
+    '<line x1="4.1" y1="22" x2="11.5" y2="22"/><line x1="4.1" y1="38" x2="11.5" y2="38"/>' +
+    '<line x1="14.8" y1="22" x2="22.2" y2="22"/><line x1="14.8" y1="38" x2="22.2" y2="38"/>' +
+    '<line x1="25.5" y1="18" x2="32.9" y2="18"/><line x1="25.5" y1="34" x2="32.9" y2="34"/>' +
+    '<line x1="36.2" y1="22" x2="43.6" y2="22"/><line x1="36.2" y1="38" x2="43.6" y2="38"/></g>' +
+    '<rect x="5.2" y="11" width="5.2" height="3.2" rx="1" fill="#0a1a26" stroke="#7fc7ff" stroke-width=".5"/>' +
+    '<circle cx="39.9" cy="10.6" r="1.2" fill="#ffb763"/></svg>';
+
+  var wrap = document.createElement("div");
+  wrap.className = "tarsb"; wrap.id = "tars-buddy";
+  wrap.innerHTML =
+    '<div class="tarsb-card">' +
+      '<div class="tarsb-bubble">' +
+        '<div class="tarsb-head"><span class="tarsb-dot idle"></span><span class="tarsb-name">TARS</span>' +
+          '<button class="tarsb-min" type="button" aria-label="ย่อ TARS" title="ย่อเก็บ">–</button></div>' +
+        '<p class="tarsb-msg">…</p>' +
+      '</div>' + TARS_SVG +
+    '</div>' +
+    '<button class="tarsb-tab" type="button" aria-label="เปิด TARS">' + TARS_SVG +
+      '<span class="tarsb-dot idle"></span></button>';
+  document.body.appendChild(wrap);
+
+  var msg = wrap.querySelector(".tarsb-msg");
+  var dots = wrap.querySelectorAll(".tarsb-dot");
+  var idx = 0;
+  function tick() {
+    var line = PROVIDERS[idx % PROVIDERS.length]();
+    msg.innerHTML = line.t;
+    for (var i = 0; i < dots.length; i++) dots[i].className = "tarsb-dot " + line.cls;
+    idx++;
+  }
+
+  // พับเก็บ (จำสถานะ)
+  var KEY = "tarsCollapsed";
+  function setCollapsed(v) { wrap.setAttribute("data-collapsed", v ? "true" : "false"); try { localStorage.setItem(KEY, v ? "1" : "0"); } catch (e) {} }
+  var stored = "0"; try { stored = localStorage.getItem(KEY) || "0"; } catch (e) {}
+  setCollapsed(stored === "1");
+  wrap.querySelector(".tarsb-min").addEventListener("click", function () { setCollapsed(true); });
+  wrap.querySelector(".tarsb-tab").addEventListener("click", function () { setCollapsed(false); });
+  wrap.querySelector(".tarsb-card .tarsb-bot").addEventListener("click", tick); // แตะ TARS = ข้อความถัดไป
+
+  tick();                       // แสดง market ก่อน (ถ้ารองรับ)
+  setInterval(tick, 8000);      // หมุนทุก 8 วินาที
+})();
