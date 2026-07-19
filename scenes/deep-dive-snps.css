@@ -38,3 +38,56 @@
 .wf-data { fill: none; stroke: #c084fc; stroke-width: 2; }
 .wf-ana { fill: none; stroke: #fbbf24; stroke-width: 2; }
 .wf-eye { fill: none; stroke: #22d3ee; stroke-width: 1.4; opacity: .4; }
+
+/* ============================================================
+   SNPS — ฟิสิกส์ของธุรกิจ: "นาฬิกาที่เหลื่อมกัน"
+   เงินของ Synopsys มาถึงคนละจังหวะกับเหตุการณ์ที่ทำให้มันเกิด —
+   ได้เงินตอนลูกค้า "ออกแบบ" ไม่ใช่ตอนลูกค้า "ขายชิป",
+   รับรู้รายได้เป็นงวดที่เหลื่อมจากวันเซ็น, และจ่ายโบนัสตาม backlog ของ "ปีหน้า"
+   กฎการเคลื่อนไหว: เหตุพุ่งแรง แต่ผลขยับทีหลังและคนละสเกล
+   easing: --e-mech (นาฬิกาสัญญา) + --e-expo (จังหวะฉีด) + --e-mass (ของหนัก)
+   ============================================================ */
+
+/* --- ฉาก A: มิเตอร์สองตัว — ค่าแบบ vs ค่าเช่าตึก --- */
+.snx-rail { fill: none; stroke: #241b35; stroke-width: 2; }
+.snx-chip { fill: #1c1536; stroke: #5b3fa8; stroke-width: 1.2; }
+.snx-chip.sa { animation: snxride 2.2s linear infinite; }
+@keyframes snxride { from { transform: translateX(0) } to { transform: translateX(150px) } }
+.snx-gauge { fill: #14101e; stroke: #2a2342; stroke-width: 1.5; }
+.snx-fill { transform-box: fill-box; transform-origin: left center; }
+.snx-fill.sa { animation: snxfill calc(var(--beat) * 3) var(--e-mass) both; }
+@keyframes snxfill { from { transform: scaleX(0) } }
+.snx-fillA { fill: #a855f7; opacity: .55; }
+.snx-fillB { fill: #fbbf24; opacity: .6; }
+.snx-tick { fill: #e9d5ff; }
+.snx-tick.sa { animation: snxrise calc(var(--beat) * 2) var(--e-expo) both; }
+@keyframes snxrise { from { opacity: 0; transform: translateY(8px) } }
+.snx-verdict.sa { animation: snxrise calc(var(--beat) * 2) var(--e-expo) both; }
+
+/* --- ฉาก B: ท่อหยดกับกระบอกฉีด --- */
+.snx-bar { transform-box: fill-box; transform-origin: bottom center; }
+.snx-drip { fill: #22d3ee; opacity: .42; }
+.snx-drip.sa { animation: snxgrow calc(var(--beat) * 2) var(--e-mech) both; }
+.snx-burst { fill: #f0abfc; opacity: .6; }
+.snx-burst.sa { animation: snxgrow calc(var(--beat) * 1.5) var(--e-expo) both; }
+@keyframes snxgrow { from { transform: scaleY(0) } }
+.snx-axis { stroke: #2a2342; stroke-width: 1.2; }
+.snx-flag { fill: none; stroke: #f0abfc; stroke-width: 1.5; stroke-dasharray: 4 3; }
+.snx-flag.sa, .snx-note.sa { animation: snxrise calc(var(--beat) * 2) var(--e-expo) both; }
+
+/* --- ฉาก C: สลิปโบนัส --- */
+.snx-slip { fill: #0d0a16; stroke: #2a2342; stroke-width: 1.5; }
+.snx-track { fill: #14101e; stroke: #221a33; stroke-width: 1; }
+.snx-score { transform-box: fill-box; transform-origin: left center; }
+.snx-score.sa { animation: snxfill calc(var(--beat) * 2.5) var(--e-mass) both; }
+.snx-miss { fill: #fbbf24; opacity: .55; }
+.snx-beat { fill: #34d399; opacity: .55; }
+.snx-target { stroke: #d98a8a; stroke-width: 1.5; stroke-dasharray: 3 3; }
+.snx-stamp { transform-box: fill-box; transform-origin: center; }
+.snx-stamp.sa { animation: snxstamp calc(var(--beat) * 1.6) var(--e-snapback) both; }
+@keyframes snxstamp { from { opacity: 0; transform: scale(2.1) rotate(-9deg) } }
+
+@media (prefers-reduced-motion: reduce) {
+  .snx-chip, .snx-fill, .snx-tick, .snx-verdict, .snx-drip, .snx-burst,
+  .snx-flag, .snx-note, .snx-score, .snx-stamp { animation: none !important }
+}
