@@ -81,5 +81,54 @@ function check(name, cond) {
   check("data received", eq(m.data["money.entries"], [{ id: 1 }]));
 }
 
+// 8. tombstone: remote ลบ key ทีหลัง (meta มี ts ใหม่ แต่ไม่มี data) → local ต้องลบตาม ไม่ใช่ยัดคืน
+{
+  const local = { data: { "todo.items": [{ id: 1 }] }, meta: { "todo.items": 100 } };
+  const remote = { data: {}, meta: { "todo.items": 200 } };
+  const m = mergeState(local, remote);
+  check("remote delete removes the key", !("todo.items" in m.data));
+  check("delete keeps a tombstone ts", m.meta["todo.items"] === 200);
+  check("delete counts as pulled", eq(m.pulled, ["todo.items"]));
+  check("delete needs no push back", m.localAhead === false);
+}
+
+// 9. tombstone แพ้การแก้ที่ใหม่กว่า — ลบที่เครื่องหนึ่ง แล้วอีกเครื่องแก้ทีหลัง = ของที่แก้ชนะ
+{
+  const local = { data: { "notes.text": "rewritten" }, meta: { "notes.text": 300 } };
+  const remote = { data: {}, meta: { "notes.text": 200 } };
+  const m = mergeState(local, remote);
+  check("newer edit beats older delete", m.data["notes.text"] === "rewritten");
+  check("edit is pushed back up", m.localAhead === true);
+}
+
+// 10. local ลบทีหลัง → tombstone ต้องถูก push ขึ้น cloud (ไม่งั้นเครื่องอื่นคืนศพกลับมา)
+{
+  const local = { data: {}, meta: { "notes.text": 300 } };
+  const remote = { data: { "notes.text": "old" }, meta: { "notes.text": 200 } };
+  const m = mergeState(local, remote);
+  check("local delete wins over older remote value", !("notes.text" in m.data));
+  check("local tombstone carried in meta", m.meta["notes.text"] === 300);
+  check("local delete triggers push", m.localAhead === true);
+  check("nothing pulled", m.pulled.length === 0);
+}
+
+// 11. tombstone ของ key นอก allowlist ต้องไม่หลุดเข้ามา (กันขยะจาก gist รุ่นเก่า)
+{
+  const local = { data: { "notes.text": "a" }, meta: { "notes.text": 100 } };
+  const remote = { data: {}, meta: { "sync.token": 999, evil: 999 } };
+  const m = mergeState(local, remote);
+  check("foreign tombstone ignored", !("sync.token" in m.meta) && !("evil" in m.meta));
+  check("local key untouched", m.data["notes.text"] === "a");
+}
+
+// 12. key ที่ทั้งสองฝั่งลบไปแล้ว → ไม่มี data, ไม่ push, ไม่ pull (นิ่งสนิท)
+{
+  const local = { data: {}, meta: { "todo.items": 500 } };
+  const remote = { data: {}, meta: { "todo.items": 500 } };
+  const m = mergeState(local, remote);
+  check("mutual delete stays deleted", !("todo.items" in m.data));
+  check("mutual delete is quiet", m.pulled.length === 0 && m.localAhead === false);
+}
+
 console.log(`\n${pass} passed, ${fail} failed`);
 process.exit(fail ? 1 : 0);

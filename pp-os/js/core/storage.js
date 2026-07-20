@@ -78,8 +78,9 @@ function flush() {
     else store.put(v, k);
   }
   tx.onerror = () => {
-    // เขียนไม่ผ่าน → คืนเข้าคิวไว้ลองรอบหน้า ดีกว่ากลืนเงียบๆ แล้วข้อมูลหาย
+    // เขียนไม่ผ่าน → คืนเข้าคิว + ตั้งเวลาลองใหม่เอง (เดิมรอ write ครั้งถัดไปมาปลุก — ถ้าไม่มีก็ค้างจนปิดแอป)
     for (const [k, v] of batch) if (!pending.has(k)) pending.set(k, v);
+    flushTimer ??= setTimeout(flush, 1500);
     console.error("storage: เขียน IndexedDB ไม่สำเร็จ", tx.error);
   };
 }
@@ -150,6 +151,13 @@ export async function initStorage() {
   try {
     await navigator.storage?.persist?.();
   } catch {}
+
+  // write-behind มีหน้าต่างเสี่ยงตอน iOS ฆ่า PWA ทันทีหลังผู้ใช้กรอกข้อมูล —
+  // ดัน flush ตอนแอปกำลังหายจากจอ ให้ transaction เริ่มก่อนโปรเซสถูกหยุด
+  addEventListener("pagehide", flush);
+  document.addEventListener("visibilitychange", () => {
+    if (document.visibilityState === "hidden") flush();
+  });
 }
 
 export function load(key, fallback = null) {
@@ -170,20 +178,25 @@ export function remove(key) {
 
 // ---- backup / restore ----
 // key ที่ขึ้นต้นด้วย "_" เป็นของระบบ (snapshot, migratedAt) ไม่ติดไปกับไฟล์ backup
+// key "sync.*" คือความลับของเครื่องนี้ (GitHub token, gistId) — ห้ามหลุดลงไฟล์ backup เด็ดขาด
+// และ restore ต้องไม่แตะมัน (ไฟล์จากเครื่องอื่นห้ามเอา token ของเครื่องนั้นมาติดตั้งที่นี่)
+
+const inBackup = (k) => !k.startsWith("_") && !k.startsWith("sync.") && !k.endsWith(".cache");
 
 export function dumpAll() {
   const out = {};
   // ข้าม cache ที่สร้างใหม่ได้เอง (พยากรณ์อากาศ) — ไฟล์ backup จะได้ไม่บวม
   // และ restore จะได้ไม่เอาอากาศเมื่อวานของอีกเครื่องมาแปะ
-  for (const [k, v] of cache) if (!k.startsWith("_") && !k.endsWith(".cache")) out[k] = v;
+  for (const [k, v] of cache) if (inBackup(k)) out[k] = v;
   return out;
 }
 
-/** ทับข้อมูลทั้งหมดด้วยชุดใหม่ + เก็บ snapshot ของเดิมไว้ให้กดย้อนได้ */
+/** ทับข้อมูลทั้งหมดด้วยชุดใหม่ + เก็บ snapshot ของเดิมไว้ให้กดย้อนได้ (sync config ของเครื่องนี้ไม่ถูกแตะ) */
 export function replaceAll(data) {
   const snapshot = dumpAll();
-  for (const k of [...cache.keys()]) if (!k.startsWith("_")) remove(k);
-  for (const [k, v] of Object.entries(data)) save(k, v);
+  for (const k of [...cache.keys()]) if (!k.startsWith("_") && !k.startsWith("sync.")) remove(k);
+  // ไฟล์ backup รุ่นเก่าอาจมี sync.token ติดมา — คัดทิ้งตรงนี้ ไม่ให้เข้าเครื่อง
+  for (const [k, v] of Object.entries(data)) if (inBackup(k)) save(k, v);
   save("_snapshot", { at: Date.now(), data: snapshot });
   flush();
 }
@@ -192,8 +205,8 @@ export function replaceAll(data) {
 export function undoRestore() {
   const snap = load("_snapshot");
   if (!snap) return false;
-  for (const k of [...cache.keys()]) if (!k.startsWith("_")) remove(k);
-  for (const [k, v] of Object.entries(snap.data)) save(k, v);
+  for (const k of [...cache.keys()]) if (!k.startsWith("_") && !k.startsWith("sync.")) remove(k);
+  for (const [k, v] of Object.entries(snap.data)) if (inBackup(k)) save(k, v);
   remove("_snapshot");
   flush();
   return true;
@@ -209,6 +222,22 @@ export function onDataChange(cb) {
   return () => changeListeners.delete(cb);
 }
 
+// baseline ของข้อมูลที่มีอยู่ก่อนเปิด sync — ต้อง "สุ่มต่อเครื่อง" ไม่ใช่ค่าคงที่:
+// ถ้าสองเครื่องใช้เลขเดียวกัน (เช่น 1 เท่ากัน) merge จะเสมอกันทุก key → ต่างคนต่างเก็บของตัวเอง
+// ไม่ push ไม่ pull = สองเครื่องโชว์ข้อมูลคนละชุดทั้งที่ขึ้น "Sync is on" ค่าสุ่มทำให้มีผู้ชนะเสมอ
+// และยังแพ้การแก้จริง (Date.now() ~1.7e12) แน่นอนเพราะเพดานแค่ 1e6
+let baselineTs = null;
+function syncBaseline() {
+  if (baselineTs == null) {
+    baselineTs = load("sync.baseline");
+    if (!Number.isInteger(baselineTs)) {
+      baselineTs = 1 + Math.floor(Math.random() * 999_999);
+      save("sync.baseline", baselineTs);
+    }
+  }
+  return baselineTs;
+}
+
 /** ภาพรวมข้อมูลที่ sync ได้ + เวลาที่แก้ล่าสุดต่อ key (ฝั่ง local ตอน merge / payload ส่งขึ้น cloud) */
 export function syncSnapshot() {
   const data = {};
@@ -216,8 +245,12 @@ export function syncSnapshot() {
   for (const [k, v] of cache) {
     if (!isSyncable(k)) continue;
     data[k] = v;
-    // baseline 1 = ข้อมูลเก่าก่อนมี sync ให้ push ขึ้น cloud ครั้งแรกได้ แต่แพ้การแก้จริง (now()) เสมอ
-    meta[k] = syncMeta.get(k) ?? 1;
+    meta[k] = syncMeta.get(k) ?? syncBaseline();
+  }
+  // tombstone: key ที่ถูกลบไปแล้ว (มี timestamp แต่ไม่มีค่า) ต้องติด meta ไปด้วย
+  // ไม่งั้นเครื่องอื่น/cloud ที่ยังถือสำเนาเก่าจะคืนศพกลับมาในการ sync รอบถัดไป
+  for (const [k, t] of syncMeta) {
+    if (isSyncable(k) && !(k in meta)) meta[k] = t;
   }
   return { data, meta };
 }
@@ -225,11 +258,16 @@ export function syncSnapshot() {
 /** เขียนผล merge ลงเครื่อง — เก็บ snapshot ของเดิมไว้ให้กด Undo ได้ (กัน merge พลาดทำข้อมูลหาย) */
 export function applySync(data, meta) {
   save("_snapshot", { at: Date.now(), data: dumpAll(), reason: "sync" });
-  for (const [k, v] of Object.entries(data)) {
+  for (const [k, t] of Object.entries(meta)) {
     if (!isSyncable(k)) continue;
-    cache.set(k, v); // เขียนตรง ไม่ผ่าน save() เพื่อไม่ให้ stampMeta ตีตรา now() แล้ว echo push วน
-    queue(k, v);
-    syncMeta.set(k, meta[k] ?? Date.now());
+    if (k in data) {
+      cache.set(k, data[k]); // เขียนตรง ไม่ผ่าน save() เพื่อไม่ให้ stampMeta ตีตรา now() แล้ว echo push วน
+      queue(k, data[k]);
+    } else if (cache.has(k)) {
+      cache.delete(k); // อยู่ใน meta แต่ไม่มีค่า = tombstone จากเครื่องอื่น — ลบตามให้จริง
+      queue(k, DELETE);
+    }
+    syncMeta.set(k, t ?? Date.now());
   }
   const obj = Object.fromEntries(syncMeta);
   cache.set("_syncmeta", obj);

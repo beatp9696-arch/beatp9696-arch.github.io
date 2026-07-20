@@ -1,7 +1,7 @@
 // Service worker — precache app shell ทั้งหมด ใช้ offline ได้เต็มตัว
 // เปลี่ยนไฟล์เมื่อไหร่ให้ bump VERSION เพื่อบังคับ cache ใหม่
 
-const VERSION = "pp-os-v25";
+const VERSION = "pp-os-v26";
 
 const SHELL = [
   "./",
@@ -38,6 +38,10 @@ const SHELL = [
   "./assets/fonts/inter-var-latin.woff2",
   "./assets/fonts/instrument-serif-400-latin.woff2",
   "./assets/fonts/ibm-plex-mono-500-latin.woff2",
+  "./assets/fonts/sarabun-400-thai.woff2",
+  "./assets/fonts/sarabun-600-thai.woff2",
+  "./assets/fonts/ibm-plex-sans-thai-600-thai.woff2",
+  "./assets/fonts/ibm-plex-sans-thai-700-thai.woff2",
 ];
 
 self.addEventListener("install", (e) => {
@@ -69,8 +73,12 @@ self.addEventListener("fetch", (e) => {
       (hit) =>
         hit ??
         fetch(req).then((res) => {
-          const copy = res.clone();
-          caches.open(VERSION).then((c) => c.put(req, copy));
+          // เก็บเฉพาะ response ที่ใช้ได้จริง — 404/500 ระหว่าง deploy ถ้าถูก cache
+          // จะค้างถาวรจนกว่าจะ bump VERSION (ผู้ใช้เห็นหน้าพังโดยรีเฟรชเท่าไหร่ก็ไม่หาย)
+          if (res.ok && res.type === "basic") {
+            const copy = res.clone();
+            caches.open(VERSION).then((c) => c.put(req, copy));
+          }
           return res;
         })
     )

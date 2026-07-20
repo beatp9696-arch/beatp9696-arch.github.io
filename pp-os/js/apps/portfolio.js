@@ -5,7 +5,8 @@ import { countUp, flush, num, stagger } from "../core/ui.js";
 // Portfolio — พอร์ตส่วนตัว (ROADMAP 4.1)
 // กติกาสองข้อที่คุมดีไซน์ทั้งไฟล์:
 //   1. โค้ดอยู่บน repo สาธารณะ ข้อมูลไม่ใช่ → ในไฟล์นี้มีแค่ catalog (ชื่อ/กลุ่ม/บทความ)
-//      ตัวเลขพอร์ตทุกตัวมาจากที่ PP กรอกเอง เก็บใน storage ของเครื่อง (sync ผ่าน secret gist เท่านั้น)
+//      ตัวเลขพอร์ตทุกตัวมาจากที่ PP กรอกเอง เก็บในเครื่องนี้เท่านั้น — จงใจไม่อยู่ใน SYNC_KEYS
+//      (พอร์ตจริงไม่ขึ้น cloud แม้จะเป็น secret gist ก็ตาม ต่างจาก health/money)
 //   2. ราคาไม่เดาเอง — ไม่มี API ไม่มี estimate; PP กรอกราคา แล้วแอปเตือนเมื่อราคาเก่ากว่า 1 trading day
 //      (กติกาเดียวกับ pipeline วิเคราะห์: MoS ที่คำนวณบนราคาค้าง = ผิดแบบเงียบๆ)
 
@@ -530,18 +531,22 @@ export default {
         </form>
       `);
 
-      host.querySelector("form").addEventListener("submit", (e) => {
+      const priceForm = host.querySelector("form");
+      // จำว่าช่องไหนถูกแตะจริง — "แตะ" (แม้พิมพ์เลขเดิมเพื่อยืนยัน) = ไปดูราคามาแล้ว stamp ใหม่ได้
+      // ช่องที่ไม่ได้แตะต้องคง stamp เดิมตามที่ copy สัญญา ไม่ใช่ถูกประทับว่า current ฟรีๆ แค่กด Save
+      priceForm.addEventListener("input", (e) => {
+        if (e.target.name?.startsWith("p_")) e.target.dataset.dirty = "1";
+      });
+      priceForm.addEventListener("submit", (e) => {
         e.preventDefault();
         const cur = read();
         for (const h of cur) {
           const input = e.target.elements[`p_${h.id}`];
-          if (!input) continue;
+          if (!input?.dataset.dirty) continue;
           const v = parseFloat(input.value);
           if (!Number.isFinite(v) || v < 0) continue;
-          if (v !== h.price || isStale(h)) {
-            h.price = v;
-            h.priceAt = Date.now();
-          }
+          h.price = v;
+          h.priceAt = Date.now();
         }
         write(cur);
         close();

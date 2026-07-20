@@ -297,14 +297,18 @@ export default {
       const loc = load("weather.loc", DEFAULT_LOC);
       const cached = load("weather.cache");
       if (cached) paint(cached.data, cached.air);
-      Promise.all([fetchForecast(loc), fetchAirQuality(loc).catch(() => null)])
-        .then(([data, air]) => {
-          save("weather.cache", { data, air, ts: Date.now() });
-          if (body.isConnected) paint(data, air);
-        })
-        .catch(() => {
-          if (!cached && body.isConnected) wxBody.innerHTML = `<div class="fin-sub">Offline</div>`;
-        });
+      // render() ถูกเรียกซ้ำจาก interaction เล็กๆ (ติ๊ก task, ตั้งชื่อ) — cache ที่ยังสดพอไม่ต้องยิง API ใหม่
+      const freshEnough = cached && Date.now() - (cached.ts ?? 0) < 30 * 60000;
+      if (!freshEnough) {
+        Promise.all([fetchForecast(loc), fetchAirQuality(loc).catch(() => null)])
+          .then(([data, air]) => {
+            save("weather.cache", { data, air, ts: Date.now() });
+            if (body.isConnected) paint(data, air);
+          })
+          .catch(() => {
+            if (!cached && body.isConnected) wxBody.innerHTML = `<div class="fin-sub">Offline</div>`;
+          });
+      }
 
       stagger(body);
       firstPaint = false;

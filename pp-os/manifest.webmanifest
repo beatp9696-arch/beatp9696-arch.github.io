@@ -17,6 +17,6 @@
   "shortcuts": [
     { "name": "Health", "url": "./?mode=app&tab=health", "icons": [{ "src": "assets/icons/icon-192.png", "sizes": "192x192" }] },
     { "name": "Money", "url": "./?mode=app&tab=money", "icons": [{ "src": "assets/icons/icon-192.png", "sizes": "192x192" }] },
-    { "name": "Weather", "url": "./?mode=app&tab=weather", "icons": [{ "src": "assets/icons/icon-192.png", "sizes": "192x192" }] }
+    { "name": "Portfolio", "url": "./?mode=app&tab=portfolio", "icons": [{ "src": "assets/icons/icon-192.png", "sizes": "192x192" }] }
   ]
 }

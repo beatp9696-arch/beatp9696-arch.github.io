@@ -97,6 +97,19 @@ export function initShell() {
 
   buildQuickAdd();
   wireSwipe();
+
+  // sync ดึงของใหม่มาแล้ว → วาดแท็บปัจจุบันใหม่ ให้แอปทิ้ง closure เก่าแล้วอ่าน storage รอบใหม่
+  // (ไม่งั้นจอโชว์เลขเก่า และการกดแก้ครั้งถัดไปจะเอาข้อมูลเก่าใน closure ไป save ทับของที่เพิ่ง pull)
+  // เว้นจังหวะที่กำลังพิมพ์/เปิดชีตอยู่ — อย่ารื้อฟอร์มใต้มือผู้ใช้ แท็บจะสดเองตอนสลับครั้งถัดไป
+  document.addEventListener("pp-sync-pulled", () => {
+    if (!shell?.isConnected) return;
+    if (document.querySelector(".app-ov, .settings-ov, .pf-sheet, .hk-sheet:not(.hidden)")) return;
+    if (qaHost?.childElementCount) return;
+    const ae = document.activeElement;
+    if (ae && /^(INPUT|TEXTAREA|SELECT)$/.test(ae.tagName)) return;
+    goTab(shell.dataset.tab, { dir: 0 });
+  });
+
   sync.initSync(); // ดึงของใหม่จาก cloud ถ้าตั้ง sync ไว้ + ตั้ง auto-sync เวลาข้อมูลเปลี่ยน
 
   const start = new URLSearchParams(location.search).get("tab");
@@ -587,9 +600,12 @@ function openQuickAdd() {
 
   const sheet = qaHost.querySelector(".qa-sheet");
   const bodyEl = qaHost.querySelector(".qa-body");
-  const close = () => (qaHost.innerHTML = "");
-  const onEsc = (e) => {
-    if (e.key === "Escape") { close(); removeEventListener("keydown", onEsc); }
+  // ปิดทางไหนก็ต้องถอด keydown เสมอ — เดิมถอดเฉพาะทาง Escape/finish ปิดด้วย ✕ หรือแตะฉากหลัง
+  // listener ค้างและสะสมทุกครั้งที่เปิดชีตใหม่
+  const onEsc = (e) => e.key === "Escape" && close();
+  const close = () => {
+    qaHost.innerHTML = "";
+    removeEventListener("keydown", onEsc);
   };
 
   sheet.addEventListener("click", (e) => e.target === sheet && close());
@@ -597,7 +613,6 @@ function openQuickAdd() {
   addEventListener("keydown", onEsc);
 
   const finish = (msg) => {
-    removeEventListener("keydown", onEsc);
     close();
     // อยู่แท็บหลักตัวไหน วาดใหม่ให้เห็นเลขที่เพิ่งเพิ่ม (Me/Money/Health อัปเดตทันที)
     if (!shell.classList.contains("in-sub")) goTab(shell.dataset.tab, { dir: 0 });
