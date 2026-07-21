@@ -289,50 +289,88 @@
         license/subscription/คลาวด์ เดินทางแบบนี้:
       </p>
       <figure class="ph-fig"><div class="ph-panel ms-panel"><div class="ph-eyebrow ms">Follow the money · ฿100 ขององค์กร (9M FY2026)</div>
-        <svg viewBox="0 0 840 330" role="img" aria-label="เงิน 100 บาทของลูกค้า Microsoft: เหลือกำไรดำเนินงาน 47.4 กำไรสุทธิ 40.5 แต่เงินสดหลังลงทุน datacenter เหลือ 19.6">
-          <text class="ms-mono" x="40" y="26" style="text-anchor:start">INCOME STATEMENT + CASH FLOW · 9M FY2026 · หน่วย = ส่วนแบ่งจากทุก ฿100</text>
-          <path d="M30,66 H250 L280,72 H480 L510,80 H700 V88 H510 L480,96 H280 L250,102 H30 Z"
-                fill="#2b88d8" opacity=".18" stroke="#172a44" stroke-width="1.5"/>
-          <rect x="253" y="98" width="24" height="70" fill="#2b88d8" opacity=".14" stroke="#172a44" stroke-width="1.2"/>
-          <rect x="483" y="92" width="24" height="76" fill="#2b88d8" opacity=".14" stroke="#172a44" stroke-width="1.2"/>
-          <text class="ms-t sm" x="130" y="46">องค์กรจ่าย</text>
-          <text class="ms-t" x="130" y="60" style="font-size:15px" fill="#7cc0f5">฿100</text>
-          <text class="ms-t" x="380" y="58" fill="#c9dcf0">฿68.2</text>
-          <text class="ms-t" x="600" y="66" fill="#c9dcf0">฿47.4</text>
-          <rect x="195" y="170" width="120" height="56" rx="8" fill="#0d1526" stroke="#172a44" stroke-width="1.5"/>
-          <text class="ms-t" x="255" y="202" fill="#7cc0f5">฿31.8</text>
-          <text class="ms-t sm" x="255" y="244">ต้นทุนบริการ/สินค้า</text>
-          <text class="ms-t sm" x="255" y="260" style="font-size:10.5px">(datacenter คือก้อนที่โตเร็วสุด)</text>
-          <rect x="425" y="170" width="120" height="56" rx="8" fill="#0d1526" stroke="#172a44" stroke-width="1.5"/>
-          <text class="ms-t" x="485" y="202" fill="#c9dcf0">฿20.8</text>
-          <text class="ms-t sm" x="485" y="244">R&amp;D ฿10.6 · ขาย ฿7.9</text>
-          <text class="ms-t sm" x="485" y="260" style="font-size:10.5px">บริหาร ฿2.3</text>
-          <rect x="700" y="52" width="112" height="44" rx="9" fill="#0d1526" stroke="#37c2f0" stroke-width="1.5"/>
-          <text class="ms-t" x="756" y="72" fill="#7cc0f5" style="font-size:12.5px">กำไรสุทธิ ฿40.5</text>
-          <text class="ms-t sm" x="756" y="88" style="font-size:10px">(รวมกำไรลงทุน ~฿3)</text>
-          <path d="M756,96 V150" stroke="#37c2f0" stroke-width="2" opacity=".5" stroke-dasharray="4 4"/>
-          <rect x="640" y="150" width="88" height="66" rx="8" fill="#1a1408" stroke="#ffb900" stroke-width="1.5"/>
-          <text class="ms-t" x="684" y="178" fill="#ffb900">−฿33</text>
-          <text class="ms-t sm" x="684" y="196" style="font-size:10.5px">เทกลับเข้า</text>
-          <text class="ms-t sm" x="684" y="210" style="font-size:10.5px">datacenter (capex)</text>
-          <rect x="748" y="150" width="80" height="66" rx="8" fill="#0d1f14" stroke="#34d399" stroke-width="1.5"/>
-          <text class="ms-t" x="788" y="182" fill="#34d399">฿19.6</text>
-          <text class="ms-t sm" x="788" y="202" style="font-size:10.5px">เงินสดอิสระจริง</text>
-          <text class="ms-mono" x="640" y="248" style="text-anchor:start;font-size:10.5px" fill="#c9a86b">+ โรงงานที่มาแบบ finance lease อีก (ภาระรอจ่าย $84.6B) ไม่โผล่ในบรรทัดนี้เลย</text>
-          <circle cx="30" cy="82" r="6" fill="#7cc0f5" opacity=".9"><animateMotion dur="4.2s" repeatCount="indefinite" path="m0,0 h670"/></circle>
-          <circle cx="30" cy="82" r="3.5" fill="#2b88d8" opacity=".8"><animateMotion dur="3.4s" begin=".6s" repeatCount="indefinite" path="m0,0 h225 v110"/></circle>
-          <circle cx="30" cy="82" r="3.5" fill="#37c2f0" opacity=".7"><animateMotion dur="3.8s" begin="1.3s" repeatCount="indefinite" path="m0,0 h455 v110"/></circle>
+        <svg viewBox="0 0 840 360" role="img" aria-label="เงิน ฿100 ของลูกค้า Microsoft ไหลเข้าถัง เหลือกำไรบัญชี ฿40.5 แต่วาล์วเปิดระบาย ฿33 ลงไปสร้าง datacenter เหลือเงินสดอิสระจริงแค่ ฿19.6">
+          <defs><linearGradient id="fmGrad" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#8fd0ff"/><stop offset="1" stop-color="#2b6fb0"/></linearGradient></defs>
+          <text class="ms-mono" x="40" y="26" style="text-anchor:start">INCOME STATEMENT → CASH FLOW · 9M FY2026</text>
+          <text class="fm-lbl" x="40" y="46" style="font-size:11px" fill="#7f99b8">ทุก ฿100 ที่องค์กรจ่าย → เหลือเงินสดจริงเท่าไร</text>
+
+          <!-- inflow -->
+          <g class="fm-in sa n" style="--i:0.5"><text class="fm-lbl" x="175" y="70" style="font-size:11px" text-anchor="middle" fill="#9fbbdc">องค์กรจ่าย</text><path d="M167,74 L183,74 L175,84 Z" fill="#7cc0f5"/></g>
+
+          <!-- tank -->
+          <rect class="fm-tank" x="138" y="86" width="74" height="230" rx="4"/>
+          <rect class="fm-fill sa n" style="--i:0" x="138" y="271" width="74" height="45" rx="3"/>
+
+          <!-- ฿100 tick -->
+          <g class="fm-in sa n" style="--i:1.5"><line class="fm-tick" x1="212" y1="88" x2="252" y2="88"/><text class="fm-lbl" x="258" y="92" fill="#c9dcf0">รายได้ ฿100</text></g>
+
+          <!-- deduction bracket ฿100→฿40.5 -->
+          <g class="fm-in sa n" style="--i:3.5"><path class="fm-brk" d="M248,92 h8 v127 h-8"/><text class="fm-lbl" x="264" y="146" style="font-size:11.5px">− ต้นทุนบริการ ฿31.8</text><text class="fm-lbl" x="264" y="168" style="font-size:11.5px">− R&amp;D · ขาย · บริหาร · ภาษี ฿27.7</text><text class="fm-lbl" x="264" y="190" style="font-size:10.5px" fill="#6f88a4">(กำไรดำเนินงาน ฿47.4 ก่อนภาษี)</text></g>
+
+          <!-- ฿40.5 the apparent prize -->
+          <g class="fm-in sa n" style="--i:5"><line class="fm-tick" x1="212" y1="223" x2="250" y2="223" stroke="#37c2f0"/><rect class="fm-prize fm-glow" x="250" y="209" width="164" height="30" rx="8"/><text class="fm-lbl big" x="332" y="229" text-anchor="middle" fill="#7cc0f5">กำไรบัญชี ฿40.5</text></g>
+
+          <!-- drain conduit -->
+          <g class="fm-in sa n" style="--i:7"><path d="M208,302 Q380,338 542,264" fill="none" stroke="#ffb900" stroke-width="10" stroke-linecap="round" opacity=".45"/><text class="fm-num" x="372" y="330" text-anchor="middle" fill="#ffb900" style="font-size:14px">−฿33 → capex</text></g>
+
+          <!-- datacenter being built -->
+          <rect x="540" y="196" width="272" height="120" rx="8" fill="#081525" stroke="#1c3350" stroke-width="1.3"/>
+          <g class="fm-rise sa n" style="--i:7"><rect class="fm-rack" x="556" y="230" width="38" height="86" rx="3"/><circle class="fm-led" cx="565" cy="242" r="2.4"/><circle class="fm-led" cx="575" cy="242" r="2.4"/></g>
+          <g class="fm-rise sa n" style="--i:7.3"><rect class="fm-rack" x="604" y="216" width="38" height="100" rx="3"/><circle class="fm-led" cx="613" cy="228" r="2.4"/><circle class="fm-led" cx="623" cy="228" r="2.4"/></g>
+          <g class="fm-rise sa n" style="--i:7.6"><rect class="fm-rack" x="652" y="224" width="38" height="92" rx="3"/><circle class="fm-led" cx="661" cy="236" r="2.4"/><circle class="fm-led" cx="671" cy="236" r="2.4"/></g>
+          <g class="fm-rise sa n" style="--i:7.9"><rect class="fm-rack" x="700" y="212" width="38" height="104" rx="3"/><circle class="fm-led" cx="709" cy="224" r="2.4"/><circle class="fm-led" cx="719" cy="224" r="2.4"/></g>
+          <g class="fm-rise sa n" style="--i:8.2"><rect class="fm-rack" x="748" y="234" width="38" height="82" rx="3"/><circle class="fm-led" cx="757" cy="246" r="2.4"/><circle class="fm-led" cx="767" cy="246" r="2.4"/></g>
+          <g class="fm-in sa n" style="--i:8.4"><text class="fm-lbl" x="676" y="212" text-anchor="middle" fill="#8fb0d0" style="font-size:11px">AI datacenter ที่ ฿33 ไปสร้าง</text></g>
+
+          <!-- what's actually left -->
+          <g class="fm-in sa n" style="--i:8"><path class="fm-brk" d="M134,223 h-8 v48 h8" stroke="#8a6a2a"/><text class="fm-lbl" x="120" y="251" text-anchor="end" fill="#c9a86b" style="font-size:11px">ครึ่งกำไร</text><text class="fm-lbl" x="120" y="266" text-anchor="end" fill="#c9a86b" style="font-size:11px">→ เป็นตึก</text></g>
+          <g class="fm-in sa n" style="--i:8.3"><line class="fm-tick" x1="212" y1="271" x2="250" y2="271" stroke="#34d399"/><rect class="fm-cash" x="250" y="258" width="176" height="28" rx="8"/><text class="fm-lbl big" x="338" y="277" text-anchor="middle" fill="#34d399">เงินสดอิสระจริง ฿19.6</text></g>
+
+          <!-- footnote -->
+          <text class="fm-num fm-in sa n" style="--i:9" x="40" y="348" fill="#c9a86b" font-size="11px">+ finance-lease $84.6B — โรงงานที่ไม่โผล่ในเส้นนี้เลย</text>
         </svg>
-      </div><figcaption>ทุก ฿100 ที่องค์กรจ่าย: เหลือกำไรดำเนินงาน <strong>฿47.4</strong> — margin ที่แทบไม่มีธุรกิจไหนในโลกทำได้ที่สเกลนี้ — และกำไรสุทธิ ฿40.5 <strong>แต่</strong>เงินสดที่เหลือจริงหลังเทเข้า datacenter คือ <strong>~฿20</strong> (capex 9 เดือน $80.1B ≈ 63% ของ OCF) — Microsoft ปี 2026 คือเครื่องจักรเงินสดที่เอากำไรครึ่งหนึ่งไปแทงอนาคต AI แบบเปิดหน้าไพ่</figcaption></figure>
+      </div><figcaption>ทุก ฿100 ที่องค์กรจ่ายไหลเข้าถัง แล้วถูกหักจนเหลือ <strong>กำไรบัญชี ฿40.5</strong> — ดูเหมือนรางวัล — <strong>แต่</strong>วาล์วเปิด ระบาย <strong>฿33</strong> ลงไปสร้าง datacenter (capex 9 เดือน $80.1B ≈ 63% ของ OCF) เหลือ <strong>เงินสดอิสระจริง ฿19.6</strong> · ครึ่งหนึ่งของกำไรกลายเป็นตึก — Microsoft ปี 2026 คือเครื่องจักรเงินสดที่เอากำไรครึ่งหนึ่งไปแทงอนาคต AI แบบเปิดหน้าไพ่ (ยังไม่นับโรงงาน finance-lease อีก $84.6B ที่ไม่โผล่ในเส้นนี้)</figcaption></figure>
       <p>
         เทียบให้เห็นภาพ: ปันผล+ซื้อหุ้นคืน 9 เดือน = $37.4B ขณะที่ capex = $80.1B —
         <strong>ครั้งแรกในรอบหลายปีที่เงินลงโรงงานใหญ่กว่าเงินคืนผู้ถือหุ้นสองเท่า</strong>
         นี่ไม่ใช่เรื่องผิด (ถ้า ROI มา) แต่มันเปลี่ยนนิสัยหุ้นตัวนี้ชั่วคราว:
         จากเครื่องจ่ายเงินสด เป็นเครื่องก่อสร้าง และวงล้อเดิมจะหมุนกลับมาหรือไม่ อยู่ที่ข้อถกเถียงถัดไป
       </p>
-      <figure class="ph-fig"><div class="ph-panel ms-panel"><div class="ph-eyebrow ms">Cash Flywheel</div>
-        <svg viewBox="0 0 600 440" style="max-width:520px;margin:0 auto" role="img" aria-label="Microsoft recurring revenue flywheel"><defs><linearGradient id="msfw" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#2b88d8"/><stop offset=".5" stop-color="#37c2f0"/><stop offset="1" stop-color="#7cc0f5"/></linearGradient><radialGradient id="msfwc"><stop offset="0" stop-color="#fff" stop-opacity=".9"/><stop offset=".4" stop-color="#7cc0f5" stop-opacity=".5"/><stop offset="1" stop-color="#7cc0f5" stop-opacity="0"/></radialGradient></defs><circle cx="300" cy="210" r="150" fill="none" stroke="#172a44" stroke-width="2"/><circle class="ms-fw" cx="300" cy="210" r="150" stroke="url(#msfw)" stroke-dasharray="120 822"/><rect class="ms-node" x="195" y="32" width="210" height="44" rx="11"/><text class="ms-t" x="300" y="59">subscription + consumption</text><rect class="ms-node" x="425" y="188" width="160" height="44" rx="11"/><text class="ms-t" x="505" y="215">กระแสเงินสด $136B</text><rect class="ms-node" x="195" y="348" width="210" height="44" rx="11"/><text class="ms-t" x="300" y="375">ลงทุน AI capex + R&amp;D + M&amp;A</text><rect class="ms-node" x="5" y="188" width="180" height="44" rx="11"/><text class="ms-t" x="95" y="215">ผลิตภัณฑ์/lock-in มากขึ้น</text><circle r="14" fill="url(#msfwc)"><animateMotion dur="5s" repeatCount="indefinite" path="M300,60 A150,150 0 1 1 299.9,60"/></circle><circle r="6" class="ms-comet"><animateMotion dur="5s" repeatCount="indefinite" path="M300,60 A150,150 0 1 1 299.9,60"/></circle><text class="ms-mono" x="300" y="206" text-anchor="middle" fill="#5aa9f0" style="font-size:13px;letter-spacing:.18em">CASH FLYWHEEL</text><text class="ms-t sm" x="300" y="228">ยิ่งหมุนยิ่งแข็ง</text></svg>
-      </div><figcaption>subscription + consumption → <strong>กระแสเงินสดมหาศาล (CFO $136B)</strong> → ลงทุน AI capex + R&amp;D + ซื้อกิจการ → ผลิตภัณฑ์/lock-in มากขึ้น → subscription เพิ่ม วงล้อที่หมุนด้วยรายได้ประจำ</figcaption></figure>
+      <figure class="ph-fig"><div class="ph-panel ms-panel"><div class="ph-eyebrow ms">Cash Flywheel · ยิ่งหมุนยิ่งล็อก</div>
+        <svg viewBox="0 0 840 430" role="img" aria-label="วงล้อเงินสดของ Microsoft หมุน 3 รอบแบบหนักๆ ทุกรอบคูเมืองขยายและรายได้อนาคตที่ล็อกไว้ (RPO) สะสมเพิ่มจนถึง 627 พันล้าน (+99%) โดยไม่รีเซ็ต — ยิ่งหมุนยิ่งแข็ง">
+          <defs><linearGradient id="fwGrad" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#2b88d8"/><stop offset=".5" stop-color="#37c2f0"/><stop offset="1" stop-color="#7cc0f5"/></linearGradient></defs>
+
+          <!-- ledger frame (accumulation) -->
+          <rect x="614" y="90" width="214" height="176" rx="10" fill="#0a1626" stroke="#1c3350" stroke-width="1.2"/>
+          <text class="fw-t sm" x="626" y="114" text-anchor="start" fill="#7cc0f5">ล็อกรายได้อนาคต (RPO)</text>
+          <text class="fw-t sm" x="626" y="132" text-anchor="start" fill="#6f88a4" style="font-size:9.5px">สะสมทุกรอบ — ไม่รีเซ็ต</text>
+
+          <!-- wheel -->
+          <circle class="fw-track" cx="250" cy="215" r="140"/>
+          <circle class="fw-moat sa n" style="--i:0;--c:1030" cx="250" cy="215" r="164" transform="rotate(-90 250 215)"/>
+
+          <!-- stations -->
+          <g class="fw-in sa n" style="--i:0.6"><rect class="fw-node" x="130" y="16" width="240" height="34" rx="9"/><text class="fw-t" x="250" y="37">subscription + consumption</text></g>
+          <g class="fw-in sa n" style="--i:0.9"><rect class="fw-node" x="424" y="195" width="182" height="40" rx="9"/><text class="fw-t sm" x="515" y="211">กระแสเงินสด</text><text class="fw-num" x="515" y="228" text-anchor="middle" fill="#7cc0f5" font-size="12px">CFO $136B</text></g>
+          <g class="fw-in sa n" style="--i:1.2"><rect class="fw-node" x="118" y="380" width="264" height="34" rx="9"/><text class="fw-t" x="250" y="401" style="font-size:11.5px">ลงทุน: AI capex · R&amp;D · M&amp;A</text></g>
+          <g class="fw-in sa n" style="--i:1.5"><rect class="fw-node" x="8" y="195" width="168" height="40" rx="9"/><text class="fw-t sm" x="92" y="211">lock-in</text><text class="fw-t sm" x="92" y="227">ลึกขึ้น</text></g>
+
+          <!-- rotor (3 heavy turns) -->
+          <g class="fw-rotor sa n" style="--i:0">
+            <line class="fw-spoke" x1="250" y1="75" x2="250" y2="355"/>
+            <line class="fw-spoke" x1="170" y1="215" x2="330" y2="215" opacity=".55"/>
+            <circle class="fw-mass" cx="250" cy="75" r="15"/>
+          </g>
+
+          <!-- hub -->
+          <g class="fw-in sa n" style="--i:0.3"><circle class="fw-hub" cx="250" cy="215" r="52"/><text class="fw-t" x="250" y="210" fill="#9fd0f5">ยิ่งหมุน</text><text class="fw-t" x="250" y="228" fill="#9fd0f5">ยิ่งแข็ง</text></g>
+
+          <!-- ledger stamps: RPO accumulates each turn -->
+          <g class="fw-stamp sa n" style="--i:3.2"><text class="fw-t sm" x="626" y="158" text-anchor="start" fill="#7f99b8">รอบ 1</text><text class="fw-num" x="812" y="158" text-anchor="end" fill="#9fbbdc" font-size="15px">$315B</text></g>
+          <g class="fw-stamp sa n" style="--i:6"><text class="fw-t sm" x="626" y="194" text-anchor="start" fill="#7f99b8">รอบ 2</text><text class="fw-num" x="812" y="194" text-anchor="end" fill="#c9dcf0" font-size="16px">$470B</text></g>
+          <g class="fw-stamp sa n" style="--i:8.8"><text class="fw-t sm" x="626" y="232" text-anchor="start" fill="#7f99b8">รอบ 3</text><text class="fw-num" x="812" y="232" text-anchor="end" fill="#37c2f0" font-size="19px">$627B</text><text class="fw-num" x="812" y="252" text-anchor="end" fill="#34d399" font-size="11px">▲ +99% YoY</text></g>
+        </svg>
+      </div><figcaption>รายได้ส่วนใหญ่เป็น <strong>subscription + consumption</strong> → กระแสเงินสดมหาศาล (CFO $136B) → ลงทุน AI capex + R&amp;D + ซื้อกิจการ → lock-in ลึกขึ้น → subscription เพิ่ม · ต่างจากวงล้อทั่วไปตรงที่ <strong>ทุกรอบล็อกรายได้อนาคตเพิ่มโดยไม่รีเซ็ต</strong> — RPO เชิงพาณิชย์ที่เซ็นแล้วแตะ <strong>$627B (+99% YoY)</strong> เกิน 2 เท่าของรายได้ทั้งปี นี่คือโมเมนตัมของฐานติดตั้งที่ทำให้ Microsoft จ่ายปันผล + buyback ได้พร้อมกับลงทุนหนัก</figcaption></figure>
       <p>
         รายได้ส่วนใหญ่เป็น <strong>subscription + consumption</strong> ที่คาดการณ์ได้ → สร้างกระแสเงินสด
         มหาศาล → เอาไปลงทุน AI capex + R&amp;D + ซื้อกิจการ (เช่น Activision) → ผลิตภัณฑ์แข็งขึ้นและ lock-in
