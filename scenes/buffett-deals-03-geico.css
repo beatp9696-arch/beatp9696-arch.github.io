@@ -1,0 +1,78 @@
+/* ============================================================
+   buffett-deals-03-geico — scene CSS (โหลดเฉพาะบทนี้)
+   ฟิสิกส์ของธุรกิจนี้: เครื่องยนต์ใต้ซากไฟ
+
+   ถ้า GEICO ปี 1976 เป็นระบบทางฟิสิกส์ มันคือบ้านไฟไหม้ที่ฐานรากคอนกรีตไม่ร้าว —
+   ชั้นบน (การตั้งเบี้ย/บริหาร) วอดจริง แต่เครื่องกำเนิดไฟฟ้าชั้นใต้ดิน
+   (โครงสร้างขายตรงต้นทุนต่ำ) ยังหมุนปกติ ไฟไหม้ไม่เคยลามถึงมัน
+   แรงที่ทำให้ชนะ: ความได้เปรียบเชิงโครงสร้างมีอายุยืนกว่าวิกฤต
+
+   กฎการเคลื่อนไหว:
+     ทุกอย่างชั้นบน = แดง + ดิ่ง (--e-fail) · ทุกอย่างชั้นฐาน = เขียว + นิ่งหนัก (--e-mass)
+     เหรียญเบี้ยประกันบนสายพาน: สายอุตสาหกรรมโดนด่านหักให้เม็ดเล็กลง
+     สาย GEICO วิ่งตรงเต็มเม็ด — ความต่างของสองสายคืออาร์กิวเมนต์ทั้งบท
+     แผงวินิจฉัย: ไล่จากชั้นบนลงชั้นล่าง (แดง→เหลือง→เขียว) จบที่เขียว = คำตัดสิน
+
+   กฎไฟล์นี้: markup = สถานะจบเสมอ · @keyframes ดึงย้อนจาก from
+   ============================================================ */
+
+.bd3-panel { background: radial-gradient(140% 120% at 50% 0%, #191010 0%, #090605 72%); border-color: #33201d; }
+.ph-eyebrow.bd3 { color: #d8a33a; }
+
+/* ── ภาษาของแผงมอนิเตอร์ ───────────────────────────────── */
+.bd3-um     { font-family: "IBM Plex Mono", ui-monospace, monospace; font-size: 11px; fill: #8a6a5c; }
+.bd3-ax     { font-family: "IBM Plex Mono", ui-monospace, monospace; font-size: 12px; fill: #b39486; }
+.bd3-ax.r   { fill: #ef4444; }
+.bd3-tag-h  { font-family: var(--font-head); font-size: 13.5px; font-weight: 800; fill: #f0e4dc; }
+.bd3-tag-s  { font-family: var(--font-head); font-size: 11.5px; font-weight: 600; fill: #a08a7e; }
+.bd3-core-t { font-family: var(--font-head); font-size: 13px; font-weight: 700; fill: #6dd08a; }
+.bd3-core-t.g { fill: #22c55e; }
+.bd3-lane-t { font-family: var(--font-head); font-size: 13px; font-weight: 700; fill: #b39486; }
+.bd3-lane-t.g { fill: #6dd08a; }
+.bd3-gold-t { font-family: var(--font-head); font-size: 13.5px; font-weight: 700; fill: #d8a33a; }
+.bd3-layer-h { font-family: var(--font-head); font-size: 13.5px; font-weight: 800; fill: #f0e4dc; }
+.bd3-layer-h.g { fill: #6dd08a; }
+.bd3-na     { font-family: "IBM Plex Mono", ui-monospace, monospace; font-size: 44px; font-weight: 700; fill: #ef4444; }
+.bd3-num    { font-family: "IBM Plex Mono", ui-monospace, monospace; font-size: 13px; font-weight: 700; fill: #f0e4dc; }
+.bd3-num.g  { fill: #22c55e; }
+.bd3-numt   { font-family: "IBM Plex Mono", ui-monospace, monospace; font-weight: 700; fill: #d8a33a; }
+
+.bd3-panel .sa-stage { container-type: inline-size; }
+
+.bd3-in { animation: bd3in calc(var(--beat)*1.2) var(--e-expo); }
+@keyframes bd3in { from { opacity: 0; transform: translateY(8px); } }
+.bd3-gold { animation: bd3in calc(var(--beat)*1.4) var(--e-expo); }
+
+/* ── ฉาก 1 · กราฟดิ่ง −96% (--e-fail) → ป้ายขาดทุน → มาตรเขียวโผล่ท้ายสุด (ของสำคัญมาทีหลัง) ── */
+.bd3-crash { stroke-dasharray: 640; animation: bd3crash calc(var(--beat)*3) var(--e-fail); }
+@keyframes bd3crash { from { stroke-dashoffset: 640; } }
+.bd3-tag { animation: bd3tag calc(var(--beat)*1) var(--e-fail); transform-box: fill-box; transform-origin: center; }
+@keyframes bd3tag { from { opacity: 0; transform: scale(1.1); } }
+.bd3-core { animation: bd3core calc(var(--beat)*1.8) var(--e-mass); }
+@keyframes bd3core { from { opacity: 0; transform: translateY(14px); } }
+
+/* ── ฉาก 2 · สายพานเบี้ย: เหรียญอุตสาหกรรมโดนด่านหักเม็ดเล็กลง · เหรียญ GEICO เต็มเม็ดวิ่งตรง ──
+   เหรียญบน: วิ่งครึ่งแรกเต็มเม็ด แล้วเม็ดเล็ก (คนละ element ต่อคนละครึ่งทาง) — ambient วนยาว */
+.bd3-gate { animation: bd3core calc(var(--beat)*1.4) var(--e-mass); }
+.bd3-coin { fill: #b39486; offset-path: path("M 90 150 L 360 150"); offset-distance: 100%; animation: bd3run1 calc(var(--beat)*5) linear infinite; }
+@keyframes bd3run1 { from { offset-distance: 0%; opacity: 1; } 92% { opacity: 1; } to { offset-distance: 100%; opacity: 0; } }
+.bd3-coin-small { fill: #8a6a5c; offset-path: path("M 480 150 L 750 150"); offset-distance: 100%; animation: bd3run2 calc(var(--beat)*5) linear infinite; animation-delay: calc(var(--beat)*2.5); }
+@keyframes bd3run2 { from { offset-distance: 0%; opacity: 0; } 8% { opacity: 1; } 92% { opacity: 1; } to { offset-distance: 100%; opacity: 0; } }
+.bd3-coin-g { fill: #22c55e; offset-path: path("M 90 296 L 750 296"); offset-distance: 100%; animation: bd3rung calc(var(--beat)*5) linear infinite; }
+.bd3-coin-g.g2 { animation-delay: calc(var(--beat)*2.5); }
+@keyframes bd3rung { from { offset-distance: 0%; opacity: 1; } 92% { opacity: 1; } to { offset-distance: 100%; opacity: 0; } }
+
+/* ── ฉาก 3 · แผงวินิจฉัย: ไล่ชั้นบนลงล่าง แดง→เหลือง→เขียว — เขียวต้องมาช้าสุดและหนักสุด ── */
+.bd3-layer { animation: bd3layer calc(var(--beat)*1.5) var(--e-mass); }
+@keyframes bd3layer { from { opacity: 0; transform: translateY(-12px); } }
+
+/* ── ฉาก 4 · เครื่องอ่านราคา: จอ error สั่นแล้วนิ่ง (--e-fail) → โหมดวัดจริงโผล่ (--e-mass) ── */
+.bd3-err { transform-box: fill-box; transform-origin: center; animation: bd3err calc(var(--beat)*1.1) var(--e-fail); }
+@keyframes bd3err { from { opacity: 0; transform: scale(1.12); } 60% { transform: scale(.98); } }
+.bd3-mode2 { animation: bd3core calc(var(--beat)*1.8) var(--e-mass); }
+
+/* ── ฉาก 5 · สกอร์บอร์ด: แท่งบริษัทปี 1995 หดลง (scaleX จากเต็ม) ขณะส่วน BRK คงที่ ──
+   การหดของแท่งคือ buyback — เหตุ · สัดส่วน BRK ที่โตคือผล (มาทีหลัง 1.4 beat) */
+.bd3-shrink { transform-box: fill-box; transform-origin: left center; animation: bd3shrink calc(var(--beat)*3) var(--e-mass); }
+@keyframes bd3shrink { from { transform: scaleX(1.5); } }
+.bd3-final { animation: bd3in calc(var(--beat)*1.6) var(--e-expo); }

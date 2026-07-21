@@ -1,0 +1,42 @@
+.bd2-panel { background: radial-gradient(140% 120% at 50% 0%, #0e1420 0%, #06080d 72%); border-color: #1c2433; }
+.ph-eyebrow.bd2 { color: #d8a33a; }
+.bd2-um      { font-family: "IBM Plex Mono", ui-monospace, monospace; font-size: 11px; fill: #5f7191; }
+.bd2-ax      { font-family: "IBM Plex Mono", ui-monospace, monospace; font-size: 11px; fill: #8fa2c2; }
+.bd2-ax.r    { fill: #ef4444; }
+.bd2-row     { font-family: "IBM Plex Mono", ui-monospace, monospace; font-size: 13px; fill: #8fa2c2; }
+.bd2-row.r   { fill: #ef4444; }
+.bd2-row.hl  { fill: #e8eef8; font-weight: 700; }
+.bd2-gold-t  { font-family: var(--font-head); font-size: 13.5px; font-weight: 700; fill: #d8a33a; }
+.bd2-asset-h { font-family: var(--font-head); font-size: 14px; font-weight: 800; fill: #e8eef8; }
+.bd2-asset-s { font-family: var(--font-head); font-size: 11.5px; font-weight: 600; fill: #8fa2c2; }
+.bd2-asset-s.dim { fill: #5f7191; }
+.bd2-sum-t   { font-family: var(--font-head); font-size: 12px; font-weight: 700; fill: #8fa2c2; }
+.bd2-sum-n   { font-family: "IBM Plex Mono", ui-monospace, monospace; font-size: 24px; font-weight: 700; }
+.bd2-sum-n.g { fill: #d8a33a; }
+.bd2-sum-n.r { fill: #ef4444; }
+.bd2-chalk   { font-family: var(--font-head); font-size: 13px; font-weight: 600; fill: #7fb694; }
+.bd2-chalk-big { font-family: var(--font-head); font-size: 22px; font-weight: 800; fill: #a8d8ba; }
+.bd2-bill    { font-family: var(--font-head); font-size: 21px; font-weight: 800; fill: #a8d8ba; }
+.bd2-dot     { fill: #d8a33a; }
+.bd2-dot.r   { fill: #ef4444; }
+.bd2-dot.g   { fill: #22c55e; }
+.bd2-panel .sa-stage { container-type: inline-size; }
+.bd2-in { animation: bd2in calc(var(--beat)*1.2) var(--e-expo); }
+@keyframes bd2in { from { opacity: 0; transform: translateY(8px); } }
+.bd2-dive { stroke-dasharray: 700; animation: bd2dive calc(var(--beat)*3.4) var(--e-fail); }
+@keyframes bd2dive { from { stroke-dashoffset: 700; } }
+.bd2-wpc-row { animation: bd2in calc(var(--beat)*1.4) var(--e-mass); }
+.bd2-asset { animation: bd2asset calc(var(--beat)*1.5) var(--e-mass); }
+@keyframes bd2asset { from { opacity: 0; transform: translateY(16px); } }
+.bd2-sum { transform-box: fill-box; transform-origin: center; animation: bd2sum calc(var(--beat)*1) var(--e-mass); }
+@keyframes bd2sum { from { opacity: 0; transform: scale(1.12); } }
+.bd2-class { animation: bd2in calc(var(--beat)*1.6) var(--e-mech); }
+.bd2-walker { animation: bd2walk calc(var(--beat)*2.6) var(--e-spread); }
+@keyframes bd2walk { from { opacity: 0; transform: translate(-200px, 0); } 25% { opacity: 1; } }
+.bd2-board { animation: bd2sum calc(var(--beat)*1.2) var(--e-mass); transform-box: fill-box; transform-origin: center; }
+.bd2-paid { transform-box: fill-box; transform-origin: left center; animation: bd2paid calc(var(--beat)*2.2) var(--e-mass); }
+@keyframes bd2paid { from { opacity: 0; transform: scaleX(.05); } 30% { opacity: 1; } }
+.bd2-path { stroke-dasharray: 680; animation: bd2path calc(var(--beat)*7) var(--e-expo); }
+@keyframes bd2path { from { stroke-dashoffset: 680; } }
+.bd2-dot { transform-box: fill-box; transform-origin: center; animation: bd2pop calc(var(--beat)*.9) var(--e-snapback); }
+@keyframes bd2pop { from { opacity: 0; transform: scale(.2); } }

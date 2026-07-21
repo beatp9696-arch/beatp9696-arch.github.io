@@ -80,7 +80,12 @@
     { f: "moat-break-03-intel.html", t: "คูเมืองแตก 3: Intel", sec: "semi" },
     { f: "moat-break-04-ge.html", t: "คูเมืองแตก 4: GE", sec: "basics" },
     { f: "moat-break-05-boeing.html", t: "คูเมืองแตก 5: Boeing", sec: "basics" },
-    { f: "interstellar-investing.html", t: "Interstellar × การลงทุน", sec: "basics" }
+    { f: "interstellar-investing.html", t: "Interstellar × การลงทุน", sec: "basics" },
+    { f: "buffett-deals-01-sees-candies.html", t: "ดีลที่สร้างบัฟเฟตต์ 1: See's Candies 1972", sec: "basics" },
+    { f: "buffett-deals-02-washington-post.html", t: "ดีลที่สร้างบัฟเฟตต์ 2: Washington Post 1973", sec: "basics" },
+    { f: "buffett-deals-03-geico.html", t: "ดีลที่สร้างบัฟเฟตต์ 3: GEICO 1976", sec: "basics" },
+    { f: "buffett-deals-04-nebraska-furniture-mart.html", t: "ดีลที่สร้างบัฟเฟตต์ 4: Nebraska Furniture Mart 1983", sec: "basics" },
+    { f: "buffett-deals-05-coca-cola.html", t: "ดีลที่สร้างบัฟเฟตต์ 5: Coca-Cola 1988", sec: "basics" }
   ];
 
   var progressBar = document.querySelector(".reading-progress");
@@ -285,7 +290,7 @@
   // ---- hero stats + ปุ่มดูทั้งหมด (หน้าแรก) — นับจาก ARTICLES (SoT) ----
   // หน้าแรกโชว์แค่บทล่าสุด นับจาก DOM ไม่ได้แล้ว: deep-dive = มี ticker (tk)
   // "บทความ" นับซีรีส์ทั้งชุดเป็น 1 เรื่อง — prefix ต้อง sync กับ SERIES ใน build.py
-  var SERIES_PREFIXES = ["financials-", "buffett-talks-", "munger-talks-", "powers-", "moat-break-"];
+  var SERIES_PREFIXES = ["financials-", "buffett-talks-", "munger-talks-", "powers-", "moat-break-", "buffett-deals-"];
   var nDeep = 0, nEp = 0, seriesSeen = {};
   ARTICLES.forEach(function (a) {
     if (a.tk) nDeep++;

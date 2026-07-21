@@ -647,6 +647,7 @@ SERIES = [
     {"page": "series-munger-talks.html", "prefix": "munger-talks-", "name": "Munger Talks"},
     {"page": "series-powers.html", "prefix": "powers-", "name": "7 Powers"},
     {"page": "series-moat-break.html", "prefix": "moat-break-", "name": "คูเมืองแตก"},
+    {"page": "series-buffett-deals.html", "prefix": "buffett-deals-", "name": "ดีลที่สร้างบัฟเฟตต์"},
 ]
 _SERIES_BLOCK_RE = re.compile(r"<!-- SERIES-START -->.*?<!-- SERIES-END -->", re.S)
 # read-time ของแต่ละการ์ดใน articles.html (span อยู่ก่อนลิงก์บทความภายในการ์ดเดียวกัน)

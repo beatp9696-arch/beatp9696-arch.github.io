@@ -1,0 +1,45 @@
+.bd4-panel { background: radial-gradient(140% 120% at 50% 0%, #101710 0%, #070a06 72%); border-color: #22301f; }
+.ph-eyebrow.bd4 { color: #8ac926; }
+.bd4-um     { font-family: "IBM Plex Mono", ui-monospace, monospace; font-size: 11px; fill: #6d8560; }
+.bd4-lab    { font-family: var(--font-head); font-size: 12.5px; font-weight: 700; fill: #c9d8bc; }
+.bd4-lab-b  { fill: #e8f0dc; font-weight: 800; }
+.bd4-map-s  { font-family: var(--font-head); font-size: 11px; font-weight: 600; fill: #6d8560; }
+.bd4-nfm-t  { font-family: var(--font-head); font-size: 16px; font-weight: 800; fill: #8ac926; }
+.bd4-yr     { font-family: "IBM Plex Mono", ui-monospace, monospace; font-size: 12px; fill: #6d8560; }
+.bd4-mile-t { font-family: var(--font-head); font-size: 13px; font-weight: 800; fill: #e8f0dc; }
+.bd4-mile-t.g { fill: #8ac926; }
+.bd4-num    { font-family: var(--font-head); font-size: 13px; font-weight: 700; fill: #c9d8bc; }
+.bd4-num2   { font-family: "IBM Plex Mono", ui-monospace, monospace; font-size: 15px; font-weight: 700; fill: #e8f0dc; }
+.bd4-num2 .g, .bd4-num2.g { fill: #8ac926; }
+.bd4-gold-t { font-family: var(--font-head); font-size: 13.5px; font-weight: 700; fill: #d8a33a; }
+.bd4-rc-h   { font-family: var(--font-head); font-size: 13.5px; font-weight: 800; fill: #2c2618; }
+.bd4-rc-s   { font-family: var(--font-head); font-size: 11px; font-weight: 600; fill: #6f6548; }
+.bd4-rc-l   { font-family: var(--font-head); font-size: 12px; font-weight: 600; fill: #4a4232; }
+.bd4-rc-n   { font-family: "IBM Plex Mono", ui-monospace, monospace; font-size: 13px; font-weight: 700; fill: #2c2618; }
+.bd4-rc-n.r { fill: #c0453a; }
+.bd4-rc-n.g { fill: #3d7a1e; }
+.bd4-bar    { fill: #8ac926; }
+.bd4-bar.dim { fill: #4a5c42; }
+.bd4-deal-num { font-family: "IBM Plex Mono", ui-monospace, monospace; font-size: 27px; font-weight: 700; fill: #1d3a24; }
+.bd4-panel .sa-stage { container-type: inline-size; }
+.bd4-in { animation: bd4in calc(var(--beat)*1.2) var(--e-expo); }
+@keyframes bd4in { from { opacity: 0; transform: translateY(8px); } }
+.bd4-gold { animation: bd4in calc(var(--beat)*1.4) var(--e-expo); }
+.bd4-nfm-block { transform-box: fill-box; transform-origin: center; animation: bd4block calc(var(--beat)*1.3) var(--e-mass); }
+@keyframes bd4block { from { opacity: 0; transform: scale(1.25); } }
+.bd4-bar { transform-box: fill-box; transform-origin: left center; animation: bd4bar calc(var(--beat)*2) var(--e-mass); }
+@keyframes bd4bar { from { transform: scaleX(0); } }
+.bd4-mile { animation: bd4mile calc(var(--beat)*1.4) var(--e-mass); }
+@keyframes bd4mile { from { opacity: 0; transform: translateY(10px); } }
+.bd4-rc { animation: bd4rc calc(var(--beat)*1.5) var(--e-mass); }
+@keyframes bd4rc { from { opacity: 0; transform: translateY(16px); } }
+.bd4-deal-doc { animation: bd4rc calc(var(--beat)*1.2) var(--e-mass); }
+.bd4-sig { stroke-dasharray: 110; animation: bd4sig calc(var(--beat)*1) var(--e-expo); }
+@keyframes bd4sig { from { stroke-dashoffset: 110; } }
+.bd4-deal-check { animation: bd4chk calc(var(--beat)*1.2) var(--e-mass); }
+@keyframes bd4chk { from { opacity: 0; transform: translateX(70px); } }
+.bd4-hand-l { animation: bd4hl calc(var(--beat)*1.1) var(--e-mass); }
+@keyframes bd4hl { from { opacity: 0; transform: translateX(-30px); } }
+.bd4-hand-r { animation: bd4hr calc(var(--beat)*1.1) var(--e-mass); }
+@keyframes bd4hr { from { opacity: 0; transform: translateX(30px); } }
+.bd4-sc { animation: bd4rc calc(var(--beat)*1.5) var(--e-mass); }
