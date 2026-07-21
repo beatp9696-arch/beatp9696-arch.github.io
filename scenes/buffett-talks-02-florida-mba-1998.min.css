@@ -50,3 +50,25 @@ border: 1px solid var(--border);
 box-shadow: var(--shadow-md);
 }
 @media (max-width: 600px) { .book-cover { width: 88px; } }
+.fm2-panel .sa-stage { container-type: inline-size; }
+.fm2-hd { font: 700 13px "IBM Plex Mono", monospace; letter-spacing: .04em; }
+.fm2-hd.g { fill: #4ade80; }
+.fm2-hd.r { fill: #f87171; }
+.fm2-row { font: 600 14px var(--font-head); fill: #e6edf3; }
+.fm2-ck { font: 700 16px var(--font-head); fill: #4ade80; }
+.fm2-x { font: 700 16px var(--font-head); fill: #ef4444; }
+.fm2-note { font: 600 12px var(--font-head); fill: #8b949e; }
+.fm2-quote { font: italic 12px "IBM Plex Mono", monospace; fill: #6e7681; }
+.fm2-chl, .fm2-chr { font: 600 12px var(--font-head); fill: #8b949e; }
+.fm2-chr { fill: #f87171; }
+.fm2-dimt { fill: #5b6470; animation: fm2-dim calc(var(--beat) * .8) var(--e-expo) both; animation-delay: calc(1.5 * var(--beat)); }
+.fm2-dimt.d2 { animation-delay: calc(2.2 * var(--beat)); }
+.fm2-strike { transform-box: fill-box; transform-origin: left center;
+animation: fm2-strike calc(var(--beat) * .7) var(--e-mech) both; }
+.fm2-tick { animation: fm2-in calc(var(--beat) * 1) var(--e-expo) both; }
+.fm2-link { transform-box: fill-box; transform-origin: center;
+animation: fm2-link calc(var(--beat) * 1) var(--e-mass) both; }
+@keyframes fm2-dim { from { fill: #cbd5e1; } }
+@keyframes fm2-strike { from { transform: scaleX(0); } }
+@keyframes fm2-in { from { opacity: 0; transform: translateY(6px); } }
+@keyframes fm2-link { from { opacity: 0; transform: scale(.4); } }

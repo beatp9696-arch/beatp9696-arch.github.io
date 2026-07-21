@@ -50,3 +50,14 @@ border: 1px solid var(--border);
 box-shadow: var(--shadow-md);
 }
 @media (max-width: 600px) { .book-cover { width: 88px; } }
+.b4p-panel .sa-stage { container-type: inline-size; }
+.b4p-spine-t { font: 10.5px "IBM Plex Mono", monospace; fill: #e6edf3; letter-spacing: .08em; }
+.b4p-tag { font: 600 12px var(--font-head); fill: #8b949e; }
+.b4p-beam-t { font: 700 16.5px var(--font-head); fill: #e6edf3; }
+.b4p-punch { font: 700 15px var(--font-head); fill: #4ade80; }
+.b4p-book { transform-box: fill-box; animation: b4p-rise calc(var(--beat) * 2) var(--e-mass) both; }
+.b4p-beam { transform-box: fill-box; animation: b4p-drop calc(var(--beat) * 2.5) var(--e-mass) both; }
+.b4p-fade { animation: b4p-in calc(var(--beat) * 1.2) var(--e-expo) both; }
+@keyframes b4p-rise { from { transform: translateY(46px); opacity: 0; } }
+@keyframes b4p-drop { from { transform: translateY(-60px); opacity: 0; } }
+@keyframes b4p-in { from { opacity: 0; } }

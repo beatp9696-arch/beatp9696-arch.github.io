@@ -50,3 +50,25 @@ border: 1px solid var(--border);
 box-shadow: var(--shadow-md);
 }
 @media (max-width: 600px) { .book-cover { width: 88px; } }
+.bt4-panel .sa-stage { container-type: inline-size; }
+.bt4-title { font: 700 14.5px var(--font-head); fill: #e6edf3; }
+.bt4-axl { font: 600 11.5px var(--font-head); fill: #8b949e; }
+.bt4-yr { font: 10.5px "IBM Plex Mono", monospace; fill: #6e7681; }
+.bt4-voll { font: 600 12.5px var(--font-head); fill: #4ade80; }
+.bt4-val { font: 700 16px "IBM Plex Mono", monospace; fill: #4ade80; }
+.bt4-val.gray { fill: #8b949e; }
+.bt4-sub { font: 600 12px var(--font-head); fill: #cbd5e1; }
+.bt4-sub2 { font: 11px "IBM Plex Mono", monospace; fill: #6e7681; }
+.bt4-punch { font: 700 13.5px var(--font-head); fill: #4ade80; }
+.bt4-step { transform-box: fill-box; transform-origin: center bottom;
+animation: bt4-step calc(var(--beat) * .5) var(--e-mech) both; }
+.bt4-vol { transform-box: fill-box; transform-origin: left center;
+animation: bt4-line calc(var(--beat) * 1.5) var(--e-expo) both; }
+.bt4-bar { transform-box: fill-box; transform-origin: center bottom;
+animation: bt4-rise calc(var(--beat) * 1.6) var(--e-mass) both; }
+.bt4-bar.big { animation-duration: calc(var(--beat) * 2.2); }
+.bt4-in { animation: bt4-fade calc(var(--beat) * 1.2) var(--e-expo) both; }
+@keyframes bt4-step { from { transform: scaleY(0); opacity: 0; } }
+@keyframes bt4-line { from { transform: scaleX(0); } }
+@keyframes bt4-rise { from { transform: scaleY(0); opacity: 0; } }
+@keyframes bt4-fade { from { opacity: 0; } }

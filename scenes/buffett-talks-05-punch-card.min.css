@@ -50,3 +50,19 @@ border: 1px solid var(--border);
 box-shadow: var(--shadow-md);
 }
 @media (max-width: 600px) { .book-cover { width: 88px; } }
+.pk5-panel .sa-stage { container-type: inline-size; }
+.pk5-mast { font: 700 13px "IBM Plex Mono", monospace; fill: #8fa3b8; letter-spacing: .14em; }
+.pk5-mth { font: 600 12.5px var(--font-head); fill: #8b949e; }
+.pk5-n { font: 700 11px "IBM Plex Mono", monospace; fill: #f59e0b; }
+.pk5-status { font: 700 13px "IBM Plex Mono", monospace; fill: #4ade80; }
+.pk5-qa { font: 600 15px var(--font-head); fill: #6e7681; }
+.pk5-qb { font: 700 16.5px var(--font-head); fill: #e6edf3; }
+.pk5-punchline { font: 700 13.5px var(--font-head); fill: #4ade80; }
+.pk5-in { animation: pk5-in calc(var(--beat) * 1.1) var(--e-expo) both; }
+.pk5-punch { transform-box: fill-box; transform-origin: center;
+animation: pk5-punch calc(var(--beat) * .45) var(--e-mech) both; }
+.pk5-strike { transform-box: fill-box; transform-origin: left center;
+animation: pk5-strike calc(var(--beat) * .7) var(--e-mech) both; }
+@keyframes pk5-in { from { opacity: 0; } }
+@keyframes pk5-punch { from { opacity: 0; transform: scale(1.7); } }
+@keyframes pk5-strike { from { transform: scaleX(0); } }

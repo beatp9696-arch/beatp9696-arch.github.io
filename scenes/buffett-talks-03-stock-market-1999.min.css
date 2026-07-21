@@ -50,3 +50,24 @@ border: 1px solid var(--border);
 box-shadow: var(--shadow-md);
 }
 @media (max-width: 600px) { .book-cover { width: 88px; } }
+.st3-panel .sa-stage { container-type: inline-size; }
+.st3-pt { font: 700 13.5px var(--font-head); fill: #e6edf3; }
+.st3-gnpl { font: 600 12.5px var(--font-head); fill: #4ade80; }
+.st3-badge { font: 700 12px "IBM Plex Mono", monospace; fill: #f59e0b; }
+.st3-badge.b { fill: #7dd3fc; }
+.st3-yr { font: 11px "IBM Plex Mono", monospace; fill: #6e7681; }
+.st3-gt { font: 700 13.5px var(--font-head); fill: #e6edf3; }
+.st3-rate { font: 700 15px "IBM Plex Mono", monospace; }
+.st3-rate.hi { fill: #ef4444; font-size: 17px; }
+.st3-rate.lo { fill: #4ade80; }
+.st3-ry { font: 600 11px var(--font-head); fill: #8b949e; }
+.st3-punch { font: 700 14.5px var(--font-head); fill: #4ade80; }
+.st3-draw { fill: none; stroke-linecap: round;
+stroke-dasharray: var(--len); animation: st3-draw calc(var(--beat) * 2) var(--e-spread) both; }
+.st3-draw.gnp { stroke: #22c55e; stroke-width: 2.6; }
+.st3-draw.dow { stroke: #7dd3fc; stroke-width: 3; }
+.st3-draw.dow.flat { stroke: #8b949e; animation-timing-function: var(--e-mech); animation-duration: calc(var(--beat) * 2.5); }
+.st3-draw.grav { stroke: #ef4444; stroke-width: 2; stroke-dasharray: var(--len); opacity: .8; }
+.st3-in { animation: st3-in calc(var(--beat) * 1.1) var(--e-expo) both; }
+@keyframes st3-draw { from { stroke-dashoffset: var(--len); } }
+@keyframes st3-in { from { opacity: 0; } }

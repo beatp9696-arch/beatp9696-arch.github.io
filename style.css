@@ -1786,6 +1786,7 @@ h2:hover > .heading-anchor, h3:hover > .heading-anchor { opacity: 0.45; }
   --e-fail: cubic-bezier(.55,.06,.9,.16);      /* พุ่งแล้วดับ: เร่งแล้วชนกำแพง */
   --e-spread: cubic-bezier(.5,0,.1,1);         /* การแพร่: ช้า → ระเบิด */
   --e-snapback: cubic-bezier(.3,1.4,.6,1);     /* ดีดกลับ: หลุดไม่ได้ */
+  --e-mech: steps(6, end);                     /* เครื่องจักร: ทีละสเต็ป */
 }
 .ph-panel .sa { animation-play-state: paused; }
 .ph-panel.playing .sa { animation-play-state: running; }

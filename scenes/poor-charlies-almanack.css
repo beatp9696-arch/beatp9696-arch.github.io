@@ -58,3 +58,37 @@
   box-shadow: var(--shadow-md);
 }
 @media (max-width: 600px) { .book-cover { width: 88px; } }
+
+/* ============================================================
+   ฉาก: การ์ดคำถามพลิกกลับด้าน (sec-3 Invert)
+   ฟิสิกส์ของบท: การกลับด้าน (Jacobi) — การ์ดใบเดิม ข้อมูลใหม่ทั้งชุด
+   ด้านหน้า (เบลอ) พับหายด้วย --e-fail → ด้านหลัง (คม) กางออก --e-expo
+   ✕ ทีละข้อ → ตราประทับ --e-snapback แบบยางกระแทก → punchline
+   markup = สถานะจบ: cardA static scaleX(0) ซ่อน, keyframes ดึงย้อนให้เห็นตอนต้น
+   ============================================================ */
+.pc4-panel .sa-stage { container-type: inline-size; }
+
+.pc4-qa { font: 700 16.5px var(--font-head); fill: #e6edf3; }
+.pc4-qb { font: 700 16.5px var(--font-head); fill: #fca5a5; }
+.pc4-vague { font: 600 14px var(--font-head); fill: #6e7681; }
+.pc4-note { font: 600 12px var(--font-head); fill: #6e7681; }
+.pc4-x { font: 700 17px var(--font-head); fill: #ef4444; }
+.pc4-kill { font: 600 14.5px var(--font-head); fill: #e6edf3; }
+.pc4-stamp-t { font: 700 13px var(--font-head); fill: #4ade80; }
+.pc4-en { font: italic 11.5px "IBM Plex Mono", monospace; fill: #6e7681; }
+.pc4-punch { font: 700 14.5px var(--font-head); fill: #4ade80; }
+
+.pc4-cardA { transform-box: fill-box; transform-origin: center; transform: scaleX(0);
+  animation: pc4-out calc(var(--beat) * .8) var(--e-fail) both; }
+.pc4-cardB { transform-box: fill-box; transform-origin: center;
+  animation: pc4-flipin calc(var(--beat) * .9) var(--e-expo) both; }
+.pc4-row { animation: pc4-slide calc(var(--beat) * 1) var(--e-expo) both; }
+.pc4-stamp { transform-box: fill-box; transform-origin: center;
+  animation: pc4-stamp calc(var(--beat) * .9) var(--e-snapback) both; }
+.pc4-in { animation: pc4-fade calc(var(--beat) * 1.2) var(--e-expo) both; }
+
+@keyframes pc4-out { from { transform: scaleX(1); } }
+@keyframes pc4-flipin { from { transform: scaleX(0); } }
+@keyframes pc4-slide { from { opacity: 0; transform: translateX(-14px); } }
+@keyframes pc4-stamp { from { opacity: 0; transform: scale(1.55); } }
+@keyframes pc4-fade { from { opacity: 0; } }

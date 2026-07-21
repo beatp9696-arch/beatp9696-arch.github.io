@@ -58,3 +58,39 @@
   box-shadow: var(--shadow-md);
 }
 @media (max-width: 600px) { .book-cover { width: 88px; } }
+
+/* ============================================================
+   ฉาก: มิเตอร์ Lollapalooza (sec-3 Tupperware)
+   ฟิสิกส์ของบท: แรงคูณ ไม่ใช่แรงบวก — สวิตช์ 1–2 เข็มขยับเชิงเส้นทีละนิด
+   สวิตช์ 3–4 สับติดกัน เข็มพุ่งแบบ --e-fail (เร่งแล้วชน) เข้าโซนแดงแล้วสั่นจอด
+   เข็มเป็น multi-step keyframes ตัวเดียว sync กับจังหวะสวิตช์
+   ============================================================ */
+.mj3-panel .sa-stage { container-type: inline-size; }
+
+.mj3-title { font: 700 13.5px var(--font-head); fill: #e6edf3; }
+.mj3-lb { font: 600 12.5px var(--font-head); fill: #cbd5e1; }
+.mj3-en { font: 10.5px "IBM Plex Mono", monospace; fill: #6e7681; }
+.mj3-zone { font: 700 11px "IBM Plex Mono", monospace; letter-spacing: .08em; }
+.mj3-zone.g { fill: #22c55e; font-family: var(--font-head); letter-spacing: 0; }
+.mj3-zone.r { fill: #ef4444; }
+.mj3-gtitle { font: 600 13px var(--font-head); fill: #8b949e; }
+.mj3-tag { font: 700 13px var(--font-head); fill: #f59e0b; }
+.mj3-punch { font: 700 13.5px var(--font-head); fill: #4ade80; }
+
+.mj3-knob { transform-box: fill-box;
+  animation: mj3-flip calc(var(--beat) * .5) var(--e-mech) both; }
+.mj3-needle { transform-box: fill-box; transform-origin: 50% 100%;
+  transform: rotate(54deg);
+  animation: mj3-needle calc(var(--beat) * 8) linear both; }
+.mj3-in { animation: mj3-fade calc(var(--beat) * 1.2) var(--e-expo) both; }
+
+@keyframes mj3-flip { from { transform: translateX(-18px); fill: #3a4048; } }
+@keyframes mj3-needle {
+  0%, 28%  { transform: rotate(-60deg); animation-timing-function: cubic-bezier(.3,1.4,.6,1); }
+  38%, 48% { transform: rotate(-38deg); animation-timing-function: cubic-bezier(.3,1.4,.6,1); }
+  58%, 68% { transform: rotate(-16deg); animation-timing-function: cubic-bezier(.55,.06,.9,.16); }
+  80%      { transform: rotate(61deg); }
+  88%      { transform: rotate(50deg); }
+  100%     { transform: rotate(54deg); }
+}
+@keyframes mj3-fade { from { opacity: 0; } }

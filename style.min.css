@@ -1646,6 +1646,7 @@ transition: opacity 0.65s ease, transform 0.65s cubic-bezier(0.2, 0.7, 0.3, 1);
 --e-fail: cubic-bezier(.55,.06,.9,.16);
 --e-spread: cubic-bezier(.5,0,.1,1);
 --e-snapback: cubic-bezier(.3,1.4,.6,1);
+--e-mech: steps(6, end);
 }
 .ph-panel .sa { animation-play-state: paused; }
 .ph-panel.playing .sa { animation-play-state: running; }

@@ -58,3 +58,31 @@
   box-shadow: var(--shadow-md);
 }
 @media (max-width: 600px) { .book-cover { width: 88px; } }
+
+/* ============================================================
+   ฉาก: กระดานแตกเป้า $2T ถอยหลัง (sec-3/4)
+   ฟิสิกส์ของบท: เลขคณิตย้อนกลับ — บรรทัดบนเป็นเหตุของบรรทัดล่าง
+   แต่ละบรรทัดโผล่ห่างกัน ≥1.5 beat (ให้เวลาอ่านเลข) → ✓ เถียงได้
+   → ชั้น moat ซ้อนทีละชั้น → ลูกศรวน autocatalysis → punchline
+   ============================================================ */
+.mp2-panel .sa-stage { container-type: inline-size; }
+
+.mp2-bt { font: 700 14.5px var(--font-head); fill: #e8e6d9; }
+.mp2-ln { font: 600 13.5px var(--font-head); fill: #cbd5e1; }
+.mp2-num { font: 700 14px "IBM Plex Mono", monospace; fill: #f59e0b; }
+.mp2-num.big { font-size: 15px; }
+.mp2-numth { font: 700 14px var(--font-head); fill: #f59e0b; }
+.mp2-chk { font: 600 12px var(--font-head); fill: #4ade80; }
+.mp2-verdict { font: 700 14.5px var(--font-head); fill: #e8e6d9; }
+.mp2-sub { font: 600 11.5px var(--font-head); fill: #8b949e; }
+.mp2-rt { font: 700 14.5px var(--font-head); fill: #7dd3fc; }
+.mp2-ly { font: 700 12.5px var(--font-head); fill: #e6edf3; }
+.mp2-lys { font: 600 10.5px var(--font-head); fill: #8b949e; }
+.mp2-auto { font: 600 11.5px var(--font-head); fill: #f59e0b; }
+.mp2-punch { font: 700 14.5px var(--font-head); fill: #4ade80; }
+
+.mp2-in { animation: mp2-in calc(var(--beat) * 1.2) var(--e-expo) both; }
+.mp2-layer { animation: mp2-stack calc(var(--beat) * 1.1) var(--e-mass) both; }
+
+@keyframes mp2-in { from { opacity: 0; transform: translateY(6px); } }
+@keyframes mp2-stack { from { opacity: 0; transform: translateY(-14px); } }

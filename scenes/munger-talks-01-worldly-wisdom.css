@@ -58,3 +58,30 @@
   box-shadow: var(--shadow-md);
 }
 @media (max-width: 600px) { .book-cover { width: 88px; } }
+
+/* ============================================================
+   ฉาก: ค้อนอันเดียว vs ตาข่ายโมเดล (ก่อน sec-2)
+   ฟิสิกส์ของบท: การแพร่ของข่าย — ฝั่งค้อนทำงานเป็นจังหวะเครื่องจักร (--e-mech)
+   ผลเหมือนเดิมทุกครั้ง = ตะปู 4 ตัวโผล่ทีละตัวแบบสเต็ป
+   ฝั่งตาข่ายติดสว่างเป็นทอด (--e-spread) แล้วโจทย์เดิมค่อยกลับมา "คงรูป"
+   ============================================================ */
+.mw1-panel .sa-stage { container-type: inline-size; }
+
+.mw1-title { font: 700 14.5px var(--font-head); fill: #e6edf3; }
+.mw1-title.r { fill: #7dd3fc; }
+.mw1-lb { font: 600 11.5px var(--font-head); fill: #8b949e; }
+.mw1-nd { font: 600 10.5px var(--font-head); fill: #9fb0c0; }
+.mw1-nd.nl { text-anchor: end; }
+.mw1-nd.nr { text-anchor: start; }
+.mw1-verdict { font: 700 13.5px var(--font-head); fill: #8b949e; }
+.mw1-verdict.g { fill: #7dd3fc; }
+.mw1-punch { font: 700 14.5px var(--font-head); fill: #4ade80; }
+
+.mw1-in { animation: mw1-in calc(var(--beat) * 1.2) var(--e-expo) both; }
+.mw1-nail { animation: mw1-in calc(var(--beat) * .6) var(--e-mech) both; }
+.mw1-node { animation: mw1-in calc(var(--beat) * .8) var(--e-spread) both; }
+.mw1-web { transform-box: fill-box; transform-origin: left center;
+  animation: mw1-web calc(var(--beat) * .9) var(--e-spread) both; }
+
+@keyframes mw1-in { from { opacity: 0; } }
+@keyframes mw1-web { from { opacity: 0; transform: scaleX(0); } }

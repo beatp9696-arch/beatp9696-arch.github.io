@@ -58,3 +58,30 @@
   box-shadow: var(--shadow-md);
 }
 @media (max-width: 600px) { .book-cover { width: 88px; } }
+
+/* ============================================================
+   ฉาก: องค์กรสองแบบ — ขั้นตอน vs เว็บความไว้ใจ (sec-2)
+   ฟิสิกส์ของบท: การถักที่เร่งไม่ได้ — ฝั่งขั้นตอนต่อเส้นเร็วแบบเครื่องจักร (--e-mech)
+   เพราะซื้อได้ด้วยเงิน ฝั่งความไว้ใจถักช้ากว่าอย่างตั้งใจ (--e-mass ทีละเส้น 0.3 beat)
+   เพราะต้อง "สมควรได้" ทีละการกระทำ — ความช้าคือสาระ ไม่ใช่ข้อบกพร่อง
+   ============================================================ */
+.ul5-panel .sa-stage { container-type: inline-size; }
+
+.ul5-title { font: 700 14px var(--font-head); fill: #e6edf3; }
+.ul5-title.g { fill: #4ade80; }
+.ul5-hub { font: 600 11px var(--font-head); fill: #8b949e; }
+.ul5-nd { font: 600 11px var(--font-head); fill: #9fb0c0; }
+.ul5-chip { font: 600 12px var(--font-head); }
+.ul5-chip.r { fill: #f87171; }
+.ul5-chip.g { fill: #4ade80; }
+.ul5-punch { font: 700 14.5px var(--font-head); fill: #e6edf3; }
+.ul5-sub { font: 600 12.5px var(--font-head); fill: #4ade80; }
+
+.ul5-proc { transform-box: fill-box; transform-origin: center;
+  animation: ul5-line calc(var(--beat) * .5) var(--e-mech) both; }
+.ul5-web { transform-box: fill-box; transform-origin: center;
+  animation: ul5-line calc(var(--beat) * 1.4) var(--e-mass) both; }
+.ul5-in { animation: ul5-in calc(var(--beat) * 1.1) var(--e-expo) both; }
+
+@keyframes ul5-line { from { opacity: 0; transform: scale(.2); } }
+@keyframes ul5-in { from { opacity: 0; } }

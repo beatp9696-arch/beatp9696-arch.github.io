@@ -50,3 +50,21 @@ border: 1px solid var(--border);
 box-shadow: var(--shadow-md);
 }
 @media (max-width: 600px) { .book-cover { width: 88px; } }
+.bt1-panel .sa-stage { container-type: inline-size; }
+.bt1-mast { font: 700 12px "IBM Plex Mono", monospace; fill: #8fa3b8; letter-spacing: .18em; }
+.bt1-mast-th { font: 600 11.5px var(--font-head); fill: #6e7681; }
+.bt1-head-th { font: 600 12.5px var(--font-head); fill: #cbd5e1; }
+.bt1-legend { font: 600 11.5px var(--font-head); fill: #6e7681; }
+.bt1-name { font: 600 13.5px var(--font-head); fill: #e6edf3; }
+.bt1-sub { font: 10.5px "IBM Plex Mono", monospace; fill: #8b949e; }
+.bt1-mono { font: 11px "IBM Plex Mono", monospace; fill: #5c6570; }
+.bt1-tickt { font: 10.5px "IBM Plex Mono", monospace; fill: #6e7681; }
+.bt1-val { font: 700 14px "IBM Plex Mono", monospace; fill: #4ade80; }
+.bt1-punch-th { font: 700 14.5px var(--font-head); fill: #e6edf3; }
+.bt1-punch-acc { font: 600 12.5px var(--font-head); fill: #4ade80; }
+.bt1-badge, .bt1-val, .bt1-punch { animation: bt1-in calc(var(--beat) * 1.4) var(--e-expo) both; }
+.bt1-tick { animation: bt1-in calc(var(--beat) * .9) var(--e-expo) both; }
+.bt1-bar { transform-box: fill-box; transform-origin: left center;
+animation: bt1-grow calc(var(--beat) * 2) var(--e-mass) both; }
+@keyframes bt1-grow { from { transform: scaleX(0); } }
+@keyframes bt1-in { from { opacity: 0; transform: translateY(8px); } }
