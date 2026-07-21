@@ -13,8 +13,6 @@
 .ms-comet { fill: #cfe6ff; filter: drop-shadow(0 0 6px #2b88d8); }
 .ms-flow { fill: none; stroke-width: 2.4; stroke-linecap: round; stroke-dasharray: 14 10; animation: msflow 1s linear infinite; }
 @keyframes msflow { to { stroke-dashoffset: -24 } }
-.ms-rise { animation: msrise 3.2s linear infinite; }
-@keyframes msrise { 0%{opacity:0;transform:translateY(0)} 12%{opacity:1} 88%{opacity:1} 100%{opacity:0;transform:translateY(-90px)} }
 .ms-svc { transform-box: fill-box; transform-origin: center; animation: msglow 2.4s ease-in-out infinite; }
 @keyframes msglow { 0%,82%{filter:none} 91%{filter:drop-shadow(0 0 10px rgba(90,169,240,.7))} 100%{filter:none} }
 .ms-fw { fill: none; stroke-width: 4; stroke-linecap: round; filter: drop-shadow(0 0 6px rgba(43,136,216,.5)); animation: msfwrot 5s linear infinite; transform-origin: 300px 210px; }
@@ -25,3 +23,46 @@
 @keyframes mswarn { 0%,100%{opacity:.82} 50%{opacity:1; filter:drop-shadow(0 0 7px #ef4444)} }
 .ms-threat { fill: #2a1414; stroke: #ef4444; stroke-width: 1.6; }
 .ms-rd { fill: #fca5a5; filter: drop-shadow(0 0 5px #ef4444); }
+
+/* ฟิสิกส์ของ MSFT = เครื่องจักรมวลหนัก โมเมนตัมของฐานที่ติดตั้งแล้วพาทุกอย่างไปต่อ (easing --e-mass) */
+
+/* ═══ ฉาก 1: เครื่องยนต์รายได้ 3 สูบ — หนึ่งสูบสะดุด ล้อยังหมุน = revenue durability ═══ */
+.me-block { fill: #0d1826; stroke: #243a5a; stroke-width: 1.6; }
+.me-cyl { fill: #0a1420; stroke: #2b3f5e; stroke-width: 1.5; }
+.me-cap { fill: #14253c; stroke: #2b88d8; stroke-width: 1.4; }
+.me-plug { fill: #5aa9f0; }
+.me-piston { fill: #33507a; stroke: #6aa9e8; stroke-width: 1.2; transform-box: fill-box; transform-origin: center; }
+.me-rod { stroke: #3a5580; stroke-width: 3; stroke-linecap: round; }
+.me-shaft { stroke: #2b3f5e; stroke-width: 6; stroke-linecap: round; }
+.me-wheel-in { fill: #0e1a2e; stroke: #1a2c44; stroke-width: 1.4; }
+.me-rim { fill: none; stroke: #2b88d8; stroke-width: 6; filter: drop-shadow(0 0 8px rgba(43,136,216,.45)); }
+.me-spoke2 { stroke: #2b5a86; stroke-width: 3; stroke-linecap: round; }
+.me-spark { fill: #ffd479; transform-box: fill-box; transform-origin: center; opacity: 0; filter: drop-shadow(0 0 6px rgba(255,196,80,.7)); }
+.me-spark.bad { fill: #f26d5b; filter: drop-shadow(0 0 6px rgba(242,90,70,.8)); }
+.me-cyl-g { transform-box: fill-box; transform-origin: bottom; }
+.me-riseb  { animation: meRise calc(var(--beat)*2) var(--e-mass); }
+.me-fire   { animation: meFire calc(var(--beat)*1.4) var(--e-expo); }
+.me-stroke { animation: meStroke calc(var(--beat)*1.6) var(--e-mass); }
+.me-mis    { animation: meMis calc(var(--beat)*2.4) var(--e-fail); }
+.me-total  { transform-box: fill-box; transform-origin: center; animation: meTotal calc(var(--beat)*1.2) var(--e-snapback); }
+.me-wheel  { transform-box: fill-box; transform-origin: center; animation: meSpin 3.6s linear infinite; }
+@keyframes meRise   { from { transform: translateY(30px); opacity: 0 } }
+@keyframes meFire   { 0%{opacity:0;transform:scale(.3)} 40%{opacity:1;transform:scale(1.18)} 100%{opacity:.32;transform:scale(1)} }
+@keyframes meStroke { 0%,100%{transform:translateY(0)} 45%{transform:translateY(20px)} }
+@keyframes meMis    { 0%,100%{opacity:0;transform:scale(.4)} 25%{opacity:1;transform:scale(1.1)} 50%{opacity:.35;transform:scale(.65)} 74%{opacity:.9;transform:scale(.9)} }
+@keyframes meTotal  { from { opacity:0; transform:scale(.55) } }
+@keyframes meSpin   { to { transform: rotate(360deg) } }
+
+/* ═══ ฉาก 4: Copilot กวาด AI ทับฐานลูกค้าเดิม vs จอสตาร์ทอัพที่แทบว่าง = distribution advantage ═══ */
+.mc-win { fill: #0e1a2e; stroke: #243a5a; stroke-width: 1.3; }
+.mc-tb { stroke: none; }
+.mc-line { stroke: #2b3f5e; stroke-width: 3; stroke-linecap: round; }
+.mc-empty { fill: #0a1018; stroke: #1b2536; stroke-width: 1.3; stroke-dasharray: 5 5; }
+.mc-sweep { fill: url(#mcSweep); mix-blend-mode: screen; opacity: 0; }
+.mc-spark { transform-box: fill-box; transform-origin: center; filter: drop-shadow(0 0 6px rgba(124,192,245,.9)); }
+.mc-riseb { animation: mcRise calc(var(--beat)*1.8) var(--e-mass); }
+.mc-run   { animation: mcRun calc(var(--beat)*3.4) linear; }
+.mc-pop   { transform-box: fill-box; transform-origin: center; animation: mcPop calc(var(--beat)*1.1) var(--e-snapback); }
+@keyframes mcRise { from { transform: translateY(22px); opacity: 0 } }
+@keyframes mcRun  { 0%{opacity:0;transform:translateX(0)} 12%{opacity:.95} 84%{opacity:.95} 100%{opacity:0;transform:translateX(516px)} }
+@keyframes mcPop  { from { opacity:0; transform:scale(.3) } }
