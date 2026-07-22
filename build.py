@@ -1024,6 +1024,9 @@ def main():
     write_itemlist(posts)
     write_thumbnails(posts)
     minify_css()
+    # ระบบดีไซน์ของซีรีส์ "เคสศึกษา" (หน้าหนังสือ) — โหลดเฉพาะบทที่ <body class="cs">
+    # แยกไฟล์ไว้ เพราะฟอนต์ Trirong/Playfair ~152KB ไม่ควรไปถ่วงอีก 56 บทที่ไม่ได้ใช้
+    minify_css("casestudy.css", "casestudy.min.css")
     build_scenes()
     write_stocks(articles)
     write_hero_stats(articles)

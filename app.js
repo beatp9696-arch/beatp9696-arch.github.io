@@ -85,7 +85,8 @@
     { f: "buffett-deals-02-washington-post.html", t: "ดีลที่สร้างบัฟเฟตต์ 2: Washington Post 1973", sec: "basics" },
     { f: "buffett-deals-03-geico.html", t: "ดีลที่สร้างบัฟเฟตต์ 3: GEICO 1976", sec: "basics" },
     { f: "buffett-deals-04-nebraska-furniture-mart.html", t: "ดีลที่สร้างบัฟเฟตต์ 4: Nebraska Furniture Mart 1983", sec: "basics" },
-    { f: "buffett-deals-05-coca-cola.html", t: "ดีลที่สร้างบัฟเฟตต์ 5: Coca-Cola 1988", sec: "basics" }
+    { f: "buffett-deals-05-coca-cola.html", t: "ดีลที่สร้างบัฟเฟตต์ 5: Coca-Cola 1988", sec: "basics" },
+    { f: "case-study-01-dominos.html", t: "เคสศึกษา 1: Domino's Pizza", sec: "other" }
   ];
 
   var progressBar = document.querySelector(".reading-progress");

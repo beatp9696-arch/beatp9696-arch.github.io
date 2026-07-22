@@ -1,0 +1,840 @@
+/* ============================================================
+   Moatrices — Case Study (ฉบับหนังสือ)
+   ระบบดีไซน์ของซีรีส์ "เคสศึกษา" เท่านั้น
+   โหลดเฉพาะหน้าที่ <body class="cs"> — ไม่แตะบทความอื่นในเว็บ
+
+   ตัวอักษร : หัวเรื่อง/ตัวเลขละติน = Playfair Display · เนื้อไทย = Trirong
+   สี        : กระดาษครีม + หมึกอุ่น + ทองเก่า (ฉบับกลางคืน = ถ่าน + งาช้าง + ทองสว่าง)
+
+   🚨 กฎเหล็กของไฟล์นี้: ห้ามใส่ letter-spacing กับข้อความไทยเด็ดขาด
+      (iOS Safari ดันสระ/วรรณยุกต์หลุดจากพยัญชนะ — Chrome ไม่โชว์บั๊กนี้)
+      คลาสที่มี tracking (.cs-sc, .cs-eyebrow, .cs-folio ฯลฯ) = ใช้กับอักษรละตินเท่านั้น
+   ============================================================ */
+
+/* ---------- ฟอนต์ (โฮสต์เอง — Google Fonts ตรงๆ ทำสระไทยหายตอน gen OG) ---------- */
+@font-face{font-family:'Trirong';font-style:normal;font-weight:400;font-display:swap;src:url('fonts/trirong-400-thai.woff2') format('woff2');unicode-range:U+02D7, U+0303, U+0331, U+0E01-0E5B, U+200C-200D, U+25CC;}
+@font-face{font-family:'Trirong';font-style:normal;font-weight:400;font-display:swap;src:url('fonts/trirong-400-latin-ext.woff2') format('woff2');unicode-range:U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF;}
+@font-face{font-family:'Trirong';font-style:normal;font-weight:400;font-display:swap;src:url('fonts/trirong-400-latin.woff2') format('woff2');unicode-range:U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;}
+@font-face{font-family:'Trirong';font-style:normal;font-weight:600;font-display:swap;src:url('fonts/trirong-600-thai.woff2') format('woff2');unicode-range:U+02D7, U+0303, U+0331, U+0E01-0E5B, U+200C-200D, U+25CC;}
+@font-face{font-family:'Trirong';font-style:normal;font-weight:600;font-display:swap;src:url('fonts/trirong-600-latin-ext.woff2') format('woff2');unicode-range:U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF;}
+@font-face{font-family:'Trirong';font-style:normal;font-weight:600;font-display:swap;src:url('fonts/trirong-600-latin.woff2') format('woff2');unicode-range:U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;}
+@font-face{font-family:'Cinzel';font-style:normal;font-weight:400 700;font-display:swap;src:url('fonts/cinzel-600-latin.woff2') format('woff2');unicode-range:U+0000-00FF, U+2013-2014, U+2018-201D;}
+@font-face{font-family:'Playfair Display';font-style:normal;font-weight:500;font-display:swap;src:url('fonts/playfair-display-500-latin.woff2') format('woff2');unicode-range:U+0000-00FF, U+2010-2015, U+2018-201D, U+2022, U+2026, U+2039, U+203A, U+20AC, U+2122, U+2190-2193, U+2212, U+25CA, U+275D-275E;}
+@font-face{font-family:'Playfair Display';font-style:normal;font-weight:700;font-display:swap;src:url('fonts/playfair-display-700-latin.woff2') format('woff2');unicode-range:U+0000-00FF, U+2010-2015, U+2018-201D, U+2022, U+2026, U+2039, U+203A, U+20AC, U+2122, U+2190-2193, U+2212, U+25CA, U+275D-275E;}
+@font-face{font-family:'Playfair Display';font-style:italic;font-weight:400;font-display:swap;src:url('fonts/playfair-display-400-italic-latin.woff2') format('woff2');unicode-range:U+0000-00FF, U+2010-2015, U+2018-201D, U+2022, U+2026, U+2039, U+203A, U+20AC, U+2122, U+2190-2193, U+2212, U+25CA, U+275D-275E;}
+
+/* ============================================================
+   1. โทเคน — ทับ design token ของเว็บเฉพาะหน้านี้
+   ============================================================ */
+body.cs {
+  /* token ของเว็บ (header/footer/ลิงก์ ใช้ต่อได้เลย) */
+  /* ── สีประจำเล่ม (ค่าตั้งต้น = ทองเก่า) ──────────────────────
+     เปลี่ยนธีมตามหุ้นได้โดย "แก้ 6 บรรทัดนี้ที่เดียว" ผ่าน data-cs-theme (ดูหัวข้อ 1b)
+     ที่เหลือทั้งไฟล์อ้าง var เหล่านี้ ห้ามใส่ค่า hex ตรงๆ ในกฎอื่นอีก */
+  --cs-a:      #A87F38;   /* สีหลัก — หัวเรื่อง เส้นคาด drop cap */
+  --cs-a-lit:  #C9A05A;   /* สว่างขึ้น — ใช้บนพื้นเข้ม (หน้าเปิดบท/แผ่นภาพ) */
+  --cs-a-hair: #D8C79C;   /* เส้นบางๆ กรอบ ตาราง */
+  --cs-a-deep: #8E6A2C;   /* เข้มขึ้น — ลิงก์ตอน hover */
+  --cs-a-tint: #F1E9D7;   /* พื้นอ่อน — quote, poster */
+  --cs-alt:    #8A4A2A;   /* สีที่สอง — สงวนไว้ให้ "จังหวะวิกฤต" เท่านั้น */
+
+  --bg: #EDE7D9;
+  --surface: #FAF7F0;
+  --surface-2: #F4EFE3;
+  --text: #1A1611;
+  --muted: #6E6353;
+  --accent: var(--cs-a-deep);
+  --accent-strong: var(--cs-a-deep);
+  --accent-tint: var(--cs-a-tint);
+  --accent-bright: var(--cs-a-lit);
+  --border: #DDD2BB;
+  --header-bg: rgba(237, 231, 217, 0.88);
+  --grad: linear-gradient(90deg, var(--cs-a-deep), var(--cs-a-lit));
+  --shadow-md: 0 10px 40px rgba(58, 44, 22, 0.10);
+
+  /* token เฉพาะหนังสือ */
+  --paper: #FAF7F0;
+  --paper-edge: #EFE8D8;
+  --ink: #1A1611;
+  --ink-soft: #4A4136;
+  --gold: var(--cs-a);
+  --gold-lit: var(--cs-a-lit);
+  --gold-hair: var(--cs-a-hair);
+  --plate: #14120F;
+  --plate-line: #33291B;
+  --plate-ink: #EDE4D2;
+  --opener-bg: #0E0C09;
+  --opener-ink: #F2E9D6;
+  --glow: 201 160 90;     /* ใช้กับ rgb(var(--glow) / .2) — เก็บเป็นสามค่า ไม่ใช่ hex */
+  --title-hi: #E2C285;
+  --title-mid: #B98F45;
+  --title-lo: #8A6528;
+  --plate-dim: #8A7F6B;
+  --plate-deep: #100E0B;
+  --plate-card: #1B1710;
+  --plate-grid: #1E1911;
+  --plate-edge: #2A2318;
+  --plate-tick: #4A3D28;
+  --plate-ring: #241E15;
+  --a-mid: #8A6B33;
+  --a-mute: #6E4B22;
+
+  --font-display: "Playfair Display", "Times New Roman", Georgia, serif;
+  --font-title: "Cinzel", "Playfair Display", "Times New Roman", Georgia, serif;  /* ชื่อบท — ตัวพิมพ์ใหญ่แบบจารึกโรมัน */
+  --font-book: "Trirong", Georgia, "Times New Roman", serif;
+
+  --measure: 34rem;          /* ความกว้างคอลัมน์อ่าน */
+  --max: 46rem;              /* .container ของหน้านี้ */
+
+  background: var(--bg);
+  overflow-x: clip;          /* กัน .cs-bleed ดัน scrollbar (clip ไม่พัง sticky header) */
+}
+
+/* ── ตั้งใจไม่มีโหมดมืด ──────────────────────────────────────
+   หน้าเคสศึกษาคือ "หนังสือกระดาษ" จึงเป็นครีมเสมอ ไม่ว่าผู้อ่านตั้งธีมเว็บไว้อะไร
+   เหตุผล: ลุคพรีเมียมของฟอร์แมตนี้มาจากความตัดกัน ดำสนิท (หน้าเปิดบท/แผ่นภาพ)
+   ↔ ครีม (หน้าเนื้อหา) พอทำเนื้อหาเป็นสีเข้มด้วย ความตัดกันหายหมด เหลือแค่สีน้ำตาลขุ่น
+   (ทดสอบแล้ว 21 ก.ค. 2026 — PP ตีตกเวอร์ชันโหมดมืด)
+   ⇒ ห้ามเติมบล็อก prefers-color-scheme: dark หรือ [data-theme="dark"] ให้ body.cs
+   ประกาศข้างบนอยู่บน body จึงชนะค่าของ :root[data-theme="dark"] สำหรับทุกอย่างใน body อยู่แล้ว */
+html:has(body.cs) { background: var(--bg, #EDE7D9); color-scheme: light; }
+
+/* ============================================================
+   1b. ธีมประจำหุ้น — เติมบล็อกใหม่ = ได้เล่มใหม่ทั้งเล่ม
+   ใช้ที่ <body class="cs" data-cs-theme="xxx">
+   หลักการ: ไม่เอาสีแบรนด์มาแปะดิบๆ (สีโฆษณาอาหารบนกระดาษ = ดูถูก)
+   แต่ "ลดความสด เพิ่มความลึก" ให้มันกลายเป็นสีหมึกพิมพ์ แล้วเก็บสีสดจริงไว้ใช้
+   จุดเดียวคือจังหวะวิกฤต (--cs-alt) — ความยับยั้งชั่งใจคือสิ่งที่ทำให้ดูแพง
+   ============================================================ */
+
+/* Domino's Pizza — น้ำเงินแบรนด์ #006491 ลึกลงเป็นหมึกน้ำเงิน · แดง #E31837 เก็บไว้ใช้ตอนวิกฤตปี 2008 */
+body.cs[data-cs-theme="dpz"] {
+  --cs-a:      #0A4C74;
+  --cs-a-lit:  #3E93C4;
+  --cs-a-hair: #C2D6E3;
+  --cs-a-deep: #073A59;
+  --cs-a-tint: #EBF2F7;
+  --cs-alt:    #B9182F;
+
+  --bg: #E8E6E0;
+  --surface: #FBFAF7;
+  --surface-2: #F2F1EC;
+  --text: #14181C;
+  --muted: #5F6A72;
+  --border: #D3D8DA;
+  --header-bg: rgba(232, 230, 224, 0.88);
+  --shadow-md: 0 10px 40px rgba(11, 32, 48, 0.12);
+
+  --paper: #FBFAF7;
+  --paper-edge: #EFEEE9;
+  --ink: #14181C;
+  --ink-soft: #414C55;
+  --plate: #0A1219;
+  --plate-line: #1D3547;
+  --plate-ink: #E7EEF3;
+  --opener-bg: #07121A;
+  --opener-ink: #E9F1F6;
+  --glow: 62 147 196;
+  --title-hi: #9ED0EE;
+  --title-mid: #3E93C4;
+  --title-lo: #17567E;
+  --plate-dim: #7C8B96;
+  --plate-deep: #060D13;
+  --plate-card: #0F1B24;
+  --plate-grid: #121E27;
+  --plate-edge: #17242E;
+  --plate-tick: #2C4356;
+  --plate-ring: #101C25;
+  --a-mid: #2C6E97;
+  --a-mute: #1D4A66;
+}
+
+/* ============================================================
+   2. ตัวอักษรพื้นฐานของเล่ม
+   ============================================================ */
+body.cs { font-family: var(--font-book); color: var(--ink); }
+
+body.cs main {
+  font-size: 1.075rem;
+  line-height: 1.95;          /* ไทย serif ต้องการช่องไฟบรรทัดมากกว่า sans */
+  letter-spacing: 0;          /* ห้ามแตะ — ดูหัวไฟล์ */
+}
+body.cs main p { margin: 0 0 1.15em; text-wrap: pretty; }
+/* เน้นข้อความมี 2 ระดับเท่านั้น และ "ห้ามเป็นสีทอง"
+   ทองสงวนไว้ให้โครงสร้างของเล่ม (หัวเรื่อง เส้นคาด drop cap คำเดียวในป้ายประกาศ)
+   ถ้าเอาทองมาใช้เน้นคำในเนื้อความด้วย ย่อหน้าเดียวจะมี 3 น้ำหนักชนกัน = รก ไม่ใช่หรู */
+body.cs strong { font-weight: 600; color: var(--ink); }
+body.cs em {                                   /* ไทยไม่มี italic จริง — ใช้ขีดเส้นทองบางๆ แทน */
+  font-style: normal;
+  font-weight: 600;
+  color: var(--ink);
+  text-decoration: underline;
+  text-decoration-color: var(--gold);
+  text-decoration-thickness: 1px;
+  text-underline-offset: 0.32em;
+}
+body.cs .lat { font-family: var(--font-display); }
+body.cs .num { font-family: var(--font-display); font-weight: 700; font-variant-numeric: lining-nums tabular-nums; }
+
+/* ตัวพิมพ์เล็กแบบหัวเรื่อง — ละตินเท่านั้น */
+body.cs .cs-sc {
+  font-family: var(--font-display);
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 0.26em;
+  font-size: 0.72rem;
+  color: var(--gold);
+}
+
+/* ตราสำนักพิมพ์ — ถอดไอคอนเขียวมิ้นต์ของเว็บออก (ชนกับทอง-ดำ)
+   แล้วใช้ wordmark ตัว serif + เส้นทองใต้ชื่อ ให้อ่านเป็น "ตราสำนักพิมพ์" ของเล่ม */
+body.cs .site-title {
+  font-family: var(--font-display);
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  gap: 0;
+  padding-bottom: 3px;
+  border-bottom: 1px solid var(--gold);
+}
+body.cs .site-title::before { display: none; }
+body.cs .site-nav a { font-family: var(--font-book); font-weight: 600; }
+body.cs .top-accent { height: 2px; }
+
+/* ============================================================
+   3. หน้าเปิดบท — แผ่นดำเต็มความกว้าง
+   ============================================================ */
+body.cs .cs-bleed {
+  width: 100vw;
+  max-width: 100vw;
+  margin-inline: calc(50% - 50vw);
+}
+
+.cs-opener {
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+  background: var(--opener-bg);
+  color: var(--opener-ink);
+  min-height: clamp(30rem, 82vh, 44rem);
+  display: grid;
+  place-items: center;
+  text-align: center;
+  /* ก้นหน้าเผื่อที่ให้แถบหน้าร้าน ไม่งั้นป้ายร้านจะชนบรรทัดคำคม */
+  padding: clamp(3rem, 9vw, 6rem) 1.4rem calc(clamp(7rem, 17vh, 11rem) + 2.5rem);
+  margin-bottom: clamp(2.5rem, 6vw, 4.5rem);
+}
+/* แสงจากบนกลาง + ขอบมืด (เลียนหน้าเปิดบทของหนังสือ) */
+.cs-opener::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -2;
+  background:
+    radial-gradient(120% 68% at 50% -8%, rgb(var(--glow) / .22), transparent 62%),
+    radial-gradient(90% 60% at 50% 120%, rgb(var(--glow) / .10), transparent 70%),
+    var(--opener-bg);
+}
+/* เส้นกรอบทองบางๆ เว้นขอบ แบบหน้าปกใน */
+.cs-opener::after {
+  content: "";
+  position: absolute;
+  inset: clamp(0.8rem, 2.4vw, 1.9rem);
+  z-index: -1;
+  border: 1px solid rgb(var(--glow) / .28);
+  pointer-events: none;
+}
+.cs-opener-inner { max-width: 46rem; }
+
+.cs-opener .cs-eyebrow {
+  font-family: var(--font-title);
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 0.52em;
+  font-size: clamp(0.68rem, 1.5vw, 0.84rem);
+  color: rgb(from var(--opener-ink) r g b / .72);
+  margin: 0 0 clamp(1.4rem, 3.4vw, 2.2rem);
+  text-indent: 0.52em;              /* ชดเชย tracking ให้ยังดูอยู่กึ่งกลาง */
+}
+.cs-opener h1 {
+  font-family: var(--font-title);
+  font-weight: 600;
+  text-transform: uppercase;
+  font-size: clamp(2.15rem, 7.4vw, 4.35rem);   /* Cinzel กว้างกว่า Playfair ต้องลดขนาดลง */
+  line-height: 1.16;
+  letter-spacing: 0.045em;                     /* จารึกโรมันต้องการช่องไฟ */
+  margin: 0;
+  color: var(--title-mid);
+  background: linear-gradient(176deg, var(--title-hi) 10%, var(--title-mid) 88%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  text-wrap: balance;
+}
+/* ชื่อบทภาษาไทย (ถ้ามี) — Trirong ห้าม tracking */
+.cs-opener h1::before,
+.cs-opener h1::after {
+  content: "";
+  display: block;
+  width: min(19rem, 62%);
+  height: 1px;
+  margin: 0 auto;
+  background: linear-gradient(90deg, transparent, rgb(var(--glow) / .5) 22%, rgb(var(--glow) / .5) 78%, transparent);
+}
+.cs-opener h1::before { margin-bottom: clamp(1.1rem, 2.6vw, 1.7rem); }
+.cs-opener h1::after  { margin-top: clamp(1.1rem, 2.6vw, 1.7rem); }
+
+.cs-opener .cs-th-title {
+  font-family: var(--font-book);
+  font-weight: 600;
+  font-size: clamp(1.05rem, 2.6vw, 1.4rem);
+  line-height: 1.6;
+  letter-spacing: 0;
+  text-transform: none;
+  color: rgb(from var(--opener-ink) r g b / .82);
+  margin: 1.5rem 0 0;
+}
+
+/* เครื่องหมายคั่นทอง ◈ */
+.cs-rule {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.85rem;
+  margin: clamp(1.8rem, 4vw, 2.6rem) auto;
+  max-width: 30rem;
+  color: var(--gold);
+}
+.cs-rule::before, .cs-rule::after {
+  content: "";
+  flex: 1;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, currentColor 30%, currentColor 70%, transparent);
+  opacity: 0.55;
+}
+.cs-rule > span { font-size: 0.72rem; line-height: 1; opacity: 0.9; }
+.cs-opener .cs-rule { color: rgb(var(--glow) / .85); }
+
+/* คำคมบนหน้าเปิดบท */
+.cs-opener-quote {
+  display: grid;
+  grid-template-columns: auto 1px 1fr;
+  gap: 0 clamp(1rem, 2.6vw, 1.6rem);
+  align-items: start;
+  text-align: left;
+  max-width: 34rem;
+  margin: 0 auto;
+}
+.cs-opener-quote::before {
+  content: "\201C";
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: clamp(3.4rem, 9vw, 5rem);
+  line-height: 0.78;
+  color: var(--gold-lit);
+  opacity: 0.9;
+}
+.cs-opener-quote > hr {
+  border: 0;
+  align-self: stretch;
+  background: rgb(var(--glow) / .4);
+  margin: 0.4rem 0;
+  width: 1px;
+}
+/* ต้องชนะ body.cs main blockquote (ไม่งั้นได้กล่องครีม + อัญประกาศซ้อนสอง) */
+body.cs .cs-opener-quote blockquote {
+  margin: 0; padding: 0; background: none; border: 0; border-radius: 0;
+  font-family: var(--font-book);
+  font-weight: 400;
+  font-size: clamp(1.02rem, 2.5vw, 1.28rem);
+  line-height: 1.75;
+  color: var(--opener-ink);
+}
+body.cs .cs-opener-quote blockquote::before { content: none; }
+body.cs .cs-opener-quote blockquote.lat {
+  font-family: var(--font-display);
+  font-style: italic;
+  font-weight: 400;
+}
+/* ค่าเริ่มต้น = ปลอดภัยกับภาษาไทย (ไม่มี tracking, ใช้ Trirong)
+   ถ้าชื่อผู้พูดเป็นอักษรละติน ให้เติม .lat เพื่อได้ลุค small-caps แบบหนังสือ */
+.cs-attrib {
+  display: block;
+  margin-top: 0.9rem;
+  font-family: var(--font-book);
+  font-weight: 600;
+  letter-spacing: 0;
+  font-size: 0.9rem;
+  color: var(--gold-lit);
+}
+.cs-attrib.lat {
+  font-family: var(--font-display);
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 0.2em;
+  font-size: 0.78rem;
+}
+
+/* ============================================================
+   4. หน้ากระดาษ
+   ============================================================ */
+body.cs main > .container { max-width: var(--max); }
+
+.cs-paper {
+  background: var(--paper);
+  border: 1px solid var(--gold-hair);
+  box-shadow: var(--shadow-md);
+  padding: clamp(1.6rem, 5vw, 3.6rem) clamp(1.2rem, 4.4vw, 3.2rem);
+  margin-bottom: clamp(1.6rem, 4vw, 2.6rem);
+}
+.cs-paper > *:first-child { margin-top: 0; }
+.cs-paper > *:last-child { margin-bottom: 0; }
+
+/* หัวเรื่องระดับบน — เลขลำดับละติน + ชื่อไทย */
+body.cs main h2 {
+  font-family: var(--font-book);
+  font-weight: 600;
+  font-size: clamp(1.42rem, 3.6vw, 1.95rem);
+  line-height: 1.5;
+  letter-spacing: 0;
+  color: var(--ink);
+  margin: clamp(2.6rem, 6vw, 3.8rem) 0 1rem;
+  padding: 0;
+}
+body.cs main h2:first-child { margin-top: 0; }
+/* ป้ายลำดับบท — ต้องอยู่ "นอก" <h2> เสมอ
+   build.py inject_tocs() ดึง innerHTML ของ h2 ทั้งก้อนไปเป็นข้อความในสารบัญ
+   ถ้าเอา .cs-h2n ไปไว้ข้างใน สารบัญจะกลายเป็น "Prologueคำสารภาพที่..." */
+.cs-h2n {
+  display: block;
+  font-family: var(--font-display);
+  font-weight: 500;
+  font-size: 0.74rem;
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+  color: var(--gold);
+  margin: clamp(2.6rem, 6vw, 3.8rem) 0 0.7rem;
+}
+.cs-paper > .cs-h2n:first-child { margin-top: 0; }
+body.cs main .cs-h2n + h2 { margin-top: 0; }
+/* เส้นทองใต้หัวเรื่อง (แบบหน้าหนังสือ) */
+body.cs main h2::after {
+  content: "";
+  display: block;
+  width: 100%;
+  height: 1px;
+  margin-top: 0.85rem;
+  background: linear-gradient(90deg, var(--gold) 0%, var(--gold-hair) 46%, transparent 100%);
+}
+body.cs main h3 {
+  font-family: var(--font-book);
+  font-weight: 600;
+  font-size: clamp(1.08rem, 2.6vw, 1.24rem);
+  line-height: 1.6;
+  color: var(--ink);
+  margin: 2rem 0 0.5rem;
+}
+
+/* ย่อหน้านำ */
+body.cs .lead {
+  font-family: var(--font-book);
+  font-size: clamp(1.1rem, 2.7vw, 1.24rem);
+  line-height: 1.9;
+  color: var(--ink-soft);
+  margin: 0 0 1.4rem;
+}
+
+/* อักษรตัวแรกขนาดใหญ่
+   🚨 ภาษาไทย: ถ้าย่อหน้าขึ้นต้นด้วยสระหน้า (เ แ โ ใ ไ) ห้ามใส่แค่สระตัวเดียวใน .cs-dc
+   เพราะสระหน้าไทยแคบมาก พอลอยเป็น drop cap จะกลายเป็นขีดตั้งลอยๆ
+   และคำจะอ่านเป็น "คสนี้" แทน "เคสนี้" — ให้ใส่ทั้งพยางค์แรก เช่น <span class="cs-dc">เค</span>สนี้
+   ใช้ ::first-letter ไม่ได้ด้วยเหตุผลเดียวกัน จึงต้องครอบ span เองทุกครั้ง */
+.cs-dc {
+  float: left;
+  font-family: var(--font-book);
+  font-weight: 600;
+  font-size: 3.6em;
+  line-height: 0.92;
+  color: var(--gold);
+  margin: 0.04em 0.11em 0 0;
+  /* ไทยมีสระบน/ล่าง — ต้องเผื่อที่ ไม่งั้นวรรณยุกต์โดนตัด */
+  padding-top: 0.1em;
+}
+.cs-dc.lat {
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: 4.1em;
+  line-height: 0.78;
+  padding-top: 0.06em;
+  margin-right: 0.07em;
+}
+.cs-dcp::after { content: ""; display: block; clear: both; }
+
+/* ============================================================
+   5. คำคมในเนื้อเรื่อง
+   ============================================================ */
+body.cs main blockquote {
+  position: relative;
+  background: var(--accent-tint);
+  border: 0;
+  border-left: 2px solid var(--gold);
+  border-radius: 0;
+  margin: clamp(1.8rem, 4vw, 2.4rem) 0;
+  padding: clamp(1.1rem, 3vw, 1.5rem) clamp(1.1rem, 3vw, 1.6rem) clamp(1.1rem, 3vw, 1.5rem) clamp(3.2rem, 7vw, 4.2rem);
+  font-family: var(--font-book);
+  font-weight: 400;
+  font-size: 1.02rem;
+  line-height: 1.85;
+  color: var(--ink);
+}
+body.cs main blockquote::before {
+  content: "\201C";
+  position: absolute;
+  left: clamp(0.7rem, 2.4vw, 1.2rem);
+  top: clamp(0.2rem, 1.6vw, 0.5rem);
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: clamp(2.6rem, 7vw, 3.4rem);
+  line-height: 1;
+  color: var(--gold);
+  opacity: 0.55;
+}
+body.cs main blockquote.lat { font-family: var(--font-display); font-style: italic; }
+body.cs main blockquote p:last-child { margin-bottom: 0; }
+body.cs main blockquote .cs-attrib { color: var(--gold); }
+
+/* ============================================================
+   6. แผ่นป้ายประกาศ (poster) — ประโยคเดียวที่ต้องจำ
+   ============================================================ */
+.cs-poster {
+  text-align: center;
+  margin: clamp(2.2rem, 5.5vw, 3.4rem) 0;
+  padding: clamp(1.6rem, 4.5vw, 2.6rem) clamp(1rem, 3vw, 2rem);
+  background: var(--surface-2);
+  border-top: 1px solid var(--gold-hair);
+  border-bottom: 1px solid var(--gold-hair);
+}
+.cs-poster p {
+  font-family: var(--font-book);
+  font-weight: 600;
+  font-size: clamp(1.35rem, 4.6vw, 2.1rem);
+  line-height: 1.5;
+  letter-spacing: 0;
+  color: var(--ink);
+  margin: 0;
+  text-wrap: balance;
+}
+.cs-poster p .hl { color: var(--gold); }
+.cs-poster .cs-plaque {
+  display: inline-block;
+  margin-top: 1.3rem;
+  padding: 0.5rem 1.3rem;
+  border: 1px solid var(--gold-hair);
+  background: var(--paper);
+  font-family: var(--font-book);
+  font-weight: 600;
+  font-size: 0.86rem;
+  line-height: 1.7;
+  color: var(--ink-soft);
+}
+.cs-poster .cs-plaque .arw { color: var(--gold); padding: 0 0.35em; }
+
+/* ============================================================
+   7. แผ่นภาพประกอบ (plate) — เวทีของฉาก SVG
+   หมายเหตุ: ต้องคง .ph-fig/.ph-panel ไว้ ไม่งั้น scene player ใน app.js ไม่เล่น
+   ============================================================ */
+.cs-plate { margin: clamp(2rem, 5vw, 3rem) 0; }
+.cs-plate .ph-panel {
+  background: var(--plate);
+  border: 1px solid var(--plate-line);
+  border-radius: 0;
+  padding: clamp(1.2rem, 3.4vw, 2rem) clamp(0.9rem, 3vw, 1.8rem) clamp(1.4rem, 3.4vw, 1.9rem);
+  position: relative;
+}
+/* กรอบทองชั้นใน */
+.cs-plate .ph-panel::before {
+  content: "";
+  position: absolute;
+  inset: 0.5rem;
+  border: 1px solid rgb(var(--glow) / .22);
+  pointer-events: none;
+}
+.cs-plate .ph-eyebrow {
+  font-family: var(--font-display);
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 0.28em;
+  font-size: 0.7rem;
+  color: var(--gold-lit);
+  opacity: 0.85;
+  margin-bottom: 1.3rem;
+}
+/* eyebrow ที่มีข้อความไทย — ห้าม tracking */
+.cs-plate .ph-eyebrow.th {
+  font-family: var(--font-book);
+  font-weight: 600;
+  text-transform: none;
+  letter-spacing: 0;
+  font-size: 0.84rem;
+}
+.cs-plate figcaption {
+  font-family: var(--font-book);
+  font-size: 0.95rem;
+  line-height: 1.85;
+  color: var(--muted);
+  margin-top: 1rem;
+  padding-left: 1rem;
+  border-left: 2px solid var(--gold);
+}
+.cs-plate figcaption strong { font-family: var(--font-book); color: var(--ink); font-weight: 600; }
+.cs-plate figcaption .cs-plate-no {
+  font-family: var(--font-display);
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 0.22em;
+  font-size: 0.68rem;
+  color: var(--gold);
+  display: block;
+  margin-bottom: 0.25rem;
+}
+
+/* ============================================================
+   8. ตัวเลขเด่น
+   ============================================================ */
+/* เส้นคั่นใช้ border ของแต่ละช่อง ไม่ใช่ gap-บนพื้นทอง —
+   ไม่งั้นแถวสุดท้ายที่ไม่เต็มจะเหลือบล็อกทองเปล่าค้างไว้
+
+   🚨 อย่าใช้ auto-fit กับกล่องนี้ (เคยพลาด): auto-fit ยัด 4 ช่องในคอลัมน์อ่าน ~590px
+   ได้ช่องละ ~147px แต่ตัวเลขแบบ "$4,706.4M" ที่ 2.35rem กว้าง ~179px → เลขล้นไปทับช่องข้างๆ
+   กติกา: 2 คอลัมน์เป็นค่าตั้งต้น ขยับเป็น 4 เฉพาะตอนจอกว้างพอจริงๆ
+   และขนาดตัวเลขต้องผูกกับความกว้าง "ของช่องตัวเอง" (cqi) ไม่ใช่ vw */
+.cs-stats {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  background: var(--paper);
+  border-top: 1px solid var(--gold-hair);
+  border-left: 1px solid var(--gold-hair);
+  margin: clamp(1.8rem, 4.5vw, 2.6rem) 0;
+}
+@media (min-width: 62rem) {
+  .cs-stats { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+}
+.cs-stat {
+  container-type: inline-size;
+  min-width: 0;
+  padding: 1.25rem 0.9rem;
+  text-align: center;
+  border-right: 1px solid var(--gold-hair);
+  border-bottom: 1px solid var(--gold-hair);
+}
+.cs-stat b {
+  display: block;
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-variant-numeric: lining-nums tabular-nums;
+  font-size: clamp(1.15rem, 11cqi, 2.05rem);
+  line-height: 1.15;
+  letter-spacing: -0.01em;
+  white-space: nowrap;
+  color: var(--gold);
+}
+.cs-stat span {
+  display: block;
+  margin-top: 0.5rem;
+  font-family: var(--font-book);
+  font-size: 0.85rem;
+  line-height: 1.65;
+  color: var(--muted);
+}
+
+/* ============================================================
+   9. ไทม์ไลน์
+   ============================================================ */
+.cs-tl { list-style: none; margin: clamp(1.8rem,4.5vw,2.6rem) 0; padding: 0; }
+.cs-tl li {
+  display: grid;
+  grid-template-columns: 4.2rem 1fr;
+  gap: 0 1.2rem;
+  margin: 0;
+  padding: 0 0 1.3rem;
+  position: relative;
+}
+.cs-tl li::before {                      /* เส้นแกนเวลา */
+  content: "";
+  position: absolute;
+  left: calc(4.2rem + 0.6rem - 1px);
+  top: 0.55rem;
+  bottom: -0.55rem;
+  width: 1px;
+  background: var(--gold-hair);
+}
+.cs-tl li:last-child { padding-bottom: 0; }
+.cs-tl li:last-child::before { display: none; }
+.cs-tl .yr {
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-variant-numeric: lining-nums tabular-nums;
+  font-size: 1.05rem;
+  color: var(--gold);
+  text-align: right;
+  line-height: 1.7;
+}
+.cs-tl .ev { position: relative; padding-left: 1.4rem; line-height: 1.8; }
+.cs-tl .ev::before {                     /* จุดบนแกน */
+  content: "";
+  position: absolute;
+  left: -0.79rem;
+  top: 0.72rem;
+  width: 7px; height: 7px;
+  border-radius: 50%;
+  background: var(--paper);
+  border: 1.5px solid var(--gold);
+}
+.cs-tl .ev b { font-weight: 600; }
+.cs-tl li.hit .ev::before { background: var(--gold); box-shadow: 0 0 0 3px var(--accent-tint); }
+
+/* ============================================================
+   10. บล็อกสองคอลัมน์ (ใช้กับบล็อกสั้นๆ เท่านั้น — ไม่ใช่เนื้อเรื่องหลัก
+       เพราะคอลัมน์ยาวบนจอทำให้ต้องเลื่อนขึ้น-ลงกลับไปกลับมา)
+   ============================================================ */
+.cs-spread { columns: 2; column-gap: clamp(1.6rem, 4vw, 2.8rem); column-rule: 1px solid var(--gold-hair); }
+.cs-spread > p { margin-top: 0; break-inside: avoid-column; }
+@media (max-width: 46rem) { .cs-spread { columns: 1; } }
+
+/* ============================================================
+   11. เส้นคาดท้ายตอน (running folio) — ละตินเท่านั้น
+   ============================================================ */
+.cs-folio {
+  display: grid;
+  grid-template-columns: auto 1fr auto 1fr auto;
+  align-items: center;
+  gap: 0.8rem;
+  margin: clamp(2.4rem, 6vw, 3.6rem) 0 0;
+  padding-top: 0.9rem;
+  font-family: var(--font-display);
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 0.24em;
+  font-size: 0.64rem;
+  line-height: 1;
+  color: var(--gold);
+  white-space: nowrap;
+}
+.cs-folio .ln { height: 1px; background: var(--gold-hair); }
+.cs-folio .orn { font-style: normal; font-size: 0.55rem; opacity: 0.8; }
+.cs-folio .pg {
+  padding: 0 0.75rem;
+  border-left: 1px solid var(--gold-hair);
+  border-right: 1px solid var(--gold-hair);
+  letter-spacing: 0.12em;
+}
+.cs-folio .bk { opacity: 0.8; }
+@media (max-width: 30rem) {
+  .cs-folio { font-size: 0.58rem; letter-spacing: 0.16em; gap: 0.5rem; }
+}
+
+/* ============================================================
+   12. ส่วนประกอบของเว็บที่ต้องกลืนไปกับเล่ม
+   ============================================================ */
+body.cs .kicker {
+  font-family: var(--font-display);
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 0.24em;
+  color: var(--gold);
+  background: none;
+  padding: 0;
+}
+body.cs .toc {
+  background: var(--surface-2);
+  border: 1px solid var(--gold-hair);
+  border-radius: 0;
+}
+body.cs .toc-title {
+  font-family: var(--font-book);
+  font-weight: 600;
+  color: var(--ink);
+  letter-spacing: 0;
+}
+body.cs .toc a { font-family: var(--font-book); }
+body.cs .toc li::marker { color: var(--gold); }
+body.cs .byline-author { font-family: var(--font-book); font-weight: 600; }
+body.cs .byline-info { font-family: var(--font-book); }
+body.cs .byline-avatar { font-family: var(--font-display); font-weight: 700; background: var(--grad); }
+body.cs main p a, body.cs main li a { color: var(--accent-strong); text-decoration-color: var(--gold-hair); }
+body.cs main p a:hover, body.cs main li a:hover { text-decoration-color: var(--gold); }
+body.cs li::marker { color: var(--gold); }
+body.cs table { font-family: var(--font-book); }
+body.cs .site-footer { font-family: var(--font-book); }
+
+/* ============================================================
+   13. เข้าถึงได้ / พิมพ์
+   ============================================================ */
+@media (prefers-reduced-motion: reduce) {
+  .cs-opener .cs-amb { animation: none !important; }
+}
+@media print {
+  body.cs { --bg: #fff; --paper: #fff; }
+  .cs-opener { min-height: auto; page-break-after: always; }
+  .cs-paper { box-shadow: none; border: 0; padding: 0; }
+}
+
+/* ============================================================
+   14. แถบหน้าร้านที่ก้นหน้าเปิดบท
+   อยู่นอก .ph-panel จึงไม่มี scene player มาคุม — เล่นเองตอนโหลด
+   (หน้าเปิดบทอยู่บนสุดของหน้าอยู่แล้ว ไม่ต้องรอ scroll)
+   ป้ายร้านคือของชิ้นเดียวในแถบนี้ที่มีสี — ที่เหลือเป็นเงา
+   ============================================================ */
+.cs-opener-art {
+  position: absolute;
+  /* วางให้พอดีในกรอบเส้นทองของหน้าเปิดบท (ระยะเดียวกับ .cs-opener::after)
+     ถ้าปล่อยชนขอบ 0 ตัวรถกับเส้นถนนจะโดนขอบล่างตัดครึ่ง ดูเหมือนภาพหลุด */
+  left: clamp(0.8rem, 2.4vw, 1.9rem);
+  right: clamp(0.8rem, 2.4vw, 1.9rem);
+  bottom: clamp(0.8rem, 2.4vw, 1.9rem);
+  height: clamp(7rem, 17vh, 11rem);
+  z-index: -1;
+  opacity: 0.72;
+  pointer-events: none;
+  overflow: hidden;
+  -webkit-mask-image: linear-gradient(180deg, transparent, #000 38%);
+  mask-image: linear-gradient(180deg, transparent, #000 38%);
+}
+.cs-opener-art svg { width: 100%; height: 100%; display: block; }
+
+.cs-opener-art .ar-far rect,
+.cs-opener-art .ar-store rect { fill: rgb(from var(--opener-ink) r g b / .09); }
+.cs-opener-art .ar-far rect   { fill: rgb(from var(--opener-ink) r g b / .05); }
+.cs-opener-art .ar-awn        { fill: rgb(var(--glow) / .30); }
+.cs-opener-art .ar-ground     { stroke: rgb(from var(--opener-ink) r g b / .16); stroke-width: 2; }
+.cs-opener-art .ar-pole       { fill: rgb(from var(--opener-ink) r g b / .18); }
+.cs-opener-art .ar-tile-b     { fill: #0A64A0; }
+.cs-opener-art .ar-tile-r     { fill: #C8172F; }
+.cs-opener-art .ar-dot        { fill: #F6F2EA; }
+.cs-opener-art .ar-car path,
+.cs-opener-art .ar-car circle { fill: rgb(from var(--opener-ink) r g b / .22); }
+.cs-opener-art .ar-beam       { fill: rgb(var(--glow) / .55); }
+
+/* หน้าต่างติดไฟทีละบาน = ร้านเปิดทำงาน */
+.cs-opener-art .ar-win rect { fill: rgb(var(--glow) / .42); }
+.cs-opener-art .ar-w1 { animation: arLight calc(var(--beat) * 1.4) var(--e-mech) .3s both; }
+.cs-opener-art .ar-w2 { animation: arLight calc(var(--beat) * 1.4) var(--e-mech) .7s both; }
+.cs-opener-art .ar-w3 { animation: arLight calc(var(--beat) * 1.4) var(--e-mech) 1.1s both; }
+@keyframes arLight { from { opacity: .08; } }
+
+/* ป้ายร้านสว่างขึ้นทีหลังหน้าต่าง (เหตุ→ผล) */
+.cs-opener-art .ar-sign { animation: arSign calc(var(--beat) * 2) var(--e-expo) 1.5s both;
+                          transform-box: fill-box; transform-origin: 617px 202px; }
+@keyframes arSign { from { opacity: 0; transform: scale(.9); } }
+
+/* รถออกจากร้านแล้วขับหายไป — ambient ท่าเดียวของแถบนี้ ช้าและเงียบ */
+.cs-opener-art .ar-car { animation: arDrive 13s linear 2.4s infinite; }
+@keyframes arDrive {
+  0%        { transform: translateX(560px); opacity: 0; }
+  6%, 82%   { opacity: 1; }
+  100%      { transform: translateX(1460px); opacity: 0; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .cs-opener-art * { animation: none !important; }
+  .cs-opener-art .ar-car { opacity: 0; }
+}

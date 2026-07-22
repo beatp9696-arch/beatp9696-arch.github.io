@@ -1,0 +1,104 @@
+.dpz-panel .sa-stage { container-type: inline-size; }
+.dpz-ink   { fill: var(--plate-ink); font-family: var(--font-book); }
+.dpz-dim   { fill: var(--plate-dim); font-family: var(--font-book); }
+.dpz-goldf { fill: var(--cs-a-lit); }
+.dpz-lat   { fill: var(--cs-a-lit); font-family: "Playfair Display", Georgia, serif; letter-spacing: 0.22em; }
+.dpz-lbl   { animation: dpzFade calc(var(--beat) * 1.2) var(--e-mech); }
+@keyframes dpzFade { from { opacity: 0; } }
+.dpz-punch { animation: dpzPunch calc(var(--beat) * 1.6) var(--e-expo); }
+@keyframes dpzPunch { from { opacity: 0; transform: translateY(10px); } }
+.dpz-card { animation: dpzCard calc(var(--beat) * 1.3) var(--e-mech); }
+@keyframes dpzCard { from { opacity: 0; transform: translateX(-22px); } }
+.dpz-drop { animation: dpzDrop calc(var(--beat) * 2.2) var(--e-fail); }
+@keyframes dpzDrop { from { transform: translateY(-216px); } }
+.dpz-rail { stroke: var(--plate-line); stroke-width: 3; stroke-linecap: round; }
+.dpz-fill { stroke: var(--cs-a-lit); stroke-width: 3; stroke-linecap: round;
+stroke-dasharray: 530; animation: dpzFill calc(var(--beat) * 5) var(--e-mech); }
+@keyframes dpzFill { from { stroke-dashoffset: 530; } }
+.dpz-node { transform-box: fill-box; transform-origin: center;
+animation: dpzNode calc(var(--beat) * 1.1) var(--e-mech); }
+@keyframes dpzNode { from { opacity: .16; transform: scale(.7); } }
+.dpz-hand { transform-box: fill-box; transform-origin: bottom center; transform: rotate(330deg);
+animation: dpzHand calc(var(--beat) * 5) steps(10, end); }
+@keyframes dpzHand { from { transform: rotate(0deg); } }
+.dpz-arc { fill: none; stroke: var(--cs-a-lit); stroke-width: 2.5; opacity: .55;
+stroke-dasharray: 265; animation: dpzArc calc(var(--beat) * 5) steps(10, end); }
+@keyframes dpzArc { from { stroke-dashoffset: 265; } }
+.dpz-live { transform-box: fill-box; transform-origin: center;
+animation: dpzLive calc(var(--beat) * 4) var(--e-expo) calc(var(--beat) * 9) infinite; }
+@keyframes dpzLive { 0%, 100% { opacity: .5; transform: scale(1); }
+50%      { opacity: .16; transform: scale(1.28); } }
+@property --dpzn { syntax: "<integer>"; initial-value: 0; inherits: false; }
+.dpz-count { position: absolute; right: 3.5cqw; bottom: 33%; text-align: right; line-height: 1.1; }
+.dpz-count b {
+display: block;
+font-family: "Playfair Display", Georgia, serif;
+font-weight: 700;
+font-variant-numeric: lining-nums tabular-nums;
+font-size: 3.6cqw;
+color: var(--cs-a-lit);
+--dpzn: 2500;
+counter-reset: dpzn var(--dpzn);
+animation: dpzCount calc(var(--beat) * 5) var(--e-mech);
+}
+.dpz-count b::after { content: counter(dpzn); }
+@keyframes dpzCount { from { --dpzn: 0; } }
+.dpz-count i { display: block; font-family: var(--font-book); font-style: normal;
+font-size: 1.4cqw; color: var(--plate-dim); margin-top: 0.5cqw; }
+.dpz-bar-up { transform-box: fill-box; transform-origin: bottom center;
+animation: dpzBar calc(var(--beat) * 1.4) var(--e-mass); }
+.dpz-bar-dn { transform-box: fill-box; transform-origin: top center;
+animation: dpzBar calc(var(--beat) * 1.4) var(--e-mass); }
+@keyframes dpzBar { from { transform: scaleY(0); } }
+.dpz-radius { transform-box: fill-box; transform-origin: center;
+animation: dpzRadius calc(var(--beat) * 4) var(--e-mass); }
+@keyframes dpzRadius { from { transform: scale(2.15); opacity: .45; } }
+.dpz-store { transform-box: fill-box; transform-origin: center;
+animation: dpzStore calc(var(--beat) * 1.2) var(--e-mech); }
+@keyframes dpzStore { from { opacity: 0; transform: scale(.55); } }
+.dpz-line-up, .dpz-line-dn { stroke-dasharray: 645;
+animation: dpzDraw calc(var(--beat) * 3.2) var(--e-mass); }
+@keyframes dpzDraw { from { stroke-dashoffset: 645; } }
+.dpz-sink { transform-box: fill-box; transform-origin: top center;
+animation: dpzSink calc(var(--beat) * 2) var(--e-mass); }
+@keyframes dpzSink { from { transform: scaleY(0); } }
+.dpz-panel [fill="#C9A05A"]            { fill: var(--cs-a-lit); }
+.dpz-panel [stroke="#C9A05A"]          { stroke: var(--cs-a-lit); }
+.dpz-panel [fill="#8A6B33"]            { fill: var(--a-mid); }
+.dpz-panel [stroke="#8A6B33"]          { stroke: var(--a-mid); }
+.dpz-panel [fill="#6E4B22"]            { fill: var(--a-mute); }
+.dpz-panel [fill="#8A4A2A"]            { fill: var(--cs-alt); }
+.dpz-panel [fill="#14120F"]            { fill: var(--plate); }
+.dpz-panel [fill="#100E0B"]            { fill: var(--plate-deep); }
+.dpz-panel [fill="#1B1710"]            { fill: var(--plate-card); }
+.dpz-panel [fill="#EDE4D2"]            { fill: var(--plate-ink); }
+.dpz-panel [fill="#8A7F6B"]            { fill: var(--plate-dim); }
+.dpz-panel [stroke="#3A2F1E"]          { stroke: var(--plate-line); }
+.dpz-panel [stroke="#4A3D28"]          { stroke: var(--plate-tick); }
+.dpz-panel [stroke="#2A2318"]          { stroke: var(--plate-edge); }
+.dpz-panel [stroke="#241E15"]          { stroke: var(--plate-ring); }
+.dpz-panel [stroke="#1E1911"]          { stroke: var(--plate-grid); }
+.dpz-panel [fill="rgba(201,160,90,.07)"] { fill: rgb(var(--glow) / .08); }
+.dpz-crust { animation: dpzCrust calc(var(--beat) * 1.6) var(--e-mass); }
+@keyframes dpzCrust { from { opacity: 0; transform: scale(.82); } }
+.dpz-crust { transform-box: fill-box; transform-origin: center; }
+.dpz-sl1, .dpz-sl2, .dpz-sl3, .dpz-sl4 {
+transform-box: view-box; transform-origin: 250px 200px;
+animation: dpzSlice calc(var(--beat) * 1.5) var(--e-mech);
+}
+@keyframes dpzSlice { from { opacity: 0; transform: scale(.55); } }
+.dpz-sl1 { transform: translate(17px, 6px); }
+@keyframes dpzSlice1 { from { opacity: 0; transform: translate(0, 0) scale(.55); } }
+.dpz-sl1 { animation-name: dpzSlice1; animation-duration: calc(var(--beat) * 2.2); }
+.dpz-pep { animation: dpzPep calc(var(--beat) * 1.2) var(--e-snapback);
+transform-box: fill-box; transform-origin: center; }
+@keyframes dpzPep { from { opacity: 0; transform: scale(.4); } }
+.dpz-panel [fill="#8A4A2A"] { fill: var(--cs-alt); }
+.dpz-panel .dpz-crust { fill: #C08B45; }
+.dpz-panel .dpz-sl1   { fill: #E3B970; stroke: var(--cs-a-lit); stroke-width: 3; }
+.dpz-panel .dpz-sl2   { fill: #BE8B3C; }
+.dpz-panel .dpz-sl3   { fill: #A5762E; }
+.dpz-panel .dpz-sl4   { fill: #8C6425; }
+.dpz-panel .dpz-pep circle { fill: #B0202F; }
+.dpz-panel .dpz-lbl line[stroke="#C9A05A"] { stroke: var(--cs-a-lit); }
+.dpz-panel .dpz-lbl line[stroke="#8A6B33"] { stroke: #BE8B3C; }
