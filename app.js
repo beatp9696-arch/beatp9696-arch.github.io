@@ -291,7 +291,7 @@
   // ---- hero stats + ปุ่มดูทั้งหมด (หน้าแรก) — นับจาก ARTICLES (SoT) ----
   // หน้าแรกโชว์แค่บทล่าสุด นับจาก DOM ไม่ได้แล้ว: deep-dive = มี ticker (tk)
   // "บทความ" นับซีรีส์ทั้งชุดเป็น 1 เรื่อง — prefix ต้อง sync กับ SERIES ใน build.py
-  var SERIES_PREFIXES = ["financials-", "buffett-talks-", "munger-talks-", "powers-", "moat-break-", "buffett-deals-"];
+  var SERIES_PREFIXES = ["financials-", "buffett-talks-", "munger-talks-", "powers-", "moat-break-", "buffett-deals-", "case-study-"];
   var nDeep = 0, nEp = 0, seriesSeen = {};
   ARTICLES.forEach(function (a) {
     if (a.tk) nDeep++;
