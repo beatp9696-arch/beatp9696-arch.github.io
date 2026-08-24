@@ -1,0 +1,567 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <script>try{var t=localStorage.getItem('theme');if(t)document.documentElement.setAttribute('data-theme',t);}catch(e){}</script>
+  <title>ผ่าธุรกิจ DLO (dLocal) — TPV โต 92% แต่ take rate ร่วง 7 ไตรมาสติด | Moatrices</title>
+  <meta name="description" content="ผ่าธุรกิจ dLocal (DLO) — ทำไม TPV โต 92% แต่ gross profit โตแค่ 29%, take rate ร่วงจาก 1.09% เหลือ 0.72% ใน 7 ไตรมาส, moat ใบอนุญาตใน 40+ ประเทศเป็นของจริงไหม, เทียบ Adyen 16 bps กับ dLocal 72 bps และโมเดล 5 ปีพร้อมตาราง sensitivity อ้างอิงงบ Q2 2026">
+  <meta property="og:type" content="article">
+  <meta property="og:site_name" content="Moatrices">
+  <meta property="og:title" content="ผ่าธุรกิจ DLO (dLocal) — TPV โต 92% แต่ take rate ร่วง 7 ไตรมาสติด">
+  <meta property="og:description" content="ผ่าธุรกิจ dLocal (DLO) — ทำไม TPV โต 92% แต่ gross profit โตแค่ 29%, take rate ร่วงจาก 1.09% เหลือ 0.72% ใน 7 ไตรมาส, moat ใบอนุญาตใน 40+ ประเทศเป็นของจริงไหม, เทียบ Adyen 16 bps กับ dLocal 72 bps และโมเดล 5 ปีพร้อมตาราง sensitivity อ้างอิงงบ Q2 2026">
+  <meta property="og:url" content="https://beatp9696-arch.github.io/articles/deep-dive-dlo.html">
+  <meta property="og:locale" content="th_TH">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta property="og:image" content="https://beatp9696-arch.github.io/og-deep-dive-dlo.png">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta name="twitter:image" content="https://beatp9696-arch.github.io/og-deep-dive-dlo.png">
+  <meta name="author" content="Moatrices">
+  <link rel="canonical" href="https://beatp9696-arch.github.io/articles/deep-dive-dlo.html">
+  <link rel="alternate" type="application/rss+xml" title="Moatrices RSS" href="/feed.xml">
+  <meta name="theme-color" media="(prefers-color-scheme: light)" content="#f7f5f0">
+  <meta name="theme-color" media="(prefers-color-scheme: dark)" content="#121417">
+  <link rel="icon" href="../favicon.svg" type="image/svg+xml">
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png">
+  <link rel="manifest" href="/site.webmanifest">
+  <link rel="preload" as="font" type="font/woff2" href="../fonts/sarabun-400-thai.woff2" crossorigin>
+  <link rel="preload" as="font" type="font/woff2" href="../fonts/sarabun-400-latin.woff2" crossorigin>
+  <link rel="stylesheet" href="../style.min.css">
+      <!-- SCENE-CSS -->
+      <link rel="stylesheet" href="../scenes/deep-dive-dlo.min.css">
+      <!-- /SCENE-CSS -->
+  <script type="application/ld+json">
+  {"@context": "https://schema.org", "@type": "BlogPosting", "headline": "DLO (dLocal)", "description": "ผ่าธุรกิจ dLocal (DLO) — ทำไม TPV โต 92% แต่ gross profit โตแค่ 29%, take rate ร่วงจาก 1.09% เหลือ 0.72% ใน 7 ไตรมาส, moat ใบอนุญาตใน 40+ ประเทศเป็นของจริงไหม, เทียบ Adyen 16 bps กับ dLocal 72 bps และโมเดล 5 ปีพร้อมตาราง sensitivity อ้างอิงงบ Q2 2026", "image": ["https://beatp9696-arch.github.io/og-deep-dive-dlo.png"], "author": {"@type": "Person", "name": "Moatrices"}, "publisher": {"@type": "Organization", "name": "Moatrices", "logo": {"@type": "ImageObject", "url": "https://beatp9696-arch.github.io/icon-512.png"}}, "mainEntityOfPage": {"@type": "WebPage", "@id": "https://beatp9696-arch.github.io/articles/deep-dive-dlo.html"}, "inLanguage": "th", "datePublished": "2026-08-23", "dateModified": "2026-08-23"}
+  </script>
+  <script type="application/ld+json">
+  {"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "หน้าแรก", "item": "https://beatp9696-arch.github.io/"}, {"@type": "ListItem", "position": 2, "name": "DLO (dLocal)", "item": "https://beatp9696-arch.github.io/articles/deep-dive-dlo.html"}]}
+  </script>
+</head>
+<body>
+
+  <div class="reading-progress"></div>
+  <div class="top-accent"></div>
+
+  <header class="site-header">
+    <div class="container">
+      <a href="../index.html" class="site-title">Moatrices</a>
+      <nav class="site-nav">
+        <a href="../index.html">หน้าแรก</a>
+        <a href="../articles.html">บทความ</a>
+        <a href="../stocks.html">หุ้น</a>
+        <a href="../tools.html">เครื่องมือ</a>
+        <a href="../dashboard.html">Dashboard</a>
+        <a href="../about.html">เกี่ยวกับ</a>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <div class="container">
+
+      <span class="kicker">Deep-dive · หุ้นจริง</span>
+      <h1>ผ่าธุรกิจ DLO (dLocal) — TPV โต 92% แต่ take rate ร่วง 7 ไตรมาสติด</h1>
+      <div class="company-header">
+        <span class="company-logo"><img src="../logos/DLO.png" alt="DLocal Limited logo" width="44" height="44"></span>
+        <span class="company-meta">
+          <span class="company-ticker">DLO <span class="company-exch">NASDAQ</span></span>
+          <span class="company-name">DLocal Limited</span>
+        </span>
+      </div>
+      <div class="byline">
+        <span class="byline-avatar">M</span>
+        <div>
+          <div class="byline-author">Moatrices</div>
+          <div class="byline-info">23 ส.ค. 2026 · อ่าน ~18 นาที</div>
+        </div>
+      </div>
+
+      <!-- TOC-START -->
+      <nav class="toc">
+        <div class="toc-title">ในบทความนี้</div>
+        <ol>
+          <li><a href="#sec-1">1. ธุรกิจนี้หาเงินจากอะไร</a></li>
+          <li><a href="#sec-2">2. Moat: ใบอนุญาตเป็นคูเมืองจริง แต่ไม่ใช่คูเมืองแบบที่คิด</a></li>
+          <li><a href="#sec-3">3. ความตึงเครียดหลัก: take rate ร่วง 6 ใน 7 ไตรมาส</a></li>
+          <li><a href="#sec-4">4. ทำไมมันร่วง และจะหยุดที่ไหน</a></li>
+          <li><a href="#sec-5">5. ทำไม dLocal เก็บได้ 4.5 เท่าของ Adyen</a></li>
+          <li><a href="#sec-6">6. Valuation — ตัวแปรเดียวที่ตัดสินทุกอย่าง</a></li>
+          <li><a href="#sec-7">7. แผงมอนิเตอร์ thesis — ตอนนี้ห่างเส้นแดงแค่ไหน</a></li>
+          <li><a href="#sec-8">8. สรุป</a></li>
+        </ol>
+      </nav>
+      <!-- TOC-END -->
+
+      <p class="lead">
+        ไตรมาส 2 ปี 2026 dLocal ประมวลผลเงิน <strong>$17.7 พันล้าน</strong> โต 92% เร็วที่สุดในรอบ 4 ปี
+        และมากกว่าที่ทำได้ทั้งปี 2023 แต่ในไตรมาสเดียวกันนั้น กำไรขั้นต้นที่เก็บได้จากทุก 1 ดอลลาร์
+        ที่ไหลผ่านระบบ ลดลงเหลือ <strong>0.72 สตางค์</strong> ต่ำสุดเท่าที่เคยมี บทนี้ผ่าว่าทำไมสองอย่างนี้
+        เกิดพร้อมกันได้ moat ใบอนุญาตใน 40+ ประเทศเป็นของจริงไหม และตอนนี้ห่างเส้นแดงแค่ไหน
+      </p>
+
+      <blockquote>
+        ตัวเลขอ้างอิงงบไตรมาส 2 ปี 2026 (แถลง 13 ส.ค. 2026) ย้อนถึงไตรมาส 4 ปี 2024
+        พร้อม prepared remarks และ 20-F FY2025 · ราคาอ้างอิง $15.17
+        เป็นบันทึกการเรียนเพื่อการศึกษา ไม่ใช่คำแนะนำซื้อขาย
+      </blockquote>
+
+      <h2 id="sec-1">1. ธุรกิจนี้หาเงินจากอะไร</h2>
+
+      <p>
+        dLocal เป็นโครงสร้างพื้นฐานการชำระเงินสำหรับ<strong>ตลาดเกิดใหม่โดยเฉพาะ</strong> — ไม่แข่งใน
+        สหรัฐฯ ยุโรป หรืออังกฤษเลย สิ่งที่ขายคือ: บริษัทระดับโลกอย่าง Uber, Amazon, Spotify อยากเก็บเงิน
+        จากผู้ใช้ในไนจีเรีย บังกลาเทศ หรือเวียดนาม แต่ไม่อยากไปตั้งนิติบุคคล ขอใบอนุญาต และต่อระบบ
+        กับ payment method ท้องถิ่นเองใน 40 ประเทศ dLocal ทำให้ทั้งหมดนั้นเหลือการต่อ API เพียงครั้งเดียว
+      </p>
+
+      <figure class="ph-fig"><div class="ph-panel dlo-panel"><div class="ph-eyebrow dlo">เงิน $100 ที่วิ่งผ่าน dLocal · เหลือถึงผู้ถือหุ้นเท่าไหร่</div>
+        <svg viewBox="0 0 840 330" role="img" aria-label="แผนภาพแสดงว่าเงิน 100 ดอลลาร์ที่ไหลผ่าน dLocal เหลือเป็นกำไรสุทธิเพียง 31 สตางค์">
+          <text class="s-t sm dlo-lbl" x="60" y="32" style="text-anchor:start">TPV — เงินที่ลูกค้าจ่ายจริง</text>
+          <rect class="dlo-bar-full" x="60" y="44" width="720" height="34" rx="5"/>
+          <text class="s-t dlo-big" x="70" y="67" style="text-anchor:start">$100.00</text>
+          <rect class="dlo-sliver" x="763.7" y="44" width="16.3" height="34" rx="3"/>
+          <text class="sim-mono dlo-mono" x="780" y="98" style="text-anchor:end">2.26% ที่ dLocal บันทึกเป็นรายได้ ↓</text>
+
+          <path class="dlo-zoom" d="M763.7,80 L300,120 M780,80 L780,120"/>
+
+          <text class="s-t sm dlo-lbl" x="60" y="146" style="text-anchor:start">ซูมเข้าไปในเศษ 2.26% นั้น</text>
+          <g class="dlo-step"><rect class="dlo-bar-a" x="300" y="158" width="480" height="30" rx="5"/>
+            <text class="s-t sm dlo-lbl" x="290" y="178" style="text-anchor:end">Revenue</text>
+            <text class="s-t dlo-num" x="770" y="178" style="text-anchor:end">$2.26</text></g>
+          <g class="dlo-step"><rect class="dlo-bar-b" x="300" y="198" width="153" height="30" rx="5"/>
+            <text class="s-t sm dlo-lbl" x="290" y="218" style="text-anchor:end">Gross profit</text>
+            <text class="s-t dlo-num hi" x="463" y="218" style="text-anchor:start">$0.72</text></g>
+          <g class="dlo-step"><rect class="dlo-bar-c" x="300" y="238" width="77" height="30" rx="5"/>
+            <text class="s-t sm dlo-lbl" x="290" y="258" style="text-anchor:end">Operating profit</text>
+            <text class="s-t dlo-num" x="387" y="258" style="text-anchor:start">$0.36</text></g>
+          <g class="dlo-step"><rect class="dlo-bar-d" x="300" y="278" width="66" height="30" rx="5"/>
+            <text class="s-t sm dlo-lbl" x="290" y="298" style="text-anchor:end">Net income</text>
+            <text class="s-t dlo-num" x="376" y="298" style="text-anchor:start">$0.31</text></g>
+        </svg>
+      </div><figcaption>ทุก $100 ที่วิ่งผ่านระบบ dLocal บันทึกเป็นรายได้ $2.26 แต่<strong>เหลือเป็นกำไรขั้นต้นเพียง $0.72</strong> และเป็นกำไรสุทธิ $0.31 — นี่คือเหตุผลที่ TPV เป็นตัวเลขที่<strong>หลอกตา</strong> ถ้าดูอย่างเดียว (ตัวเลขไตรมาส 2 ปี 2026)</figcaption></figure>
+
+      <p>
+        จุดสำคัญที่สุดของบทนี้อยู่ตรงนี้: <strong>TPV ไม่ใช่รายได้ และ revenue ก็ไม่ใช่ตัวเลขที่ควรใช้</strong>
+        dLocal บันทึกรายได้แบบ gross คือรวมต้นทุนที่ต้องจ่ายต่อให้ธนาคารและเครือข่ายบัตรปลายทางไว้ด้วย
+        ตัวเลขที่สะท้อนธุรกิจจริงคือ <strong>gross profit</strong> — และนั่นคือสิ่งที่ควรถือเป็น "รายได้ที่แท้จริง"
+        ของบริษัทนี้
+      </p>
+
+      <p>
+        ธุรกิจแบ่งเป็นสองขา — <strong>pay-in</strong> (เก็บเงินจากผู้ใช้ปลายทาง ผ่าน Pix, M-Pesa, OXXO,
+        UPI, บัตรท้องถิ่น, เงินสด) และ <strong>pay-out</strong> (จ่ายเงินออกให้คนขับ ผู้ขาย ฟรีแลนซ์)
+        ธุรกรรมยังแบ่งเป็น cross-border ที่มีขา FX ให้กินส่วนต่าง กับ local-to-local ที่ไม่มี —
+        ความต่างตรงนี้จะกลายเป็นหัวใจของทั้งบทความ
+      </p>
+
+      <h2 id="sec-2">2. Moat: ใบอนุญาตเป็นคูเมืองจริง แต่ไม่ใช่คูเมืองแบบที่คิด</h2>
+
+      <p>
+        หลักฐานที่หนักที่สุดว่า moat มีจริง ไม่ใช่คำอธิบายของบริษัท แต่คือ<strong>สิ่งที่คู่แข่งทำไม่ได้</strong> —
+        Adyen มีทุนและวิศวกรมากกว่าหลายเท่า Stripe ระดมทุนมาแล้วมหาศาล ทั้งคู่รู้จักตลาดเกิดใหม่ดี
+        และทั้งคู่ยังไม่ทำซ้ำ footprint ของ dLocal
+      </p>
+
+      <p>
+        เหตุผลคือมันไม่ใช่คูเมืองเดียว แต่เป็น<strong>คูเมืองเล็กๆ 40 อันซ้อนกัน</strong> แต่ละประเทศต้องมี
+        นิติบุคคล ทุนจดทะเบียนตามกฎหมาย compliance officer ท้องถิ่น ระบบ AML/KYC ตามกฎแต่ละประเทศ
+        และ data residency คู่แข่งลอกได้ทีละประเทศใน 1–2 ปี แต่จะลอก 40 ประเทศต้องใช้เวลาสิบปี
+      </p>
+
+      <p>
+        <strong>หลักฐานที่ชัดที่สุดคือ Amazon</strong> — บริษัทที่มีองค์กร payments ใหญ่ที่สุดแห่งหนึ่งในโลก
+        มี Amazon Pay มีสายตรงกับ acquirer ทุกที่ และมีทุนไม่จำกัด ยังเลือกใช้ dLocal เก็บค่าสมาชิก
+        Prime Video ในสกุลเงินท้องถิ่นราว 25 ประเทศ ตั้งแต่ชิลีปี 2020 จนถึงปารากวัย เคนยา ไนจีเรีย
+      </p>
+
+      <p>
+        แต่เหตุผลที่ Amazon เลือกจ้าง ไม่ใช่ "ทำเองไม่ได้" — คือ<strong>"ทำได้แต่ไม่คุ้ม"</strong>
+        การเอาทีมกฎหมายกับวิศวกรไปขอใบอนุญาตในปารากวัยเพื่อเก็บเงินไม่กี่ล้านดอลลาร์
+        ให้ผลตอบแทนแย่กว่าเอาคนกลุ่มเดียวกันไปทำ US/EU มาก
+      </p>
+
+      <blockquote>
+        <strong>และนี่คือจุดที่ต้องระวัง:</strong> คูเมืองแบบ "ไม่คุ้มที่จะทำ" จะกร่อน<strong>ตอนที่ตลาดโตพอ</strong>
+        พอบราซิลกับเม็กซิโกใหญ่ขึ้น มันเริ่มคุ้มที่จะทำเอง — moat จึงทนทานใน long tail แต่กร่อนที่หัว
+      </blockquote>
+
+      <p>
+        และมีความไม่สมมาตรอีกอย่างที่อธิบายทั้งบทความนี้ได้: <strong>moat อยู่ที่พอร์ตทั้งก้อน
+        แต่ราคาถูกเจรจาทีละประเทศ</strong> ลูกค้าที่ใช้ dLocal 25 ประเทศจะย้ายออกทั้งหมดพร้อมกัน = แพงมหาศาล
+        ไม่มีใครทำ (จึงเห็น retention สูง) แต่จะเอาใบเสนอราคาจาก acquirer ท้องถิ่นมาวางบนโต๊ะตอนต่อสัญญา
+        = ถูกมาก ทำได้ทุกปี (จึงเห็น pricing power ต่ำ)
+      </p>
+
+      <h2 id="sec-3">3. ความตึงเครียดหลัก: take rate ร่วง 6 ใน 7 ไตรมาส</h2>
+
+      <figure class="ph-fig"><div class="ph-panel dlo-panel"><div class="ph-eyebrow dlo">Gross profit ÷ TPV · ไตรมาส 4 ปี 2024 → ไตรมาส 2 ปี 2026</div>
+        <svg viewBox="0 0 840 300" role="img" aria-label="กราฟเส้นแสดง take rate ของ dLocal ลดลงจาก 1.09% เหลือ 0.72% ใน 7 ไตรมาส โดยเส้นแดง kill condition อยู่ที่ 0.65%">
+          <g class="dlo-grid">
+            <line x1="90" y1="59" x2="790" y2="59"/><line x1="90" y1="97" x2="790" y2="97"/>
+            <line x1="90" y1="136" x2="790" y2="136"/><line x1="90" y1="174" x2="790" y2="174"/>
+            <line x1="90" y1="212" x2="790" y2="212"/>
+          </g>
+          <text class="sim-mono dlo-mono" x="80" y="63" style="text-anchor:end">1.1%</text>
+          <text class="sim-mono dlo-mono" x="80" y="101" style="text-anchor:end">1.0%</text>
+          <text class="sim-mono dlo-mono" x="80" y="140" style="text-anchor:end">0.9%</text>
+          <text class="sim-mono dlo-mono" x="80" y="178" style="text-anchor:end">0.8%</text>
+          <text class="sim-mono dlo-mono" x="80" y="216" style="text-anchor:end">0.7%</text>
+
+          <rect class="dlo-killzone" x="90" y="231" width="700" height="24"/>
+          <line class="dlo-killline" x1="90" y1="231" x2="790" y2="231"/>
+          <text class="sim-mono dlo-kill" x="786" y="248" style="text-anchor:end">เส้นแดง kill condition · 0.65%</text>
+
+          <polyline class="dlo-line" points="90,64 205,79 320,69 435,100 550,142 665,158 780,205"/>
+          <g class="dlo-dot">
+            <circle cx="90" cy="64" r="5"/><circle cx="205" cy="79" r="5"/><circle cx="320" cy="69" r="5"/>
+            <circle cx="435" cy="100" r="5"/><circle cx="550" cy="142" r="5"/><circle cx="665" cy="158" r="5"/>
+          </g>
+          <circle class="dlo-dot-now" cx="780" cy="205" r="6.5"/>
+          <text class="s-t dlo-num" x="90" y="48" style="text-anchor:start">1.09%</text>
+          <text class="s-t dlo-num warn" x="780" y="194" style="text-anchor:end">0.72%</text>
+
+          <g class="sim-mono dlo-mono">
+            <text x="90" y="278">Q4'24</text><text x="205" y="278">Q1'25</text><text x="320" y="278">Q2'25</text>
+            <text x="435" y="278">Q3'25</text><text x="550" y="278">Q4'25</text><text x="665" y="278">Q1'26</text>
+            <text x="780" y="278">Q2'26</text>
+          </g>
+        </svg>
+      </div><figcaption>Take rate ลดลง <strong>6 ใน 7 ไตรมาส</strong> — ไตรมาสเดียวที่ขยับขึ้นคือ Q2 2025 หลังจากนั้นลงตลอด และ Q2 2026 คือการลดลงแรงที่สุดในชุดข้อมูล <strong>ลง 12 bps ในไตรมาสเดียว</strong> เหลือระยะห่างจากเส้นแดงเพียง 7 bps</figcaption></figure>
+
+      <table>
+        <thead><tr><th>ไตรมาส</th><th>TPV</th><th>Revenue</th><th>Gross profit</th><th>GP ÷ TPV</th><th>Rev ÷ TPV</th><th>Gross margin</th></tr></thead>
+        <tbody>
+          <tr><td>Q4 2024</td><td>$7.7B</td><td>$204.5M</td><td>$83.7M</td><td>1.09%</td><td>2.66%</td><td>40.9%</td></tr>
+          <tr><td>Q1 2025</td><td>$8.1B</td><td>$216.8M</td><td>$84.9M</td><td>1.05%</td><td>2.68%</td><td>39.2%</td></tr>
+          <tr><td>Q2 2025</td><td>$9.2B</td><td>$256.2M*</td><td>$98.9M</td><td>1.08%</td><td>2.79%</td><td>38.6%</td></tr>
+          <tr><td>Q3 2025</td><td>$10.4B</td><td>$282.5M</td><td>$103.2M</td><td>0.99%</td><td>2.72%</td><td>36.5%</td></tr>
+          <tr><td>Q4 2025</td><td>$13.1B</td><td>$337.9M</td><td>$115.8M</td><td>0.88%</td><td>2.58%</td><td>34.3%</td></tr>
+          <tr><td>Q1 2026</td><td>$14.1B</td><td>$335.9M</td><td>$118.7M</td><td>0.84%</td><td>2.38%</td><td>35.3%</td></tr>
+          <tr><td><strong>Q2 2026</strong></td><td><strong>$17.7B</strong></td><td><strong>$399.7M</strong></td><td><strong>$127.2M</strong></td><td><strong>0.72%</strong></td><td><strong>2.26%</strong></td><td><strong>31.8%</strong></td></tr>
+        </tbody>
+      </table>
+      <p class="dlo-note">* Revenue Q2 2025 คำนวณย้อนจาก Q2 2026 ($399.7M, +56% YoY) ตัวเลขอื่นเป็นค่าที่บริษัทรายงานโดยตรง</p>
+
+      <p>
+        สองสิ่งที่ตารางนี้บอกและกราฟบอกไม่ได้:
+      </p>
+      <ul>
+        <li><strong>TPV โต 130% แต่ gross profit โตแค่ 52%</strong> ($7.7B→$17.7B เทียบกับ $83.7M→$127.2M)
+          — ต้องใช้วอลุ่มมากขึ้นเรื่อยๆ เพื่อสร้างกำไรเพิ่มหนึ่งหน่วย</li>
+        <li><strong>Revenue ต่อ TPV ก็เริ่มบีบแล้ว</strong> — ทรงที่ราว 2.7% มาตลอดจนถึง Q3 2025
+          แล้วร่วงเหลือ 2.26% ใน 2 ไตรมาสล่าสุด แปลว่าแรงกดไม่ได้อยู่แค่ฝั่งต้นทุนประมวลผล
+          แต่<strong>กระทบราคาที่เก็บได้จริง</strong>ด้วย</li>
+      </ul>
+
+      <p>
+        แต่ต้องพูดให้เป็นธรรม: <strong>gross profit ไม่เคยลดลงสักไตรมาส</strong> — จาก $83.7M เป็น $127.2M
+        ไม่มีไตรมาสไหนติดลบเลย นี่ไม่ใช่ธุรกิจที่หดตัว
+      </p>
+
+      <h2 id="sec-4">4. ทำไมมันร่วง และจะหยุดที่ไหน</h2>
+
+      <p>
+        take rate ที่ตกมาจากหลายสาเหตุ และแต่ละสาเหตุมีทางแก้ไม่เหมือนกัน — บางอันแก้ได้ บางอันแก้ไม่ได้เลย
+      </p>
+
+      <table>
+        <thead><tr><th>สาเหตุ</th><th>ย้อนกลับได้ไหม</th></tr></thead>
+        <tbody>
+          <tr><td><strong>Tiered pricing</strong> — ลูกค้าใหญ่ไต่ขั้นราคาลงตามวอลุ่ม</td><td>แก้ไม่ได้ แต่<strong>จบเองได้</strong> — พอถึงขั้นล่างสุดแรงกดหยุด</td></tr>
+          <tr><td><strong>Mix เป็น local-to-local</strong> — ขึ้นเป็น 61% ของ TPV (+6 จุดในไตรมาสเดียว)</td><td>แก้ยากมาก ขึ้นกับว่า vertical ไหนโต</td></tr>
+          <tr><td><strong>Mix ประเทศ</strong> — โตกระจุกในบราซิล/เม็กซิโกที่ spread ต่ำ</td><td>แก้ได้ ถ้าตลาด spread สูงโตเร็วกว่า</td></tr>
+          <tr><td><strong>กำไร FX ครั้งคราว</strong> — โมซัมบิก เวียดนาม อาร์เจนตินา</td><td>ไม่ใช่สิ่งที่ควรคาดหวังให้กลับมา</td></tr>
+          <tr><td><strong>การแข่งขัน</strong> — บราซิล เม็กซิโก อินเดีย</td><td>แก้ไม่ได้ จะหนักขึ้นเรื่อยๆ</td></tr>
+        </tbody>
+      </table>
+
+      <p>
+        <strong>สาเหตุส่วนใหญ่ไม่ย้อนกลับ</strong> คำถามที่ถูกต้องจึงไม่ใช่ "จะกลับไป 1.09% ได้ไหม"
+        แต่คือ "จะหยุดที่เท่าไหร่" — และคณิตศาสตร์ของ mix ให้คำตอบที่ตรวจสอบได้:
+      </p>
+
+      <blockquote>
+        ถ้า local-to-local ให้ราว 0.40% และ cross-border ให้ราว 1.30%<br>
+        ที่ mix ปัจจุบัน 61/39 → blended = <strong>0.75%</strong> (ใกล้ของจริงมาก)<br>
+        ที่ mix 75/25 → blended = <strong>0.625%</strong>
+      </blockquote>
+
+      <p>
+        แปลว่าถ้า local-to-local ไต่ขึ้นไปถึงราว 75% ของ TPV take rate จะลงไปแตะระดับ 0.60–0.63%
+        ซึ่ง<strong>ต่ำกว่าเส้นแดง kill condition ที่ 0.65%</strong> — นี่ไม่ใช่ฉากที่ต้องจินตนาการ
+        มันเป็นผลลัพธ์ทางคณิตศาสตร์ของ mix ที่กำลังเคลื่อนอยู่ตอนนี้
+      </p>
+
+      <p>
+        และตรงนี้คือความย้อนแย้งที่สำคัญที่สุด: <strong>ส่วนที่โตเร็วที่สุด คือส่วนที่ moat มีค่าน้อยที่สุด</strong>
+        จุดที่ dLocal สร้างมูลค่าสูงสุดคือ cross-border — เอาเงินออกจากประเทศที่มี capital control
+        แปลงค่าเงิน จัดการภาษีหัก ณ ที่จ่าย นั่นคือที่ที่ใบอนุญาตมีความหมาย แต่ local-to-local
+        คือการจ่ายเงินในประเทศเดียวกัน ซึ่ง acquirer ท้องถิ่นทำได้ และ Pix กับ UPI ทำได้เกือบฟรี
+      </p>
+
+      <p>
+        <strong>ภัยคุกคามที่แท้จริงจึงไม่ใช่คู่แข่งเอกชน แต่คือรางที่รัฐสร้างเอง</strong> —
+        dLocal กัน Adyen ได้ แต่กัน Pix ไม่ได้ และโมเดล Pix กำลังถูกลอกไปทั่วโลกเกิดใหม่
+      </p>
+
+      <p>
+        ทางแก้เชิงโครงสร้างที่บริษัทมีอยู่คือ<strong>ขายของแพงขึ้นบนวอลุ่มเดิม</strong> — <strong>dMORE</strong>
+        (Merchant of Record ที่ dLocal เป็นผู้ขายตามกฎหมาย รับภาระภาษี compliance และ chargeback
+        จึงเก็บค่าธรรมเนียมได้สูงขึ้นมาก) ซึ่งยังไม่ launch และ <strong>BNPL</strong> ที่ live แล้ว 8 ตลาด
+        แต่มาพร้อม credit loss ที่เริ่มเห็นในงบครึ่งปีแรกแล้ว
+      </p>
+
+      <h2 id="sec-5">5. ทำไม dLocal เก็บได้ 4.5 เท่าของ Adyen</h2>
+
+      <figure class="ph-fig"><div class="ph-panel dlo-panel"><div class="ph-eyebrow dlo">รายได้ที่เหลือหลังหักค่าราง · ต่อทุก $100 ที่ประมวลผล</div>
+        <svg viewBox="0 0 840 250" role="img" aria-label="เปรียบเทียบ take rate ของ dLocal ที่ 72 basis points กับ Adyen ที่ 16 basis points">
+          <text class="s-t dlo-lbl" x="120" y="52" style="text-anchor:end">dLocal</text>
+          <rect class="dlo-cmp-a" x="140" y="30" width="600" height="38" rx="5"/>
+          <text class="s-t dlo-num hi" x="160" y="55" style="text-anchor:start">72 bps</text>
+          <text class="sim-mono dlo-mono" x="740" y="55" style="text-anchor:end">gross profit ÷ TPV · Q2 2026</text>
+
+          <text class="s-t dlo-lbl" x="120" y="122" style="text-anchor:end">Adyen</text>
+          <rect class="dlo-cmp-b" x="140" y="100" width="133" height="38" rx="5"/>
+          <text class="s-t dlo-num" x="288" y="125" style="text-anchor:start">16.2 bps</text>
+          <text class="sim-mono dlo-mono" x="740" y="125" style="text-anchor:end">net revenue ÷ volume · H1 2026</text>
+
+          <line class="dlo-div" x1="60" y1="165" x2="780" y2="165"/>
+          <text class="sim-mono dlo-mono" x="60" y="192" style="text-anchor:start">แต่ขนาดกลับกัน —</text>
+          <text class="s-t dlo-lbl" x="60" y="222" style="text-anchor:start">Adyen ประมวลผล €804B ในครึ่งปี · dLocal $31.8B — <tspan class="dlo-hi-t">ใหญ่กว่าราว 25 เท่า</tspan></text>
+        </svg>
+      </div><figcaption>dLocal เก็บได้ต่อดอลลาร์<strong>มากกว่า Adyen ราว 4.5 เท่า</strong> — นั่นคือค่าตอบแทนของความยากในตลาดเกิดใหม่ และเป็นคูเมืองที่<strong>วัดเป็นตัวเลขได้</strong> แต่ Adyen ใหญ่กว่าในเชิงวอลุ่มราว 25 เท่า</figcaption></figure>
+
+      <p>
+        Stripe กับ Adyen แข่งกันบน<strong>รางที่มีอยู่แล้ว</strong> (บัตร SEPA ACH) ส่วน dLocal
+        ขายทางออกให้กับ<strong>รางที่ไม่ต่อกัน</strong> มูลค่าอยู่ที่ regulatory และ FX
+        ไม่ใช่เทคโนโลยีการประมวลผล ทั้งสามจึงมักอยู่ร่วมกันได้ — ลูกค้าหลายรายใช้ Adyen ทั่วโลก
+        และใช้ dLocal เฉพาะตลาดเกิดใหม่
+      </p>
+
+      <p>
+        <strong>ข้อสังเกตที่สำคัญ:</strong> Adyen เองก็โดนบีบ — take rate ลดจาก 17.1 bps ใน H2 2025
+        เหลือ 16.2 bps ใน H1 2026 ด้วยเหตุผลเดียวกันเป๊ะ คือลูกค้ารายใหญ่ขึ้น ราคาต่อหน่วยถูกลง
+        แต่ต้องดูอัตราด้วย: <strong>Adyen ลง ~5% ในหนึ่งปี ขณะที่ dLocal ลง ~34% ใน 7 ไตรมาส
+        เร็วกว่าราว 6 เท่า</strong> จะบอกว่าเป็นเรื่องอุตสาหกรรมล้วนๆ ไม่ได้
+      </p>
+
+      <p>
+        จุดปะทะกำลังก่อตัวใน<strong>บราซิล เม็กซิโก และอินเดีย</strong> ซึ่งเป็นตลาดเกิดใหม่ที่พัฒนาแล้วที่สุด
+        และน่าคิดว่า <strong>เม็กซิโกคือประเทศเดียวที่ dLocal รายงานว่า gross profit ลดลง QoQ
+        ทั้งที่วอลุ่มโตดี</strong> บริษัทอธิบายว่าเป็นเรื่อง mix กับ tiered pricing ซึ่งอาจจริง
+        แต่ก็เป็นตลาดที่การแข่งขันเข้มข้นที่สุดพอดี
+      </p>
+
+      <h2 id="sec-6">6. Valuation — ตัวแปรเดียวที่ตัดสินทุกอย่าง</h2>
+
+      <p>
+        ที่ราคา $15.17 market cap ราว $4.55B บน TTM net income $204M = <strong>P/E ราว 22 เท่า</strong>
+        เทียบกับ guidance ที่กำไรจากการดำเนินงานจะโต 27.5–32.5% — ไม่ได้แพง
+      </p>
+
+      <p>
+        แต่มีตัวเลขหนึ่งที่ต้องเห็น เมื่อแกะ guidance ปี 2026 ออกมา:
+      </p>
+
+      <table>
+        <thead><tr><th>Operating profit</th><th>ตัวเลข</th></tr></thead>
+        <tbody>
+          <tr><td>FY2025 จริง</td><td>~$220M</td></tr>
+          <tr><td>FY2026 ตาม guidance (+27.5–32.5%)</td><td>$280–291M</td></tr>
+          <tr><td>ครึ่งปีแรก 2026 ที่ทำได้จริง</td><td><strong>$117M</strong></td></tr>
+          <tr><td><strong>ครึ่งปีหลังที่ต้องทำ</strong></td><td><strong>$163–174M</strong></td></tr>
+        </tbody>
+      </table>
+
+      <p>
+        ครึ่งปีหลังต้องทำกำไรจากการดำเนินงาน<strong>สูงกว่าครึ่งปีแรก 40–48%</strong> ในหกเดือน
+        ทุกอย่างที่ CFO พูด — marketing ที่ front-load ไปครึ่งแรก, one-off costs ที่ไม่ควรซ้ำ,
+        automation ที่กำลัง roll out — ต้องเกิดขึ้นจริงเกือบทั้งหมดพร้อมกัน
+      </p>
+
+      <p>
+        และเขาเองก็รู้ตัว — ใน fireside chat CFO พูดตรงๆ ว่า <em>"if you take some combinations of our
+        guidance ranges, you come back into an opex cut that's bigger than what we have currently planned"</em>
+        นั่นคือเหตุผลที่ปรับ gross profit guidance ขึ้นแต่<strong>ไม่ปรับ operating profit ตาม</strong>
+      </p>
+
+      <h3>โมเดล 5 ปี และตาราง sensitivity</h3>
+
+      <p>
+        ตรึงสมมติฐาน: TPV 2026 $67B · OP÷GP 58% · ภาษี 21% · หุ้น 299M (buyback หักล้าง SBC พอดี) ·
+        ราคาตั้งต้น $15.17 · multiple 18× แล้วให้ <strong>TPV CAGR</strong> กับ <strong>take rate ปี 2031</strong>
+        แกว่ง ตัวเลขในช่องคือผลตอบแทนทบต้นต่อปีของราคาหุ้น
+      </p>
+
+      <div class="dlo-tw">
+      <table class="dlo-heat">
+        <thead><tr><th>TPV CAGR ↓ / take rate →</th><th>0.45%</th><th>0.50%</th><th>0.55%</th><th>0.60%</th><th>0.65%</th><th>0.70%</th></tr></thead>
+        <tbody>
+          <tr><th>15% → $135B</th><td class="c0">2.0%</td><td class="c0">4.2%</td><td class="c0">6.2%</td><td class="c0">8.0%</td><td class="c0">9.8%</td><td class="c1">11.4%</td></tr>
+          <tr><th>18% → $153B</th><td class="c0">4.6%</td><td class="c0">6.9%</td><td class="c0">8.9%</td><td class="c1">10.8%</td><td class="c1">12.6%</td><td class="c2">14.3%</td></tr>
+          <tr><th>20% → $167B</th><td class="c0">6.4%</td><td class="c0">8.7%</td><td class="c1">10.8%</td><td class="c1">12.7%</td><td class="c2">14.5%</td><td class="c2">16.2%</td></tr>
+          <tr><th>23% → $189B</th><td class="c0">9.1%</td><td class="c1">11.5%</td><td class="c1">13.5%</td><td class="c2">15.5%</td><td class="c2">17.4%</td><td class="c3">19.1%</td></tr>
+          <tr><th>25% → $205B</th><td class="c1">10.8%</td><td class="c1">13.2%</td><td class="c2">15.4%</td><td class="c2">17.4%</td><td class="c3">19.3%</td><td class="c3">21.1%</td></tr>
+          <tr><th>28% → $230B</th><td class="c1">13.5%</td><td class="c2">15.9%</td><td class="c3">18.2%</td><td class="c3">20.2%</td><td class="c4">22.2%</td><td class="c4">24.0%</td></tr>
+        </tbody>
+      </table>
+      </div>
+      <p class="dlo-note">ช่องเทา = แพ้ผลตอบแทนตลาดระยะยาวราว 10% · ยังไม่รวมเงินปันผลสะสมราว $1.80/หุ้น และเงินสดบนงบราว $3.60/หุ้น</p>
+
+      <p>
+        <strong>สามอย่างที่ตารางนี้บอก:</strong>
+      </p>
+      <ul>
+        <li><strong>วอลุ่มชดเชย take rate ได้ แต่ในอัตราที่แพงมาก</strong> — take rate 0.70% ที่วอลุ่มโต 15%
+          ให้ 11.4% ส่วน take rate 0.45% ที่วอลุ่มโต 28% ให้ 13.5% แปลว่า<strong>ต้องเพิ่มการเติบโตวอลุ่ม
+          ถึง 13 จุด เพื่อชดเชย take rate ที่หายไปเพียง 25 bps</strong></li>
+        <li><strong>แถวบนสุดคือเขตอันตรายจริง</strong> — ถ้า TPV CAGR ตกมาที่ 15% ทั้งแถวแพ้ตลาดเกือบหมด
+          แม้ take rate จะยืนที่ 0.70% ก็ยังได้แค่ 11.4% — <strong>วอลุ่มคือเงื่อนไขจำเป็น
+          take rate เป็นแค่ตัวคูณ</strong></li>
+        <li><strong>ครึ่งซ้ายของตารางอยู่ใต้เส้นแดงของเราเอง</strong> — คอลัมน์ 0.45% 0.50% 0.55% และ 0.60%
+          ล้วนต่ำกว่า kill condition ที่ 0.65% ทั้งหมด แปลว่าฉากเหล่านั้นไม่ใช่ "ผลตอบแทนต่ำ" แต่คือ
+          "ขายไปแล้ว"</li>
+      </ul>
+
+      <h2 id="sec-7">7. แผงมอนิเตอร์ thesis — ตอนนี้ห่างเส้นแดงแค่ไหน</h2>
+
+      <figure class="ph-fig"><div class="ph-panel dlo-panel"><div class="ph-eyebrow dlo">Thesis monitor · DLO · Q2 2026</div>
+        <svg viewBox="0 0 840 340" role="img" aria-label="แผงมอนิเตอร์ 5 สัญญาณของ thesis DLO แสดงระยะห่างจากเส้นแดง">
+          <g class="sim-mono dlo-mono"><text x="40" y="24" style="text-anchor:start">THESIS MONITOR · DLO · Q2 FY2026</text>
+            <text x="800" y="24" style="text-anchor:end">2 OK · 2 WATCH · 1 NO-GO</text></g>
+          <line class="dlo-div" x1="40" y1="36" x2="800" y2="36"/>
+
+          <g><circle class="dlo-led warn" cx="48" cy="70" r="5"/>
+            <text class="s-t dlo-lbl" x="64" y="68" style="text-anchor:start">GP ÷ TPV</text>
+            <text class="sim-mono dlo-mono" x="64" y="86" style="text-anchor:start">1.09% → 0.72% · ลง 6 ใน 7 ไตรมาส</text>
+            <rect class="dlo-track" x="400" y="64" width="360" height="9" rx="4.5"/>
+            <rect class="dlo-red" x="670" y="64" width="90" height="9" rx="4.5"/>
+            <rect class="dlo-fill" x="400" y="64" width="245" height="9" rx="4.5"/>
+            <circle class="dlo-needle warn" cx="645" cy="68.5" r="7"/>
+            <text class="sim-mono dlo-kill" x="760" y="94" style="text-anchor:end">เส้นแดง: &lt;0.65% สองไตรมาสติด</text></g>
+
+          <g><circle class="dlo-led ok" cx="48" cy="132" r="5"/>
+            <text class="s-t dlo-lbl" x="64" y="130" style="text-anchor:start">Revenue growth YoY</text>
+            <text class="sim-mono dlo-mono" x="64" y="148" style="text-anchor:start">+56% · ห่างเส้นแดงมาก</text>
+            <rect class="dlo-track" x="400" y="126" width="360" height="9" rx="4.5"/>
+            <rect class="dlo-red" x="670" y="126" width="90" height="9" rx="4.5"/>
+            <rect class="dlo-fill" x="400" y="126" width="110" height="9" rx="4.5"/>
+            <circle class="dlo-needle ok" cx="510" cy="130.5" r="7"/>
+            <text class="sim-mono dlo-kill" x="760" y="156" style="text-anchor:end">เส้นแดง: &lt;25% สองไตรมาสติด</text></g>
+
+          <g><circle class="dlo-led warn" cx="48" cy="194" r="5"/>
+            <text class="s-t dlo-lbl" x="64" y="192" style="text-anchor:start">Operating leverage ครึ่งปีหลัง</text>
+            <text class="sim-mono dlo-mono" x="64" y="210" style="text-anchor:start">H1 ทำได้ $117M · ต้องทำ $163–174M</text>
+            <rect class="dlo-track" x="400" y="188" width="360" height="9" rx="4.5"/>
+            <rect class="dlo-red" x="670" y="188" width="90" height="9" rx="4.5"/>
+            <rect class="dlo-fill" x="400" y="188" width="215" height="9" rx="4.5"/>
+            <circle class="dlo-needle warn" cx="615" cy="192.5" r="7"/>
+            <text class="sim-mono dlo-kill" x="760" y="218" style="text-anchor:end">เส้นแดง: พลาด guidance FY2026</text></g>
+
+          <g><circle class="dlo-led ok" cx="48" cy="256" r="5"/>
+            <text class="s-t dlo-lbl" x="64" y="254" style="text-anchor:start">Securities class action (NY State)</text>
+            <text class="sim-mono dlo-mono" x="64" y="272" style="text-anchor:start">ยกฟ้อง · อุทธรณ์ยืนตามเอกฉันท์ เม.ย. 2026</text>
+            <rect class="dlo-track" x="400" y="250" width="360" height="9" rx="4.5"/>
+            <rect class="dlo-red" x="670" y="250" width="90" height="9" rx="4.5"/>
+            <rect class="dlo-fill" x="400" y="250" width="60" height="9" rx="4.5"/>
+            <circle class="dlo-needle ok" cx="460" cy="254.5" r="7"/>
+            <text class="sim-mono dlo-kill" x="760" y="280" style="text-anchor:end">เส้นแดง: แพ้คดี + ค่าเสียหายใหญ่</text></g>
+
+          <g><circle class="dlo-led stop" cx="48" cy="318" r="5"/>
+            <text class="s-t dlo-lbl" x="64" y="316" style="text-anchor:start">Dual class structure</text>
+            <text class="sim-mono dlo-mono" x="64" y="334" style="text-anchor:start">Class B = 79.55% voting · ไม่พบ sunset clause</text>
+            <rect class="dlo-track" x="400" y="312" width="360" height="9" rx="4.5"/>
+            <rect class="dlo-red" x="670" y="312" width="90" height="9" rx="4.5"/>
+            <rect class="dlo-fill stop" x="400" y="312" width="360" height="9" rx="4.5"/>
+            <circle class="dlo-needle stop" cx="748" cy="316.5" r="7"/></g>
+        </svg>
+      </div><figcaption>สัญญาณที่ต้องจับตาที่สุดคือ <strong>GP ÷ TPV ที่ 0.72%</strong> — ห่างเส้นแดง 0.65% เพียง <strong>7 bps</strong> และคณิตศาสตร์ของ mix ชี้ว่าถ้า local-to-local ไต่ถึง 75% ตัวเลขนี้จะทะลุเส้นแดงเอง โดยไม่ต้องมีอะไรผิดพลาด</figcaption></figure>
+
+      <p>
+        <strong>สิ่งที่เปลี่ยนไปจากบันทึกครั้งก่อน (พ.ค. 2026 ที่ราคา $11.75):</strong>
+      </p>
+      <ul>
+        <li><strong>ดีขึ้น</strong> — คดี securities class action ใน NY State ถูกยกฟ้องและศาลอุทธรณ์
+          ยืนตามเอกฉันท์เมื่อ 20 เม.ย. 2026 ระบุว่าข้อกล่าวหาทั้งหมดไม่มีมูล governance cloud
+          หายไปหนึ่งก้อน</li>
+        <li><strong>แย่ลง</strong> — GP/TPV ลงจาก 0.84% เหลือ 0.72% ในสองไตรมาส เข้าใกล้เส้นแดง
+          และ <strong>revenue ต่อ TPV เริ่มบีบตามเป็นครั้งแรก</strong></li>
+        <li><strong>ไม่เปลี่ยน</strong> — dual class structure ยังอยู่เหมือนเดิม Class B ถือ 79.55%
+          ของสิทธิออกเสียง และยังไม่พบ sunset clause ซึ่งตามกรอบการลงทุนนี้ยังเป็น No-Go Zone</li>
+      </ul>
+
+      <h2 id="sec-8">8. สรุป</h2>
+
+      <p>
+        dLocal เป็นธุรกิจที่ moat มีจริง — แต่เป็น moat ที่ให้ <strong>"ลูกค้าไม่หนีและฝากงานเพิ่มให้เรื่อยๆ"</strong>
+        ไม่ใช่ <strong>"เราขึ้นราคาได้"</strong> มันโผล่ที่ TPV retention 188% และ NRR 153% ห้าไตรมาสติด
+        ไม่ใช่ที่ take rate
+      </p>
+
+      <p>
+        นั่นยังมีค่ามหาศาล แค่ต้องประเมินด้วยตัววัดคนละตัว — ดู <strong>gross profit สัมบูรณ์</strong>
+        กับ <strong>retention</strong> ไม่ใช่ take rate ซึ่งการลดลงเป็นเรื่องปกติของธุรกิจ payments
+        ที่กำลังสเกล (Adyen เองก็ลด)
+      </p>
+
+      <p>
+        แต่กรอบการลงทุนนี้ให้น้ำหนักกับ <strong>pricing power</strong> และ <strong>โครงสร้างการกำกับดูแล</strong>
+        และทั้งสองข้อยังไม่ผ่าน — gross margin ลงจาก 40.9% เหลือ 31.8% ใน 7 ไตรมาสคือหลักฐานตรงๆ
+        ว่าไม่มีอำนาจกำหนดราคา ส่วน dual class ที่ให้สิทธิออกเสียง 79.55% กับผู้ถือหุ้นส่วนน้อย
+        ยังเป็น No-Go Zone ที่ไม่มีอะไรเปลี่ยน
+      </p>
+
+      <p>
+        <strong>จุดตรวจสอบที่ชัดที่สุดคืองบไตรมาส 3 ปี 2026</strong> — ถ้า take rate ออกมา ≥0.75%
+        แปลว่าคำอธิบายของผู้บริหารถูก และ Q2 เป็นความผิดปกติจากลูกค้ารายเดียวบวก FX จริง
+        ถ้าออกมา ≤0.70% แปลว่ามันเป็นเทรนด์เชิงโครงสร้าง และเข็มจะขยับเข้าเขตแดงพร้อมกับ
+        guidance ทั้งปีที่เริ่มมีปัญหา
+      </p>
+
+      <blockquote>
+        <strong>สิ่งที่ยังต้องขุดต่อ:</strong> (1) mix local-to-local จะอิ่มตัวที่กี่เปอร์เซ็นต์ —
+        ถ้าเกิน 75% เส้นแดงจะถูกแตะเองโดยไม่ต้องมีอะไรผิด (2) ใครคือ 2 merchants ที่แต่ละรายเกิน
+        10% ของรายได้ และ Tier 0 รายที่ผู้บริหารพูดถึงซ้ำๆ คือใคร (3) dMORE จะคิดราคาเท่าไหร่
+        และ take rate ต่างจาก payment processing ปกติกี่ bps (4) Pillar Two จะดัน ETR ขึ้นไปเท่าไหร่
+        ตั้งแต่ปี 2027 (5) Class B มี sunset clause ใน Memorandum and Articles หรือไม่
+      </blockquote>
+
+    </div>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container footer-grid">
+      <div class="footer-brand">
+        <a href="../index.html" class="site-title">Moatrices</a>
+        <p>บันทึกการเรียนวิเคราะห์หุ้น US เชิงลึก ภาษาไทย — เน้นพื้นฐานธุรกิจ ไม่ใช่ราคา</p>
+      </div>
+      <nav class="footer-nav">
+        <a href="../index.html">หน้าแรก</a>
+        <a href="../articles.html">บทความ</a>
+        <a href="../stocks.html">หุ้น</a>
+        <a href="../tools.html">เครื่องมือ</a>
+        <a href="../dashboard.html">Dashboard</a>
+        <a href="../about.html">เกี่ยวกับ</a>
+      </nav>
+      <div class="footer-follow">
+        <span class="footer-follow-label">ติดตาม</span>
+        <div class="footer-social">
+          <a href="/feed.xml" class="social-btn" aria-label="RSS feed" title="RSS feed"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 11a9 9 0 0 1 9 9"/><path d="M4 4a16 16 0 0 1 16 16"/><circle cx="5" cy="19" r="1"/></svg></a>
+          <a href="mailto:beatp9696@gmail.com" class="social-btn" aria-label="อีเมล" title="อีเมล"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="m3 7 9 6 9-6"/></svg></a>
+        </div>
+      </div>
+    </div>
+    <div class="container footer-legal">
+      <p><strong>คำเตือน:</strong> เนื้อหาทั้งหมดเป็นบันทึกการเรียนและความเห็นส่วนตัว
+         เพื่อการศึกษาเท่านั้น <strong>ไม่ใช่คำแนะนำการลงทุน</strong> ไม่ใช่การชี้นำให้ซื้อหรือขายหลักทรัพย์ใดๆ
+         ตัวเลขอ้างอิงงบที่เผยแพร่ ณ ช่วงเวลาหนึ่งและอาจล้าสมัย การตัดสินใจลงทุนเป็นความรับผิดชอบของผู้อ่านเอง</p>
+      <p>© 2026 Moatrices · เผยแพร่ผ่าน GitHub Pages</p>
+    </div>
+  </footer>
+
+  <button class="to-top" aria-label="กลับขึ้นด้านบน">↑</button>
+  <script defer src="../app.js"></script>
+
+</body>
+</html>
