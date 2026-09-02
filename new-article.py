@@ -91,19 +91,8 @@ ARTICLE_TMPL = """<!DOCTYPE html>
   <div class="reading-progress"></div>
   <div class="top-accent"></div>
 
-  <header class="site-header">
-    <div class="container">
-      <a href="../index.html" class="site-title">Moatrices</a>
-      <nav class="site-nav">
-        <a href="../index.html">หน้าแรก</a>
-        <a href="../articles.html">บทความ</a>
-        <a href="../stocks.html">หุ้น</a>
-        <a href="../tools.html">เครื่องมือ</a>
-        <a href="../dashboard.html">Dashboard</a>
-        <a href="../about.html">เกี่ยวกับ</a>
-      </nav>
-    </div>
-  </header>
+  <!-- SITE-HEADER-START -->
+  <!-- SITE-HEADER-END -->
 
   <main>
     <div class="container">
@@ -154,35 +143,8 @@ ARTICLE_TMPL = """<!DOCTYPE html>
     </div>
   </main>
 
-  <footer class="site-footer">
-    <div class="container footer-grid">
-      <div class="footer-brand">
-        <a href="../index.html" class="site-title">Moatrices</a>
-        <p>บันทึกการเรียนวิเคราะห์หุ้น US เชิงลึก ภาษาไทย — เน้นพื้นฐานธุรกิจ ไม่ใช่ราคา</p>
-      </div>
-      <nav class="footer-nav">
-        <a href="../index.html">หน้าแรก</a>
-        <a href="../articles.html">บทความ</a>
-        <a href="../stocks.html">หุ้น</a>
-        <a href="../tools.html">เครื่องมือ</a>
-        <a href="../dashboard.html">Dashboard</a>
-        <a href="../about.html">เกี่ยวกับ</a>
-      </nav>
-      <div class="footer-follow">
-        <span class="footer-follow-label">ติดตาม</span>
-        <div class="footer-social">
-          <a href="/feed.xml" class="social-btn" aria-label="RSS feed" title="RSS feed"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 11a9 9 0 0 1 9 9"/><path d="M4 4a16 16 0 0 1 16 16"/><circle cx="5" cy="19" r="1"/></svg></a>
-          <a href="mailto:beatp9696@gmail.com" class="social-btn" aria-label="อีเมล" title="อีเมล"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="m3 7 9 6 9-6"/></svg></a>
-        </div>
-      </div>
-    </div>
-    <div class="container footer-legal">
-      <p><strong>คำเตือน:</strong> เนื้อหาทั้งหมดเป็นบันทึกการเรียนและความเห็นส่วนตัว
-         เพื่อการศึกษาเท่านั้น <strong>ไม่ใช่คำแนะนำการลงทุน</strong> ไม่ใช่การชี้นำให้ซื้อหรือขายหลักทรัพย์ใดๆ
-         ตัวเลขอ้างอิงงบที่เผยแพร่ ณ ช่วงเวลาหนึ่งและอาจล้าสมัย การตัดสินใจลงทุนเป็นความรับผิดชอบของผู้อ่านเอง</p>
-      <p>© 2026 Moatrices · เผยแพร่ผ่าน GitHub Pages</p>
-    </div>
-  </footer>
+  <!-- SITE-FOOTER-START -->
+  <!-- SITE-FOOTER-END -->
 
   <button class="to-top" aria-label="กลับขึ้นด้านบน">↑</button>
   <script defer src="../app.js"></script>

@@ -42,7 +42,218 @@ TZ = datetime.timezone(datetime.timedelta(hours=7))
 THUMB_DIR = "img/thumbs"   # thumbnail ย่อของ og image (ใช้เป็นภาพการ์ดในหน้า index)
 THUMB_W = 640             # กว้างพอสำหรับ retina (การ์ด desktop แสดง 176px, mobile เต็มจอ)
 
+# shared site chrome — opt-in ด้วย marker เท่านั้น เพื่อไม่แตะ 404, pp-os,
+# interstellar simulations และ print masters ที่มี shell เฉพาะของตัวเอง
+PARTIAL_DIR = "partials"
+HEADER_PARTIAL = os.path.join(PARTIAL_DIR, "site-header.html")
+FOOTER_PARTIAL = os.path.join(PARTIAL_DIR, "site-footer.html")
+HEADER_START = "<!-- SITE-HEADER-START -->"
+HEADER_END = "<!-- SITE-HEADER-END -->"
+FOOTER_START = "<!-- SITE-FOOTER-START -->"
+FOOTER_END = "<!-- SITE-FOOTER-END -->"
+LEGAL_OVERRIDE_START = "<!-- FOOTER-LEGAL-OVERRIDE-START -->"
+LEGAL_OVERRIDE_END = "<!-- FOOTER-LEGAL-OVERRIDE-END -->"
+LEGAL_DEFAULT_RE = re.compile(
+    r"<!-- FOOTER-LEGAL-DEFAULT-START -->.*?<!-- FOOTER-LEGAL-DEFAULT-END -->",
+    re.S,
+)
+LEGAL_OVERRIDE_RE = re.compile(
+    re.escape(LEGAL_OVERRIDE_START) + r".*?" + re.escape(LEGAL_OVERRIDE_END),
+    re.S,
+)
+HEADER_ONLY_PAGES = {"moat-city.html"}
+CHROME_EXCLUSIONS = {
+    "404.html": '<header class="nav">',
+    "pp-os/index.html": '<footer id="taskbar">',
+    "interstellar/endurance.html": 'class="backlink"',
+    "interstellar/gargantua.html": 'class="backlink"',
+    "interstellar/tesseract.html": 'class="backlink"',
+}
+# ข้อความ legal เหล่านี้ตั้งใจต่างจาก default ใน partial: 11 บทความเฉพาะเรื่อง
+# และ 19 หน้า root ที่ใช้คำเตือนฉบับสั้นเดิม ห้าม build กลืนกลับเป็น default
+LEGAL_OVERRIDE_PAGES = {
+    "about.html", "ai-iceberg.html", "articles.html", "compound-interest.html",
+    "dashboard.html", "econ-lessons.html", "follow-the-money-nvda.html", "index.html",
+    "moat-break-game-kodak.html", "reverse-dcf.html",
+    "series-buffett-deals.html", "series-buffett-talks.html", "series-cases.html",
+    "series-financials.html", "series-moat-break.html", "series-munger-talks.html",
+    "series-powers.html", "stocks.html", "tools.html",
+    "articles/buffett-4-pillars.html", "articles/deep-dive-asml.html",
+    "articles/deep-dive-cost.html", "articles/deep-dive-lly.html",
+    "articles/deep-dive-lmt.html", "articles/deep-dive-spacex.html",
+    "articles/deep-dive-unh.html", "articles/financials-00-mindset.html",
+    "articles/financials-01-income-statement.html",
+    "articles/financials-02-cash-flow-statement.html",
+    "articles/financials-03-balance-sheet.html",
+}
+
 os.chdir(os.path.dirname(os.path.abspath(__file__)))
+
+
+def _path_prefix(path):
+    """คืน prefix จากไฟล์ HTML กลับไป site root โดยยังรองรับการเปิดผ่าน file://"""
+    directory = os.path.dirname(path) or "."
+    prefix = os.path.relpath(".", directory)
+    return "" if prefix == "." else prefix.rstrip("/") + "/"
+
+
+def _replace_marked_block(src, start, end, rendered, path):
+    """แทน block ที่ opt-in ด้วย marker; marker ขาด/ซ้ำให้ fail ก่อนเขียนไฟล์"""
+    starts, ends = src.count(start), src.count(end)
+    if starts != 1 or ends != 1:
+        raise ValueError(
+            f"{path}: marker {start}/{end} ต้องมีอย่างละ 1 (พบ {starts}/{ends})"
+        )
+    marker_pos = src.index(start)
+    line_start = src.rfind("\n", 0, marker_pos) + 1
+    indent = src[line_start:marker_pos]
+    if indent.strip():
+        raise ValueError(f"{path}: marker {start} ต้องอยู่บนบรรทัดของตัวเอง")
+    rendered = "\n".join(indent + line if line else line for line in rendered.splitlines())
+    begin = marker_pos + len(start)
+    finish = src.index(end, begin)
+    return src[:begin] + "\n" + rendered.rstrip() + "\n" + indent + src[finish:]
+
+
+def _render_partial(template, path):
+    rendered = template.replace("@@PATH_PREFIX@@", _path_prefix(path))
+    leftovers = re.findall(r"@@[A-Z0-9_]+@@", rendered)
+    if leftovers:
+        raise ValueError(f"{path}: partial มี placeholder ที่ยังไม่ถูกแทน: {leftovers}")
+    return rendered
+
+
+def _legal_override_for_slot(block, rendered, slot_start):
+    """ตัด indent ระดับหน้าจาก override แล้วใส่ indent ของ slot เพียงครั้งเดียว"""
+    lines = block.splitlines()
+    tail_indents = [len(line) - len(line.lstrip()) for line in lines[1:] if line.strip()]
+    common = min(tail_indents) if tail_indents else 0
+    normalized = [lines[0]] + [line[common:] if line.strip() else "" for line in lines[1:]]
+    line_start = rendered.rfind("\n", 0, slot_start) + 1
+    slot_indent = rendered[line_start:slot_start]
+    return normalized[0] + "\n" + "\n".join(slot_indent + line for line in normalized[1:])
+
+
+def inject_site_chrome(paths):
+    """Render shared header/footer ลงไฟล์ที่มี SITE-*-START/END marker เท่านั้น
+
+    Footer ที่มี LEGAL-OVERRIDE marker จะรักษา block นั้นทั้งก้อนและแทนที่ default
+    disclaimer จาก partial. ฟังก์ชันเตรียมผลลัพธ์ทุกไฟล์ให้ผ่านก่อนจึงเริ่มเขียน
+    เพื่อไม่ทิ้ง working tree ไว้ในสภาพ migrate ครึ่งเดียวเมื่อพบ marker ผิดรูป
+    """
+    header_template = open(HEADER_PARTIAL, encoding="utf-8").read()
+    footer_template = open(FOOTER_PARTIAL, encoding="utf-8").read()
+    if footer_template.count("<!-- FOOTER-LEGAL-DEFAULT-START -->") != 1 or \
+            footer_template.count("<!-- FOOTER-LEGAL-DEFAULT-END -->") != 1:
+        raise ValueError(f"{FOOTER_PARTIAL}: default legal marker ต้องมีอย่างละ 1")
+
+    planned = []
+    headers = footers = overrides = 0
+    for path in paths:
+        src = open(path, encoding="utf-8").read()
+        new = src
+        has_header = HEADER_START in src or HEADER_END in src
+        has_footer = FOOTER_START in src or FOOTER_END in src
+
+        if has_header:
+            rendered = _render_partial(header_template, path)
+            new = _replace_marked_block(new, HEADER_START, HEADER_END, rendered, path)
+            headers += 1
+
+        if has_footer:
+            override_blocks = LEGAL_OVERRIDE_RE.findall(src)
+            override_starts = src.count(LEGAL_OVERRIDE_START)
+            override_ends = src.count(LEGAL_OVERRIDE_END)
+            if override_starts != override_ends or override_starts > 1:
+                raise ValueError(
+                    f"{path}: legal override marker ต้องมี 0 หรือ 1 คู่ "
+                    f"(พบ {override_starts}/{override_ends})"
+                )
+            rendered = _render_partial(footer_template, path)
+            if override_blocks:
+                slot = LEGAL_DEFAULT_RE.search(rendered)
+                if not slot:
+                    raise ValueError(f"{FOOTER_PARTIAL}: หา default legal block ไม่เจอ")
+                override = _legal_override_for_slot(override_blocks[0], rendered, slot.start())
+                rendered = rendered[:slot.start()] + override + rendered[slot.end():]
+                overrides += 1
+            new = _replace_marked_block(new, FOOTER_START, FOOTER_END, rendered, path)
+            footers += 1
+
+        if new != src:
+            planned.append((path, new))
+
+    for path, body in planned:
+        open(path, "w", encoding="utf-8").write(body)
+    print(f"site chrome : {headers} headers, {footers} footers, "
+          f"{overrides} legal overrides ({len(planned)} ไฟล์เปลี่ยน)")
+    return len(planned)
+
+
+def site_chrome_warnings():
+    """ตรวจ coverage ของ shared chrome และยืนยันว่า immersive/app shells ยังถูก exclude"""
+    warnings = []
+    article_paths = [os.path.join("articles", f) for f in sorted(os.listdir("articles"))
+                     if f.endswith(".html")]
+    root_paths = [f for f in sorted(os.listdir("."))
+                  if f.endswith(".html") and not f.startswith("_ebook") and f != "404.html"]
+    managed = root_paths + article_paths
+
+    for path in managed:
+        body = open(path, encoding="utf-8").read()
+        for start, end, label in [
+            (HEADER_START, HEADER_END, "header"),
+            (FOOTER_START, FOOTER_END, "footer"),
+        ]:
+            expected = not (label == "footer" and path in HEADER_ONLY_PAGES)
+            counts = (body.count(start), body.count(end))
+            if expected and counts != (1, 1):
+                warnings.append(f"{path}: {label} marker ต้องมีอย่างละ 1 (พบ {counts[0]}/{counts[1]})")
+            if not expected and counts != (0, 0):
+                warnings.append(f"{path}: เป็น header-only แต่พบ footer marker {counts[0]}/{counts[1]}")
+
+        # standard chrome ต้องอยู่ภายใน marker เท่านั้น ไม่มีสำเนาหลงอยู่นอก block
+        outside = re.sub(
+            re.escape(HEADER_START) + r".*?" + re.escape(HEADER_END), "", body,
+            flags=re.S,
+        )
+        outside = re.sub(
+            re.escape(FOOTER_START) + r".*?" + re.escape(FOOTER_END), "", outside,
+            flags=re.S,
+        )
+        if '<header class="site-header">' in outside:
+            warnings.append(f"{path}: พบ site-header อยู่นอก shared marker")
+        if '<footer class="site-footer">' in outside:
+            warnings.append(f"{path}: พบ site-footer อยู่นอก shared marker")
+        if re.search(r"@@[A-Z0-9_]+@@", body):
+            warnings.append(f"{path}: มี partial placeholder ที่ยัง render ไม่ครบ")
+
+        has_override = LEGAL_OVERRIDE_START in body or LEGAL_OVERRIDE_END in body
+        expected_override = path in LEGAL_OVERRIDE_PAGES
+        if has_override != expected_override:
+            warnings.append(
+                f"{path}: legal override {'หายไป' if expected_override else 'เกินจาก registry'}"
+            )
+
+    missing_overrides = LEGAL_OVERRIDE_PAGES - set(managed)
+    for path in sorted(missing_overrides):
+        warnings.append(f"legal override registry ชี้ไฟล์ที่ไม่มีใน managed pages: {path}")
+
+    for path, signature in CHROME_EXCLUSIONS.items():
+        if not os.path.exists(path):
+            warnings.append(f"chrome exclusion ไม่มีไฟล์: {path}")
+            continue
+        body = open(path, encoding="utf-8").read()
+        if any(marker in body for marker in (HEADER_START, HEADER_END, FOOTER_START, FOOTER_END)):
+            warnings.append(f"{path}: หน้า exclusion ต้องไม่มี shared chrome marker")
+        if signature not in body:
+            warnings.append(f"{path}: shell เฉพาะหน้าหายไป (ไม่พบ {signature})")
+
+    if not warnings:
+        n_footers = len(managed) - len(HEADER_ONLY_PAGES)
+        print(f"site chrome : validate {len(managed)} headers / {n_footers} footers / "
+              f"{len(LEGAL_OVERRIDE_PAGES)} legal overrides / {len(CHROME_EXCLUSIONS)} exclusions")
+    return warnings
 
 
 def parse_archive():
@@ -850,6 +1061,8 @@ def validate(posts, articles):
         if f'href="{s["page"]}"' not in idx:
             warnings.append(f"index.html ไม่มีลิงก์ไป {s['page']} — การ์ดซีรีส์หน้าแรกยังชี้ที่อื่น")
 
+    warnings.extend(site_chrome_warnings())
+
     if warnings:
         print(f"\n{len(warnings)} WARNING:")
         for w in warnings:
@@ -1021,6 +1234,11 @@ def main():
         return 2
     print(f"{ARCHIVE}: พบ {len(posts)} บทความ")
     articles = parse_articles_js()
+    article_paths = [os.path.join("articles", f) for f in sorted(os.listdir("articles"))
+                     if f.endswith(".html")]
+    # root pages + articles เท่านั้น; nested app/simulations และ partial files อยู่นอก scope
+    root_paths = [f for f in sorted(os.listdir(".")) if f.endswith(".html")]
+    inject_site_chrome(root_paths + article_paths)
     inject_tocs()
     write_related()
     write_itemlist(posts)
