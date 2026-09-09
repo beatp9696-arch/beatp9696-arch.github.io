@@ -1,7 +1,6 @@
-/* Moatrices / infrastructure plates. Scoped to this article; no global theme changes. */
 .lps-page {
-  --lps-green:#98b9ac; --lps-amber:#c6ae86; --lps-blue:#a9b4bb;
-  --plate-bg:#0e1012; --plate-line:#303539; --plate-ink:#d5d6d1; --plate-muted:#929a9d;
+--lps-green:#98b9ac; --lps-amber:#c6ae86; --lps-blue:#a9b4bb;
+--plate-bg:#0e1012; --plate-line:#303539; --plate-ink:#d5d6d1; --plate-muted:#929a9d;
 }
 .lps-page .site-header { margin-bottom:48px; }
 .lps-page h1 { font-size:clamp(38px,7vw,66px); line-height:1.24; letter-spacing:-.025em; margin:16px 0 22px; }
@@ -46,8 +45,6 @@
 .lps-legend-line { flex:0 0 22px; border-top:2px solid #a7c0b1; }
 .lps-legend-credit { border-top-style:dashed; border-color:#c8b18e; }
 .lps-scenarios { display:flex; flex-wrap:wrap; gap:10px; }
-
-/* Plate drawing language: quiet construction lines, distinct structural weights. */
 .s-art { shape-rendering:geometricPrecision; }
 .s-line,.s-fine,.s-registration,.s-survey,.s-perimeter,.s-dimension,.s-roof-seam,.s-leader,
 .s-steel,.s-conduit,.s-pending,.s-gold,.s-white,.s-active,.s-active-fine,.s-road,
@@ -121,8 +118,6 @@
 .lps-control-room[data-monitor="economics"] [data-dial="economics"] .s-inspection-dot,
 .lps-control-room[data-monitor="credit"] [data-dial="credit"] .s-inspection-dot,
 .lps-control-room[data-monitor="scarcity"] [data-dial="scarcity"] .s-inspection-dot { fill:#c7ae84; }
-
-/* The energy split remains numerically proportional; do not replace it with decorative geometry. */
 .lps-meter-title { font-size:17px; margin:28px 0; color:#b2bbba; }
 .lps-meter-title strong { color:#dddccc; font:30px "IBM Plex Mono",monospace; }
 .lps-power-split { height:110px; display:flex; border:1px solid #82958b; margin:24px 0; overflow:hidden; }
@@ -139,8 +134,6 @@
 #pue-range { width:100%; min-height:44px; margin:10px 0 0; accent-color:#aabb9f; cursor:pointer; }
 .lps-range-labels { display:flex; justify-content:space-between; gap:12px; font-size:12px; color:#aab3b0; }
 .lps-scene p.lps-comparison { padding-top:14px; margin:12px 0 0; border-top:1px solid var(--plate-line); color:#bed1bb; font-size:14px; }
-
-/* One finite timeline per plate. No spinning coins, floating buildings, or infinite loops. */
 .lps-motionbar { display:flex; align-items:center; gap:14px; padding-top:20px; margin-top:18px; border-top:1px solid var(--plate-line); }
 .lps-page .lps-play { flex:0 0 auto; padding:8px 12px; min-width:91px; font-size:12px; }
 .lps-scrub { flex:1 1 auto; min-width:0; height:44px; appearance:none; -webkit-appearance:none; background:transparent; cursor:ew-resize; }
@@ -157,8 +150,6 @@
 .lps-zoom-scroll { overflow:auto; }
 .lps-zoom-scroll svg { display:block; width:100%; min-width:800px; }
 .lps-zoom-hint { color:#a9b4b0; font-size:12px; margin:8px 0 0; }
-
-/* Article chrome is intentionally kept separate from the plate drawing system. */
 .lps-tripwires { margin:32px 0; }
 .lps-tripwires section { border-left:2px solid #a28b65; padding:8px 0 12px 22px; margin:26px 0; }
 .lps-wire-number { color:var(--accent-strong); font:12px "IBM Plex Mono",monospace; letter-spacing:.07em; }
@@ -174,54 +165,53 @@
 .lps-sources li:target { background:var(--accent-tint); outline:5px solid var(--accent-tint); }
 .lps-sr-only { position:absolute; width:1px; height:1px; padding:0; margin:-1px; overflow:hidden; clip-path:inset(50%); white-space:nowrap; border:0; }
 @media (min-width:1000px) {
-  .lps-figure { width:min(980px,calc(100vw - 80px)); position:relative; left:50%; transform:translateX(-50%); margin-top:64px; margin-bottom:64px; }
+.lps-figure { width:min(980px,calc(100vw - 80px)); position:relative; left:50%; transform:translateX(-50%); margin-top:64px; margin-bottom:64px; }
 }
 @media (max-width:600px) {
-  .lps-page .site-header { margin-bottom:32px; padding:10px 0; }
-  .lps-page .site-header .container { gap:8px; }
-  .lps-header-actions { gap:6px; }
-  .lps-header-actions button { max-width:117px; padding:7px; font-size:12px; }
-  .lps-page .site-title { font-size:21px; }
-  .lps-scene { padding:20px 14px 18px; }
-  .lps-figure { width:calc(100% + 16px); margin:38px -8px; }
-  .lps-plate-heading { flex-direction:column; gap:9px; padding-bottom:14px; }
-  .lps-plate-heading h3 { font-size:21px; line-height:1.6; }
-  .lps-plate-code { font-size:9px; }
-  .lps-plate-meta { max-width:none; text-align:left; font-size:11px; }
-  .lps-scene svg.s-art { margin:10px 0 12px; }
-  .lps-steps,.lps-monitor-controls { grid-template-columns:1fr 1fr; }
-  .lps-fact-strip { grid-template-columns:1fr; gap:12px; padding-top:16px; }
-  .lps-fact-strip > div { display:flex; align-items:baseline; justify-content:space-between; gap:12px; }
-  .lps-fact-strip > div+div { padding-left:0; border-left:0; }
-  .lps-fact-strip strong { font-size:23px; }
-  .lps-fact-strip span { font-size:12px; text-align:right; }
-  .lps-scenarios { flex-direction:column; }
-  .lps-flow-legend { flex-direction:column; gap:8px; }
-  .lps-scene-takeaway { flex-direction:column; font-size:13px; }
-  .lps-metrics { gap:18px; }
-  .lps-metrics strong { font-size:30px; }
-  .lps-power-split { height:80px; }
-  .lps-meter-title strong { font-size:24px; }
-  .lps-motionbar { gap:10px; }
-  .lps-motion-label { display:none; }
-  .lps-range-labels { font-size:10px; }
-  .lps-tripwires section { padding-left:16px; }
-  .lps-scene p.lps-scene-note { font-size:13px; }
+.lps-page .site-header { margin-bottom:32px; padding:10px 0; }
+.lps-page .site-header .container { gap:8px; }
+.lps-header-actions { gap:6px; }
+.lps-header-actions button { max-width:117px; padding:7px; font-size:12px; }
+.lps-page .site-title { font-size:21px; }
+.lps-scene { padding:20px 14px 18px; }
+.lps-figure { width:calc(100% + 16px); margin:38px -8px; }
+.lps-plate-heading { flex-direction:column; gap:9px; padding-bottom:14px; }
+.lps-plate-heading h3 { font-size:21px; line-height:1.6; }
+.lps-plate-code { font-size:9px; }
+.lps-plate-meta { max-width:none; text-align:left; font-size:11px; }
+.lps-scene svg.s-art { margin:10px 0 12px; }
+.lps-steps,.lps-monitor-controls { grid-template-columns:1fr 1fr; }
+.lps-fact-strip { grid-template-columns:1fr; gap:12px; padding-top:16px; }
+.lps-fact-strip > div { display:flex; align-items:baseline; justify-content:space-between; gap:12px; }
+.lps-fact-strip > div+div { padding-left:0; border-left:0; }
+.lps-fact-strip strong { font-size:23px; }
+.lps-fact-strip span { font-size:12px; text-align:right; }
+.lps-scenarios { flex-direction:column; }
+.lps-flow-legend { flex-direction:column; gap:8px; }
+.lps-scene-takeaway { flex-direction:column; font-size:13px; }
+.lps-metrics { gap:18px; }
+.lps-metrics strong { font-size:30px; }
+.lps-power-split { height:80px; }
+.lps-meter-title strong { font-size:24px; }
+.lps-motionbar { gap:10px; }
+.lps-motion-label { display:none; }
+.lps-range-labels { font-size:10px; }
+.lps-tripwires section { padding-left:16px; }
+.lps-scene p.lps-scene-note { font-size:13px; }
 }
 @media (prefers-reduced-motion:reduce) {
-  html { scroll-behavior:auto !important; }
-  .lps-page *, .lps-page *::before,.lps-page *::after { animation:none !important; transition:none !important; }
+html { scroll-behavior:auto !important; }
+.lps-page *, .lps-page *::before,.lps-page *::after { animation:none !important; transition:none !important; }
 }
 @media print {
-  .lps-page { color:#161616; background:white; }
-  .lps-page .site-header,.lps-controls,.lps-progress,.lps-skip,.lps-motionbar,.lps-zoom { display:none !important; }
-  .lps-page h1 { font-size:36px; }
-  .lps-figure { width:100%; left:0; transform:none; }
-  .lps-scene { break-inside:avoid; print-color-adjust:exact; -webkit-print-color-adjust:exact; }
-  .lps-page .lps-deck,.lps-page .lps-ending,.lps-page figcaption,.lps-page .lps-tripwires small { color:#333; }
-  .lps-page a { color:#15503d; }
+.lps-page { color:#161616; background:white; }
+.lps-page .site-header,.lps-controls,.lps-progress,.lps-skip,.lps-motionbar,.lps-zoom { display:none !important; }
+.lps-page h1 { font-size:36px; }
+.lps-figure { width:100%; left:0; transform:none; }
+.lps-scene { break-inside:avoid; print-color-adjust:exact; -webkit-print-color-adjust:exact; }
+.lps-page .lps-deck,.lps-page .lps-ending,.lps-page figcaption,.lps-page .lps-tripwires small { color:#333; }
+.lps-page a { color:#15503d; }
 }
-
 .lps-header-actions { margin:22px 0; }
 .lps-page .lps-header-actions button { color:var(--text); border-color:var(--border); }
 .lps-page .lps-header-actions button:hover, .lps-page .lps-header-actions button[aria-pressed="true"] { background:var(--accent-tint); color:var(--accent-strong); }

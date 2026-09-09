@@ -5,8 +5,15 @@
 <link>https://beatp9696-arch.github.io/</link>
 <description>บันทึกการเรียนวิเคราะห์หุ้น US เชิงลึก เน้นพื้นฐานธุรกิจ ไม่ใช่ราคา</description>
 <language>th</language>
-<lastBuildDate>Mon, 24 Aug 2026 22:48:46 +0700</lastBuildDate>
+<lastBuildDate>Wed, 09 Sep 2026 14:22:25 +0700</lastBuildDate>
 <atom:link href="https://beatp9696-arch.github.io/feed.xml" rel="self" type="application/rss+xml"/>
+<item>
+<title>เมื่อคนขายชิปต้องค้ำค่าเช่า — Land, Power &amp; Shell</title>
+<link>https://beatp9696-arch.github.io/articles/land-power-shell.html</link>
+<guid isPermaLink="true">https://beatp9696-arch.github.io/articles/land-power-shell.html</guid>
+<pubDate>Wed, 09 Sep 2026 12:00:00 +0700</pubDate>
+<description>ก่อนนับ GPU ให้นับเงื่อนไขที่ขาดอยู่ — ที่ดิน อาคาร และไฟฟ้าจะกลายเป็นผลตอบแทนได้เมื่อไร และใครต้องจ่ายบิลหากผู้เช่าไปต่อไม่ไหว พร้อมภาพโครงสร้างพื้นฐานและตัวทดลองที่เล่นได้ในบทความ</description>
+</item>
 <item>
 <title>ผ่าธุรกิจ DLO (dLocal) — TPV โต 92% แต่ take rate ร่วง 7 ไตรมาสติด</title>
 <link>https://beatp9696-arch.github.io/articles/deep-dive-dlo.html</link>

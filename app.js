@@ -87,7 +87,8 @@
     { f: "buffett-deals-04-nebraska-furniture-mart.html", t: "ดีลที่สร้างบัฟเฟตต์ 4: Nebraska Furniture Mart 1983", sec: "basics" },
     { f: "buffett-deals-05-coca-cola.html", t: "ดีลที่สร้างบัฟเฟตต์ 5: Coca-Cola 1988", sec: "basics" },
     { f: "case-study-01-dominos.html", t: "เคสศึกษา 1: Domino's Pizza", sec: "other" },
-    { f: "deep-dive-dlo.html", t: "DLO (dLocal)", tk: "DLO", sec: "finance" }
+    { f: "deep-dive-dlo.html", t: "DLO (dLocal)", tk: "DLO", sec: "finance" },
+    { f: "land-power-shell.html", t: "Land, Power & Shell — เมื่อคนขายชิปต้องค้ำค่าเช่า", sec: "market" }
   ];
 
   var progressBar = document.querySelector(".reading-progress");
