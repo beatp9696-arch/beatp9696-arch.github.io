@@ -88,7 +88,8 @@
     { f: "buffett-deals-05-coca-cola.html", t: "ดีลที่สร้างบัฟเฟตต์ 5: Coca-Cola 1988", sec: "basics" },
     { f: "case-study-01-dominos.html", t: "เคสศึกษา 1: Domino's Pizza", sec: "other" },
     { f: "deep-dive-dlo.html", t: "DLO (dLocal)", tk: "DLO", sec: "finance" },
-    { f: "land-power-shell.html", t: "Land, Power & Shell — เมื่อคนขายชิปต้องค้ำค่าเช่า", sec: "market" }
+    { f: "land-power-shell.html", t: "Land, Power & Shell — เมื่อคนขายชิปต้องค้ำค่าเช่า", sec: "market" },
+    { f: "blind-business.html", t: "สามแฟ้มธุรกิจ — เบื้องหลังบริษัทที่เราคิดว่ารู้จัก", sec: "basics" }
   ];
 
   var progressBar = document.querySelector(".reading-progress");
