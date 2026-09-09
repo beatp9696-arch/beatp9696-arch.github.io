@@ -1,7 +1,7 @@
 {
   "name": "Moatrices — personal app",
   "short_name": "Moatrices",
-  "description": "Health, Money, Weather, Stocks — one personal app. Data stays on your device and works offline.",
+  "description": "Moatrices articles, Money, Portfolio and Smart Money. Personal data stays on your device.",
   "start_url": "./",
   "scope": "./",
   "display": "standalone",
@@ -10,13 +10,54 @@
   "theme_color": "#0f1215",
   "lang": "en",
   "icons": [
-    { "src": "assets/icons/icon-192.png", "sizes": "192x192", "type": "image/png" },
-    { "src": "assets/icons/icon-512.png", "sizes": "512x512", "type": "image/png", "purpose": "any" },
-    { "src": "assets/icons/icon-512.png", "sizes": "512x512", "type": "image/png", "purpose": "maskable" }
+    {
+      "src": "assets/icons/icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    },
+    {
+      "src": "assets/icons/icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "assets/icons/icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "maskable"
+    }
   ],
   "shortcuts": [
-    { "name": "Health", "url": "./?mode=app&tab=health", "icons": [{ "src": "assets/icons/icon-192.png", "sizes": "192x192" }] },
-    { "name": "Money", "url": "./?mode=app&tab=money", "icons": [{ "src": "assets/icons/icon-192.png", "sizes": "192x192" }] },
-    { "name": "Portfolio", "url": "./?mode=app&tab=portfolio", "icons": [{ "src": "assets/icons/icon-192.png", "sizes": "192x192" }] }
+    {
+      "name": "Smart Money",
+      "url": "./?mode=app&tab=smart-money",
+      "icons": [
+        {
+          "src": "assets/icons/icon-192.png",
+          "sizes": "192x192"
+        }
+      ]
+    },
+    {
+      "name": "Money",
+      "url": "./?mode=app&tab=money",
+      "icons": [
+        {
+          "src": "assets/icons/icon-192.png",
+          "sizes": "192x192"
+        }
+      ]
+    },
+    {
+      "name": "Portfolio",
+      "url": "./?mode=app&tab=portfolio",
+      "icons": [
+        {
+          "src": "assets/icons/icon-192.png",
+          "sizes": "192x192"
+        }
+      ]
+    }
   ]
 }

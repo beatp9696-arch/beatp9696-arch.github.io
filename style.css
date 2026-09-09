@@ -2430,7 +2430,7 @@ body.has-os-tabbar { padding-bottom: 0; }
     bottom: 0;
     z-index: 60;
     display: grid;
-    grid-template-columns: repeat(5, 1fr);
+    grid-template-columns: repeat(4, 1fr);
     height: calc(60px + env(safe-area-inset-bottom, 0px));
     padding-bottom: env(safe-area-inset-bottom, 0px);
     background: var(--header-bg);

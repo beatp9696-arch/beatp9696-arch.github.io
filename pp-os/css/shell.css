@@ -22,9 +22,6 @@ body.mode-app {
 }
 
 /* พื้นของ scroll container ต้องเป็นสีเดียวกับแอป ไม่งั้นตอน overscroll จะเห็นแถบสีแปลกปลอม */
-#shell[data-tab="health"] #shell-view {
-  background: #0a0e12;
-}
 
 #shell[data-tab="money"] #shell-view {
   background: #0d100c;
@@ -93,7 +90,7 @@ body.mode-app {
 #tabbar {
   position: relative;
   display: grid;
-  grid-template-columns: repeat(5, 1fr);
+  grid-template-columns: repeat(4, 1fr);
   height: calc(60px + env(safe-area-inset-bottom, 0px));
   padding-bottom: env(safe-area-inset-bottom, 0px);
   background: var(--surface-glass);
@@ -106,12 +103,6 @@ body.mode-app {
 }
 
 /* แถบล่างเปลี่ยนโทนตามแอปที่เปิดอยู่ — ให้รู้สึกเป็นแอปเดียวกัน ไม่ใช่ 4 แอปเย็บติดกัน */
-#shell[data-tab="health"] #tabbar {
-  background: rgba(10, 14, 18, 0.9);
-  border-top-color: rgba(255, 255, 255, 0.08);
-  --tb-muted: #6f7883;
-  --tb-on: #2fd287;
-}
 
 #shell[data-tab="money"] #tabbar {
   background: rgba(13, 16, 12, 0.9);
@@ -224,10 +215,6 @@ body.mode-app {
 }
 
 /* FAB กลืนสีกับแท็บที่เปิดอยู่ (เหมือนแถบล่าง) — gradient แสงบนชุดเดียวกับตัวหลัก */
-#shell[data-tab="health"] #quick-fab {
-  background: linear-gradient(180deg, color-mix(in srgb, #2fd287 84%, #fff), #2fd287 78%);
-  color: #05130c;
-}
 
 #shell[data-tab="money"] #quick-fab {
   background: linear-gradient(180deg, color-mix(in srgb, #cdf463 84%, #fff), #cdf463 78%);
@@ -241,7 +228,8 @@ body.mode-app {
 
 /* อยู่หน้าซ้อน (Notes / เว็บ / Restore) หรือแท็บ Moatrices (web view) = ซ่อน FAB ไม่ให้เกะกะ */
 #shell.in-sub #quick-fab,
-#shell[data-tab="moatrices"] #quick-fab {
+#shell[data-tab="moatrices"] #quick-fab,
+#shell[data-tab="smart-money"] #quick-fab {
   opacity: 0;
   pointer-events: none;
   transform: scale(0.6);
@@ -993,3 +981,7 @@ body.mode-app .sheet {
 .budget-nudge.over .bn-go {
   color: #e5484d;
 }
+
+#shell[data-tab="smart-money"] #shell-view { background:#101214; }
+#shell[data-tab="smart-money"] #tabbar { background:#101214; --tb-muted:#899198; --tb-on:#f79532; }
+.dw-settings { margin-top:12px; border:1px solid var(--border); border-radius:9px; padding:9px 16px; color:var(--text); background:var(--surface); cursor:pointer; }

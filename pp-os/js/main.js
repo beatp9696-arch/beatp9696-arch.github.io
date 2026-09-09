@@ -6,12 +6,10 @@
 import { register, allApps, getApp } from "./core/app-registry.js";
 import { openApp } from "./core/window-manager.js";
 import { initTaskbar } from "./core/taskbar.js";
-import { initShell } from "./core/app-shell.js";
-import { importFromURL } from "./core/apple-health.js";
+import { initShell, openSettings } from "./core/app-shell.js";
 import { initStorage, load, save } from "./core/storage.js";
 
-import me from "./apps/me.js";
-import health from "./apps/health.js";
+import smartMoney from "./apps/smart-money.js";
 import money from "./apps/money.js";
 import weather from "./apps/weather.js";
 import portfolio from "./apps/portfolio.js";
@@ -20,14 +18,11 @@ import todo from "./apps/todo.js";
 import calculator from "./apps/calculator.js";
 import discover from "./apps/discover.js";
 
-[me, health, money, portfolio, weather, notes, todo, calculator, discover].forEach(register);
+[smartMoney, money, portfolio, weather, notes, todo, calculator, discover].forEach(register);
 
 // ต้องรอ storage โหลดเข้า cache ให้ครบก่อน ไม่งั้นหน้าแรกวาดตอนยังไม่มีข้อมูล = เห็นเป็นศูนย์หมด
 // (top-level await ใน ES module — เบราว์เซอร์ที่รองรับ ES modules ทั้งหมดรองรับอันนี้)
 await initStorage();
-
-// Shortcut ยิงข้อมูลสุขภาพมาทาง ?hk=<base64> — เขียนลง storage ก่อนแอปเริ่มวาด
-importFromURL();
 
 const params = new URLSearchParams(location.search);
 const auto =
@@ -57,8 +52,11 @@ function initDesktop() {
   const widget = document.createElement("div");
   widget.id = "desk-widget";
   widget.innerHTML = `<div class="dw-greet"></div><div class="dw-time"></div><div class="dw-date"></div>
-    <button class="dw-mode">Switch to app mode →</button>`;
+    <button class="dw-mode">Switch to app mode →</button>
+    <button class="dw-settings">Settings</button>`;
   document.getElementById("desktop").append(widget);
+  widget.querySelector(".dw-settings").addEventListener("click", () => openSettings());
+  document.addEventListener("pp-settings", () => openSettings());
 
   widget.querySelector(".dw-mode").addEventListener("click", () => {
     save("os.mode", "app");

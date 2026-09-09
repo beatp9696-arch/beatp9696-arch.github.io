@@ -1,102 +1,64 @@
-# PP OS
+# PP OS / Moatrices
 
-แอปส่วนตัวในเบราว์เซอร์ — เขียนด้วย vanilla JS (ES modules) ไม่มี build step ติดตั้งเป็นแอปบนมือถือได้
+แอปส่วนตัวและคลังพอร์ตสาธารณะ เขียนด้วย vanilla JavaScript (ES modules) ติดตั้งเป็น PWA และเปิดออฟไลน์ได้
 
-> **อยู่ใน repo เว็บ Moatrices แล้ว** (14 ก.ค. 2026) — เดิมเป็น repo แยก `beatp9696-arch/pp-os` ตอนนี้ยุบรวมมาเป็นโฟลเดอร์ `pp-os/` ของ user site (repo `beatp9696-arch.github.io`) แล้ว repo เก่าปิด GitHub Pages ทิ้ง เพราะ **project page override path เดียวกันของ user site เสมอ** — ถ้าเปิด Pages ของ repo เก่าอีกครั้ง เว็บจะกลับไปเสิร์ฟของเก่าทันที
->
-> - URL เดิมไม่เปลี่ยน: https://beatp9696-arch.github.io/pp-os/ · publish = push repo เว็บ (ไม่มี build step ของแอปเอง; `build.py` ของเว็บอ่านแค่ `articles/` กับ `scenes/` ไม่แตะโฟลเดอร์นี้)
-> - เว็บ Moatrices เป็น **แท็บแรก** ของแอป (iframe เต็มจอ, same-origin) และเมนูของเว็บมีลิงก์ "แอป" กลับมาที่นี่
+## หน้าหลัก
 
-**สองโหมดจาก codebase เดียว** (แอปตัวเดียวกัน ใช้ contract `mount(body)` เหมือนกัน):
+แท็บแอปและแถบล่างบนเว็บไซต์ใช้ชุดเดียวกัน: **Moatrices / Money / Portfolio / Smart Money**
 
-- **app mode** — แอปมือถือเต็มจอ + แท็บล่าง `Moatrices / Health / Money / Weather / Me` (ดีฟอลต์เมื่อจอ ≤820px หรือเปิดจากไอคอน PWA) · แท็บ Moatrices = หน้าเว็บ index.html เต็มจอในแอป · ตั้งค่า/Sync/Backup อยู่ที่ **เฟือง ⚙️ มุมขวาบนของแท็บ Me** (เดิมอยู่ใต้ More — ตัด More ออกแล้ว)
-- **desktop mode** — desktop + หน้าต่างลาก/ย่อ/focus + taskbar + start menu (ดีฟอลต์บนจอกว้าง)
+- **Moatrices** เปิดเว็บบทความในแอป
+- **Money** บันทึกรายรับ รายจ่าย และงบประมาณในเครื่อง
+- **Portfolio** พอร์ตส่วนตัวเดิม ข้อมูลถือครองและราคาที่กรอกยังอยู่ในเครื่อง
+- **Smart Money** การ์ดพอร์ตสาธารณะ กราฟสัดส่วน รายการถือครอง และการเปลี่ยนแปลงของจำนวนหุ้นจากรายงาน SEC
 
-สลับโหมดได้สองทาง (ปุ่มใต้นาฬิกาบน desktop / Me → เฟือง → Device ในแอป) หรือบังคับด้วย `?mode=app|desktop`
+หน้า Me และ Health ถูกถอดออกจากทะเบียนแอป เมนู ทางลัด และการโหลดข้อมูลสุขภาพอัตโนมัติแล้ว ลิงก์แท็บเก่าจะเปิด Smart Money ข้อมูลเดิมใน storage ยังสำรองออกได้
 
-- **UI เป็นภาษาอังกฤษล้วน** (14 ก.ค. 2026) — ฟอนต์ Inter (variable, self-hosted) + Instrument Serif เฉพาะหัวเรื่อง Weather + IBM Plex Mono เฉพาะ eyebrow/label เครื่องมือ
-- **Design system ชั้นเดียว** — component (`.card` / `.page-head` / `.chip` / `.seg` / `.list` / `.btn`) นิยามครั้งเดียวใน `css/apps.css` แล้วแต่ละแอปประกาศแค่ **จานสี 8 ตัวแปร** ที่ราก `.app-<id>` (`--canvas --card --line --ink --dim --a --a-soft --on-a`); แต่ละแอปเลยมีบุคลิกของตัวเอง (Health = จอดำ WHOOP, Weather = กระดาษครีม Acme, Money = ดำ-เขียวมะนาว FinTrack) แต่โครงเหมือนกันหมด
-- **ข้อมูลอยู่ในเครื่อง** — IndexedDB ต่ออุปกรณ์ ไม่มีเซิร์ฟเวอร์ของเราเอง ไม่มี tracking (Me → เฟือง → Data → ดาวน์โหลดเป็น JSON ได้)
-- **Sync ข้ามเครื่อง (ออปชัน)** — Me → เฟือง → Sync → ต่อ GitHub Gist ส่วนตัวด้วย token (scope `gist`) ที่เก็บในเครื่องเท่านั้น · merge แบบ last-write-wins ต่อ key + snapshot ให้กด Undo ได้ · token/ความลับไม่ถูก sync/ใส่ backup (`js/core/sync.js`)
+**Settings** เปิดจากปุ่มเฟืองใน Smart Money หรือปุ่ม Settings บน desktop มี Sync / Backup / Restore / Device และทางเข้า Weather, Notes, To-do, Calculator, Discover
 
-## รันยังไง
-
-ES modules เปิดผ่าน `file://` ไม่ได้ ต้องมี local server:
+## รันในเครื่อง
 
 ```bash
-cd pp-os
+cd website
 python3 -m http.server 8000
-# เปิด http://localhost:8000
 ```
 
-Deep link: `?mode=app&tab=health` · `?open=notes,calculator` (desktop)
+เปิด `http://localhost:8000/pp-os/?mode=app&tab=smart-money`
 
-## Apple Health
+- มือถือและ PWA ใช้ app mode เป็นค่าเริ่มต้น; หน้าจอกว้างใช้ desktop mode
+- บังคับโหมดด้วย `?mode=app` หรือ `?mode=desktop&open=smart-money`
+- ไฟล์แอปอยู่ใน repo เว็บเดียวกัน เผยแพร่ตามกระบวนการ push ของเว็บไซต์
 
-เว็บอ่าน HealthKit ตรงๆ **ไม่ได้** — Apple เปิดให้เฉพาะแอป native เท่านั้น ไม่มี Web API เลย
-PP OS เลยรับข้อมูลเข้าทาง import แทน (Health → ปุ่ม ⌚ มุมขวาบน) รองรับ:
+## ข้อมูล Smart Money
 
-| แหล่ง | ทำยังไง | ได้อะไร |
-|---|---|---|
-| `export.zip` จากแอปสุขภาพ | สุขภาพ → รูปโปรไฟล์ → ส่งออกข้อมูลสุขภาพทั้งหมด → เลือกไฟล์ที่ได้ | ก้าว/ออกกำลังกาย/นอน/น้ำ/น้ำหนัก ย้อนหลังสูงสุด 400 วัน |
-| `.json` จาก Shortcut | Shortcut อ่าน Health → เขียนไฟล์ JSON → เลือกไฟล์นั้น | อัปเดตรายวัน |
-| `?hk=<base64 JSON>` | Shortcut สั่ง Open URL | เข้าอัตโนมัติตอนเปิด (ใช้กับ Safari — PWA ที่ติดตั้งแล้วมี storage แยกจาก Safari) |
+`data/smart-money.json` เป็น snapshot สาธารณะที่บรรจุมากับแอป ไม่เรียก API ราคาหุ้นหรือเก็บ token ของผู้ใช้
 
-รูปแบบ JSON: `{"days":{"2026-07-14":{"steps":8210,"ex":30,"sleep":7.5,"water":6,"weight":70.5}}}`
+- แต่ละพอร์ตมีวันที่ถือครอง วันที่ยื่น ลิงก์ SEC และข้อมูลรอบก่อน
+- จำนวนและมูลค่าแยกตามหลักทรัพย์ รวมแถวของผู้จัดการรายย่อยตาม CUSIP + หน่วย + ประเภทออปชัน และตรวจยอดรวมกับหน้าปกรายงาน
+- กราฟแสดง 5 อันดับแรกและรายการอื่นครบตามยอดรวม ไม่มีการขยายหุ้น 5 ตัวให้กลายเป็น 100% ของพอร์ต
+- การเปลี่ยนแปลงเป็นจำนวนหุ้นที่รายงาน ไม่ใช่รายการซื้อขายหรือผลตอบแทน และยังไม่ได้ปรับผลของ corporate actions
+- Pershing Square ชุดที่ตรวจสอบได้เป็น Q1 2026 ส่วนอีกสามพอร์ตเป็น Q2 2026 วันที่ระบุแยกในแต่ละการ์ด
+- เอกสาร 13F ไม่ครอบคลุมพอร์ตทั้งหมด รายละเอียดขอบเขตแสดงในหน้าพอร์ต
 
-การแกะ zip + สตรีมอ่าน `export.xml` ทำเองใน `js/core/apple-health.js` (ไม่มี library — ใช้ `DecompressionStream("deflate-raw")` ของเบราว์เซอร์) ทุกอย่างอ่านในเครื่อง ไม่มีการอัปโหลด
+อัปเดตข้อมูลโดยดาวน์โหลด cover XML และ Information Table XML จาก SEC พร้อม manifest ตาม docstring ใน `tools/build-smart-money.py` จากนั้นรัน:
 
-**กับดักที่โค้ดจัดการให้แล้ว:** iPhone กับ Apple Watch นับก้าว/ออกกำลังกายซ้ำกัน → รวมแยกตาม source แล้วเอาแหล่งที่มากสุดของวันนั้น (ไม่ใช่ sum ทุกแหล่ง ไม่งั้นเลขเบิ้ล) · การนอนนับเข้า "วันที่ตื่น" และตัด `InBed` ออก เอาเฉพาะ `Asleep*` · import ทับเฉพาะตัวชี้วัดที่ Apple มี ไม่แตะอารมณ์ที่กรอกเอง
-
-## Structure
-
-```
-index.html              # shell กลาง (โหมดไหนก็ boot จากไฟล์นี้)
-manifest.webmanifest    # PWA manifest + shortcuts (Health/Money/Weather)
-sw.js                   # service worker — แก้/เพิ่มไฟล์ต้อง bump VERSION + อัปเดต SHELL list
-css/                    # base / desktop / window / taskbar / shell (โหมดแอป) / apps
-assets/                 # fonts + icons ชุดเดียวกับเว็บ Moatrices
-js/
-├── main.js             # boot: register แอป → เลือกโหมด → import ?hk= ถ้ามี
-├── core/
-│   ├── app-shell.js        # โหมดแอป: view เต็มจอ + tabbar + More + export
-│   ├── window-manager.js   # โหมด desktop: เปิด/ปิด/ลาก/ย่อ/z-index/focus
-│   ├── taskbar.js          # ปุ่มแอป + นาฬิกา + start menu
-│   ├── apple-health.js     # แกะ export.zip / JSON → merge เข้า health.days
-│   ├── app-registry.js     # ทะเบียนแอป
-│   ├── storage.js          # IndexedDB (+ fallback localStorage) + timestamp ต่อ key สำหรับ sync
-│   └── sync.js             # Sync ข้ามเครื่องผ่าน GitHub Gist ส่วนตัว (merge last-write-wins)
-└── apps/               # หนึ่งไฟล์ = หนึ่งแอป (me, health, money, weather, notes, todo, calculator)
+```bash
+python3 pp-os/tools/build-smart-money.py /path/to/sources.json
+node pp-os/test/smart-money.test.mjs
 ```
 
-## เพิ่มแอปใหม่
+ตรวจรายงานแก้ไข ขอบเขตการรายงาน และ corporate actions ก่อนเปลี่ยนชุดข้อมูล แล้ว bump `VERSION` ใน `sw.js` เมื่อเผยแพร่ข้อมูลหรือไฟล์แอปใหม่ ไฟล์ใน `SHELL` ต้องมีอยู่ครบ
 
-1. สร้าง `js/apps/<ชื่อ>.js` export object ตาม contract:
+โลโก้ใน `assets/brands/` ใช้สำเนาโลโก้เดิมของเว็บไซต์เพื่อให้แสดงออฟไลน์ได้
 
-```js
-export default {
-  id: "myapp",
-  name: "My App",
-  icon: "🚀",
-  defaultSize: { w: 480, h: 360 },   // ใช้เฉพาะโหมด desktop
-  mount(body) {
-    // body = div ที่ window manager หรือ app shell สร้างให้ — logic ทั้งหมดอยู่ในนี้
-  },
-};
-```
+## ข้อมูลส่วนตัว
 
-2. import + เพิ่มเข้า array ใน `js/main.js` — จบ ไม่ต้องแตะ core
-   (แอปมีที่ทางเป็นแท็บใน `TABS` ของ `app-shell.js`; ถ้าเป็นข้อมูลที่อยากให้ sync ข้ามเครื่อง เพิ่ม key ใน `SYNC_KEYS` ของ `js/core/sync.js` ด้วย)
+เก็บใน IndexedDB พร้อม fallback localStorage การเพิ่ม Smart Money ไม่อ่านหรือเปลี่ยน `pf.holdings` และไม่ส่งพอร์ตส่วนตัวออกไป ระบบ Sync เดิมเป็นออปชันผ่าน GitHub Gist ของผู้ใช้ ส่วน Backup รวมข้อมูลในเครื่องตามกติกาเดิม
 
-## Roadmap
+## โครงสร้าง
 
-- [x] desktop + window manager + taskbar + start menu
-- [x] แอป: Notes, To-do, Calculator, Health, Weather (Open-Meteo), Money
-- [x] PWA + offline + identity Moatrices
-- [x] โหมดแอปมือถือ + แท็บล่าง + หน้า Me (แดชบอร์ดรวมทุกแอป)
-- [x] นำเข้าจาก Apple Health (export.zip / Shortcut JSON / URL)
-- [x] กราฟน้ำหนัก + แนวโน้มระยะยาว (สลับช่วง 7/30/90/365 วัน + เส้นเฉลี่ยเคลื่อนที่)
-- [x] งบต่อหมวดต่อเดือนใน Money (ตั้งเพดาน + แถบเปลี่ยนสี >80% + เตือนในหน้า Me)
-- [x] Moatrices เป็นแท็บแรก + หน้า Settings (เฟืองในแท็บ Me) รวม Data/Device
-- [x] Sync ข้ามเครื่องผ่าน GitHub Gist ส่วนตัว (merge last-write-wins + Undo)
-```
+- `js/main.js` — ทะเบียนแอปและการเริ่มระบบ
+- `js/core/app-shell.js` — แท็บ Settings และหน้าซ้อน
+- `js/core/smart-money-model.js` — ตรวจข้อมูล สัดส่วน และการเปลี่ยนแปลง
+- `js/apps/smart-money.js`, `css/smart-money.css` — หน้า Smart Money
+- `js/core/storage.js`, `js/core/sync.js` — ข้อมูลส่วนตัวและ Sync
+- `manifest.webmanifest`, `sw.js` — ติดตั้งแอป ทางลัด และ offline cache

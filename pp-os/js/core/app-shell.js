@@ -12,8 +12,7 @@ const I = (d) =>
 const ICONS = {
   // แท็บ Moatrices — ไอคอนกราฟแท่งให้ล้อกับโลโก้เว็บ
   moatrices: I('<path d="M4 20h16"/><rect x="5" y="12" width="3.4" height="6" rx="1"/><rect x="10.3" y="8" width="3.4" height="10" rx="1"/><rect x="15.6" y="4" width="3.4" height="14" rx="1"/>'),
-  me: I('<circle cx="12" cy="8" r="3.6"/><path d="M4.8 20a7.2 7.2 0 0 1 14.4 0"/>'),
-  health: I('<path d="M20.4 6.9a4.6 4.6 0 0 0-7.8-2L12 5.6l-.6-.7a4.6 4.6 0 0 0-7.8 2c-.5 2 .3 3.9 1.8 5.5L12 19l6.6-6.6c1.5-1.6 2.3-3.5 1.8-5.5Z"/><path d="M3.4 12h3.3l1.5-2.4 2 4.4 1.6-3 1.1 1h4.2"/>'),
+  "smart-money": I('<path d="M9 18h6M10 21h4M8.2 14.4a6 6 0 1 1 7.6 0L15 17H9Z"/><path d="m8 10 2.5-2 2.5 2L16 7"/>'),
   money: I('<rect x="3" y="6" width="18" height="13" rx="3"/><path d="M3 10h18"/><circle cx="16.5" cy="14.5" r="1.4"/><path d="M6.5 3.8 15 6"/>'),
   // แท็บ Portfolio — โดนัทสามชิ้น ล้อกับกราฟวงในแอปเอง
   portfolio: I('<circle cx="12" cy="12" r="8.4"/><circle cx="12" cy="12" r="3.2"/><path d="M12 3.6v5.2M14.8 13.6l4.5 2.6M9.2 13.6l-4.5 2.6"/>'),
@@ -23,15 +22,12 @@ const ICONS = {
   sync: I('<path d="M4 9a8 8 0 0 1 13.7-3.3L20 8"/><path d="M20 4v4h-4"/><path d="M20 15a8 8 0 0 1-13.7 3.3L4 16"/><path d="M4 20v-4h4"/>'),
 };
 
-// 5 ช่องคือของหายาก — ให้เฉพาะของที่เปิดทุกวันและตัดสินใจอะไรบางอย่าง
-// Weather ไม่ได้อยู่ตรงนี้แล้ว (ดูวันละครั้ง ไม่ได้ตัดสินใจอะไรต่อ) → เข้าทางการ์ดในหน้า Me แทน
-// หน้าเต็มของมันยังอยู่ครบเหมือนเดิม แค่เปิดเป็นหน้าซ้อน
+// Public portfolios and private holdings have separate tabs and storage.
 const TABS = [
   { id: "moatrices", label: "Moatrices", app: null }, // แท็บแรก = เปิดหน้าเว็บ Moatrices ในแอปเต็มจอ
-  { id: "health", label: "Health", app: "health" },
   { id: "money", label: "Money", app: "money" },
   { id: "portfolio", label: "Portfolio", app: "portfolio" },
-  { id: "me", label: "Me", app: "me" },
+  { id: "smart-money", label: "Smart Money", app: "smart-money" },
 ];
 
 // ---- Moatrices ในแอป ----
@@ -47,8 +43,7 @@ export const SITE = location.pathname.includes("/pp-os/")
 // สีแถบสถานะของมือถือ ให้กลืนกับพื้นหลังของแท็บ/หน้าซ้อนที่เปิดอยู่
 const THEME = {
   moatrices: "#0f1215",
-  me: "#0f1215",
-  health: "#0c1014",
+  "smart-money": "#101214",
   money: "#0f120e",
   portfolio: "#0b0e13",
   weather: "#14100b",
@@ -86,11 +81,11 @@ export function initShell() {
     bar.append(btn);
   }
 
-  // การ์ดในหน้า Me กดแล้วเด้งไปแท็บที่ลึกกว่า
+  // Internal navigation and settings are shared across apps.
   document.addEventListener("pp-go", (e) => goTab(e.detail));
-  // ปุ่มเฟืองในหน้า Me เปิดหน้า Settings (Sync / Data / Device)
+  // Settings is available from Smart Money and the desktop toolbar.
   document.addEventListener("pp-settings", openSettings);
-  // แอปที่ไม่มีแท็บของตัวเอง (Weather) เปิดเป็นหน้าซ้อนจากการ์ดในหน้า Me
+  // Apps without tabs open as overlays from Settings.
   document.addEventListener("pp-open", (e) => openAppOverlay(e.detail));
   // หน้าเว็บ Moatrices ที่เปิดจากในแอป (บทความ deep-dive จากหน้า Portfolio)
   document.addEventListener("pp-open-web", (e) => openWebOverlay(e.detail));
@@ -113,10 +108,11 @@ export function initShell() {
   sync.initSync(); // ดึงของใหม่จาก cloud ถ้าตั้ง sync ไว้ + ตั้ง auto-sync เวลาข้อมูลเปลี่ยน
 
   const start = new URLSearchParams(location.search).get("tab");
-  goTab(TABS.some((t) => t.id === start) ? start : "me");
+  goTab(TABS.some((t) => t.id === start) ? start : "smart-money");
 }
 
 function goTab(id, opts = {}) {
+  if (!TABS.some((t) => t.id === id)) id = "smart-money";
   const idx = TABS.findIndex((t) => t.id === id);
   const dir = opts.dir ?? (idx > curIdx ? 1 : idx < curIdx ? -1 : 0);
   if (idx >= 0) curIdx = idx;
@@ -263,7 +259,7 @@ function toast(root, text) {
   setTimeout(() => el.remove(), 4000);
 }
 
-// ---- Settings: หน้าซ้อนเต็มจอ เปิดจากปุ่มเฟืองในหน้า Me (Sync / Data / Device) ----
+// ---- Settings: accessible from Smart Money and the desktop toolbar ----
 // More ถูกตัดออกไปแล้ว — ของตั้งค่าที่ยังจำเป็น (โดยเฉพาะ Restore ตามหลัก P0 "backup ที่ restore
 // ไม่ได้ = ไม่ใช่ backup") ย้ายมาอยู่ที่นี่ พร้อม Sync ข้ามเครื่อง
 
@@ -278,7 +274,7 @@ function timeAgo(ts) {
   return `${Math.floor(h / 24)}d ago`;
 }
 
-function openSettings() {
+export function openSettings() {
   if (document.querySelector(".settings-ov")) return; // กันเปิดซ้อน
 
   const ov = document.createElement("div");
@@ -304,6 +300,14 @@ function openSettings() {
         </button>
       </div>
 
+      <div class="more-sec">Tools</div>
+      <div class="more-list">
+        ${['weather','notes','todo','calculator','discover'].map(id => {
+          const app = getApp(id);
+          return app ? `<button class="more-row" data-tool="${id}"><span class="mr-txt"><b>${app.name}</b></span><span class="mr-chev">${ICONS.chev}</span></button>` : '';
+        }).join('')}
+      </div>
+
       <div class="more-foot">Moatrices · Your data lives on your own devices. Sync uses a private GitHub Gist that you own — there is no Moatrices server.</div>
       <div class="sheet-host"></div>
     </div>
@@ -321,6 +325,15 @@ function openSettings() {
   const onKey = (e) => e.key === "Escape" && close();
   addEventListener("keydown", onKey);
   ov.querySelector(".set-close").addEventListener("click", close);
+
+  ov.querySelectorAll('[data-tool]').forEach(button => button.addEventListener('click', () => {
+    const id = button.dataset.tool;
+    close();
+    setTimeout(() => {
+      if (document.body.classList.contains('mode-app')) openAppOverlay(id);
+      else import('./window-manager.js').then(({openApp}) => openApp(getApp(id)));
+    }, 230);
+  }));
 
   ov.querySelector('[data-act="desktop"]').addEventListener("click", () => {
     save("os.mode", "desktop");
@@ -592,7 +605,6 @@ function openQuickAdd() {
         <div class="qa-seg">
           <button type="button" data-q="expense" class="on">💸 Expense</button>
           <button type="button" data-q="task">✅ Task</button>
-          <button type="button" data-q="water">💧 Water</button>
         </div>
         <div class="qa-body"></div>
       </div>
@@ -614,7 +626,7 @@ function openQuickAdd() {
 
   const finish = (msg) => {
     close();
-    // อยู่แท็บหลักตัวไหน วาดใหม่ให้เห็นเลขที่เพิ่งเพิ่ม (Me/Money/Health อัปเดตทันที)
+    // Refresh the current tab after saving.
     if (!shell.classList.contains("in-sub")) goTab(shell.dataset.tab, { dir: 0 });
     toast(document.querySelector("#shell-view .view"), msg);
   };
@@ -655,26 +667,7 @@ function openQuickAdd() {
         finish("✓ Task added");
       });
       form.text.focus();
-    } else {
-      const water = load("health.days", {})[localDate()]?.water ?? 0;
-      bodyEl.innerHTML = `
-        <div class="qa-water">
-          <div class="qa-water-now"><b>${water}</b><small>of 8 glasses today</small></div>
-          <div class="qa-water-btns">
-            <button type="button" data-w="-1" aria-label="Remove a glass">−</button>
-            <button type="button" data-w="1" class="add">＋ 1 glass</button>
-          </div>
-        </div>`;
-      bodyEl.querySelectorAll("[data-w]").forEach((b) =>
-        b.addEventListener("click", () => {
-          const days = load("health.days", {});
-          const rec = (days[localDate()] ??= { steps: 0, water: 0, ex: 0, sleep: 0, weight: null, mood: null });
-          rec.water = Math.max(0, (rec.water ?? 0) + Number(b.dataset.w));
-          save("health.days", days);
-          if (Number(b.dataset.w) > 0) finish("✓ Logged a glass of water");
-          else renderBody(); // ลบแก้ว = ยังอยู่ในชีต แค่ปรับเลข
-        })
-      );
+
     }
   };
 

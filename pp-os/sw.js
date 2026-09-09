@@ -1,7 +1,7 @@
 // Service worker — precache app shell ทั้งหมด ใช้ offline ได้เต็มตัว
 // เปลี่ยนไฟล์เมื่อไหร่ให้ bump VERSION เพื่อบังคับ cache ใหม่
 
-const VERSION = "pp-os-v26";
+const VERSION = "pp-os-v27";
 
 const SHELL = [
   "./",
@@ -13,24 +13,32 @@ const SHELL = [
   "./css/taskbar.css",
   "./css/shell.css",
   "./css/apps.css",
+  "./css/smart-money.css",
   "./js/main.js",
   "./js/core/window-manager.js",
   "./js/core/taskbar.js",
   "./js/core/app-shell.js",
   "./js/core/app-registry.js",
-  "./js/core/apple-health.js",
   "./js/core/storage.js",
   "./js/core/sync.js",
   "./js/core/ui.js",
-  "./js/apps/me.js",
   "./js/apps/notes.js",
   "./js/apps/todo.js",
-  "./js/apps/health.js",
   "./js/apps/weather.js",
   "./js/apps/money.js",
   "./js/apps/portfolio.js",
+  "./js/apps/smart-money.js",
+  "./js/core/smart-money-model.js",
+  "./data/smart-money.json",
   "./js/apps/calculator.js",
   "./js/apps/discover.js",
+  "./assets/brands/AAPL.svg",
+  "./assets/brands/AXP.png",
+  "./assets/brands/GOOGL.png",
+  "./assets/brands/NVDA.png",
+  "./assets/brands/MSFT.png",
+  "./assets/brands/COHR.png",
+  "./assets/brands/SNPS.png",
   "./assets/icons/favicon.svg",
   "./assets/icons/icon-192.png",
   "./assets/icons/icon-512.png",
@@ -53,7 +61,7 @@ self.addEventListener("activate", (e) => {
   e.waitUntil(
     caches
       .keys()
-      .then((keys) => Promise.all(keys.filter((k) => k !== VERSION).map((k) => caches.delete(k))))
+      .then((keys) => Promise.all(keys.filter((k) => k.startsWith("pp-os-") && k !== VERSION).map((k) => caches.delete(k))))
       .then(() => self.clients.claim())
   );
 });

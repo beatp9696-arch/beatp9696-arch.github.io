@@ -970,7 +970,7 @@
 })();
 
 /* ============================================================
-   OS tab bar — แถบล่างชุดเดียวกับ PP OS (Moatrices / Health / Money / Portfolio / Me)
+   OS tab bar — แถบล่างชุดเดียวกับ PP OS (Moatrices / Money / Portfolio / Smart Money)
    โผล่เฉพาะจอมือถือ: เว็บกับแอปเลยรู้สึกเป็นแอปเดียวกัน สลับไปมาได้จากทุกหน้า
    ซ่อนตัวเองเมื่อถูกฝังใน iframe ของแอป (แท็บ Moatrices ในแอปมี tabbar ของมันอยู่แล้ว = ห้ามซ้อนสองแถบ)
    ============================================================ */
@@ -987,11 +987,9 @@
   var TABS = [
     // ไอคอนต้องตรงกับ ICONS.moatrices ใน pp-os/js/core/app-shell.js เป๊ะ — แถบนี้กับแถบในแอปคือแถบเดียวกัน
     { id: "moatrices", label: "Moatrices", icon: svg('<path d="M4 20h16"/><rect x="5" y="12" width="3.4" height="6" rx="1"/><rect x="10.3" y="8" width="3.4" height="10" rx="1"/><rect x="15.6" y="4" width="3.4" height="14" rx="1"/>') },
-    { id: "health", label: "Health", icon: svg('<path d="M20.4 6.9a4.6 4.6 0 0 0-7.8-2L12 5.6l-.6-.7a4.6 4.6 0 0 0-7.8 2c-.5 2 .3 3.9 1.8 5.5L12 19l6.6-6.6c1.5-1.6 2.3-3.5 1.8-5.5Z"/><path d="M3.4 12h3.3l1.5-2.4 2 4.4 1.6-3 1.1 1h4.2"/>') },
     { id: "money", label: "Money", icon: svg('<rect x="3" y="6" width="18" height="13" rx="3"/><path d="M3 10h18"/><circle cx="16.5" cy="14.5" r="1.4"/><path d="M6.5 3.8 15 6"/>') },
-    // Weather ออกจากแถบแล้ว (17 ก.ค.) — หน้าเต็มยังอยู่ เข้าทางการ์ดในหน้า Me ของแอป
     { id: "portfolio", label: "Portfolio", icon: svg('<circle cx="12" cy="12" r="8.4"/><circle cx="12" cy="12" r="3.2"/><path d="M12 3.6v5.2M14.8 13.6l4.5 2.6M9.2 13.6l-4.5 2.6"/>') },
-    { id: "me", label: "Me", icon: svg('<circle cx="12" cy="8" r="3.6"/><path d="M4.8 20a7.2 7.2 0 0 1 14.4 0"/>') }
+    { id: "smart-money", label: "Smart Money", icon: svg('<path d="M9 18h6M10 21h4M8.2 14.4a6 6 0 1 1 7.6 0L15 17H9Z"/><path d="m8 10 2.5-2 2.5 2L16 7"/>') },
   ];
 
   var bar = document.createElement("nav");
