@@ -36,7 +36,7 @@ const stockBadge = row => {
   return url ? `<img src="${url}" alt="" width="32" height="32" decoding="async" loading="lazy">` : `<span class="sm-stock-fallback" aria-hidden="true">${esc((row.symbol||row.issuer).slice(0,2))}</span>`;
 };
 const profileImages = {
-  berkshire: ['brands/berkshire.svg', 'logo'],
+  berkshire: ['people/warren-buffett.jpg', 'photo'],
   nvidia: ['brands/NVDA.png', 'logo'],
   temasek: ['brands/temasek.svg', 'logo'],
   pershing: ['brands/pershing.svg', 'logo'],
@@ -97,7 +97,7 @@ function ring(fund, detailed = false) {
   const center = profileImages[fund.id]
     ? `<span class="sm-brand sm-brand-${esc(fund.id)} sm-brand-${profileImages[fund.id][1]}">${profileImage(fund)}</span>`
     : `<span class="sm-brand sm-brand-${esc(fund.id)}"><b>${esc(fund.monogram)}</b><small>${esc(fund.brandCaption)}</small></span>`;
-  return `<div class="sm-chart${detailed ? ' sm-ring-large' : ''}"><div class="sm-ring" aria-hidden="true"><svg viewBox="0 0 220 220"><g transform="rotate(-90 110 110)">${circles}</g>${marks}</svg>${center}</div><span class="sm-chart-caption">หุ้นหลัก ${rows.length} อันดับ${fund.estimatedHoldings ? ' · ประมาณการ' : ''}<br>สัดส่วนเฉพาะกลุ่มนี้</span></div>`;
+  return `<div class="sm-chart${detailed ? ' sm-ring-large' : ''}"><div class="sm-ring" aria-hidden="true"><svg viewBox="0 0 220 220"><g transform="rotate(-90 110 110)">${circles}</g>${marks}</svg>${center}</div><span class="sm-chart-caption">${detailed && fund.estimatedHoldings ? `Top ${rows.length} holdings · Estimated<br>Weights within this group` : `หุ้นหลัก ${rows.length} อันดับ${fund.estimatedHoldings ? ' · ประมาณการ' : ''}<br>สัดส่วนเฉพาะกลุ่มนี้`}</span></div>`;
 }
 
 function card(fund, i) {
@@ -146,10 +146,10 @@ function sectorPanel(fund) {
     offset+=length;return arc;
   }).join('');
   const screenshot=allocation.basis==='screenshot';
-  return `<section class="sm-sectors"><h3>สัดส่วนอุตสาหกรรม</h3><p class="sm-sector-basis">${screenshot?'สัดส่วนประมาณการตามภาพแอป · ทั้งพอร์ตในภาพ':'เทียบมูลค่าถือครองทั้งหมดในรายงาน · หมวด Nasdaq'}</p>
+  return `<section class="sm-sectors"><h3>Sector Allocation</h3><p class="sm-sector-basis">${screenshot?'Estimated allocation across the portfolio shown in the reference data':'Based on total reported holdings value · Nasdaq sectors'}</p>
     <div class="sm-sector-layout"><svg class="sm-sector-donut" viewBox="0 0 200 200" aria-hidden="true"><g transform="rotate(-90 100 100)">${arcs}</g></svg>
     <ul class="sm-sector-legend">${allocation.rows.map((row,i)=>`<li><i style="background:${SECTOR_COLORS[i%SECTOR_COLORS.length]}"></i><span title="${esc(row.name||row.label)}">${esc(row.label)}</span><b>${estimatePercent(row.weight)}</b>${row.value===undefined?'':`<small>${money(row.value)}</small>`}</li>`).join('')}</ul></div>
-    <p class="sm-sector-source">${screenshot?`<a href="${new URL('../../'+allocation.sourceImage,import.meta.url).href}" target="_blank" rel="noopener noreferrer">ดูภาพต้นทาง</a> · ชื่อหมวดบางรายการในภาพถูกย่อ`:`กองทุน / ETF ไม่แยกหุ้นภายในกองทุน · รายการที่จับคู่บริษัทไม่ได้อยู่ใน “ยังไม่จัดหมวด”<br><a href="https://www.nasdaq.com/market-activity/stocks/screener" target="_blank" rel="noopener noreferrer">หมวดบริษัทจาก Nasdaq</a> · ตรวจ ${sectorMetadata?date(sectorMetadata.checkedAt):'ไม่สำเร็จ'}`}</p></section>`;
+    ${screenshot?'':`<p class="sm-sector-source">Funds / ETFs are not broken down into underlying holdings. Unmatched securities are shown as “Unclassified”.<br><a href="https://www.nasdaq.com/market-activity/stocks/screener" target="_blank" rel="noopener noreferrer">Nasdaq company sectors</a> · Checked ${sectorMetadata?date(sectorMetadata.checkedAt):'date unavailable'}</p>`}</section>`;
 }
 
 export default {
@@ -198,13 +198,13 @@ export default {
       content.querySelector('[data-more]').hidden=visibleCount>=items.length;
     }
 
-    const profileTabs = (fund, view) => fund.estimatedHoldings ? `<div class="sm-holding-tabs sm-profile-tabs" aria-label="ประเภทข้อมูล"><button data-profile-view="holdings" aria-pressed="${view === 'holdings'}">ถือครอง (ประมาณการ)</button><button data-profile-view="transactions" aria-pressed="${view === 'transactions'}">${fund.disclosure.type==='transactions'?'ธุรกรรม OGE':'ทรัพย์สินตามรายงาน'}</button></div>` : '';
+    const profileTabs = (fund, view) => fund.estimatedHoldings ? `<div class="sm-holding-tabs sm-profile-tabs" aria-label="Data view"><button data-profile-view="holdings" aria-pressed="${view === 'holdings'}">Estimated holdings</button><button data-profile-view="transactions" aria-pressed="${view === 'transactions'}">${fund.disclosure.type==='transactions'?'OGE transactions':'Disclosed assets'}</button></div>` : '';
 
     function drawEstimatedRows() {
       const estimate=selected.estimatedHoldings, needle=holdingQuery.trim().toLocaleLowerCase();
       const rows=estimate.rows.filter(row=>[row.symbol,row.issuer].some(value=>value.toLocaleLowerCase().includes(needle)));
-      content.querySelector('.sm-estimated-table tbody').innerHTML=rows.length?rows.slice(0,visibleCount).map(row=>`<tr><th scope="row"><div class="sm-estimated-stock">${stockBadge(row)}<div><b>${esc(row.symbol)}</b><span title="${esc(row.issuer)}">${esc(row.issuer)}</span></div></div></th><td>${estimatePercent(row.weight)}</td><td>${compactShares(row.shares)}</td></tr>`).join(''):'<tr><td colspan="3" class="sm-empty">ไม่พบรายการที่ตรงกับคำค้น</td></tr>';
-      content.querySelector('.sm-estimate-count').textContent=`แสดง ${Math.min(rows.length,visibleCount)} จาก ${rows.length} รายการ`;
+      content.querySelector('.sm-estimated-table tbody').innerHTML=rows.length?rows.slice(0,visibleCount).map(row=>`<tr><th scope="row"><div class="sm-estimated-stock">${stockBadge(row)}<div><b>${esc(row.symbol)}</b><span title="${esc(row.issuer)}">${esc(row.issuer)}</span></div></div></th><td>${estimatePercent(row.weight)}</td><td>${compactShares(row.shares)}</td></tr>`).join(''):'<tr><td colspan="3" class="sm-empty">No matching holdings</td></tr>';
+      content.querySelector('.sm-estimate-count').textContent=`Showing ${Math.min(rows.length,visibleCount)} of ${rows.length} holdings`;
       content.querySelector('[data-estimate-more]').hidden=visibleCount>=rows.length;
     }
 
@@ -213,17 +213,16 @@ export default {
       const estimate = fund.estimatedHoldings;
       const top = estimate.rows.slice(0,5);
       const topWeight = top.reduce((sum,row) => sum + row.weight, 0);
-      content.innerHTML = `<section class="sm-detail sm-estimated-detail">${backButton()}<div class="sm-detail-heading"><span class="sm-kicker">ถือครอง · ประมาณการจากภาพอ้างอิง</span><h2 tabindex="-1">${esc(fund.name)}</h2><p>ภาพไม่ระบุวันที่ของข้อมูล</p></div>
+      content.innerHTML = `<section class="sm-detail sm-estimated-detail"><button class="sm-back">${ICON.back} All portfolios</button><div class="sm-detail-heading"><span class="sm-kicker">Holdings · Estimates</span><h2 tabindex="-1">${esc(fund.name)}</h2><p>Reference data is undated</p></div>
         ${profileTabs(fund, 'holdings')}
-        <div class="sm-detail-summary">${ring(fund, true)}<div><span class="sm-kicker">รายการที่เห็นในภาพ</span><strong>${estimate.rows.length} รายการ</strong><p>หุ้นหลัก ${top.length} อันดับ รวม ${estimatePercent(topWeight)}<br>ของพอร์ตประมาณการในภาพ</p></div></div>
-        <p class="sm-chart-note">กราฟคิดเฉพาะหุ้นหลัก ${top.length} อันดับเป็น 100% · เปอร์เซ็นต์ในตารางเทียบพอร์ตประมาณการตามภาพ</p>
+        <div class="sm-detail-summary">${ring(fund, true)}<div><span class="sm-kicker">Holdings in reference data</span><strong>${estimate.rows.length}<small>holdings</small></strong><p>Top ${top.length} holdings account for ${estimatePercent(topWeight)}<br>of the estimated portfolio</p></div></div>
+        <p class="sm-chart-note">Chart shows the top ${top.length} holdings as 100%. Table weights refer to the estimated portfolio.</p>
         <ul class="sm-legend">${top.map((row,i)=>`<li><i style="background:${COLORS[i]}"></i><span>${esc(row.symbol)}</span><b>${estimatePercent(row.weight / topWeight * 100)}</b></li>`).join('')}</ul>
         <p class="sm-estimate-note">${esc(estimate.note)}</p>
         ${sectorPanel(fund)}
-        <details class="sm-estimate-sources"><summary>ภาพอ้างอิง ${estimate.sources.length} ภาพ</summary><div class="sm-report-links">${estimate.sources.map(source=>`<a href="${new URL('../../'+source.image, import.meta.url).href}" target="_blank" rel="noopener noreferrer">${esc(source.label)} ${ICON.arrow}</a>`).join('')}</div></details>
-        <label class="sm-holding-search sm-estimate-search">ค้นหาหุ้นในพอร์ต<input type="search" placeholder="Symbol หรือชื่อบริษัท" autocomplete="off"></label>
-        <div class="sm-estimated-table-wrap"><table class="sm-estimated-table"><caption>${esc(estimate.coverage)}</caption><thead><tr><th scope="col">ชื่อ / Symbol</th><th scope="col">% พอร์ต<br><small>ประมาณการ</small></th><th scope="col">จำนวนหุ้น<br><small>ประมาณการ</small></th></tr></thead><tbody>
-        </tbody></table></div><div class="sm-pagination"><span class="sm-estimate-count" aria-live="polite"></span><button class="sm-text-btn" data-estimate-more>ดูอีก ${PAGE_SIZE} รายการ</button></div><p class="sm-footnote">${esc(estimate.coverage)} · รวม ${estimatePercent(estimate.rows.reduce((sum,row)=>sum+row.weight,0))} ตามตัวเลขที่แสดงในภาพ · โลโก้ที่ยังไม่มีใช้สัญลักษณ์ย่อ</p></section>`;
+        <label class="sm-holding-search sm-estimate-search">Search holdings<input type="search" placeholder="Symbol or company name" autocomplete="off"></label>
+        <div class="sm-estimated-table-wrap"><table class="sm-estimated-table"><caption>${esc(estimate.coverage)}</caption><thead><tr><th scope="col">Name / Symbol</th><th scope="col">Portfolio %<br><small>Estimated</small></th><th scope="col">Shares held<br><small>Estimated</small></th></tr></thead><tbody>
+        </tbody></table></div><div class="sm-pagination"><span class="sm-estimate-count" aria-live="polite"></span><button class="sm-text-btn" data-estimate-more>Show ${PAGE_SIZE} more</button></div><p class="sm-footnote">${esc(estimate.coverage)} · Total displayed weight: ${estimatePercent(estimate.rows.reduce((sum,row)=>sum+row.weight,0))}</p></section>`;
       drawEstimatedRows();
       scrollHost().scrollTop=0;focusHeading();
     }

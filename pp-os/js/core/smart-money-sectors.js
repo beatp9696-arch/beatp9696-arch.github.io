@@ -1,10 +1,9 @@
 export const SECTOR_LABELS = {
-  Technology:'เทคโนโลยี', Finance:'การเงิน', 'Health Care':'สุขภาพ',
-  'Consumer Discretionary':'สินค้าฟุ่มเฟือย / บริการผู้บริโภค',
-  'Consumer Staples':'สินค้าอุปโภคบริโภค', Industrials:'อุตสาหกรรม',
-  Energy:'พลังงาน', Utilities:'สาธารณูปโภค', 'Real Estate':'อสังหาริมทรัพย์',
-  Telecommunications:'โทรคมนาคม', 'Basic Materials':'วัสดุพื้นฐาน',
-  Miscellaneous:'เบ็ดเตล็ด', funds:'กองทุน / ETF', debt:'ตราสารหนี้', unknown:'ยังไม่จัดหมวด'
+  Technology:'Technology', Finance:'Finance', 'Health Care':'Health Care',
+  'Consumer Discretionary':'Consumer Discretionary', 'Consumer Staples':'Consumer Staples',
+  Industrials:'Industrials', Energy:'Energy', Utilities:'Utilities', 'Real Estate':'Real Estate',
+  Telecommunications:'Telecommunications', 'Basic Materials':'Basic Materials',
+  Miscellaneous:'Miscellaneous', funds:'Funds / ETFs', debt:'Debt securities', unknown:'Unclassified'
 };
 const funds=new Set(['SPY','IVV','VOO','QQQ','EEM','IEMG','EFA','IEFA']);
 export function classifySecurity(row, metadata) {

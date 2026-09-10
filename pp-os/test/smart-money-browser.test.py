@@ -107,11 +107,11 @@ with sync_playwright() as p:
             expect(page.locator('.sm-estimated-table tbody tr')).to_have_count(1)
             expect(page.locator('.sm-estimated-table tbody tr')).to_contain_text(rows[-1]['symbol'])
             page.locator('.sm-holding-search input').fill('no-such-security-123')
-            expect(page.locator('.sm-estimate-count')).to_have_text('แสดง 0 จาก 0 รายการ')
+            expect(page.locator('.sm-estimate-count')).to_have_text('Showing 0 of 0 holdings')
             expect(page.locator('[data-estimate-more]')).to_be_hidden()
             page.locator('.sm-holding-search input').fill('')
             expect(page.locator('.sm-ring')).to_have_count(1)
-            expect(page.locator('.sm-estimate-note')).to_contain_text('ภาพไม่ระบุวันที่')
+            expect(page.locator('.sm-estimate-note')).to_contain_text('undated')
             for width in [320,390,768]:
                 page.set_viewport_size({'width':width,'height':844})
                 assert page.locator('.app-smart-money').evaluate('e=>e.scrollWidth<=e.clientWidth'),('estimate',width)

@@ -3370,8 +3370,8 @@
         "sourceType": "user-screenshot",
         "sourceLabel": "Trump Portfolio · ภาพอ้างอิงที่ผู้ใช้ให้มา",
         "asOf": null,
-        "coverage": "145 รายการที่อ่านตัวเลขได้ครบจากภาพ ไม่ใช่รายการถือครองทั้งหมด",
-        "note": "ตัวเลขเปอร์เซ็นต์และจำนวนหุ้นมีป้าย Est. ในภาพต้นทาง เป็นค่าประมาณการจากแอป ไม่ใช่ยอดถือครองที่ยืนยันจาก OGE ภาพไม่ระบุวันที่ของข้อมูล จึงไม่ยืนยันว่าเป็นพอร์ตปัจจุบัน",
+        "coverage": "145 entries with complete figures in the reference screenshots; not the entire portfolio",
+        "note": "Portfolio weights and share counts are estimates from undated app screenshots. They are not confirmed OGE holdings and do not establish a current portfolio.",
         "sources": [
           {
             "image": "assets/references/trump-holdings-1.png",
@@ -4445,32 +4445,32 @@
           "rows": [
             {
               "name": "Electronics",
-              "label": "อิเล็กทรอนิกส์",
+              "label": "Electronics",
               "weight": 16.33
             },
             {
               "name": "Computer",
-              "label": "คอมพิวเตอร์",
+              "label": "Computer",
               "weight": 15.74
             },
             {
               "name": "Medical Biol…",
-              "label": "การแพทย์ / ชีวภาพ",
+              "label": "Medical / Biotechnology",
               "weight": 8.55
             },
             {
               "name": "Non-Bank Fi…",
-              "label": "การเงินนอกธนาคาร",
+              "label": "Non-Bank Finance",
               "weight": 8
             },
             {
               "name": "Commerce",
-              "label": "การค้า",
+              "label": "Commerce",
               "weight": 7.71
             },
             {
               "name": "Others",
-              "label": "อื่น ๆ",
+              "label": "Others",
               "weight": 43.68
             }
           ]
@@ -4604,8 +4604,8 @@
         "sourceType": "user-screenshot",
         "sourceLabel": "Pelosi Portfolio · ภาพอ้างอิงที่ผู้ใช้ให้มา",
         "asOf": null,
-        "coverage": "22 รายการตามภาพจนถึง No More",
-        "note": "ตัวเลขเปอร์เซ็นต์และจำนวนหุ้นมีป้าย Est. ในภาพต้นทาง เป็นค่าประมาณการจากแอป ภาพไม่ระบุวันที่ของข้อมูล ไม่ใช่ยอดทรัพย์สินที่ยืนยันจากรายงานทางการ และไม่ได้ระบุผู้ถือครองแต่ละบัญชี",
+        "coverage": "22 entries shown in the reference screenshots, ending at “No More”",
+        "note": "Portfolio weights and share counts are estimates from undated app screenshots. They are not confirmed assets from the official disclosure and do not identify the owner of each account.",
         "sources": [
           {
             "image": "assets/references/pelosi-holdings-1.png",
@@ -4760,32 +4760,32 @@
           "rows": [
             {
               "name": "Computer",
-              "label": "คอมพิวเตอร์",
+              "label": "Computer",
               "weight": 36.35
             },
             {
               "name": "Electronics",
-              "label": "อิเล็กทรอนิกส์",
+              "label": "Electronics",
               "weight": 23.64
             },
             {
               "name": "Internet & M…",
-              "label": "อินเทอร์เน็ต / สื่อ",
+              "label": "Internet / Media",
               "weight": 13.63
             },
             {
               "name": "Non-Bank Fi…",
-              "label": "การเงินนอกธนาคาร",
+              "label": "Non-Bank Finance",
               "weight": 13.55
             },
             {
               "name": "Commerce",
-              "label": "การค้า",
+              "label": "Commerce",
               "weight": 11.95
             },
             {
               "name": "Others",
-              "label": "อื่น ๆ",
+              "label": "Others",
               "weight": 0.88
             }
           ]
