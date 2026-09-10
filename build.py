@@ -685,7 +685,7 @@ STOCK_META = {
     "LLY":    {"name": "Eli Lilly", "sub": "Pharma", "logo": ("img", "LLY.png")},
     "UNH":    {"name": "UnitedHealth Group", "sub": "ประกัน", "logo": ("img", "UNH.png")},
     "AXP":    {"name": "American Express", "sub": "Payments", "logo": ("img", "AXP.png")},
-    "DLO":    {"name": "DLocal", "sub": "EM payments", "logo": ("img", "DLO.png")},
+    "DLO":    {"name": "DLocal", "sub": "EM payments", "logo": ("img", "DLO.svg")},
     "SPGI":   {"name": "S&amp;P Global", "sub": "Ratings", "logo": ("img", "SPGI.png")},
     "AAPL":   {"name": "Apple", "sub": "อุปกรณ์ + บริการ", "logo": ("img", "AAPL.svg")},
     "COST":   {"name": "Costco Wholesale", "sub": "ค้าปลีก", "logo": ("img", "COST.png")},
