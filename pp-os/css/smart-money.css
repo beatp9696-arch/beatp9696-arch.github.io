@@ -50,11 +50,11 @@
 .sm-estimated-table thead th{color:var(--dim);font-size:11px;vertical-align:bottom;line-height:1.7}
 .sm-estimated-table thead small{font-size:9px}
 .sm-estimated-stock{display:flex;align-items:center;gap:9px;min-width:0}
-.sm-estimated-stock img{width:30px;height:30px;box-sizing:border-box;padding:5px;flex-shrink:0;object-fit:contain;border-radius:7px;background:#fff}
+.app-smart-money .sm-stock-logo{display:block;width:30px;height:30px;box-sizing:border-box;padding:5px;flex-shrink:0;object-fit:contain;border-radius:7px;background:#fff;margin:0}
 .sm-estimated-stock>div{min-width:0}
 .sm-estimated-stock b{display:block;font-size:14px;font-weight:600}
 .sm-estimated-stock span{display:block;font-size:10px;color:var(--dim);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;margin-top:4px}
-.sm-estimated-stock .sm-stock-fallback{display:grid;place-items:center;width:30px;height:30px;border-radius:50%;background:#7650bb;color:white;font-size:12px;font-weight:600;flex-shrink:0;margin:0}
+.app-smart-money .sm-stock-fallback{display:grid;place-items:center;background:#293340;color:#dce5ef;font:600 11px/1.2 var(--font-body);overflow:hidden}
 .sm-sectors{margin:26px 0;padding:22px 0;border-top:1px solid var(--line);border-bottom:1px solid var(--line)}
 .sm-sectors h3{font-size:17px;margin:0 0 7px}
 .sm-sector-basis,.sm-sector-source{font-size:10px;color:var(--dim);line-height:1.8;margin:8px 0}
@@ -67,7 +67,7 @@
 .sm-sector-legend b{font-size:12px;font-weight:500;white-space:nowrap;font-variant-numeric:tabular-nums}
 .sm-sector-legend small{grid-column:2/-1;color:var(--dim);font-size:9px}
 @container smart-money (min-width:700px){.sm-sector-layout{gap:30px}.sm-sector-legend li,.sm-sector-legend b{font-size:14px}.sm-sector-legend small{font-size:11px}.sm-sector-basis,.sm-sector-source{font-size:11px}}
-@container smart-money (min-width:700px){.sm-estimated-table th,.sm-estimated-table td{font-size:17px;padding-top:20px;padding-bottom:20px}.sm-estimated-stock b{font-size:17px}.sm-estimated-stock span{font-size:12px}.sm-estimated-stock img{width:36px;height:36px}}
+@container smart-money (min-width:700px){.sm-estimated-table th,.sm-estimated-table td{font-size:17px;padding-top:20px;padding-bottom:20px}.sm-estimated-stock b{font-size:17px}.sm-estimated-stock span{font-size:12px}.app-smart-money .sm-stock-logo{width:36px;height:36px}}
 
 /* Public disclosures use a portrait and compact records below the profile. */
 .sm-disclosure-card{grid-template-columns:minmax(0,1fr) minmax(94px,34%);column-gap:16px;row-gap:15px;padding:20px 18px 16px;align-items:center}
@@ -95,3 +95,7 @@
 @container smart-money (max-width:330px){.sm-disclosure-card{padding:17px 13px 14px;column-gap:10px}.sm-disclosure-card .sm-card-name{font-size:16px}.sm-disclosure-card .sm-card-value{font-size:23px}.sm-disclosure-trade{padding:9px}.sm-disclosure-open{font-size:8px}}
 
 .sm-estimated-detail .sm-detail-summary strong small{display:block;font:500 12px/1.6 var(--font-body);letter-spacing:0;color:var(--dim)}
+
+.sm-holding-id,.sm-disclosed-stock{display:flex;align-items:center;gap:10px;min-width:0}
+.sm-holding-label{min-width:0}
+.sm-disclosed-stock>b{overflow-wrap:anywhere}

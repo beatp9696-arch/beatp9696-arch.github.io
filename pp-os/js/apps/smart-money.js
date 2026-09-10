@@ -28,12 +28,16 @@ const logos = {AAPL: 'AAPL.svg', AXP: 'AXP.png', GOOGL: 'GOOGL.png', GOOG: 'GOOG
 const logoURL = key => logos[key] ? new URL(`../../assets/brands/${logos[key]}`, import.meta.url).href : null;
 Object.assign(logos, Object.fromEntries(['CRWV','NOK','V','AVGO','AMD','TEM','HOOD','USB','TSM','GPN','MU','META','GS','DELL','OBDC','CVX','XOM','MRK'].map(key => [key, key + '.png'])));
 // Issuer logos also identify disclosed instruments without a mapped stock symbol.
-const issuerLogos = {'902973304': 'USB', '874039100': 'TSM', '37940XAU6': 'GPN', '595112103': 'MU'};
+const issuerLogos = {'902973304': 'USB', '874039100': 'TSM', '37940XAU6': 'GPN', '595112103': 'MU', '500754106': 'KHC', '501044101': 'KR', '530909308': 'LLYVK', '650111107': 'NYT', '14040H105': 'COF', '530909100': 'LLYVA', '546347105': 'LPX', '47233W109': 'JEF'};
 Object.assign(logos, Object.fromEntries(["JNJ","CSCO","GM","LRCX","UNH","GE","AMAT","LLY","NWL","COST","PM","SIRI","CAT","TXN","ABBV","VZ","HD","M","WMT","RTX","MA","PG","MO","COTY","HRB","PH","LMT","TFC","OLN","ETN","KMI","CDNS","VTR","TMUS","CCL","JBL","CTAS","TT","MTZ","IBM","MCD","BA","TMO","DUK","PLTR","SNDK","TJX","WY","OXY","URI","FIS","CMCSA","MOD","PFE","AMGN","PNC","CRM","CVS","LIN","STX","PEP","NFLX","VRTX","PTC","SCHW","FFIV","ACN","UNP","GLW","PANW","ADI","GILD","ABT","SO","COP","FAST","WELL","SBUX","FDS","GEV","ANET","AJG","ICE","VLO","RSG","PSX","BMY","MPC","JCI","EW","EQIX","ROK","PWR","TRV","BX","ABNB","MCK","VRSN","WM","CB","QCOM","CL","ORCL","HCA","TGT","UPS","HLT","WDC","PAYX","ITW","CRWD","IBKR","PYPL","DBX","RBLX","T","MORN","CLNE"].map(key => [key, key + '.png'])));
 Object.assign(logos, {'BRK.A':'berkshire.svg','BRK.B':'berkshire.svg',JPM:'jpmorgan.svg'});
+Object.assign(logos, Object.fromEntries(["MCO", "KHC", "DVA", "DAL", "KR", "ALLY", "LEN", "LLYVK", "NYT", "COF", "LLYVA", "LPX", "NUE", "NVR", "JEF", "DHI"].map(key => [key, key + '.png'])));
+Object.assign(logos, {'LEN.B':'LEN.png'});
 const stockBadge = row => {
-  const url=logoURL(row.symbol || issuerLogos[row.cusip]);
-  return url ? `<img src="${url}" alt="" width="32" height="32" decoding="async" loading="lazy">` : `<span class="sm-stock-fallback" aria-hidden="true">${esc((row.symbol||row.issuer).slice(0,2))}</span>`;
+  const key = row.symbol || issuerLogos[row.cusip] || sectorMetadata?.byCusip?.[row.cusip]?.symbol;
+  const url = logoURL(key) || (key ? `https://assets.parqet.com/logos/symbol/${encodeURIComponent(key)}?format=png` : null);
+  const fallback = esc((key || row.issuer).slice(0, 2));
+  return url ? `<img class="sm-stock-logo" src="${url}" alt="" width="32" height="32" decoding="async" loading="lazy" referrerpolicy="no-referrer" data-fallback="${fallback}">` : `<span class="sm-stock-logo sm-stock-fallback" aria-hidden="true">${fallback}</span>`;
 };
 const profileImages = {
   berkshire: ['people/warren-buffett.jpg', 'photo'],
@@ -164,6 +168,15 @@ export default {
       <div class="sm-search" hidden><span>${ICON.search}</span><input type="search" placeholder="ค้นหานักลงทุน บริษัท หรือหุ้น" aria-label="ค้นหานักลงทุน บริษัท หรือหุ้น" autocomplete="off"><button class="sm-icon sm-search-clear" aria-label="ล้างคำค้น">${ICON.close}</button></div>
       <div class="sm-content"><div class="sm-loading" role="status">กำลังเปิดรายงานพอร์ต…</div></div>`;
     const content = body.querySelector('.sm-content');
+    content.addEventListener('error', event => {
+      const img = event.target;
+      if (!img.matches?.('img.sm-stock-logo')) return;
+      const fallback = document.createElement('span');
+      fallback.className = 'sm-stock-logo sm-stock-fallback';
+      fallback.setAttribute('aria-hidden', 'true');
+      fallback.textContent = img.dataset.fallback;
+      img.replaceWith(fallback);
+    }, true);
     const search = body.querySelector('.sm-search');
     const input = search.querySelector('input');
     const searchButton = body.querySelector('.sm-search-toggle');
@@ -193,7 +206,7 @@ export default {
       const all = filter === 'exited' ? selected.exits : filter === 'changes' ? selected.changes : selected.rows;
       const needle=holdingQuery.trim().toLocaleLowerCase();
       const items=all.filter(row=>[row.symbol||'',row.issuer,row.cusip].some(text=>text.toLocaleLowerCase().includes(needle)));
-      content.querySelector('.sm-holdings').innerHTML = items.length ? items.slice(0,visibleCount).map(row => `<li tabindex="-1"><div class="sm-holding-id"><b>${esc(symbol(row))}</b><span>${esc(row.issuer)}${row.option ? ' · '+esc(row.option) : ''}</span></div><div class="sm-holding-value"><b>${percent(row.weight)}</b><span>${money(row.value)}</span></div><div class="sm-holding-shares"><span>${number(row.shares)} ${row.unit === 'PRN' ? 'เงินต้นตามรายงาน' : 'หุ้นอ้างอิง'}</span><span class="sm-status sm-${row.status}">${STATUS[row.status]}${row.status === 'unchanged' ? '' : ' · '+change(row)}</span></div></li>`).join('') : '<li class="sm-empty">ไม่มีรายการที่ตรงกับตัวกรอง</li>';
+      content.querySelector('.sm-holdings').innerHTML = items.length ? items.slice(0,visibleCount).map(row => `<li tabindex="-1"><div class="sm-holding-id">${stockBadge(row)}<div class="sm-holding-label"><b>${esc(symbol(row))}</b><span>${esc(row.issuer)}${row.option ? ' · '+esc(row.option) : ''}</span></div></div><div class="sm-holding-value"><b>${percent(row.weight)}</b><span>${money(row.value)}</span></div><div class="sm-holding-shares"><span>${number(row.shares)} ${row.unit === 'PRN' ? 'เงินต้นตามรายงาน' : 'หุ้นอ้างอิง'}</span><span class="sm-status sm-${row.status}">${STATUS[row.status]}${row.status === 'unchanged' ? '' : ' · '+change(row)}</span></div></li>`).join('') : '<li class="sm-empty">ไม่มีรายการที่ตรงกับตัวกรอง</li>';
       content.querySelector('.sm-holding-count').textContent=`แสดง ${Math.min(visibleCount,items.length)} จาก ${number(items.length)} รายการ`;
       content.querySelector('[data-more]').hidden=visibleCount>=items.length;
     }
@@ -233,7 +246,7 @@ export default {
         ${profileTabs(fund, 'transactions')}<div class="sm-disclosure-summary">${portrait(fund)}<div><strong>${report.entries.length} รายการ</strong><p>${esc(report.coverage)}</p><p>${esc(report.dateLabel)} ${date(report.filedDate)}</p></div></div>
         <p class="sm-detail-note">${esc(fund.note)}</p><div class="sm-report-links"><a href="${esc(report.source)}" target="_blank" rel="noopener noreferrer">${esc(report.sourceLabel)} ${ICON.arrow}</a></div>
         <h3 class="sm-section-title">${esc(report.title)}</h3><p class="sm-range-caption">${report.type==='transactions' ? 'ช่วงมูลค่าธุรกรรม' : 'ช่วงมูลค่าทรัพย์สิน'} · USD ตามเอกสาร</p>
-        <ul class="sm-disclosed-list">${report.entries.map(row=>`<li><div class="sm-disclosed-heading"><b>${esc(symbol(row))}</b><span>${report.type==='transactions' ? ACTION[row.action]+' · '+date(row.date) : OWNER[row.owner]}</span></div><p>${esc(row.issuer)}</p><strong>${range(row)}</strong><a href="${esc(report.source)}#page=${row.page}" target="_blank" rel="noopener noreferrer">${esc(row.reference)} · หน้า ${row.page} ${ICON.arrow}</a></li>`).join('')}</ul></section>`;
+        <ul class="sm-disclosed-list">${report.entries.map(row=>`<li><div class="sm-disclosed-heading"><div class="sm-disclosed-stock">${stockBadge(row)}<b>${esc(symbol(row))}</b></div><span>${report.type==='transactions' ? ACTION[row.action]+' · '+date(row.date) : OWNER[row.owner]}</span></div><p>${esc(row.issuer)}</p><strong>${range(row)}</strong><a href="${esc(report.source)}#page=${row.page}" target="_blank" rel="noopener noreferrer">${esc(row.reference)} · หน้า ${row.page} ${ICON.arrow}</a></li>`).join('')}</ul></section>`;
       scrollHost().scrollTop=0;focusHeading();
     }
 
