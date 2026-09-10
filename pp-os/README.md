@@ -104,3 +104,18 @@ python3 pp-os/test/smart-money-builder.test.py
 Berkshire Hathaway ใช้ภาพ Warren Buffett ทั้งการ์ดและรายละเอียดในรุ่น `pp-os-v34` พร้อมเครดิตและ offline cache
 
 รุ่น `pp-os-v35`: แสดงโลโก้หุ้นในทุกรายการถือครอง 13F รวมรายการเปลี่ยนแปลง/ขายออกและเอกสารบุคคลสาธารณะ ใช้ไฟล์ในแอปก่อน แล้วโหลดจาก Parqet ตาม symbol ที่มีหรือจับคู่ CUSIP ได้ หากโหลดไม่ได้หรือไม่มี symbol จะแสดงตัวย่อ
+
+## Stock details (`pp-os-v36`)
+
+Click a security name or logo in any holdings list to see its reported portfolio weights, current and previous share counts, absolute and percentage changes, holding dates, comparison dates, and filing links across the catalog. Back restores the original list, search, filter, focus, and scroll position.
+
+13F positions match by CUSIP + unit + option type. Symbol-only entries match explicitly mapped ordinary shares; logo and sector issuer aliases are never used for ownership matching. Historical reports, exits, and undated estimates appear separately. Estimates do not show invented changes, and disclosure transactions are never converted into holdings. Counts describe the reports loaded, not all investors or a live market snapshot.
+
+The first stock view loads uncached detail reports with up to four concurrent requests and a 20-second timeout per request. Subsequent views reuse validated reports. Missing reports produce partial results with a retry button. Downloaded reports remain available through the existing service-worker cache; this may download about 12 MB on first use. No private portfolio data is read.
+
+Validation:
+
+```bash
+node pp-os/test/smart-money-stock.test.mjs
+../.venv/bin/python pp-os/test/smart-money-stock-browser.test.py
+```

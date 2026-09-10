@@ -1,3 +1,4 @@
+import { stockOwnership } from '../core/smart-money-stock.js';
 import { esc } from '../core/ui.js';
 import { summarizeFund, topHoldingRows, matchesFund, validateDataset, validateFund } from '../core/smart-money-model.js';
 import { classifySecurity, sectorAllocation, SECTOR_LABELS } from '../core/smart-money-sectors.js';
@@ -65,6 +66,29 @@ let ringSequence = 0;
 let cachedData;
 let sectorMetadata;
 const detailCache = new Map();
+const detailRequests = new Map();
+async function loadFund(summary) {
+  if (detailCache.has(summary.detailFile)) return detailCache.get(summary.detailFile);
+  if (!detailRequests.has(summary.detailFile)) {
+    const request = (async () => {
+      const controller = new AbortController();
+      const timeout = setTimeout(() => controller.abort(), 20000);
+      try {
+        const response = await fetch(new URL('../../data/' + summary.detailFile, import.meta.url), {signal: controller.signal});
+        if (!response.ok) throw new Error('Could not load holdings');
+        const raw = validateFund(await response.json());
+        if (raw.id !== summary.id || raw.current.reportDate !== summary.current.reportDate || raw.current.totalValue !== summary.current.totalValue || raw.previous.reportDate !== summary.previous.reportDate || raw.previous.totalValue !== summary.previous.totalValue) throw new Error('Mismatched report');
+        const full = summarizeFund(raw);
+        detailCache.set(summary.detailFile, full);
+        return full;
+      } finally { clearTimeout(timeout); }
+    })();
+    detailRequests.set(summary.detailFile, request);
+    request.finally(() => detailRequests.delete(summary.detailFile)).catch(() => {});
+  }
+  return detailRequests.get(summary.detailFile);
+}
+const stockLink = (row, content, className) => `<button class="${className} sm-security-link" data-stock="${esc(row.id || row.symbol)}" aria-label="View ${esc(symbol(row))} across portfolios">${content}</button>`;
 const PAGE_SIZE = 50;
 const ACTION = {purchase: 'ซื้อ', sale: 'ขาย', exchange: 'แลกเปลี่ยน'};
 const OWNER = {SP: 'คู่สมรส (SP)', JT: 'ถือร่วม (JT)', SELF: 'ผู้ยื่นรายงาน'};
@@ -164,6 +188,7 @@ export default {
     let funds = [], query = '', category = 'all', selected = null, filter = 'all';
     let requestId=0, visibleCount=PAGE_SIZE, holdingQuery='';
     let scrollBeforeDetail = 0;
+    let stockTarget = null, stockOrigin = null;
     body.innerHTML = `<header class="sm-head"><div class="sm-title"><span class="sm-mark">${ICON.bulb}</span><h1>Smart Money</h1></div><div class="sm-head-actions"><button class="sm-icon sm-search-toggle" aria-label="ค้นหาพอร์ต" aria-expanded="false">${ICON.search}</button><button class="sm-icon sm-settings" aria-label="Settings">${ICON.gear}</button></div></header>
       <div class="sm-search" hidden><span>${ICON.search}</span><input type="search" placeholder="ค้นหานักลงทุน บริษัท หรือหุ้น" aria-label="ค้นหานักลงทุน บริษัท หรือหุ้น" autocomplete="off"><button class="sm-icon sm-search-clear" aria-label="ล้างคำค้น">${ICON.close}</button></div>
       <div class="sm-content"><div class="sm-loading" role="status">กำลังเปิดรายงานพอร์ต…</div></div>`;
@@ -194,6 +219,7 @@ export default {
 
     function drawList() {
       selected = null;
+      stockTarget = null;stockOrigin = null;
       requestId++;
       content.innerHTML = `<div class="sm-intro"><p>นักลงทุน สถาบัน และข้อมูลการเงินที่เปิดเผย</p><span class="sm-source-badge">${ICON.check} รายงานและภาพอ้างอิง</span></div>
         <div class="sm-categories" aria-label="ประเภทพอร์ต">${[['all','ทั้งหมด'],['investor','นักลงทุน'],['institution','สถาบัน'],['company','บริษัท'],['public-figure','บุคคลสาธารณะ']].map(([id,label])=>`<button data-category="${id}" aria-pressed="${category===id}">${label}</button>`).join('')}<span class="sm-results-count" aria-live="polite"></span></div>
@@ -206,7 +232,7 @@ export default {
       const all = filter === 'exited' ? selected.exits : filter === 'changes' ? selected.changes : selected.rows;
       const needle=holdingQuery.trim().toLocaleLowerCase();
       const items=all.filter(row=>[row.symbol||'',row.issuer,row.cusip].some(text=>text.toLocaleLowerCase().includes(needle)));
-      content.querySelector('.sm-holdings').innerHTML = items.length ? items.slice(0,visibleCount).map(row => `<li tabindex="-1"><div class="sm-holding-id">${stockBadge(row)}<div class="sm-holding-label"><b>${esc(symbol(row))}</b><span>${esc(row.issuer)}${row.option ? ' · '+esc(row.option) : ''}</span></div></div><div class="sm-holding-value"><b>${percent(row.weight)}</b><span>${money(row.value)}</span></div><div class="sm-holding-shares"><span>${number(row.shares)} ${row.unit === 'PRN' ? 'เงินต้นตามรายงาน' : 'หุ้นอ้างอิง'}</span><span class="sm-status sm-${row.status}">${STATUS[row.status]}${row.status === 'unchanged' ? '' : ' · '+change(row)}</span></div></li>`).join('') : '<li class="sm-empty">ไม่มีรายการที่ตรงกับตัวกรอง</li>';
+      content.querySelector('.sm-holdings').innerHTML = items.length ? items.slice(0,visibleCount).map(row => `<li tabindex="-1">${stockLink(row, `${stockBadge(row)}<div class="sm-holding-label"><b>${esc(symbol(row))}</b><span>${esc(row.issuer)}${row.option ? ' · '+esc(row.option) : ''}</span></div>`, 'sm-holding-id')}<div class="sm-holding-value"><b>${percent(row.weight)}</b><span>${money(row.value)}</span></div><div class="sm-holding-shares"><span>${number(row.shares)} ${row.unit === 'PRN' ? 'เงินต้นตามรายงาน' : 'หุ้นอ้างอิง'}</span><span class="sm-status sm-${row.status}">${STATUS[row.status]}${row.status === 'unchanged' ? '' : ' · '+change(row)}</span></div></li>`).join('') : '<li class="sm-empty">ไม่มีรายการที่ตรงกับตัวกรอง</li>';
       content.querySelector('.sm-holding-count').textContent=`แสดง ${Math.min(visibleCount,items.length)} จาก ${number(items.length)} รายการ`;
       content.querySelector('[data-more]').hidden=visibleCount>=items.length;
     }
@@ -216,7 +242,7 @@ export default {
     function drawEstimatedRows() {
       const estimate=selected.estimatedHoldings, needle=holdingQuery.trim().toLocaleLowerCase();
       const rows=estimate.rows.filter(row=>[row.symbol,row.issuer].some(value=>value.toLocaleLowerCase().includes(needle)));
-      content.querySelector('.sm-estimated-table tbody').innerHTML=rows.length?rows.slice(0,visibleCount).map(row=>`<tr><th scope="row"><div class="sm-estimated-stock">${stockBadge(row)}<div><b>${esc(row.symbol)}</b><span title="${esc(row.issuer)}">${esc(row.issuer)}</span></div></div></th><td>${estimatePercent(row.weight)}</td><td>${compactShares(row.shares)}</td></tr>`).join(''):'<tr><td colspan="3" class="sm-empty">No matching holdings</td></tr>';
+      content.querySelector('.sm-estimated-table tbody').innerHTML=rows.length?rows.slice(0,visibleCount).map(row=>`<tr><th scope="row">${stockLink(row, `${stockBadge(row)}<div><b>${esc(row.symbol)}</b><span title="${esc(row.issuer)}">${esc(row.issuer)}</span></div>`, 'sm-estimated-stock')}</th><td>${estimatePercent(row.weight)}</td><td>${compactShares(row.shares)}</td></tr>`).join(''):'<tr><td colspan="3" class="sm-empty">No matching holdings</td></tr>';
       content.querySelector('.sm-estimate-count').textContent=`Showing ${Math.min(rows.length,visibleCount)} of ${rows.length} holdings`;
       content.querySelector('[data-estimate-more]').hidden=visibleCount>=rows.length;
     }
@@ -246,26 +272,78 @@ export default {
         ${profileTabs(fund, 'transactions')}<div class="sm-disclosure-summary">${portrait(fund)}<div><strong>${report.entries.length} รายการ</strong><p>${esc(report.coverage)}</p><p>${esc(report.dateLabel)} ${date(report.filedDate)}</p></div></div>
         <p class="sm-detail-note">${esc(fund.note)}</p><div class="sm-report-links"><a href="${esc(report.source)}" target="_blank" rel="noopener noreferrer">${esc(report.sourceLabel)} ${ICON.arrow}</a></div>
         <h3 class="sm-section-title">${esc(report.title)}</h3><p class="sm-range-caption">${report.type==='transactions' ? 'ช่วงมูลค่าธุรกรรม' : 'ช่วงมูลค่าทรัพย์สิน'} · USD ตามเอกสาร</p>
-        <ul class="sm-disclosed-list">${report.entries.map(row=>`<li><div class="sm-disclosed-heading"><div class="sm-disclosed-stock">${stockBadge(row)}<b>${esc(symbol(row))}</b></div><span>${report.type==='transactions' ? ACTION[row.action]+' · '+date(row.date) : OWNER[row.owner]}</span></div><p>${esc(row.issuer)}</p><strong>${range(row)}</strong><a href="${esc(report.source)}#page=${row.page}" target="_blank" rel="noopener noreferrer">${esc(row.reference)} · หน้า ${row.page} ${ICON.arrow}</a></li>`).join('')}</ul></section>`;
+        <ul class="sm-disclosed-list">${report.entries.map(row=>`<li><div class="sm-disclosed-heading">${stockLink(row, `${stockBadge(row)}<b>${esc(symbol(row))}</b>`, 'sm-disclosed-stock')}<span>${report.type==='transactions' ? ACTION[row.action]+' · '+date(row.date) : OWNER[row.owner]}</span></div><p>${esc(row.issuer)}</p><strong>${range(row)}</strong><a href="${esc(report.source)}#page=${row.page}" target="_blank" rel="noopener noreferrer">${esc(row.reference)} · หน้า ${row.page} ${ICON.arrow}</a></li>`).join('')}</ul></section>`;
       scrollHost().scrollTop=0;focusHeading();
+    }
+
+    function stockReportCard({fund, row}) {
+      const unit = row.unit === 'PRN' ? 'principal (USD)' : row.option ? 'underlying shares' : 'shares';
+      const status = {new:'New in report', added:'Increased', reduced:'Decreased', unchanged:'Unchanged', exited:'No longer reported'}[row.status];
+      const delta = row.delta === null ? '—' : `${row.delta > 0 ? '+' : row.delta < 0 ? '−' : ''}${number(Math.abs(row.delta))}`;
+      const changeRate = row.previousShares > 0 && row.changePercent !== null ? ` (${row.changePercent > 0 ? '+' : ''}${percent(row.changePercent)})` : '';
+      return `<article class="sm-owner-card" data-owner="${esc(fund.id)}">
+        <div class="sm-owner-heading"><span class="sm-owner-photo${profileImages[fund.id]?.[1] === 'logo' ? ' sm-owner-logo' : ''}" aria-hidden="true">${profileImage(fund)}</span><div><button class="sm-owner-name" data-stock-fund="${esc(fund.id)}">${esc(fund.name)} ${ICON.arrow}</button><p>${esc(fund.subtitle)}</p></div><span class="sm-owner-weight">${estimatePercent(row.weight)}<small>of reported portfolio</small></span></div>
+        ${fund.historical ? '<p class="sm-stock-historical">Historical snapshot · not a current portfolio</p>' : ''}
+        <p class="sm-owner-instrument">${esc(row.shareClass || 'Reported security')}${row.option ? ' · '+esc(row.option)+' option' : ''} · ${esc(row.cusip)}</p>
+        <dl class="sm-owner-numbers"><div><dt>Reported ${unit}</dt><dd>${number(row.shares)}</dd></div><div><dt>Previous ${unit}</dt><dd>${row.previousShares === null ? '—' : number(row.previousShares)}</dd></div><div><dt>Change in ${unit}</dt><dd class="sm-${row.status}">${delta}<small>${status}${changeRate}</small></dd></div></dl>
+        <div class="sm-owner-dates"><span>Holdings as of <b>${date(fund.current.reportDate)}</b></span><span>Compared with <b>${date(fund.previous.reportDate)}</b></span><span>Filed <b>${date(fund.current.filedDate)}</b></span><a href="${esc(fund.current.source)}" target="_blank" rel="noopener noreferrer">SEC filing ${ICON.arrow}</a></div>
+      </article>`;
+    }
+
+    function drawStock(loaded, failed, loading) {
+      const result = stockOwnership(stockTarget, loaded, cachedData.disclosures);
+      const title = stockTarget.symbol || stockTarget.cusip || stockTarget.issuer;
+      const total = cachedData.funds.length;
+      const section = (heading, entries, className) => entries.length ? `<section class="${className}"><h3>${heading} <span>${entries.length}</span></h3><div class="sm-owner-list">${entries.map(stockReportCard).join('')}</div></section>` : '';
+      content.innerHTML = `<section class="sm-detail sm-stock-detail"><button class="sm-back" data-stock-back>${ICON.back} Back to ${esc(selected.name)}</button>
+        <div class="sm-detail-heading sm-stock-heading">${stockBadge(stockTarget)}<div><span class="sm-kicker">Across portfolios · Reported holdings</span><h2 tabindex="-1">${esc(title)}</h2><p>${esc(stockTarget.issuer)}</p></div></div>
+        ${stockTarget.option || stockTarget.unit === 'PRN' ? `<p class="sm-stock-historical">${stockTarget.option ? esc(stockTarget.option)+' options · underlying share counts' : 'Principal instrument · amounts are not share counts'}. Only the same instrument is compared.</p>` : ''}
+        <div class="sm-stock-summary"><strong>${result.portfolioCount}<span>portfolios report holdings${loading || failed.length ? ' · partial' : ''}</span></strong><strong>${loaded.length} / ${total}<span>filings checked</span></strong></div>
+        <p class="sm-stock-note">Each weight refers to that portfolio’s reported total. Dates differ across portfolios. Share changes compare two filings and may reflect stock splits or reporting changes; they are not a trade history.</p>
+        <div class="sm-stock-coverage" role="status">${loading ? `Checking portfolio reports… ${loaded.length} of ${total} available.` : failed.length ? `Partial results · ${failed.length} portfolio reports could not be loaded.` : `Checked all ${total} available portfolio reports.`}${failed.length ? `<p>${failed.map(fund=>esc(fund.name)).join(', ')}</p><button class="sm-text-btn" data-stock-retry>Retry missing reports</button>` : ''}</div>
+        ${section('Reported holdings', result.current, 'sm-stock-current')}
+        ${!result.current.length ? '<p class="sm-empty">No matching holdings in the reports checked so far.</p>' : ''}
+        ${section('No longer reported', result.exited, 'sm-stock-exited')}
+        ${section('Historical reports', result.historical, 'sm-stock-history')}
+        ${result.estimates.length ? `<section class="sm-stock-estimates"><h3>Estimated holdings <span>${result.estimates.length}</span></h3><p class="sm-stock-note">From reference data supplied for these profiles. These estimates are separate from filing figures; no comparable previous period is available.</p><div class="sm-owner-list">${result.estimates.map(({fund,row})=>`<article class="sm-owner-card" data-estimated-owner="${esc(fund.id)}"><div class="sm-owner-heading"><span class="sm-owner-photo${profileImages[fund.id]?.[1] === 'logo' ? ' sm-owner-logo' : ''}" aria-hidden="true">${profileImage(fund)}</span><div><button class="sm-owner-name" data-stock-fund="${esc(fund.id)}">${esc(fund.name)} ${ICON.arrow}</button><p>Estimated · ${fund.estimatedHoldings.asOf ? date(fund.estimatedHoldings.asOf) : 'Date unavailable'}</p></div><span class="sm-owner-weight">${estimatePercent(row.weight)}<small>estimated portfolio weight</small></span></div><dl class="sm-owner-numbers"><div><dt>Estimated shares</dt><dd>${number(row.shares)}</dd></div><div><dt>Change in shares</dt><dd>—<small>No comparable period</small></dd></div></dl></article>`).join('')}</div></section>` : ''}
+      </section>`;
+    }
+
+    async function openStock() {
+      const request = ++requestId;
+      const available = () => cachedData.funds.map(fund => detailCache.get(fund.detailFile)).filter(Boolean);
+      const pending = cachedData.funds.filter(fund => !detailCache.has(fund.detailFile));
+      drawStock(available(), [], pending.length > 0);
+      scrollHost().scrollTop=0;focusHeading();
+      if (!pending.length) return;
+      const failed = [];
+      let next = 0;
+      // Download full reports only when a stock is opened; reuse visited reports
+      // and limit parallel requests so large portfolios do not flood the network.
+      await Promise.all(Array.from({length: Math.min(4, pending.length)}, async () => {
+        while (next < pending.length && request === requestId && body.isConnected) {
+          const summary = pending[next++];
+          try { await loadFund(summary); } catch { failed.push(summary); }
+        }
+      }));
+      if (request !== requestId || !body.isConnected) return;
+      const wasHeadingFocused = document.activeElement === content.querySelector('h2');
+      const top = scrollHost().scrollTop;
+      drawStock(available(), failed, false);
+      scrollHost().scrollTop=top;
+      if (wasHeadingFocused) focusHeading();
     }
 
     async function openDetail(id) {
       const summary=funds.find(fund=>fund.id===id);
       if(!summary)return;
+      stockTarget=null;stockOrigin=null;
       selected=summary;const request=++requestId;
       if(summary.kind==='disclosure'){summary.estimatedHoldings ? drawEstimatedHoldings(summary) : drawDisclosure(summary);return;}
       content.innerHTML=`<section class="sm-detail">${backButton()}<div class="sm-loading" role="status">กำลังเปิดรายงาน ${esc(summary.name)}…</div></section>`;
       scrollHost().scrollTop=0;
       try {
-        let full=detailCache.get(summary.detailFile);
-        if(!full){
-          const response=await fetch(new URL('../../data/'+summary.detailFile,import.meta.url));
-          if(!response.ok)throw new Error('Could not load holdings');
-          const raw=validateFund(await response.json());
-          if(raw.id!==summary.id || raw.current.reportDate!==summary.current.reportDate || raw.current.totalValue!==summary.current.totalValue)throw new Error('Mismatched report');
-          full=summarizeFund(raw);detailCache.set(summary.detailFile,full);
-        }
+        const full = await loadFund(summary);
         if(request!==requestId || !body.isConnected)return;
         selected=full;drawDetail();
       } catch {
@@ -304,7 +382,24 @@ export default {
     content.addEventListener('click', event => {
       const target = event.target.closest('button');
       if (!target) return;
-      if (target.dataset.fund) {scrollBeforeDetail=scrollHost().scrollTop;openDetail(target.dataset.fund);}
+      if (target.hasAttribute('data-stock')) {
+        const rows = [...(selected?.rows || []), ...(selected?.exits || []), ...(selected?.estimatedHoldings?.rows || []), ...(selected?.disclosure?.entries || [])];
+        const row = rows.find(row => (row.id || row.symbol) === target.dataset.stock);
+        if (row) {
+          stockOrigin = {nodes: [...content.childNodes], scrollTop: scrollHost().scrollTop, focus: target};
+          stockTarget = row;
+          openStock();
+        }
+      } else if (target.hasAttribute('data-stock-back')) {
+        requestId++;
+        const origin = stockOrigin;
+        stockTarget=null;stockOrigin=null;
+        content.replaceChildren(...origin.nodes);
+        scrollHost().scrollTop=origin.scrollTop;
+        origin.focus.focus({preventScroll:true});
+      } else if (target.hasAttribute('data-stock-retry')) openStock();
+      else if (target.dataset.stockFund) openDetail(target.dataset.stockFund);
+      else if (target.dataset.fund) {scrollBeforeDetail=scrollHost().scrollTop;openDetail(target.dataset.fund);}
       else if (target.classList.contains('sm-back')) {
         const id=selected.id;drawList();scrollHost().scrollTop=scrollBeforeDetail;content.querySelector(`[data-fund="${id}"]`)?.focus({preventScroll:true});
       } else if (target.dataset.category) {
