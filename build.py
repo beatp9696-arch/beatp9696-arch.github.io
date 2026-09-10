@@ -31,9 +31,8 @@ from xml.sax.saxutils import escape
 BASE_URL = "https://beatp9696-arch.github.io"
 TOOLS = ["follow-the-money-nvda.html", "compound-interest.html", "reverse-dcf.html",
          "ai-iceberg.html", "econ-lessons.html",
-         "moat-break-game-kodak.html",
-         "moat-city.html"]  # เครื่องมือ interactive — นับเป็น hero stat + ลิสต์ใน tools.html
-ROOT_PAGES = ["", "articles.html", "stocks.html", "tools.html", "dashboard.html",
+         "moat-break-game-kodak.html"]  # เครื่องมือ interactive — นับเป็น hero stat + ลิสต์ใน tools.html
+ROOT_PAGES = ["", "articles.html", "stocks.html", "tools.html",
               "about.html"] + TOOLS + [
     # ซิมูเลชันประกอบบทความ interstellar-investing (ไม่ใช่ tool เดี่ยว — เข้าถึงผ่านบทความ)
     "interstellar/gargantua.html", "interstellar/endurance.html", "interstellar/tesseract.html"]
@@ -61,7 +60,7 @@ LEGAL_OVERRIDE_RE = re.compile(
     re.escape(LEGAL_OVERRIDE_START) + r".*?" + re.escape(LEGAL_OVERRIDE_END),
     re.S,
 )
-HEADER_ONLY_PAGES = {"moat-city.html"}
+HEADER_ONLY_PAGES = set()   # (เคยมี moat-city — ปลดระวางแล้ว)
 CHROME_EXCLUSIONS = {
     "404.html": '<header class="nav">',
     # หน้าแอป (Money / Portfolio / Smart Money): จงใจไม่มี header/footer ของเว็บ
@@ -72,6 +71,9 @@ CHROME_EXCLUSIONS = {
     "smart-money.html": 'id="app-root"',
     # ทางเก่าของแอป — เหลือไว้เป็นหน้า redirect + ถอน service worker ตัวเก่าที่ค้างในเครื่องผู้ใช้
     "pp-os/index.html": 'url=/smart-money.html',
+    # หน้าที่ปลดระวางแล้ว — เหลือไว้เป็น redirect กันลิงก์เก่าใน RSS/โซเชียลตาย
+    "dashboard.html": 'url=/smart-money.html',
+    "moat-city.html": 'url=/stocks.html',
     "interstellar/endurance.html": 'class="backlink"',
     "interstellar/gargantua.html": 'class="backlink"',
     "interstellar/tesseract.html": 'class="backlink"',
@@ -80,7 +82,7 @@ CHROME_EXCLUSIONS = {
 # และ 19 หน้า root ที่ใช้คำเตือนฉบับสั้นเดิม ห้าม build กลืนกลับเป็น default
 LEGAL_OVERRIDE_PAGES = {
     "about.html", "ai-iceberg.html", "articles.html", "compound-interest.html",
-    "dashboard.html", "econ-lessons.html", "follow-the-money-nvda.html", "index.html",
+    "econ-lessons.html", "follow-the-money-nvda.html", "index.html",
     "moat-break-game-kodak.html", "reverse-dcf.html",
     "series-buffett-deals.html", "series-buffett-talks.html", "series-cases.html",
     "series-financials.html", "series-moat-break.html", "series-munger-talks.html",
@@ -444,9 +446,6 @@ FEED_EXTRAS = [
     {"file": "econ-lessons.html", "date": "2026-07-11",
      "title": "เศรษฐศาสตร์ 4 บทที่โรงเรียนไม่สอน แต่ตลาดหุ้นสอบทุกวัน — Interactive Scrollytelling",
      "excerpt": "ทำไมสายการบินจนทั้งแผงแต่ซอฟต์แวร์ชิปรวยทั้งแผง ค่าตัดผมแพงขึ้นแต่ทีวีถูกลง ชิปยิ่งถูกยิ่งขายดี และอเมริกาต้องง้อไต้หวัน — เลื่อนผ่าน 4 เลนส์พร้อมตัวเลขจริง"},
-    {"file": "moat-city.html", "date": "2026-07-13",
-     "title": "เมืองคูเมือง — แผนที่ 3D ของ 20 ธุรกิจที่ผ่าแล้ว",
-     "excerpt": "เมืองกลางคืนที่สร้างจากบทวิเคราะห์จริง — ตึกสูงตามขนาดธุรกิจ คูน้ำเรืองแสงกว้างตาม moat แต่ละหอมีลายเซ็นธุรกิจของตัวเอง และนอกหมอกคือ 5 บริษัทจากซีรีส์คูเมืองแตก"},
     {"file": "moat-break-game-kodak.html", "date": "2026-07-13",
      "title": "10 ปีที่คูเมืองแตก: คุณคือซีอีโอ Kodak ปี 1996 — เกมจำลองการตัดสินใจ",
      "excerpt": "ตัดสินใจ 5 ครั้งจากเหตุการณ์จริง — Kodak รู้ล่วงหน้าสิบปี เป็นเบอร์ 1 กล้องดิจิทัลโดยขาดทุน $60 ต่อกล้อง แล้วยังล้มละลาย ลองดูว่าคุณจะหาทางออกที่พวกเขาหาไม่เจอได้ไหม"},
