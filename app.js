@@ -847,6 +847,21 @@
     });
   }
 
+  // ---- ปุ่มพับ/กาง บล็อกซีรีส์-Interactive หน้าแรก (มือถือ) ----
+  // การ์ดใบที่ 4+ ซ่อนด้วย CSS เฉพาะจอ <620px — ปุ่มก็โผล่เฉพาะจอนั้น
+  // ไม่แตะ DOM ของการ์ด: ของที่ซ่อนยังอยู่ในหน้า ค้นเจอและ crawler อ่านได้
+  var moreToggles = document.querySelectorAll(".more-toggle");
+  for (var mt = 0; mt < moreToggles.length; mt++) {
+    moreToggles[mt].addEventListener("click", function () {
+      var grid = document.getElementById(this.getAttribute("aria-controls"));
+      if (!grid) return;
+      var open = grid.classList.toggle("is-open");
+      this.setAttribute("aria-expanded", open ? "true" : "false");
+      this.textContent = this.getAttribute(open ? "data-less" : "data-more");
+      if (!open) grid.scrollIntoView({ block: "nearest" });  // ย่อกลับแล้วไม่ให้จอกระโดด
+    });
+  }
+
   // ---- Analytics (GoatCounter) — ทำงานเมื่อกรอก GOATCOUNTER_CODE ด้านบน ----
   if (GOATCOUNTER_CODE) {
     var gc = document.createElement("script");
