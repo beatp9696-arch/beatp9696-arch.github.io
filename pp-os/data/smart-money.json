@@ -3366,6 +3366,1116 @@
       "category": "public-figure",
       "monogram": "DT",
       "brandCaption": "Donald Trump",
+      "estimatedHoldings": {
+        "sourceType": "user-screenshot",
+        "sourceLabel": "Trump Portfolio · ภาพอ้างอิงที่ผู้ใช้ให้มา",
+        "asOf": null,
+        "coverage": "145 รายการที่อ่านตัวเลขได้ครบจากภาพ ไม่ใช่รายการถือครองทั้งหมด",
+        "note": "ตัวเลขเปอร์เซ็นต์และจำนวนหุ้นมีป้าย Est. ในภาพต้นทาง เป็นค่าประมาณการจากแอป ไม่ใช่ยอดถือครองที่ยืนยันจาก OGE ภาพไม่ระบุวันที่ของข้อมูล จึงไม่ยืนยันว่าเป็นพอร์ตปัจจุบัน",
+        "sources": [
+          {
+            "image": "assets/references/trump-holdings-1.png",
+            "label": "ภาพถือครอง 1 · AAPL–META"
+          },
+          {
+            "image": "assets/references/trump-holdings-2.png",
+            "label": "ภาพถือครอง 2 · GOOG–MRK"
+          },
+          {
+            "image": "assets/references/trump-holdings-3.png",
+            "label": "ภาพถือครอง 3 · JNJ–LLY"
+          },
+          {
+            "image": "assets/references/trump-holdings-4.png",
+            "label": "ภาพถือครอง 4 · NWL–VZ"
+          },
+          {
+            "image": "assets/references/trump-holdings-5.png",
+            "label": "ภาพถือครอง 5 · BACRP–PG"
+          },
+          {
+            "image": "assets/references/trump-holdings-6.png",
+            "label": "ภาพถือครอง 6 · MO–ETN"
+          },
+          {
+            "image": "assets/references/trump-holdings-7.png",
+            "label": "ภาพถือครอง 7 · KMI–MTZ"
+          },
+          {
+            "image": "assets/references/trump-holdings-8.png",
+            "label": "ภาพถือครอง 8 · IBM–BRK.B"
+          },
+          {
+            "image": "assets/references/trump-holdings-9.png",
+            "label": "ภาพถือครอง 9 · TJX–AMGN"
+          },
+          {
+            "image": "assets/references/trump-holdings-10.png",
+            "label": "ภาพถือครอง 10 · PNC–NFLX"
+          },
+          {
+            "image": "assets/references/trump-holdings-11.png",
+            "label": "ภาพถือครอง 11 · VRTX–GILD"
+          },
+          {
+            "image": "assets/references/trump-holdings-12.png",
+            "label": "ภาพถือครอง 12 · ABT–SOMN"
+          },
+          {
+            "image": "assets/references/trump-holdings-13.png",
+            "label": "ภาพถือครอง 13 · AJG–EQIX"
+          },
+          {
+            "image": "assets/references/trump-holdings-14.png",
+            "label": "ภาพถือครอง 14 · ROK–CB"
+          },
+          {
+            "image": "assets/references/trump-holdings-15.png",
+            "label": "ภาพถือครอง 15 · QCOM–ITW"
+          },
+          {
+            "image": "assets/references/trump-holdings-16.png",
+            "label": "ภาพสัดส่วนอุตสาหกรรม"
+          }
+        ],
+        "rows": [
+          {
+            "symbol": "AAPL",
+            "issuer": "Apple",
+            "weight": 5.66,
+            "shares": 171230
+          },
+          {
+            "symbol": "NVDA",
+            "issuer": "NVIDIA",
+            "weight": 4.72,
+            "shares": 201090
+          },
+          {
+            "symbol": "AVGO",
+            "issuer": "Broadcom",
+            "weight": 3.92,
+            "shares": 102650
+          },
+          {
+            "symbol": "AMZN",
+            "issuer": "Amazon",
+            "weight": 3.71,
+            "shares": 140070
+          },
+          {
+            "symbol": "MSFT",
+            "issuer": "Microsoft",
+            "weight": 2.82,
+            "shares": 54740
+          },
+          {
+            "symbol": "META",
+            "issuer": "Meta Platforms",
+            "weight": 2.75,
+            "shares": 40120
+          },
+          {
+            "symbol": "GOOG",
+            "issuer": "Alphabet Class C",
+            "weight": 2.04,
+            "shares": 59140
+          },
+          {
+            "symbol": "TSLA",
+            "issuer": "Tesla",
+            "weight": 1.7,
+            "shares": 44070
+          },
+          {
+            "symbol": "MU",
+            "issuer": "Micron Technology",
+            "weight": 1.65,
+            "shares": 15270
+          },
+          {
+            "symbol": "GS",
+            "issuer": "Goldman Sachs",
+            "weight": 1.53,
+            "shares": 14180
+          },
+          {
+            "symbol": "DELL",
+            "issuer": "Dell Technologies",
+            "weight": 1.44,
+            "shares": 25740
+          },
+          {
+            "symbol": "AMD",
+            "issuer": "Advanced Micro Devices",
+            "weight": 1.32,
+            "shares": 24200
+          },
+          {
+            "symbol": "OBDC",
+            "issuer": "Blue Owl Capital",
+            "weight": 1.16,
+            "shares": 992060
+          },
+          {
+            "symbol": "CVX",
+            "issuer": "Chevron",
+            "weight": 1.11,
+            "shares": 49510
+          },
+          {
+            "symbol": "XOM",
+            "issuer": "Exxon Mobil",
+            "weight": 1.08,
+            "shares": 62880
+          },
+          {
+            "symbol": "MRK",
+            "issuer": "Merck & Co.",
+            "weight": 1.07,
+            "shares": 69460
+          },
+          {
+            "symbol": "JNJ",
+            "issuer": "Johnson & Johnson",
+            "weight": 1.05,
+            "shares": 37420,
+            "sourceImage": "assets/references/trump-holdings-3.png"
+          },
+          {
+            "symbol": "CSCO",
+            "issuer": "Cisco",
+            "weight": 1.03,
+            "shares": 90240,
+            "sourceImage": "assets/references/trump-holdings-3.png"
+          },
+          {
+            "symbol": "GOOGL",
+            "issuer": "Alphabet Class A",
+            "weight": 1.03,
+            "shares": 29620,
+            "sourceImage": "assets/references/trump-holdings-3.png"
+          },
+          {
+            "symbol": "KO",
+            "issuer": "Coca-Cola",
+            "weight": 0.96,
+            "shares": 104710,
+            "sourceImage": "assets/references/trump-holdings-3.png"
+          },
+          {
+            "symbol": "GM",
+            "issuer": "General Motors",
+            "weight": 0.91,
+            "shares": 103830,
+            "sourceImage": "assets/references/trump-holdings-3.png"
+          },
+          {
+            "symbol": "LRCX",
+            "issuer": "Lam Research",
+            "weight": 0.88,
+            "shares": 26630,
+            "sourceImage": "assets/references/trump-holdings-3.png"
+          },
+          {
+            "symbol": "UNH",
+            "issuer": "UnitedHealth",
+            "weight": 0.86,
+            "shares": 20850,
+            "sourceImage": "assets/references/trump-holdings-3.png"
+          },
+          {
+            "symbol": "GE",
+            "issuer": "GE Aerospace",
+            "weight": 0.83,
+            "shares": 24280,
+            "sourceImage": "assets/references/trump-holdings-3.png"
+          },
+          {
+            "symbol": "AMAT",
+            "issuer": "Applied Materials",
+            "weight": 0.82,
+            "shares": 16700,
+            "sourceImage": "assets/references/trump-holdings-3.png"
+          },
+          {
+            "symbol": "LLY",
+            "issuer": "Eli Lilly and Co.",
+            "weight": 0.8,
+            "shares": 6820,
+            "sourceImage": "assets/references/trump-holdings-3.png"
+          },
+          {
+            "symbol": "NWL",
+            "issuer": "Newell Brands",
+            "weight": 0.8,
+            "shares": 1280000,
+            "sourceImage": "assets/references/trump-holdings-4.png"
+          },
+          {
+            "symbol": "COST",
+            "issuer": "Costco",
+            "weight": 0.77,
+            "shares": 8090,
+            "sourceImage": "assets/references/trump-holdings-4.png"
+          },
+          {
+            "symbol": "PM",
+            "issuer": "Philip Morris International",
+            "weight": 0.75,
+            "shares": 38450,
+            "sourceImage": "assets/references/trump-holdings-4.png"
+          },
+          {
+            "symbol": "VSXY",
+            "issuer": "Victoria's Secret",
+            "weight": 0.74,
+            "shares": 93190,
+            "sourceImage": "assets/references/trump-holdings-4.png"
+          },
+          {
+            "symbol": "SIRI",
+            "issuer": "Sirius XM",
+            "weight": 0.72,
+            "shares": 239550,
+            "sourceImage": "assets/references/trump-holdings-4.png"
+          },
+          {
+            "symbol": "CAT",
+            "issuer": "Caterpillar",
+            "weight": 0.69,
+            "shares": 8070,
+            "sourceImage": "assets/references/trump-holdings-4.png"
+          },
+          {
+            "symbol": "CRWV",
+            "issuer": "CoreWeave",
+            "weight": 0.68,
+            "shares": 68040,
+            "sourceImage": "assets/references/trump-holdings-4.png"
+          },
+          {
+            "symbol": "TXN",
+            "issuer": "Texas Instruments",
+            "weight": 0.67,
+            "shares": 24410,
+            "sourceImage": "assets/references/trump-holdings-4.png"
+          },
+          {
+            "symbol": "ABBV",
+            "issuer": "AbbVie",
+            "weight": 0.65,
+            "shares": 24700,
+            "sourceImage": "assets/references/trump-holdings-4.png"
+          },
+          {
+            "symbol": "VZ",
+            "issuer": "Verizon",
+            "weight": 0.59,
+            "shares": 113520,
+            "sourceImage": "assets/references/trump-holdings-4.png"
+          },
+          {
+            "symbol": "BACRP",
+            "issuer": "BANK OF AM…",
+            "weight": 0.57,
+            "shares": 18100,
+            "sourceImage": "assets/references/trump-holdings-5.png"
+          },
+          {
+            "symbol": "AXP",
+            "issuer": "American Express",
+            "weight": 0.55,
+            "shares": 16330,
+            "sourceImage": "assets/references/trump-holdings-5.png"
+          },
+          {
+            "symbol": "NEMCL",
+            "issuer": "NEWMONT C…",
+            "weight": 0.55,
+            "shares": 40960,
+            "sourceImage": "assets/references/trump-holdings-5.png"
+          },
+          {
+            "symbol": "HD",
+            "issuer": "Home Depot",
+            "weight": 0.53,
+            "shares": 16280,
+            "sourceImage": "assets/references/trump-holdings-5.png"
+          },
+          {
+            "symbol": "M",
+            "issuer": "Macy's",
+            "weight": 0.53,
+            "shares": 234380,
+            "sourceImage": "assets/references/trump-holdings-5.png"
+          },
+          {
+            "symbol": "WMT",
+            "issuer": "Walmart",
+            "weight": 0.53,
+            "shares": 47340,
+            "sourceImage": "assets/references/trump-holdings-5.png"
+          },
+          {
+            "symbol": "RTX",
+            "issuer": "RTX Corp",
+            "weight": 0.49,
+            "shares": 23670,
+            "sourceImage": "assets/references/trump-holdings-5.png"
+          },
+          {
+            "symbol": "MA",
+            "issuer": "Mastercard",
+            "weight": 0.49,
+            "shares": 8210,
+            "sourceImage": "assets/references/trump-holdings-5.png"
+          },
+          {
+            "symbol": "PG",
+            "issuer": "Procter & Gamble",
+            "weight": 0.48,
+            "shares": 32330,
+            "sourceImage": "assets/references/trump-holdings-5.png"
+          },
+          {
+            "symbol": "MO",
+            "issuer": "Altria",
+            "weight": 0.48,
+            "shares": 67660,
+            "sourceImage": "assets/references/trump-holdings-6.png"
+          },
+          {
+            "symbol": "COTY",
+            "issuer": "Coty Inc",
+            "weight": 0.47,
+            "shares": 1680000,
+            "sourceImage": "assets/references/trump-holdings-6.png"
+          },
+          {
+            "symbol": "HRB",
+            "issuer": "H&R Block",
+            "weight": 0.47,
+            "shares": 100360,
+            "sourceImage": "assets/references/trump-holdings-6.png"
+          },
+          {
+            "symbol": "V",
+            "issuer": "Visa",
+            "weight": 0.47,
+            "shares": 12090,
+            "sourceImage": "assets/references/trump-holdings-6.png"
+          },
+          {
+            "symbol": "BRK.A",
+            "issuer": "Berkshire Hathaway Class A",
+            "weight": 0.46,
+            "shares": 5.76,
+            "sourceImage": "assets/references/trump-holdings-6.png"
+          },
+          {
+            "symbol": "PH",
+            "issuer": "Parker Hannifin",
+            "weight": 0.46,
+            "shares": 4590,
+            "sourceImage": "assets/references/trump-holdings-6.png"
+          },
+          {
+            "symbol": "LMT",
+            "issuer": "Lockheed Martin",
+            "weight": 0.44,
+            "shares": 7960,
+            "sourceImage": "assets/references/trump-holdings-6.png"
+          },
+          {
+            "symbol": "TFC",
+            "issuer": "Truist Financial",
+            "weight": 0.43,
+            "shares": 81080,
+            "sourceImage": "assets/references/trump-holdings-6.png"
+          },
+          {
+            "symbol": "OLN",
+            "issuer": "Olin",
+            "weight": 0.42,
+            "shares": 230850,
+            "sourceImage": "assets/references/trump-holdings-6.png"
+          },
+          {
+            "symbol": "ETN",
+            "issuer": "Eaton",
+            "weight": 0.42,
+            "shares": 9570,
+            "sourceImage": "assets/references/trump-holdings-6.png"
+          },
+          {
+            "symbol": "KMI",
+            "issuer": "Kinder Morgan",
+            "weight": 0.41,
+            "shares": 123060,
+            "sourceImage": "assets/references/trump-holdings-7.png"
+          },
+          {
+            "symbol": "CDNS",
+            "issuer": "Cadence Design Systems",
+            "weight": 0.4,
+            "shares": 13570,
+            "sourceImage": "assets/references/trump-holdings-7.png"
+          },
+          {
+            "symbol": "VTR",
+            "issuer": "Ventas Inc",
+            "weight": 0.4,
+            "shares": 43030,
+            "sourceImage": "assets/references/trump-holdings-7.png"
+          },
+          {
+            "symbol": "TMUS",
+            "issuer": "T-Mobile US",
+            "weight": 0.39,
+            "shares": 21030,
+            "sourceImage": "assets/references/trump-holdings-7.png"
+          },
+          {
+            "symbol": "CCL",
+            "issuer": "Carnival",
+            "weight": 0.39,
+            "shares": 163290,
+            "sourceImage": "assets/references/trump-holdings-7.png"
+          },
+          {
+            "symbol": "JBL",
+            "issuer": "Jabil",
+            "weight": 0.39,
+            "shares": 11860,
+            "sourceImage": "assets/references/trump-holdings-7.png"
+          },
+          {
+            "symbol": "CTAS",
+            "issuer": "Cintas",
+            "weight": 0.38,
+            "shares": 18250,
+            "sourceImage": "assets/references/trump-holdings-7.png"
+          },
+          {
+            "symbol": "TT",
+            "issuer": "Trane Technologies",
+            "weight": 0.38,
+            "shares": 8130,
+            "sourceImage": "assets/references/trump-holdings-7.png"
+          },
+          {
+            "symbol": "INTC",
+            "issuer": "Intel",
+            "weight": 0.38,
+            "shares": 33730,
+            "sourceImage": "assets/references/trump-holdings-7.png"
+          },
+          {
+            "symbol": "MTZ",
+            "issuer": "MasTec",
+            "weight": 0.38,
+            "shares": 14860,
+            "sourceImage": "assets/references/trump-holdings-7.png"
+          },
+          {
+            "symbol": "IBM",
+            "issuer": "IBM Corp",
+            "weight": 0.37,
+            "shares": 14610,
+            "sourceImage": "assets/references/trump-holdings-8.png"
+          },
+          {
+            "symbol": "WFC",
+            "issuer": "Wells Fargo & Co.",
+            "weight": 0.36,
+            "shares": 38450,
+            "sourceImage": "assets/references/trump-holdings-8.png"
+          },
+          {
+            "symbol": "MCD",
+            "issuer": "McDonald's",
+            "weight": 0.36,
+            "shares": 13560,
+            "sourceImage": "assets/references/trump-holdings-8.png"
+          },
+          {
+            "symbol": "BA",
+            "issuer": "Boeing",
+            "weight": 0.36,
+            "shares": 16470,
+            "sourceImage": "assets/references/trump-holdings-8.png"
+          },
+          {
+            "symbol": "TMO",
+            "issuer": "Thermo Fisher Scientific",
+            "weight": 0.35,
+            "shares": 5570,
+            "sourceImage": "assets/references/trump-holdings-8.png"
+          },
+          {
+            "symbol": "DUK",
+            "issuer": "Duke Energy",
+            "weight": 0.34,
+            "shares": 27340,
+            "sourceImage": "assets/references/trump-holdings-8.png"
+          },
+          {
+            "symbol": "JPM",
+            "issuer": "JPMorgan",
+            "weight": 0.34,
+            "shares": 9230,
+            "sourceImage": "assets/references/trump-holdings-8.png"
+          },
+          {
+            "symbol": "PLTR",
+            "issuer": "Palantir",
+            "weight": 0.33,
+            "shares": 18630,
+            "sourceImage": "assets/references/trump-holdings-8.png"
+          },
+          {
+            "symbol": "SNDK",
+            "issuer": "SanDisk",
+            "weight": 0.33,
+            "shares": 1780,
+            "sourceImage": "assets/references/trump-holdings-8.png"
+          },
+          {
+            "symbol": "BRK.B",
+            "issuer": "Berkshire Hathaway Class B",
+            "weight": 0.33,
+            "shares": 6160,
+            "sourceImage": "assets/references/trump-holdings-8.png"
+          },
+          {
+            "symbol": "TJX",
+            "issuer": "TJX Companies",
+            "weight": 0.32,
+            "shares": 23930,
+            "sourceImage": "assets/references/trump-holdings-9.png"
+          },
+          {
+            "symbol": "WY",
+            "issuer": "Weyerhaeuser",
+            "weight": 0.3,
+            "shares": 125070,
+            "sourceImage": "assets/references/trump-holdings-9.png"
+          },
+          {
+            "symbol": "OXY",
+            "issuer": "Occidental Petroleum",
+            "weight": 0.29,
+            "shares": 45570,
+            "sourceImage": "assets/references/trump-holdings-9.png"
+          },
+          {
+            "symbol": "URI",
+            "issuer": "United Rentals",
+            "weight": 0.29,
+            "shares": 2690,
+            "sourceImage": "assets/references/trump-holdings-9.png"
+          },
+          {
+            "symbol": "UBER",
+            "issuer": "Uber Technologies",
+            "weight": 0.29,
+            "shares": 38670,
+            "sourceImage": "assets/references/trump-holdings-9.png"
+          },
+          {
+            "symbol": "FIS",
+            "issuer": "Fidelity National Information Services",
+            "weight": 0.29,
+            "shares": 71780,
+            "sourceImage": "assets/references/trump-holdings-9.png"
+          },
+          {
+            "symbol": "CMCSA",
+            "issuer": "Comcast",
+            "weight": 0.28,
+            "shares": 108700,
+            "sourceImage": "assets/references/trump-holdings-9.png"
+          },
+          {
+            "symbol": "MOD",
+            "issuer": "Modine Manufacturing",
+            "weight": 0.27,
+            "shares": 13790,
+            "sourceImage": "assets/references/trump-holdings-9.png"
+          },
+          {
+            "symbol": "PFE",
+            "issuer": "Pfizer",
+            "weight": 0.27,
+            "shares": 91180,
+            "sourceImage": "assets/references/trump-holdings-9.png"
+          },
+          {
+            "symbol": "AMGN",
+            "issuer": "Amgen",
+            "weight": 0.25,
+            "shares": 6000,
+            "sourceImage": "assets/references/trump-holdings-9.png"
+          },
+          {
+            "symbol": "PNC",
+            "issuer": "PNC Financial Services",
+            "weight": 0.23,
+            "shares": 9270,
+            "sourceImage": "assets/references/trump-holdings-10.png"
+          },
+          {
+            "symbol": "CRM",
+            "issuer": "Salesforce",
+            "weight": 0.23,
+            "shares": 9070,
+            "sourceImage": "assets/references/trump-holdings-10.png"
+          },
+          {
+            "symbol": "WFCNP",
+            "issuer": "WELLS FARG…",
+            "weight": 0.23,
+            "shares": 785800,
+            "sourceImage": "assets/references/trump-holdings-10.png"
+          },
+          {
+            "symbol": "MCHPP",
+            "issuer": "MICROCHIP T…",
+            "weight": 0.22,
+            "shares": 33960,
+            "sourceImage": "assets/references/trump-holdings-10.png"
+          },
+          {
+            "symbol": "CVS",
+            "issuer": "CVS Health",
+            "weight": 0.22,
+            "shares": 22350,
+            "sourceImage": "assets/references/trump-holdings-10.png"
+          },
+          {
+            "symbol": "LIN",
+            "issuer": "Linde",
+            "weight": 0.22,
+            "shares": 4440,
+            "sourceImage": "assets/references/trump-holdings-10.png"
+          },
+          {
+            "symbol": "BLK",
+            "issuer": "BlackRock",
+            "weight": 0.21,
+            "shares": 1900,
+            "sourceImage": "assets/references/trump-holdings-10.png"
+          },
+          {
+            "symbol": "STX",
+            "issuer": "Seagate Technology",
+            "weight": 0.21,
+            "shares": 2220,
+            "sourceImage": "assets/references/trump-holdings-10.png"
+          },
+          {
+            "symbol": "PEP",
+            "issuer": "PepsiCo",
+            "weight": 0.2,
+            "shares": 14370,
+            "sourceImage": "assets/references/trump-holdings-10.png"
+          },
+          {
+            "symbol": "NFLX",
+            "issuer": "Netflix",
+            "weight": 0.2,
+            "shares": 24610,
+            "sourceImage": "assets/references/trump-holdings-10.png"
+          },
+          {
+            "symbol": "VRTX",
+            "issuer": "Vertex Pharmaceuticals",
+            "weight": 0.19,
+            "shares": 3520,
+            "sourceImage": "assets/references/trump-holdings-11.png"
+          },
+          {
+            "symbol": "PTC",
+            "issuer": "PTC Inc",
+            "weight": 0.19,
+            "shares": 13810,
+            "sourceImage": "assets/references/trump-holdings-11.png"
+          },
+          {
+            "symbol": "SCHW",
+            "issuer": "Charles Schwab",
+            "weight": 0.18,
+            "shares": 16570,
+            "sourceImage": "assets/references/trump-holdings-11.png"
+          },
+          {
+            "symbol": "FFIV",
+            "issuer": "F5 Inc",
+            "weight": 0.18,
+            "shares": 4320,
+            "sourceImage": "assets/references/trump-holdings-11.png"
+          },
+          {
+            "symbol": "ACN",
+            "issuer": "Accenture",
+            "weight": 0.18,
+            "shares": 9760,
+            "sourceImage": "assets/references/trump-holdings-11.png"
+          },
+          {
+            "symbol": "UNP",
+            "issuer": "Union Pacific",
+            "weight": 0.18,
+            "shares": 6000,
+            "sourceImage": "assets/references/trump-holdings-11.png"
+          },
+          {
+            "symbol": "GLW",
+            "issuer": "Corning",
+            "weight": 0.18,
+            "shares": 10080,
+            "sourceImage": "assets/references/trump-holdings-11.png"
+          },
+          {
+            "symbol": "PANW",
+            "issuer": "Palo Alto Networks",
+            "weight": 0.18,
+            "shares": 5080,
+            "sourceImage": "assets/references/trump-holdings-11.png"
+          },
+          {
+            "symbol": "ADI",
+            "issuer": "Analog Devices",
+            "weight": 0.17,
+            "shares": 4470,
+            "sourceImage": "assets/references/trump-holdings-11.png"
+          },
+          {
+            "symbol": "GILD",
+            "issuer": "Gilead Sciences",
+            "weight": 0.17,
+            "shares": 10970,
+            "sourceImage": "assets/references/trump-holdings-11.png"
+          },
+          {
+            "symbol": "ABT",
+            "issuer": "Abbott Laboratories",
+            "weight": 0.17,
+            "shares": 15120,
+            "sourceImage": "assets/references/trump-holdings-12.png"
+          },
+          {
+            "symbol": "SO",
+            "issuer": "Southern",
+            "weight": 0.17,
+            "shares": 17980,
+            "sourceImage": "assets/references/trump-holdings-12.png"
+          },
+          {
+            "symbol": "COP",
+            "issuer": "ConocoPhillips",
+            "weight": 0.17,
+            "shares": 11540,
+            "sourceImage": "assets/references/trump-holdings-12.png"
+          },
+          {
+            "symbol": "FAST",
+            "issuer": "Fastenal",
+            "weight": 0.16,
+            "shares": 31880,
+            "sourceImage": "assets/references/trump-holdings-12.png"
+          },
+          {
+            "symbol": "WELL",
+            "issuer": "Welltower",
+            "weight": 0.16,
+            "shares": 6580,
+            "sourceImage": "assets/references/trump-holdings-12.png"
+          },
+          {
+            "symbol": "SBUX",
+            "issuer": "Starbucks",
+            "weight": 0.16,
+            "shares": 15450,
+            "sourceImage": "assets/references/trump-holdings-12.png"
+          },
+          {
+            "symbol": "FDS",
+            "issuer": "FactSet Research Systems",
+            "weight": 0.16,
+            "shares": 5510,
+            "sourceImage": "assets/references/trump-holdings-12.png"
+          },
+          {
+            "symbol": "GEV",
+            "issuer": "GE Vernova",
+            "weight": 0.16,
+            "shares": 1600,
+            "sourceImage": "assets/references/trump-holdings-12.png"
+          },
+          {
+            "symbol": "ANET",
+            "issuer": "Arista Networks",
+            "weight": 0.15,
+            "shares": 7650,
+            "sourceImage": "assets/references/trump-holdings-12.png"
+          },
+          {
+            "symbol": "SOMN",
+            "issuer": "SOUTHERN C…",
+            "weight": 0.15,
+            "shares": 30740,
+            "sourceImage": "assets/references/trump-holdings-12.png"
+          },
+          {
+            "symbol": "AJG",
+            "issuer": "Arthur J. Gallagher",
+            "weight": 0.15,
+            "shares": 6010,
+            "sourceImage": "assets/references/trump-holdings-13.png"
+          },
+          {
+            "symbol": "ICE",
+            "issuer": "Intercontinental Exchange",
+            "weight": 0.15,
+            "shares": 9360,
+            "sourceImage": "assets/references/trump-holdings-13.png"
+          },
+          {
+            "symbol": "VLO",
+            "issuer": "Valero Energy",
+            "weight": 0.15,
+            "shares": 3640,
+            "sourceImage": "assets/references/trump-holdings-13.png"
+          },
+          {
+            "symbol": "RSG",
+            "issuer": "Republic Services",
+            "weight": 0.14,
+            "shares": 6180,
+            "sourceImage": "assets/references/trump-holdings-13.png"
+          },
+          {
+            "symbol": "PSX",
+            "issuer": "Phillips 66",
+            "weight": 0.14,
+            "shares": 5230,
+            "sourceImage": "assets/references/trump-holdings-13.png"
+          },
+          {
+            "symbol": "BMY",
+            "issuer": "Bristol-Myers Squibb",
+            "weight": 0.14,
+            "shares": 21150,
+            "sourceImage": "assets/references/trump-holdings-13.png"
+          },
+          {
+            "symbol": "MPC",
+            "issuer": "Marathon Petroleum",
+            "weight": 0.14,
+            "shares": 3340,
+            "sourceImage": "assets/references/trump-holdings-13.png"
+          },
+          {
+            "symbol": "JCI",
+            "issuer": "Johnson Controls",
+            "weight": 0.14,
+            "shares": 9160,
+            "sourceImage": "assets/references/trump-holdings-13.png"
+          },
+          {
+            "symbol": "EW",
+            "issuer": "Edwards Lifesciences",
+            "weight": 0.14,
+            "shares": 15150,
+            "sourceImage": "assets/references/trump-holdings-13.png"
+          },
+          {
+            "symbol": "EQIX",
+            "issuer": "Equinix Inc",
+            "weight": 0.14,
+            "shares": 1240,
+            "sourceImage": "assets/references/trump-holdings-13.png"
+          },
+          {
+            "symbol": "ROK",
+            "issuer": "Rockwell Automation",
+            "weight": 0.14,
+            "shares": 3020,
+            "sourceImage": "assets/references/trump-holdings-14.png"
+          },
+          {
+            "symbol": "PWR",
+            "issuer": "Quanta Services",
+            "weight": 0.13,
+            "shares": 2040,
+            "sourceImage": "assets/references/trump-holdings-14.png"
+          },
+          {
+            "symbol": "RVMDW",
+            "issuer": "REVOLUTION…",
+            "weight": 0.13,
+            "shares": 108720,
+            "sourceImage": "assets/references/trump-holdings-14.png"
+          },
+          {
+            "symbol": "TRV",
+            "issuer": "The Travelers Companies",
+            "weight": 0.13,
+            "shares": 3440,
+            "sourceImage": "assets/references/trump-holdings-14.png"
+          },
+          {
+            "symbol": "BX",
+            "issuer": "Blackstone",
+            "weight": 0.13,
+            "shares": 9720,
+            "sourceImage": "assets/references/trump-holdings-14.png"
+          },
+          {
+            "symbol": "ABNB",
+            "issuer": "Airbnb",
+            "weight": 0.13,
+            "shares": 7340,
+            "sourceImage": "assets/references/trump-holdings-14.png"
+          },
+          {
+            "symbol": "MCK",
+            "issuer": "McKesson",
+            "weight": 0.13,
+            "shares": 1390,
+            "sourceImage": "assets/references/trump-holdings-14.png"
+          },
+          {
+            "symbol": "VRSN",
+            "issuer": "VeriSign",
+            "weight": 0.13,
+            "shares": 4300,
+            "sourceImage": "assets/references/trump-holdings-14.png"
+          },
+          {
+            "symbol": "WM",
+            "issuer": "Waste Management",
+            "weight": 0.13,
+            "shares": 5640,
+            "sourceImage": "assets/references/trump-holdings-14.png"
+          },
+          {
+            "symbol": "CB",
+            "issuer": "Chubb Ltd",
+            "weight": 0.12,
+            "shares": 3540,
+            "sourceImage": "assets/references/trump-holdings-14.png"
+          },
+          {
+            "symbol": "QCOM",
+            "issuer": "Qualcomm",
+            "weight": 0.12,
+            "shares": 6810,
+            "sourceImage": "assets/references/trump-holdings-15.png"
+          },
+          {
+            "symbol": "CL",
+            "issuer": "Colgate-Palmolive",
+            "weight": 0.12,
+            "shares": 13480,
+            "sourceImage": "assets/references/trump-holdings-15.png"
+          },
+          {
+            "symbol": "ORCL",
+            "issuer": "Oracle",
+            "weight": 0.12,
+            "shares": 7360,
+            "sourceImage": "assets/references/trump-holdings-15.png"
+          },
+          {
+            "symbol": "HCA",
+            "issuer": "HCA Healthcare",
+            "weight": 0.12,
+            "shares": 2800,
+            "sourceImage": "assets/references/trump-holdings-15.png"
+          },
+          {
+            "symbol": "TGT",
+            "issuer": "Target",
+            "weight": 0.12,
+            "shares": 7500,
+            "sourceImage": "assets/references/trump-holdings-15.png"
+          },
+          {
+            "symbol": "UPS",
+            "issuer": "United Parcel Service",
+            "weight": 0.12,
+            "shares": 11680,
+            "sourceImage": "assets/references/trump-holdings-15.png"
+          },
+          {
+            "symbol": "HLT",
+            "issuer": "Hilton Worldwide",
+            "weight": 0.12,
+            "shares": 3710,
+            "sourceImage": "assets/references/trump-holdings-15.png"
+          },
+          {
+            "symbol": "WDC",
+            "issuer": "Western Digital",
+            "weight": 0.12,
+            "shares": 2340,
+            "sourceImage": "assets/references/trump-holdings-15.png"
+          },
+          {
+            "symbol": "PAYX",
+            "issuer": "Paychex",
+            "weight": 0.12,
+            "shares": 9770,
+            "sourceImage": "assets/references/trump-holdings-15.png"
+          },
+          {
+            "symbol": "ITW",
+            "issuer": "Illinois Tool Works",
+            "weight": 0.12,
+            "shares": 4260,
+            "sourceImage": "assets/references/trump-holdings-15.png"
+          }
+        ],
+        "sectors": {
+          "sourceImage": "assets/references/trump-holdings-16.png",
+          "sourceLabel": "สัดส่วนอุตสาหกรรมตามภาพแอป",
+          "rows": [
+            {
+              "name": "Electronics",
+              "label": "อิเล็กทรอนิกส์",
+              "weight": 16.33
+            },
+            {
+              "name": "Computer",
+              "label": "คอมพิวเตอร์",
+              "weight": 15.74
+            },
+            {
+              "name": "Medical Biol…",
+              "label": "การแพทย์ / ชีวภาพ",
+              "weight": 8.55
+            },
+            {
+              "name": "Non-Bank Fi…",
+              "label": "การเงินนอกธนาคาร",
+              "weight": 8
+            },
+            {
+              "name": "Commerce",
+              "label": "การค้า",
+              "weight": 7.71
+            },
+            {
+              "name": "Others",
+              "label": "อื่น ๆ",
+              "weight": 43.68
+            }
+          ]
+        }
+      },
       "aliases": [
         "Trump",
         "Donald J. Trump",
@@ -3490,6 +4600,197 @@
       "category": "public-figure",
       "monogram": "NP",
       "brandCaption": "Nancy Pelosi",
+      "estimatedHoldings": {
+        "sourceType": "user-screenshot",
+        "sourceLabel": "Pelosi Portfolio · ภาพอ้างอิงที่ผู้ใช้ให้มา",
+        "asOf": null,
+        "coverage": "22 รายการตามภาพจนถึง No More",
+        "note": "ตัวเลขเปอร์เซ็นต์และจำนวนหุ้นมีป้าย Est. ในภาพต้นทาง เป็นค่าประมาณการจากแอป ภาพไม่ระบุวันที่ของข้อมูล ไม่ใช่ยอดทรัพย์สินที่ยืนยันจากรายงานทางการ และไม่ได้ระบุผู้ถือครองแต่ละบัญชี",
+        "sources": [
+          {
+            "image": "assets/references/pelosi-holdings-1.png",
+            "label": "ภาพถือครอง Pelosi 1"
+          },
+          {
+            "image": "assets/references/pelosi-holdings-2.png",
+            "label": "ภาพถือครอง Pelosi 2"
+          },
+          {
+            "image": "assets/references/pelosi-holdings-3.png",
+            "label": "ภาพถือครอง Pelosi 3"
+          }
+        ],
+        "rows": [
+          {
+            "symbol": "NVDA",
+            "issuer": "NVIDIA",
+            "weight": 12.93,
+            "shares": 85430
+          },
+          {
+            "symbol": "AMZN",
+            "issuer": "Amazon",
+            "weight": 11.95,
+            "shares": 69990
+          },
+          {
+            "symbol": "GOOGL",
+            "issuer": "Alphabet Class A",
+            "weight": 11.84,
+            "shares": 52920
+          },
+          {
+            "symbol": "AAPL",
+            "issuer": "Apple",
+            "weight": 11.77,
+            "shares": 55180
+          },
+          {
+            "symbol": "AVGO",
+            "issuer": "Broadcom",
+            "weight": 10.69,
+            "shares": 43340
+          },
+          {
+            "symbol": "V",
+            "issuer": "Visa",
+            "weight": 10.63,
+            "shares": 42770
+          },
+          {
+            "symbol": "MSFT",
+            "issuer": "Microsoft",
+            "weight": 10.32,
+            "shares": 31020
+          },
+          {
+            "symbol": "CRM",
+            "issuer": "Salesforce",
+            "weight": 9.35,
+            "shares": 56620
+          },
+          {
+            "symbol": "PANW",
+            "issuer": "Palo Alto Networks",
+            "weight": 3.69,
+            "shares": 16290
+          },
+          {
+            "symbol": "AXP",
+            "issuer": "American Express",
+            "weight": 1.76,
+            "shares": 8110
+          },
+          {
+            "symbol": "NFLX",
+            "issuer": "Netflix",
+            "weight": 1.65,
+            "shares": 32000
+          },
+          {
+            "symbol": "CRWD",
+            "issuer": "CrowdStrike",
+            "weight": 0.9,
+            "shares": 6400
+          },
+          {
+            "symbol": "IBKR",
+            "issuer": "Interactive Brokers",
+            "weight": 0.71,
+            "shares": 11660
+          },
+          {
+            "symbol": "CMCSA",
+            "issuer": "Comcast",
+            "weight": 0.42,
+            "shares": 25090
+          },
+          {
+            "symbol": "TSLA",
+            "issuer": "Tesla",
+            "weight": 0.34,
+            "shares": 1360
+          },
+          {
+            "symbol": "PYPL",
+            "issuer": "PayPal",
+            "weight": 0.33,
+            "shares": 9420
+          },
+          {
+            "symbol": "DBX",
+            "issuer": "Dropbox",
+            "weight": 0.32,
+            "shares": 13490
+          },
+          {
+            "symbol": "RBLX",
+            "issuer": "Roblox",
+            "weight": 0.14,
+            "shares": 4630
+          },
+          {
+            "symbol": "T",
+            "issuer": "AT&T",
+            "weight": 0.12,
+            "shares": 7050
+          },
+          {
+            "symbol": "MORN",
+            "issuer": "Morningstar",
+            "weight": 0.11,
+            "shares": 805.3
+          },
+          {
+            "symbol": "QCOM",
+            "issuer": "Qualcomm",
+            "weight": 0.02,
+            "shares": 190.01
+          },
+          {
+            "symbol": "CLNE",
+            "issuer": "Clean Energy Fuels",
+            "weight": 0,
+            "shares": 3810
+          }
+        ],
+        "sectors": {
+          "sourceImage": "assets/references/pelosi-holdings-1.png",
+          "sourceLabel": "สัดส่วนอุตสาหกรรมตามภาพแอป",
+          "rows": [
+            {
+              "name": "Computer",
+              "label": "คอมพิวเตอร์",
+              "weight": 36.35
+            },
+            {
+              "name": "Electronics",
+              "label": "อิเล็กทรอนิกส์",
+              "weight": 23.64
+            },
+            {
+              "name": "Internet & M…",
+              "label": "อินเทอร์เน็ต / สื่อ",
+              "weight": 13.63
+            },
+            {
+              "name": "Non-Bank Fi…",
+              "label": "การเงินนอกธนาคาร",
+              "weight": 13.55
+            },
+            {
+              "name": "Commerce",
+              "label": "การค้า",
+              "weight": 11.95
+            },
+            {
+              "name": "Others",
+              "label": "อื่น ๆ",
+              "weight": 0.88
+            }
+          ]
+        }
+      },
       "aliases": [
         "Pelosi",
         "Nancy Pelosi",

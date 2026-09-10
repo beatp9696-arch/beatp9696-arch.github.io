@@ -28,6 +28,11 @@ with sync_playwright() as p:
     page.goto(url);expect(page.locator('.sm-card')).to_have_count(16)
     page.evaluate('document.fonts.ready')
     page.evaluate('async()=>Promise.all([...document.querySelectorAll(".app-smart-money img")].map(image=>image.decode()))')
+    expect(page.locator('.sm-card .sm-brand img, .sm-card .sm-portrait img')).to_have_count(16)
+    expect(page.locator('.sm-card .sm-brand b, .sm-card .sm-portrait b')).to_have_count(0)
+    for card in page.locator('.sm-card:not(.sm-disclosure-card)').all():
+        assert 1 <= card.locator('.sm-ring > svg > g:first-child > circle').count() <= 5
+        expect(card.locator('.sm-chart-caption')).to_contain_text('สัดส่วนเฉพาะกลุ่มนี้')
     assert page.locator('#tabbar .tab').all_text_contents()==['Moatrices','Money','Portfolio','Smart Money']
     for w in [320,375,390,430,768,1280]:
         page.set_viewport_size({'width':w,'height':844})
@@ -55,6 +60,7 @@ with sync_playwright() as p:
     page.locator('.sm-back').click()
     # Expanded catalog: all institutions and public disclosure views.
     page.locator('[data-category="institution"]').click();expect(page.locator('.sm-card')).to_have_count(6)
+    page.screenshot(path=str(OUT/'moatrices-smart-money-institutions-mobile.png'))
     page.locator('[data-category="all"]').click()
     reports=json.loads((ROOT/'pp-os/data/smart-money.json').read_text())
     for fund in reports['funds']:
@@ -88,6 +94,30 @@ with sync_playwright() as p:
     for profile in reports['disclosures']:
         page.locator('[data-fund="'+profile['id']+'"]').click()
         expect(page.locator('.sm-detail h2')).to_have_text(profile['name'])
+        if profile.get('estimatedHoldings'):
+            rows=profile['estimatedHoldings']['rows']
+            expect(page.locator('.sm-estimated-table tbody tr')).to_have_count(min(50,len(rows)))
+            expect(page.locator('.sm-estimated-table tbody tr').first).to_contain_text('5.66%' if profile['id']=='trump' else '12.93%')
+            expect(page.locator('.sm-estimated-table tbody tr').first).to_contain_text('171.23K' if profile['id']=='trump' else '85.43K')
+            while page.locator('[data-estimate-more]').is_visible():
+                page.locator('[data-estimate-more]').click()
+            expect(page.locator('.sm-estimated-table tbody tr')).to_have_count(len(rows))
+            expect(page.locator('.sm-estimated-table tbody tr').last).to_contain_text(rows[-1]['symbol'])
+            page.locator('.sm-holding-search input').fill(rows[-1]['issuer'])
+            expect(page.locator('.sm-estimated-table tbody tr')).to_have_count(1)
+            expect(page.locator('.sm-estimated-table tbody tr')).to_contain_text(rows[-1]['symbol'])
+            page.locator('.sm-holding-search input').fill('no-such-security-123')
+            expect(page.locator('.sm-estimate-count')).to_have_text('แสดง 0 จาก 0 รายการ')
+            expect(page.locator('[data-estimate-more]')).to_be_hidden()
+            page.locator('.sm-holding-search input').fill('')
+            expect(page.locator('.sm-ring')).to_have_count(1)
+            expect(page.locator('.sm-estimate-note')).to_contain_text('ภาพไม่ระบุวันที่')
+            for width in [320,390,768]:
+                page.set_viewport_size({'width':width,'height':844})
+                assert page.locator('.app-smart-money').evaluate('e=>e.scrollWidth<=e.clientWidth'),('estimate',width)
+            page.set_viewport_size({'width':390,'height':844})
+            page.screenshot(path=str(OUT/f"moatrices-smart-money-{profile['id']}-holdings.png"),full_page=True)
+            page.locator('[data-profile-view="transactions"]').click()
         expect(page.locator('.sm-disclosed-list li')).to_have_count(len(profile['disclosure']['entries']))
         expect(page.locator('.sm-ring')).to_have_count(0)
         assert all('#page=' in href for href in page.locator('.sm-disclosed-list a').evaluate_all('(links)=>links.map(a=>a.href)'))
@@ -127,6 +157,9 @@ with sync_playwright() as p:
     page.goto(url);expect(page.locator('.sm-card')).to_have_count(16)
     assert page.locator('.sm-cards').evaluate("e=>getComputedStyle(e).gridTemplateColumns.split(' ').length")==2
     page.screenshot(path=str(OUT/'moatrices-smart-money-wide.png'))
+    page.locator('[data-fund="daily-journal"]').screenshot(path=str(OUT/'moatrices-smart-money-munger.png'))
+    page.locator('[data-category="institution"]').click()
+    page.screenshot(path=str(OUT/'moatrices-smart-money-institutions-wide.png'))
     # Installed app retains the new menu, data, and diagrams offline.
     offline=browser.new_context(viewport={'width':390,'height':844},reduced_motion='reduce')
     op=offline.new_page();op.on('pageerror',lambda e:errors.append(str(e)))
@@ -139,13 +172,17 @@ with sync_playwright() as p:
     op.locator('[data-fund="nvidia"]').click();expect(op.locator('.sm-detail h2')).to_have_text('NVIDIA Portfolio')
     op.wait_for_function("async(version)=>{const c=await caches.open(version);return (await c.keys()).some(r=>r.url.includes('/data/smart-money/nvidia-'))}",arg=VERSION)
     offline.set_offline(True);op.reload();expect(op.locator('.sm-card')).to_have_count(16)
+    expect(op.locator('.sm-card .sm-brand img, .sm-card .sm-portrait img')).to_have_count(16)
+    op.evaluate('async()=>Promise.all([...document.querySelectorAll(".sm-card .sm-brand img, .sm-card .sm-portrait img")].map(image=>image.decode()))')
     op.locator('[data-fund="nvidia"]').click();expect(op.locator('.sm-detail h2')).to_have_text('NVIDIA Portfolio')
     assert op.locator('.sm-brand-nvidia img').evaluate('e=>e.complete&&e.naturalWidth>0')
     op.locator('.sm-back').click()
     op.locator('[data-fund="blackrock"]').click()
     expect(op.locator('[data-retry-detail]')).to_be_visible()
     op.locator('.sm-back').click();expect(op.locator('.sm-card')).to_have_count(16)
-    op.locator('[data-fund="trump"]').click();expect(op.locator('.sm-disclosed-list li')).to_have_count(8)
+    op.locator('[data-fund="trump"]').click();expect(op.locator('.sm-estimated-table tbody tr')).to_have_count(50)
+    op.locator('[data-profile-view="transactions"]').click();expect(op.locator('.sm-disclosed-list li')).to_have_count(8)
+    op.locator('[data-profile-view="holdings"]').click();expect(op.locator('.sm-estimated-table tbody tr')).to_have_count(50)
     op.locator('.sm-back').click()
     op.locator('[data-fund="blackrock"]').click();expect(op.locator('[data-retry-detail]')).to_be_visible()
     offline.set_offline(False);op.locator('[data-retry-detail]').click()

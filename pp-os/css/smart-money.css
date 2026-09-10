@@ -17,6 +17,60 @@
 .sm-card-sub{display:block}.sm-card-value{display:flex;flex-wrap:wrap;align-items:baseline;gap:3px 7px;margin:10px 0 14px}.sm-card-value small{display:inline;margin:0;white-space:nowrap}.sm-card{min-height:220px;padding-top:20px;padding-bottom:18px}.sm-shell-icon{display:inline-flex;width:1.2em;height:1.2em;vertical-align:-.15em}.sm-shell-icon svg{width:100%;height:100%}
 .sm-type-badge{display:inline-block;margin-top:9px;padding:3px 7px;border:1px solid #475568;border-radius:5px;color:#adbed4;font-size:9px;line-height:1.5}.sm-historical{color:#dcc293;border-color:#766243;background:#2a241b}.sm-disclosure-value{font-size:21px}.sm-disclosure-card .sm-card-changes em{font-size:10px;color:#a9b9ca}.sm-portrait{width:100%;max-width:164px;aspect-ratio:1;justify-self:center;border-radius:50%;border:1px dashed #6580af;background:radial-gradient(circle at 35% 30%,#2d476c,#162238 75%);box-shadow:inset 0 0 0 10px #121517;display:flex;flex-direction:column;align-items:center;justify-content:center;color:#dce8fc}.sm-portrait b{font:500 38px/1.2 Georgia,serif;letter-spacing:-2px}.sm-portrait span{font:500 6px/2 var(--font-mono);letter-spacing:1px;margin-top:5px;color:#a5b6cf}.sm-person-pelosi{background:radial-gradient(circle at 35% 30%,#504469,#25203b 75%);border-color:#8d7da7}.sm-brand-bridgewater{background:#d9e5eb;color:#163e52}.sm-brand-ark{background:#e3d4f0;color:#563073}.sm-brand-daily-journal{background:#e8dec7;color:#59442e}.sm-brand-soros{background:#e4e9e1;color:#24432e}.sm-brand-blackrock{background:#050505;color:#fafafa}.sm-brand-vanguard-capital{background:#641e2a;color:#f8e6df}.sm-brand-state-street{background:#dbecf6;color:#193e6c}.sm-brand-jpmorgan{background:#eee7d9;color:#463d30}.sm-brand-morgan-stanley{background:#e7edf3;color:#293643}.sm-brand-invesco{background:#193784;color:#fff}.sm-brand small{color:inherit;opacity:.75;letter-spacing:0;font-size:5px}.sm-disclosure-summary{display:flex;align-items:center;gap:20px;margin:25px 0}.sm-disclosure-summary .sm-portrait{width:34%;flex-shrink:0}.sm-disclosure-summary strong{font:600 26px/1.5 var(--font-head);color:var(--a)}.sm-disclosure-summary p{font-size:11px;line-height:1.9;color:var(--dim);margin:6px 0}.sm-section-title{font-size:15px;font-weight:600;margin:28px 0 8px}.sm-range-caption{color:var(--dim);font-size:11px;line-height:1.7}.sm-disclosed-list{list-style:none;margin:0;padding:0}.sm-disclosed-list li{padding:18px 0;border-top:1px solid var(--line)}.sm-disclosed-heading{display:flex;justify-content:space-between;align-items:baseline;gap:12px}.sm-disclosed-heading b{font-size:15px}.sm-disclosed-heading span{font-size:11px;color:#a9b9ca}.sm-disclosed-list p{color:var(--dim);font-size:11px;line-height:1.7;margin:5px 0 10px}.sm-disclosed-list strong{display:block;color:#dae4ef;font:500 15px/1.7 var(--font-head);font-variant-numeric:tabular-nums}.sm-disclosed-list a{display:inline-flex;align-items:center;gap:4px;font-size:10px;margin-top:10px;text-decoration:none}.sm-disclosed-list a svg{width:12px;height:12px}.sm-filing-sources{border:1px solid var(--line);border-radius:8px;padding:12px;margin:15px 0 22px;color:#aab7c5;font-size:11px;line-height:1.9}.sm-filing-sources summary{cursor:pointer}.sm-filing-sources>div{margin-top:12px;display:grid;gap:7px}.sm-filing-sources a{display:inline-flex;align-items:center;gap:6px}.sm-filing-sources svg{width:12px;height:12px}.sm-filing-sources p{margin:2px 0}.sm-holding-search{display:grid;gap:7px;font-size:10px;color:var(--dim);margin:15px 0}.sm-holding-search input{width:100%;box-sizing:border-box;border:1px solid var(--line);border-radius:7px;background:#181d21;color:var(--ink);font-size:12px;padding:11px;min-width:0}.sm-pagination{display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap;margin:18px 0;font-size:10px;color:var(--dim)}.sm-pagination button{font-size:11px}.sm-holding-tabs{flex-wrap:wrap}.sm-holdings li:focus{outline:1px solid var(--a);outline-offset:3px}
 
+/* Real profile images shared by overview cards and detail charts. */
+.sm-chart{width:100%;max-width:215px;justify-self:center;align-self:center;min-width:0}
+.sm-chart .sm-ring{max-width:none}
+.sm-chart.sm-ring-large{width:45%;max-width:240px}
+.sm-chart-caption{display:block;text-align:center;font-size:8px;line-height:1.6;color:var(--dim);margin-top:4px}
+.sm-chart-note{font-size:11px;line-height:1.8;color:var(--dim);margin:12px 0}
+.sm-brand{inset:25%}
+.sm-brand-photo{background:#19202b}
+.sm-brand-photo img{display:block;width:100%;height:100%;object-fit:cover;object-position:50% 25%}
+.sm-brand-bridgewater img{transform:scale(1.35);transform-origin:45% 24%}
+.sm-brand-ark img{transform:scale(1.6);transform-origin:50% 30%}
+.sm-brand-logo{background:#fff}
+.sm-brand-logo img{display:block;width:84%;height:72%;object-fit:contain;margin:0}
+.sm-brand-blackrock{background:#000}
+.sm-brand-invesco{background:#0000a5}
+.sm-brand-nvidia{background:#fff}
+.sm-brand-blackrock img,.sm-brand-invesco img{width:100%;height:100%}
+.sm-brand-jpmorgan,.sm-brand-morgan-stanley{background:#fff}
+.sm-brand-jpmorgan img,.sm-brand-morgan-stanley img{width:92%;height:76%;object-fit:contain}
+.sm-brand-trump{background:#171816}
+.sm-brand-trump img{object-position:50% 20%}
+.sm-estimated-card .sm-card-date{white-space:normal}
+.sm-estimated-card .sm-card-changes em{color:var(--ink)}
+.sm-profile-tabs{margin-top:20px}
+.sm-estimate-note{padding:12px 14px;border:1px solid #766243;border-radius:8px;background:#2a241b;color:#dcc293;font-size:11px;line-height:1.9;margin:20px 0 12px}
+.sm-estimated-table-wrap{width:100%;min-width:0}
+.sm-estimated-table{width:100%;table-layout:fixed;border-collapse:collapse;margin:20px 0;font-variant-numeric:tabular-nums}
+.sm-estimated-table caption{text-align:left;font-size:10px;line-height:1.8;color:var(--dim);margin-bottom:12px}
+.sm-estimated-table th,.sm-estimated-table td{border-bottom:1px solid var(--line);padding:16px 4px;text-align:right;font-size:13px;font-weight:400}
+.sm-estimated-table th:first-child{width:46%;text-align:left;padding-left:0}
+.sm-estimated-table thead th{color:var(--dim);font-size:11px;vertical-align:bottom;line-height:1.7}
+.sm-estimated-table thead small{font-size:9px}
+.sm-estimated-stock{display:flex;align-items:center;gap:9px;min-width:0}
+.sm-estimated-stock img{width:30px;height:30px;flex-shrink:0;object-fit:contain;border-radius:50%;background:#fff}
+.sm-estimated-stock>div{min-width:0}
+.sm-estimated-stock b{display:block;font-size:14px;font-weight:600}
+.sm-estimated-stock span{display:block;font-size:10px;color:var(--dim);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;margin-top:4px}
+.sm-estimated-stock .sm-stock-fallback{display:grid;place-items:center;width:30px;height:30px;border-radius:50%;background:#7650bb;color:white;font-size:12px;font-weight:600;flex-shrink:0;margin:0}
+.sm-estimate-sources{margin:18px 0;border:1px solid var(--line);padding:12px;border-radius:8px;font-size:11px;color:var(--dim)}
+.sm-estimate-sources summary{cursor:pointer}
+.sm-sectors{margin:26px 0;padding:22px 0;border-top:1px solid var(--line);border-bottom:1px solid var(--line)}
+.sm-sectors h3{font-size:17px;margin:0 0 7px}
+.sm-sector-basis,.sm-sector-source{font-size:10px;color:var(--dim);line-height:1.8;margin:8px 0}
+.sm-sector-layout{display:grid;grid-template-columns:minmax(95px,35%) minmax(0,1fr);gap:10px;align-items:center;margin:16px 0}
+.sm-sector-donut{width:100%;height:auto;max-width:220px}
+.sm-sector-legend{list-style:none;margin:0;padding:0;display:grid;gap:12px}
+.sm-sector-legend li{display:grid;grid-template-columns:7px minmax(0,1fr) auto;align-items:center;gap:3px 7px;font-size:11px;line-height:1.6}
+.sm-sector-legend i{width:7px;height:7px;border-radius:50%}
+.sm-sector-legend span{overflow-wrap:anywhere}
+.sm-sector-legend b{font-size:12px;font-weight:500;white-space:nowrap;font-variant-numeric:tabular-nums}
+.sm-sector-legend small{grid-column:2/-1;color:var(--dim);font-size:9px}
+@container smart-money (min-width:700px){.sm-sector-layout{gap:30px}.sm-sector-legend li,.sm-sector-legend b{font-size:14px}.sm-sector-legend small{font-size:11px}.sm-sector-basis,.sm-sector-source{font-size:11px}}
+@container smart-money (min-width:700px){.sm-estimated-table th,.sm-estimated-table td{font-size:17px;padding-top:20px;padding-bottom:20px}.sm-estimated-stock b{font-size:17px}.sm-estimated-stock span{font-size:12px}.sm-estimated-stock img{width:36px;height:36px}}
+
 /* Public disclosures use a portrait and compact records below the profile. */
 .sm-disclosure-card{grid-template-columns:minmax(0,1fr) minmax(94px,34%);column-gap:16px;row-gap:15px;padding:20px 18px 16px;align-items:center}
 .sm-trump-card{border-color:#413a30;background:radial-gradient(ellipse at 100% 0,#a6824320,transparent 65%),#141617}

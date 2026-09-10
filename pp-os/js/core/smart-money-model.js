@@ -33,9 +33,17 @@ export function donutRows(rows, totalValue, limit = 5) {
   return visible;
 }
 
+// A focused chart of the largest disclosed positions; portfolio weights stay intact.
+export function topHoldingRows(rows, limit = 5) {
+  const visible = rows.filter(row => row.id !== 'other' && row.value > 0)
+    .sort((a, b) => b.value - a.value).slice(0, limit);
+  const total = visible.reduce((sum, row) => sum + row.value, 0);
+  return visible.map(row => ({...row, fraction: row.value / total}));
+}
+
 export function matchesFund(fund, query) {
   const needle = query.trim().toLocaleLowerCase();
-  return !needle || [fund.name, fund.subtitle, fund.searchText || '', ...(fund.aliases || []), ...((fund.current?.holdings || fund.disclosure?.entries || []).flatMap(row => [row.symbol || '', row.issuer]))]
+  return !needle || [fund.name, fund.subtitle, fund.searchText || '', ...(fund.aliases || []), ...((fund.current?.holdings || fund.disclosure?.entries || []).flatMap(row => [row.symbol || '', row.issuer])), ...(fund.estimatedHoldings?.rows || []).flatMap(row => [row.symbol, row.issuer])]
     .some(text => text.toLocaleLowerCase().includes(needle));
 }
 
@@ -96,6 +104,22 @@ export function validateDataset(data) {
     if (Math.abs(total-fund.current.totalValue)>1) throw new Error('Catalog allocation does not reconcile');
   }
   for (const profile of data.disclosures) {
+    const estimate = profile.estimatedHoldings;
+    if (estimate) {
+      if (estimate.sourceType !== 'user-screenshot' || !(estimate.asOf === null || validDate(estimate.asOf)) || !['sourceLabel','coverage','note'].every(key => typeof estimate[key] === 'string') || !Array.isArray(estimate.rows) || !estimate.rows.length || !Array.isArray(estimate.sources) || !estimate.sources.length) throw new Error('Invalid estimated holdings');
+      if (!estimate.sources.every(source => typeof source.label === 'string' && /^assets\/references\/[a-z0-9-]+\.png$/.test(source.image))) throw new Error('Invalid estimate source');
+      const symbols = new Set();
+      let weight = 0;
+      for (const row of estimate.rows) {
+        if (!/^[A-Z][A-Z0-9.-]*$/.test(row.symbol) || symbols.has(row.symbol) || typeof row.issuer !== 'string' || !Number.isFinite(row.weight) || !(row.weight >= 0 && row.weight <= 100) || !nonnegative(row.shares) || row.shares === 0) throw new Error('Invalid estimate row');
+        symbols.add(row.symbol); weight += row.weight;
+      }
+      if (!(weight > 0 && weight <= 100.01)) throw new Error('Invalid estimate total');
+      if(estimate.sectors){
+        const sectors=estimate.sectors;
+        if(!estimate.sources.some(source=>source.image===sectors.sourceImage) || !Array.isArray(sectors.rows) || !sectors.rows.length || sectors.rows.some(row=>typeof row.name!=='string'||typeof row.label!=='string'||!Number.isFinite(row.weight)||row.weight<0) || Math.abs(sectors.rows.reduce((sum,row)=>sum+row.weight,0)-100)>.05)throw new Error('Invalid estimate sectors');
+      }
+    }
     const report=profile.disclosure;
     if (profile.kind !== 'disclosure' || profile.current || profile.previous || profile.chart || !report || !['assets','transactions'].includes(report.type) || !validDate(report.filedDate) || !Array.isArray(report.entries) || !report.entries.length) throw new Error('Invalid disclosure');
     sourceURL(report.source,report.type === 'assets' ? ['disclosures-clerk.house.gov'] : ['www.whitehouse.gov','extapps2.oge.gov']);
