@@ -64,7 +64,14 @@ LEGAL_OVERRIDE_RE = re.compile(
 HEADER_ONLY_PAGES = {"moat-city.html"}
 CHROME_EXCLUSIONS = {
     "404.html": '<header class="nav">',
-    "pp-os/index.html": '<footer id="taskbar">',
+    # หน้าแอป (Money / Portfolio / Smart Money): จงใจไม่มี header/footer ของเว็บ
+    # apps.css มี selector ระดับบนสุด 585 ตัว ชนกับชื่อคลาสของเว็บ (.sec .card .btn) —
+    # โหลด style.min.css คู่กันเมื่อไหร่ทับกันทั้งสองฝั่ง แถบล่างคือตัวเชื่อมสองโลกนี้แทน
+    "money.html": 'id="app-root"',
+    "portfolio.html": 'id="app-root"',
+    "smart-money.html": 'id="app-root"',
+    # ทางเก่าของแอป — เหลือไว้เป็นหน้า redirect + ถอน service worker ตัวเก่าที่ค้างในเครื่องผู้ใช้
+    "pp-os/index.html": 'url=/smart-money.html',
     "interstellar/endurance.html": 'class="backlink"',
     "interstellar/gargantua.html": 'class="backlink"',
     "interstellar/tesseract.html": 'class="backlink"',
@@ -200,6 +207,8 @@ def site_chrome_warnings():
     managed = root_paths + article_paths
 
     for path in managed:
+        if path in CHROME_EXCLUSIONS:
+            continue  # หน้าที่มี shell ของตัวเอง (แอป/redirect) — เช็คแยกด้านล่าง
         body = open(path, encoding="utf-8").read()
         for start, end, label in [
             (HEADER_START, HEADER_END, "header"),

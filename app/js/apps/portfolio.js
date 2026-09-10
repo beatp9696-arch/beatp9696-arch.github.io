@@ -1,5 +1,5 @@
 import { load, save } from "../core/storage.js";
-import { SITE } from "../core/app-shell.js";
+import { SITE } from "../core/site.js";
 import { countUp, flush, num, stagger } from "../core/ui.js";
 
 // Portfolio — พอร์ตส่วนตัว (ROADMAP 4.1)

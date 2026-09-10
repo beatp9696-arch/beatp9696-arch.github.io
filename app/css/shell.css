@@ -120,6 +120,9 @@ body.mode-app {
 
 .tab {
   position: relative;
+  /* แท็บเป็น <a> ไปหน้าจริงแล้ว (ไม่ใช่ <button> สลับ view ในหน้าเดียวเหมือนตอนเป็น PP OS)
+     → ต้องถอดขีดเส้นใต้และสีลิงก์ดีฟอลต์ออก ไม่งั้นชื่อแท็บมีเส้นใต้ทั้งแถบ */
+  text-decoration: none;
   display: flex;
   flex-direction: column;
   align-items: center;

@@ -1,41 +1,35 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="th">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-  <title>Moatrices</title>
-  <meta name="description" content="Moatrices — articles, Money, Portfolio and Smart Money. Personal data stays on your device.">
-  <meta name="theme-color" content="#0f1215">
-  <link rel="manifest" href="manifest.webmanifest">
-  <link rel="icon" href="assets/icons/favicon.svg" type="image/svg+xml">
-  <link rel="apple-touch-icon" href="assets/icons/apple-touch-icon.png">
-  <meta name="apple-mobile-web-app-capable" content="yes">
-  <meta name="apple-mobile-web-app-status-bar-style" content="default">
-  <meta name="apple-mobile-web-app-title" content="Moatrices">
-  <link rel="stylesheet" href="css/base.css">
-  <link rel="stylesheet" href="css/desktop.css">
-  <link rel="stylesheet" href="css/window.css">
-  <link rel="stylesheet" href="css/taskbar.css">
-  <link rel="stylesheet" href="css/shell.css">
-  <link rel="stylesheet" href="css/apps.css">
-  <link rel="stylesheet" href="css/smart-money.css">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ย้ายแล้ว — Moatrices</title>
+  <meta name="robots" content="noindex">
+  <link rel="canonical" href="/smart-money.html">
+  <meta http-equiv="refresh" content="0; url=/smart-money.html">
+  <style>
+    body{margin:0;min-height:100dvh;display:grid;place-items:center;background:#0f1215;color:#e8eaed;
+      font-family:system-ui,-apple-system,"Helvetica Neue",sans-serif;text-align:center;padding:24px}
+    a{color:#5bd6a4}
+  </style>
 </head>
 <body>
-  <main id="desktop">
-    <div id="icons"></div>
-    <div id="windows"></div>
-  </main>
-
-  <div id="start-menu" class="hidden"></div>
-
-  <footer id="taskbar">
-    <button id="start-btn" title="Start">
-      <img src="assets/icons/favicon.svg" alt="Start">
-    </button>
-    <div id="task-buttons"></div>
-    <time id="clock"></time>
-  </footer>
-
-  <script type="module" src="js/main.js"></script>
+  <div>
+    <p>แอปย้ายมาอยู่ในเว็บ Moatrices แล้ว — ข้อมูลของคุณอยู่ครบเหมือนเดิม</p>
+    <p><a href="/smart-money.html">ไปต่อที่ Smart Money →</a></p>
+  </div>
+  <script>
+    // ถอน service worker ตัวเก่าให้เกลี้ยงก่อน แล้วค่อยเด้ง — ไม่งั้นเครื่องที่ติดตั้ง PWA ไว้
+    // จะถูก SW เดิมเสิร์ฟหน้าเก่าจาก cache ต่อไป ไม่มีวันเห็นหน้าใหม่
+    (async function () {
+      try {
+        if ("serviceWorker" in navigator) {
+          for (const r of await navigator.serviceWorker.getRegistrations()) await r.unregister();
+        }
+        if (window.caches) for (const k of await caches.keys()) await caches.delete(k);
+      } catch (e) {}
+      location.replace("/smart-money.html");
+    })();
+  </script>
 </body>
 </html>

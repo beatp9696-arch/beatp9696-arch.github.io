@@ -985,15 +985,15 @@
 })();
 
 /* ============================================================
-   OS tab bar — แถบล่างชุดเดียวกับ PP OS (Moatrices / Money / Portfolio / Smart Money)
-   โผล่เฉพาะจอมือถือ: เว็บกับแอปเลยรู้สึกเป็นแอปเดียวกัน สลับไปมาได้จากทุกหน้า
-   ซ่อนตัวเองเมื่อถูกฝังใน iframe ของแอป (แท็บ Moatrices ในแอปมี tabbar ของมันอยู่แล้ว = ห้ามซ้อนสองแถบ)
+   แถบล่าง (Moatrices / Money / Portfolio / Smart Money)
+   โผล่เฉพาะจอมือถือ: หน้าเนื้อหากับหน้าแอปเป็นเว็บเดียวกัน สลับไปมาได้จากทุกหน้า
+   แถบเดียวกับที่ app/js/page.js วาดบนหน้าแอป — ไอคอนและลำดับต้องตรงกันเสมอ
    ============================================================ */
 (function () {
   if (window.self !== window.top) return;
 
-  var APP = "/pp-os/?mode=app&tab=";
-  var HOME = (location.pathname.indexOf("/articles/") !== -1 ? "../" : "") + "index.html";
+  // หน้าแอปย้ายออกจาก /pp-os/ มาเป็นหน้าเว็บปกติแล้ว — ลิงก์ตรงไม่ต้องผ่าน query string
+  var UP = location.pathname.indexOf("/articles/") !== -1 ? "../" : "";
   var svg = function (d) {
     return '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" ' +
       'stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">' + d + "</svg>";
@@ -1009,14 +1009,14 @@
 
   var bar = document.createElement("nav");
   bar.className = "os-tabbar";
-  bar.setAttribute("aria-label", "PP OS");
+  bar.setAttribute("aria-label", "Moatrices");
 
   var html = "";
   for (var i = 0; i < TABS.length; i++) {
     var t = TABS[i];
-    // อยู่บนเว็บ = อยู่ในแท็บ Moatrices อยู่แล้ว → ไฮไลต์ตัวเอง ส่วนแท็บอื่นเด้งเข้าแอป
+    // อยู่บนหน้าเนื้อหา = อยู่ในแท็บ Moatrices อยู่แล้ว → ไฮไลต์ตัวเอง
     var on = t.id === "moatrices" ? ' class="on" aria-current="page"' : "";
-    var href = t.id === "moatrices" ? HOME : APP + t.id;
+    var href = UP + (t.id === "moatrices" ? "index.html" : t.id + ".html");
     html += '<a href="' + href + '"' + on + ">" + t.icon + "<span>" + t.label + "</span></a>";
   }
   bar.innerHTML = html;

@@ -291,14 +291,6 @@ export function openSettings() {
       <div class="more-sec">Data</div>
       <div class="more-list" id="set-data"></div>
 
-      <div class="more-sec">Device</div>
-      <div class="more-list">
-        <button class="more-row" data-act="desktop">
-          <span class="mr-ico">🖥️</span>
-          <span class="mr-txt"><b>Switch to desktop mode</b><small>Draggable windows and a taskbar</small></span>
-          <span class="mr-chev">${ICONS.chev}</span>
-        </button>
-      </div>
 
       <div class="more-sec">Tools</div>
       <div class="more-list">
@@ -329,16 +321,9 @@ export function openSettings() {
   ov.querySelectorAll('[data-tool]').forEach(button => button.addEventListener('click', () => {
     const id = button.dataset.tool;
     close();
-    setTimeout(() => {
-      if (document.body.classList.contains('mode-app')) openAppOverlay(id);
-      else import('./window-manager.js').then(({openApp}) => openApp(getApp(id)));
-    }, 230);
+    // desktop mode (หน้าต่าง + taskbar) ถูกปลดระวางพร้อม PP OS — เหลือทางเดียวคือหน้าซ้อนเต็มจอ
+    setTimeout(() => openAppOverlay(id), 230);
   }));
-
-  ov.querySelector('[data-act="desktop"]').addEventListener("click", () => {
-    save("os.mode", "desktop");
-    location.replace(location.pathname);
-  });
 
   // ---- Data (backup / restore / undo / storage) ----
   const dataEl = ov.querySelector("#set-data");

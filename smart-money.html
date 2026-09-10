@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <title>Smart Money — Moatrices</title>
+  <meta name="description" content="พอร์ตนักลงทุนและสถาบันจากรายงาน 13F ที่เปิดเผยต่อสาธารณะ">
+  <meta name="theme-color" content="#101214">
+  <meta name="robots" content="noindex">
+  <link rel="manifest" href="/site.webmanifest">
+  <link rel="icon" href="favicon.svg" type="image/svg+xml">
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-title" content="Moatrices">
+  <!-- CSS ของแอปเท่านั้น ไม่โหลด style.min.css ของเว็บ:
+       apps.css มี selector ระดับบนสุด 585 ตัว รวม .sec .card .btn ซึ่งเว็บใช้ชื่อเดียวกัน
+       โหลดคู่กันเมื่อไหร่ทับกันทั้งสองฝั่ง — แถบล่างคือตัวเชื่อมสองโลกนี้แทน -->
+  <link rel="stylesheet" href="app/css/base.css">
+  <link rel="stylesheet" href="app/css/shell.css">
+  <link rel="stylesheet" href="app/css/apps.css">
+  <link rel="stylesheet" href="app/css/smart-money.css">
+</head>
+<body class="mode-app">
+  <div id="shell" data-tab="smart-money">
+    <main id="shell-view">
+      <div class="view" id="app-root" data-app="smart-money"></div>
+    </main>
+    <nav id="tabbar" aria-label="Moatrices"></nav>
+  </div>
+  <script type="module" src="app/js/page.js"></script>
+</body>
+</html>
