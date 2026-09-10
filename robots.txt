@@ -1,4 +1,9 @@
 User-agent: *
 Allow: /
 
+# template fragment ที่ build.py ฉีดเข้าหน้าจริง — เสิร์ฟได้แต่ไม่ใช่หน้าเว็บ
+Disallow: /partials/
+# asset ภายในของแอป
+Disallow: /app/assets/
+
 Sitemap: https://beatp9696-arch.github.io/sitemap.xml

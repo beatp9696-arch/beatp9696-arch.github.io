@@ -238,6 +238,9 @@ def site_chrome_warnings():
             warnings.append(f"{path}: พบ site-footer อยู่นอก shared marker")
         if re.search(r"@@[A-Z0-9_]+@@", body):
             warnings.append(f"{path}: มี partial placeholder ที่ยัง render ไม่ครบ")
+        # หน้าใหม่ที่ก๊อปมาจากของเก่ามักติด <script src=app.js> ตัวดิบมาด้วย (65KB ไม่ minify)
+        if re.search(r'src="[^"]*app\.js"', body):
+            warnings.append(f"{path}: ยังโหลด app.js ตัวดิบ — ต้องเป็น app.min.js")
 
         has_override = LEGAL_OVERRIDE_START in body or LEGAL_OVERRIDE_END in body
         expected_override = path in LEGAL_OVERRIDE_PAGES
@@ -551,13 +554,13 @@ def _thumb_cmd(src, dst):
 
 
 def write_thumbnails(posts):
-    """gen thumbnail JPEG 640px จาก og-<slug>.png (regen เฉพาะที่ขาดหรือ og ใหม่กว่า thumb)
-    เก็บ og png เต็มไว้สำหรับ meta og:image — thumb ใช้แค่เป็นภาพการ์ด ลดหน้าแรก ~90%"""
+    """gen thumbnail JPEG 640px จาก og-<slug>.jpg (regen เฉพาะที่ขาดหรือ og ใหม่กว่า thumb)
+    เก็บ og jpg เต็มไว้สำหรับ meta og:image — thumb ใช้แค่เป็นภาพการ์ด ลดหน้าแรก ~90%"""
     os.makedirs(THUMB_DIR, exist_ok=True)
     made = skipped = missing = 0
     for p in posts:
         base = p["file"].replace(".html", "")
-        og = f"og-{base}.png"
+        og = f"og-{base}.jpg"
         thumb = f"{THUMB_DIR}/{base}.jpg"
         if not os.path.exists(og):
             missing += 1
@@ -572,7 +575,7 @@ def write_thumbnails(posts):
         subprocess.run(cmd, check=True, stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
         made += 1
     print(f"thumbnails  : {made} สร้างใหม่, {skipped} ทันสมัยแล้ว"
-          + (f", {missing} ไม่มี og png" if missing else ""))
+          + (f", {missing} ไม่มี og jpg" if missing else ""))
 
 
 def _minify_css_text(css):
@@ -580,6 +583,125 @@ def _minify_css_text(css):
     ปลอดภัยกับ calc()/gradient/keyframe เพราะไม่ยุ่งกับ whitespace ในค่า/ใน quote"""
     out = re.sub(r"/\*.*?\*/", "", css, flags=re.S)               # ตัด block comment
     return "\n".join(l.strip() for l in out.splitlines() if l.strip())  # dedent + ลบบรรทัดว่าง
+
+
+def _minify_js_text(js):
+    """conservative minify: ตัด comment + dedent + ลบบรรทัดว่าง (คงขึ้นบรรทัดใหม่ทุกจุด)
+    คงบรรทัดใหม่ไว้ = ASI ไม่เปลี่ยนพฤติกรรม เหมือน _minify_css_text ที่ไม่ยุ่ง whitespace ในค่า
+    เดิน token ทีละตัวเพื่อไม่ตัด // หรือ /* ที่อยู่ใน string / template / regex literal
+    (regex vs หาร แยกด้วย token ก่อนหน้า — ตัวปิดนิพจน์เท่านั้นที่ทำให้ / เป็นตัวหาร)"""
+    out, i, n = [], 0, len(js)
+    prev = ''                      # token ก่อนหน้าที่ไม่ใช่ whitespace/comment
+    tmpl_stack = []                # ความลึกของ ${ } ใน template literal
+    while i < n:
+        c = js[i]
+        two = js[i:i + 2]
+        if two == '//':
+            j = js.find('\n', i)
+            i = n if j < 0 else j   # ทิ้ง comment ไว้ตรงนั้น newline ยังอยู่
+            continue
+        if two == '/*':
+            j = js.find('*/', i + 2)
+            i = n if j < 0 else j + 2
+            out.append(' ')         # กัน a/*x*/b เชื่อมติดกันเป็น ab
+            continue
+        if c in '"\'':
+            q, j = c, i + 1
+            while j < n and js[j] != q:
+                j += 2 if js[j] == '\\' else 1
+            out.append(js[i:j + 1]); prev = 'str'; i = j + 1
+            continue
+        if c == '`':
+            j = i + 1
+            while j < n and js[j] != '`':
+                if js[j] == '\\':
+                    j += 2; continue
+                if js[j:j + 2] == '${':      # ปล่อยให้ลูปนอกจัดการเนื้อใน ${}
+                    break
+                j += 1
+            if j < n and js[j:j + 2] == '${':
+                out.append(js[i:j + 2]); tmpl_stack.append(1); i = j + 2; prev = ''
+                continue
+            out.append(js[i:j + 1]); prev = 'str'; i = j + 1
+            continue
+        if c == '/' and prev not in ('ident', 'num', ')', ']', '}', 'str'):
+            j, klass = i + 1, False   # regex literal
+            while j < n:
+                d = js[j]
+                if d == '\\': j += 2; continue
+                if d == '[': klass = True
+                elif d == ']': klass = False
+                elif d == '/' and not klass: break
+                elif d == '\n': break
+                j += 1
+            if j < n and js[j] == '/':
+                j += 1
+                while j < n and js[j].isalpha(): j += 1
+                out.append(js[i:j]); prev = 'str'; i = j
+                continue
+        if c.isalnum() or c in '_$':
+            j = i
+            while j < n and (js[j].isalnum() or js[j] in '_$.'): j += 1
+            word = js[i:j]
+            out.append(word)
+            # keyword ตามด้วย / คือ regex เสมอ (return /x/ ไม่ใช่การหาร)
+            prev = 'num' if word[0].isdigit() else (
+                '' if word in _JS_REGEX_PRECEDERS else 'ident')
+            i = j
+            continue
+        if c == '}' and tmpl_stack:
+            tmpl_stack.pop(); j = i + 1   # ปิด ${} แล้วกลับเข้าโหมด template
+            while j < n and js[j] != '`':
+                if js[j] == '\\': j += 2; continue
+                if js[j:j + 2] == '${':
+                    out.append(js[i:j + 2]); tmpl_stack.append(1); break
+                j += 1
+            else:
+                out.append(js[i:j + 1]); prev = 'str'; i = j + 1
+                continue
+            if js[j:j + 2] == '${':
+                i = j + 2; prev = ''
+                continue
+            out.append(js[i:j + 1]); prev = 'str'; i = j + 1
+            continue
+        out.append(c)
+        if not c.isspace():
+            prev = c if c in ')]}' else ''
+        i += 1
+    return "\n".join(l.strip() for l in "".join(out).splitlines() if l.strip())
+
+
+# keyword ที่ตามด้วย / แล้วเป็น regex ไม่ใช่ตัวหาร
+_JS_REGEX_PRECEDERS = {
+    "return", "typeof", "instanceof", "in", "of", "new", "delete", "void",
+    "case", "do", "else", "yield", "await", "throw",
+}
+
+
+def minify_js(src="app.js", dst="app.min.js"):
+    """ตัด comment/indent ของ app.js (ทุกหน้าโหลด) แล้ว *ตรวจ syntax ด้วย node ก่อนเขียน*
+    minify JS พลาดแล้วเว็บพังเงียบ ไม่เหมือน CSS — ถ้า node ไม่ผ่าน/ไม่มี node ให้ fallback
+    เป็นสำเนาดิบ เพื่อให้ <script src=app.min.js> ในทุกหน้าใช้งานได้เสมอ"""
+    js = open(src, encoding="utf-8").read()
+    out = _minify_js_text(js)
+    tmp = dst + ".check.js"   # ต้องลงท้าย .js — node --check เดา format จากนามสกุล
+    open(tmp, "w", encoding="utf-8").write(out)
+    ok = shutil.which("node") is not None
+    if ok:
+        r = subprocess.run(["node", "--check", tmp], capture_output=True, text=True)
+        ok = r.returncode == 0
+        if not ok:
+            detail = r.stderr.strip().splitlines()
+            print(f"{dst} : WARNING node --check ไม่ผ่าน — ใช้ต้นฉบับดิบแทน"
+                  + (f"\n  {detail[0]}" if detail else ""))
+    else:
+        print(f"{dst} : WARNING ไม่พบ node — ข้าม syntax check ใช้ต้นฉบับดิบแทน")
+    os.remove(tmp)
+    body = out if ok else js
+    open(dst, "w", encoding="utf-8").write(body)
+    if ok:
+        print(f"{dst}  : {len(js):,} -> {len(body):,} bytes "
+              f"({100 - len(body) * 100 // len(js)}% เล็กลง)")
 
 
 def minify_css(src="style.css", dst="style.min.css"):
@@ -1051,7 +1173,7 @@ def validate(posts, articles):
                 warnings.append(f"{slug}.html ไม่ได้ link scenes/{slug}.min.css — รัน build.py")
 
     for p in posts:
-        og = f"og-{p['file'].replace('.html', '')}.png"
+        og = f"og-{p['file'].replace('.html', '')}.jpg"
         if not os.path.exists(og):
             warnings.append(f"ไม่มี {og} สำหรับ thumbnail ของ {p['file']}")
         art = os.path.join("articles", p["file"])
@@ -1255,6 +1377,7 @@ def main():
     # ระบบดีไซน์ของซีรีส์ "เคสศึกษา" (หน้าหนังสือ) — โหลดเฉพาะบทที่ <body class="cs">
     # แยกไฟล์ไว้ เพราะฟอนต์ Trirong/Playfair ~152KB ไม่ควรไปถ่วงอีก 56 บทที่ไม่ได้ใช้
     minify_css("casestudy.css", "casestudy.min.css")
+    minify_js()
     build_scenes()
     write_stocks(articles)
     write_hero_stats(articles)
