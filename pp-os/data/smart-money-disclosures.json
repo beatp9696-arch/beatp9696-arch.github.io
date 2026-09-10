@@ -1,0 +1,397 @@
+[
+  {
+    "id": "trump",
+    "kind": "disclosure",
+    "name": "Donald Trump",
+    "subtitle": "รายการธุรกรรมที่เปิดเผยต่อ OGE",
+    "category": "public-figure",
+    "monogram": "DT",
+    "brandCaption": "Donald Trump",
+    "aliases": [
+      "Trump",
+      "Donald J. Trump",
+      "ทรัมป์",
+      "โดนัลด์ ทรัมป์"
+    ],
+    "note": "คัด 8 ธุรกรรมของบริษัทที่เป็นที่รู้จักจากหน้า 2 ของเอกสาร 37 หน้า แต่ละรายการเป็นช่วงมูลค่าธุรกรรมตามเอกสาร ไม่ใช่มูลค่าถือครองคงเหลือ สัดส่วนพอร์ต หรือผลตอบแทน รายงานนี้ไม่เพียงพอที่จะระบุพอร์ตทั้งหมดในปัจจุบัน",
+    "disclosure": {
+      "type": "transactions",
+      "title": "ธุรกรรมที่คัดจากรายงาน",
+      "periodLabel": "ธุรกรรม 5 พ.ค. 2026",
+      "filedDate": "2026-06-29",
+      "dateLabel": "OGE รับเอกสาร",
+      "source": "https://www.whitehouse.gov/wp-content/uploads/2026/06/President-Donald-J.-Trump-Periodic-Transaction-Report-0.6.25.26-2.pdf",
+      "sourceLabel": "White House · OGE Form 278-T",
+      "coverage": "เลือก 8 รายการจากหน้า 2 ไม่ใช่รายการทั้งหมดในเอกสาร",
+      "entries": [
+        {
+          "id": "ptr-4",
+          "symbol": "AAPL",
+          "issuer": "Apple Inc.",
+          "assetType": "หุ้น",
+          "action": "purchase",
+          "date": "2026-05-05",
+          "valueMin": 1000001,
+          "valueMax": 5000000,
+          "page": 2,
+          "reference": "รายการ 4"
+        },
+        {
+          "id": "ptr-2",
+          "symbol": "GOOGL",
+          "issuer": "Alphabet Inc. Class A",
+          "assetType": "หุ้น",
+          "action": "purchase",
+          "date": "2026-05-05",
+          "valueMin": 500001,
+          "valueMax": 1000000,
+          "page": 2,
+          "reference": "รายการ 2"
+        },
+        {
+          "id": "ptr-3",
+          "symbol": "AMZN",
+          "issuer": "Amazon.com Inc.",
+          "assetType": "หุ้น",
+          "action": "purchase",
+          "date": "2026-05-05",
+          "valueMin": 1000001,
+          "valueMax": 5000000,
+          "page": 2,
+          "reference": "รายการ 3"
+        },
+        {
+          "id": "ptr-10",
+          "symbol": "COST",
+          "issuer": "Costco Wholesale",
+          "assetType": "หุ้น",
+          "action": "purchase",
+          "date": "2026-05-05",
+          "valueMin": 15001,
+          "valueMax": 50000,
+          "page": 2,
+          "reference": "รายการ 10"
+        },
+        {
+          "id": "ptr-7",
+          "symbol": "CVX",
+          "issuer": "Chevron Corp.",
+          "assetType": "หุ้น",
+          "action": "sale",
+          "date": "2026-05-05",
+          "valueMin": 15001,
+          "valueMax": 50000,
+          "page": 2,
+          "reference": "รายการ 7"
+        },
+        {
+          "id": "ptr-8",
+          "symbol": "CB",
+          "issuer": "Chubb Ltd.",
+          "assetType": "หุ้น",
+          "action": "sale",
+          "date": "2026-05-05",
+          "valueMin": 15001,
+          "valueMax": 50000,
+          "page": 2,
+          "reference": "รายการ 8"
+        },
+        {
+          "id": "ptr-18",
+          "symbol": "GS",
+          "issuer": "Goldman Sachs Group Inc.",
+          "assetType": "หุ้น",
+          "action": "sale",
+          "date": "2026-05-05",
+          "valueMin": 1001,
+          "valueMax": 15000,
+          "page": 2,
+          "reference": "รายการ 18"
+        },
+        {
+          "id": "ptr-19",
+          "symbol": "GS",
+          "issuer": "Goldman Sachs Group Inc.",
+          "assetType": "หุ้น",
+          "action": "purchase",
+          "date": "2026-05-05",
+          "valueMin": 100001,
+          "valueMax": 250000,
+          "page": 2,
+          "reference": "รายการ 19"
+        }
+      ]
+    }
+  },
+  {
+    "id": "pelosi",
+    "kind": "disclosure",
+    "name": "Nancy Pelosi",
+    "subtitle": "ทรัพย์สินที่คู่สมรสเปิดเผย · Annual 2025",
+    "category": "public-figure",
+    "monogram": "NP",
+    "brandCaption": "Nancy Pelosi",
+    "aliases": [
+      "Pelosi",
+      "Nancy Pelosi",
+      "Paul Pelosi",
+      "แนนซี เพโลซี",
+      "เพโลซี"
+    ],
+    "note": "คัดหุ้นสามัญประเภท ST ที่มีมูลค่าระบุใน Schedule A ของรายงานปี 2025 ทุกแถวที่แสดงระบุเจ้าของเป็นคู่สมรส (SP) ไม่รวมออปชัน หุ้นที่ระบุมูลค่า None เงินสด อสังหาริมทรัพย์ และการลงทุนเอกชน คงช่วงมูลค่าจากรายงานโดยไม่ประมาณจุดกลางหรือคำนวณสัดส่วนพอร์ต",
+    "disclosure": {
+      "type": "assets",
+      "title": "หุ้นที่มีช่วงมูลค่าในรายงาน",
+      "periodLabel": "รายงานประจำปี 2025",
+      "filedDate": "2026-05-15",
+      "dateLabel": "ยื่นรายงาน",
+      "source": "https://disclosures-clerk.house.gov/public_disc/financial-pdfs/2025/10075701.pdf",
+      "sourceLabel": "U.S. House · Annual Report #10075701",
+      "coverage": "22 รายการหุ้นสามัญจาก Schedule A หน้า 1–7 เป็นส่วนหนึ่งของทรัพย์สินที่รายงาน",
+      "entries": [
+        {
+          "id": "GOOGL",
+          "symbol": "GOOGL",
+          "issuer": "Alphabet Inc. Class A",
+          "assetType": "หุ้นสามัญ (ST)",
+          "owner": "SP",
+          "valueMin": 5000001,
+          "valueMax": 25000000,
+          "page": 1,
+          "reference": "Schedule A"
+        },
+        {
+          "id": "AMZN",
+          "symbol": "AMZN",
+          "issuer": "Amazon.com Inc.",
+          "assetType": "หุ้นสามัญ (ST)",
+          "owner": "SP",
+          "valueMin": 5000001,
+          "valueMax": 25000000,
+          "page": 2,
+          "reference": "Schedule A"
+        },
+        {
+          "id": "AXP",
+          "symbol": "AXP",
+          "issuer": "American Express",
+          "assetType": "หุ้นสามัญ (ST)",
+          "owner": "SP",
+          "valueMin": 1000001,
+          "valueMax": 5000000,
+          "page": 2,
+          "reference": "Schedule A"
+        },
+        {
+          "id": "AAPL",
+          "symbol": "AAPL",
+          "issuer": "Apple Inc.",
+          "assetType": "หุ้นสามัญ (ST)",
+          "owner": "SP",
+          "valueMin": 5000001,
+          "valueMax": 25000000,
+          "page": 2,
+          "reference": "Schedule A"
+        },
+        {
+          "id": "T",
+          "symbol": "T",
+          "issuer": "AT&T Inc.",
+          "assetType": "หุ้นสามัญ (ST)",
+          "owner": "SP",
+          "valueMin": 100001,
+          "valueMax": 250000,
+          "page": 2,
+          "reference": "Schedule A"
+        },
+        {
+          "id": "SQ",
+          "symbol": "SQ",
+          "issuer": "Block Inc. (รหัส SQ ตามรายงาน)",
+          "assetType": "หุ้นสามัญ (ST)",
+          "owner": "SP",
+          "valueMin": 250001,
+          "valueMax": 500000,
+          "page": 2,
+          "reference": "Schedule A"
+        },
+        {
+          "id": "AVGO",
+          "symbol": "AVGO",
+          "issuer": "Broadcom Inc.",
+          "assetType": "หุ้นสามัญ (ST)",
+          "owner": "SP",
+          "valueMin": 5000001,
+          "valueMax": 25000000,
+          "page": 3,
+          "reference": "Schedule A"
+        },
+        {
+          "id": "CLNE",
+          "symbol": "CLNE",
+          "issuer": "Clean Energy Fuels",
+          "assetType": "หุ้นสามัญ (ST)",
+          "owner": "SP",
+          "valueMin": 1001,
+          "valueMax": 15000,
+          "page": 3,
+          "reference": "Schedule A"
+        },
+        {
+          "id": "CMCSA",
+          "symbol": "CMCSA",
+          "issuer": "Comcast Class A",
+          "assetType": "หุ้นสามัญ (ST)",
+          "owner": "SP",
+          "valueMin": 500001,
+          "valueMax": 1000000,
+          "page": 3,
+          "reference": "Schedule A"
+        },
+        {
+          "id": "CRWD",
+          "symbol": "CRWD",
+          "issuer": "CrowdStrike Holdings Class A",
+          "assetType": "หุ้นสามัญ (ST)",
+          "owner": "SP",
+          "valueMin": 1000001,
+          "valueMax": 5000000,
+          "page": 3,
+          "reference": "Schedule A"
+        },
+        {
+          "id": "DBX",
+          "symbol": "DBX",
+          "issuer": "Dropbox Class A",
+          "assetType": "หุ้นสามัญ (ST)",
+          "owner": "SP",
+          "valueMin": 250001,
+          "valueMax": 500000,
+          "page": 3,
+          "reference": "Schedule A"
+        },
+        {
+          "id": "IBKR",
+          "symbol": "IBKR",
+          "issuer": "Interactive Brokers Group",
+          "assetType": "หุ้นสามัญ (ST)",
+          "owner": "SP",
+          "valueMin": 500001,
+          "valueMax": 1000000,
+          "page": 4,
+          "reference": "Schedule A"
+        },
+        {
+          "id": "MSFT",
+          "symbol": "MSFT",
+          "issuer": "Microsoft Corp.",
+          "assetType": "หุ้นสามัญ (ST)",
+          "owner": "SP",
+          "valueMin": 5000001,
+          "valueMax": 25000000,
+          "page": 4,
+          "reference": "Schedule A"
+        },
+        {
+          "id": "MORN",
+          "symbol": "MORN",
+          "issuer": "Morningstar Inc.",
+          "assetType": "หุ้นสามัญ (ST)",
+          "owner": "SP",
+          "valueMin": 100001,
+          "valueMax": 250000,
+          "page": 4,
+          "reference": "Schedule A"
+        },
+        {
+          "id": "NFLX",
+          "symbol": "NFLX",
+          "issuer": "Netflix Inc.",
+          "assetType": "หุ้นสามัญ (ST)",
+          "owner": "SP",
+          "valueMin": 1000001,
+          "valueMax": 5000000,
+          "page": 4,
+          "reference": "Schedule A"
+        },
+        {
+          "id": "NVDA",
+          "symbol": "NVDA",
+          "issuer": "NVIDIA Corp.",
+          "assetType": "หุ้นสามัญ (ST)",
+          "owner": "SP",
+          "valueMin": 5000001,
+          "valueMax": 25000000,
+          "page": 5,
+          "reference": "Schedule A"
+        },
+        {
+          "id": "PANW",
+          "symbol": "PANW",
+          "issuer": "Palo Alto Networks",
+          "assetType": "หุ้นสามัญ (ST)",
+          "owner": "SP",
+          "valueMin": 1000001,
+          "valueMax": 5000000,
+          "page": 5,
+          "reference": "Schedule A"
+        },
+        {
+          "id": "QCOM",
+          "symbol": "QCOM",
+          "issuer": "Qualcomm Inc.",
+          "assetType": "หุ้นสามัญ (ST)",
+          "owner": "SP",
+          "valueMin": 15001,
+          "valueMax": 50000,
+          "page": 5,
+          "reference": "Schedule A"
+        },
+        {
+          "id": "RBLX",
+          "symbol": "RBLX",
+          "issuer": "Roblox Class A",
+          "assetType": "หุ้นสามัญ (ST)",
+          "owner": "SP",
+          "valueMin": 250001,
+          "valueMax": 500000,
+          "page": 6,
+          "reference": "Schedule A"
+        },
+        {
+          "id": "CRM",
+          "symbol": "CRM",
+          "issuer": "Salesforce",
+          "assetType": "หุ้นสามัญ (ST)",
+          "owner": "SP",
+          "valueMin": 5000001,
+          "valueMax": 25000000,
+          "page": 6,
+          "reference": "Schedule A"
+        },
+        {
+          "id": "V",
+          "symbol": "V",
+          "issuer": "Visa Inc.",
+          "assetType": "หุ้นสามัญ (ST)",
+          "owner": "SP",
+          "valueMin": 5000001,
+          "valueMax": 25000000,
+          "page": 6,
+          "reference": "Schedule A"
+        },
+        {
+          "id": "WBD",
+          "symbol": "WBD",
+          "issuer": "Warner Bros. Discovery Series A",
+          "assetType": "หุ้นสามัญ (ST)",
+          "owner": "SP",
+          "valueMin": 50001,
+          "valueMax": 100000,
+          "page": 7,
+          "reference": "Schedule A"
+        }
+      ]
+    }
+  }
+]

@@ -1,10 +1,27 @@
 import assert from 'node:assert/strict';
 import {readFileSync} from 'node:fs';
-import {summarizeFund, donutRows, matchesFund, validateDataset} from '../js/core/smart-money-model.js';
+import {createHash} from 'node:crypto';
+import {summarizeFund, donutRows, matchesFund, validateDataset, validateFund} from '../js/core/smart-money-model.js';
 
 const source=JSON.parse(readFileSync(new URL('../data/smart-money.json',import.meta.url),'utf8'));
 validateDataset(source);
-const funds=source.funds.map(summarizeFund);
+const funds=source.funds.map(summary=>{
+  const payload=readFileSync(new URL('../data/'+summary.detailFile,import.meta.url),'utf8');
+  const hash=createHash('sha256').update(payload).digest('hex').slice(0,12);
+  assert.ok(summary.detailFile.endsWith('-'+hash+'.json'));
+  const fund=summarizeFund(validateFund(JSON.parse(payload)));
+  assert.equal(fund.id,summary.id);assert.equal(fund.rows.length,summary.positionCount);
+  assert.equal(fund.changes.length,summary.changeCount);assert.equal(fund.exits.length,summary.exitCount);
+  assert.equal(fund.current.totalValue,summary.current.totalValue);
+  assert.ok(Math.abs(fund.topFiveWeight-summary.topFiveWeight)<1e-9);
+  const chart=donutRows(fund.rows,fund.current.totalValue);
+  assert.deepEqual(chart.map(r=>[r.id,r.value]),summary.chart.map(r=>[r.id,r.value]));
+  assert.deepEqual(fund.changes.slice(0,2).map(r=>[r.id,r.status,r.changePercent]),summary.changes.map(r=>[r.id,r.status,r.changePercent]));
+  assert.ok(matchesFund(summary,fund.rows.at(-1).issuer)); // Search includes holdings outside chart.
+  return fund;
+});
+assert.equal(funds.length,14);assert.equal(source.disclosures.length,2);
+assert.equal(funds.filter(f=>f.category==='institution').length,6);
 for(const fund of funds){
   assert.ok(Math.abs(fund.rows.reduce((s,r)=>s+r.weight,0)-100)<1e-8);
   assert.ok(Math.abs(donutRows(fund.rows,fund.current.totalValue).reduce((s,r)=>s+r.fraction,0)-1)<1e-8);
@@ -26,8 +43,34 @@ assert.ok(matchesFund(brk,'  apple '));
 assert.ok(matchesFund(nv,'NVDA'));
 assert.ok(matchesFund(nv,'nvidia'));
 const broken=structuredClone(source);broken.funds[0].current.totalValue+=100;
-assert.throws(()=>validateDataset(broken),/reconcile/);
-const duplicate=structuredClone(source);duplicate.funds[0].current.holdings.push(duplicate.funds[0].current.holdings[0]);
-assert.throws(()=>validateDataset(duplicate),/position/);
+assert.throws(()=>validateDataset(broken));
+const duplicate=structuredClone(brk);duplicate.current.holdings.push(duplicate.current.holdings[0]);
+assert.throws(()=>validateFund(duplicate),/position/);
+const munger=funds.find(f=>f.id==='daily-journal');
+assert.equal(munger.historical,true);assert.equal(munger.current.reportDate,'2023-09-30');
+assert.equal(munger.current.totalValue,158665348);assert.ok(matchesFund(munger,'Charles Munger'));
+const vanguard=funds.find(f=>f.id==='vanguard-capital');
+assert.equal(vanguard.previous.sources.length,3);
+assert.equal(vanguard.previous.totalValue,3995910438125+46987828353);
+const ivz=funds.find(f=>f.id==='invesco');
+assert.equal(ivz.previous.reconciliationDifference,-898);
+assert.equal(ivz.previous.totalValue,1023963243529);
+const zeroBase=funds.find(f=>f.id==='jpmorgan').rows.filter(r=>r.previousShares===0&&r.shares>0);
+assert.ok(zeroBase.length>0);
+assert.ok(zeroBase.every(r=>r.status==='added'&&r.changePercent===null)); // Present at zero shares is not a new position.
+const trump=source.disclosures.find(f=>f.id==='trump');
+const pelosi=source.disclosures.find(f=>f.id==='pelosi');
+assert.equal(trump.disclosure.type,'transactions');assert.equal(pelosi.disclosure.type,'assets');
+assert.equal(trump.disclosure.entries.filter(r=>r.symbol==='GS').length,2); // Separate buy and sale, never netted into holdings.
+assert.ok(pelosi.disclosure.entries.every(r=>r.owner==='SP'));
+assert.ok(matchesFund(pelosi,'MSFT'));assert.ok(matchesFund(trump,'ทรัมป์'));
+const invalidRange=structuredClone(source);invalidRange.disclosures[0].disclosure.entries[0].valueMax=1;
+assert.throws(()=>validateDataset(invalidRange),/range/);
+const unsafe=structuredClone(source);unsafe.disclosures[0].disclosure.source='javascript:alert(1)';
+assert.throws(()=>validateDataset(unsafe),/source/);
+const traversal=structuredClone(source);traversal.funds[0].detailFile='../private.json';
+assert.throws(()=>validateDataset(traversal),/detail/);
+const fabricatedPortfolio=structuredClone(source);fabricatedPortfolio.disclosures[0].chart=[];
+assert.throws(()=>validateDataset(fabricatedPortfolio),/disclosure/);
 assert.deepEqual(donutRows([],0),[]);
-console.log('PASS: SEC totals; aggregation; share changes vs value changes; new/exited positions; full allocation; search; malformed data rejection.');
+console.log('PASS: 16 profiles; catalog/detail hashes and figures agree; SEC totals and amendments; historical attribution; ranges and spouse ownership; search; malformed data rejection.');

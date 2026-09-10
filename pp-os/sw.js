@@ -1,7 +1,7 @@
 // Service worker — precache app shell ทั้งหมด ใช้ offline ได้เต็มตัว
 // เปลี่ยนไฟล์เมื่อไหร่ให้ bump VERSION เพื่อบังคับ cache ใหม่
 
-const VERSION = "pp-os-v27";
+const VERSION = "pp-os-v29";
 
 const SHELL = [
   "./",
@@ -39,6 +39,21 @@ const SHELL = [
   "./assets/brands/MSFT.png",
   "./assets/brands/COHR.png",
   "./assets/brands/SNPS.png",
+  "./assets/brands/KO.png",
+  "./assets/brands/BAC.png",
+  "./assets/brands/INTC.png",
+  "./assets/brands/SPACEX.svg",
+  "./assets/brands/BLK.png",
+  "./assets/brands/BN.png",
+  "./assets/brands/AMZN.png",
+  "./assets/brands/UBER.png",
+  "./assets/brands/QSR.png",
+  "./assets/brands/SPY.png",
+  "./assets/brands/IVV.png",
+  "./assets/brands/TSLA.png",
+  "./assets/brands/WFC.png",
+  "./assets/brands/BABA.png",
+  "./assets/people/donald-trump.jpg",
   "./assets/icons/favicon.svg",
   "./assets/icons/icon-192.png",
   "./assets/icons/icon-512.png",

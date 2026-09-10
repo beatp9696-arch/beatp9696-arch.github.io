@@ -35,31 +35,78 @@ export function donutRows(rows, totalValue, limit = 5) {
 
 export function matchesFund(fund, query) {
   const needle = query.trim().toLocaleLowerCase();
-  return !needle || [fund.name, fund.subtitle, ...(fund.aliases || []), ...(fund.current.holdings.flatMap(row => [row.symbol || '', row.issuer]))]
+  return !needle || [fund.name, fund.subtitle, fund.searchText || '', ...(fund.aliases || []), ...((fund.current?.holdings || fund.disclosure?.entries || []).flatMap(row => [row.symbol || '', row.issuer]))]
     .some(text => text.toLocaleLowerCase().includes(needle));
 }
 
-export function validateDataset(data) {
-  if (data?.schemaVersion !== 1 || !Array.isArray(data.funds) || !data.funds.length) throw new Error('Invalid portfolio data');
-  const ids = new Set();
-  for (const fund of data.funds) {
-    if (!fund.id || ids.has(fund.id) || typeof fund.name !== 'string') throw new Error('Invalid fund');
-    ids.add(fund.id);
+const validDate = value => typeof value === 'string' && /^\d{4}-\d{2}-\d{2}$/.test(value) && new Date(value+'T12:00:00Z').toISOString().slice(0,10) === value;
+const positive = value => Number.isSafeInteger(value) && value > 0;
+const nonnegative = value => Number.isFinite(value) && value >= 0 && value <= Number.MAX_SAFE_INTEGER;
+function sourceURL(value, hosts = ['www.sec.gov']) {
+  const url = new URL(value);
+  if (url.protocol !== 'https:' || !hosts.includes(url.hostname) || url.username || url.password) throw new Error('Invalid filing source');
+}
+function validateMeta(fund) {
+  if (!/^[a-z][a-z0-9-]*$/.test(fund.id) || !['name','subtitle','monogram','brandCaption','note'].every(key => typeof fund[key] === 'string') || !['investor','company','institution','public-figure'].includes(fund.category) || !Array.isArray(fund.aliases) || !fund.aliases.every(x => typeof x === 'string')) throw new Error('Invalid fund');
+  if (fund.profileSource) sourceURL(fund.profileSource,['www.sec.gov','www.bridgewater.com','www.ark-invest.com','sorosfundmgmt.com']);
+}
+function validatePeriodMeta(period) {
+  if (!period || !validDate(period.reportDate) || !validDate(period.filedDate) || period.filedDate < period.reportDate || !positive(period.totalValue)) throw new Error('Invalid filing');
+  sourceURL(period.source);sourceURL(period.tableSource);
+  if (!Array.isArray(period.sources) || !period.sources.length) throw new Error('Missing filing sources');
+  for (const ref of period.sources) {sourceURL(ref.source);sourceURL(ref.tableSource);if(typeof ref.label !== 'string')throw new Error('Invalid source label');}
+}
+
+export function validateFund(fund) {
+    validateMeta(fund);
+    if (fund.kind !== '13f') throw new Error('Invalid filing kind');
     for (const period of [fund.current, fund.previous]) {
-      if (!period || !Array.isArray(period.holdings) || !/^\d{4}-\d{2}-\d{2}$/.test(period.reportDate) || !Number.isFinite(period.totalValue) || period.totalValue <= 0) throw new Error('Invalid filing');
+      validatePeriodMeta(period);
+      if (!Array.isArray(period.holdings) || !period.holdings.length) throw new Error('Invalid holdings');
       const rowIds = new Set();
       let total = 0;
       for (const row of period.holdings) {
-        if (!row.id || rowIds.has(row.id) || !Number.isFinite(row.value) || row.value < 0 || !Number.isFinite(row.shares) || row.shares < 0 || typeof row.issuer !== 'string') throw new Error('Invalid position');
+        if (!row.id || rowIds.has(row.id) || !nonnegative(row.value) || !nonnegative(row.shares) || typeof row.issuer !== 'string' || !['SH','PRN'].includes(row.unit) || !['','Put','Call'].includes(row.option)) throw new Error('Invalid position');
         rowIds.add(row.id); total += row.value;
       }
       if (Math.abs(total - period.totalValue) > 1) throw new Error('Filing total does not reconcile');
-      for (const url of [period.source, period.tableSource]) {
-        const parsed = new URL(url);
-        if (parsed.protocol !== 'https:' || parsed.hostname !== 'www.sec.gov') throw new Error('Invalid filing source');
-      }
     }
     if (fund.previous.reportDate >= fund.current.reportDate) throw new Error('Invalid comparison period');
+  return fund;
+}
+
+export function validateDataset(data) {
+  if (data?.schemaVersion !== 2 || !validDate(data.checkedAt) || !Array.isArray(data.funds) || !data.funds.length || !Array.isArray(data.disclosures)) throw new Error('Invalid portfolio data');
+  const ids = new Set();
+  for (const fund of [...data.funds, ...data.disclosures]) {
+    validateMeta(fund);
+    if (ids.has(fund.id)) throw new Error('Duplicate profile');
+    ids.add(fund.id);
+  }
+  for (const fund of data.funds) {
+    if (fund.kind !== '13f' || !new RegExp(`^smart-money/${fund.id}-[a-f0-9]{12}\\.json$`).test(fund.detailFile)) throw new Error('Invalid detail file');
+    validatePeriodMeta(fund.current);validatePeriodMeta(fund.previous);
+    if (fund.previous.reportDate >= fund.current.reportDate || !positive(fund.positionCount) || typeof fund.searchText !== 'string') throw new Error('Invalid catalog summary');
+    if (!Array.isArray(fund.chart) || !fund.chart.length || fund.chart.length > 6 || !Array.isArray(fund.changes) || fund.changes.length > 2) throw new Error('Invalid allocation');
+    let total=0;
+    for (const row of fund.chart) {
+      if (!nonnegative(row.value) || !nonnegative(row.fraction) || Math.abs(row.fraction-row.value/fund.current.totalValue)>1e-10) throw new Error('Invalid allocation');
+      total+=row.value;
+    }
+    if (Math.abs(total-fund.current.totalValue)>1) throw new Error('Catalog allocation does not reconcile');
+  }
+  for (const profile of data.disclosures) {
+    const report=profile.disclosure;
+    if (profile.kind !== 'disclosure' || profile.current || profile.previous || profile.chart || !report || !['assets','transactions'].includes(report.type) || !validDate(report.filedDate) || !Array.isArray(report.entries) || !report.entries.length) throw new Error('Invalid disclosure');
+    sourceURL(report.source,report.type === 'assets' ? ['disclosures-clerk.house.gov'] : ['www.whitehouse.gov','extapps2.oge.gov']);
+    for(const field of ['title','periodLabel','dateLabel','sourceLabel','coverage'])if(typeof report[field] !== 'string')throw new Error('Invalid disclosure text');
+    const rowIds=new Set();
+    for (const row of report.entries) {
+      if (!row.id || rowIds.has(row.id) || typeof row.issuer !== 'string' || !positive(row.valueMin) || !(row.valueMax === null || positive(row.valueMax) && row.valueMax >= row.valueMin) || !positive(row.page)) throw new Error('Invalid disclosure range');
+      if (report.type === 'transactions' && (!['purchase','sale','exchange'].includes(row.action) || !validDate(row.date) || row.date > report.filedDate)) throw new Error('Invalid transaction');
+      if (report.type === 'assets' && !['SP','JT','SELF'].includes(row.owner)) throw new Error('Invalid asset owner');
+      rowIds.add(row.id);
+    }
   }
   return data;
 }

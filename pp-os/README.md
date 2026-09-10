@@ -9,7 +9,7 @@
 - **Moatrices** เปิดเว็บบทความในแอป
 - **Money** บันทึกรายรับ รายจ่าย และงบประมาณในเครื่อง
 - **Portfolio** พอร์ตส่วนตัวเดิม ข้อมูลถือครองและราคาที่กรอกยังอยู่ในเครื่อง
-- **Smart Money** การ์ดพอร์ตสาธารณะ กราฟสัดส่วน รายการถือครอง และการเปลี่ยนแปลงของจำนวนหุ้นจากรายงาน SEC
+- **Smart Money** 16 รายการ: พอร์ตสาธารณะ 14 แห่งและเอกสารเปิดเผยของ Trump / Pelosi พร้อมค้นหา แยกประเภท และอ่านแหล่งอ้างอิง
 
 หน้า Me และ Health ถูกถอดออกจากทะเบียนแอป เมนู ทางลัด และการโหลดข้อมูลสุขภาพอัตโนมัติแล้ว ลิงก์แท็บเก่าจะเปิด Smart Money ข้อมูลเดิมใน storage ยังสำรองออกได้
 
@@ -30,25 +30,55 @@ python3 -m http.server 8000
 
 ## ข้อมูล Smart Money
 
-`data/smart-money.json` เป็น snapshot สาธารณะที่บรรจุมากับแอป ไม่เรียก API ราคาหุ้นหรือเก็บ token ของผู้ใช้
+`data/smart-money.json` เป็น catalog สาธารณะ schema 2 ที่บรรจุมากับแอป ไม่เรียก API ราคาหุ้นหรือเก็บ token ของผู้ใช้ รายละเอียด 13F อยู่ใน `data/smart-money/<id>-<content-hash>.json` และโหลดเมื่อเปิดพอร์ต เพื่อไม่ให้หน้าแรกต้องดาวน์โหลดรายงานสถาบันทุกแห่ง
+
+| กลุ่ม | รายการ |
+| --- | --- |
+| นักลงทุน | Berkshire Hathaway, Ray Dalio / Bridgewater, Cathie Wood / ARK, Charlie Munger / Daily Journal (ย้อนหลัง), George Soros / Soros Fund Management, Pershing Square |
+| สถาบัน | BlackRock, Vanguard Capital Management, State Street, JPMorgan Chase, Morgan Stanley, Invesco |
+| บริษัท | NVIDIA, Temasek |
+| บุคคลสาธารณะ | Donald Trump, Nancy Pelosi |
 
 - แต่ละพอร์ตมีวันที่ถือครอง วันที่ยื่น ลิงก์ SEC และข้อมูลรอบก่อน
-- จำนวนและมูลค่าแยกตามหลักทรัพย์ รวมแถวของผู้จัดการรายย่อยตาม CUSIP + หน่วย + ประเภทออปชัน และตรวจยอดรวมกับหน้าปกรายงาน
+- จำนวนและมูลค่าแยกตามหลักทรัพย์ รวมแถวของผู้จัดการรายย่อยตาม CUSIP + หน่วย + ประเภทออปชัน ตรวจจำนวนแถวและยอดรวมกับหน้าปกรายงานก่อนสร้าง catalog
 - กราฟแสดง 5 อันดับแรกและรายการอื่นครบตามยอดรวม ไม่มีการขยายหุ้น 5 ตัวให้กลายเป็น 100% ของพอร์ต
 - การเปลี่ยนแปลงเป็นจำนวนหุ้นที่รายงาน ไม่ใช่รายการซื้อขายหรือผลตอบแทน และยังไม่ได้ปรับผลของ corporate actions
-- Pershing Square ชุดที่ตรวจสอบได้เป็น Q1 2026 ส่วนอีกสามพอร์ตเป็น Q2 2026 วันที่ระบุแยกในแต่ละการ์ด
+- รายการที่รอบก่อนมีจำนวนศูนย์ยังนับเป็นรายการเดิม หากจำนวนเพิ่มจะใช้ป้ายจำนวนเพิ่มและแสดง `—` แทนเปอร์เซ็นต์ที่คำนวณไม่ได้ ไม่ใช้ป้าย New
+- Pershing Square เป็น Q1 2026; Daily Journal เป็น Q3 2023 ก่อน Munger เสียชีวิต และมีป้ายย้อนหลังทั้งการ์ดและหน้ารายละเอียด; อีก 12 พอร์ตเป็น Q2 2026
+- Ray Dalio / Soros เชื่อมกับสถาบันที่ก่อตั้ง ไม่กล่าวอ้างว่าเป็นพอร์ตส่วนตัวหรือการตัดสินใจปัจจุบันของบุคคล; ARK เป็นรายงานรวมผู้จัดการ ไม่ใช่เฉพาะ ARKK
+- Vanguard ใช้ Vanguard Capital Management LLC (CIK 2100119) ทั้งสองไตรมาส ไม่รวมผู้จัดการ Vanguard รายอื่นหรือเปรียบเทียบข้ามกับ The Vanguard Group เดิม
+- รายงานฉบับ RESTATEMENT แทนตารางเก่า ส่วน NEW HOLDINGS บวกรายการเพิ่มเติมตามลำดับ ฉบับที่ใช้ทั้งหมดเปิดดูได้ในหน้ารายละเอียด
+- Invesco Q1 2026: ผลรวมตารางเดิมต่ำกว่ายอดหน้าปก $897 และฉบับเพิ่มรายการต่ำกว่า $1 จึงใช้ผลรวมตารางรวม $1,023,963,243,529 พร้อมแสดงส่วนต่าง $898 ในรายละเอียด ต้องระบุ `reviewedTableDifference` ตรงกับส่วนต่างที่ตรวจแล้วใน manifest; ส่วนต่างอื่นทำให้ build ไม่ผ่าน
 - เอกสาร 13F ไม่ครอบคลุมพอร์ตทั้งหมด รายละเอียดขอบเขตแสดงในหน้าพอร์ต
+- สถาบันรายงานหลักทรัพย์ภายใต้ดุลยพินิจ ซึ่งอาจเป็นของกองทุนและลูกค้า ไม่ใช่พอร์ตเงินลงทุนของบริษัทเองหรือ AUM ทั้งหมด
+
+Trump ใช้ 8 ธุรกรรมที่คัดจากหน้า 2 ของ [OGE Form 278-T ที่ White House เผยแพร่](https://www.whitehouse.gov/wp-content/uploads/2026/06/President-Donald-J.-Trump-Periodic-Transaction-Report-0.6.25.26-2.pdf) (OGE รับ 29 มิ.ย. 2026) ส่วน Pelosi ใช้หุ้นสามัญ ST ที่มีมูลค่าระบุ 22 รายการจาก Schedule A ของ [Annual Report 2025](https://disclosures-clerk.house.gov/public_disc/financial-pdfs/2025/10075701.pdf) ยื่น 15 พ.ค. 2026 ทุกแถวที่แสดงเป็นของคู่สมรส (SP) ข้อมูลคัดไว้ใน `data/smart-money-disclosures.json` พร้อมหน้าอ้างอิง ไม่รวมช่วงมูลค่าเป็นยอดแน่นอน ไม่คำนวณสัดส่วน และไม่ใช้รายการซื้อขายแทนยอดถือครอง
+
+หน้าถือครองมีการค้นหาภายในพอร์ตและเพิ่มทีละ 50 รายการ แฟ้มหลักและเอกสารบุคคลสาธารณะเปิดออฟไลน์ได้ ส่วนรายงาน 13F ฉบับเต็มเก็บใน cache หลังเปิดอ่านครั้งแรก แสดงสถานะให้เชื่อมต่อเมื่อยังไม่เคยดาวน์โหลด และกลับหน้ารวมได้แม้โหลดไม่สำเร็จ
 
 อัปเดตข้อมูลโดยดาวน์โหลด cover XML และ Information Table XML จาก SEC พร้อม manifest ตาม docstring ใน `tools/build-smart-money.py` จากนั้นรัน:
 
 ```bash
 python3 pp-os/tools/build-smart-money.py /path/to/sources.json
 node pp-os/test/smart-money.test.mjs
+python3 pp-os/test/smart-money-builder.test.py
 ```
 
-ตรวจรายงานแก้ไข ขอบเขตการรายงาน และ corporate actions ก่อนเปลี่ยนชุดข้อมูล แล้ว bump `VERSION` ใน `sw.js` เมื่อเผยแพร่ข้อมูลหรือไฟล์แอปใหม่ ไฟล์ใน `SHELL` ต้องมีอยู่ครบ
+ตรวจหน้าแอปด้วย Python environment ที่มี Playwright และ Chromium:
 
-โลโก้ใน `assets/brands/` ใช้สำเนาโลโก้เดิมของเว็บไซต์เพื่อให้แสดงออฟไลน์ได้
+```bash
+../.venv/bin/python pp-os/test/smart-money-browser.test.py
+```
+
+ชุด browser test เปิด server ชั่วคราวในเครื่องและใช้ browser profile ทดสอบ ตรวจทั้ง 16 โปรไฟล์ การค้นหาและเพิ่มรายการในพอร์ตขนาดใหญ่ หน้าจอ 320–1280px โหมด desktop และการเปิดรายงานแบบออฟไลน์/ลองใหม่ บันทึกภาพหน้าจอใน temporary directory ของระบบ
+
+ตรวจเสร็จ 10 ก.ย. 2026: ข้อมูลทั้ง 28 รอบตรงกับ XML ที่ดาวน์โหลดไว้, catalog/detail และ disclosure checks ผ่าน, builder tests 11 รายการผ่าน, browser test ผ่าน และ sync merge tests เดิมผ่าน 37 รายการ วันที่ `checkedAt` ยังเป็น 9 ก.ย. ตามวันที่ตรวจแหล่งข้อมูล ชุดขยาย 16 โปรไฟล์พร้อมโลโก้หุ้นและภาพ Donald Trump ใช้ app cache รุ่น `pp-os-v29`
+
+ตรวจรายงานแก้ไข ขอบเขตการรายงาน และ corporate actions ก่อนเปลี่ยนชุดข้อมูล ใน manifest แนบ `amendments` ของแต่ละไตรมาสเรียงตามเลขฉบับ ห้ามตัดข้ามฉบับ แล้ว bump `VERSION` ใน `sw.js` เมื่อเผยแพร่ข้อมูลหรือไฟล์แอปใหม่ ไฟล์ใน `SHELL` ต้องมีอยู่ครบ เก็บไฟล์รายละเอียดที่ hash เปลี่ยนของรุ่นที่เผยแพร่แล้วไว้เพื่อให้ catalog เก่ายังเปิดรายงานตรงรุ่นได้
+
+โลโก้ใน `assets/brands/` ใช้สำเนาโลโก้เดิมของเว็บไซต์ และเพิ่ม KO, BAC, INTC, BLK, BN, AMZN, UBER, QSR, SPY, IVV, TSLA, WFC, BABA จาก [Parqet Assets](https://assets.parqet.com) ผ่าน URL `https://assets.parqet.com/logos/symbol/<SYMBOL>?format=png` เมื่อ 10 ก.ย. 2026 ส่วน SpaceX ใช้ SVG เดิมของเว็บไซต์ แสดงเป็นรูปในกราฟและเก็บใน offline cache
+
+ภาพ Donald Trump ใน `assets/people/donald-trump.jpg` ดาวน์โหลดจากภาพ official portrait ของ [White House](https://www.whitehouse.gov/administration/donald-j-trump/) ([ไฟล์ภาพ](https://www.whitehouse.gov/wp-content/uploads/2026/01/President-Donald-Trump-Official-Presidential-Portrait.png-1-1.jpg?resize=541,600)) เมื่อ 10 ก.ย. 2026 ใช้ CSS จัดกรอบและตำแหน่งภาพ พร้อมเก็บไฟล์ใน offline cache
 
 ## ข้อมูลส่วนตัว
 
