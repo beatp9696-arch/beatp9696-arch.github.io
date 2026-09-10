@@ -2205,18 +2205,28 @@ h2:hover > .heading-anchor, h3:hover > .heading-anchor { opacity: 0.45; }
   padding: 3px;
   flex: none;
 }
+/* บริษัทที่ไม่มีตราสี่เหลี่ยม (ASML, SpaceX) ใช้ wordmark แทน — แต่ต้องอ่านเป็น "โลโก้"
+   ให้ได้เท่ากับการ์ดอื่น: พื้นขาวชุดเดียวกับ .stock-logo + หมึกเข้มแบบที่แบรนด์ใช้จริง
+   (ของเดิมเป็นพื้นเขียวจางหมึกเขียว = ดูเหมือนป้ายว่างที่ยังไม่ได้ใส่โลโก้)
+   ต้องปล่อยความกว้างอิสระ เพราะ wordmark อัตราส่วนยาวถึง 8:1 ยัดใน 38px ไม่ได้ */
 .stock-logo--wm {
   display: flex;
   align-items: center;
   justify-content: center;
-  background: var(--accent-tint);
-  color: var(--accent);
-  padding: 6px;
+  width: auto;
+  min-width: 38px;
+  max-width: 66px;      /* กว้างกว่านี้แล้วเบียดชื่อบริษัทจนต้องตัดด้วย ellipsis */
+  background: #fff;
+  color: #10151b;
+  padding: 6px 8px;
 }
-.stock-logo--wm .ticker-wm { height: 9px; width: calc(9px * var(--ar, 4)); }
+.stock-logo--wm .ticker-wm { height: 10px; width: min(50px, calc(10px * var(--ar, 4))); }
 .stock-meta { min-width: 0; }
 .stock-tk {
   display: block;
+  /* .stock-sec เป็นป้าย absolute มุมขวาบน — บรรทัดแรกต้องกันที่ให้มันเสมอ
+     ไม่งั้นการ์ดที่โลโก้กว้าง (wordmark) จะดันชื่อไปมุดใต้ป้าย */
+  padding-right: 58px;
   font-family: var(--font-head);
   font-size: 16px;
   font-weight: 700;
