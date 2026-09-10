@@ -684,10 +684,10 @@ STOCK_META = {
     "SNPS":   {"name": "Synopsys", "sub": "EDA", "logo": ("img", "SNPS.png")},
     "TSM":    {"name": "TSMC", "sub": "Foundry", "logo": ("img", "TSM.png")},
     "NVDA":   {"name": "NVIDIA", "sub": "GPU", "logo": ("img", "NVDA.png")},
-    "MU":     {"name": "Micron Technology", "sub": "Memory", "logo": ("wm", "MU.svg", 4.67, "Micron")},
+    "MU":     {"name": "Micron Technology", "sub": "Memory", "logo": ("img", "MU.png")},
     "MRVL":   {"name": "Marvell Technology", "sub": "Custom chip", "logo": ("img", "MRVL.png")},
     "COHR":   {"name": "Coherent", "sub": "Optical", "logo": ("img", "COHR.png")},
-    "AVGO":   {"name": "Broadcom", "sub": "AI chip", "logo": ("wm", "AVGO.svg", 7.27, "Broadcom")},
+    "AVGO":   {"name": "Broadcom", "sub": "AI chip", "logo": ("img", "AVGO.png")},
     "MSFT":   {"name": "Microsoft", "sub": "Cloud", "logo": ("img", "MSFT.png")},
     "GOOGL":  {"name": "Alphabet", "sub": "Ads", "logo": ("img", "GOOGL.png")},
     "NFLX":   {"name": "Netflix", "sub": "Streaming", "logo": ("img", "NFLX.png")},
@@ -701,7 +701,7 @@ STOCK_META = {
     "MELI":   {"name": "MercadoLibre", "sub": "E-commerce", "logo": ("img", "MELI.png")},
     "SPACEX": {"name": "บริษัทเอกชน — ยังไม่ IPO", "sub": "Launch", "tk": "SpaceX",
                "logo": ("wm", "SPACEX.svg", 8, "SpaceX")},
-    "LMT":    {"name": "Lockheed Martin", "sub": "กลาโหม", "logo": ("wm", "LMT.svg", 4.15, "Lockheed Martin")},
+    "LMT":    {"name": "Lockheed Martin", "sub": "กลาโหม", "logo": ("img", "LMT.png")},
 }
 _STOCKS_BLOCK_RE = re.compile(r"<!-- STOCKS-START -->.*?<!-- STOCKS-END -->", re.S)
 
