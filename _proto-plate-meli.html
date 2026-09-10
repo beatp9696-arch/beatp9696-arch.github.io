@@ -1,0 +1,856 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ต้นแบบ: แผ่นภาพเปรียบเทียบ (emblem plate) — MELI | Moatrices</title>
+  <meta name="robots" content="noindex">
+  <meta name="theme-color" content="#EDE7D9">
+  <link rel="icon" href="favicon.svg" type="image/svg+xml">
+  <link rel="preload" as="font" type="font/woff2" href="fonts/trirong-400-thai.woff2" crossorigin>
+  <link rel="preload" as="font" type="font/woff2" href="fonts/trirong-600-thai.woff2" crossorigin>
+  <link rel="preload" as="font" type="font/woff2" href="fonts/playfair-display-700-latin.woff2" crossorigin>
+  <link rel="preload" as="font" type="font/woff2" href="fonts/cinzel-600-latin.woff2" crossorigin>
+  <link rel="stylesheet" href="style.min.css">
+  <link rel="stylesheet" href="casestudy.min.css">
+
+<style>
+/* ============================================================
+   ต้นแบบ — "แผ่นภาพเปรียบเทียบ" (emblem plate)
+   ฟิสิกส์ของ MELI: การแพร่ระบาด (n²) — ปมติดกันเป็นทอดๆ ช้าตอนต้น ระเบิดตอนท้าย
+   ⇒ easing หลักของทั้งหน้า = --e-spread ห้ามใช้ ease-in-out ลอยๆ
+
+   ต่างจาก .cs-plate เดิมตรงไหน:
+   .cs-plate   = แผ่น "ดำ" เวทีของเครื่องมือจริงในธุรกิจ (UI/แผงคุม/ใบเสร็จ)
+   .cs-emblem  = แผ่น "กระดาษ" ภาพเปรียบเทียบมีตัวละคร + พาดหัวโปสเตอร์หลอมอยู่ในภาพ
+   สองพันธุ์นี้อยู่ในเล่มเดียวกันได้ เพราะทำคนละหน้าที่:
+   emblem วางความคิด (ก่อนอ่าน) · plate วางหลักฐาน (ระหว่างอ่าน)
+   ============================================================ */
+
+/* ---------- ธีมประจำหุ้น: MELI ----------
+   เหลือง #FFE600 ของแบรนด์ = สีโฆษณา เอามาแปะดิบๆ บนกระดาษไม่ได้
+   ลดความสดลงเป็นหมึกออกเกอร์ แล้วเก็บน้ำเงิน #3483FA ไว้เป็นจังหวะ "ธุรกิจที่ซ่อนอยู่" */
+body.cs[data-cs-theme="meli"] {
+  --cs-a:      #8A6414;
+  --cs-a-lit:  #C99A2E;
+  --cs-a-hair: #E0D2AC;
+  --cs-a-deep: #654A0E;
+  --cs-a-tint: #F7F2E3;
+  --cs-alt:    #1F63C4;
+
+  --bg: #EAE6DA;
+  --surface: #FCFAF4;
+  --surface-2: #F3EFE3;
+  --text: #191510;
+  --muted: #6B6353;
+  --border: #D9D2C0;
+  --header-bg: rgba(234, 230, 218, 0.88);
+  --shadow-md: 0 10px 40px rgba(48, 36, 11, 0.12);
+
+  --paper: #FCFAF4;
+  --paper-edge: #F0EBDC;
+  --ink: #191510;
+  --ink-soft: #4A4235;
+  --plate: #14100A;
+  --plate-line: #33291A;
+  --plate-ink: #F2EBDA;
+  --opener-bg: #0A0806;
+  --opener-ink: #F2EBDA;
+  --glow: 232 200 132;
+  --title-hi: #F8ECC8;
+  --title-mid: #DDB966;
+  --title-lo: #B08A2C;
+
+  /* จานสีของภาพเปรียบเทียบ — หมึกพิมพ์ 5 สี ไม่ใช่สีโฆษณา */
+  --em-sky:   #F6F1E2;
+  --em-line:  #B9A87C;
+  --em-rock:  #DCD2B8;
+  --em-rock2: #C6B893;
+  --em-void:  #8E8266;
+  --em-1: #B98A1C;   /* marketplace — ออกเกอร์ */
+  --em-2: #1F63C4;   /* pago — น้ำเงิน */
+  --em-3: #3F7A55;   /* envíos — เขียวเสจ */
+  --em-4: #6E4B84;   /* crédito — พลัม */
+  --em-5: #B45A32;   /* fondo — ดินเผา */
+}
+
+/* ============================================================
+   แผ่นภาพเปรียบเทียบ — พาดหัวโปสเตอร์ + ภาพ = ชิ้นเดียวกัน
+   ============================================================ */
+.cs-emblem { margin: clamp(2.2rem, 5.5vw, 3.4rem) 0; }
+
+.cs-emblem .ph-panel {
+  position: relative;
+  background: var(--paper);
+  border: 1px solid var(--gold-hair);
+  border-radius: 0;
+  padding: clamp(1.5rem, 4vw, 2.4rem) clamp(1rem, 3vw, 1.9rem) clamp(1.2rem, 3vw, 1.7rem);
+  box-shadow: 0 1px 0 var(--paper-edge), 0 14px 34px rgba(48, 36, 11, .07);
+}
+/* กรอบเส้นบางชั้นใน — ยืมภาษาเดียวกับแผ่นภาพดำ ให้รู้ว่าเป็นเล่มเดียวกัน */
+.cs-emblem .ph-panel::before {
+  content: "";
+  position: absolute;
+  inset: 0.45rem;
+  border: 1px solid var(--gold-hair);
+  opacity: .55;
+  pointer-events: none;
+}
+
+/* ---- พาดหัวโปสเตอร์ (หลอมอยู่บนแผ่นเดียวกับภาพ ไม่มีเส้นคั่น) ---- */
+.cs-emblem .em-head {
+  position: relative;
+  text-align: center;
+  margin: 0 0 clamp(.4rem, 1.6vw, .9rem);
+  padding: 0 clamp(.3rem, 2vw, 1.6rem);
+}
+.cs-emblem .em-head p {
+  font-family: var(--font-book);
+  font-weight: 600;
+  font-size: clamp(1.5rem, 5.2vw, 2.5rem);
+  line-height: 1.34;
+  letter-spacing: 0;          /* ไทย — ห้ามแตะ */
+  color: var(--ink);
+  margin: 0;
+  text-wrap: balance;
+}
+.cs-emblem .em-head p .hl { color: var(--gold); }
+.cs-emblem .em-head .em-sub {
+  display: block;
+  margin-top: .7rem;
+  font-family: var(--font-book);
+  font-weight: 400;
+  font-size: clamp(.92rem, 2.4vw, 1.04rem);
+  line-height: 1.75;
+  color: var(--ink-soft);
+}
+.cs-emblem .em-head .em-sub .hl { color: var(--gold); font-weight: 600; }
+
+.cs-emblem figcaption {
+  font-family: var(--font-book);
+  font-size: 0.95rem;
+  line-height: 1.85;
+  color: var(--muted);
+  margin-top: 1rem;
+  padding-left: 1rem;
+  border-left: 2px solid var(--gold);
+}
+.cs-emblem figcaption strong { color: var(--ink); font-weight: 600; }
+.cs-emblem figcaption .cs-plate-no {
+  font-family: var(--font-display);
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 0.22em;
+  font-size: 0.68rem;
+  color: var(--gold);
+  display: block;
+  margin-bottom: 0.25rem;
+}
+
+/* ---- แบบลอยข้างตัวหนังสือ (ตัวหนังสือไหลล้อม แบบหน้านิตยสาร) ---- */
+@media (min-width: 46rem) {
+  .cs-emblem.side {
+    float: left;
+    width: 47%;
+    margin: .35rem clamp(1.3rem, 3vw, 2rem) 1.1rem 0;
+  }
+  .cs-emblem.side .em-head p { font-size: clamp(1.15rem, 2.5vw, 1.45rem); line-height: 1.4; }
+  .cs-emblem.side .ph-panel { padding: 1.15rem 1rem 1rem; }
+  .cs-emblem.side figcaption { font-size: .86rem; line-height: 1.7; }
+  .cs-clearfix::after { content: ""; display: block; clear: both; }
+}
+
+/* ---- แถบเงาท้ายหน้าเปิดบท ----
+   ทุกอย่างเป็นเงามืดไล่ระดับ ยกเว้นป้ายเรืองแสงชิ้นเดียวที่มีสี
+   (เหตุผลเดียวกับป้ายร้าน Domino's — ให้ตามีจุดพักจุดเดียว) */
+.ar-far  { fill: #1C1610; }
+.ar-hub  { fill: #292115; }
+.ar-win rect { fill: rgb(232 200 132 / .16); }
+.ar-win .ar-w2 { fill: rgb(232 200 132 / .26); }
+.ar-van  { fill: #302617; }
+.ar-van .ar-wheel { fill: #120D07; }
+.ar-road { fill: rgb(232 200 132 / .18); }
+.ar-pole { fill: #241C11; }
+.ar-board{ fill: #E8C884; }
+.ar-glyph rect:first-child { fill: none; stroke: #1A1206; stroke-width: 4; }
+.ar-glyph rect + rect { fill: #1A1206; }
+
+/* ตัวอักษรในภาพ — ไทยใช้ Trirong ไม่มี tracking / ละตินใช้ Playfair
+   (กฎ SKILL.md: ห้าม mono + letter-spacing กับไทย — iOS Safari ดันสระหลุด) */
+.em-th   { font-family: var(--font-book); font-weight: 400; fill: var(--ink-soft); }
+.em-thb  { font-family: var(--font-book); font-weight: 600; fill: var(--ink); }
+.em-lat  { font-family: var(--font-display); font-weight: 700; letter-spacing: .14em; }
+.em-lats { font-family: var(--font-display); font-weight: 500; letter-spacing: .2em; fill: var(--gold); }
+.em-num  { font-family: var(--font-display); font-weight: 700; font-variant-numeric: lining-nums tabular-nums; }
+
+/* ============================================================
+   ฉาก 1 — หุบเหว / สะพาน
+   ============================================================ */
+.ml-fig    { fill: var(--em-void); }
+.ml-founder{ fill: var(--gold); }
+.ml-bubble { fill: #FFFDF6; stroke: var(--em-line); stroke-width: 1.2; }
+
+/* คนที่ยืนอยู่ริมเหว — โผล่ขึ้นมาก่อน (เหตุ) */
+.ml-crowd  { animation: mlRise calc(var(--beat) * 1.6) var(--e-spread) both; }
+@keyframes mlRise { from { opacity: 0; transform: translateY(14px); } }
+
+.ml-think  { animation: mlPop calc(var(--beat) * 1.3) var(--e-snapback) both; transform-box: fill-box; transform-origin: bottom center; }
+@keyframes mlPop { from { opacity: 0; transform: scale(.6); } }
+
+/* โครงสะพานถูกขึงก่อน แล้วไม้ถึงจะวางได้ (เหตุมาก่อนผล ≥1 beat) */
+.ml-arch, .ml-truss { stroke-dasharray: 460; animation: mlDraw calc(var(--beat) * 2.2) var(--e-spread) both; }
+@keyframes mlDraw { from { stroke-dashoffset: 460; } }
+.ml-strut  { animation: mlStrut calc(var(--beat) * .9) var(--e-spread) both; transform-box: fill-box; transform-origin: bottom center; }
+@keyframes mlStrut { from { opacity: 0; transform: scaleY(0); } }
+
+/* ไม้กระดาน — ระยะห่างของ --i แคบลงเรื่อยๆ = ช้าตอนต้น ระเบิดตอนท้าย (n²) */
+.ml-plank  { animation: mlPlank calc(var(--beat) * .8) var(--e-spread) both; transform-box: fill-box; transform-origin: left center; }
+@keyframes mlPlank { from { opacity: 0; transform: scaleX(0) translateY(-10px); } }
+
+.ml-walk   { animation: mlWalk calc(var(--beat) * 2.6) var(--e-spread) both; }
+@keyframes mlWalk { from { opacity: 0; transform: translateX(-232px); } }
+
+/* ไฟในเมืองติดเป็นทอดๆ ไม่ใช่สว่างพร้อมกัน (ห้ามเด็ดขาดตามธีม MELI) */
+.ml-win    { animation: mlLit calc(var(--beat) * .7) var(--e-spread) both; }
+@keyframes mlLit { from { opacity: 0; } }
+
+.ml-legend { animation: mlRise calc(var(--beat) * 1.2) var(--e-spread) both; }
+
+/* ambient ชั้น 2 — แค่ท่าเดียว amplitude ต่ำ: แสงเมืองหายใจเบาๆ */
+.ml-glow   { animation: mlBreath 5.5s ease-in-out 5.5s infinite; transform-box: fill-box; transform-origin: center; }
+@keyframes mlBreath { 0%, 100% { opacity: .30; } 50% { opacity: .42; } }
+
+/* ============================================================
+   ฉาก 2 — ตุ๊กตาแม่ลูกดก: แก้ปัญหาหนึ่ง เผยอีกธุรกิจ
+   ============================================================ */
+.ml-doll   { animation: mlDoll calc(var(--beat) * 1.5) var(--e-spread) both; transform-box: fill-box; transform-origin: bottom center; }
+@keyframes mlDoll { from { opacity: 0; transform: scale(.34) translateY(26px); } }
+.ml-arrow  { animation: mlArrow calc(var(--beat) * .9) var(--e-spread) both; transform-box: fill-box; transform-origin: left center; }
+@keyframes mlArrow { from { opacity: 0; transform: translateX(-14px); } }
+.ml-cap    { animation: mlRise calc(var(--beat) * 1.1) var(--e-spread) both; }
+
+/* ============================================================
+   ฉาก 3 — ตึกที่ต้องมีฐานชื่อ "ความไว้ใจ"
+   ============================================================ */
+.ml-base   { animation: mlRise calc(var(--beat) * 1.6) var(--e-spread) both; }
+.ml-floor  { animation: mlFloor calc(var(--beat) * 1.1) var(--e-spread) both; transform-box: fill-box; transform-origin: center bottom; }
+@keyframes mlFloor { from { opacity: 0; transform: translateY(-26px) scaleY(.2); } }
+
+@media (prefers-reduced-motion: reduce) {
+  .ph-panel .sa { animation: none !important; }
+}
+
+/* ---- แถบอธิบายของหน้าต้นแบบ (ไม่ใช่ส่วนของเล่ม) ---- */
+.proto-note {
+  background: #14100A;
+  color: #F2EBDA;
+  font-family: var(--font-book);
+  font-size: .95rem;
+  line-height: 1.85;
+  padding: 1.1rem 1.3rem;
+  border-left: 3px solid #C99A2E;
+  margin: 2rem 0;
+}
+.proto-note b { color: #EBD79A; font-weight: 600; }
+.proto-note code { font-family: ui-monospace, Menlo, monospace; font-size: .85em; color: #EBD79A; }
+</style>
+</head>
+<body class="cs" data-cs-theme="meli">
+
+  <div class="top-accent"></div>
+
+  <header class="site-header">
+    <div class="container">
+      <a href="index.html" class="site-title">Moatrices</a>
+      <nav class="site-nav">
+        <a href="index.html">หน้าแรก</a>
+        <a href="articles.html">บทความ</a>
+        <a href="stocks.html">หุ้น</a>
+        <a href="tools.html">เครื่องมือ</a>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+
+    <!-- ═══════════════════ หน้าเปิดบท ═══════════════════ -->
+    <section class="cs-opener cs-bleed">
+      <div class="cs-opener-inner">
+        <p class="cs-eyebrow">Prototype</p>
+        <h1>MercadoLibre</h1>
+        <p class="cs-th-title">ต้นแบบ &ldquo;แผ่นภาพเปรียบเทียบ&rdquo; — ภาพมีตัวละคร + พาดหัวโปสเตอร์ ในฟอร์แมตหนังสือ</p>
+
+        <div class="cs-rule" aria-hidden="true"><span>&#9670;</span></div>
+
+        <div class="cs-opener-quote">
+          <hr>
+          <blockquote class="lat">
+            The leading online commerce and fintech ecosystem in Latin America.
+            <span class="cs-attrib lat">&mdash; Form 10-K, FY2025</span>
+          </blockquote>
+        </div>
+      </div>
+
+      <!-- แถบเงากลางคืน: ศูนย์กระจายสินค้า + รถส่งของ + เมืองไกล
+           ของชิ้นเดียวที่มีสีคือป้ายเรืองแสง (เลียนวิธีของหน้าร้าน Domino's) -->
+      <div class="cs-opener-art" aria-hidden="true">
+        <svg viewBox="0 0 1440 210" preserveAspectRatio="xMidYMax slice">
+          <g class="ar-far">
+            <rect x="60"   y="140" width="86"  height="62"/>
+            <rect x="164"  y="118" width="104" height="84"/>
+            <rect x="286"  y="152" width="72"  height="50"/>
+            <rect x="1080" y="130" width="96"  height="72"/>
+            <rect x="1196" y="150" width="70"  height="52"/>
+            <rect x="1286" y="116" width="108" height="86"/>
+          </g>
+
+          <g class="ar-hub">
+            <rect x="470" y="104" width="420" height="98"/>
+            <path d="M470,104 L680,66 L890,104 Z"/>
+            <rect x="470" y="98" width="420" height="10"/>
+          </g>
+          <g class="ar-win">
+            <rect class="ar-w1" x="506" y="140" width="74" height="40"/>
+            <rect class="ar-w2" x="600" y="140" width="74" height="40"/>
+            <rect class="ar-w3" x="694" y="140" width="74" height="40"/>
+            <rect class="ar-w1" x="788" y="140" width="66" height="62"/>
+          </g>
+
+          <g class="ar-sign">
+            <rect x="946" y="92" width="5" height="110" class="ar-pole"/>
+            <rect x="906" y="52" width="86" height="46" rx="8" class="ar-board"/>
+            <g class="ar-glyph"><rect x="928" y="62" width="42" height="28" rx="2"/><rect x="945" y="62" width="8" height="28"/></g>
+          </g>
+
+          <g class="ar-van">
+            <rect x="1000" y="158" width="72" height="34" rx="3"/>
+            <path d="M1072,164 L1102,164 L1114,180 L1114,192 L1072,192 Z"/>
+            <circle cx="1024" cy="194" r="9" class="ar-wheel"/>
+            <circle cx="1098" cy="194" r="9" class="ar-wheel"/>
+          </g>
+
+          <rect x="0" y="200" width="1440" height="2" class="ar-road"/>
+        </svg>
+      </div>
+    </section>
+
+    <article class="container">
+
+      <div class="cs-paper">
+        <div class="proto-note">
+          <b>หน้านี้คือต้นแบบ ไม่ใช่บทความจริง</b> — ทำขึ้นเพื่อให้ PP ตัดสินว่า
+          &ldquo;ภาพเปรียบเทียบมีตัวละคร + พาดหัวใหญ่บนภาพ&rdquo; แบบในหนังสือที่ส่งมา
+          ทำบนเว็บนี้แล้วออกมาหน้าตาแบบไหน<br>
+          ของใหม่ที่เพิ่มคือคลาส <code>.cs-emblem</code> (แผ่นกระดาษ) อยู่คู่กับ <code>.cs-plate</code> เดิม (แผ่นดำ)
+          และธีม <code>data-cs-theme="meli"</code><br>
+          ตัวเลขทุกตัวมาจาก 10-K FY2025 ของ MELI จริง (ตาราง KPI) ตามกฎข้อ 7 ของ scene-animation
+        </div>
+      </div>
+
+      <!-- ═══════════════════ ฉาก 1 ═══════════════════ -->
+      <div class="cs-paper">
+        <p class="cs-h2n">Section One</p>
+        <h2>ช่องว่างที่คนอื่นเห็นเป็นหุบเหว</h2>
+
+        <p class="cs-dcp">
+          <span class="cs-dc">ป</span>ี 1999 ลาตินอเมริกาแทบไม่มีอะไรที่เรียกว่าโครงสร้างพื้นฐานดิจิทัลเลย
+          คนหลายสิบล้านอยากซื้อ อยากขาย อยากเก็บเงิน อยากกู้ แต่รางที่จะให้ทำสิ่งเหล่านั้นไม่มีอยู่จริง
+          บริษัทอเมริกันมองภูมิภาคนี้แล้วเห็นความเสี่ยง เงินเฟ้อ ค่าเงิน และระบบไปรษณีย์ที่ของหาย
+          Marcos Galperín มองสิ่งเดียวกันแล้วเห็นอีกอย่างหนึ่ง
+        </p>
+
+        <figure class="ph-fig cs-emblem">
+          <div class="ph-panel">
+            <div class="em-head">
+              <p>ทุกธุรกิจใหญ่ เริ่มจาก<span class="hl">ช่องว่าง</span></p>
+              <span class="em-sub">คนส่วนใหญ่เห็น<span class="hl">หุบเหว</span> — เขาเห็น<span class="hl">สะพาน</span></span>
+            </div>
+            <div class="sa-stage">
+              <svg viewBox="0 0 900 596" role="img"
+                   aria-label="ผู้คนยืนติดอยู่ริมหุบเหวลึกฝั่งหนึ่งพร้อมความคิดว่ายากเกินไป ขณะที่อีกฝั่งคือเมืองที่ไฟยังไม่ติด จนกระทั่งมีคนสร้างสะพานข้ามไป ไฟทั้งเมืองจึงติดขึ้นทีละดวง — ช่องว่างเดียวกันนั้นคือทั้งอุปสรรคและโอกาส ขึ้นกับว่าใครมองแล้วเห็นอะไร">
+
+                <defs>
+                  <linearGradient id="mlSky" x1="0" y1="0" x2="0" y2="1">
+                    <stop offset="0%" stop-color="#FCF8EC"/>
+                    <stop offset="70%" stop-color="#F4EDDA"/>
+                    <stop offset="100%" stop-color="#EDE3C8"/>
+                  </linearGradient>
+                  <linearGradient id="mlVoid" x1="0" y1="0" x2="0" y2="1">
+                    <stop offset="0%" stop-color="#7A6A46"/>
+                    <stop offset="42%" stop-color="#463A22"/>
+                    <stop offset="100%" stop-color="#211A0D"/>
+                  </linearGradient>
+                  <linearGradient id="mlFaceL" x1="0" y1="0" x2="0" y2="1">
+                    <stop offset="0%" stop-color="#C3B48C"/>
+                    <stop offset="100%" stop-color="#8B7C58"/>
+                  </linearGradient>
+                  <linearGradient id="mlFaceR" x1="0" y1="0" x2="0" y2="1">
+                    <stop offset="0%" stop-color="#CCBD94"/>
+                    <stop offset="100%" stop-color="#93845E"/>
+                  </linearGradient>
+                  <radialGradient id="mlSun" cx="50%" cy="50%">
+                    <stop offset="0%" stop-color="#F2D386" stop-opacity=".95"/>
+                    <stop offset="70%" stop-color="#EBCB7A" stop-opacity=".32"/>
+                    <stop offset="100%" stop-color="#EBCB7A" stop-opacity="0"/>
+                  </radialGradient>
+                  <!-- คนหนึ่งคน (ใช้ซ้ำ) -->
+                  <g id="mlPerson">
+                    <circle cx="0" cy="-43" r="8.6"/>
+                    <path d="M-9,-32 Q0,-37 9,-32 L7.4,-12 L-7.4,-12 Z"/>
+                    <rect x="-5.8" y="-13" width="3.6" height="13" rx="1.7"/>
+                    <rect x="2.2" y="-13" width="3.6" height="13" rx="1.7"/>
+                  </g>
+                  <!-- คนที่ยกแขนชี้ (คนละท่ากับที่เหลือ) -->
+                  <g id="mlPersonPoint">
+                    <circle cx="0" cy="-43" r="8.6"/>
+                    <path d="M-9,-32 Q0,-37 9,-32 L7.4,-12 L-7.4,-12 Z"/>
+                    <rect x="-5.8" y="-13" width="3.6" height="13" rx="1.7"/>
+                    <rect x="2.2" y="-13" width="3.6" height="13" rx="1.7"/>
+                    <rect x="6" y="-38" width="17" height="3.6" rx="1.8" transform="rotate(-24 6 -36)"/>
+                  </g>
+                </defs>
+
+                <rect x="0" y="0" width="900" height="470" fill="url(#mlSky)"/>
+
+                <!-- ดวงอาทิตย์ฝั่งโอกาส (ambient เดียวของฉาก) -->
+                <circle class="sa ml-glow" cx="722" cy="112" r="104" fill="url(#mlSun)"/>
+                <circle cx="722" cy="112" r="36" fill="#E9C46A" opacity=".5"/>
+
+                <!-- ═══ เมืองฝั่งขวา — ไฟยังไม่ติดจนกว่าสะพานจะถึง ═══ -->
+                <g>
+                  <rect x="622" y="214" width="46" height="106" fill="#CDBE95"/>
+                  <rect x="676" y="168" width="54" height="152" fill="#BFAE81"/>
+                  <rect x="738" y="238" width="40" height="82" fill="#D2C49C"/>
+                  <rect x="786" y="140" width="50" height="180" fill="#B5A473"/>
+                  <path d="M786,140 L811,116 L836,140 Z" fill="#A89765"/>
+                  <rect x="844" y="196" width="44" height="124" fill="#CDBE95"/>
+                </g>
+                <!-- หน้าต่างติดไฟทีละดวง (stagger-cascade — ห้ามสว่างพร้อมกัน) -->
+                <g fill="#E9BE55">
+                  <rect class="sa n ml-win" style="--i:9.0"  x="632" y="230" width="10" height="12"/>
+                  <rect class="sa n ml-win" style="--i:9.14" x="650" y="230" width="10" height="12"/>
+                  <rect class="sa n ml-win" style="--i:9.27" x="632" y="254" width="10" height="12"/>
+                  <rect class="sa n ml-win" style="--i:9.38" x="650" y="254" width="10" height="12"/>
+                  <rect class="sa n ml-win" style="--i:9.48" x="632" y="278" width="10" height="12"/>
+                  <rect class="sa n ml-win" style="--i:9.57" x="650" y="278" width="10" height="12"/>
+                  <rect class="sa n ml-win" style="--i:9.65" x="688" y="186" width="10" height="12"/>
+                  <rect class="sa n ml-win" style="--i:9.72" x="708" y="186" width="10" height="12"/>
+                  <rect class="sa n ml-win" style="--i:9.79" x="688" y="210" width="10" height="12"/>
+                  <rect class="sa n ml-win" style="--i:9.85" x="708" y="210" width="10" height="12"/>
+                  <rect class="sa n ml-win" style="--i:9.9"  x="688" y="234" width="10" height="12"/>
+                  <rect class="sa n ml-win" style="--i:9.95" x="708" y="234" width="10" height="12"/>
+                  <rect class="sa n ml-win" style="--i:10.0" x="688" y="258" width="10" height="12"/>
+                  <rect class="sa n ml-win" style="--i:10.04" x="708" y="258" width="10" height="12"/>
+                  <rect class="sa n ml-win" style="--i:10.08" x="748" y="256" width="10" height="12"/>
+                  <rect class="sa n ml-win" style="--i:10.12" x="764" y="256" width="10" height="12"/>
+                  <rect class="sa n ml-win" style="--i:10.16" x="748" y="280" width="10" height="12"/>
+                  <rect class="sa n ml-win" style="--i:10.19" x="764" y="280" width="10" height="12"/>
+                  <rect class="sa n ml-win" style="--i:10.22" x="796" y="160" width="10" height="12"/>
+                  <rect class="sa n ml-win" style="--i:10.25" x="816" y="160" width="10" height="12"/>
+                  <rect class="sa n ml-win" style="--i:10.28" x="796" y="184" width="10" height="12"/>
+                  <rect class="sa n ml-win" style="--i:10.31" x="816" y="184" width="10" height="12"/>
+                  <rect class="sa n ml-win" style="--i:10.34" x="796" y="208" width="10" height="12"/>
+                  <rect class="sa n ml-win" style="--i:10.36" x="816" y="208" width="10" height="12"/>
+                  <rect class="sa n ml-win" style="--i:10.38" x="796" y="232" width="10" height="12"/>
+                  <rect class="sa n ml-win" style="--i:10.4"  x="816" y="232" width="10" height="12"/>
+                  <rect class="sa n ml-win" style="--i:10.42" x="854" y="214" width="10" height="12"/>
+                  <rect class="sa n ml-win" style="--i:10.44" x="870" y="214" width="10" height="12"/>
+                  <rect class="sa n ml-win" style="--i:10.46" x="854" y="238" width="10" height="12"/>
+                  <rect class="sa n ml-win" style="--i:10.48" x="870" y="238" width="10" height="12"/>
+                  <rect class="sa n ml-win" style="--i:10.5"  x="854" y="262" width="10" height="12"/>
+                  <rect class="sa n ml-win" style="--i:10.52" x="870" y="262" width="10" height="12"/>
+                </g>
+
+                <!-- ═══ หุบเหว — ต้องมืดจริง ไม่งั้นไม่อ่านว่าลึก ═══ -->
+                <path d="M266,349 L642,315 L642,470 L266,470 Z" fill="url(#mlVoid)"/>
+                <g stroke="#141005" stroke-width="1.1" opacity=".3">
+                  <path d="M300,412 Q450,398 600,414"/>
+                  <path d="M318,444 Q452,432 586,446"/>
+                </g>
+
+                <!-- หน้าผาซ้าย (ต่ำกว่า) -->
+                <path d="M0,350 L268,350 L292,378 L282,414 L300,470 L0,470 Z" fill="var(--em-rock)"/>
+                <path d="M268,350 L292,378 L282,414 L300,470 L268,470 Z" fill="url(#mlFaceL)"/>
+                <path d="M0,350 L268,350 L292,378 L282,414 L300,470" fill="none" stroke="#9C8C63" stroke-width="1.6"/>
+                <!-- หน้าผาขวา (สูงกว่า) -->
+                <path d="M900,316 L640,316 L612,346 L624,392 L604,470 L900,470 Z" fill="var(--em-rock)"/>
+                <path d="M640,316 L612,346 L624,392 L604,470 L640,470 Z" fill="url(#mlFaceR)"/>
+                <path d="M900,316 L640,316 L612,346 L624,392 L604,470" fill="none" stroke="#9C8C63" stroke-width="1.6"/>
+
+                <g stroke="#B9A87C" stroke-width="1.1" opacity=".55" fill="none">
+                  <path d="M0,392 Q120,386 258,394"/>
+                  <path d="M0,428 Q140,422 276,430"/>
+                  <path d="M660,364 Q780,358 900,366"/>
+                  <path d="M636,410 Q770,404 900,412"/>
+                </g>
+
+                <!-- ═══ ฝูงคนที่ข้ามไม่ได้ ═══ -->
+                <g class="sa n ml-crowd ml-fig" style="--i:1">
+                  <use href="#mlPerson" transform="translate(74,350) scale(1.28)"/>
+                  <use href="#mlPerson" transform="translate(126,350) scale(1.28)"/>
+                  <use href="#mlPersonPoint" transform="translate(182,350) scale(1.28)"/>
+                  <use href="#mlPerson" transform="translate(236,350) scale(1.28)"/>
+                </g>
+
+                <!-- ความคิดของคนที่มองว่าข้ามไม่ได้ -->
+                <g class="sa n ml-think" style="--i:2.6">
+                  <rect class="ml-bubble" x="26" y="228" width="96" height="38" rx="17"/>
+                  <circle class="ml-bubble" cx="68" cy="274" r="5.4"/>
+                  <text x="74" y="253" class="em-th" font-size="17" text-anchor="middle">ยากไป</text>
+                </g>
+                <g class="sa n ml-think" style="--i:3.2">
+                  <rect class="ml-bubble" x="134" y="198" width="108" height="38" rx="17"/>
+                  <circle class="ml-bubble" cx="178" cy="244" r="5.4"/>
+                  <text x="188" y="223" class="em-th" font-size="17" text-anchor="middle">เสี่ยงไป</text>
+                </g>
+                <g class="sa n ml-think" style="--i:3.8">
+                  <rect class="ml-bubble" x="252" y="240" width="128" height="38" rx="17"/>
+                  <circle class="ml-bubble" cx="290" cy="286" r="5.4"/>
+                  <text x="316" y="265" class="em-th" font-size="17" text-anchor="middle">ไม่มีระบบ</text>
+                </g>
+
+                <!-- ═══ สะพาน: โครงต้องขึงก่อน ไม้ถึงวางได้ (เหตุมาก่อนผล) ═══ -->
+                <path class="sa n ml-arch" d="M296,370 L616,352"
+                      fill="none" stroke="var(--gold)" stroke-width="3" stroke-linecap="round" style="--i:5"/>
+                <path class="sa n ml-truss" d="M296,344 L336,368 L376,340 L416,364 L456,336 L496,360 L536,332 L576,356 L616,329"
+                      fill="none" stroke="var(--gold)" stroke-width="2.2" stroke-linejoin="round" opacity=".85" style="--i:6.2"/>
+                <!-- ไม้กระดาน: ระยะห่างของ ตัวแปรลำดับ i แคบลงเรื่อยๆ = ช้าตอนต้น ระเบิดตอนท้าย -->
+                <g fill="#D9B978" stroke="#8A6A28" stroke-width="1">
+                  <rect class="sa n ml-plank" style="--i:7.2"  x="288" y="342" width="58" height="12" rx="2"/>
+                  <rect class="sa n ml-plank" style="--i:7.72" x="348" y="339" width="58" height="12" rx="2"/>
+                  <rect class="sa n ml-plank" style="--i:8.12" x="408" y="336" width="58" height="12" rx="2"/>
+                  <rect class="sa n ml-plank" style="--i:8.42" x="468" y="333" width="58" height="12" rx="2"/>
+                  <rect class="sa n ml-plank" style="--i:8.64" x="528" y="330" width="58" height="12" rx="2"/>
+                  <rect class="sa n ml-plank" style="--i:8.8"  x="588" y="327" width="46" height="12" rx="2"/>
+                </g>
+                <text x="440" y="296" class="em-lats" font-size="12" text-anchor="middle">INFRASTRUCTURE</text>
+
+                <!-- คนที่เดินข้าม — ขยับท้ายสุด (ของสำคัญที่สุดมาสุดท้าย) -->
+                <g class="sa n ml-walk ml-founder" style="--i:8.9">
+                  <use href="#mlPerson" transform="translate(596,330) scale(1.28)"/>
+                </g>
+
+                <!-- ═══ แถบล่าง: สี่อย่างที่คนอยากทำแต่ทำไม่ได้ ═══ -->
+                <rect x="0" y="470" width="900" height="126" fill="var(--paper)"/>
+                <line x1="0" y1="470" x2="900" y2="470" stroke="var(--gold-hair)" stroke-width="1"/>
+                <text x="450" y="500" class="em-lats" font-size="11" text-anchor="middle">WHAT THE RAILS WERE MISSING</text>
+
+                <g class="sa n ml-legend" style="--i:10.7" fill="var(--gold)">
+                  <g transform="translate(150,542)">
+                    <circle cx="-8" cy="-6" r="7"/><circle cx="8" cy="-6" r="7"/>
+                    <path d="M-20,10 Q-20,-1 -8,-1 Q4,-1 4,10 Z"/>
+                    <path d="M-4,10 Q-4,-1 8,-1 Q20,-1 20,10 Z"/>
+                    <text x="0" y="38" class="em-thb" font-size="17" text-anchor="middle">ผู้ซื้อ</text>
+                  </g>
+                  <g transform="translate(350,542)">
+                    <path d="M-22,-8 L22,-8 L16,4 L-16,4 Z"/>
+                    <rect x="-16" y="6" width="32" height="14" rx="1.5"/>
+                    <rect x="-5" y="10" width="10" height="10" fill="var(--paper)"/>
+                    <text x="0" y="38" class="em-thb" font-size="17" text-anchor="middle">ผู้ขาย</text>
+                  </g>
+                </g>
+                <g class="sa n ml-legend" style="--i:11" fill="var(--gold)">
+                  <g transform="translate(550,542)">
+                    <circle cx="0" cy="4" r="16"/>
+                    <text x="0" y="11" class="em-num" font-size="17" text-anchor="middle" fill="var(--paper)">$</text>
+                    <text x="0" y="38" class="em-thb" font-size="17" text-anchor="middle">เงิน</text>
+                  </g>
+                  <g transform="translate(750,542)">
+                    <rect x="-18" y="-8" width="36" height="28" rx="2"/>
+                    <rect x="-3" y="-8" width="6" height="28" fill="var(--paper)"/>
+                    <text x="0" y="38" class="em-thb" font-size="17" text-anchor="middle">พัสดุ</text>
+                  </g>
+                </g>
+              </svg>
+            </div>
+          </div>
+          <figcaption>
+            <span class="cs-plate-no">Emblem I</span>
+            ช่องว่างเดียวกันเป็นได้ทั้งเหตุผลที่ไม่ลงทุน และเหตุผลที่ลงทุน
+            <strong>ต่างกันตรงที่ว่าใครมองแล้วเห็นสิ่งที่ยังไม่มี เป็นสิ่งที่ต้องสร้าง</strong> —
+            สำหรับนักลงทุน คำถามที่ตามมาคือ สะพานนั้นเมื่อสร้างเสร็จแล้ว มันเป็นของใคร และคนอื่นสร้างขนานได้ง่ายแค่ไหน
+          </figcaption>
+        </figure>
+
+        <div class="cs-folio" aria-hidden="true">
+          <i class="orn">&#9670;</i><i class="ln"></i>
+          <span class="pg">01</span>
+          <i class="ln"></i><span class="bk">The Moatrices</span>
+        </div>
+      </div>
+
+      <!-- ═══════════════════ ฉาก 2 ═══════════════════ -->
+      <div class="cs-paper">
+        <p class="cs-h2n">Section Two</p>
+        <h2>แก้ปัญหาหนึ่ง แล้วเจอธุรกิจที่ใหญ่กว่าซ่อนอยู่ข้างใน</h2>
+
+        <p class="cs-dcp">
+          <span class="cs-dc">เร</span>ื่องที่น่าสนใจที่สุดของบริษัทนี้คือ มันไม่เคยตั้งใจจะเป็นบริษัทแบบที่มันเป็นทุกวันนี้
+          มันเริ่มจากตลาดกลาง เพราะตลาดกลางเข้าใจง่าย ผู้ซื้อเจอผู้ขาย เกิดการซื้อขาย จบ
+          ปัญหาคือทุกครั้งที่แก้ปัญหาหนึ่งได้ มันจะเปิดปัญหาที่ใหญ่กว่าซึ่งซ่อนอยู่ข้างใต้ออกมาเสมอ
+        </p>
+
+        <p>
+          คนอยากซื้อของออนไลน์ แต่ระบบจ่ายเงินเชื่อถือไม่ได้ — บริษัทแก้ปัญหานั้น Mercado Pago จึงเกิด
+          พอจ่ายเงินได้แล้วก็พบว่ายังไม่พอ เพราะของยังต้องส่งถึงมือให้ปลอดภัย — Mercado Envíos จึงเกิด
+          แล้วก็พบว่าลูกค้าหลายสิบล้านคนเข้าไม่ถึงสินเชื่อ — Mercado Crédito จึงเกิด
+        </p>
+
+        <figure class="ph-fig cs-emblem">
+          <div class="ph-panel">
+            <div class="em-head">
+              <p>ในทุกปัญหา มี<span class="hl">อีกธุรกิจ</span>&#8201;ซ่อนอยู่</p>
+              <span class="em-sub">แก้ได้หนึ่งชั้น เจออีกชั้นที่ใหญ่กว่า — จนกลายเป็นระบบนิเวศ</span>
+            </div>
+            <div class="sa-stage">
+              <svg viewBox="0 78 900 296" role="img"
+                   aria-label="ตุ๊กตาแม่ลูกดกห้าตัวเปิดต่อกันเป็นทอดๆ จากตลาดกลาง ไปสู่ระบบจ่ายเงิน โลจิสติกส์ สินเชื่อ และการออม — ทุกครั้งที่บริษัทแก้ปัญหาหนึ่งได้ มันเปิดธุรกิจใหม่ที่ใหญ่กว่าเดิมออกมา">
+
+                <defs>
+                  <!-- ทรงตุ๊กตาแม่ลูกดก: หัวแคบ ไหล่ลาด ฐานกว้าง -->
+                  <path id="mlDollBody" d="M0,-142 C-27,-142 -41,-120 -38,-95 C-60,-76 -68,-38 -60,-6 C-58,1 -54,4 -46,4 L46,4 C54,4 58,1 60,-6 C68,-38 60,-76 38,-95 C41,-120 27,-142 0,-142 Z"/>
+                  <!-- เงาด้านขวาให้ตัวกลม ไม่แบน -->
+                  <path id="mlDollShade" d="M0,-142 C27,-142 41,-120 38,-95 C60,-76 68,-38 60,-6 C58,1 54,4 46,4 L14,4 C26,-30 30,-80 12,-96 C22,-118 16,-136 0,-142 Z"/>
+                  <!-- ผ้าคลุมหัว: ครอบรอบใบหน้า -->
+                  <path id="mlDollFace" d="M0,-132 C-22,-132 -33,-116 -31,-98 C-30,-86 -18,-78 0,-78 C18,-78 30,-86 31,-98 C33,-116 22,-132 0,-132 Z"/>
+                </defs>
+
+                <g class="sa n ml-doll" style="--i:1" transform="translate(96,232)">
+                  <use href="#mlDollBody" fill="var(--em-1)"/>
+                  <use href="#mlDollShade" fill="#000" opacity=".13"/>
+                  <use href="#mlDollFace" fill="#FCF7E8"/>
+                  <circle cx="-8" cy="-108" r="2.4" fill="#2A2214"/><circle cx="8" cy="-108" r="2.4" fill="#2A2214"/>
+                  <path d="M-6,-97 Q0,-92 6,-97" stroke="#2A2214" stroke-width="1.7" fill="none" stroke-linecap="round"/>
+                  <path d="M-31,-92 Q0,-72 31,-92" fill="none" stroke="#000" stroke-opacity=".18" stroke-width="3"/>
+                  <ellipse cx="0" cy="-42" rx="34" ry="27" fill="#FCF7E8"/>
+                  <ellipse cx="0" cy="-42" rx="34" ry="27" fill="none" stroke="#000" stroke-opacity=".12" stroke-width="1.2"/>
+                  <text x="0" y="-36" class="em-lat" font-size="13" fill="var(--em-1)" text-anchor="middle">LIBRE</text>
+                </g>
+                <path class="sa n ml-arrow" style="--i:2.1" d="M164,196 L192,196 M184,190 L192,196 L184,202" stroke="var(--gold)" stroke-width="2.4" fill="none" stroke-linecap="round"/>
+
+                <g class="sa n ml-doll" style="--i:2.5" transform="translate(276,232)">
+                  <use href="#mlDollBody" fill="var(--em-2)"/>
+                  <use href="#mlDollShade" fill="#000" opacity=".13"/>
+                  <use href="#mlDollFace" fill="#FCF7E8"/>
+                  <circle cx="-8" cy="-108" r="2.4" fill="#2A2214"/><circle cx="8" cy="-108" r="2.4" fill="#2A2214"/>
+                  <path d="M-6,-97 Q0,-92 6,-97" stroke="#2A2214" stroke-width="1.7" fill="none" stroke-linecap="round"/>
+                  <path d="M-31,-92 Q0,-72 31,-92" fill="none" stroke="#000" stroke-opacity=".18" stroke-width="3"/>
+                  <ellipse cx="0" cy="-42" rx="34" ry="27" fill="#FCF7E8"/>
+                  <ellipse cx="0" cy="-42" rx="34" ry="27" fill="none" stroke="#000" stroke-opacity=".12" stroke-width="1.2"/>
+                  <text x="0" y="-36" class="em-lat" font-size="13" fill="var(--em-2)" text-anchor="middle">PAGO</text>
+                </g>
+                <path class="sa n ml-arrow" style="--i:3.6" d="M344,196 L372,196 M364,190 L372,196 L364,202" stroke="var(--gold)" stroke-width="2.4" fill="none" stroke-linecap="round"/>
+
+                <g class="sa n ml-doll" style="--i:4" transform="translate(456,232)">
+                  <use href="#mlDollBody" fill="var(--em-3)"/>
+                  <use href="#mlDollShade" fill="#000" opacity=".13"/>
+                  <use href="#mlDollFace" fill="#FCF7E8"/>
+                  <circle cx="-8" cy="-108" r="2.4" fill="#2A2214"/><circle cx="8" cy="-108" r="2.4" fill="#2A2214"/>
+                  <path d="M-6,-97 Q0,-92 6,-97" stroke="#2A2214" stroke-width="1.7" fill="none" stroke-linecap="round"/>
+                  <path d="M-31,-92 Q0,-72 31,-92" fill="none" stroke="#000" stroke-opacity=".18" stroke-width="3"/>
+                  <ellipse cx="0" cy="-42" rx="34" ry="27" fill="#FCF7E8"/>
+                  <ellipse cx="0" cy="-42" rx="34" ry="27" fill="none" stroke="#000" stroke-opacity=".12" stroke-width="1.2"/>
+                  <text x="0" y="-36" class="em-lat" font-size="12" fill="var(--em-3)" text-anchor="middle">ENVIOS</text>
+                </g>
+                <path class="sa n ml-arrow" style="--i:5.1" d="M524,196 L552,196 M544,190 L552,196 L544,202" stroke="var(--gold)" stroke-width="2.4" fill="none" stroke-linecap="round"/>
+
+                <g class="sa n ml-doll" style="--i:5.5" transform="translate(636,232)">
+                  <use href="#mlDollBody" fill="var(--em-4)"/>
+                  <use href="#mlDollShade" fill="#000" opacity=".13"/>
+                  <use href="#mlDollFace" fill="#FCF7E8"/>
+                  <circle cx="-8" cy="-108" r="2.4" fill="#2A2214"/><circle cx="8" cy="-108" r="2.4" fill="#2A2214"/>
+                  <path d="M-6,-97 Q0,-92 6,-97" stroke="#2A2214" stroke-width="1.7" fill="none" stroke-linecap="round"/>
+                  <path d="M-31,-92 Q0,-72 31,-92" fill="none" stroke="#000" stroke-opacity=".18" stroke-width="3"/>
+                  <ellipse cx="0" cy="-42" rx="34" ry="27" fill="#FCF7E8"/>
+                  <ellipse cx="0" cy="-42" rx="34" ry="27" fill="none" stroke="#000" stroke-opacity=".12" stroke-width="1.2"/>
+                  <text x="0" y="-36" class="em-lat" font-size="11" fill="var(--em-4)" text-anchor="middle">CREDITO</text>
+                </g>
+                <path class="sa n ml-arrow" style="--i:6.6" d="M704,196 L732,196 M724,190 L732,196 L724,202" stroke="var(--gold)" stroke-width="2.4" fill="none" stroke-linecap="round"/>
+
+                <g class="sa n ml-doll" style="--i:7" transform="translate(816,232)">
+                  <use href="#mlDollBody" fill="var(--em-5)"/>
+                  <use href="#mlDollShade" fill="#000" opacity=".13"/>
+                  <use href="#mlDollFace" fill="#FCF7E8"/>
+                  <circle cx="-8" cy="-108" r="2.4" fill="#2A2214"/><circle cx="8" cy="-108" r="2.4" fill="#2A2214"/>
+                  <path d="M-6,-97 Q0,-92 6,-97" stroke="#2A2214" stroke-width="1.7" fill="none" stroke-linecap="round"/>
+                  <path d="M-31,-92 Q0,-72 31,-92" fill="none" stroke="#000" stroke-opacity=".18" stroke-width="3"/>
+                  <ellipse cx="0" cy="-42" rx="34" ry="27" fill="#FCF7E8"/>
+                  <ellipse cx="0" cy="-42" rx="34" ry="27" fill="none" stroke="#000" stroke-opacity=".12" stroke-width="1.2"/>
+                  <text x="0" y="-36" class="em-lat" font-size="13" fill="var(--em-5)" text-anchor="middle">FONDO</text>
+                </g>
+
+                <!-- ป้ายใต้ตุ๊กตา: ชื่อ + ตัวเลขจริงจาก 10-K FY2025 -->
+                <g class="sa n ml-cap" style="--i:8.2">
+                  <text x="96" y="262" class="em-lats" font-size="11" text-anchor="middle">1 &#183; MARKETPLACE</text>
+                  <text x="96" y="286" class="em-thb" font-size="15" text-anchor="middle">ผู้ซื้อ <tspan class="em-num">121</tspan> ล้านคน</text>
+                  <text x="276" y="262" class="em-lats" font-size="11" text-anchor="middle">2 &#183; PAYMENTS</text>
+                  <text x="276" y="286" class="em-thb" font-size="15" text-anchor="middle">TPV <tspan class="em-num">$277.8</tspan> พันล้าน</text>
+                  <text x="456" y="262" class="em-lats" font-size="11" text-anchor="middle">3 &#183; LOGISTICS</text>
+                  <text x="456" y="286" class="em-thb" font-size="15" text-anchor="middle">ส่งของ <tspan class="em-num">2,429</tspan> ล้านชิ้น</text>
+                  <text x="636" y="262" class="em-lats" font-size="11" text-anchor="middle">4 &#183; CREDIT</text>
+                  <text x="636" y="286" class="em-thb" font-size="15" text-anchor="middle">พอร์ต <tspan class="em-num">$9,365</tspan> ล้าน</text>
+                  <text x="816" y="262" class="em-lats" font-size="11" text-anchor="middle">5 &#183; SAVINGS</text>
+                  <text x="816" y="286" class="em-thb" font-size="15" text-anchor="middle">fintech <tspan class="em-num">78</tspan> ล้าน MAU</text>
+                </g>
+
+                <g class="sa n ml-cap" style="--i:9.4">
+                  <line x1="60" y1="322" x2="840" y2="322" stroke="var(--gold-hair)" stroke-width="1"/>
+                  <text x="450" y="356" class="em-thb" font-size="17" text-anchor="middle">
+                    แก้ปัญหาหนึ่ง<tspan class="em-lat" fill="var(--gold)" font-size="15"> &#8594; </tspan>เผยปัญหาที่ใหญ่กว่า<tspan class="em-lat" fill="var(--gold)" font-size="15"> &#8594; </tspan>ได้ระบบนิเวศ
+                  </text>
+                </g>
+              </svg>
+            </div>
+          </div>
+          <figcaption>
+            <span class="cs-plate-no">Emblem II</span>
+            ตัวเลขทั้งห้ามาจาก 10-K ปี 2025 — <strong>ทุกชั้นที่เปิดออกมาใหญ่กว่าชั้นก่อนหน้า</strong>
+            TPV $277.8 พันล้าน โตกว่า GMV $65.0 พันล้าน ราว 4.3 เท่า แปลว่าธุรกิจการเงินวันนี้
+            ไม่ได้เกาะอยู่บนตลาดกลางอีกแล้ว มันออกไปกินตลาดนอกแพลตฟอร์มของตัวเอง
+            คำถามสำหรับนักลงทุนคือ ชั้นที่หกจะเป็นอะไร และมันยังมีคูเมืองเดิมคุ้มอยู่ไหม
+          </figcaption>
+        </figure>
+
+        <div class="cs-folio" aria-hidden="true">
+          <i class="orn">&#9670;</i><i class="ln"></i>
+          <span class="pg">02</span>
+          <i class="ln"></i><span class="bk">The Moatrices</span>
+        </div>
+      </div>
+
+      <!-- ═══════════════════ ฉาก 3 — แบบลอยข้างตัวหนังสือ ═══════════════════ -->
+      <div class="cs-paper cs-clearfix">
+        <p class="cs-h2n">Section Three</p>
+        <h2>ตึกที่สร้างบนฐานซึ่งมองไม่เห็น</h2>
+
+        <figure class="ph-fig cs-emblem side">
+          <div class="ph-panel">
+            <div class="em-head">
+              <p>ทุกชั้นตั้งอยู่บน<span class="hl">ความไว้ใจ</span></p>
+            </div>
+            <div class="sa-stage">
+              <svg viewBox="0 0 460 430" role="img"
+                   aria-label="อาคารห้าชั้นที่คนงานก่อขึ้นทีละชั้นด้วยเครน บนฐานรากก้อนเดียวซึ่งสลักคำว่าความไว้ใจ — ถ้าฐานนี้ร้าว ทุกชั้นข้างบนไม่มีความหมาย">
+                <defs>
+                  <linearGradient id="mlBaseG" x1="0" y1="0" x2="0" y2="1">
+                    <stop offset="0%" stop-color="#7C5A11"/>
+                    <stop offset="100%" stop-color="#523B08"/>
+                  </linearGradient>
+                </defs>
+                <rect x="0" y="0" width="460" height="430" fill="#FBF7EA"/>
+
+                <!-- เครน: เสา + แขน + สายที่ห้อยก้อนวัสดุ -->
+                <g stroke="#9C8C63" stroke-width="3" fill="none">
+                  <line x1="406" y1="72" x2="406" y2="366"/>
+                  <line x1="406" y1="72" x2="252" y2="72"/>
+                  <line x1="406" y1="112" x2="330" y2="72"/>
+                </g>
+                <g stroke="#9C8C63" stroke-width="1.4" opacity=".8">
+                  <line x1="392" y1="120" x2="420" y2="160"/>
+                  <line x1="420" y1="120" x2="392" y2="160"/>
+                  <line x1="392" y1="180" x2="420" y2="220"/>
+                  <line x1="420" y1="180" x2="392" y2="220"/>
+                  <line x1="392" y1="240" x2="420" y2="280"/>
+                  <line x1="420" y1="240" x2="392" y2="280"/>
+                </g>
+                <line x1="278" y1="72" x2="278" y2="96" stroke="#9C8C63" stroke-width="1.6"/>
+                <rect x="266" y="96" width="24" height="16" rx="2" fill="#C9B37A"/>
+
+                <!-- นั่งร้านคลุมตัวตึก -->
+                <g stroke="var(--em-line)" stroke-width="1.3" opacity=".5">
+                  <line x1="68" y1="104" x2="68" y2="356"/>
+                  <line x1="368" y1="104" x2="368" y2="356"/>
+                  <line x1="68" y1="150" x2="368" y2="150"/>
+                  <line x1="68" y1="242" x2="368" y2="242"/>
+                  <line x1="68" y1="334" x2="368" y2="334"/>
+                </g>
+
+                <!-- ชั้นต่างๆ ก่อขึ้นจากล่างไปบน (ต้องมีฐานก่อน) -->
+                <g class="sa n ml-floor" style="--i:2.4">
+                  <rect x="88" y="292" width="260" height="44" fill="var(--em-1)"/>
+                  <g fill="#FCF7E8" opacity=".55">
+                    <rect x="100" y="302" width="14" height="16"/><rect x="122" y="302" width="14" height="16"/>
+                  </g>
+                  <text x="240" y="320" class="em-thb" font-size="17" fill="#FDFBF3" text-anchor="middle">การค้า</text>
+                </g>
+                <g class="sa n ml-floor" style="--i:3.5">
+                  <rect x="88" y="244" width="260" height="44" fill="var(--em-2)"/>
+                  <g fill="#FCF7E8" opacity=".55">
+                    <rect x="100" y="254" width="14" height="16"/><rect x="122" y="254" width="14" height="16"/>
+                  </g>
+                  <text x="240" y="272" class="em-thb" font-size="17" fill="#FDFBF3" text-anchor="middle">การชำระเงิน</text>
+                </g>
+                <g class="sa n ml-floor" style="--i:4.6">
+                  <rect x="88" y="196" width="260" height="44" fill="var(--em-3)"/>
+                  <g fill="#FCF7E8" opacity=".55">
+                    <rect x="100" y="206" width="14" height="16"/><rect x="122" y="206" width="14" height="16"/>
+                  </g>
+                  <text x="240" y="224" class="em-thb" font-size="17" fill="#FDFBF3" text-anchor="middle">โลจิสติกส์</text>
+                </g>
+                <g class="sa n ml-floor" style="--i:5.7">
+                  <rect x="88" y="148" width="260" height="44" fill="var(--em-4)"/>
+                  <g fill="#FCF7E8" opacity=".55">
+                    <rect x="100" y="158" width="14" height="16"/><rect x="122" y="158" width="14" height="16"/>
+                  </g>
+                  <text x="240" y="176" class="em-thb" font-size="17" fill="#FDFBF3" text-anchor="middle">สินเชื่อ</text>
+                </g>
+                <g class="sa n ml-floor" style="--i:6.8">
+                  <rect x="88" y="100" width="260" height="44" fill="var(--em-5)"/>
+                  <g fill="#FCF7E8" opacity=".55">
+                    <rect x="100" y="110" width="14" height="16"/><rect x="122" y="110" width="14" height="16"/>
+                  </g>
+                  <text x="240" y="128" class="em-thb" font-size="17" fill="#FDFBF3" text-anchor="middle">เงินออม</text>
+                </g>
+
+                <!-- ฐานราก — ต้องมาก่อนทุกชั้น ≥1 beat -->
+                <g class="sa n ml-base" style="--i:1">
+                  <rect x="52" y="340" width="332" height="56" fill="url(#mlBaseG)"/>
+                  <rect x="58" y="346" width="320" height="44" fill="none" stroke="var(--cs-a-lit)" stroke-width="1" opacity=".55"/>
+                  <text x="218" y="377" class="em-thb" font-size="22" fill="#F5E9C8" text-anchor="middle">ความไว้ใจ</text>
+                </g>
+
+                <!-- พื้นดิน + คนงานตัวเล็กให้เห็นสเกลของตึก -->
+                <line x1="16" y1="398" x2="444" y2="398" stroke="#9C8C63" stroke-width="2"/>
+                <g class="sa n ml-base" style="--i:1.4" fill="var(--em-void)">
+                  <circle cx="416" cy="374" r="5.6"/>
+                  <path d="M410,381 Q416,378 422,381 L421,394 L411,394 Z"/>
+                  <rect x="412.4" y="393" width="2.6" height="6" rx="1.2"/>
+                  <rect x="417" y="393" width="2.6" height="6" rx="1.2"/>
+                  <path d="M406,368 L426,368 L424,364 L408,364 Z"/>
+                </g>
+              </svg>
+            </div>
+          </div>
+          <figcaption>
+            <span class="cs-plate-no">Emblem III</span>
+            ฐานรากคือสิ่งเดียวที่ลอกไม่ได้ด้วยเงิน
+          </figcaption>
+        </figure>
+
+        <p class="cs-dcp">
+          <span class="cs-dc">สิ่ง</span>ที่คู่แข่งลอกได้คือหน้าเว็บ ระบบจ่ายเงิน และคลังสินค้า
+          สิ่งที่ลอกไม่ได้คือเหตุผลที่คนแปลกหน้าสองคนยอมโอนเงินหากันโดยไม่เคยเจอหน้ากันมาก่อน
+          ในภูมิภาคที่ไม่มีระบบเครดิตบูโรครอบคลุม ไม่มีที่อยู่มาตรฐาน และมีประวัติเงินเฟ้อรุนแรง
+          ความไว้ใจไม่ใช่เรื่องนามธรรม มันคือโครงสร้างพื้นฐานที่ต้องสร้างขึ้นมาจริงๆ ทีละธุรกรรม
+        </p>
+
+        <p>
+          นี่คือเหตุผลที่ตัวเลขในงบต้องอ่านคู่กับเรื่องนี้เสมอ พอร์ตสินเชื่อที่โตจาก $4,895 ล้าน
+          เป็น $9,365 ล้านในปีเดียว ไม่ใช่แค่ตัวเลขการเติบโต มันคือการเดิมพันว่าบริษัทรู้จักลูกค้าของตัวเอง
+          ดีพอที่จะปล่อยกู้ให้คนที่ธนาคารไม่ยอมปล่อย และถ้าฐานนั้นอ่านผิด ชั้นที่อยู่ข้างบนทั้งหมดจะสั่นพร้อมกัน
+          — นั่นแหละคือจุดที่ Kill Condition ควรถูกตั้งไว้
+        </p>
+
+        <div class="cs-folio" aria-hidden="true">
+          <i class="orn">&#9670;</i><i class="ln"></i>
+          <span class="pg">03</span>
+          <i class="ln"></i><span class="bk">The Moatrices</span>
+        </div>
+      </div>
+
+    </article>
+  </main>
+
+  <script src="app.js"></script>
+</body>
+</html>

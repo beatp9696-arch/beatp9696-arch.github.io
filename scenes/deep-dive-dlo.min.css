@@ -5,6 +5,8 @@
 .dlo-panel .sim-mono { fill: #5f7d92; }
 .dlo-lbl { fill: #a8c4d6; }
 .dlo-mono { font-family: "IBM Plex Mono", ui-monospace, monospace; font-size: 11px; }
+.dlo-th { font-family: var(--font-head); font-size: 11.5px; letter-spacing: 0; fill: #7e9bb0; }
+.dlo-kill-th { font-family: var(--font-head); font-size: 11px; letter-spacing: 0; fill: #f87171; }
 .dlo-num { fill: #e2f1fa; font-size: 15px; font-weight: 700; }
 .dlo-num.hi { fill: #7dd3fc; }
 .dlo-num.warn { fill: #fbbf24; }
@@ -12,48 +14,71 @@
 .dlo-hi-t { fill: #7dd3fc; font-weight: 700; }
 .dlo-div { stroke: #16303f; stroke-width: 1; }
 .dlo-bar-full { fill: #10283a; stroke: #1e4a63; stroke-width: 1.2; }
-.dlo-sliver { fill: #38bdf8; filter: drop-shadow(0 0 7px rgba(56,189,248,.65)); }
+.dlo-sliver { fill: #38bdf8; }
 .dlo-zoom { stroke: #1e4a63; stroke-width: 1.2; stroke-dasharray: 4 4; fill: none; }
 .dlo-bar-a { fill: #123449; stroke: #1e4a63; stroke-width: 1; }
 .dlo-bar-b { fill: #1d6f9b; stroke: #38bdf8; stroke-width: 1.4; }
 .dlo-bar-c { fill: #14506f; stroke: #1e6f96; stroke-width: 1; }
 .dlo-bar-d { fill: #10425c; stroke: #1a5d80; stroke-width: 1; }
-.dlo-step rect { transform-box: fill-box; transform-origin: left center; animation: dlogrow 1.1s cubic-bezier(.22,1,.36,1) both; }
-.dlo-step:nth-of-type(1) rect { animation-delay: .05s; }
-.dlo-step:nth-of-type(2) rect { animation-delay: .2s; }
-.dlo-step:nth-of-type(3) rect { animation-delay: .35s; }
-.dlo-step:nth-of-type(4) rect { animation-delay: .5s; }
-@keyframes dlogrow { from { transform: scaleX(0); } to { transform: scaleX(1); } }
+.dlo-sliver { animation: dlo-focus calc(var(--beat) * 1.2) var(--e-expo); }
+@keyframes dlo-focus { from { opacity: 0; transform: scaleY(.25); } }
+.dlo-sliver { transform-box: fill-box; transform-origin: center; }
+.dlo-zoom { animation: dlo-fade calc(var(--beat) * 1.4) var(--e-expo); }
+@keyframes dlo-fade { from { opacity: 0; } }
+.dlo-bar-a { transform-box: fill-box; transform-origin: left center;
+animation: dlo-extend calc(var(--beat) * 2) var(--e-mass); }
+@keyframes dlo-extend { from { transform: scaleX(0); } }
+.dlo-bar-b, .dlo-bar-c, .dlo-bar-d { transform-box: fill-box; transform-origin: left center;
+animation: dlo-collapse calc(var(--beat) * 2.2) var(--e-fail); }
+.dlo-bar-b { --from: 3.137; }
+.dlo-bar-c { --from: 6.234; }
+.dlo-bar-d { --from: 7.273; }
+@keyframes dlo-collapse { from { transform: scaleX(var(--from)); } }
 .dlo-grid line { stroke: #12262f; stroke-width: 1; }
 .dlo-killzone { fill: rgba(248,113,113,.10); }
 .dlo-killline { stroke: #f87171; stroke-width: 1.4; stroke-dasharray: 6 4; }
-.dlo-kill { fill: #f87171; font-family: "IBM Plex Mono", ui-monospace, monospace; font-size: 10.5px; }
+.dlo-killzone.sa, .dlo-killline.sa, .dlo-kill-th.sa { animation: dlo-wall calc(var(--beat) * 1.6) var(--e-expo); }
+@keyframes dlo-wall { from { opacity: 0; } }
 .dlo-line { fill: none; stroke: #38bdf8; stroke-width: 2.6; stroke-linejoin: round; stroke-linecap: round;
-stroke-dasharray: 780; animation: dlodraw 1.8s ease-out both; }
-@keyframes dlodraw { from { stroke-dashoffset: 780; } to { stroke-dashoffset: 0; } }
+stroke-dasharray: 820; animation: dlo-draw calc(var(--beat) * 5) var(--e-fail); }
+@keyframes dlo-draw { from { stroke-dashoffset: 820; } }
 .dlo-dot circle { fill: #38bdf8; stroke: #060a0e; stroke-width: 2; }
-.dlo-dot-now { fill: #fbbf24; stroke: #060a0e; stroke-width: 2.4; filter: drop-shadow(0 0 8px rgba(251,191,36,.7));
-animation: dlopulse 2.4s ease-in-out infinite; transform-box: fill-box; transform-origin: center; }
-@keyframes dlopulse { 0%,100% { opacity: 1; } 50% { opacity: .55; } }
+.dlo-dot { animation: dlo-fade calc(var(--beat) * 3) var(--e-expo); }
+.dlo-dot-now { fill: #fbbf24; stroke: #060a0e; stroke-width: 2.4;
+transform-box: fill-box; transform-origin: center;
+animation: dlo-drop calc(var(--beat) * 1.8) var(--e-fail),
+dlo-alive 3.2s var(--e-expo) calc(var(--beat) * 8) infinite; }
+@keyframes dlo-drop { from { opacity: 0; transform: translateY(-64px); } }
+@keyframes dlo-alive { 0%, 100% { filter: none; } 50% { filter: drop-shadow(0 0 5px rgba(251,191,36,.75)); } }
+.dlo-num.warn { animation: dlo-rise calc(var(--beat) * 1.6) var(--e-expo); }
+@keyframes dlo-rise { from { opacity: 0; transform: translateY(6px); } }
+.dlo-num.warn { transform-box: fill-box; transform-origin: center; }
 .dlo-cmp-a { fill: #1d6f9b; stroke: #38bdf8; stroke-width: 1.5; }
 .dlo-cmp-b { fill: #123449; stroke: #1e4a63; stroke-width: 1.5; }
+.dlo-cmp-a, .dlo-cmp-b { transform-box: fill-box; transform-origin: left center;
+animation: dlo-extend calc(var(--beat) * 2.4) var(--e-mass); }
+.dlo-panel .sa.n.dlo-th, .dlo-panel .sa.n.dlo-lbl { animation: dlo-rise calc(var(--beat) * 1.6) var(--e-expo); }
 .dlo-track { fill: #0e2231; }
 .dlo-red { fill: rgba(248,113,113,.22); }
 .dlo-fill { fill: #1d6f9b; }
 .dlo-fill.stop { fill: rgba(248,113,113,.35); }
 .dlo-led { stroke: #060a0e; stroke-width: 1.5; }
-.dlo-led.ok { fill: #34d399; filter: drop-shadow(0 0 5px rgba(52,211,153,.6)); }
-.dlo-led.warn { fill: #fbbf24; filter: drop-shadow(0 0 5px rgba(251,191,36,.6)); }
-.dlo-led.stop { fill: #f87171; filter: drop-shadow(0 0 5px rgba(248,113,113,.6)); }
+.dlo-led.ok { fill: #34d399; }
+.dlo-led.warn { fill: #fbbf24; }
+.dlo-led.stop { fill: #f87171; }
 .dlo-needle { stroke: #060a0e; stroke-width: 2.4; }
 .dlo-needle.ok { fill: #34d399; }
 .dlo-needle.warn { fill: #fbbf24; }
 .dlo-needle.stop { fill: #f87171; }
-@media (prefers-reduced-motion: reduce) {
-.dlo-step rect, .dlo-line, .dlo-dot-now { animation: none; }
-.dlo-step rect { transform: none; }
-.dlo-line { stroke-dashoffset: 0; }
-}
+.dlo-panel g.sa.n:has(.dlo-led) { animation: dlo-rowin calc(var(--beat) * 1.5) var(--e-expo); }
+@keyframes dlo-rowin { from { opacity: 0; transform: translateX(-14px); } }
+.dlo-panel g.sa.n:has([class*="dlo-bar-"]) { animation: dlo-fade calc(var(--beat) * 1.8) var(--e-expo); }
+.dlo-fill { transform-box: fill-box; transform-origin: left center;
+animation: dlo-extend calc(var(--beat) * 2) var(--e-mass); }
+.dlo-needle.travel { transform-box: fill-box; transform-origin: center;
+animation: dlo-toward calc(var(--beat) * 2.6) var(--e-fail); }
+@keyframes dlo-toward { from { transform: translateX(-176px); } }
+@media (prefers-reduced-motion: reduce) { .dlo-dot-now { animation: none; } }
 .dlo-tw { overflow-x: auto; margin: 22px 0; }
 .dlo-heat { min-width: 620px; }
 .dlo-heat th { white-space: nowrap; }
