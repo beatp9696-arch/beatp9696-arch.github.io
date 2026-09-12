@@ -11,7 +11,7 @@
 - **Portfolio** พอร์ตส่วนตัวเดิม ข้อมูลถือครองและราคาที่กรอกยังอยู่ในเครื่อง
 - **Smart Money** 16 รายการ: พอร์ตสาธารณะ 14 แห่งและเอกสารเปิดเผยของ Trump / Pelosi พร้อมค้นหา แยกประเภท และอ่านแหล่งอ้างอิง
 
-Research อยู่ที่ `research.html` และใช้ snapshot ของบทความ SNPS, TSM, NVDA ใน `data/research.json` ไม่ใช่ live feed; ค่าที่ไม่มีจะแสดงเป็น `Not recorded` และหลักฐานทุกจุดลิงก์กลับไปยัง section ของบทความเดิม ส่วน Follow และ thesis notes เก็บในเครื่อง ไม่อยู่ใน cloud sync
+Research อยู่ภายใน Portfolio ที่ `portfolio.html?view=research` และใช้ snapshot ของบทความ SNPS, TSM, NVDA ใน `data/research.json` ไม่ใช่ live feed; ค่าที่ไม่มีจะแสดงเป็น `Not recorded` และหลักฐานทุกจุดลิงก์กลับไปยัง section ของบทความเดิม ส่วน Follow และ thesis notes เก็บในเครื่อง ไม่อยู่ใน cloud sync
 
 หน้า Me และ Health ถูกถอดออกจากทะเบียนแอป เมนู ทางลัด และการโหลดข้อมูลสุขภาพอัตโนมัติแล้ว ลิงก์แท็บเก่าจะเปิด Smart Money ข้อมูลเดิมใน storage ยังสำรองออกได้
 
