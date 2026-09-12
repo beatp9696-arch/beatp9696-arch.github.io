@@ -1,3 +1,90 @@
+/* ============================================================
+   ปฏิทินตลาดสหรัฐ (NYSE) — แหล่งเดียวของทั้งเว็บ
+   แถบ market clock บนหน้าแรกกับการ์ด TARS ต้องตอบเหมือนกันเสมอ
+   ก่อนหน้านี้แยกกันคนละ IIFE: แถบนาฬิกาเช็คแค่เสาร์-อาทิตย์ TARS เช็ควันหยุดด้วย
+   ผลคือวันหยุดที่ตรงวันธรรมดา (Thanksgiving, Christmas, 4 ก.ค. ฯลฯ) แถบขึ้น
+   "US: เปิด" จุดเขียว ขณะที่ TARS มุมจอเดียวกันบอก "ปิด"
+   ============================================================ */
+window.NYSE = (function () {
+  "use strict";
+
+  // Intl + timeZone ใช้ไม่ได้ = ไม่เดาสถานะตลาด (ผู้เรียกต้องซ่อน UI แทนที่จะโชว์ค่าผิด)
+  var supported = true;
+  try { new Intl.DateTimeFormat("en-US", { timeZone: "America/New_York" }).format(new Date()); }
+  catch (e) { supported = false; }
+
+  var ET = supported && new Intl.DateTimeFormat("en-US", {
+    timeZone: "America/New_York", weekday: "short", year: "numeric", month: "2-digit",
+    day: "2-digit", hour: "2-digit", minute: "2-digit", hour12: false
+  });
+  var WK = { Sun: 0, Mon: 1, Tue: 2, Wed: 3, Thu: 4, Fri: 5, Sat: 6 };
+
+  // เวลา ET ตอนนี้ (+offsetDays วัน) — อ่านผ่าน formatToParts ให้ Intl จัดการ DST เอง
+  // ห้ามใช้ new Date(d.toLocaleString(...)) แทน: การ parse สตริงนั้นขึ้นกับเบราว์เซอร์
+  function parts(offsetDays) {
+    var d = new Date(Date.now() + (offsetDays || 0) * 864e5);
+    var p = {}; ET.formatToParts(d).forEach(function (x) { p[x.type] = x.value; });
+    var hh = parseInt(p.hour, 10); if (hh === 24) hh = 0;
+    return { min: hh * 60 + parseInt(p.minute, 10), dow: WK[p.weekday],
+      ymd: p.year + "-" + p.month + "-" + p.day };
+  }
+
+  // ---- วันหยุดเต็มวันของ NYSE: คำนวณจากกติกา ไม่ hardcode รายปี ----
+  // ลิสต์รายปีหมดอายุทุก 31 ธ.ค. แล้วสถานะตลาดจะผิดเงียบๆ ตลอดปีถัดไป
+  function p2(n) { return n < 10 ? "0" + n : "" + n; }
+  function ymd(d) { return d.getUTCFullYear() + "-" + p2(d.getUTCMonth() + 1) + "-" + p2(d.getUTCDate()); }
+  function nthDow(y, m, dow, n) {               // เช่น จันทร์ที่ 3 ของเดือน
+    var d = new Date(Date.UTC(y, m, 1));
+    return new Date(Date.UTC(y, m, 1 + (dow - d.getUTCDay() + 7) % 7 + (n - 1) * 7));
+  }
+  function lastDow(y, m, dow) {                 // เช่น จันทร์สุดท้ายของเดือน
+    var d = new Date(Date.UTC(y, m + 1, 0));
+    return new Date(Date.UTC(y, m + 1, 0 - (d.getUTCDay() - dow + 7) % 7));
+  }
+  function easter(y) {                          // anonymous Gregorian algorithm
+    var a = y % 19, b = Math.floor(y / 100), c = y % 100, d = Math.floor(b / 4), e = b % 4,
+        f = Math.floor((b + 8) / 25), g = Math.floor((b - f + 1) / 3),
+        h = (19 * a + b - d - g + 15) % 30, i = Math.floor(c / 4), k = c % 4,
+        l = (32 + 2 * e + 2 * i - h - k) % 7, m = Math.floor((a + 11 * h + 22 * l) / 451),
+        mo = Math.floor((h + l - 7 * m + 114) / 31), da = (h + l - 7 * m + 114) % 31 + 1;
+    return new Date(Date.UTC(y, mo - 1, da));
+  }
+  // กติกาเลื่อนวันของ NYSE: ตรงเสาร์ → ปิดศุกร์ก่อน, ตรงอาทิตย์ → ปิดจันทร์ถัดไป
+  // ยกเว้น 1 ม.ค. ตรงเสาร์ = ไม่ปิด เพราะศุกร์ก่อนอยู่คนละปี
+  function observed(d, isNewYear) {
+    var w = d.getUTCDay();
+    if (w === 6) return isNewYear ? null : new Date(d.getTime() - 864e5);
+    if (w === 0) return new Date(d.getTime() + 864e5);
+    return d;
+  }
+  var cache = {};
+  function holidays(y) {
+    if (cache[y]) return cache[y];
+    var g = easter(y), out = [];
+    [observed(new Date(Date.UTC(y, 0, 1)), true),  // New Year's Day
+     nthDow(y, 0, 1, 3),                           // MLK — จันทร์ที่ 3 ม.ค.
+     nthDow(y, 1, 1, 3),                           // Washington's Birthday — จันทร์ที่ 3 ก.พ.
+     new Date(g.getTime() - 2 * 864e5),            // Good Friday
+     lastDow(y, 4, 1),                             // Memorial Day — จันทร์สุดท้าย พ.ค.
+     observed(new Date(Date.UTC(y, 5, 19))),       // Juneteenth
+     observed(new Date(Date.UTC(y, 6, 4))),        // Independence Day
+     nthDow(y, 8, 1, 1),                           // Labor Day — จันทร์ที่ 1 ก.ย.
+     nthDow(y, 10, 4, 4),                          // Thanksgiving — พฤหัสที่ 4 พ.ย.
+     observed(new Date(Date.UTC(y, 11, 25)))       // Christmas
+    ].forEach(function (d) { if (d) out.push(ymd(d)); });
+    cache[y] = out;
+    return out;
+  }
+
+  // วันหยุดครึ่งวัน (ปิด 13:00 ET) ยังไม่นับ — ถือเป็นวันทำการเต็มเหมือนเดิม
+  function isTradingDay(p) {
+    return p.dow >= 1 && p.dow <= 5 && holidays(+p.ymd.slice(0, 4)).indexOf(p.ymd) === -1;
+  }
+
+  return { supported: supported, parts: parts, isTradingDay: isTradingDay,
+    holidays: holidays, OPEN: 570, CLOSE: 960 };   // 09:30 / 16:00 ET เป็นนาทีจากเที่ยงคืน
+})();
+
 // ผ่าธุรกิจ — interactions เล็กๆ (ไม่มี dependency)
 (function () {
   "use strict";
@@ -137,7 +224,11 @@
   }
   window.effectiveTheme = effectiveTheme;
 
-  var nav = document.querySelector(".site-nav");
+  // ซีรีส์เคสศึกษา (body.cs) ตั้งใจเป็นกระดาษครีมเสมอ — ดูเหตุผลใน casestudy.css
+  // จึงไม่ฉีดปุ่มสลับธีมในหน้านั้น: ปุ่มเดิมโผล่และกดได้ แต่หน้าไม่เปลี่ยนอะไรเลย
+  // (body.cs ชนะ :root[data-theme]) ขณะที่ localStorage ถูกเขียนไปแล้ว = ผู้อ่านกดแล้ว
+  // เหมือนปุ่มเสีย แต่ธีมของทุกหน้าที่เหลือในเว็บพลิกไปโดยไม่มีอะไรบอก
+  var nav = document.body.classList.contains("cs") ? null : document.querySelector(".site-nav");
   if (nav) {
     var b = document.createElement("button");
     b.className = "theme-toggle";
@@ -896,14 +987,10 @@
     }
   }
 
-  // ---- 404: บทความแนะนำ — ดึงจาก ARTICLES (SoT) ให้ไม่มีวันค้าง ----
-  var suggestBox = document.getElementById("suggested-articles");
-  if (suggestBox) {
-    var latest = ARTICLES.slice(-4).reverse(); // ใหม่สุด 4 บท (ARTICLES เรียงเก่า→ใหม่)
-    suggestBox.innerHTML = latest.map(function (a) {
-      return '<li><a href="/articles/' + a.f + '">' + a.t.replace(/&amp;/g, "&") + "</a></li>";
-    }).join("");
-  }
+  // ไม่มีบล็อก "บทความแนะนำบนหน้า 404" แล้ว — 404.html ตั้งใจไม่โหลด app.js (ฉาก WebGL
+  // ของตัวเอง ไม่มี shell) และไม่เคยมี #suggested-articles อยู่ในหน้า โค้ดเดิมจึงเป็น
+  // dead code ที่ติดไปกับ app.min.js ทั้ง 81 หน้าเปล่าๆ ถ้าอยากได้บทแนะนำจริงบนหน้า 404
+  // ต้องเติม element + โหลดสคริปต์ในหน้านั้นด้วย ไม่ใช่แค่มีโค้ดฝั่งนี้
 
   // ---- Market Clock — นาฬิกา BKK + NY + สถานะตลาด US ----
   var TH_DAYS_CLK = ["อา.", "จ.", "อ.", "พ.", "พฤ.", "ศ.", "ส."];
@@ -911,15 +998,15 @@
 
   function pad2(n) { return n < 10 ? "0" + n : "" + n; }
 
-  function getMktStatus(now) {
-    var nyStr = now.toLocaleString("en-US", { timeZone: "America/New_York" });
-    var et = new Date(nyStr);
-    var day = et.getDay();
-    var mins = et.getHours() * 60 + et.getMinutes();
-    if (day === 0 || day === 6) return { cls: "closed", label: "ปิดสุดสัปดาห์" };
-    if (mins >= 570  && mins < 960)  return { cls: "open",   label: "US: เปิด" };
-    if (mins >= 240  && mins < 570)  return { cls: "pre",    label: "Pre-market" };
-    if (mins >= 960  && mins < 1200) return { cls: "after",  label: "After-hours" };
+  // ใช้ปฏิทิน NYSE ชุดเดียวกับการ์ด TARS — วันหยุดต้องปิดทั้งสองที่พร้อมกัน
+  // รวมถึง pre-market/after-hours: วันหยุดไม่มีรอบไหนเปิด
+  function getMktStatus(p) {
+    if (!p) return null;                       // ไม่มี Intl/timeZone — ผู้เรียกซ่อนป้ายไปเลย
+    if (p.dow === 0 || p.dow === 6) return { cls: "closed", label: "ปิดสุดสัปดาห์" };
+    if (!window.NYSE.isTradingDay(p)) return { cls: "closed", label: "US: วันหยุด" };
+    if (p.min >= 570  && p.min < 960)  return { cls: "open",   label: "US: เปิด" };
+    if (p.min >= 240  && p.min < 570)  return { cls: "pre",    label: "Pre-market" };
+    if (p.min >= 960  && p.min < 1200) return { cls: "after",  label: "After-hours" };
     return { cls: "closed", label: "US: ปิด" };
   }
 
@@ -953,13 +1040,29 @@
   var clkMkt  = document.getElementById("clk-mkt");
   var clkTxt  = document.getElementById("clk-mkt-txt");
 
+  // เวลา/วันที่ฝั่งซ้ายคือ "BKK" — ต้องปักโซนเวลาไทยจริง ไม่ใช่เวลาเครื่องผู้อ่าน
+  // อ่านผ่าน formatToParts เหมือนฝั่ง ET: new Date(d.toLocaleString(...)) เป็นการ parse
+  // สตริงที่สเปกไม่ได้กำหนด แต่ละเบราว์เซอร์ตีความเองได้
+  var BKK_FMT = null;
+  try {
+    BKK_FMT = new Intl.DateTimeFormat("en-US", { timeZone: "Asia/Bangkok", weekday: "short",
+      year: "numeric", month: "2-digit", day: "2-digit",
+      hour: "2-digit", minute: "2-digit", second: "2-digit", hour12: false });
+  } catch (e) {}
+  var WK_CLK = { Sun: 0, Mon: 1, Tue: 2, Wed: 3, Thu: 4, Fri: 5, Sat: 6 };
+
   function clockTick() {
     if (!clkDate) return;
     var now = new Date();
-    // เวลา/วันที่ฝั่งซ้ายคือ "BKK" — ต้องปักโซนเวลาไทยจริง ไม่ใช่เวลาเครื่องผู้อ่าน
-    var bkk = new Date(now.toLocaleString("en-US", { timeZone: "Asia/Bangkok" }));
-    var wd = bkk.getDay(), dt = bkk.getDate(), mo = bkk.getMonth(), yr = bkk.getFullYear();
-    var hh = bkk.getHours(), mm = bkk.getMinutes(), ss = bkk.getSeconds();
+    var wd, dt, mo, yr, hh, mm, ss;
+    if (BKK_FMT) {
+      var p = {}; BKK_FMT.formatToParts(now).forEach(function (x) { p[x.type] = x.value; });
+      wd = WK_CLK[p.weekday]; dt = +p.day; mo = +p.month - 1; yr = +p.year;
+      hh = +p.hour % 24; mm = +p.minute; ss = +p.second;
+    } else {                                  // ไม่มี Intl/timeZone — ใช้เวลาเครื่องไปก่อน
+      wd = now.getDay(); dt = now.getDate(); mo = now.getMonth(); yr = now.getFullYear();
+      hh = now.getHours(); mm = now.getMinutes(); ss = now.getSeconds();
+    }
 
     clkDate.textContent = TH_DAYS_CLK[wd] + " " + dt + " " + TH_MONTHS_CLK[mo] + " " + yr;
 
@@ -968,13 +1071,17 @@
       : '<span class="clk-sep clk-sep-off">:</span>';
     clkBkk.innerHTML = pad2(hh) + sep + pad2(mm) + '<span class="clk-sec">' + pad2(ss) + '</span>';
 
-    clkNy.textContent = now.toLocaleTimeString("en-US", {
-      timeZone: "America/New_York", hour12: false, hour: "2-digit", minute: "2-digit"
-    });
+    // เวลา ET + สถานะตลาด อ่านจาก window.NYSE ครั้งเดียวต่อ tick (ชุดเดียวกับการ์ด TARS)
+    // Intl + timeZone ใช้ไม่ได้ = ขีดกลางกับซ่อนป้าย ดีกว่าโชว์ "เปิด/ปิด" ที่เดาเอา
+    var et = window.NYSE.supported ? window.NYSE.parts(0) : null;
+    clkNy.textContent = et ? pad2(Math.floor(et.min / 60)) + ":" + pad2(et.min % 60) : "—";
 
-    var ms = getMktStatus(now);
-    clkMkt.className = "clock-mkt " + ms.cls;
-    clkTxt.textContent = ms.label;
+    var ms = getMktStatus(et);
+    clkMkt.hidden = !ms;
+    if (ms) {
+      clkMkt.className = "clock-mkt " + ms.cls;
+      clkTxt.textContent = ms.label;
+    }
   }
 
   if (clkAnchor) {
@@ -1000,7 +1107,7 @@
   };
 
   var TABS = [
-    // ไอคอนต้องตรงกับ ICONS.moatrices ใน pp-os/js/core/app-shell.js เป๊ะ — แถบนี้กับแถบในแอปคือแถบเดียวกัน
+    // ไอคอนต้องตรงกับ TABS ใน app/js/page.js เป๊ะ — แถบนี้กับแถบในแอปคือแถบเดียวกัน
     { id: "moatrices", label: "Moatrices", icon: svg('<path d="M4 20h16"/><rect x="5" y="12" width="3.4" height="6" rx="1"/><rect x="10.3" y="8" width="3.4" height="10" rx="1"/><rect x="15.6" y="4" width="3.4" height="14" rx="1"/>') },
     { id: "money", label: "Money", icon: svg('<rect x="3" y="6" width="18" height="13" rx="3"/><path d="M3 10h18"/><circle cx="16.5" cy="14.5" r="1.4"/><path d="M6.5 3.8 15 6"/>') },
     { id: "portfolio", label: "Portfolio", icon: svg('<circle cx="12" cy="12" r="8.4"/><circle cx="12" cy="12" r="3.2"/><path d="M12 3.6v5.2M14.8 13.6l4.5 2.6M9.2 13.6l-4.5 2.6"/>') },
@@ -1035,22 +1142,10 @@
   if (window.self !== window.top) return;               // ไม่โผล่ในกรอบ iframe (ฉากฝัง)
 
   // ---- ตลาดสหรัฐ: อ่านเวลา ET ผ่าน Intl (จัดการ DST เอง) ----
-  var HAS_TZ = true;
-  try { new Intl.DateTimeFormat("en-US", { timeZone: "America/New_York" }).format(new Date()); }
-  catch (e) { HAS_TZ = false; }
-  // NYSE full-day holidays 2026 (ไม่รวมครึ่งวัน) — ปีอื่นตรรกะเสาร์-อาทิตย์ยังถูก แค่วันหยุดอาจคลาด
-  var HOLIDAYS = ["2026-01-01", "2026-01-19", "2026-02-16", "2026-04-03", "2026-05-25",
-    "2026-06-19", "2026-07-03", "2026-09-07", "2026-11-26", "2026-12-25"];
-  function etParts(offsetDays) {
-    var d = new Date(Date.now() + (offsetDays || 0) * 86400000);
-    var f = new Intl.DateTimeFormat("en-US", { timeZone: "America/New_York", weekday: "short",
-      year: "numeric", month: "2-digit", day: "2-digit", hour: "2-digit", minute: "2-digit", hour12: false });
-    var p = {}; f.formatToParts(d).forEach(function (x) { p[x.type] = x.value; });
-    var hh = parseInt(p.hour, 10); if (hh === 24) hh = 0;
-    var wk = { Sun: 0, Mon: 1, Tue: 2, Wed: 3, Thu: 4, Fri: 5, Sat: 6 };
-    return { min: hh * 60 + parseInt(p.minute, 10), dow: wk[p.weekday], ymd: p.year + "-" + p.month + "-" + p.day };
-  }
-  function tradingDay(pp) { return pp.dow >= 1 && pp.dow <= 5 && HOLIDAYS.indexOf(pp.ymd) === -1; }
+  // ปฏิทิน/เวลา ET มาจาก window.NYSE ตัวเดียวกับแถบ market clock ด้านบน — ห้ามแยกลิสต์วันหยุด
+  var HAS_TZ = window.NYSE.supported;
+  var etParts = window.NYSE.parts;
+  var tradingDay = window.NYSE.isTradingDay;
   function fmtDur(m) {
     if (m < 60) return m + " นาที";
     if (m < 1440) { var h = Math.floor(m / 60), mm = m % 60; return h + " ชม" + (mm ? " " + mm + " น" : ""); }

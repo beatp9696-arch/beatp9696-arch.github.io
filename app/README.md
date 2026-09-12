@@ -65,22 +65,22 @@ Trump ใช้ 8 ธุรกรรมที่คัดจากหน้า 2
 อัปเดตข้อมูลโดยดาวน์โหลด cover XML และ Information Table XML จาก SEC พร้อม manifest ตาม docstring ใน `tools/build-smart-money.py` จากนั้นรัน:
 
 ```bash
-python3 pp-os/tools/build-smart-money.py /path/to/sources.json
-node pp-os/test/smart-money.test.mjs
-python3 pp-os/test/smart-money-builder.test.py
+python3 app/tools/build-smart-money.py /path/to/sources.json
+node app/test/smart-money.test.mjs
+python3 app/test/smart-money-builder.test.py
 ```
 
 ตรวจหน้าแอปด้วย Python environment ที่มี Playwright และ Chromium:
 
 ```bash
-../.venv/bin/python pp-os/test/smart-money-browser.test.py
+../.venv/bin/python app/test/smart-money-browser.test.py
 ```
 
 ชุด browser test เปิด server ชั่วคราวในเครื่องและใช้ browser profile ทดสอบ ตรวจทั้ง 16 โปรไฟล์ การค้นหาและเพิ่มรายการในพอร์ตขนาดใหญ่ หน้าจอ 320–1280px โหมด desktop และการเปิดรายงานแบบออฟไลน์/ลองใหม่ บันทึกภาพหน้าจอใน temporary directory ของระบบ
 
 ตรวจเสร็จ 10 ก.ย. 2026: ข้อมูลทั้ง 28 รอบตรงกับ XML ที่ดาวน์โหลดไว้, catalog/detail และ disclosure checks ผ่าน, builder tests 11 รายการผ่าน, browser test ผ่าน และ sync merge tests เดิมผ่าน 37 รายการ วันที่ `checkedAt` ยังเป็น 9 ก.ย. ตามวันที่ตรวจแหล่งข้อมูล ชุดขยาย 16 โปรไฟล์พร้อมโลโก้หุ้นและภาพ Donald Trump ใช้ app cache รุ่น `pp-os-v29`
 
-ตรวจรายงานแก้ไข ขอบเขตการรายงาน และ corporate actions ก่อนเปลี่ยนชุดข้อมูล ใน manifest แนบ `amendments` ของแต่ละไตรมาสเรียงตามเลขฉบับ ห้ามตัดข้ามฉบับ แล้ว bump `VERSION` ใน `sw.js` เมื่อเผยแพร่ข้อมูลหรือไฟล์แอปใหม่ ไฟล์ใน `SHELL` ต้องมีอยู่ครบ เก็บไฟล์รายละเอียดที่ hash เปลี่ยนของรุ่นที่เผยแพร่แล้วไว้เพื่อให้ catalog เก่ายังเปิดรายงานตรงรุ่นได้
+ตรวจรายงานแก้ไข ขอบเขตการรายงาน และ corporate actions ก่อนเปลี่ยนชุดข้อมูล ใน manifest แนบ `amendments` ของแต่ละไตรมาสเรียงตามเลขฉบับ ห้ามตัดข้ามฉบับ เก็บไฟล์รายละเอียดที่ hash เปลี่ยนของรุ่นที่เผยแพร่แล้วไว้เพื่อให้ catalog เก่ายังเปิดรายงานตรงรุ่นได้
 
 โลโก้ใน `assets/brands/` ใช้สำเนาโลโก้เดิมของเว็บไซต์ และเพิ่ม KO, BAC, INTC, BLK, BN, AMZN, UBER, QSR, SPY, IVV, TSLA, WFC, BABA จาก [Parqet Assets](https://assets.parqet.com) ผ่าน URL `https://assets.parqet.com/logos/symbol/<SYMBOL>?format=png` เมื่อ 10 ก.ย. 2026 ส่วน SpaceX ใช้ SVG เดิมของเว็บไซต์ แสดงเป็นรูปในกราฟและเก็บใน offline cache
 
@@ -94,12 +94,15 @@ python3 pp-os/test/smart-money-builder.test.py
 
 ## โครงสร้าง
 
-- `js/main.js` — ทะเบียนแอปและการเริ่มระบบ
+- `js/page.js` — bootstrap ของหน้าแอป (แถบล่าง + mount แอปตาม query)
+- `js/core/app-registry.js` — ทะเบียนแอป
 - `js/core/app-shell.js` — แท็บ Settings และหน้าซ้อน
 - `js/core/smart-money-model.js` — ตรวจข้อมูล สัดส่วน และการเปลี่ยนแปลง
 - `js/apps/smart-money.js`, `css/smart-money.css` — หน้า Smart Money
 - `js/core/storage.js`, `js/core/sync.js` — ข้อมูลส่วนตัวและ Sync
-- `manifest.webmanifest`, `sw.js` — ติดตั้งแอป ทางลัด และ offline cache
+- `../site.webmanifest` — ติดตั้งเว็บเป็นแอป (ของเว็บทั้งก้อน ไม่ใช่ของ app/)
+- `../pp-os/sw.js` — kill switch ถอน service worker รุ่น PP OS ที่ค้างในเครื่องผู้ใช้เก่า
+  **ไม่มี offline cache ของแอปแล้ว** — หน้าแอปเป็นหน้าเว็บปกติ
 
 รุ่น `pp-os-v34`: หน้าถือครองประมาณการและกราฟอุตสาหกรรมใช้ภาษาอังกฤษ เอาส่วนเปิดภาพอ้างอิงออก และแสดงโลโก้หุ้นในกรอบมุมมนพร้อมพื้นที่รอบภาพเพื่อไม่ตัดขอบโลโก้
 
@@ -118,6 +121,21 @@ The first stock view loads uncached detail reports with up to four concurrent re
 Validation:
 
 ```bash
-node pp-os/test/smart-money-stock.test.mjs
-../.venv/bin/python pp-os/test/smart-money-stock-browser.test.py
+node app/test/smart-money-stock.test.mjs
+../.venv/bin/python app/test/smart-money-stock-browser.test.py
 ```
+
+## เทสต์
+
+เทสต์ `.mjs` ทั้งห้าชุดรันจาก root ของเว็บ ไม่ต้องติดตั้งอะไร และ CI รันให้ทุก push:
+
+```bash
+for f in app/test/*.test.mjs; do node "$f"; done
+```
+
+- `merge.test.mjs` — กติกา merge ของ cloud sync (tombstone, edit ชนะ delete ที่เก่ากว่า)
+- `research.test.mjs` — schema ของ `data/research.json` + ทุกหลักฐานต้องลิงก์กลับไป section จริงในบทความ
+- `smart-money.test.mjs`, `smart-money-stock.test.mjs` — catalog 13F, ยอดรวม, การจับคู่หลักทรัพย์
+- `market-hours.test.mjs` — ปฏิทิน NYSE ใน `app.js`: แถบ market clock บนหน้าแรกกับการ์ด TARS
+  ต้องตอบสถานะตลาดตรงกันทุกกรณี (เคยแยกกันจนวันหยุดหน้าแรกขึ้น "เปิด" ขณะ TARS บอก "ปิด")
+  และตรวจทั้ง `app.js` กับ `app.min.js` ที่เว็บเสิร์ฟจริง
