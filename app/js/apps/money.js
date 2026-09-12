@@ -582,7 +582,9 @@ export default {
       for (const e of visible.slice(0, shown)) {
         const row = document.createElement("div");
         row.className = "entry";
-        const emoji = (CATS[e.type].find(([c]) => c === e.cat) ?? ["", "•"])[1];
+        // CATS[e.type] อาจไม่มี: entry ที่ restore จาก backup หรือ Gist sync อาจมี type
+        // อะไรก็ได้ ถ้าปล่อยให้ .find() ของ undefined throw รายการเคลื่อนไหวจะไม่ render ทั้งก้อน
+        const emoji = ((CATS[e.type] ?? []).find(([c]) => c === e.cat) ?? ["", "•"])[1];
         row.innerHTML = `
           <span class="d">${dateShort(noon(e.date))}</span>
           <span class="what"></span>
@@ -795,7 +797,7 @@ export default {
         ? cats
             .map(
               ([c, a], i) => `<div class="cat-row">
-                <span class="name">${c}</span>
+                <span class="name">${esc(c)}</span>
                 <span class="track"><span class="fill" style="width:${(a / maxCat) * 100}%; animation-delay:${i * 45}ms"></span></span>
                 <span class="amt">${money(a)} · ${Math.round((a / sumOut) * 100)}%</span>
               </div>`
@@ -888,12 +890,12 @@ export default {
         const worst = over.sort((a, b) => b.spent / b.cap - a.spent / a.cap)[0];
         items.push({
           tone: "down",
-          text: `${worst.c} is ${Math.round((worst.spent / worst.cap - 1) * 100)}% over its ${money0(worst.cap)} budget.`,
+          text: `${esc(worst.c)} is ${Math.round((worst.spent / worst.cap - 1) * 100)}% over its ${money0(worst.cap)} budget.`,
         });
       }
       if (cats.length) {
         const [c, a] = cats[0];
-        items.push({ tone: "flat", text: `${c} was your biggest expense (${money0(a)} · ${Math.round((a / sumOut) * 100)}% of spending).` });
+        items.push({ tone: "flat", text: `${esc(c)} was your biggest expense (${money0(a)} · ${Math.round((a / sumOut) * 100)}% of spending).` });
       }
       // หมวดที่ขยับแรงสุดเทียบเดือนก่อน (ดูเฉพาะหมวดที่มีนัย ≥ ฿500 ฝั่งใดฝั่งหนึ่ง)
       const prevCat = {};
@@ -910,7 +912,7 @@ export default {
       if (mover && Math.abs(mover.chg) >= 0.15)
         items.push({
           tone: mover.chg > 0 ? "down" : "up",
-          text: `${mover.c} spending ${mover.chg > 0 ? "up" : "down"} ${Math.round(Math.abs(mover.chg) * 100)}% vs last month.`,
+          text: `${esc(mover.c)} spending ${mover.chg > 0 ? "up" : "down"} ${Math.round(Math.abs(mover.chg) * 100)}% vs last month.`,
         });
       const ru = entries.filter((e) => inMonth(e) && e.roundup).reduce((s, e) => s + e.roundup, 0);
       if (ru > 0) items.push({ tone: "gold", text: `Round Ups quietly moved ${money(ru)} into savings this month.` });
@@ -919,6 +921,8 @@ export default {
       if (next && rate > 0)
         items.push({ tone: "gold", text: `At this pace, ${next.emoji} ${esc(next.name)} is ≈ ${Math.min(Math.ceil((next.target - next.saved) / rate), 99)} months away.` });
 
+      // x.text เข้า innerHTML — ชื่อหมวดที่มาจากข้อมูล entry (restore/Gist sync กรอกอะไรมาก็ได้)
+      // ต้องผ่าน esc() ทุกจุดตามกฎใน ui.js ไม่ใช่แค่ชื่อ goal
       $(".feed").innerHTML = items.length
         ? items.slice(0, 4).map((x) => `<div class="ins"><i class="ins-dot ${x.tone}"></i><span>${x.text}</span></div>`).join("")
         : `<div class="empty">Add a few entries and insights show up here</div>`;
