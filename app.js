@@ -90,7 +90,8 @@
     { f: "deep-dive-dlo.html", t: "DLO (dLocal)", tk: "DLO", sec: "finance" },
     { f: "land-power-shell.html", t: "Land, Power & Shell — เมื่อคนขายชิปต้องค้ำค่าเช่า", sec: "market" },
     { f: "blind-business.html", t: "สามแฟ้มธุรกิจ — เบื้องหลังบริษัทที่เราคิดว่ารู้จัก", sec: "basics" },
-    { f: "tesla-robotaxi.html", t: "Tesla Robotaxi — Cybercab และเศรษฐศาสตร์รถไร้คนขับ", sec: "consumer" }
+    { f: "tesla-robotaxi.html", t: "Tesla Robotaxi — Cybercab และเศรษฐศาสตร์รถไร้คนขับ", sec: "consumer" },
+    { f: "situational-awareness.html", t: "Situational Awareness — เมื่อ AI เปลี่ยนกติกาโลก", sec: "market" }
   ];
 
   var progressBar = document.querySelector(".reading-progress");
