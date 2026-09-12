@@ -15,7 +15,7 @@ const I = (d) =>
 
 // ไอคอนชุดเดียวกับแถบล่างบนเว็บ (app.js) — สองแถบนี้คือแถบเดียวกัน ห้ามหลุดจากกัน
 const TABS = [
-  { id: "moatrices", label: "Moatrices", href: "index.html",
+  { id: "moatrices", label: "Moatrices", href: "research.html",
     icon: I('<path d="M4 20h16"/><rect x="5" y="12" width="3.4" height="6" rx="1"/><rect x="10.3" y="8" width="3.4" height="10" rx="1"/><rect x="15.6" y="4" width="3.4" height="14" rx="1"/>') },
   { id: "money", label: "Money", href: "money.html",
     icon: I('<rect x="3" y="6" width="18" height="13" rx="3"/><path d="M3 10h18"/><circle cx="16.5" cy="14.5" r="1.4"/><path d="M6.5 3.8 15 6"/>') },
@@ -29,6 +29,7 @@ const APPS = {
   money: () => import("./apps/money.js"),
   portfolio: () => import("./apps/portfolio.js"),
   "smart-money": () => import("./apps/smart-money.js"),
+  research: () => import("./apps/research.js"),
 };
 
 const root = document.getElementById("app-root");
@@ -50,7 +51,7 @@ if (root && APPS[id]) {
     await initStorage();
     sync.initSync(); // ดึงของใหม่จาก cloud ถ้าตั้ง sync ไว้ + auto-sync เมื่อข้อมูลเปลี่ยน
     const mod = await APPS[id]();
-    mod.default.mount(root);
+    mod.default.mount(root, { ticker: new URLSearchParams(location.search).get("ticker") });
     root.dataset.state = "ready";
     registerTools(); // หลัง first paint แล้วค่อยโหลด ไม่ให้ถ่วงจอแรก
   } catch (err) {

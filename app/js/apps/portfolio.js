@@ -1,6 +1,8 @@
 import { load, save } from "../core/storage.js";
 import { SITE } from "../core/site.js";
 import { countUp, flush, num, stagger } from "../core/ui.js";
+import { getResearch, researchIcon } from "../core/research-store.js";
+import { portfolioCoverage, needsReview } from "../core/research-model.js";
 
 // Portfolio — พอร์ตส่วนตัว (ROADMAP 4.1)
 // กติกาสองข้อที่คุมดีไซน์ทั้งไฟล์:
@@ -63,7 +65,7 @@ const signed = (n, f) => `${n >= 0 ? "+" : "−"}${f(Math.abs(n))}`;
 const meta = (tk) => CATALOG[tk] ?? null;
 const val = (h) => (h.shares ?? 0) * (h.price ?? 0);
 const basis = (h) => (h.shares ?? 0) * (h.cost ?? 0);
-const article = (tk) => (CATALOG[tk] ? `${SITE}deep-dive-${tk.toLowerCase()}.html` : null);
+const article = (tk) => (CATALOG[tk] ? `${SITE}articles/deep-dive-${tk.toLowerCase()}.html` : null);
 
 const dayKey = (d) => `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, "0")}-${String(d.getDate()).padStart(2, "0")}`;
 
@@ -250,6 +252,7 @@ export default {
       `;
 
       const totalEl = body.querySelector(".pf-total");
+      renderResearch(holdings);
       if (firstPaint) countUp(totalEl, total, { fmt: usd, dur: 900 });
       else totalEl.textContent = usd(total);
 
@@ -293,6 +296,33 @@ export default {
           <span class="pf-mid-s">${usd(r.v)} · <i class="${g >= 0 ? "up" : "down"}">${signed(gp, (n) => pct(n))}</i></span>`;
       }
     };
+
+    function renderResearch(holdings) {
+      const section = document.createElement("section");
+      section.className = "pf-research";
+      section.innerHTML = `<div class="pf-research-head"><h3>Research coverage</h3><a class="pf-research-open" href="research.html">Research ${researchIcon("arrow-up-right")}</a></div><p>Loading snapshots...</p><div class="pf-research-links"></div>`;
+      const foot = body.querySelector(".pf-foot");
+      if (foot) foot.before(section); else body.append(section);
+      getResearch().then(({ companies }) => {
+        if (!section.isConnected) return;
+        const coverage = portfolioCoverage(holdings, companies);
+        const due = companies.filter((c) => coverage.tickers.includes(c.ticker) && needsReview(c)).length;
+        section.querySelector("p").textContent = coverage.count
+          ? `${coverage.covered} of ${coverage.count} holdings have library snapshots. ${due} snapshot${due === 1 ? "" : "s"} due for review.${coverage.unpriced ? " Unpriced holdings: weight coverage unavailable." : ""} Not a live thesis assessment.`
+          : "SNPS, TSM and NVDA · Library snapshots. No holdings added to your portfolio.";
+        const tickers = coverage.count ? coverage.tickers : companies.map((c) => c.ticker);
+        for (const ticker of tickers) {
+          const a = document.createElement("a");
+          a.href = `research.html?ticker=${encodeURIComponent(ticker)}`;
+          a.textContent = ticker;
+          a.setAttribute("aria-label", `Research ${ticker}`);
+          a.insertAdjacentHTML("beforeend", ` ${researchIcon("arrow-up-right")}`);
+          section.querySelector(".pf-research-links").append(a);
+        }
+      }).catch(() => {
+        if (section.isConnected) section.querySelector("p").textContent = "Research unavailable. Your holdings are unchanged.";
+      });
+    }
 
     // ---- แถวหุ้น: น้ำหนักอ่านได้สองทาง — ตัวเลข กับเส้นใต้แถวที่ยาวตามสัดส่วน ----
     function rowHTML(r, maxFrac) {
@@ -359,6 +389,7 @@ export default {
       for (const b of body.querySelectorAll(".pf-qtk")) {
         b.addEventListener("click", () => openHolding(null, b.dataset.tk));
       }
+      renderResearch([]);
       stagger(body);
     }
 
