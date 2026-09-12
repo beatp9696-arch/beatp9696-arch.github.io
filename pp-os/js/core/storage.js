@@ -14,6 +14,7 @@ const STORE = "kv";
 const LS_PREFIX = "pp-os:"; // ของเดิมใน localStorage — migrate ครั้งเดียว แล้วเก็บไว้เป็นสำเนาสำรอง
 
 let db = null; // null = ใช้ localStorage ล้วน (เบราว์เซอร์บล็อก IndexedDB / โหมดส่วนตัวบางตัว)
+const fallbackErrors = new Set();
 const cache = new Map();
 const pending = new Map(); // key -> value | DELETE
 const DELETE = Symbol("delete");
@@ -77,12 +78,25 @@ function flush() {
     if (v === DELETE) store.delete(k);
     else store.put(v, k);
   }
-  tx.onerror = () => {
-    // เขียนไม่ผ่าน → คืนเข้าคิว + ตั้งเวลาลองใหม่เอง (เดิมรอ write ครั้งถัดไปมาปลุก — ถ้าไม่มีก็ค้างจนปิดแอป)
-    for (const [k, v] of batch) if (!pending.has(k)) pending.set(k, v);
-    flushTimer ??= setTimeout(flush, 1500);
-    console.error("storage: เขียน IndexedDB ไม่สำเร็จ", tx.error);
-  };
+  return new Promise((resolve) => {
+    tx.oncomplete = () => resolve(true);
+    const retry = () => {
+      // Keep failed writes queued; never acknowledge an aborted transaction as saved.
+      for (const [k, v] of batch) if (!pending.has(k)) pending.set(k, v);
+      flushTimer ??= setTimeout(flush, 1500);
+      console.error("storage: เขียน IndexedDB ไม่สำเร็จ", tx.error);
+      resolve(false);
+    };
+    tx.onerror = retry;
+    tx.onabort = retry;
+  });
+}
+
+/** Await durability before a thesis editor reports success or allows navigation. */
+export async function flushStorage() {
+  if (flushTimer) clearTimeout(flushTimer);
+  if (!db) return fallbackErrors.size === 0;
+  return (await flush()) !== false;
 }
 
 function queue(key, value) {
@@ -91,7 +105,8 @@ function queue(key, value) {
     try {
       if (value === DELETE) localStorage.removeItem(LS_PREFIX + key);
       else localStorage.setItem(LS_PREFIX + key, JSON.stringify(value));
-    } catch {}
+      fallbackErrors.delete(key);
+    } catch { fallbackErrors.add(key); }
     return;
   }
   pending.set(key, value);

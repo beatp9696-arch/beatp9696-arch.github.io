@@ -8,7 +8,7 @@
 
 - **Moatrices** Research workspace: Thesis Monitor, Moat Matrix และ Earnings Diff พร้อมทางเข้าคลังบทความ
 - **Money** บันทึกรายรับ รายจ่าย และงบประมาณในเครื่อง
-- **Portfolio** พอร์ตส่วนตัวเดิม ข้อมูลถือครองและราคาที่กรอกยังอยู่ในเครื่อง
+- **Portfolio** Portfolio Health และ Matrices: The Living Thesis; พอร์ตส่วนตัวเดิมและการแก้ราคาอยู่ใน Holdings & allocation ข้อมูลยังอยู่ในเครื่อง
 - **Smart Money** 16 รายการ: พอร์ตสาธารณะ 14 แห่งและเอกสารเปิดเผยของ Trump / Pelosi พร้อมค้นหา แยกประเภท และอ่านแหล่งอ้างอิง
 
 หน้า Me และ Health ถูกถอดออกจากทะเบียนแอป เมนู ทางลัด และการโหลดข้อมูลสุขภาพอัตโนมัติแล้ว ลิงก์แท็บเก่าจะเปิด Smart Money ข้อมูลเดิมใน storage ยังสำรองออกได้
@@ -27,6 +27,42 @@ python3 -m http.server 8000
 - มือถือและ PWA ใช้ app mode เป็นค่าเริ่มต้น; หน้าจอกว้างใช้ desktop mode
 - บังคับโหมดด้วย `?mode=app` หรือ `?mode=desktop&open=smart-money`
 - ไฟล์แอปอยู่ใน repo เว็บเดียวกัน เผยแพร่ตามกระบวนการ push ของเว็บไซต์
+
+## Matrices: The Living Thesis
+
+Portfolio now opens to a business-focused thesis health overview. Open a holding for its original thesis, current assessment, seven moat pillars, evidence timeline, earnings comparison, adversarial review, sell conditions, and investigation questions.
+
+This remains the existing vanilla JavaScript PWA. There is no new package manager, framework, database, or build dependency. Query routes follow the app's existing static hosting pattern:
+
+```text
+/pp-os/?mode=app&tab=portfolio
+/pp-os/?mode=app&tab=portfolio&book=demo&symbol=MSFT
+/pp-os/?mode=app&tab=portfolio&book=demo&symbol=MSFT&thesis=earnings
+/pp-os/?mode=app&tab=portfolio&book=personal&portfolioView=allocation
+/pp-os/?mode=desktop&open=portfolio&book=demo
+```
+
+- **My portfolio** adapts `pf.holdings` without changing positions or prices. Existing allocation, concentration, add/edit/remove holding, research coverage, and price updates remain in **Holdings & allocation**. Personal holdings start with **INSUFFICIENT DATA**; demo analysis is never substituted for real evidence.
+- **Demo portfolio** contains fictional Microsoft, Visa and Costco scenarios in `data/living-thesis.json`. All financial figures, business events, scores and interpretations are sample data. Background source links are labeled as references, not substantiation for the fictional events.
+- `js/features/living-thesis/model.js` documents the domain types with JSDoc and handles filtering, review freshness, missing values, and threshold evaluation. Margins/rates change in percentage points; monetary metrics change in percentages; missing data never becomes zero.
+- `service.js` exports `analyzeThesis(holding, thesis, evidence, earningsData, context)` and the deterministic `demoAdapter`. Connect a real analysis provider at this boundary using a same-origin server endpoint. Keep API credentials on that server. The result contract is documented as `AnalysisResult` in the model; views do not call an AI API.
+- Refresh runs the sample adapter, has loading/error/retry/success states, and retains old evidence dates. It does not fetch live financial research. An edited original statement gets flagged for reassessment; the fixed demo interpretation cannot evaluate a different thesis.
+- Original statements, edited sell conditions, review records, question status, watchlist flags and investigation notes persist through the existing storage adapter. `pf.living.personal.v1` and `pf.living.demo.v1` are separate device-local namespaces, excluded from the sync allowlist and included in user-requested backups. Editors await `flushStorage()` before reporting a successful save.
+- Reviews acknowledge an investor's review, without changing the thesis assessment or evidence dates. Measured sell rules evaluate available snapshots; qualitative rules record the investor's assessment. Neither executes trades. Evidence older than 30 days is visibly stale.
+- Native dialogs restore keyboard focus; thesis tabs support arrow keys, Home and End. Container queries handle mobile and resizable desktop windows, with stacked holdings and earnings rows on small screens. No charting dependencies were added.
+- The **Portfolio Health · Living Thesis** button above the allocation donut opens the thesis overview for your own holdings. To explore the fictional Microsoft, Visa and Costco scenarios, switch to **Demo portfolio** on that overview.
+- Service worker `pp-os-v39` includes the new modules, stylesheet and demo data for offline use. Source websites require a connection.
+
+Validation (from the repository's parent directory):
+
+```bash
+node website/pp-os/test/living-thesis.test.mjs
+.venv/bin/python website/pp-os/test/living-thesis-browser.test.py
+```
+
+The browser suite uses a disposable browser profile and temporary server. It checks all filters, sorting, thesis tabs, evidence expansion, edits and immediate reloads, question workflows, loading/error/retry states, actual Portfolio CRUD, source attributes, personal/demo separation, browser history, unknown symbols, 320–1440px layouts, desktop windows, and offline refresh. Screenshots are saved in `/private/tmp/matrices-*.png`.
+
+The app has no separate bundling or lint script. Native ES module syntax and domain tests are checked with Node; existing Research, Smart Money, builder and sync tests remain available in `test/`. `website/build.py` is the publishing build for the surrounding article site. On 13 September 2026, both an isolated feature build and the unchanged baseline returned the same 10 shared-header/footer warnings in `_proto-plate-meli.html`, `_proto-plate-site.html`, and `situational-awareness.html`; the Portfolio changes add no article-site build warnings.
 
 ## Research Workspace
 

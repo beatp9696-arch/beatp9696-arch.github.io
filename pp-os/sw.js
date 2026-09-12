@@ -1,7 +1,7 @@
 // Service worker — precache app shell ทั้งหมด ใช้ offline ได้เต็มตัว
 // เปลี่ยนไฟล์เมื่อไหร่ให้ bump VERSION เพื่อบังคับ cache ใหม่
 
-const VERSION = "pp-os-v37";
+const VERSION = "pp-os-v39";
 
 const SHELL = [
   "./",
@@ -15,6 +15,16 @@ const SHELL = [
   "./css/apps.css",
   "./css/smart-money.css",
   "./css/research.css",
+  "./css/living-thesis.css",
+  "./js/apps/portfolio-allocation.js",
+  "./js/features/living-thesis/model.js",
+  "./js/features/living-thesis/service.js",
+  "./js/features/living-thesis/store.js",
+  "./js/features/living-thesis/components.js",
+  "./js/features/living-thesis/overview.js",
+  "./js/features/living-thesis/detail.js",
+  "./js/features/living-thesis/workspace.js",
+  "./data/living-thesis.json",
   "./js/apps/research.js",
   "./js/core/research-model.js",
   "./js/core/research-store.js",

@@ -84,6 +84,12 @@ export function initShell() {
   // Internal navigation and settings are shared across apps.
   document.addEventListener("pp-go", (e) => goTab(e.detail));
   document.addEventListener("pp-research", (e) => goTab("moatrices", { ticker: e.detail?.ticker }));
+  // A Portfolio thesis is a real query route; browser history can return from another tab.
+  addEventListener("popstate", () => {
+    const params = new URLSearchParams(location.search);
+    const tab = params.get("tab");
+    if (tab && tab !== shell.dataset.tab) goTab(tab, { ticker: params.get("company") });
+  });
   // Settings is available from Smart Money and the desktop toolbar.
   document.addEventListener("pp-settings", openSettings);
   // Apps without tabs open as overlays from Settings.
@@ -114,6 +120,15 @@ export function initShell() {
 
 function goTab(id, opts = {}) {
   if (!TABS.some((t) => t.id === id)) id = "smart-money";
+  const url = new URL(location.href);
+  url.searchParams.set("tab", id);
+  if (id !== "portfolio") {
+    for (const key of ["symbol", "thesis", "book", "portfolioView"]) url.searchParams.delete(key);
+  }
+  if (id === "moatrices" && opts.ticker) url.searchParams.set("company", opts.ticker);
+  else url.searchParams.delete("company");
+  url.searchParams.delete("open");
+  history.replaceState(history.state, "", url);
   const idx = TABS.findIndex((t) => t.id === id);
   const dir = opts.dir ?? (idx > curIdx ? 1 : idx < curIdx ? -1 : 0);
   if (idx >= 0) curIdx = idx;

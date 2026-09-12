@@ -133,7 +133,10 @@ with sync_playwright() as p:
     # Seed disposable browser storage, never real account data.
     page.evaluate("""async()=>{const s=await import('/pp-os/js/core/storage.js');s.save('health.days',{'2026-09-01':{water:7}});s.save('pf.holdings',[{tk:'AAPL',shares:2,cost:100,price:150,priceAt:Date.now()}]);s.save('money.entries',[]);s.save('os.name','Test only');} """)
     before=page.evaluate("async()=>{const s=await import('/pp-os/js/core/storage.js');return {health:s.load('health.days'),holdings:s.load('pf.holdings')}}")
-    page.locator('[data-tab="portfolio"]').click();expect(page.locator('.app-pf')).to_be_visible()
+    page.locator('[data-tab="portfolio"]').click()
+    expect(page.locator('.app-living-thesis')).to_be_visible()
+    page.locator('[data-action="allocation"]').click()
+    expect(page.locator('.app-pf')).to_be_visible()
     assert page.locator('.app-pf').inner_text().find('300')>=0
     page.locator('[data-tab="money"]').click();page.locator('#quick-fab').click()
     assert page.locator('[data-q="water"]').count()==0
