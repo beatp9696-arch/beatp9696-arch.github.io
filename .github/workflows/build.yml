@@ -6,6 +6,9 @@ name: build & validate
 #      job จะ fail พร้อมบอกให้รัน build.py แล้ว commit
 # หมายเหตุ: sitemap.xml / feed.xml มี field ที่ขึ้นกับเวลา/เครื่อง (lastmod, lastBuildDate)
 # จึงไม่เอามา gate drift — gate เฉพาะไฟล์ที่ deterministic จาก source
+# app.min.js กับ casestudy.min.css ต้องอยู่ในลิสต์ด้วย: build.py generate ทั้งคู่ และ
+# 81 หน้าโหลด app.min.js จริง ถ้าไม่ gate = แก้ app.js แล้วลืมรัน build.py ได้ CI เขียว
+# แต่เว็บจริงเสิร์ฟ JS ตัวเก่า
 
 on:
   push:
@@ -31,10 +34,20 @@ jobs:
       - name: รัน build.py (generate + validate)
         run: python3 build.py
 
+      # เทสต์ทั้ง 5 ชุดไม่เคยอยู่ใน CI — รันแต่ในเครื่องตอนที่นึกได้ (builder test ของ
+      # smart-money เป็น python ต้องการ source XML จึงยังไม่เอาเข้า job นี้)
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+
+      - name: รันเทสต์ (sync merge, research, smart money, stock, market hours)
+        run: for f in app/test/*.test.mjs; do echo "── $f"; node "$f" || exit 1; done
+
       - name: ตรวจ drift — ไฟล์ที่ generate ต้องถูก commit มาแล้ว
         run: |
           if ! git diff --exit-code -- \
-              articles.html index.html stocks.html 'series-*.html' style.min.css articles/ scenes/*.min.css; then
+              articles.html index.html stocks.html 'series-*.html' \
+              style.min.css casestudy.min.css app.min.js articles/ scenes/*.min.css; then
             echo "::error::build.py แก้ไฟล์ด้านบน = ยังไม่ได้ commit ผล generate — รัน 'python3 build.py' แล้ว commit ก่อน push"
             exit 1
           fi
