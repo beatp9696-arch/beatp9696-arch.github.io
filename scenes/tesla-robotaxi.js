@@ -8,8 +8,6 @@
   let paused = preference.matches;
   let frame = 0;
   let previous = 0;
-  let studio = null;
-  let studioLoading = false;
   const states = new Map(scenes.map(el => [el, {visible:false, time:0, duration:el.id === 'dispatch' ? 12 : 7, done:false}]));
   const dispatch = document.getElementById('dispatch');
   const path = document.getElementById('rx-trip-path');
@@ -61,6 +59,7 @@
       if(!state.done) {
         state.time=Math.min(state.duration,state.time+dt);
         if(el === dispatch) renderTrip(state.time/state.duration);
+      if(el.dataset.scene === 'machine') paintPlates();
         if(state.time >= state.duration) {state.done=true;el.dataset.playing='false';}
       }
       if(el.id === 'economics' && Math.abs(shownProfit-targetProfit)>.005) {
@@ -78,12 +77,10 @@
     motion.disabled=preference.matches;
     motion.setAttribute('aria-pressed',String(paused));
     document.querySelectorAll('[data-replay]').forEach(button => {button.disabled=paused;});
-    const orbitButton=document.getElementById('rx-orbit');
-    orbitButton.textContent=paused ? 'เปลี่ยนมุมรถ' : orbitButton.getAttribute('aria-pressed')==='true' ? 'หยุดหมุน' : 'หมุนรอบคัน';
     for(const [el,state] of states) el.dataset.playing=String(!paused && !document.hidden && state.visible && !state.done);
     if(paused || document.hidden) {cancelAnimationFrame(frame);frame=0;previous=0;}
     if(paused) {shownProfit=targetProfit;profit.textContent=money(targetProfit);}
-    studio?.setReduced(paused || preference.matches);
+    paintPlates();
     wake();
   }
   motion.addEventListener('click',() => {
@@ -127,46 +124,85 @@
   }
   slider.addEventListener('input',calculate);
 
-  async function loadStudio() {
-    if(studioLoading) return;
-    studioLoading=true;
-    try {
-      const module=await import('./tesla-cybercab-3d.js');
-      studio=module.createCybercab(document.getElementById('rx-studio'),wake,paused || preference.matches);
-      document.getElementById('rx-studio-controls').hidden=false;
-      const door=document.getElementById('rx-door');
-      const orbit=document.getElementById('rx-orbit');
-      door.addEventListener('click',() => {
-        const open=door.getAttribute('aria-pressed')!=='true';
-        door.setAttribute('aria-pressed',String(open));door.textContent=open?'ปิดประตู ↙':'เปิดประตู ↗';
-        studio.setDoor(open);wake();
-      });
-      orbit.addEventListener('click',() => {
-        if(paused || preference.matches) {studio.nextView();return;}
-        const rotating=orbit.getAttribute('aria-pressed')!=='true';
-        orbit.setAttribute('aria-pressed',String(rotating));orbit.textContent=rotating?'หยุดหมุน':'หมุนรอบคัน';
-        studio.setOrbit(rotating);wake();
-      });
-      document.getElementById('rx-reset').addEventListener('click',() => {
-        studio.reset();orbit.setAttribute('aria-pressed','false');orbit.textContent='หมุนรอบคัน';wake();
-      });
+
+  // ── FIG. plates: ไทม์ไลน์วาดเส้น (data-draw / data-fade) + แถบ scrub แบบบทความ Land, Power & Shell ──
+  const ease = n => n * n * (3 - 2 * n);
+  const clamp01 = n => Math.max(0,Math.min(1,n));
+  const plates = [];
+  for(const plate of document.querySelectorAll('.rx-scene-plate')) {
+    const art = plate.querySelector('svg.s-art');
+    if(!art) continue;
+    const actors = [...art.querySelectorAll('[data-draw],[data-fade],[data-reveal]')].map(element => {
+      const type = element.hasAttribute('data-draw') ? 'draw' : element.hasAttribute('data-fade') ? 'fade' : 'reveal';
+      const [start,end] = element.getAttribute('data-'+type).split(',').map(Number);
+      if(type === 'draw') element.style.strokeDasharray = '1';
+      return {element,type,start,end};
+    });
+    const bar = document.createElement('div');
+    bar.className = 'rx-motionbar';
+    const button = document.createElement('button');
+    button.className = 'rx-button rx-play';
+    button.type = 'button';
+    const scrub = document.createElement('input');
+    scrub.className = 'rx-scrub';
+    scrub.type = 'range';scrub.min='0';scrub.max='100';scrub.step='1';scrub.value='100';
+    const title = plate.querySelector('h3').textContent;
+    scrub.setAttribute('aria-label','ตำแหน่งแอนิเมชัน: '+title);
+    const tag = document.createElement('span');
+    tag.className = 'rx-motion-label';
+    tag.textContent = 'PLAY ONCE';
+    bar.append(button,scrub,tag);
+    plate.append(bar);
+    const entry = {plate,actors,button,scrub,title};
+    plates.push(entry);
+    button.addEventListener('click',() => {
+      if(preference.matches) return;
+      const state = states.get(plate);
+      if(state.done || state.time >= state.duration) {state.time=0;state.done=false;if(paused) paused=false;syncMotion();}
+      else {paused=!paused;syncMotion();}
       wake();
-    } catch(error) {
-      document.getElementById('rx-studio').dataset.fallback='true';
-      // data-fallback reveals the text notice when WebGL/modules are unavailable.
-      console.warn('Cybercab 3D unavailable; text notice shown.',error.message);
+    });
+    scrub.addEventListener('input',() => {
+      const state = states.get(plate);
+      state.time = Number(scrub.value)/100*state.duration;
+      state.done = state.time >= state.duration;
+      paintPlate(entry,state.time/state.duration);
+    });
+  }
+  function paintPlate(entry,progress) {
+    const t = clamp01(progress);
+    entry.plate.style.setProperty('--scene-progress',String(t));
+    for(const actor of entry.actors) {
+      const local = ease(clamp01((t-actor.start)/(actor.end-actor.start)));
+      if(actor.type === 'draw') actor.element.style.strokeDashoffset = String(1-local);
+      else actor.element.style.opacity = String(local);
+    }
+    entry.scrub.value = String(Math.round(t*100));
+    entry.button.textContent = preference.matches ? 'ภาพนิ่ง' : t >= 1 ? 'เล่นอีกครั้ง' : paused ? 'เล่นต่อ' : 'หยุดฉาก';
+    entry.button.disabled = preference.matches;
+  }
+  function paintPlates() {
+    for(const entry of plates) {
+      const state = states.get(entry.plate);
+      paintPlate(entry,state.time/state.duration);
     }
   }
+
   const observer=new IntersectionObserver(entries => {
     for(const entry of entries) {
       const state=states.get(entry.target);state.visible=entry.isIntersecting;
       if(entry.isIntersecting) entry.target.classList.add('rx-started');
+      if(entry.isIntersecting && entry.target.classList.contains('rx-scene-plate') && !state.seen) {
+        state.seen=true;
+        if(!paused && !preference.matches) {state.time=0;state.done=false;}
+      }
       entry.target.dataset.playing=String(entry.isIntersecting && !paused && !document.hidden && !state.done);
-      if(entry.isIntersecting && entry.target.id==='cybercab-studio') loadStudio();
     }
     if(!needsFrame()) {cancelAnimationFrame(frame);frame=0;previous=0;} else wake();
   },{threshold:.12});
   scenes.forEach(el => observer.observe(el));
   renderTrip(paused ? 1 : 0);
+  for(const entry of plates) {const state=states.get(entry.plate);state.time=state.duration;state.done=true;}
+  paintPlates();
   syncMotion();
 })();

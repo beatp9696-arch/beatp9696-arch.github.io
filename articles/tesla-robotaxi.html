@@ -37,7 +37,6 @@
   <script type="application/ld+json">
   {"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "หน้าแรก", "item": "https://beatp9696-arch.github.io/"}, {"@type": "ListItem", "position": 2, "name": "Tesla Robotaxi — Cybercab และเศรษฐศาสตร์รถไร้คนขับ", "item": "https://beatp9696-arch.github.io/articles/tesla-robotaxi.html"}]}
   </script>
-<script type="importmap">{"imports":{"three":"../vendor/three/three.module.min.js"}}</script>
 </head>
 <body class="rx-page">
 
@@ -73,10 +72,10 @@
   <div class="rx-hero-bottom"><span>01 / THE ARRIVAL</span><span>CYBERCAB · SEPTEMBER 2026</span><a href="#article-start">เลื่อนเพื่ออ่าน ↓</a></div>
 </section>
 <nav class="rx-flight-nav" aria-label="ข้ามไปยังฉากเคลื่อนไหว">
-  <a href="#arrival">01 <span>เปิดตัว</span></a><a href="#cybercab-studio">02 <span>สำรวจรถ</span></a><a href="#perception">03 <span>อ่านถนน</span></a><a href="#dispatch">04 <span>รับผู้โดยสาร</span></a><a href="#economics">05 <span>ตามเงิน</span></a>
+  <a href="#arrival">01 <span>เปิดตัว</span></a><a href="#cybercab-studio">02 <span>ตัวรถ</span></a><a href="#perception">03 <span>อ่านถนน</span></a><a href="#dispatch">04 <span>รับผู้โดยสาร</span></a><a href="#economics">05 <span>ตามเงิน</span></a>
   <button id="rx-motion" type="button" aria-pressed="false" hidden>หยุดภาพเคลื่อนไหว</button>
 </nav>
-<div class="rx-article" id="article-start"><div class="byline"><span class="byline-avatar">M</span><div><div class="byline-author">Moatrices</div><div class="byline-info">11 ก.ย. 2026 · อ่านประมาณ 10 นาที · 5 ฉาก Interactive</div></div></div>
+<div class="rx-article" id="article-start"><div class="byline"><span class="byline-avatar">M</span><div><div class="byline-author">Moatrices</div><div class="byline-info">11 ก.ย. 2026 · อ่านประมาณ 10 นาที · 4 ฉาก Interactive + 1 แผนภาพ</div></div></div>
 
       <!-- TOC-START -->
       <nav class="toc">
@@ -94,21 +93,56 @@
 <p>ต้นเดือนกันยายนมีพัฒนาการสองเรื่องที่ควรอ่านคู่กัน วันที่ 3 กันยายน Tesla นำ Cybercab ออกให้บริการรับผู้โดยสารใน Austin ตามรายงาน AP และวันที่ 4 กันยายน NHTSA ประกาศเปิดตรวจสอบฐานการรับรองมาตรฐานรถรุ่นนี้ของ Tesla ความคืบหน้าด้านการใช้งานจึงเดินมาพร้อมคำถามด้านกฎระเบียบที่ยังต้องติดตาม <a href="https://apnews.com/article/tesla-cybercab-austin-elon-musk-driverless-8791add840f4debbc41bcaa9d1e64561">AP: การเปิดบริการ Cybercab</a>, <a href="https://www.nhtsa.gov/press-releases/investigation-tesla-cybercab-self-certification">NHTSA: ประกาศตรวจสอบ 4 กันยายน 2026</a></p>
 <p>มุมมองของบทความนี้คือ Robotaxi มีความคืบหน้าที่จับต้องได้แล้ว ส่วนข้อสรุปว่าจะเป็นธุรกิจที่ให้ผลตอบแทนสูงอย่างยั่งยืนยังต้องอาศัยหลักฐานอีกหลายชั้น โดยเฉพาะต้นทุนจริงต่อเที่ยวและความสามารถในการขยายบริการ</p>
 
-<section class="rx-panel rx-scene rx-wide" id="cybercab-studio" data-scene="studio" aria-labelledby="studio-title">
- <div class="rx-panel-heading"><div><span class="rx-eyebrow">02 / THE MACHINE</span><h3 id="studio-title">ออกแบบรอบผู้โดยสาร</h3></div><span class="rx-chip">INTERACTIVE 3D</span></div>
- <div class="rx-studio" id="rx-studio" role="img" aria-label="โมเดลจำลอง Cybercab สีทอง ล้อแอโรและหลังคากระจก สามารถเปิดประตูขึ้นด้านบนได้">
-  <p class="rx-studio-fallback">อุปกรณ์นี้ยังไม่รองรับภาพ 3 มิติ (WebGL) — เนื้อหาส่วนอื่นของบทความอ่านได้ตามปกติ</p>
-  <span class="rx-studio-word" aria-hidden="true">CYBERCAB</span>
-  <div class="rx-studio-tag">GOLD BODY<br><span>GLASS CANOPY / AERO WHEELS</span></div>
+<figure class="rx-figure rx-wide" id="cybercab-figure">
+ <div class="rx-scene-plate rx-scene" id="cybercab-studio" data-scene="machine" aria-labelledby="studio-title">
+  <div class="rx-plate-heading"><div><span class="rx-plate-code">FIG. 01 / THE MACHINE</span><h3 id="studio-title">ออกแบบรอบผู้โดยสาร ไม่ใช่รอบคนขับ</h3></div><span class="rx-plate-meta">ภาพแนวคิด / ไม่ใช่แบบวิศวกรรมของ Tesla</span></div>
+  <svg class="s-art" viewBox="0 0 900 580" role="img" aria-labelledby="machine-t machine-d">
+  <title id="machine-t">ภาพด้านข้างของรถโดยสารสองที่นั่งแบบไร้คนขับ</title>
+  <desc id="machine-d">แบบร่างแสดงห้องโดยสารสองที่นั่ง ไม่มีตำแหน่งคนขับ ประตูเปิดขึ้นด้านบน และล้อมีฝาปิด</desc>
+  <path data-draw="0,0.1" class="s-registration" pathLength="1" d="M40 18v8M160 18v8M280 18v8M400 18v8M520 18v8M640 18v8M760 18v8M860 18v8M40 552v8M160 552v8M280 552v8M400 552v8M520 552v8M640 552v8M760 552v8M860 552v8"/>
+  <path class="s-fine" pathLength="1" data-draw="0.03,0.15" d="M40 352H860"/>
+  <path class="s-gold" pathLength="1" data-draw="0.1,0.42" d="M140 300C142 272 156 254 186 244C260 230 380 222 470 222C580 222 660 230 706 246C752 260 778 282 780 306C781 316 775 322 764 322L700 322C700 230 592 230 592 322L316 322C316 230 208 230 208 322L156 322C144 318 140 310 140 300Z"/>
+  <path class="s-white" pathLength="1" data-draw="0.36,0.58" d="M312 226C350 170 430 148 512 150C592 152 632 186 646 232"/>
+  <path class="s-fine" pathLength="1" data-draw="0.44,0.6" d="M352 226L352 318M560 232L562 318"/>
+  <path class="s-fine" pathLength="1" data-draw="0.46,0.62" d="M346 220C380 178 442 160 508 162"/>
+  <path class="s-gold" pathLength="1" data-draw="0.5,0.6" d="M148 266L192 260M762 272L786 276"/>
+  <path data-draw="0.5,0.68" class="s-line" pathLength="1" d="M262 272a40 40 0 1 0 0.1 0M646 272a40 40 0 1 0 0.1 0"/>
+  <path data-draw="0.56,0.72" class="s-fine" pathLength="1" d="M262 288a24 24 0 1 0 0.1 0M646 288a24 24 0 1 0 0.1 0"/>
+  <path class="s-pending" pathLength="1" data-draw="0.62,0.82" d="M556 236C560 190 540 148 492 118"/>
+  <path class="s-gold" pathLength="1" data-draw="0.78,0.86" d="M474 104L492 118L482 138"/>
+  <g data-fade="0.78,1">
+  <path class="s-leader" d="M470 196V120H300"/>
+  <text class="s-label" text-anchor="end" x="290" y="98">01 · CABIN</text>
+  <text class="s-label-th" text-anchor="end" x="290" y="124">สองที่นั่ง ไม่มีตำแหน่งคนขับ</text>
+  </g>
+  <g data-fade="0.85,1">
+  <path class="s-leader" d="M488 108L520 84H636"/>
+  <text class="s-label" x="644" y="66">02 · DOORS</text>
+  <text class="s-label-th" x="644" y="92">เปิดขึ้นด้านบน</text>
+  </g>
+  <g data-fade="0.9,1">
+  <path class="s-leader" d="M690 312H772V384"/>
+  <text class="s-label" text-anchor="middle" x="772" y="404">03 · AERO WHEEL</text>
+  </g>
+  <g data-fade="0.9,1">
+  <path class="s-fine" d="M40 406H860"/>
+  <text class="s-label" x="40" y="432">PLAN · ห้องโดยสารมองจากด้านบน (ไม่ตามมาตราส่วน)</text>
+  </g>
+  <path class="s-gold" pathLength="1" data-draw="0.2,0.5" d="M254 492C256 462 292 444 344 441L556 441C608 444 640 462 642 492C640 522 608 540 556 543L344 543C292 540 256 522 254 492Z"/>
+  <path class="s-fine" pathLength="1" data-draw="0.4,0.56" d="M254 492H642"/>
+  <path data-draw="0.5,0.7" class="s-white" pathLength="1" d="M424 452h74v32h-74zM424 500h74v32h-74z"/>
+  <path class="s-pending" pathLength="1" data-draw="0.62,0.8" d="M296 456h84v72h-84z"/>
+  <g data-fade="0.92,1">
+  <path class="s-leader" d="M498 468H700"/>
+  <text class="s-label-th" x="708" y="474">ที่นั่ง 2 ตำแหน่ง</text>
+  <path class="s-leader" d="M338 528V566H470"/>
+  <text class="s-label-th" x="478" y="572">ไม่มีพวงมาลัยและแป้นเหยียบ</text>
+  </g>
+  </svg>
+  <div class="rx-scene-takeaway"><span>รถที่ออกแบบรอบผู้โดยสาร</span><span>ไม่ใช่รถที่ถอดคนขับออกทีหลัง</span></div>
  </div>
- <div class="rx-controls" id="rx-studio-controls" hidden>
-  <button class="rx-button rx-button-primary" id="rx-door" type="button" aria-pressed="false">เปิดประตู ↗</button>
-  <button class="rx-button" id="rx-orbit" type="button" aria-pressed="false">หมุนรอบคัน</button>
-  <button class="rx-button" id="rx-reset" type="button">มุมเริ่มต้น</button>
-  <span>ลากเพื่อหมุนดู · ใช้ปุ่มเพื่อเลือกมุม</span>
- </div>
- <p class="rx-caption">โมเดลภาพประกอบที่วาดขึ้นเอง ไม่ใช่แบบวิศวกรรมของ Tesla · ประตูปีกเปิดขึ้น ตัวถังสีทอง และล้อแอโรเป็นจุดเด่นของฉากนี้</p>
-</section>
+ <figcaption>แบบร่างเพื่ออธิบายแนวคิดการออกแบบ ไม่ใช่แบบวิศวกรรมหรือสัดส่วนจริงของ Cybercab · Tesla ระบุว่า Cybercab เป็นรถสองที่นั่งที่ไม่มีพวงมาลัยและแป้นเหยียบ</figcaption>
+</figure>
 <h2 id="sec-1"><span class="rx-chapter-no">01</span>ก่อนอ่านข่าว แยกสามคำนี้ให้ชัด</h2>
 <div class="rx-table-wrap" tabindex="0" role="region" aria-label="ตารางประกอบบทความ"><table>
 <thead>
