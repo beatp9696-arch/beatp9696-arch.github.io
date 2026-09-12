@@ -15,8 +15,8 @@
   const car = document.getElementById('rx-map-car');
   const trail = document.getElementById('rx-trip-trail');
   let tripStep = -1;
-  let targetProfit = 7;
-  let shownProfit = 7;
+  let targetProfit = 84;
+  let shownProfit = 84;
   const profit = document.getElementById('rx-profit');
   const money = value => `${value < 0 ? '−' : '+'}$${Math.abs(value).toFixed(2)}`;
   root.classList.add('rx-motion-ready');
@@ -59,7 +59,7 @@
       if(!state.done) {
         state.time=Math.min(state.duration,state.time+dt);
         if(el === dispatch) renderTrip(state.time/state.duration);
-      if(el.dataset.scene === 'machine') paintPlates();
+      if(el.classList.contains('rx-scene-plate')) paintPlates();
         if(state.time >= state.duration) {state.done=true;el.dataset.playing='false';}
       }
       if(el.id === 'economics' && Math.abs(shownProfit-targetProfit)>.005) {
@@ -111,13 +111,13 @@
   });
   function calculate() {
     const utilization=Number(slider.value);
-    const revenue=utilization*1.2;
-    targetProfit=revenue-65;
+    const revenue=utilization*2;
+    targetProfit=revenue-36;
     document.getElementById('rx-util-output').textContent=String(utilization);
     document.getElementById('rx-revenue').textContent=`$${revenue.toFixed(2)}`;
-    document.getElementById('rx-revenue-bar').style.width=`${revenue/108*100}%`;
+    document.getElementById('rx-revenue-bar').style.width=`${revenue/200*100}%`;
     profit.classList.toggle('is-loss',targetProfit<0);
-    document.getElementById('rx-econ-verdict').textContent=targetProfit<0 ? 'รายได้ยังไม่ครอบคลุมต้นทุนระดับรถในแบบจำลองนี้' : 'สูงกว่าจุดคุ้มทุนระดับรถ · ยังไม่รวมค่าใช้จ่ายส่วนกลางที่ระบุด้านล่าง';
+    document.getElementById('rx-econ-verdict').textContent=targetProfit<0 ? 'ต่ำกว่าจุดคุ้มทุนเดินรถ (ราว 18% ของไมล์)' : 'เหนือจุดคุ้มทุนเดินรถ (ราว 18%) · ยังไม่หักค่าแรงพนักงานที่ยังนั่งอยู่ในรถ';
     document.querySelectorAll('[data-util]').forEach(button => button.setAttribute('aria-pressed',String(Number(button.dataset.util)===utilization)));
     if(paused || preference.matches || !states.get(document.getElementById('economics')).visible) {shownProfit=targetProfit;profit.textContent=money(targetProfit);}
     else wake();
