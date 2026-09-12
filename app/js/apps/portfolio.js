@@ -196,6 +196,11 @@ export default {
           </div>
         </header>
 
+        <section class="pf-research-hero" aria-label="Portfolio Research">
+          <div><span class="eyebrow">PORTFOLIO / RESEARCH</span><b>Keep the thesis close to the book</b><small>Monitor, Matrix and Earnings Diff for the names you own.</small></div>
+          <a class="pf-research-hero-link" href="portfolio.html?view=research">Open Research ${researchIcon("arrow-up-right")}</a>
+        </section>
+
         <button class="pf-asof${age.stale ? " stale" : ""}">
           <span class="pf-dot"></span>
           <span class="pf-asof-t"><b>${age.stale ? "Prices are stale" : "Prices are current"}</b>
@@ -370,6 +375,10 @@ export default {
           </div>
           <a class="pf-research-open" href="portfolio.html?view=research" aria-label="Open portfolio research">${researchIcon("activity")}<span>Research</span></a>
         </header>
+        <section class="pf-research-hero" aria-label="Portfolio Research">
+          <div><span class="eyebrow">PORTFOLIO / RESEARCH</span><b>Start with the names you understand</b><small>Open thesis checks, moat evidence and earnings snapshots.</small></div>
+          <a class="pf-research-hero-link" href="portfolio.html?view=research">Open Research ${researchIcon("arrow-up-right")}</a>
+        </section>
         <section class="card pf-blank">
           <svg class="pf-blank-art" viewBox="0 0 220 220" aria-hidden="true">
             <circle cx="110" cy="110" r="78" fill="none" stroke-width="23" />
