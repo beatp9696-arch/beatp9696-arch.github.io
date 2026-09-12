@@ -191,6 +191,7 @@ export default {
             </div>
           </div>
           <div class="head-actions">
+            <a class="pf-research-open" href="portfolio.html?view=research" aria-label="Open portfolio research">${researchIcon("activity")}<span>Research</span></a>
             <button class="icon-btn pf-add" aria-label="Add a holding" title="Add a holding">${ICO.plus}</button>
           </div>
         </header>
@@ -300,7 +301,7 @@ export default {
     function renderResearch(holdings) {
       const section = document.createElement("section");
       section.className = "pf-research";
-      section.innerHTML = `<div class="pf-research-head"><h3>Research coverage</h3><a class="pf-research-open" href="research.html">Research ${researchIcon("arrow-up-right")}</a></div><p>Loading snapshots...</p><div class="pf-research-links"></div>`;
+      section.innerHTML = `<div class="pf-research-head"><h3>Research coverage</h3><a class="pf-research-open" href="portfolio.html?view=research">Open workspace ${researchIcon("arrow-up-right")}</a></div><p>Loading snapshots...</p><div class="pf-research-links"></div>`;
       const foot = body.querySelector(".pf-foot");
       if (foot) foot.before(section); else body.append(section);
       getResearch().then(({ companies }) => {
@@ -313,7 +314,7 @@ export default {
         const tickers = coverage.count ? coverage.tickers : companies.map((c) => c.ticker);
         for (const ticker of tickers) {
           const a = document.createElement("a");
-          a.href = `research.html?ticker=${encodeURIComponent(ticker)}`;
+          a.href = `portfolio.html?view=research&ticker=${encodeURIComponent(ticker)}`;
           a.textContent = ticker;
           a.setAttribute("aria-label", `Research ${ticker}`);
           a.insertAdjacentHTML("beforeend", ` ${researchIcon("arrow-up-right")}`);
@@ -367,6 +368,7 @@ export default {
             <div class="page-title">Your book</div>
             <div class="page-sub">Concentrated by design — few names, understood deeply</div>
           </div>
+          <a class="pf-research-open" href="portfolio.html?view=research" aria-label="Open portfolio research">${researchIcon("activity")}<span>Research</span></a>
         </header>
         <section class="card pf-blank">
           <svg class="pf-blank-art" viewBox="0 0 220 220" aria-hidden="true">

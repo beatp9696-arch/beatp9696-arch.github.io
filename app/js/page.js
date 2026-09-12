@@ -34,6 +34,7 @@ const APPS = {
 
 const root = document.getElementById("app-root");
 const id = root?.dataset.app;
+const params = new URLSearchParams(location.search);
 
 buildTabbar(id);
 
@@ -50,8 +51,12 @@ if (root && APPS[id]) {
     // ต้องรอ storage โหลดเข้า cache ให้ครบก่อน mount ไม่งั้นหน้าวาดตอนยังไม่มีข้อมูล = เห็นเป็นศูนย์หมด
     await initStorage();
     sync.initSync(); // ดึงของใหม่จาก cloud ถ้าตั้ง sync ไว้ + auto-sync เมื่อข้อมูลเปลี่ยน
-    const mod = await APPS[id]();
-    mod.default.mount(root, { ticker: new URLSearchParams(location.search).get("ticker") });
+    const routedApp = id === "portfolio" && params.get("view") === "research" ? "research" : id;
+    const mod = await APPS[routedApp]();
+    mod.default.mount(root, {
+      ticker: params.get("ticker"),
+      context: routedApp === "research" && id === "portfolio" ? "portfolio" : null,
+    });
     root.dataset.state = "ready";
     registerTools(); // หลัง first paint แล้วค่อยโหลด ไม่ให้ถ่วงจอแรก
   } catch (err) {

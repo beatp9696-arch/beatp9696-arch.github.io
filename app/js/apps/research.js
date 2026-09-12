@@ -22,6 +22,7 @@ export default {
   id: "research", name: "Research", icon: icon("activity"), defaultSize: { w: 1060, h: 780 },
   mount(body, options = {}) {
     body.classList.add("app-pane", "app-research");
+    const inPortfolio = options.context === "portfolio";
     let catalog = [], state = { view: "monitor", scope: "all", query: "", ticker: options.ticker || null, detailTab: "thesis", earningsTicker: "NVDA", report: null, selected: [], scroll: 0 };
     const stored = load(WATCH_KEY, []);
     const following = new Set(Array.isArray(stored) ? stored.filter((v) => typeof v === "string") : []);
@@ -54,7 +55,7 @@ export default {
     }
 
     function overview() {
-      return `<header class="rx-head"><div><div class="rx-eyebrow">RESEARCH WORKSPACE</div><h1>Moatrices<span class="rx-title-dot">.</span></h1></div><a class="rx-icon-btn" href="${libraryURL}" target="_blank" rel="noopener" aria-label="Open Moatrices library" title="Open Moatrices library">${icon("book-open")}</a></header>
+      return `<header class="rx-head"><div><div class="rx-eyebrow">${inPortfolio ? "PORTFOLIO / RESEARCH" : "RESEARCH WORKSPACE"}</div><h1>${inPortfolio ? "Portfolio research" : "Moatrices"}<span class="rx-title-dot">.</span></h1></div>${inPortfolio ? `<a class="rx-icon-btn" href="portfolio.html" aria-label="Back to portfolio" title="Back to portfolio">${icon("arrow-left")}</a>` : `<a class="rx-icon-btn" href="${libraryURL}" target="_blank" rel="noopener" aria-label="Open Moatrices library" title="Open Moatrices library">${icon("book-open")}</a>`}</header>
         ${viewTabs()}${state.view === "monitor" ? monitor() : state.view === "matrix" ? matrix() : earnings(company(state.earningsTicker))}
         <footer class="rx-foot">Moatrices library snapshots · Not a live data feed<br>หลักฐานที่ยังไม่ประเมินไม่ใช่ moat ที่ไม่มีอยู่ และไม่ใช่คำแนะนำซื้อขาย</footer>`;
     }
@@ -78,7 +79,7 @@ export default {
     }
 
     function detail(c) {
-      return `<header class="rx-detail-head">${iconButton("arrow-left", "Back to research", "data-back")}<div class="rx-detail-identity">${logo(c)}<div><span class="rx-meta">${c.ticker} / ${esc(c.sector)}</span><h1>${esc(c.name)}</h1></div></div>${followButton(c, true)}</header>
+      return `<header class="rx-detail-head">${iconButton("arrow-left", "Back to research", "data-back")}<div class="rx-detail-identity">${logo(c)}<div>${inPortfolio ? '<span class="rx-eyebrow">PORTFOLIO / RESEARCH</span>' : ''}<span class="rx-meta">${c.ticker} / ${esc(c.sector)}</span><h1>${esc(c.name)}</h1></div></div>${followButton(c, true)}</header>
         ${statusLine(c)}<nav class="rx-tabs" aria-label="Company research views" data-no-swipe>${[["thesis", "activity", "Thesis"], ["earnings", "git-compare-arrows", "Earnings"], ["moat", "table-2", "Moat"]].map(([id, glyph, label]) => `<button data-detail-tab="${id}" class="${state.detailTab === id ? "active" : ""}" aria-current="${state.detailTab === id ? "page" : "false"}">${icon(glyph)}${label}</button>`).join("")}</nav>
         ${state.detailTab === "thesis" ? thesis(c) : state.detailTab === "earnings" ? earnings(c, true) : moat(c)}
         <footer class="rx-foot"><a href="${sourceURL(c)}" target="_blank" rel="noopener">Read ${c.ticker} deep dive ${icon("arrow-up-right")}</a><span>Article snapshot · ${dateLabel(c.snapshotDate)} · Not live</span></footer>`;
