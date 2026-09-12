@@ -44,6 +44,9 @@ THUMB_W = 640             # กว้างพอสำหรับ retina (ก�
 # shared site chrome — opt-in ด้วย marker เท่านั้น เพื่อไม่แตะ 404, pp-os,
 # interstellar simulations และ print masters ที่มี shell เฉพาะของตัวเอง
 PARTIAL_DIR = "partials"
+# สคริปต์ใน <head> ที่ปัก data-theme ก่อน paint (ต้นแบบอยู่ใน new-article.py) —
+# validate() เช็คว่าทุกบทมีบรรทัดนี้ ถ้าแก้ข้อความ ต้องแก้ new-article.py ให้ตรงกัน
+THEME_BOOTSTRAP = "localStorage.getItem('theme')"
 HEADER_PARTIAL = os.path.join(PARTIAL_DIR, "site-header.html")
 FOOTER_PARTIAL = os.path.join(PARTIAL_DIR, "site-footer.html")
 HEADER_START = "<!-- SITE-HEADER-START -->"
@@ -1192,6 +1195,16 @@ def validate(posts, articles):
             warnings.append(f"index.html ไม่มีลิงก์ไป {s['page']} — การ์ดซีรีส์หน้าแรกยังชี้ที่อื่น")
 
     warnings.extend(site_chrome_warnings())
+
+    # ทุกบทต้องมี theme bootstrap ใน <head> — สคริปต์บรรทัดเดียวที่อ่าน localStorage
+    # แล้วปัก data-theme ก่อน paint ถ้าขาด: ธีมที่ผู้อ่านเลือกไว้จะไม่ถูกใช้ในหน้านั้น
+    # และไอคอนปุ่มจะโชว์ตามธีมเครื่องแทน คลิกแรกเลยไปทางตรงข้ามกับที่ควรเป็น
+    # (case-study-01-dominos.html หลุดมาแบบนี้เพราะสร้างนอก new-article.py)
+    for f in sorted(disk_files):
+        head = open(os.path.join("articles", f), encoding="utf-8").read()[:2000]
+        if THEME_BOOTSTRAP not in head:
+            warnings.append(f"articles/{f} ไม่มี theme bootstrap ใน <head> — "
+                            f"ธีมที่ผู้อ่านเลือกจะไม่ถูกใช้ในหน้านี้")
 
     if warnings:
         print(f"\n{len(warnings)} WARNING:")
