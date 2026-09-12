@@ -10,6 +10,7 @@ import { initShell, openSettings } from "./core/app-shell.js";
 import { initStorage, load, save } from "./core/storage.js";
 
 import smartMoney from "./apps/smart-money.js";
+import research from "./apps/research.js";
 import money from "./apps/money.js";
 import weather from "./apps/weather.js";
 import portfolio from "./apps/portfolio.js";
@@ -18,7 +19,7 @@ import todo from "./apps/todo.js";
 import calculator from "./apps/calculator.js";
 import discover from "./apps/discover.js";
 
-[smartMoney, money, portfolio, weather, notes, todo, calculator, discover].forEach(register);
+[smartMoney, research, money, portfolio, weather, notes, todo, calculator, discover].forEach(register);
 
 // ต้องรอ storage โหลดเข้า cache ให้ครบก่อน ไม่งั้นหน้าแรกวาดตอนยังไม่มีข้อมูล = เห็นเป็นศูนย์หมด
 // (top-level await ใน ES module — เบราว์เซอร์ที่รองรับ ES modules ทั้งหมดรองรับอันนี้)
@@ -57,6 +58,10 @@ function initDesktop() {
   document.getElementById("desktop").append(widget);
   widget.querySelector(".dw-settings").addEventListener("click", () => openSettings());
   document.addEventListener("pp-settings", () => openSettings());
+  document.addEventListener("pp-research", (e) => {
+    openApp(research);
+    document.querySelector(".app-research")?.dispatchEvent(new CustomEvent("research-company", { detail: e.detail }));
+  });
 
   widget.querySelector(".dw-mode").addEventListener("click", () => {
     save("os.mode", "app");

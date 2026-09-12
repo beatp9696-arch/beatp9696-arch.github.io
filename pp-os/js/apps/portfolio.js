@@ -1,6 +1,8 @@
 import { load, save } from "../core/storage.js";
 import { SITE } from "../core/app-shell.js";
 import { countUp, flush, num, stagger } from "../core/ui.js";
+import { getResearch, researchIcon } from "../core/research-store.js";
+import { portfolioCoverage, needsReview } from "../core/research-model.js";
 
 // Portfolio — พอร์ตส่วนตัว (ROADMAP 4.1)
 // กติกาสองข้อที่คุมดีไซน์ทั้งไฟล์:
@@ -63,7 +65,7 @@ const signed = (n, f) => `${n >= 0 ? "+" : "−"}${f(Math.abs(n))}`;
 const meta = (tk) => CATALOG[tk] ?? null;
 const val = (h) => (h.shares ?? 0) * (h.price ?? 0);
 const basis = (h) => (h.shares ?? 0) * (h.cost ?? 0);
-const article = (tk) => (CATALOG[tk] ? `${SITE}deep-dive-${tk.toLowerCase()}.html` : null);
+const article = (tk) => (CATALOG[tk] ? `${SITE}articles/deep-dive-${tk.toLowerCase()}.html` : null);
 
 const dayKey = (d) => `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, "0")}-${String(d.getDate()).padStart(2, "0")}`;
 
@@ -250,6 +252,7 @@ export default {
       `;
 
       const totalEl = body.querySelector(".pf-total");
+      renderResearch(holdings);
       if (firstPaint) countUp(totalEl, total, { fmt: usd, dur: 900 });
       else totalEl.textContent = usd(total);
 
@@ -359,7 +362,35 @@ export default {
       for (const b of body.querySelectorAll(".pf-qtk")) {
         b.addEventListener("click", () => openHolding(null, b.dataset.tk));
       }
+      renderResearch([]);
       stagger(body);
+    }
+
+    function renderResearch(holdings) {
+      const section = document.createElement("section");
+      section.className = "pf-research";
+      section.innerHTML = `<div class="pf-research-head"><h3>Research coverage</h3><button class="pf-research-open">Research ${researchIcon("arrow-up-right")}</button></div><p role="status">Loading snapshots...</p><div class="pf-research-links"></div>`;
+      const foot = body.querySelector(".pf-foot");
+      if (foot) foot.before(section); else body.append(section);
+      section.querySelector(".pf-research-open").addEventListener("click", () => document.dispatchEvent(new CustomEvent("pp-research")));
+      getResearch().then(({ companies }) => {
+        if (!section.isConnected) return;
+        const coverage = portfolioCoverage(holdings, companies);
+        const due = companies.filter((c) => coverage.tickers.includes(c.ticker) && needsReview(c)).length;
+        section.querySelector("p").textContent = coverage.count ?
+          `${coverage.covered} of ${coverage.count} holdings have library snapshots${coverage.percent === null ? "" : ` · ${coverage.percent.toFixed(1)}% by entered value`}. ${due} snapshots due for review.${coverage.unpriced ? " Unpriced holdings: weight coverage unavailable." : ""} Not a live thesis assessment.` :
+          "SNPS, TSM and NVDA · Library snapshots. No holdings added to your portfolio.";
+        const tickers = coverage.count ? coverage.tickers : companies.map((c) => c.ticker);
+        for (const ticker of tickers) {
+          const button = document.createElement("button");
+          button.innerHTML = `${ticker} ${researchIcon("arrow-up-right")}`;
+          button.setAttribute("aria-label", `Research ${ticker}`);
+          button.addEventListener("click", () => document.dispatchEvent(new CustomEvent("pp-research", { detail: { ticker } })));
+          section.querySelector(".pf-research-links").append(button);
+        }
+      }).catch(() => {
+        if (section.isConnected) section.querySelector("p").textContent = "Research unavailable. Your holdings are unchanged.";
+      });
     }
 
     // ---- ชีตกลาง ----

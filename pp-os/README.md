@@ -6,7 +6,7 @@
 
 แท็บแอปและแถบล่างบนเว็บไซต์ใช้ชุดเดียวกัน: **Moatrices / Money / Portfolio / Smart Money**
 
-- **Moatrices** เปิดเว็บบทความในแอป
+- **Moatrices** Research workspace: Thesis Monitor, Moat Matrix และ Earnings Diff พร้อมทางเข้าคลังบทความ
 - **Money** บันทึกรายรับ รายจ่าย และงบประมาณในเครื่อง
 - **Portfolio** พอร์ตส่วนตัวเดิม ข้อมูลถือครองและราคาที่กรอกยังอยู่ในเครื่อง
 - **Smart Money** 16 รายการ: พอร์ตสาธารณะ 14 แห่งและเอกสารเปิดเผยของ Trump / Pelosi พร้อมค้นหา แยกประเภท และอ่านแหล่งอ้างอิง
@@ -27,6 +27,27 @@ python3 -m http.server 8000
 - มือถือและ PWA ใช้ app mode เป็นค่าเริ่มต้น; หน้าจอกว้างใช้ desktop mode
 - บังคับโหมดด้วย `?mode=app` หรือ `?mode=desktop&open=smart-money`
 - ไฟล์แอปอยู่ใน repo เว็บเดียวกัน เผยแพร่ตามกระบวนการ push ของเว็บไซต์
+
+## Research Workspace
+
+เปิด `http://localhost:8000/pp-os/?mode=app&tab=moatrices` หรือระบุบริษัทด้วย `&company=SNPS` ใน desktop ใช้ `?mode=desktop&open=research`
+
+- `data/research.json` เป็น snapshot ของบทความ SNPS, TSM, NVDA ที่มีอยู่ในคลัง ไม่ใช่ข้อมูลล่าสุดจาก API หรือ transcript diff อัตโนมัติ แต่ละ observation เชื่อมไปยัง section ของบทความ
+- `snapshotDate` คือวันแก้ไขบทความ ไม่ใช่วันที่ตรวจ filing ล่าสุด; `reviewDue` เป็นกำหนดทบทวนภายใน ไม่ใช่วันประกาศงบที่บริษัทรับรอง
+- Matrix จัดหลักฐานตาม 7 Powers โดยไม่ให้คะแนนลงทุน ช่องว่างคือยังไม่ประเมิน ไม่ใช่ไม่มี moat
+- Earnings เทียบงวดและสกุลเงินเดียวกัน ค่าที่ไม่มีเป็น `null` ไม่ใช่ศูนย์ และ margin change ใช้ percentage points; ส่งออก CSV พร้อมงวดและแหล่งที่มาได้
+- Monitor ไม่ตัดสิน kill conditions อัตโนมัติเมื่อยังขาดข้อมูลลำดับไตรมาส ปัจจัยประกอบ หรือยังไม่ถึง deadline
+- Follow / notes เก็บใน `research.watchlist` / `research.notes` เฉพาะเครื่อง ไม่อยู่ใน cloud sync allowlist แต่รวมอยู่ในการ export backup ที่ผู้ใช้สั่งเอง
+- Portfolio อ่าน coverage จาก holdings ที่มีอยู่ ไม่เพิ่มหรือแก้ holdings; ไม่แสดง weight coverage หากมีหุ้นที่ยังไม่มีราคา และไม่ได้ตีความ coverage ว่า thesis ปลอดภัย
+- Service worker โหลด snapshot แบบ network-first พร้อม fallback สำเนาที่มีวันที่เมื่อ offline; บทความนอก PWA scope ต้องใช้อินเทอร์เน็ต
+- ไอคอน Research มาจาก Lucide `0.468.0` เก็บ license ใน `assets/icons/research/LICENSE`
+
+```bash
+node pp-os/test/research.test.mjs
+../.venv/bin/python pp-os/test/research-browser.test.py
+```
+
+Browser tests ใช้ profile ชั่วคราว ทดสอบมือถือ/desktop, follow, note, matrix, แหล่งที่มา, CSV, portfolio privacy, retry และ offline โดยบันทึก screenshots ใน `/private/tmp/moatrices-research-*.png`
 
 ## ข้อมูล Smart Money
 

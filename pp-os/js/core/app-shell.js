@@ -24,7 +24,7 @@ const ICONS = {
 
 // Public portfolios and private holdings have separate tabs and storage.
 const TABS = [
-  { id: "moatrices", label: "Moatrices", app: null }, // แท็บแรก = เปิดหน้าเว็บ Moatrices ในแอปเต็มจอ
+  { id: "moatrices", label: "Moatrices", app: "research" },
   { id: "money", label: "Money", app: "money" },
   { id: "portfolio", label: "Portfolio", app: "portfolio" },
   { id: "smart-money", label: "Smart Money", app: "smart-money" },
@@ -42,7 +42,7 @@ export const SITE = location.pathname.includes("/pp-os/")
 
 // สีแถบสถานะของมือถือ ให้กลืนกับพื้นหลังของแท็บ/หน้าซ้อนที่เปิดอยู่
 const THEME = {
-  moatrices: "#0f1215",
+  moatrices: "#101214",
   "smart-money": "#101214",
   money: "#0f120e",
   portfolio: "#0b0e13",
@@ -83,6 +83,7 @@ export function initShell() {
 
   // Internal navigation and settings are shared across apps.
   document.addEventListener("pp-go", (e) => goTab(e.detail));
+  document.addEventListener("pp-research", (e) => goTab("moatrices", { ticker: e.detail?.ticker }));
   // Settings is available from Smart Money and the desktop toolbar.
   document.addEventListener("pp-settings", openSettings);
   // Apps without tabs open as overlays from Settings.
@@ -108,7 +109,7 @@ export function initShell() {
   sync.initSync(); // ดึงของใหม่จาก cloud ถ้าตั้ง sync ไว้ + ตั้ง auto-sync เวลาข้อมูลเปลี่ยน
 
   const start = new URLSearchParams(location.search).get("tab");
-  goTab(TABS.some((t) => t.id === start) ? start : "smart-money");
+  goTab(TABS.some((t) => t.id === start) ? start : "smart-money", { ticker: new URLSearchParams(location.search).get("company") });
 }
 
 function goTab(id, opts = {}) {
@@ -132,7 +133,7 @@ function goTab(id, opts = {}) {
     renderMoatrices();
     return;
   }
-  mountApp(tab.app);
+  mountApp(tab.app, opts);
 }
 
 // ปัดซ้าย/ขวาเพื่อสลับแท็บ — เฉพาะตอนอยู่แท็บหลัก (ไม่ใช่หน้าซ้อน) และการเลื่อนเป็นแนวนอนจริงๆ
@@ -141,7 +142,7 @@ function wireSwipe() {
   const THRESH = 55; // px ที่ต้องปัดถึงจะนับ
 
   view.addEventListener("touchstart", (e) => {
-    if (shell.classList.contains("in-sub") || e.touches.length !== 1) { x0 = null; return; }
+    if (shell.classList.contains("in-sub") || e.touches.length !== 1 || e.target.closest("[data-no-swipe], input, textarea, select, dialog")) { x0 = null; return; }
     x0 = e.touches[0].clientX;
     y0 = e.touches[0].clientY;
     locked = false;
@@ -160,12 +161,12 @@ function wireSwipe() {
   }, { passive: true });
 }
 
-function mountApp(appId) {
+function mountApp(appId, options = {}) {
   const app = getApp(appId);
   const pane = document.createElement("div");
   pane.className = "view";
   view.append(pane);
-  app.mount(pane);
+  app.mount(pane, options);
 }
 
 // ---- Moatrices: เปิดหน้าเว็บ Moatrices ในแอปเต็มจอ (iframe same-origin ใต้แท็บล่าง) ----

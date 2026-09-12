@@ -1,0 +1,81 @@
+{
+  "version": 1,
+  "companies": [
+    {
+      "ticker": "SNPS", "name": "Synopsys", "sector": "Chip design software", "color": "#bf9ae8",
+      "article": "deep-dive-snps.html", "snapshotDate": "2026-07-20", "reviewDue": "2026-08-31", "period": "Q2 FY2026",
+      "thesis": "ต้นทุนการเปลี่ยนเครื่องมือ EDA และการรับรองจาก foundry ช่วยยึด workflow ของลูกค้าไว้ แต่การรวม Ansys ต้องเปลี่ยนรายได้ที่โตให้เป็นกำไรต่อหุ้นให้ได้",
+      "headline": "Revenue grows. Integration still matters.",
+      "focus": "Design IP อ่อนตัว 3 ใน 4 ไตรมาสล่าสุด ยังไม่มีข้อมูลยืนยันว่าเป็นการลดลงต่อเนื่อง",
+      "powers": {
+        "scale": { "status": "evidenced", "note": "R&D FY2025 ราว $2.48B หรือ 35% ของรายได้ ต้นทุนพัฒนาเครื่องมือกระจายได้บนฐานลูกค้าขนาดใหญ่", "source": "sec-4" },
+        "switching": { "status": "evidenced", "note": "การเปลี่ยน EDA กระทบ scripts, methodology และการรับรองกับ foundry ไม่ใช่แค่เปลี่ยนใบอนุญาตซอฟต์แวร์", "source": "sec-4" }
+      },
+      "monitors": [
+        { "title": "Design IP recovery", "observation": "ลดลง 3 ใน 4 ไตรมาสล่าสุด", "condition": "รายได้ Design IP ลดลง 4 ไตรมาสติดต่อกัน", "gap": "ต้องตรวจลำดับไตรมาส: 3 ใน 4 ไม่เท่ากับลดลงติดต่อกัน 3 ไตรมาส", "source": "sec-10" },
+        { "title": "Operating discipline", "observation": "Adjusted segment margin 39.5% · Q2 FY2026", "condition": "Adjusted segment operating margin ต่ำกว่า 35% สองไตรมาสติดต่อกัน", "gap": "มีเพียงค่าอ้างอิงหนึ่งไตรมาส ยังสรุปผลเงื่อนไขต่อเนื่องไม่ได้", "source": "sec-10" },
+        { "title": "Ansys deleveraging", "observation": "Long-term debt $10.01B · Apr 2026", "condition": "หนี้ยังสูงกว่าประมาณ $6B เมื่อสิ้น FY2027", "gap": "ยังไม่ถึงกำหนด FY2027 จึงไม่ถือว่าเงื่อนไขถูกละเมิดในวันนี้", "source": "sec-10" }
+      ],
+      "reports": [
+        { "id": "q2-2026", "from": "Q2 FY2025", "to": "Q2 FY2026", "note": "บทความบันทึกค่าปัจจุบันและ reported growth แต่ไม่ได้เก็บค่าฐานของทุกตัวเลข จึงไม่เติมตัวเลขย้อนหลังเอง", "metrics": [
+          { "label": "Revenue", "unit": "USD bn", "previous": null, "current": 2.276, "favorable": "higher", "note": "Reported growth +41.9% YoY รวมผลจาก Ansys; ค่าฐานไม่ได้บันทึกใน snapshot", "source": "sec-7" },
+          { "label": "Adjusted segment margin", "unit": "percent", "previous": null, "current": 39.5, "favorable": "higher", "note": "ไม่ใช่ GAAP operating margin ซึ่งอยู่ที่ 5.3% ในไตรมาสนี้", "source": "sec-7" }
+        ] },
+        { "id": "debt-2026", "from": "Oct 2025", "to": "Apr 2026", "note": "เปรียบเทียบยอดหนี้ปลายงวด ห่างกันหกเดือน ไม่ใช่การเปลี่ยนแปลง QoQ", "metrics": [
+          { "label": "Long-term debt", "unit": "USD bn", "previous": 13.46, "current": 10.01, "favorable": "lower", "note": "หนี้ลดลง $3.45B แต่ยังต้องติดตามเส้นทางไปสู่เป้าหมาย FY2027", "source": "sec-6" }
+        ] },
+        { "id": "fy2025", "from": "FY2024", "to": "FY2025", "note": "Annual backlog snapshot; ยอด backlog ไม่ใช่รายได้ที่รับรู้แล้ว", "metrics": [
+          { "label": "Backlog", "unit": "USD bn", "previous": 8.1, "current": 11.4, "favorable": "higher", "note": "รายได้ในสัญญารองรับงานในอนาคต แต่จังหวะรับรู้และโครงสร้างธุรกิจยังสำคัญ", "source": "sec-1" }
+        ] }
+      ]
+    },
+    {
+      "ticker": "TSM", "name": "TSMC", "sector": "Advanced foundry", "color": "#ec9391",
+      "article": "deep-dive-tsm.html", "snapshotDate": "2026-07-10", "reviewDue": "2026-07-31", "period": "Q1 FY2026",
+      "thesis": "การผลิต leading-edge ในขนาดใหญ่และการสะสมความรู้เรื่อง yield ทำให้ TSMC เป็นฐานการผลิตที่เปลี่ยนได้ยาก โดยยังมีความเสี่ยงเชิงภูมิรัฐศาสตร์ที่ moat ไม่ได้ลบออก",
+      "headline": "Leading-edge scale. Geographic risk.",
+      "focus": "Gross margin 66.2% ใน Q1 FY2026; ต้องเติมไตรมาสใหม่ก่อนประเมินเงื่อนไขสองไตรมาส",
+      "powers": {
+        "scale": { "status": "evidenced", "note": "ต้นทุน fabs และ R&D สูงมาก การรวมคำสั่งซื้อจากลูกค้าหลายรายช่วยรองรับการลงทุน leading-edge", "source": "sec-2" },
+        "switching": { "status": "evidenced", "note": "การย้าย foundry ต้องปรับ design flow และผ่าน validation ใหม่ ความเสี่ยงของการออกชิปล่าช้าทำให้การย้ายมีต้นทุนสูง", "source": "sec-2" },
+        "process": { "status": "evidenced", "note": "ความรู้เรื่อง yield และการผลิตสะสมผ่านวงจรเรียนรู้หลายรุ่น ไม่สามารถซื้อเครื่องจักรอย่างเดียวแล้วได้ผลเท่ากัน", "source": "sec-2" }
+      },
+      "monitors": [
+        { "title": "Leading-edge economics", "observation": "Gross margin 66.2% · Q1 FY2026", "condition": "Gross margin ต่ำกว่า 50% สองไตรมาสติดต่อกัน โดยแยกผล FX", "gap": "ยังไม่มีลำดับไตรมาสครบและไม่มีตัวเลขที่แยก FX สำหรับตัดสินเงื่อนไข", "source": "sec-7" },
+        { "title": "AI demand durability", "observation": "Operating margin 58.1% · Q1 FY2026", "condition": "AI/HPC digestion พร้อม utilization ลดลง และ operating margin ต่ำกว่า 40%", "gap": "ต้องตรวจทั้งอุปสงค์ utilization และ margin ร่วมกัน ไม่ใช้ margin เพียงตัวเดียว", "source": "sec-7" },
+        { "title": "Taiwan continuity", "observation": "ไม่มี event feed ในชุดข้อมูลนี้", "condition": "เหตุการณ์ในไต้หวันกระทบการผลิตอย่างมีนัยสำคัญ", "gap": "ต้องตรวจเหตุการณ์ล่าสุดจากแหล่งข่าวและบริษัทก่อนประเมิน", "source": "sec-7" }
+      ],
+      "reports": [
+        { "id": "fy2025", "from": "FY2024", "to": "FY2025", "note": "เปรียบเทียบปีต่อปี ใช้สกุล NT$ ตามบทความ ไม่ผสมกับตัวเลขรายไตรมาสใน US$", "metrics": [
+          { "label": "Revenue", "unit": "NTD bn", "previous": 2894.3, "current": 3809.1, "favorable": "higher", "note": "รายได้ทั้งปีเติบโตจากฐานเดียวกันในสกุล NT$", "source": "sec-3" },
+          { "label": "Gross margin", "unit": "percent", "previous": 56.1, "current": 59.9, "favorable": "higher", "note": "ผลต่างแสดงเป็น percentage points ไม่ใช่อัตราการเติบโตเปอร์เซ็นต์", "source": "sec-3" },
+          { "label": "Operating margin", "unit": "percent", "previous": 45.7, "current": 50.8, "favorable": "higher", "note": "Margin ขยายตัวในข้อมูลรายปี ไม่ใช้แทนเงื่อนไขรายไตรมาส", "source": "sec-3" },
+          { "label": "Free cash flow", "unit": "NTD bn", "previous": 870, "current": 1003, "favorable": "higher", "note": "FCF ตามตารางสรุปในบทความ ตัวเลขปัดเศษเป็นพันล้าน NT$", "source": "sec-3" }
+        ] }
+      ]
+    },
+    {
+      "ticker": "NVDA", "name": "NVIDIA", "sector": "Accelerated computing", "color": "#9bc674",
+      "article": "deep-dive-nvda.html", "snapshotDate": "2026-07-10", "reviewDue": "2026-08-31", "period": "FY2026 · ended 25 Jan 2026",
+      "thesis": "CUDA และ ecosystem รอบระบบประมวลผลสร้างต้นทุนการย้ายที่สูง แต่ต้องติดตามคุณภาพการเติบโตเมื่อรายได้พึ่งลูกค้ารายใหญ่และผลิตภัณฑ์เปลี่ยนรุ่น",
+      "headline": "CUDA holds. Customer exposure rises.",
+      "focus": "ลูกค้าโดยตรงรายใหญ่สุดคิดเป็น 22% ของรายได้ FY2026 เพิ่มจาก 12% ในปีก่อน",
+      "powers": {
+        "switching": { "status": "evidenced", "note": "การย้ายจาก CUDA ต้องเขียน ปรับแต่ง และทดสอบ workloads ใหม่ พร้อมรับความเสี่ยงเรื่องประสิทธิภาพ", "source": "sec-2" },
+        "network": { "status": "evidenced", "note": "ฐานนักพัฒนาและ libraries ช่วยเพิ่มประโยชน์ของ ecosystem และดึงดูดให้พัฒนาบนแพลตฟอร์มต่อ", "source": "sec-2" }
+      },
+      "monitors": [
+        { "title": "Hyperscaler spending", "observation": "ยังไม่มีชุด guidance ที่เทียบกันได้", "condition": "Hyperscalers อย่างน้อยสองรายลด GPU capex guidance ใน earnings window เดียวกัน", "gap": "ไม่มีข้อมูลไม่ได้หมายความว่าจำนวนผู้ลด guidance เป็นศูนย์", "source": "sec-8" },
+        { "title": "Margin quality", "observation": "Gross margin 71.1% · FY2026 (annual)", "condition": "Gross margin ลงมาราว 60% หลายไตรมาส โดยแยกผล product ramp", "gap": "ค่าเฉลี่ยทั้งปีใช้ตัดสินเงื่อนไขหลายไตรมาสไม่ได้ และต้องนิยามจำนวนไตรมาสให้ชัด", "source": "sec-8" },
+        { "title": "CUDA alternatives", "observation": "หลักฐานเชิงคุณภาพจากบทความเดิม", "condition": "Framework ทางเลือกทำประสิทธิภาพเทียบเท่าได้ในระดับใช้งานจริงขนาดใหญ่", "gap": "ต้องเพิ่มผลทดสอบและหลักฐานการใช้งานใหม่ ยังไม่มี benchmark feed", "source": "sec-8" }
+      ],
+      "reports": [
+        { "id": "fy2026", "from": "FY2025", "to": "FY2026", "note": "Fiscal year ended 25 Jan 2026; เป็นงบทั้งปี ไม่ใช่ calendar 2026 หรือไตรมาสล่าสุด", "metrics": [
+          { "label": "Revenue", "unit": "USD bn", "previous": 130.5, "current": 215.9, "favorable": "higher", "note": "ผลต่างคำนวณจากตัวเลขปัดเศษในบทความ จึงอาจต่างจาก reported growth เล็กน้อย", "source": "sec-5" },
+          { "label": "Gross margin", "unit": "percent", "previous": 75, "current": 71.1, "favorable": "higher", "note": "บทความระบุผลจาก Blackwell system mix และ H20 charge $4.5B ต้องแยกผลชั่วคราวก่อนสรุป moat", "source": "sec-5" },
+          { "label": "Largest direct customer", "unit": "percent", "previous": 12, "current": 22, "favorable": "lower", "note": "สัดส่วนลูกค้าโดยตรงรายใหญ่ที่สุดของแต่ละปี ไม่ยืนยันว่าเป็นลูกค้ารายเดียวกัน", "source": "sec-5" }
+        ] }
+      ]
+    }
+  ]
+}

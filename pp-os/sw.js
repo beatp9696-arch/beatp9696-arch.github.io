@@ -1,7 +1,7 @@
 // Service worker — precache app shell ทั้งหมด ใช้ offline ได้เต็มตัว
 // เปลี่ยนไฟล์เมื่อไหร่ให้ bump VERSION เพื่อบังคับ cache ใหม่
 
-const VERSION = "pp-os-v36";
+const VERSION = "pp-os-v37";
 
 const SHELL = [
   "./",
@@ -14,6 +14,23 @@ const SHELL = [
   "./css/shell.css",
   "./css/apps.css",
   "./css/smart-money.css",
+  "./css/research.css",
+  "./js/apps/research.js",
+  "./js/core/research-model.js",
+  "./js/core/research-store.js",
+  "./data/research.json",
+  "./assets/icons/research/activity.svg",
+  "./assets/icons/research/table-2.svg",
+  "./assets/icons/research/git-compare-arrows.svg",
+  "./assets/icons/research/search.svg",
+  "./assets/icons/research/x.svg",
+  "./assets/icons/research/arrow-left.svg",
+  "./assets/icons/research/arrow-up-right.svg",
+  "./assets/icons/research/bookmark.svg",
+  "./assets/icons/research/book-open.svg",
+  "./assets/icons/research/check.svg",
+  "./assets/icons/research/download.svg",
+  "./assets/icons/research/clock-3.svg",
   "./js/main.js",
   "./js/core/window-manager.js",
   "./js/core/taskbar.js",
@@ -279,6 +296,27 @@ self.addEventListener("fetch", (e) => {
   // ทุกหน้าที่เปิดในเว็บจะไหลเข้ามาอยู่ใน cache ของแอป (บวม + เสิร์ฟหน้าเก่าตอนออฟไลน์)
   const scope = new URL(self.registration.scope).pathname;
   if (!url.pathname.startsWith(scope)) return;
+
+  // Research snapshots may be published independently of the application shell.
+  // Prefer the network, with a bounded wait and an explicitly dated offline copy.
+  if (url.pathname === `${scope}data/research.json`) {
+    e.respondWith((async () => {
+      const controller = new AbortController();
+      const timeout = setTimeout(() => controller.abort(), 8000);
+      try {
+        const res = await fetch(req, { signal: controller.signal });
+        if (!res.ok) throw new Error("Research unavailable");
+        const data = await res.clone().json();
+        if (data.version !== 1 || !Array.isArray(data.companies)) throw new Error("Invalid research");
+        const cache = await caches.open(VERSION);
+        await cache.put(req, res.clone());
+        return res;
+      } catch {
+        return await caches.match(req, { ignoreSearch: true }) || new Response("Research unavailable", { status: 503 });
+      } finally { clearTimeout(timeout); }
+    })());
+    return;
+  }
 
   e.respondWith(
     caches.match(req, { ignoreSearch: true }).then(
