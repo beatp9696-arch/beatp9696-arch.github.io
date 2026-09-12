@@ -1,0 +1,1294 @@
+{
+  "schemaVersion": 1,
+  "label": "Demo analysis",
+  "asOf": "2026-08-28",
+  "disclaimer": "All financial figures, events, scores and analysis in this dataset are fictional examples, not verified financial research. Source links are background references only and do not substantiate the sample claims.",
+  "companies": [
+    {
+      "isDemo": true,
+      "holding": {
+        "id": "demo-MSFT",
+        "symbol": "MSFT",
+        "companyName": "Microsoft",
+        "sector": "Software & Cloud",
+        "portfolioWeight": 42,
+        "shares": 100,
+        "averageCost": 350,
+        "currentValue": 42000,
+        "thesisId": "thesis-MSFT",
+        "lastUpdated": "2026-08-05"
+      },
+      "thesis": {
+        "id": "thesis-MSFT",
+        "holdingId": "demo-MSFT",
+        "originalStatement": "Microsoft compounds through deeply embedded enterprise software, an expanding Azure ecosystem, and recurring revenue. Switching costs protect pricing power while cloud and AI create a long reinvestment runway.",
+        "currentSummary": "The enterprise ecosystem remains difficult to replace. In this sample quarter, AI infrastructure spending is outpacing cash generation. The moat still looks durable, but the return on incremental capital needs closer scrutiny.",
+        "status": "WEAKENED",
+        "confidence": 78,
+        "moatScore": 86,
+        "createdAt": "2025-09-15",
+        "updatedAt": "2026-08-05"
+      },
+      "baseline": "Microsoft compounds through deeply embedded enterprise software, an expanding Azure ecosystem, and recurring revenue. Switching costs protect pricing power while cloud and AI create a long reinvestment runway.",
+      "changes": "Cloud growth accelerated, but free cash flow fell as infrastructure investment rose. The open question has shifted from AI demand to the economics of serving it.",
+      "unknowns": [
+        "The useful life and replacement cost of AI infrastructure.",
+        "How much Copilot usage converts into durable, incremental revenue.",
+        "Whether cloud customers can sustain current spending through a downturn."
+      ],
+      "assumptions": [
+        {
+          "title": "Enterprise workflows remain hard to replace.",
+          "state": "Supported",
+          "change": "Renewal and multi-product adoption remain resilient in the sample.",
+          "pillar": "switching",
+          "evidenceIds": [
+            "MSFT-e0"
+          ],
+          "confidence": 78,
+          "uncertainty": "The useful life and replacement cost of AI infrastructure.",
+          "date": "2026-08-05"
+        },
+        {
+          "title": "Cloud growth converts into owner earnings.",
+          "state": "Under pressure",
+          "change": "Free cash flow declined despite higher revenue.",
+          "pillar": "runway",
+          "evidenceIds": [
+            "MSFT-e1"
+          ],
+          "confidence": 74,
+          "uncertainty": "How much Copilot usage converts into durable, incremental revenue.",
+          "date": "2026-08-05"
+        },
+        {
+          "title": "AI earns attractive incremental returns.",
+          "state": "Unproven",
+          "change": "Capacity spending is visible; cohort-level returns are not.",
+          "pillar": "scale",
+          "evidenceIds": [
+            "MSFT-e3"
+          ],
+          "confidence": 70,
+          "uncertainty": "Whether cloud customers can sustain current spending through a downturn.",
+          "date": "2026-08-05"
+        }
+      ],
+      "pillars": [
+        {
+          "id": "MSFT-p-brand",
+          "thesisId": "thesis-MSFT",
+          "type": "brand",
+          "score": 92,
+          "direction": "stable",
+          "confidence": 78,
+          "explanation": "Enterprise trust supports a premium, but does not guarantee AI pricing.",
+          "uncertainty": "Sample assessment only. No directly mapped event is available for this pillar.",
+          "updatedAt": "2026-08-05",
+          "evidenceIds": []
+        },
+        {
+          "id": "MSFT-p-network",
+          "thesisId": "thesis-MSFT",
+          "type": "network",
+          "score": 76,
+          "direction": "improving",
+          "confidence": 76,
+          "explanation": "Azure partners and developers deepen the platform ecosystem.",
+          "uncertainty": "Sample assessment only. More than one period is needed to establish a durable trend.",
+          "updatedAt": "2026-08-05",
+          "evidenceIds": [
+            "MSFT-e4"
+          ]
+        },
+        {
+          "id": "MSFT-p-switching",
+          "thesisId": "thesis-MSFT",
+          "type": "switching",
+          "score": 95,
+          "direction": "stable",
+          "confidence": 74,
+          "explanation": "Identity, data and workflows make migrations costly and disruptive.",
+          "uncertainty": "Sample assessment only. More than one period is needed to establish a durable trend.",
+          "updatedAt": "2026-08-05",
+          "evidenceIds": [
+            "MSFT-e2"
+          ]
+        },
+        {
+          "id": "MSFT-p-cost",
+          "thesisId": "thesis-MSFT",
+          "type": "cost",
+          "score": 75,
+          "direction": "weakening",
+          "confidence": 72,
+          "explanation": "AI inference and depreciation may offset infrastructure efficiencies.",
+          "uncertainty": "Sample assessment only. More than one period is needed to establish a durable trend.",
+          "updatedAt": "2026-08-05",
+          "evidenceIds": [
+            "MSFT-e1"
+          ]
+        },
+        {
+          "id": "MSFT-p-scale",
+          "thesisId": "thesis-MSFT",
+          "type": "scale",
+          "score": 94,
+          "direction": "improving",
+          "confidence": 70,
+          "explanation": "Global infrastructure broadens capacity and product reach.",
+          "uncertainty": "Sample assessment only. No directly mapped event is available for this pillar.",
+          "updatedAt": "2026-08-05",
+          "evidenceIds": []
+        },
+        {
+          "id": "MSFT-p-distribution",
+          "thesisId": "thesis-MSFT",
+          "type": "distribution",
+          "score": 86,
+          "direction": "stable",
+          "confidence": 68,
+          "explanation": "Enterprise agreements put new products in front of existing buyers.",
+          "uncertainty": "Sample assessment only. No directly mapped event is available for this pillar.",
+          "updatedAt": "2026-08-05",
+          "evidenceIds": []
+        },
+        {
+          "id": "MSFT-p-runway",
+          "thesisId": "thesis-MSFT",
+          "type": "runway",
+          "score": 84,
+          "direction": "weakening",
+          "confidence": 66,
+          "explanation": "A long opportunity remains; near-term returns on new capital are less clear.",
+          "uncertainty": "Sample assessment only. More than one period is needed to establish a durable trend.",
+          "updatedAt": "2026-08-05",
+          "evidenceIds": [
+            "MSFT-e0",
+            "MSFT-e3"
+          ]
+        }
+      ],
+      "evidence": [
+        {
+          "id": "MSFT-e0",
+          "thesisId": "thesis-MSFT",
+          "publishedAt": "2026-08-05",
+          "eventType": "Earnings",
+          "title": "Azure growth improves; cash conversion softens",
+          "summary": "Sample cloud growth rises to 31%, while free cash flow falls to $17.8B. Demand supports the platform thesis, but cash conversion contradicts the reinvestment assumption.",
+          "sourceLabel": "Sample earnings",
+          "sourceUrl": "https://www.microsoft.com/en-us/Investor/earnings/FY-2025-Q4/press-release-webcast",
+          "impact": "mixed",
+          "affectedPillar": "runway",
+          "confidence": 78,
+          "uncertainty": "Capital spending may lead revenue by several quarters."
+        },
+        {
+          "id": "MSFT-e1",
+          "thesisId": "thesis-MSFT",
+          "publishedAt": "2026-08-05",
+          "eventType": "Capital allocation",
+          "title": "Infrastructure spend raises the return hurdle",
+          "summary": "Illustrative capacity additions increase faster than cash generation. More spending alone is not evidence of a stronger moat.",
+          "sourceLabel": "Sample capital allocation",
+          "sourceUrl": "https://www.microsoft.com/en-us/Investor/earnings/FY-2025-Q4/press-release-webcast",
+          "impact": "weakens",
+          "affectedPillar": "cost",
+          "confidence": 73,
+          "uncertainty": "Cohort returns and utilization are not disclosed in this sample."
+        },
+        {
+          "id": "MSFT-e2",
+          "thesisId": "thesis-MSFT",
+          "publishedAt": "2026-07-22",
+          "eventType": "Customer",
+          "title": "Multi-product adoption deepens customer ties",
+          "summary": "The sample customer briefing shows broader security and productivity adoption within large accounts.",
+          "sourceLabel": "Sample customer",
+          "sourceUrl": "https://www.microsoft.com/en-us/Investor/earnings/FY-2025-Q4/press-release-webcast",
+          "impact": "strengthens",
+          "affectedPillar": "switching",
+          "confidence": 68,
+          "uncertainty": "Adoption is not equivalent to paid usage or renewal intent."
+        },
+        {
+          "id": "MSFT-e3",
+          "thesisId": "thesis-MSFT",
+          "publishedAt": "2026-07-10",
+          "eventType": "Competition",
+          "title": "Open models put pressure on AI economics",
+          "summary": "A sample competitor release offers lower inference prices, creating a test of Microsoft\u2019s distribution and bundled value.",
+          "sourceLabel": "Sample competition",
+          "sourceUrl": "https://www.microsoft.com/en-us/Investor/earnings/FY-2025-Q4/press-release-webcast",
+          "impact": "weakens",
+          "affectedPillar": "runway",
+          "confidence": 78,
+          "uncertainty": "Price comparisons exclude enterprise support and integration costs."
+        },
+        {
+          "id": "MSFT-e4",
+          "thesisId": "thesis-MSFT",
+          "publishedAt": "2026-06-18",
+          "eventType": "Product",
+          "title": "Developer ecosystem extends Azure distribution",
+          "summary": "An illustrative partner update expands the range of workloads available through Azure.",
+          "sourceLabel": "Sample product",
+          "sourceUrl": "https://www.microsoft.com/en-us/Investor/earnings/FY-2025-Q4/press-release-webcast",
+          "impact": "strengthens",
+          "affectedPillar": "network",
+          "confidence": 73,
+          "uncertainty": "The update does not quantify incremental customer spending."
+        }
+      ],
+      "earnings": [
+        {
+          "id": "MSFT-q0",
+          "holdingId": "demo-MSFT",
+          "period": "FY26 Q3 \u00b7 sample",
+          "revenue": 64.7,
+          "grossMargin": 69.4,
+          "operatingMargin": 44.6,
+          "freeCashFlow": 21.0,
+          "customerGrowth": 29.0,
+          "netRetention": null,
+          "debt": 48.0,
+          "dilution": -0.2,
+          "guidance": "Cloud growth of 28\u201330%"
+        },
+        {
+          "id": "MSFT-q1",
+          "holdingId": "demo-MSFT",
+          "period": "FY26 Q4 \u00b7 sample",
+          "revenue": 69.1,
+          "grossMargin": 68.1,
+          "operatingMargin": 43.2,
+          "freeCashFlow": 17.8,
+          "customerGrowth": 31.0,
+          "netRetention": null,
+          "debt": 51.0,
+          "dilution": 0.1,
+          "guidance": "Cloud growth of 30\u201332%"
+        }
+      ],
+      "metricNotes": {
+        "revenue": "Higher sales support enterprise demand, but say little about incremental returns.",
+        "grossMargin": "Lower gross margin challenges the cost-advantage assumption.",
+        "operatingMargin": "Operating leverage has not kept pace with the sample revenue growth.",
+        "freeCashFlow": "Weaker cash conversion is the clearest challenge to the compounder thesis.",
+        "customerGrowth": "Azure growth supports the demand assumption; this is a growth rate, not retention.",
+        "netRetention": "Net retention is not available; do not infer it from cloud growth.",
+        "debt": "Additional debt slightly narrows balance-sheet flexibility.",
+        "dilution": "A small diluted share-count increase creates an owner-earnings headwind.",
+        "guidance": "Higher cloud guidance supports demand; cash conversion remains uncertain."
+      },
+      "customerLabel": "Azure growth",
+      "sellConditions": [
+        {
+          "id": "MSFT-sell0",
+          "thesisId": "thesis-MSFT",
+          "title": "Moat score below 80",
+          "description": "A review threshold, not an automatic trade instruction.",
+          "metric": "moatScore",
+          "operator": "below",
+          "threshold": 80,
+          "currentState": "",
+          "status": "not triggered",
+          "lastChecked": "2026-08-05",
+          "evidenceIds": [
+            "MSFT-e0"
+          ]
+        },
+        {
+          "id": "MSFT-sell1",
+          "thesisId": "thesis-MSFT",
+          "title": "Gross margin below 66%",
+          "description": "A review threshold, not an automatic trade instruction.",
+          "metric": "grossMargin",
+          "operator": "below",
+          "threshold": 66,
+          "currentState": "",
+          "status": "not triggered",
+          "lastChecked": "2026-08-05",
+          "evidenceIds": [
+            "MSFT-e0"
+          ]
+        },
+        {
+          "id": "MSFT-sell2",
+          "thesisId": "thesis-MSFT",
+          "title": "Debt above $65B",
+          "description": "A review threshold, not an automatic trade instruction.",
+          "metric": "debt",
+          "operator": "above",
+          "threshold": 65,
+          "currentState": "",
+          "status": "not triggered",
+          "lastChecked": "2026-08-05",
+          "evidenceIds": [
+            "MSFT-e0"
+          ]
+        }
+      ],
+      "questions": [
+        {
+          "id": "MSFT-q0",
+          "title": "Is the recent margin pressure temporary or structural?",
+          "status": "open",
+          "watchlisted": false,
+          "evidenceIds": [
+            "MSFT-e0"
+          ],
+          "confidence": 78,
+          "uncertainty": "The useful life and replacement cost of AI infrastructure.",
+          "date": "2026-08-05"
+        },
+        {
+          "id": "MSFT-q1",
+          "title": "What utilization is required for AI capacity to earn its cost of capital?",
+          "status": "open",
+          "watchlisted": false,
+          "evidenceIds": [
+            "MSFT-e1"
+          ],
+          "confidence": 73,
+          "uncertainty": "How much Copilot usage converts into durable, incremental revenue.",
+          "date": "2026-08-05"
+        },
+        {
+          "id": "MSFT-q2",
+          "title": "Are customers paying for Copilot after the initial pilot?",
+          "status": "open",
+          "watchlisted": false,
+          "evidenceIds": [
+            "MSFT-e2"
+          ],
+          "confidence": 68,
+          "uncertainty": "Whether cloud customers can sustain current spending through a downturn.",
+          "date": "2026-08-05"
+        }
+      ],
+      "redTeam": [
+        {
+          "title": "Strongest counterargument",
+          "argument": "The AI opportunity may be real while the returns accrue to customers, chip suppliers, or competing open models. Microsoft could grow revenue and still compound owner earnings more slowly.",
+          "evidenceIds": [
+            "MSFT-e0"
+          ],
+          "confidence": 68,
+          "date": "2026-08-05",
+          "uncertainty": "The useful life and replacement cost of AI infrastructure."
+        },
+        {
+          "title": "Most fragile assumption",
+          "argument": "The most fragile assumption is that each additional dollar of AI infrastructure earns historical software-like returns.",
+          "evidenceIds": [
+            "MSFT-e1"
+          ],
+          "confidence": 67,
+          "date": "2026-08-05",
+          "uncertainty": "How much Copilot usage converts into durable, incremental revenue."
+        },
+        {
+          "title": "Evidence that would disprove the thesis",
+          "argument": "Sustained margin erosion alongside slowing renewals would challenge both pricing power and switching costs.",
+          "evidenceIds": [
+            "MSFT-e2"
+          ],
+          "confidence": 66,
+          "date": "2026-08-05",
+          "uncertainty": "Whether cloud customers can sustain current spending through a downturn."
+        },
+        {
+          "title": "What may already be priced in",
+          "argument": "A premium valuation may already assume rapid AI monetization; this sample contains no live price or valuation model.",
+          "evidenceIds": [
+            "MSFT-e3"
+          ],
+          "confidence": 65,
+          "date": "2026-08-05",
+          "uncertainty": "The useful life and replacement cost of AI infrastructure."
+        },
+        {
+          "title": "What you may be overlooking",
+          "argument": "Depreciation can lag spending. Reported earnings may initially overstate the cash economics of a faster replacement cycle.",
+          "evidenceIds": [
+            "MSFT-e4"
+          ],
+          "confidence": 64,
+          "date": "2026-08-05",
+          "uncertainty": "How much Copilot usage converts into durable, incremental revenue."
+        }
+      ],
+      "reviewPriority": 3,
+      "drift": -6,
+      "history": [
+        92,
+        92,
+        91,
+        89,
+        90,
+        88,
+        86
+      ]
+    },
+    {
+      "isDemo": true,
+      "holding": {
+        "id": "demo-V",
+        "symbol": "V",
+        "companyName": "Visa",
+        "sector": "Financial Services",
+        "portfolioWeight": 33,
+        "shares": 100,
+        "averageCost": 240,
+        "currentValue": 33000,
+        "thesisId": "thesis-V",
+        "lastUpdated": "2026-08-12"
+      },
+      "thesis": {
+        "id": "thesis-V",
+        "holdingId": "demo-V",
+        "originalStatement": "Visa compounds as digital payments displace cash. Its two-sided acceptance network, global reach, and asset-light model support durable margins without taking consumer credit risk.",
+        "currentSummary": "The sample shows a resilient payments network: volumes and cross-border activity are growing, with broadly steady margins. Regulation and alternative payment rails remain unresolved risks, rather than evidence of a broken thesis.",
+        "status": "UNCHANGED",
+        "confidence": 86,
+        "moatScore": 91,
+        "createdAt": "2025-09-15",
+        "updatedAt": "2026-08-12"
+      },
+      "baseline": "Visa compounds as digital payments displace cash. Its two-sided acceptance network, global reach, and asset-light model support durable margins without taking consumer credit risk.",
+      "changes": "Payment volume growth improved modestly and free cash flow rose. A regulatory review adds uncertainty around future network economics without changing the sample operating trajectory.",
+      "unknowns": [
+        "The eventual scope and timing of payment-network regulation.",
+        "Whether account-to-account payments can replicate global acceptance and fraud protection.",
+        "How much incentive spending is required to retain large partners."
+      ],
+      "assumptions": [
+        {
+          "title": "Global acceptance remains difficult to replicate.",
+          "state": "Supported",
+          "change": "Merchant reach and issuer connections remain broad.",
+          "pillar": "network",
+          "evidenceIds": [
+            "V-e2"
+          ],
+          "confidence": 86,
+          "uncertainty": "The eventual scope and timing of payment-network regulation.",
+          "date": "2026-08-12"
+        },
+        {
+          "title": "Digital payments keep displacing cash.",
+          "state": "Supported",
+          "change": "Sample payment volume growth rises to 9%.",
+          "pillar": "runway",
+          "evidenceIds": [
+            "V-e0"
+          ],
+          "confidence": 82,
+          "uncertainty": "Whether account-to-account payments can replicate global acceptance and fraud protection.",
+          "date": "2026-08-12"
+        },
+        {
+          "title": "Network economics survive regulatory scrutiny.",
+          "state": "Unproven",
+          "change": "The sample policy review has no final remedy.",
+          "pillar": "distribution",
+          "evidenceIds": [
+            "V-e1"
+          ],
+          "confidence": 78,
+          "uncertainty": "How much incentive spending is required to retain large partners.",
+          "date": "2026-08-12"
+        }
+      ],
+      "pillars": [
+        {
+          "id": "V-p-brand",
+          "thesisId": "thesis-V",
+          "type": "brand",
+          "score": 91,
+          "direction": "stable",
+          "confidence": 86,
+          "explanation": "The brand signals broad acceptance and payment reliability.",
+          "uncertainty": "Sample assessment only. No directly mapped event is available for this pillar.",
+          "updatedAt": "2026-08-12",
+          "evidenceIds": []
+        },
+        {
+          "id": "V-p-network",
+          "thesisId": "thesis-V",
+          "type": "network",
+          "score": 98,
+          "direction": "improving",
+          "confidence": 84,
+          "explanation": "Issuers and merchants benefit from being on the same global network.",
+          "uncertainty": "Sample assessment only. More than one period is needed to establish a durable trend.",
+          "updatedAt": "2026-08-12",
+          "evidenceIds": [
+            "V-e2"
+          ]
+        },
+        {
+          "id": "V-p-switching",
+          "thesisId": "thesis-V",
+          "type": "switching",
+          "score": 87,
+          "direction": "stable",
+          "confidence": 82,
+          "explanation": "Issuer integrations and consumer habits increase replacement friction.",
+          "uncertainty": "Sample assessment only. More than one period is needed to establish a durable trend.",
+          "updatedAt": "2026-08-12",
+          "evidenceIds": [
+            "V-e3"
+          ]
+        },
+        {
+          "id": "V-p-cost",
+          "thesisId": "thesis-V",
+          "type": "cost",
+          "score": 88,
+          "direction": "stable",
+          "confidence": 80,
+          "explanation": "Processing costs scale efficiently with transaction volume.",
+          "uncertainty": "Sample assessment only. No directly mapped event is available for this pillar.",
+          "updatedAt": "2026-08-12",
+          "evidenceIds": []
+        },
+        {
+          "id": "V-p-scale",
+          "thesisId": "thesis-V",
+          "type": "scale",
+          "score": 97,
+          "direction": "stable",
+          "confidence": 78,
+          "explanation": "Global volume funds reliability, fraud prevention and product development.",
+          "uncertainty": "Sample assessment only. More than one period is needed to establish a durable trend.",
+          "updatedAt": "2026-08-12",
+          "evidenceIds": [
+            "V-e4"
+          ]
+        },
+        {
+          "id": "V-p-distribution",
+          "thesisId": "thesis-V",
+          "type": "distribution",
+          "score": 89,
+          "direction": "weakening",
+          "confidence": 76,
+          "explanation": "Licenses and relationships support reach, but regulation can constrain economics.",
+          "uncertainty": "Sample assessment only. More than one period is needed to establish a durable trend.",
+          "updatedAt": "2026-08-12",
+          "evidenceIds": [
+            "V-e1"
+          ]
+        },
+        {
+          "id": "V-p-runway",
+          "thesisId": "thesis-V",
+          "type": "runway",
+          "score": 87,
+          "direction": "improving",
+          "confidence": 74,
+          "explanation": "Cash displacement and adjacent payment flows leave room to reinvest.",
+          "uncertainty": "Sample assessment only. More than one period is needed to establish a durable trend.",
+          "updatedAt": "2026-08-12",
+          "evidenceIds": [
+            "V-e0"
+          ]
+        }
+      ],
+      "evidence": [
+        {
+          "id": "V-e0",
+          "thesisId": "thesis-V",
+          "publishedAt": "2026-08-12",
+          "eventType": "Earnings",
+          "title": "Payment volumes advance; margins hold",
+          "summary": "In the illustrative period, revenue grows to $10.2B and payment volume growth reaches 9%. Operating margin stays near 66%.",
+          "sourceLabel": "Sample earnings",
+          "sourceUrl": "https://investor.visa.com/financial-information/quarterly-earnings/default.aspx",
+          "impact": "strengthens",
+          "affectedPillar": "runway",
+          "confidence": 86,
+          "uncertainty": "Volume growth could reflect spending inflation rather than transaction share gains."
+        },
+        {
+          "id": "V-e1",
+          "thesisId": "thesis-V",
+          "publishedAt": "2026-08-02",
+          "eventType": "Regulation",
+          "title": "Network economics face a policy review",
+          "summary": "A fictional policy scenario examines routing choice and fees. No final remedy or earnings impact is assumed.",
+          "sourceLabel": "Sample regulation",
+          "sourceUrl": "https://investor.visa.com/financial-information/quarterly-earnings/default.aspx",
+          "impact": "mixed",
+          "affectedPillar": "distribution",
+          "confidence": 81,
+          "uncertainty": "The scope and timing of any remedy remain unknown."
+        },
+        {
+          "id": "V-e2",
+          "thesisId": "thesis-V",
+          "publishedAt": "2026-07-16",
+          "eventType": "Customer",
+          "title": "Issuer renewal supports network reach",
+          "summary": "An illustrative issuer renewal preserves access to a large card portfolio.",
+          "sourceLabel": "Sample customer",
+          "sourceUrl": "https://investor.visa.com/financial-information/quarterly-earnings/default.aspx",
+          "impact": "strengthens",
+          "affectedPillar": "network",
+          "confidence": 76,
+          "uncertainty": "Renewal incentives may offset some volume benefits."
+        },
+        {
+          "id": "V-e3",
+          "thesisId": "thesis-V",
+          "publishedAt": "2026-06-30",
+          "eventType": "Competition",
+          "title": "Alternative rails remain a watch item",
+          "summary": "A sample account-to-account launch adds a lower-cost domestic option, but does not establish cross-border acceptance.",
+          "sourceLabel": "Sample competition",
+          "sourceUrl": "https://investor.visa.com/financial-information/quarterly-earnings/default.aspx",
+          "impact": "mixed",
+          "affectedPillar": "switching",
+          "confidence": 86,
+          "uncertainty": "Adoption, loss rates and merchant economics are not yet observable."
+        },
+        {
+          "id": "V-e4",
+          "thesisId": "thesis-V",
+          "publishedAt": "2026-06-04",
+          "eventType": "Capital allocation",
+          "title": "Buybacks offset employee share issuance",
+          "summary": "Sample diluted share count falls by 1.3%, consistent with a cash-generative, asset-light model.",
+          "sourceLabel": "Sample capital allocation",
+          "sourceUrl": "https://investor.visa.com/financial-information/quarterly-earnings/default.aspx",
+          "impact": "neutral",
+          "affectedPillar": "scale",
+          "confidence": 81,
+          "uncertainty": "Repurchase value depends on the price paid."
+        }
+      ],
+      "earnings": [
+        {
+          "id": "V-q0",
+          "holdingId": "demo-V",
+          "period": "FY26 Q2 \u00b7 sample",
+          "revenue": 9.6,
+          "grossMargin": 80.1,
+          "operatingMargin": 66.0,
+          "freeCashFlow": 5.3,
+          "customerGrowth": 8.0,
+          "netRetention": null,
+          "debt": 20.5,
+          "dilution": -1.1,
+          "guidance": "High single-digit volume growth"
+        },
+        {
+          "id": "V-q1",
+          "holdingId": "demo-V",
+          "period": "FY26 Q3 \u00b7 sample",
+          "revenue": 10.2,
+          "grossMargin": 80.3,
+          "operatingMargin": 66.2,
+          "freeCashFlow": 5.7,
+          "customerGrowth": 9.0,
+          "netRetention": null,
+          "debt": 20.2,
+          "dilution": -1.3,
+          "guidance": "High single-digit volume growth"
+        }
+      ],
+      "metricNotes": {
+        "revenue": "Higher revenue is consistent with more spending flowing across the network.",
+        "grossMargin": "Stable-to-higher gross margin supports processing scale economics.",
+        "operatingMargin": "Little change in operating margin suggests the core economics remain intact.",
+        "freeCashFlow": "Cash growth supports the asset-light compounder assumption.",
+        "customerGrowth": "Payment volume growth accelerates modestly; this is not a count of new users.",
+        "netRetention": "A software-style retention metric is not applicable to this snapshot.",
+        "debt": "Debt edges lower, preserving financial flexibility.",
+        "dilution": "Fewer diluted shares support per-share compounding, subject to repurchase price.",
+        "guidance": "Guidance is unchanged; the sample gives no basis for raising conviction."
+      },
+      "customerLabel": "Payment volume growth",
+      "sellConditions": [
+        {
+          "id": "V-sell0",
+          "thesisId": "thesis-V",
+          "title": "Moat score below 82",
+          "description": "A review threshold, not an automatic trade instruction.",
+          "metric": "moatScore",
+          "operator": "below",
+          "threshold": 82,
+          "currentState": "",
+          "status": "not triggered",
+          "lastChecked": "2026-08-12",
+          "evidenceIds": [
+            "V-e0"
+          ]
+        },
+        {
+          "id": "V-sell1",
+          "thesisId": "thesis-V",
+          "title": "Operating margin below 58%",
+          "description": "A review threshold, not an automatic trade instruction.",
+          "metric": "operatingMargin",
+          "operator": "below",
+          "threshold": 58,
+          "currentState": "",
+          "status": "not triggered",
+          "lastChecked": "2026-08-12",
+          "evidenceIds": [
+            "V-e0"
+          ]
+        },
+        {
+          "id": "V-sell2",
+          "thesisId": "thesis-V",
+          "title": "Debt above $30B",
+          "description": "A review threshold, not an automatic trade instruction.",
+          "metric": "debt",
+          "operator": "above",
+          "threshold": 30,
+          "currentState": "",
+          "status": "not triggered",
+          "lastChecked": "2026-08-12",
+          "evidenceIds": [
+            "V-e0"
+          ]
+        }
+      ],
+      "questions": [
+        {
+          "id": "V-q0",
+          "title": "Can alternative payment rails compete on total merchant cost?",
+          "status": "open",
+          "watchlisted": false,
+          "evidenceIds": [
+            "V-e0"
+          ],
+          "confidence": 86,
+          "uncertainty": "The eventual scope and timing of payment-network regulation.",
+          "date": "2026-08-12"
+        },
+        {
+          "id": "V-q1",
+          "title": "How much growth is being purchased with client incentives?",
+          "status": "open",
+          "watchlisted": false,
+          "evidenceIds": [
+            "V-e1"
+          ],
+          "confidence": 81,
+          "uncertainty": "Whether account-to-account payments can replicate global acceptance and fraud protection.",
+          "date": "2026-08-12"
+        },
+        {
+          "id": "V-q2",
+          "title": "Could a regulatory remedy materially change network economics?",
+          "status": "open",
+          "watchlisted": false,
+          "evidenceIds": [
+            "V-e2"
+          ],
+          "confidence": 76,
+          "uncertainty": "How much incentive spending is required to retain large partners.",
+          "date": "2026-08-12"
+        }
+      ],
+      "redTeam": [
+        {
+          "title": "Strongest counterargument",
+          "argument": "A superior payments network can still face a lower ceiling on fees. Merchants, banks and regulators all have incentives to move transactions to cheaper rails.",
+          "evidenceIds": [
+            "V-e0"
+          ],
+          "confidence": 76,
+          "date": "2026-08-12",
+          "uncertainty": "The eventual scope and timing of payment-network regulation."
+        },
+        {
+          "title": "Most fragile assumption",
+          "argument": "The fragile assumption is that global acceptance protects economics as strongly as it protects transaction volume.",
+          "evidenceIds": [
+            "V-e1"
+          ],
+          "confidence": 75,
+          "date": "2026-08-12",
+          "uncertainty": "Whether account-to-account payments can replicate global acceptance and fraud protection."
+        },
+        {
+          "title": "Evidence that would disprove the thesis",
+          "argument": "Sustained share loss combined with higher incentives and lower margins would disprove the claim of resilient pricing power.",
+          "evidenceIds": [
+            "V-e2"
+          ],
+          "confidence": 74,
+          "date": "2026-08-12",
+          "uncertainty": "How much incentive spending is required to retain large partners."
+        },
+        {
+          "title": "What may already be priced in",
+          "argument": "A premium multiple may already reflect a long cash-displacement runway. No current valuation has been tested in this sample.",
+          "evidenceIds": [
+            "V-e3"
+          ],
+          "confidence": 73,
+          "date": "2026-08-12",
+          "uncertainty": "The eventual scope and timing of payment-network regulation."
+        },
+        {
+          "title": "What you may be overlooking",
+          "argument": "Partner incentives and domestic routing changes can weaken incremental economics before headline revenue growth slows.",
+          "evidenceIds": [
+            "V-e4"
+          ],
+          "confidence": 72,
+          "date": "2026-08-12",
+          "uncertainty": "Whether account-to-account payments can replicate global acceptance and fraud protection."
+        }
+      ],
+      "reviewPriority": 1,
+      "drift": 1,
+      "history": [
+        90,
+        90,
+        91,
+        90,
+        91,
+        91,
+        91
+      ]
+    },
+    {
+      "isDemo": true,
+      "holding": {
+        "id": "demo-COST",
+        "symbol": "COST",
+        "companyName": "Costco",
+        "sector": "Consumer Staples",
+        "portfolioWeight": 25,
+        "shares": 100,
+        "averageCost": 650,
+        "currentValue": 25000,
+        "thesisId": "thesis-COST",
+        "lastUpdated": "2026-08-28"
+      },
+      "thesis": {
+        "id": "thesis-COST",
+        "holdingId": "demo-COST",
+        "originalStatement": "Costco\u2019s membership model turns customer trust into recurring fee income. Scale purchasing, disciplined markups, and a limited assortment reinforce value, renewal rates, and a long warehouse expansion runway.",
+        "currentSummary": "The sample supports the membership flywheel: renewal remains resilient, member growth improves, and fee income helps fund the value proposition. International expansion is promising, while site-level returns remain the key unknown.",
+        "status": "STRENGTHENED",
+        "confidence": 84,
+        "moatScore": 89,
+        "createdAt": "2025-09-15",
+        "updatedAt": "2026-08-28"
+      },
+      "baseline": "Costco\u2019s membership model turns customer trust into recurring fee income. Scale purchasing, disciplined markups, and a limited assortment reinforce value, renewal rates, and a long warehouse expansion runway.",
+      "changes": "Member growth improved and free cash flow rose. The sample suggests the membership value proposition is holding after a fee increase; expansion returns still need to be tested market by market.",
+      "unknowns": [
+        "How new international warehouses perform after the opening surge.",
+        "Whether renewal remains stable through a weaker consumer cycle.",
+        "How wage and logistics inflation affect the everyday price advantage."
+      ],
+      "assumptions": [
+        {
+          "title": "Members continue to perceive exceptional value.",
+          "state": "Supported",
+          "change": "Sample membership growth rises to 7.3%.",
+          "pillar": "brand",
+          "evidenceIds": [
+            "COST-e0"
+          ],
+          "confidence": 84,
+          "uncertainty": "How new international warehouses perform after the opening surge.",
+          "date": "2026-08-28"
+        },
+        {
+          "title": "Scale savings are shared with members.",
+          "state": "Supported",
+          "change": "Disciplined markups protect the value proposition.",
+          "pillar": "cost",
+          "evidenceIds": [
+            "COST-e3"
+          ],
+          "confidence": 80,
+          "uncertainty": "Whether renewal remains stable through a weaker consumer cycle.",
+          "date": "2026-08-28"
+        },
+        {
+          "title": "New warehouses earn attractive returns.",
+          "state": "Unproven",
+          "change": "New-market demand is encouraging; mature economics are not yet visible.",
+          "pillar": "runway",
+          "evidenceIds": [
+            "COST-e2"
+          ],
+          "confidence": 76,
+          "uncertainty": "How wage and logistics inflation affect the everyday price advantage.",
+          "date": "2026-08-28"
+        }
+      ],
+      "pillars": [
+        {
+          "id": "COST-p-brand",
+          "thesisId": "thesis-COST",
+          "type": "brand",
+          "score": 96,
+          "direction": "improving",
+          "confidence": 84,
+          "explanation": "Member trust in value improves in the sample despite a higher annual fee.",
+          "uncertainty": "Sample assessment only. More than one period is needed to establish a durable trend.",
+          "updatedAt": "2026-08-28",
+          "evidenceIds": [
+            "COST-e0"
+          ]
+        },
+        {
+          "id": "COST-p-network",
+          "thesisId": "thesis-COST",
+          "type": "network",
+          "score": 55,
+          "direction": "stable",
+          "confidence": 82,
+          "explanation": "Direct network effects are limited; purchasing scale is the more relevant advantage.",
+          "uncertainty": "Sample assessment only. No directly mapped event is available for this pillar.",
+          "updatedAt": "2026-08-28",
+          "evidenceIds": []
+        },
+        {
+          "id": "COST-p-switching",
+          "thesisId": "thesis-COST",
+          "type": "switching",
+          "score": 77,
+          "direction": "stable",
+          "confidence": 80,
+          "explanation": "Renewal habits help retention, although members can shop elsewhere easily.",
+          "uncertainty": "Sample assessment only. More than one period is needed to establish a durable trend.",
+          "updatedAt": "2026-08-28",
+          "evidenceIds": [
+            "COST-e1"
+          ]
+        },
+        {
+          "id": "COST-p-cost",
+          "thesisId": "thesis-COST",
+          "type": "cost",
+          "score": 98,
+          "direction": "improving",
+          "confidence": 78,
+          "explanation": "Limited assortment and purchasing volume support lower unit costs.",
+          "uncertainty": "Sample assessment only. More than one period is needed to establish a durable trend.",
+          "updatedAt": "2026-08-28",
+          "evidenceIds": [
+            "COST-e3"
+          ]
+        },
+        {
+          "id": "COST-p-scale",
+          "thesisId": "thesis-COST",
+          "type": "scale",
+          "score": 96,
+          "direction": "stable",
+          "confidence": 76,
+          "explanation": "High throughput spreads fixed warehouse and logistics costs.",
+          "uncertainty": "Sample assessment only. No directly mapped event is available for this pillar.",
+          "updatedAt": "2026-08-28",
+          "evidenceIds": []
+        },
+        {
+          "id": "COST-p-distribution",
+          "thesisId": "thesis-COST",
+          "type": "distribution",
+          "score": 94,
+          "direction": "stable",
+          "confidence": 74,
+          "explanation": "Warehouse locations and supplier relationships are difficult to recreate quickly.",
+          "uncertainty": "Sample assessment only. More than one period is needed to establish a durable trend.",
+          "updatedAt": "2026-08-28",
+          "evidenceIds": [
+            "COST-e4"
+          ]
+        },
+        {
+          "id": "COST-p-runway",
+          "thesisId": "thesis-COST",
+          "type": "runway",
+          "score": 91,
+          "direction": "improving",
+          "confidence": 72,
+          "explanation": "International openings add opportunity, with market-level returns still unproven.",
+          "uncertainty": "Sample assessment only. More than one period is needed to establish a durable trend.",
+          "updatedAt": "2026-08-28",
+          "evidenceIds": [
+            "COST-e2"
+          ]
+        }
+      ],
+      "evidence": [
+        {
+          "id": "COST-e0",
+          "thesisId": "thesis-COST",
+          "publishedAt": "2026-08-28",
+          "eventType": "Earnings",
+          "title": "Member growth strengthens after the fee change",
+          "summary": "The sample shows 7.3% membership growth, steady renewal behavior and higher cash generation.",
+          "sourceLabel": "Sample earnings",
+          "sourceUrl": "https://investor.costco.com/financials/sec-filings/default.aspx",
+          "impact": "strengthens",
+          "affectedPillar": "brand",
+          "confidence": 84,
+          "uncertainty": "Aggregate growth can hide differences between new and mature markets."
+        },
+        {
+          "id": "COST-e1",
+          "thesisId": "thesis-COST",
+          "publishedAt": "2026-08-08",
+          "eventType": "Pricing",
+          "title": "Value proposition survives a membership fee increase",
+          "summary": "Illustrative renewal behavior is stable following a fee increase, supporting member trust.",
+          "sourceLabel": "Sample pricing",
+          "sourceUrl": "https://investor.costco.com/financials/sec-filings/default.aspx",
+          "impact": "strengthens",
+          "affectedPillar": "switching",
+          "confidence": 79,
+          "uncertainty": "One renewal cycle does not establish permanent pricing power."
+        },
+        {
+          "id": "COST-e2",
+          "thesisId": "thesis-COST",
+          "publishedAt": "2026-07-24",
+          "eventType": "Product",
+          "title": "International openings broaden the runway",
+          "summary": "New warehouses in a sample overseas market attract strong initial demand.",
+          "sourceLabel": "Sample product",
+          "sourceUrl": "https://investor.costco.com/financials/sec-filings/default.aspx",
+          "impact": "strengthens",
+          "affectedPillar": "runway",
+          "confidence": 74,
+          "uncertainty": "Opening demand does not establish mature unit returns."
+        },
+        {
+          "id": "COST-e3",
+          "thesisId": "thesis-COST",
+          "publishedAt": "2026-07-03",
+          "eventType": "Guidance",
+          "title": "Management keeps its markup discipline",
+          "summary": "A sample update keeps the focus on member savings rather than maximizing merchandise margins.",
+          "sourceLabel": "Sample guidance",
+          "sourceUrl": "https://investor.costco.com/financials/sec-filings/default.aspx",
+          "impact": "neutral",
+          "affectedPillar": "cost",
+          "confidence": 84,
+          "uncertainty": "Wage and freight inflation could still compress operating earnings."
+        },
+        {
+          "id": "COST-e4",
+          "thesisId": "thesis-COST",
+          "publishedAt": "2026-06-12",
+          "eventType": "Competition",
+          "title": "Rivals increase delivery convenience",
+          "summary": "A fictional competitor expands same-day delivery, challenging Costco on convenience.",
+          "sourceLabel": "Sample competition",
+          "sourceUrl": "https://investor.costco.com/financials/sec-filings/default.aspx",
+          "impact": "mixed",
+          "affectedPillar": "distribution",
+          "confidence": 79,
+          "uncertainty": "The sample does not measure share loss or member willingness to pay for speed."
+        }
+      ],
+      "earnings": [
+        {
+          "id": "COST-q0",
+          "holdingId": "demo-COST",
+          "period": "FY26 Q2 \u00b7 sample",
+          "revenue": 62.5,
+          "grossMargin": 12.8,
+          "operatingMargin": 3.7,
+          "freeCashFlow": 2.1,
+          "customerGrowth": 6.5,
+          "netRetention": null,
+          "debt": 6.0,
+          "dilution": -0.1,
+          "guidance": "Steady warehouse openings"
+        },
+        {
+          "id": "COST-q1",
+          "holdingId": "demo-COST",
+          "period": "FY26 Q3 \u00b7 sample",
+          "revenue": 65.9,
+          "grossMargin": 13.0,
+          "operatingMargin": 3.9,
+          "freeCashFlow": 2.5,
+          "customerGrowth": 7.3,
+          "netRetention": null,
+          "debt": 5.8,
+          "dilution": -0.1,
+          "guidance": "Steady warehouse openings"
+        }
+      ],
+      "metricNotes": {
+        "revenue": "Sales growth supports throughput and member demand.",
+        "grossMargin": "A modest gain supports the model, but maximizing markups is not the thesis.",
+        "operatingMargin": "Higher operating margin is consistent with scale and membership fee contribution.",
+        "freeCashFlow": "Higher cash generation helps fund new warehouses without stretching the balance sheet.",
+        "customerGrowth": "Membership growth improves, supporting the recurring fee base.",
+        "netRetention": "Net revenue retention is not available; membership renewal is a different measure.",
+        "debt": "Lower debt supports room for disciplined expansion.",
+        "dilution": "Share count is slightly lower; per-share value still depends on investment returns.",
+        "guidance": "An unchanged opening plan gives no reason to assume faster expansion."
+      },
+      "customerLabel": "Membership growth",
+      "sellConditions": [
+        {
+          "id": "COST-sell0",
+          "thesisId": "thesis-COST",
+          "title": "Moat score below 78",
+          "description": "A review threshold, not an automatic trade instruction.",
+          "metric": "moatScore",
+          "operator": "below",
+          "threshold": 78,
+          "currentState": "",
+          "status": "not triggered",
+          "lastChecked": "2026-08-28",
+          "evidenceIds": [
+            "COST-e0"
+          ]
+        },
+        {
+          "id": "COST-sell1",
+          "thesisId": "thesis-COST",
+          "title": "Gross margin below 11%",
+          "description": "A review threshold, not an automatic trade instruction.",
+          "metric": "grossMargin",
+          "operator": "below",
+          "threshold": 11,
+          "currentState": "",
+          "status": "not triggered",
+          "lastChecked": "2026-08-28",
+          "evidenceIds": [
+            "COST-e0"
+          ]
+        },
+        {
+          "id": "COST-sell2",
+          "thesisId": "thesis-COST",
+          "title": "Debt above $12B",
+          "description": "A review threshold, not an automatic trade instruction.",
+          "metric": "debt",
+          "operator": "above",
+          "threshold": 12,
+          "currentState": "",
+          "status": "not triggered",
+          "lastChecked": "2026-08-28",
+          "evidenceIds": [
+            "COST-e0"
+          ]
+        }
+      ],
+      "questions": [
+        {
+          "id": "COST-q0",
+          "title": "Do international warehouses earn domestic-level returns?",
+          "status": "open",
+          "watchlisted": false,
+          "evidenceIds": [
+            "COST-e0"
+          ],
+          "confidence": 84,
+          "uncertainty": "How new international warehouses perform after the opening surge.",
+          "date": "2026-08-28"
+        },
+        {
+          "id": "COST-q1",
+          "title": "Will renewal remain resilient through a weaker consumer cycle?",
+          "status": "open",
+          "watchlisted": false,
+          "evidenceIds": [
+            "COST-e1"
+          ],
+          "confidence": 79,
+          "uncertainty": "Whether renewal remains stable through a weaker consumer cycle.",
+          "date": "2026-08-28"
+        },
+        {
+          "id": "COST-q2",
+          "title": "Is the price advantage keeping pace with online alternatives?",
+          "status": "open",
+          "watchlisted": false,
+          "evidenceIds": [
+            "COST-e2"
+          ],
+          "confidence": 74,
+          "uncertainty": "How wage and logistics inflation affect the everyday price advantage.",
+          "date": "2026-08-28"
+        }
+      ],
+      "redTeam": [
+        {
+          "title": "Strongest counterargument",
+          "argument": "Costco may be an exceptional business at a price that leaves little room for slower growth. A durable moat cannot by itself protect the investor from overpaying.",
+          "evidenceIds": [
+            "COST-e0"
+          ],
+          "confidence": 74,
+          "date": "2026-08-28",
+          "uncertainty": "How new international warehouses perform after the opening surge."
+        },
+        {
+          "title": "Most fragile assumption",
+          "argument": "The fragile assumption is that international expansion replicates the mature North American membership economics.",
+          "evidenceIds": [
+            "COST-e1"
+          ],
+          "confidence": 73,
+          "date": "2026-08-28",
+          "uncertainty": "Whether renewal remains stable through a weaker consumer cycle."
+        },
+        {
+          "title": "Evidence that would disprove the thesis",
+          "argument": "Persistent renewal deterioration and rising acquisition costs after fee increases would undermine the membership flywheel.",
+          "evidenceIds": [
+            "COST-e2"
+          ],
+          "confidence": 72,
+          "date": "2026-08-28",
+          "uncertainty": "How wage and logistics inflation affect the everyday price advantage."
+        },
+        {
+          "title": "What may already be priced in",
+          "argument": "A high valuation may already assume years of successful warehouse openings. This sample has no live multiple or return forecast.",
+          "evidenceIds": [
+            "COST-e3"
+          ],
+          "confidence": 71,
+          "date": "2026-08-28",
+          "uncertainty": "How new international warehouses perform after the opening surge."
+        },
+        {
+          "title": "What you may be overlooking",
+          "argument": "Strong membership fee growth can mask pressure in merchandise operations, especially during wage and freight inflation.",
+          "evidenceIds": [
+            "COST-e4"
+          ],
+          "confidence": 70,
+          "date": "2026-08-28",
+          "uncertainty": "Whether renewal remains stable through a weaker consumer cycle."
+        }
+      ],
+      "reviewPriority": 0,
+      "drift": 4,
+      "history": [
+        85,
+        86,
+        85,
+        87,
+        87,
+        88,
+        89
+      ]
+    }
+  ]
+}

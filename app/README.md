@@ -8,7 +8,7 @@
 
 - **Moatrices** เปิด Research workspace: Thesis Monitor, Moat Matrix และ Earnings Diff
 - **Money** บันทึกรายรับ รายจ่าย และงบประมาณในเครื่อง
-- **Portfolio** พอร์ตส่วนตัวเดิม ข้อมูลถือครองและราคาที่กรอกยังอยู่ในเครื่อง
+- **Portfolio** Portfolio Health และ Matrices: The Living Thesis; พอร์ตส่วนตัวเดิมและการแก้ราคาอยู่ใน Holdings & allocation ข้อมูลยังอยู่ในเครื่อง
 - **Smart Money** 16 รายการ: พอร์ตสาธารณะ 14 แห่งและเอกสารเปิดเผยของ Trump / Pelosi พร้อมค้นหา แยกประเภท และอ่านแหล่งอ้างอิง
 
 Research อยู่ภายใน Portfolio ที่ `portfolio.html?view=research` และใช้ snapshot ของบทความ SNPS, TSM, NVDA ใน `data/research.json` ไม่ใช่ live feed; ค่าที่ไม่มีจะแสดงเป็น `Not recorded` และหลักฐานทุกจุดลิงก์กลับไปยัง section ของบทความเดิม ส่วน Follow และ thesis notes เก็บในเครื่อง ไม่อยู่ใน cloud sync
@@ -29,6 +29,39 @@ python3 -m http.server 8000
 - มือถือและ PWA ใช้ app mode เป็นค่าเริ่มต้น; หน้าจอกว้างใช้ desktop mode
 - บังคับโหมดด้วย `?mode=app` หรือ `?mode=desktop&open=smart-money`
 - ไฟล์แอปอยู่ใน repo เว็บเดียวกัน เผยแพร่ตามกระบวนการ push ของเว็บไซต์
+
+## Matrices: The Living Thesis
+
+`portfolio.html` เปิดมาเป็นภาพรวมสุขภาพของ thesis รายธุรกิจ กดที่หุ้นตัวหนึ่งเพื่อดู thesis เดิม การประเมินปัจจุบัน เสาคูเมือง 7 ด้าน ไทม์ไลน์หลักฐาน การเทียบผลประกอบการ adversarial review เงื่อนไขขาย และคำถามที่ต้องไปขุดต่อ
+
+ยังเป็น vanilla JavaScript ชุดเดิม ไม่มี package manager, framework, ฐานข้อมูล หรือ build step เพิ่ม เส้นทางเป็น query string บน static hosting เหมือนส่วนอื่นของแอป:
+
+```text
+/portfolio.html
+/portfolio.html?book=demo&symbol=MSFT
+/portfolio.html?book=demo&symbol=MSFT&thesis=earnings
+/portfolio.html?book=personal&portfolioView=allocation
+```
+
+- **My portfolio** อ่าน `pf.holdings` ของเดิมโดยไม่แตะจำนวนหุ้นหรือราคา ส่วนโดนัทสัดส่วน ความกระจุก เพิ่ม/แก้/ลบหุ้น ความครอบคลุมของ research และการอัปเดตราคา ยังอยู่ครบใน **Holdings & allocation** · พอร์ตจริงเริ่มที่ **INSUFFICIENT DATA** เสมอ ไม่มีการเอาบทวิเคราะห์ตัวอย่างมาสวมแทนหลักฐานจริง
+- **Demo portfolio** เป็นสถานการณ์สมมติของ Microsoft, Visa และ Costco ใน `data/living-thesis.json` ตัวเลข เหตุการณ์ คะแนนและคำตีความทั้งหมดเป็นข้อมูลตัวอย่าง ลิงก์แหล่งที่มาเป็นเอกสารอ้างอิงประกอบ ไม่ใช่หลักฐานยืนยันเหตุการณ์สมมติเหล่านั้น
+- `js/features/living-thesis/model.js` คุม domain type (JSDoc), การกรอง, ความสดของ review, ค่าที่หายไป และการประเมิน threshold · มาร์จิน/อัตราเปลี่ยนเป็น percentage point ตัวเงินเปลี่ยนเป็นเปอร์เซ็นต์ ข้อมูลที่ไม่มีจะไม่ถูกแปลงเป็นศูนย์
+- `service.js` export `analyzeThesis(holding, thesis, evidence, earningsData, context)` กับ `demoAdapter` แบบ deterministic ต่อ provider จริงที่ขอบนี้ผ่าน endpoint ฝั่งเซิร์ฟเวอร์ origin เดียวกัน และเก็บ API credential ไว้ที่เซิร์ฟเวอร์นั้น สัญญาผลลัพธ์คือ `AnalysisResult` ใน model — ฝั่ง view ไม่เรียก AI API เอง
+- Refresh เรียก adapter ตัวอย่าง มีสถานะ loading/error/retry/success และคงวันที่ของหลักฐานเดิมไว้ ไม่ได้ไปดึงงานวิจัยสด · ถ้าแก้ thesis เดิม ระบบจะตีธงให้ประเมินใหม่ เพราะคำตีความตัวอย่างที่ตรึงไว้ประเมิน thesis ใหม่ไม่ได้
+- thesis เดิม เงื่อนไขขายที่แก้ไว้ บันทึก review สถานะคำถาม ธง watchlist และโน้ตการสืบค้น เก็บผ่าน storage adapter เดิม · `pf.living.personal.v1` กับ `pf.living.demo.v1` เป็นคนละ namespace อยู่ในเครื่อง ไม่อยู่ใน sync allowlist และรวมอยู่ในไฟล์ backup ที่ผู้ใช้สั่งเอง · ตัวแก้ไขจะรอ `flushStorage()` ก่อนบอกว่าเซฟสำเร็จ
+- Review บันทึกว่านักลงทุนทบทวนแล้ว โดยไม่ไปเปลี่ยนผลประเมินหรือวันที่ของหลักฐาน · เงื่อนไขขายที่วัดได้จะประเมินจาก snapshot ที่มี ส่วนเงื่อนไขเชิงคุณภาพบันทึกคำตัดสินของนักลงทุน — ไม่มีอันไหนสั่งซื้อขาย · หลักฐานเก่ากว่า 30 วันขึ้นป้ายว่าเก่า
+- dialog คืน focus ให้คีย์บอร์ด แท็บ thesis เดินด้วยลูกศร Home และ End · container query รองรับมือถือและจอกว้าง แถวหุ้นและแถวผลประกอบการยุบเป็นแนวตั้งบนจอเล็ก ไม่ได้เพิ่ม dependency กราฟใดๆ
+- ปุ่ม **Portfolio Health · Living Thesis** เหนือโดนัทใน Holdings & allocation เปิดภาพรวม thesis ของพอร์ตจริง อยากดูสถานการณ์สมมติให้สลับเป็น **Demo portfolio** บนหน้าภาพรวม
+- แอปไม่มี service worker ของตัวเองแล้วตั้งแต่ยุบเข้าเว็บ — หน้านี้จึงต้องออนไลน์เหมือนหน้าอื่นของเว็บ · stylesheet ผูกไว้ที่ `portfolio.html` (`app/css/living-thesis.css`)
+
+ตรวจงาน (จาก root ของ repo):
+
+```bash
+node app/test/living-thesis.test.mjs
+.venv/bin/python app/test/living-thesis-browser.test.py
+```
+
+ชุด browser ใช้โปรไฟล์เบราว์เซอร์ใช้แล้วทิ้งกับเซิร์ฟเวอร์ชั่วคราว ครอบคลุมตัวกรองทั้งหมด การเรียง แท็บ thesis การกางหลักฐาน การแก้แล้วโหลดใหม่ทันที เวิร์กโฟลว์คำถาม สถานะ loading/error/retry, CRUD ของ Portfolio จริง, attribute ของแหล่งที่มา, การแยกข้อมูลส่วนตัวกับ demo, ประวัติเบราว์เซอร์, deep link เข้าแท็บ thesis, สัญลักษณ์ที่ไม่รู้จัก และเลย์เอาต์ 320–1440px · ภาพหน้าจอเก็บไว้ที่ `/private/tmp/matrices-*.png`
 
 ## ข้อมูล Smart Money
 
