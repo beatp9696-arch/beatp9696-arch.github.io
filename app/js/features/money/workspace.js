@@ -2,7 +2,7 @@ import {load,save,flushStorage,onDataChange} from '../../core/storage.js';
 import {CATS,localDate,todayMonth,validMonth,validDate,shiftMonth,category,balances,allocatedToGoals,makeEntry,validateAmount,validateSplit,fundGoal,monthlyBills,selectEntries,exportCSV,importCSV,entryFingerprint,amountText as money} from './model.js';
 import {page,esc,button,miniButton,icon,TABS} from './views.js';
 
-const defaults={entries:[],budgets:{},goals:[],split:{savings:20,invest:10},card:{locked:true,roundups:false},recurring:[]};
+const defaults={entries:[],budgets:{},goals:[],split:{savings:20,invest:10},card:{locked:true,roundups:false},recurring:[],transfers:[]};
 const read=()=>Object.fromEntries(Object.entries(defaults).map(([key,value])=>[key,structuredClone(load('money.'+key,value))]));
 const field=(label,name,value='',extra='')=>`<label>${label}<input name="${name}" value="${esc(value)}" ${extra}></label>`;
 const actions=(label='Save changes',remove='')=>`<div class="mn-form-actions">${remove?button(remove,'delete-dialog','','mn-danger'):''}<span></span>${button('Cancel','close-dialog','','mn-quiet')}<button type="submit" class="mn-btn mn-primary">${label}</button></div>`;
@@ -98,6 +98,15 @@ export function mountMoney(body) {
       await persist({entries:next});finish(el,'Transaction saved.');
     });
   }
+  function addTransfer(trigger) {
+    const el=dialog('Record a portfolio transfer',`<p>เก็บประวัติเงินที่โอนออกจากบัญชีไปยังพอร์ตแยกจากรายรับและมูลค่าหุ้น เพื่อไม่ให้นับซ้ำ</p><form><div class="mn-form-pair">${amountInput('')}${field('Date','date',localDate(),'type="date" required max="'+localDate()+'"')}</div>${field('Note','note','Broker transfer','maxlength="160"')}<p class="mn-form-note">การโอนไม่เปลี่ยน Recorded balance และไม่สร้าง holding ให้อัตโนมัติ</p>${actions('Save transfer')}</form>`,trigger);
+    submit(el,async values=>{
+      const amount=validateAmount(values.amount),note=String(values.note||'Portfolio transfer').trim()||'Portfolio transfer';
+      const latest=read();
+      await persist({transfers:[...latest.transfers,{id:crypto.randomUUID(),amount,date:values.date,note}]});
+      finish(el,'Portfolio transfer recorded separately from cash flow.');
+    });
+  }
   function editBudget(cat,trigger) {
     const data=read(),exists=Boolean(cat);
     const el=dialog(exists?esc(cat)+' budget':'Add a category budget',`<p>Choose a monthly spending limit. It applies to all months until you update it.</p><form>${exists?'':field('Category','cat','','required maxlength="80" list="mn-budget-categories"')}${exists?'':`<datalist id="mn-budget-categories">${CATS.out.map(([c])=>`<option value="${c}">`).join('')}</datalist>`}${amountInput(data.budgets[cat]||'','Monthly limit (THB)')}${actions('Save budget',data.budgets[cat]?'Remove limit':'')}</form>`,trigger);
@@ -128,7 +137,7 @@ export function mountMoney(body) {
   }
   function settings(trigger) {
     const data=read();
-    const el=dialog('Money settings',`<p>Decide how new income is earmarked. Existing income keeps the allocation recorded when it was added.</p><form><div class="mn-form-pair">${field('Savings (%)','savings',data.split.savings,'type="number" min="0" max="100" step="1" required')}${field('Set aside to invest (%)','invest',data.split.invest,'type="number" min="0" max="100" step="1" required')}</div><div class="mn-settings-cash">${icon('wallet')}<span>The remainder stays in available cash.</span></div><label class="mn-check"><input type="checkbox" name="roundups" ${data.card.roundups?'checked':''}>Round up new expenses to the next ฿10</label><p class="mn-form-note">The difference is earmarked from available cash into savings. No money is transferred between bank accounts.</p>${actions('Save settings')}</form><div class="mn-settings-backup">${button('Sync, backup & restore','app-settings','shield','mn-quiet')}<p>Backups include transactions, budgets, allocations, goals and your bill reminders.</p></div>`,trigger);
+    const el=dialog('Money settings',`<p>Decide how new income is earmarked. Existing income keeps the allocation recorded when it was added.</p><form><div class="mn-form-pair">${field('Savings (%)','savings',data.split.savings,'type="number" min="0" max="100" step="1" required')}${field('Set aside to invest (%)','invest',data.split.invest,'type="number" min="0" max="100" step="1" required')}</div><div class="mn-settings-cash">${icon('wallet')}<span>The remainder stays in available cash.</span></div><label class="mn-check"><input type="checkbox" name="roundups" ${data.card.roundups?'checked':''}>Round up new expenses to the next ฿10</label><p class="mn-form-note">The difference is earmarked from available cash into savings. No money is transferred between bank accounts.</p>${actions('Save settings')}</form><div class="mn-settings-backup">${button('Sync, backup & restore','app-settings','shield','mn-quiet')}<p>Backups include transactions, budgets, allocations, bill reminders and portfolio transfer records.</p></div>`,trigger);
     submit(el,async values=>{const latest=read();await persist({split:validateSplit({savings:Number(values.savings),invest:Number(values.invest)}),card:{...latest.card,roundups:values.roundups==='on'}});finish(el,'Money settings saved. Existing income allocations are unchanged.');});
   }
   function editBill(id,trigger) {
@@ -164,6 +173,7 @@ export function mountMoney(body) {
       if(action==='close-dialog'){target.closest('dialog')?.close();return;}
       if(action==='delete-dialog')return;
       if(action==='add'||action==='edit'){editEntry(id,target);return;}
+      if(action==='add-transfer'){addTransfer(target);return;}
       if(action==='budget'||action==='add-budget'){editBudget(target.dataset.cat,target);return;}
       if(action==='add-goal'||action==='edit-goal'){editGoal(id,target);return;}
       if(action==='fund'){manageFunds(id,target);return;}

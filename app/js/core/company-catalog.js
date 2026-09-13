@@ -18,8 +18,22 @@ export const COMPANY_CATALOG = {
   BAC: ['Bank of America', 'Banking & wealth management', 'BAC.png'],
   V: ['Visa', 'Payment network', 'V.png'],
 };
+// The compact Research terminal currently has three live snapshot entries;
+// the broader living-thesis library is linked through Portfolio below.
+const RESEARCH_TICKERS = new Set(['SNPS', 'TSM', 'NVDA']);
 export const canonicalSymbol = value => String(value || '').toUpperCase().replace(/^BRK[./]B$/, 'BRK-B');
 export const companyIdentity = symbol => COMPANY_CATALOG[canonicalSymbol(symbol)];
+export function companyLinks(symbol) {
+  const ticker = canonicalSymbol(symbol);
+  if (!COMPANY_CATALOG[ticker]) return null;
+  const encoded = encodeURIComponent(ticker);
+  return {
+    ticker,
+    research: RESEARCH_TICKERS.has(ticker) ? `portfolio.html?view=research&ticker=${encoded}` : null,
+    portfolio: `portfolio.html?book=personal&symbol=${encoded}`,
+    smartMoney: `smart-money.html?stock=${encoded}`,
+  };
+}
 export function companyLogoURL(symbol) {
   const file = companyIdentity(symbol)?.[2];
   return file ? new URL(`../../assets/brands/${file}`, import.meta.url).href : null;

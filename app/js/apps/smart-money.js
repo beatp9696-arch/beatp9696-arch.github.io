@@ -1,7 +1,8 @@
 import { stockOwnership } from '../core/smart-money-stock.js';
 import { esc } from '../core/ui.js';
-import { summarizeFund, topHoldingRows, matchesFund, validateDataset, validateFund } from '../core/smart-money-model.js';
+import { summarizeFund, donutRows, topHoldingRows, matchesFund, validateDataset, validateFund } from '../core/smart-money-model.js';
 import { classifySecurity, sectorAllocation, SECTOR_LABELS } from '../core/smart-money-sectors.js';
+import { canonicalSymbol, companyIdentity, companyLinks } from '../core/company-catalog.js';
 
 const svg = content => `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">${content}</svg>`;
 const ICON = {
@@ -13,8 +14,7 @@ const ICON = {
   check: svg('<path d="m5 12 4 4 10-10"/>'),
   close: svg('<path d="m6 6 12 12M6 18 18 6"/>')
 };
-const COLORS = ['#4273ff', '#355edc', '#2b4fb8', '#24418e', '#1d346b', '#18233c'];
-const SECTOR_COLORS = ['#4273ff','#36c8dc','#a5d44b','#ffcf05','#ffa367','#ff750d','#af80e7','#45b68c','#d36ba3','#9aabbd','#9b9c4b','#767ee1','#587f92','#b48761','#68717c'];
+const COLORS = ['#79c9b4', '#7f9fb8', '#ad9bc3', '#c5b28c', '#578d8c', '#364247'];
 const STATUS = {new: 'พบในรายงานใหม่', added: 'จำนวนเพิ่ม', reduced: 'จำนวนลด', unchanged: 'จำนวนเท่าเดิม', exited: 'ไม่พบในรายงานนี้'};
 const money = value => '$' + new Intl.NumberFormat('en-US', {notation: 'compact', maximumFractionDigits: 2}).format(value);
 const number = value => new Intl.NumberFormat('en-US', {maximumFractionDigits: 0}).format(value);
@@ -89,6 +89,11 @@ async function loadFund(summary) {
   return detailRequests.get(summary.detailFile);
 }
 const stockLink = (row, content, className) => `<button class="${className} sm-security-link" data-stock="${esc(row.id || row.symbol)}" aria-label="View ${esc(symbol(row))} across portfolios">${content}</button>`;
+const stockCrossLinks = row => {
+  const links = companyLinks(row.symbol);
+  if (!links || !companyIdentity(links.ticker)) return '';
+  return `<nav class="sm-company-links" aria-label="${esc(links.ticker)} links"><span>เชื่อมข้อมูลบริษัท</span>${links.research ? `<a href="${links.research}">Research ${ICON.arrow}</a>` : ''}<a href="${links.portfolio}">Portfolio thesis ${ICON.arrow}</a></nav>`;
+};
 const PAGE_SIZE = 50;
 const ACTION = {purchase: 'ซื้อ', sale: 'ขาย', exchange: 'แลกเปลี่ยน'};
 const OWNER = {SP: 'คู่สมรส (SP)', JT: 'ถือร่วม (JT)', SELF: 'ผู้ยื่นรายงาน'};
@@ -98,16 +103,22 @@ const portrait = fund => profileImages[fund.id]
   ? `<span class="sm-portrait sm-portrait-photo sm-person-${esc(fund.id)}" aria-hidden="true">${profileImage(fund)}</span>`
   : `<span class="sm-portrait sm-person-${esc(fund.id)}" aria-hidden="true"><b>${esc(fund.monogram)}</b><span>DISCLOSURE</span></span>`;
 
+// The validated catalog and full report use the same total. Undated estimates
+// retain their explicitly labelled top-five basis; no missing holdings are inferred.
+const chartRows = fund => fund.estimatedHoldings
+  ? topHoldingRows(fund.estimatedHoldings.rows.map(row => ({...row, id: row.symbol, value: row.weight})))
+  : fund.chart || donutRows(fund.rows, fund.current.totalValue);
+const chartLabel = row => row.id === 'other' ? 'อื่น ๆ' : symbol(row);
+const chartLegend = (rows, estimated = false) => `<ul class="sm-legend">${rows.map((row,i) => `<li data-chart-security="${esc(row.id)}"><i style="background:${COLORS[i]}"></i><span title="${esc(row.issuer)}">${esc(chartLabel(row))}${row.option ? ` · ${esc(row.option)}` : ''}</span><b>${estimatePercent(row.fraction*100)}</b>${estimated ? `<small>${estimatePercent(row.weight)} of estimated portfolio</small>` : `<small>${row.id === 'other' ? 'หลักทรัพย์ที่เหลือในรายงาน' : esc(row.issuer)}</small>`}</li>`).join('')}</ul>`;
+
 function ring(fund, detailed = false) {
   const ringId = ++ringSequence;
-  const rows = topHoldingRows(fund.estimatedHoldings
-    ? fund.estimatedHoldings.rows.map(row => ({...row, id: row.symbol, value: row.weight}))
-    : fund.rows);
+  const rows = chartRows(fund);
   const circumference = 2 * Math.PI * 78;
   let offset = 0;
   const circles = rows.map((row, i) => {
     const length = row.fraction * circumference;
-    const arc = `<circle cx="110" cy="110" r="78" fill="none" stroke="${COLORS[i]}" stroke-width="43" stroke-dasharray="${Math.max(0, length - 1.1)} ${circumference}" stroke-dashoffset="${-offset}"/>`;
+    const arc = `<circle data-chart-security="${esc(row.id)}" data-fraction="${row.fraction}" cx="110" cy="110" r="78" fill="none" stroke="${COLORS[i]}" stroke-width="34" stroke-dasharray="${Math.max(0, length - 1.1)} ${circumference}" stroke-dashoffset="${-offset}"><title>${esc(chartLabel(row))} · ${estimatePercent(row.fraction*100)}</title></circle>`;
     offset += length;
     return arc;
   }).join('');
@@ -115,7 +126,7 @@ function ring(fund, detailed = false) {
   const marks = rows.map((row, i) => {
     const mid = angle + row.fraction * Math.PI;
     angle += row.fraction * 2 * Math.PI;
-    if (i > 4 || row.fraction < .075) return '';
+    if (row.id === 'other' || i > 4 || row.fraction < .075) return '';
     const x = 110 + Math.cos(mid) * 78, y = 110 + Math.sin(mid) * 78;
     const url = logoURL(row.symbol || issuerLogos[row.cusip]);
     const label = (row.symbol || row.issuer.split(' ')[0]).slice(0, 4);
@@ -125,17 +136,21 @@ function ring(fund, detailed = false) {
   const center = profileImages[fund.id]
     ? `<span class="sm-brand sm-brand-${esc(fund.id)} sm-brand-${profileImages[fund.id][1]}">${profileImage(fund)}</span>`
     : `<span class="sm-brand sm-brand-${esc(fund.id)}"><b>${esc(fund.monogram)}</b><small>${esc(fund.brandCaption)}</small></span>`;
-  return `<div class="sm-chart${detailed ? ' sm-ring-large' : ''}"><div class="sm-ring" aria-hidden="true"><svg viewBox="0 0 220 220"><g transform="rotate(-90 110 110)">${circles}</g>${marks}</svg>${center}</div><span class="sm-chart-caption">${detailed && fund.estimatedHoldings ? `Top ${rows.length} holdings · Estimated<br>Weights within this group` : `หุ้นหลัก ${rows.length} อันดับ${fund.estimatedHoldings ? ' · ประมาณการ' : ''}<br>สัดส่วนเฉพาะกลุ่มนี้`}</span></div>`;
+  const count = rows.filter(row => row.id !== 'other').length;
+  const caption = fund.estimatedHoldings
+    ? `Top ${count} · Estimated<br>เฉพาะกลุ่มนี้ = 100%`
+    : `${count} อันดับแรก${rows.some(row => row.id === 'other') ? ' + อื่น ๆ' : ''}<br>เทียบมูลค่าทั้งรายงาน`;
+  return `<div class="sm-chart${detailed ? ' sm-ring-large' : ''}" data-chart-basis="${fund.estimatedHoldings ? 'estimated-top-five' : 'reported-total'}"><div class="sm-ring" aria-hidden="true"><svg viewBox="0 0 220 220"><g transform="rotate(-90 110 110)">${circles}</g>${marks}</svg>${center}</div><span class="sm-chart-caption">${caption}</span></div>`;
 }
 
 function card(fund, i) {
   if (fund.estimatedHoldings) {
     const estimate = fund.estimatedHoldings;
-    return `<button class="sm-card ${fund.id==='trump'?'sm-trump-card':''} sm-estimated-card" data-fund="${esc(fund.id)}" style="--i:${Math.min(i,7)}" aria-label="ดูหุ้นถือครองประมาณการ ${esc(fund.name)} จากภาพอ้างอิง">
-      <span class="sm-card-copy"><span class="sm-card-name">${esc(fund.name)}</span><span class="sm-card-sub">หุ้นถือครองจากภาพอ้างอิง</span>
-      <span class="sm-type-badge">ถือครอง · ประมาณการ</span><span class="sm-card-value">${estimate.rows.length} รายการ<small>จากภาพที่ให้มา</small></span>
+    return `<button class="sm-card sm-profile-card sm-estimated-card" data-fund="${esc(fund.id)}" style="--i:${Math.min(i,7)}" aria-label="ดูหุ้นถือครองประมาณการ ${esc(fund.name)} จากภาพอ้างอิง">
+      <span class="sm-card-heading"><span><span class="sm-card-name">${esc(fund.name)}</span><span class="sm-card-sub">หุ้นถือครองจากภาพอ้างอิง</span></span><span class="sm-type-badge">ประมาณการ</span></span>
+      <span class="sm-card-copy"><span class="sm-card-value">${estimate.rows.length} รายการ<small>จากภาพที่ให้มา</small></span>
       <span class="sm-card-changes-label">สัดส่วนพอร์ต (ประมาณการ)</span><span class="sm-card-changes">${estimate.rows.slice(0,2).map(row=>`<span><b>${esc(row.symbol)}</b><em>${estimatePercent(row.weight)}</em></span>`).join('')}</span>
-      <span class="sm-card-date">ภาพไม่ระบุวันที่ของข้อมูล</span></span>${ring(fund)}<span class="sm-card-open" aria-hidden="true">${ICON.arrow}</span></button>`;
+      </span>${ring(fund)}<span class="sm-card-footer"><span class="sm-card-date">${estimate.asOf ? 'ข้อมูล ณ '+date(estimate.asOf) : 'ภาพไม่ระบุวันที่ของข้อมูล'}</span><span>ดูข้อมูล ${ICON.arrow}</span></span></button>`;
   }
   if (fund.kind === 'disclosure') {
     const report=fund.disclosure;
@@ -148,35 +163,24 @@ function card(fund, i) {
       <span class="sm-disclosure-footer"><span class="sm-card-date">${esc(report.dateLabel)} ${date(report.filedDate)}</span><span class="sm-disclosure-open">ดูรายการ ${ICON.arrow}</span></span></button>`;
   }
   const changes = fund.changes.slice(0, 2);
-  return `<button class="sm-card" data-fund="${esc(fund.id)}" style="--i:${Math.min(i,7)}" aria-label="ดูพอร์ต ${esc(fund.name)} ${quarter(fund.current.reportDate)}${fund.historical ? ' ข้อมูลย้อนหลัง' : ''}">
+  return `<button class="sm-card sm-profile-card" data-fund="${esc(fund.id)}" style="--i:${Math.min(i,7)}" aria-label="ดูพอร์ต ${esc(fund.name)} ${quarter(fund.current.reportDate)}${fund.historical ? ' ข้อมูลย้อนหลัง' : ''}">
+    <span class="sm-card-heading"><span><span class="sm-card-name">${esc(fund.name)}</span><span class="sm-card-sub">${esc(fund.subtitle)}</span></span><span class="sm-period-badge${fund.historical ? ' sm-historical' : ''}">${fund.historical ? 'ย้อนหลัง · ' : ''}${quarter(fund.current.reportDate)}</span></span>
     <span class="sm-card-copy">
-      <span class="sm-card-name">${esc(fund.name)}</span>
-      <span class="sm-card-sub">${esc(fund.subtitle)}</span>
-      ${fund.historical ? '<span class="sm-type-badge sm-historical">ย้อนหลัง · 2023</span>' : ''}
-      <span class="sm-card-value">${money(fund.current.totalValue)}<small>มูลค่าที่รายงาน</small></span>
+      <span class="sm-card-value">${money(fund.current.totalValue)}<small>มูลค่าที่รายงาน · ${number(fund.positionCount ?? fund.rows.length)} รายการ</small></span>
       <span class="sm-card-changes-label">จำนวนหุ้นเทียบไตรมาสก่อน</span>
       <span class="sm-card-changes">${changes.length ? changes.map(row => `<span><b>${esc(symbol(row))}</b><em class="sm-${row.status}">${change(row)}</em></span>`).join('') : '<span class="sm-muted">จำนวนหุ้นไม่เปลี่ยน</span>'}</span>
-      <span class="sm-card-date">${quarter(fund.current.reportDate)} <span>·</span> ยื่น ${date(fund.current.filedDate)}</span>
     </span>
     ${ring(fund)}
-    <span class="sm-card-open" aria-hidden="true">${ICON.arrow}</span>
+    <span class="sm-card-footer"><span class="sm-card-date">ถือครอง ณ ${date(fund.current.reportDate)}</span><span>ดูรายงาน ${ICON.arrow}</span></span>
   </button>`;
 }
 
 function sectorPanel(fund) {
   const allocation=sectorAllocation(fund,sectorMetadata);
   if(!allocation.rows.length)return '';
-  const total=allocation.rows.reduce((sum,row)=>sum+row.weight,0), circumference=2*Math.PI*64;
-  let offset=0;
-  const arcs=allocation.rows.map((row,i)=>{
-    const length=row.weight/total*circumference;
-    const arc=`<circle cx="100" cy="100" r="64" fill="none" stroke="${SECTOR_COLORS[i%SECTOR_COLORS.length]}" stroke-width="34" stroke-dasharray="${Math.max(0,length-.65)} ${circumference}" stroke-dashoffset="${-offset}"/>`;
-    offset+=length;return arc;
-  }).join('');
   const screenshot=allocation.basis==='screenshot';
   return `<section class="sm-sectors"><h3>Sector Allocation</h3><p class="sm-sector-basis">${screenshot?'Estimated allocation across the portfolio shown in the reference data':'Based on total reported holdings value · Nasdaq sectors'}</p>
-    <div class="sm-sector-layout"><svg class="sm-sector-donut" viewBox="0 0 200 200" aria-hidden="true"><g transform="rotate(-90 100 100)">${arcs}</g></svg>
-    <ul class="sm-sector-legend">${allocation.rows.map((row,i)=>`<li><i style="background:${SECTOR_COLORS[i%SECTOR_COLORS.length]}"></i><span title="${esc(row.name||row.label)}">${esc(row.label)}</span><b>${estimatePercent(row.weight)}</b>${row.value===undefined?'':`<small>${money(row.value)}</small>`}</li>`).join('')}</ul></div>
+    <ul class="sm-sector-bars">${allocation.rows.map(row=>`<li><span title="${esc(row.name||row.label)}">${esc(row.label)}</span><b>${estimatePercent(row.weight)}</b><span class="sm-sector-track" aria-hidden="true"><i style="width:${Math.min(100,Math.max(0,row.weight))}%"></i></span>${row.value===undefined?'':`<small>${money(row.value)}</small>`}</li>`).join('')}</ul>
     ${screenshot?'':`<p class="sm-sector-source">Funds / ETFs are not broken down into underlying holdings. Unmatched securities are shown as “Unclassified”.<br><a href="https://www.nasdaq.com/market-activity/stocks/screener" target="_blank" rel="noopener noreferrer">Nasdaq company sectors</a> · Checked ${sectorMetadata?date(sectorMetadata.checkedAt):'date unavailable'}</p>`}</section>`;
 }
 
@@ -186,11 +190,12 @@ export default {
   mount(body) {
     body.classList.add('app-pane', 'app-smart-money');
     let funds = [], query = '', category = 'all', selected = null, filter = 'all';
+    const requestedStock = canonicalSymbol(new URLSearchParams(location.search).get('stock'));
     let requestId=0, visibleCount=PAGE_SIZE, holdingQuery='';
     let scrollBeforeDetail = 0;
     let stockTarget = null, stockOrigin = null;
-    body.innerHTML = `<header class="sm-head"><div class="sm-title"><span class="sm-mark">${ICON.bulb}</span><h1>Smart Money</h1></div><div class="sm-head-actions"><button class="sm-icon sm-search-toggle" aria-label="ค้นหาพอร์ต" aria-expanded="false">${ICON.search}</button><button class="sm-icon sm-settings" aria-label="Settings">${ICON.gear}</button></div></header>
-      <div class="sm-search" hidden><span>${ICON.search}</span><input type="search" placeholder="ค้นหานักลงทุน บริษัท หรือหุ้น" aria-label="ค้นหานักลงทุน บริษัท หรือหุ้น" autocomplete="off"><button class="sm-icon sm-search-clear" aria-label="ล้างคำค้น">${ICON.close}</button></div>
+    body.innerHTML = `<header class="sm-head"><a class="moa-brand" href="index.html"><span class="moa-brand-mark" aria-hidden="true"><i></i><i></i><i></i></span>Moatrices<span class="moa-brand-section">SMART MONEY</span></a><div class="sm-head-actions"><button class="sm-icon sm-search-toggle" aria-label="ค้นหาพอร์ต">${ICON.search}</button><button class="sm-icon sm-settings" aria-label="Settings">${ICON.gear}</button></div></header>
+      <div class="sm-page-head"><div><span class="sm-eyebrow">REPORTED HOLDINGS. A CLEARER PERSPECTIVE.</span><h1>Smart Money<span>.</span></h1><p>ศึกษานักลงทุนและสถาบัน ผ่านข้อมูลที่เปิดเผย</p></div><div class="sm-search"><span>${ICON.search}</span><input type="search" placeholder="ค้นหานักลงทุน บริษัท หรือหุ้น" aria-label="ค้นหานักลงทุน บริษัท หรือหุ้น" autocomplete="off"><button class="sm-icon sm-search-clear" aria-label="ล้างคำค้น">${ICON.close}</button></div></div>
       <div class="sm-content"><div class="sm-loading" role="status">กำลังเปิดรายงานพอร์ต…</div></div>`;
     const content = body.querySelector('.sm-content');
     content.addEventListener('error', event => {
@@ -205,6 +210,7 @@ export default {
     const search = body.querySelector('.sm-search');
     const input = search.querySelector('input');
     const searchButton = body.querySelector('.sm-search-toggle');
+    const pageHead = body.querySelector('.sm-page-head');
     const scrollHost = () => body.closest('#shell-view') || body.closest('.win-body') || body;
     const focusHeading = () => body.querySelector('.sm-detail h2')?.focus({preventScroll: true});
     body.querySelector('.sm-settings').addEventListener('click', () => document.dispatchEvent(new CustomEvent('pp-settings')));
@@ -218,11 +224,12 @@ export default {
     }
 
     function drawList() {
+      pageHead.hidden = false;
       selected = null;
       stockTarget = null;stockOrigin = null;
       requestId++;
-      content.innerHTML = `<div class="sm-intro"><p>นักลงทุน สถาบัน และข้อมูลการเงินที่เปิดเผย</p><span class="sm-source-badge">${ICON.check} รายงานและภาพอ้างอิง</span></div>
-        <div class="sm-categories" aria-label="ประเภทพอร์ต">${[['all','ทั้งหมด'],['investor','นักลงทุน'],['institution','สถาบัน'],['company','บริษัท'],['public-figure','บุคคลสาธารณะ']].map(([id,label])=>`<button data-category="${id}" aria-pressed="${category===id}">${label}</button>`).join('')}<span class="sm-results-count" aria-live="polite"></span></div>
+      content.innerHTML = `<div class="sm-categories" aria-label="ประเภทพอร์ต">${[['all','ทั้งหมด'],['investor','นักลงทุน'],['institution','สถาบัน'],['company','บริษัท'],['public-figure','บุคคลสาธารณะ']].map(([id,label])=>`<button data-category="${id}" aria-pressed="${category===id}">${label}</button>`).join('')}<span class="sm-results-count" aria-live="polite"></span></div>
+        <div class="sm-intro"><p>กราฟรายงาน: 5 อันดับแรก + อื่น ๆ · ข้อมูลประมาณการแยกป้ายกำกับ</p><span class="sm-source-badge">${ICON.check} วันที่กำกับแต่ละพอร์ต</span></div>
         <div class="sm-cards"></div>
         <div class="sm-disclosure"><b>อ่านข้อมูลตามประเภทและวันที่ในรายงาน</b><p>13F แสดงหลักทรัพย์ ณ สิ้นไตรมาสที่สถาบันรายงาน อาจเผยแพร่ภายหลังได้ถึง 45 วัน และไม่ได้รวมสินทรัพย์ทุกประเภท การเปลี่ยนแปลงคือจำนวนหุ้นตามรายงาน ส่วนเอกสารของบุคคลสาธารณะแสดงช่วงมูลค่าหรือธุรกรรมตามต้นฉบับ</p><p>แฟ้ม Charlie Munger เป็นข้อมูลย้อนหลังปี 2023 · ตรวจแหล่งข้อมูล ${date(cachedData.checkedAt)}</p><a href="https://www.investor.gov/introduction-investing/investing-basics/glossary/form-13f-reports-filed-institutional-investment" target="_blank" rel="noopener noreferrer">รู้จักรายงาน 13F ${ICON.arrow}</a><p><a href="${new URL('../../assets/credits.html', import.meta.url).href}" target="_blank" rel="noopener noreferrer">เครดิตภาพและโลโก้ ${ICON.arrow}</a></p></div>`;
       drawCards();
@@ -232,7 +239,7 @@ export default {
       const all = filter === 'exited' ? selected.exits : filter === 'changes' ? selected.changes : selected.rows;
       const needle=holdingQuery.trim().toLocaleLowerCase();
       const items=all.filter(row=>[row.symbol||'',row.issuer,row.cusip].some(text=>text.toLocaleLowerCase().includes(needle)));
-      content.querySelector('.sm-holdings').innerHTML = items.length ? items.slice(0,visibleCount).map(row => `<li tabindex="-1">${stockLink(row, `${stockBadge(row)}<div class="sm-holding-label"><b>${esc(symbol(row))}</b><span>${esc(row.issuer)}${row.option ? ' · '+esc(row.option) : ''}</span></div>`, 'sm-holding-id')}<div class="sm-holding-value"><b>${percent(row.weight)}</b><span>${money(row.value)}</span></div><div class="sm-holding-shares"><span>${number(row.shares)} ${row.unit === 'PRN' ? 'เงินต้นตามรายงาน' : 'หุ้นอ้างอิง'}</span><span class="sm-status sm-${row.status}">${STATUS[row.status]}${row.status === 'unchanged' ? '' : ' · '+change(row)}</span></div></li>`).join('') : '<li class="sm-empty">ไม่มีรายการที่ตรงกับตัวกรอง</li>';
+      content.querySelector('.sm-holdings').innerHTML = items.length ? items.slice(0,visibleCount).map(row => `<li tabindex="-1">${stockLink(row, `${stockBadge(row)}<div class="sm-holding-label"><b>${esc(symbol(row))}</b><span>${esc(row.issuer)}${row.option ? ' · '+esc(row.option) : ''}</span></div>`, 'sm-holding-id')}<div class="sm-holding-value"><b>${estimatePercent(row.weight)}</b><span>${money(row.value)}</span></div><div class="sm-holding-shares"><span>${number(row.shares)} ${row.unit === 'PRN' ? 'เงินต้นตามรายงาน' : 'หุ้นอ้างอิง'}</span><span class="sm-status sm-${row.status}">${STATUS[row.status]}${row.status === 'unchanged' ? '' : ' · '+change(row)}</span></div></li>`).join('') : '<li class="sm-empty">ไม่มีรายการที่ตรงกับตัวกรอง</li>';
       content.querySelector('.sm-holding-count').textContent=`แสดง ${Math.min(visibleCount,items.length)} จาก ${number(items.length)} รายการ`;
       content.querySelector('[data-more]').hidden=visibleCount>=items.length;
     }
@@ -250,13 +257,11 @@ export default {
     function drawEstimatedHoldings(fund) {
       holdingQuery='';visibleCount=PAGE_SIZE;
       const estimate = fund.estimatedHoldings;
-      const top = estimate.rows.slice(0,5);
+      const top = chartRows(fund);
       const topWeight = top.reduce((sum,row) => sum + row.weight, 0);
-      content.innerHTML = `<section class="sm-detail sm-estimated-detail"><button class="sm-back">${ICON.back} All portfolios</button><div class="sm-detail-heading"><span class="sm-kicker">Holdings · Estimates</span><h2 tabindex="-1">${esc(fund.name)}</h2><p>Reference data is undated</p></div>
+      content.innerHTML = `<section class="sm-detail sm-estimated-detail"><button class="sm-back">${ICON.back} All portfolios</button><div class="sm-detail-header"><div class="sm-detail-heading"><span class="sm-kicker sm-history-label">Holdings · Estimates</span><h2 tabindex="-1">${esc(fund.name)}</h2><p>${estimate.asOf ? 'Reference date: '+date(estimate.asOf) : 'Reference data is undated'}</p></div><div class="sm-detail-total"><span class="sm-kicker">Holdings in reference data</span><strong>${estimate.rows.length}</strong><p>estimated holdings</p></div></div>
         ${profileTabs(fund, 'holdings')}
-        <div class="sm-detail-summary">${ring(fund, true)}<div><span class="sm-kicker">Holdings in reference data</span><strong>${estimate.rows.length}<small>holdings</small></strong><p>Top ${top.length} holdings account for ${estimatePercent(topWeight)}<br>of the estimated portfolio</p></div></div>
-        <p class="sm-chart-note">Chart shows the top ${top.length} holdings as 100%. Table weights refer to the estimated portfolio.</p>
-        <ul class="sm-legend">${top.map((row,i)=>`<li><i style="background:${COLORS[i]}"></i><span>${esc(row.symbol)}</span><b>${estimatePercent(row.weight / topWeight * 100)}</b></li>`).join('')}</ul>
+        <div class="sm-allocation-panel sm-estimated-allocation">${ring(fund, true)}<div class="sm-allocation-copy"><h3>Top ${top.length} · Estimated holdings</h3><p class="sm-chart-note">Chart percentages are within this group only (= 100%). Together these holdings represent ${estimatePercent(topWeight)} of the estimated portfolio. Portfolio weights appear beneath each chart percentage and in the holdings table.</p>${chartLegend(top, true)}</div></div>
         <p class="sm-estimate-note">${esc(estimate.note)}</p>
         ${sectorPanel(fund)}
         <label class="sm-holding-search sm-estimate-search">Search holdings<input type="search" placeholder="Symbol or company name" autocomplete="off"></label>
@@ -296,7 +301,7 @@ export default {
       const total = cachedData.funds.length;
       const section = (heading, entries, className) => entries.length ? `<section class="${className}"><h3>${heading} <span>${entries.length}</span></h3><div class="sm-owner-list">${entries.map(stockReportCard).join('')}</div></section>` : '';
       content.innerHTML = `<section class="sm-detail sm-stock-detail"><button class="sm-back" data-stock-back>${ICON.back} Back to ${esc(selected.name)}</button>
-        <div class="sm-detail-heading sm-stock-heading">${stockBadge(stockTarget)}<div><span class="sm-kicker">Across portfolios · Reported holdings</span><h2 tabindex="-1">${esc(title)}</h2><p>${esc(stockTarget.issuer)}</p></div></div>
+        <div class="sm-detail-heading sm-stock-heading">${stockBadge(stockTarget)}<div><span class="sm-kicker">Across portfolios · Reported holdings</span><h2 tabindex="-1">${esc(title)}</h2><p>${esc(stockTarget.issuer)}</p>${stockCrossLinks(stockTarget)}</div></div>
         ${stockTarget.option || stockTarget.unit === 'PRN' ? `<p class="sm-stock-historical">${stockTarget.option ? esc(stockTarget.option)+' options · underlying share counts' : 'Principal instrument · amounts are not share counts'}. Only the same instrument is compared.</p>` : ''}
         <div class="sm-stock-summary"><strong>${result.portfolioCount}<span>portfolios report holdings${loading || failed.length ? ' · partial' : ''}</span></strong><strong>${loaded.length} / ${total}<span>filings checked</span></strong></div>
         <p class="sm-stock-note">Each weight refers to that portfolio’s reported total. Dates differ across portfolios. Share changes compare two filings and may reflect stock splits or reporting changes; they are not a trade history.</p>
@@ -338,7 +343,7 @@ export default {
       const summary=funds.find(fund=>fund.id===id);
       if(!summary)return;
       stockTarget=null;stockOrigin=null;
-      selected=summary;const request=++requestId;
+      selected=summary;pageHead.hidden=true;const request=++requestId;
       if(summary.kind==='disclosure'){summary.estimatedHoldings ? drawEstimatedHoldings(summary) : drawDisclosure(summary);return;}
       content.innerHTML=`<section class="sm-detail">${backButton()}<div class="sm-loading" role="status">กำลังเปิดรายงาน ${esc(summary.name)}…</div></section>`;
       scrollHost().scrollTop=0;
@@ -348,19 +353,18 @@ export default {
         selected=full;drawDetail();
       } catch {
         if(request!==requestId || !body.isConnected)return;
-        content.innerHTML=`<section class="sm-detail">${backButton()}<div class="sm-empty" role="status"><b>ยังเปิดรายละเอียดไม่ได้</b><p>เชื่อมต่ออินเทอร์เน็ตเพื่อดาวน์โหลดรายงานนี้ รายงานที่เคยเปิดแล้วใช้แบบออฟไลน์ได้</p><button class="sm-text-btn" data-retry-detail>ลองอีกครั้ง</button></div></section>`;
+        content.innerHTML=`<section class="sm-detail">${backButton()}<div class="sm-empty" role="status"><b>ยังเปิดรายละเอียดไม่ได้</b><p>ตรวจการเชื่อมต่อแล้วลองดาวน์โหลดรายงานนี้อีกครั้ง</p><button class="sm-text-btn" data-retry-detail>ลองอีกครั้ง</button></div></section>`;
       }
     }
 
     function drawDetail() {
       filter = 'all';visibleCount=PAGE_SIZE;holdingQuery='';
-      const fund = selected, chart = topHoldingRows(fund.rows);
-      content.innerHTML = `<section class="sm-detail">${backButton()}<div class="sm-detail-heading"><span class="sm-kicker">${quarter(fund.current.reportDate)} · ${fund.historical ? 'แฟ้มย้อนหลัง · ' : ''}13F snapshot</span><h2 tabindex="-1">${esc(fund.name)}</h2><p>${esc(fund.subtitle)}</p></div>
-        <div class="sm-detail-summary">${ring(fund, true)}<div><span class="sm-kicker">มูลค่าในรายงาน</span><strong>${money(fund.current.totalValue)}</strong><p>${fund.rows.length} รายการ · 5 อันดับแรก ${percent(fund.topFiveWeight)}</p><p>ถือครอง ณ ${date(fund.current.reportDate)}<br>ยื่นรายงาน ${date(fund.current.filedDate)}</p></div></div>
-        <p class="sm-chart-note">สัดส่วนภายในหุ้นหลัก ${chart.length} อันดับ · รวม ${percent(fund.topFiveWeight)} ของพอร์ตที่รายงาน</p>
-        <ul class="sm-legend">${chart.map((row,i) => `<li><i style="background:${COLORS[i]}"></i><span>${esc(symbol(row))}</span><b>${percent(row.fraction*100)}</b></li>`).join('')}</ul>
+      const fund = selected, chart = chartRows(fund);
+      const topCount = chart.filter(row => row.id !== 'other').length;
+      content.innerHTML = `<section class="sm-detail">${backButton()}<div class="sm-detail-header"><div class="sm-detail-heading"><span class="sm-kicker${fund.historical ? ' sm-history-label' : ''}">${quarter(fund.current.reportDate)} · ${fund.historical ? 'แฟ้มย้อนหลัง · ' : ''}13F snapshot</span><h2 tabindex="-1">${esc(fund.name)}</h2><p>${esc(fund.subtitle)}</p><p class="sm-detail-dates">ถือครอง ณ ${date(fund.current.reportDate)} · ยื่น ${date(fund.current.filedDate)}</p></div><div class="sm-detail-total"><span class="sm-kicker">มูลค่าในรายงาน</span><strong>${money(fund.current.totalValue)}</strong><p>${number(fund.rows.length)} รายการ</p></div></div>
+        <div class="sm-allocation-panel">${ring(fund, true)}<div class="sm-allocation-copy"><h3>${topCount} อันดับแรก${chart.some(row => row.id === 'other') ? ' และส่วนที่เหลือ' : ''}</h3><p class="sm-chart-note">สัดส่วนเทียบมูลค่าทั้งรายงาน · ${topCount} อันดับแรกรวม ${estimatePercent(fund.topFiveWeight)}</p>${chartLegend(chart)}</div></div>
         ${sectorPanel(fund)}<div class="sm-report-links"><a href="${esc(fund.current.source)}" target="_blank" rel="noopener noreferrer">รายงานรอบนี้ ${ICON.arrow}</a><a href="${esc(fund.previous.source)}" target="_blank" rel="noopener noreferrer">รอบก่อน ${quarter(fund.previous.reportDate)} ${ICON.arrow}</a></div>
-        <p class="sm-detail-note">${esc(fund.note)} กราฟแสดงเฉพาะหุ้นหลัก ${chart.length} อันดับ โดยคิดกลุ่มนี้เป็น 100% รายการด้านล่างแสดงสัดส่วนเทียบพอร์ตทั้งหมดตามรายงาน 13F เปรียบเทียบจำนวนหุ้นตามรายงาน ซึ่งอาจได้รับผลจากการแตกหุ้น การเปลี่ยนชนิดหลักทรัพย์ หรือขอบเขตการรายงาน ${fund.profileSource ? `<a href="${esc(fund.profileSource)}" target="_blank" rel="noopener noreferrer">ความเกี่ยวข้องกับบุคคล</a>` : ''}</p>
+        <p class="sm-detail-note">${esc(fund.note)} กราฟและรายการถือครองใช้มูลค่ารวมตามรายงาน 13F เป็นฐานเดียวกัน “อื่น ๆ” คือหลักทรัพย์ที่เหลือนอก ${topCount} อันดับแรก เปรียบเทียบจำนวนหุ้นตามรายงาน ซึ่งอาจได้รับผลจากการแตกหุ้น การเปลี่ยนชนิดหลักทรัพย์ หรือขอบเขตการรายงาน ${fund.profileSource ? `<a href="${esc(fund.profileSource)}" target="_blank" rel="noopener noreferrer">ความเกี่ยวข้องกับบุคคล</a>` : ''}</p>
         <details class="sm-filing-sources"><summary>เอกสารและฉบับแก้ไขที่ใช้</summary>${[fund.current,fund.previous].map(period=>`<div><b>${quarter(period.reportDate)}</b>${period.sources.map(ref=>`<a href="${esc(ref.source)}" target="_blank" rel="noopener noreferrer">${esc(ref.label)} ${ICON.arrow}</a>`).join('')}${period.reconciliationDifference ? `<p>ใช้ผลรวมตาราง $${number(period.totalValue)} ซึ่งต่างจากยอดหน้าปกรวม $${number(period.coverTotalValue)} อยู่ $${number(Math.abs(period.reconciliationDifference))}</p>` : ''}</div>`).join('')}</details>
         <div class="sm-holding-tabs" aria-label="รายการถือครอง"><button data-holdings="all" aria-pressed="true">ถือครอง ${number(fund.rows.length)}</button><button data-holdings="changes" aria-pressed="false">เปลี่ยนแปลง ${number(fund.changes.length)}</button><button data-holdings="exited" aria-pressed="false">ไม่พบแล้ว ${number(fund.exits.length)}</button></div>
         <label class="sm-holding-search">ค้นหาในพอร์ตนี้<input type="search" placeholder="ชื่อหุ้น บริษัท หรือ CUSIP" autocomplete="off"></label><ul class="sm-holdings"></ul><div class="sm-pagination"><span class="sm-holding-count" aria-live="polite"></span><button class="sm-text-btn" data-more>ดูอีก ${PAGE_SIZE} รายการ</button></div>
@@ -371,12 +375,11 @@ export default {
     }
 
     searchButton.addEventListener('click', () => {
-      search.hidden = !search.hidden;
-      searchButton.setAttribute('aria-expanded', String(!search.hidden));
-      if (!search.hidden) input.focus();
+      if (selected) drawList();
+      input.focus();
     });
     input.addEventListener('input', () => {query = input.value; if (selected) drawList(); else drawCards();});
-    input.addEventListener('keydown', event => {if (event.key === 'Escape') {search.hidden = true;searchButton.setAttribute('aria-expanded','false');searchButton.focus();}});
+    input.addEventListener('keydown', event => {if (event.key === 'Escape') searchButton.focus();});
     body.querySelector('.sm-search-clear').addEventListener('click', () => {query='';input.value='';if(selected)drawList();else drawCards();input.focus();});
 
     content.addEventListener('click', event => {
@@ -396,7 +399,7 @@ export default {
         stockTarget=null;stockOrigin=null;
         content.replaceChildren(...origin.nodes);
         scrollHost().scrollTop=origin.scrollTop;
-        origin.focus.focus({preventScroll:true});
+        origin.focus?.focus({preventScroll:true});
       } else if (target.hasAttribute('data-stock-retry')) openStock();
       else if (target.dataset.stockFund) openDetail(target.dataset.stockFund);
       else if (target.dataset.fund) {scrollBeforeDetail=scrollHost().scrollTop;openDetail(target.dataset.fund);}
@@ -433,9 +436,25 @@ export default {
         }
         const order=['berkshire','trump','bridgewater','ark','daily-journal','soros','pelosi','pershing','blackrock','vanguard-capital','state-street','jpmorgan','morgan-stanley','invesco','nvidia','temasek'];
         funds=[...cachedData.funds,...cachedData.disclosures].sort((a,b)=>order.indexOf(a.id)-order.indexOf(b.id));drawList();
+        if (requestedStock) openRequestedStock();
       } catch {
         if (!body.isConnected) return;
         content.innerHTML='<div class="sm-empty" role="status"><b>ยังเปิดข้อมูลพอร์ตไม่ได้</b><p>ตรวจการเชื่อมต่อแล้วลองอีกครั้ง</p><button class="sm-text-btn" data-retry>ลองอีกครั้ง</button></div>';
+      }
+    }
+    async function openRequestedStock() {
+      const needle = requestedStock;
+      for (const summary of cachedData.funds) {
+        try {
+          const full = await loadFund(summary);
+          const row = [...full.rows, ...(full.exits || [])].find(item => canonicalSymbol(item.symbol) === needle);
+          if (!row || !body.isConnected) continue;
+          selected = full;
+          stockTarget = row;
+          stockOrigin = { nodes: [...content.childNodes], scrollTop: 0, focus: null };
+          await openStock();
+          return;
+        } catch { /* one unavailable filing should not block the other reports */ }
       }
     }
     loadData();

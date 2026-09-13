@@ -26,6 +26,7 @@
 .lt-divider{margin:0 8px;color:#50595f}.lt-page-head h1{font-size:29px;line-height:1.4;margin:5px 0 5px}.lt-title-dot{color:var(--a);padding-left:2px}
 .lt-page-head p,.lt-detail-head p{font-size:12px;color:var(--dim)}
 .lt-head-actions{display:flex;gap:8px;flex-wrap:wrap;justify-content:flex-end}
+.lt-cross-link{display:inline-flex;align-items:center;gap:5px;text-decoration:none}
 .lt-btn{display:inline-flex;align-items:center;justify-content:center;gap:7px;min-height:38px;padding:8px 13px;border:1px solid #394247;border-radius:5px;background:#1b2225;color:#e0e8e7;font-size:11px;font-weight:500;line-height:1.4;text-align:center}
 .lt-btn .rx-icon{width:15px;height:15px;flex-basis:15px}
 .lt-btn:hover{background:#293237;border-color:#58666d}.lt-btn.lt-primary{background:#76ceb5;border-color:#76ceb5;color:#0c2420}.lt-btn.lt-primary:hover{background:#98e0ca;border-color:#98e0ca}

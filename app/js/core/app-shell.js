@@ -204,12 +204,14 @@ function overlay({ title, tone, fill }) {
   document.body.append(ov);
   requestAnimationFrame(() => ov.classList.add("open"));
 
-  const prevTheme = themeMeta.content;
-  if (THEME[tone]) themeMeta.content = THEME[tone];
+  // The standalone website shell does not create the legacy theme meta node.
+  // Overlays still work there; the status-bar tint is simply skipped.
+  const prevTheme = themeMeta?.content || "";
+  if (themeMeta && THEME[tone]) themeMeta.content = THEME[tone];
 
   const close = () => {
     removeEventListener("keydown", onKey);
-    themeMeta.content = prevTheme;
+    if (themeMeta) themeMeta.content = prevTheme;
     ov.classList.remove("open");
     setTimeout(() => ov.remove(), 220);
   };
@@ -476,6 +478,12 @@ const plural = (n, one, many = one + "s") => `${n} ${n === 1 ? one : many}`;
 const COUNTS = [
   ["health.days", (v) => `${plural(Object.keys(v).length, "day")} of health data`],
   ["money.entries", (v) => `${plural(v.length, "money entry", "money entries")}`],
+  ["money.budgets", (v) => `${plural(Object.keys(v).length, "budget", "budgets")}`],
+  ["money.goals", (v) => `${plural(v.length, "savings goal", "savings goals")}`],
+  ["money.split", (v) => `${v.savings ?? 0}% savings · ${v.invest ?? 0}% investing allocation`],
+  ["money.card", (v) => `Money settings${v.roundups ? " · round-ups on" : ""}`],
+  ["money.recurring", (v) => `${plural(v.length, "bill reminder", "bill reminders")}`],
+  ["money.transfers", (v) => `${plural(v.length, "portfolio transfer", "portfolio transfers")}`],
   ["todo.items", (v) => plural(v.length, "task")],
   ["notes.text", (v) => `${plural(v.length, "character")} of notes`],
   ["os.name", (v) => `name: ${v}`],

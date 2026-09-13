@@ -1,4 +1,4 @@
-"""Cross-portfolio security navigation, matching, partial results and offline cache."""
+"""Cross-portfolio security navigation, matching, partial results and in-memory reuse."""
 from pathlib import Path
 from functools import partial
 from http.server import ThreadingHTTPServer, SimpleHTTPRequestHandler
@@ -17,8 +17,8 @@ class PreviewServer(ThreadingHTTPServer):
 server = PreviewServer(('127.0.0.1', 0), partial(Quiet, directory=str(ROOT)))
 Thread(target=server.serve_forever, daemon=True).start()
 origin = f'http://127.0.0.1:{server.server_port}'
-url = origin + '/pp-os/?mode=app&tab=smart-money'
-catalog = json.loads((ROOT/'pp-os/data/smart-money.json').read_text())
+url = origin + '/smart-money.html'
+catalog = json.loads((ROOT/'app/data/smart-money.json').read_text())
 errors = []
 try:
     with sync_playwright() as p:
@@ -128,30 +128,14 @@ try:
         expect(rp.locator('.sm-stock-detail')).to_have_count(0)
         race.close()
 
-        # Fresh runtime offline: report availability comes from the service-worker cache.
-        offline=browser.new_context(viewport={'width':390,'height':844},reduced_motion='reduce')
-        op=offline.new_page();op.on('pageerror',lambda error:errors.append(str(error)))
-        op.goto(url);expect(op.locator('.sm-card')).to_have_count(16,timeout=15000)
-        op.evaluate('navigator.serviceWorker.ready')
-        op.wait_for_function('!!navigator.serviceWorker.controller')
-        op.locator('[data-fund="nvidia"]').click()
-        expect(op.locator('.sm-holdings')).to_be_visible()
-        op.wait_for_function("async()=>!!(await caches.match('/pp-os/data/"+next(f['detailFile'] for f in catalog['funds'] if f['id']=='nvidia')+"'))")
-        offline.set_offline(True);op.reload()
-        op.locator('[data-fund="nvidia"]').click()
-        op.locator('[data-stock]').first.click()
-        expect(op.locator('.sm-stock-coverage')).to_contain_text('Partial results',timeout=20000)
-        expect(op.locator('.sm-stock-summary')).to_contain_text('1 / 14')
-        offline.set_offline(False);op.locator('[data-stock-retry]').click()
-        expect(op.locator('.sm-stock-coverage')).to_have_text('Checked all 14 available portfolio reports.',timeout=20000)
-        paths=['/pp-os/data/'+fund['detailFile'] for fund in catalog['funds']]
-        op.wait_for_function('async paths=>(await Promise.all(paths.map(path=>caches.match(path)))).every(Boolean)',arg=paths)
-        offline.set_offline(True);op.reload()
-        op.locator('[data-fund="trump"]').click();op.locator('[data-stock="AAPL"]').click()
-        expect(op.locator('.sm-stock-coverage')).to_have_text('Checked all 14 available portfolio reports.',timeout=20000)
-        expect(op.locator('.sm-stock-current [data-owner]')).to_have_count(10)
+        # Reports already downloaded remain usable within this page runtime.
+        context.set_offline(True)
+        page.locator('[data-profile-view="holdings"]').click()
+        page.locator('[data-stock="AAPL"]').click()
+        expect(page.locator('.sm-stock-coverage')).to_have_text('Checked all 14 available portfolio reports.')
+        expect(page.locator('.sm-stock-current [data-owner]')).to_have_count(10)
         assert not errors,errors
         browser.close()
 finally:
     server.shutdown()
-print('PASS: stock navigation, keyboard/back restoration, AAPL across 10 filings, estimates, options, exits, historical data, partial/retry, cached reuse, stale responses and offline restart.')
+print('PASS: stock navigation, keyboard/back restoration, AAPL across 10 filings, estimates, options, exits, historical data, partial/retry, cached reuse, stale responses and in-memory reuse.')

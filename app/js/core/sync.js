@@ -30,6 +30,8 @@ const SYNC_KEYS = new Set([
   "money.split",
   "money.goals",
   "money.card",
+  "money.recurring",
+  "money.transfers",
   "todo.items",
   "notes.text",
   "os.name",

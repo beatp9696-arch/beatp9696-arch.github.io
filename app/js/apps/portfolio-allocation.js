@@ -1,5 +1,6 @@
 import {companyIdentity,companyLogoURL} from '../core/company-catalog.js';
 import { load, save } from "../core/storage.js";
+import { balances, amountText as money } from "../features/money/model.js";
 import { SITE } from "../core/site.js";
 import { countUp, flush, num, stagger } from "../core/ui.js";
 import { getResearch, researchIcon } from "../core/research-store.js";
@@ -67,6 +68,13 @@ const meta = (tk) => CATALOG[tk] ?? (companyIdentity(tk) ? [companyIdentity(tk)[
 const val = (h) => (h.shares ?? 0) * (h.price ?? 0);
 const basis = (h) => (h.shares ?? 0) * (h.cost ?? 0);
 const article = (tk) => (CATALOG[tk] ? `${SITE}articles/deep-dive-${tk.toLowerCase()}.html` : null);
+const moneyBridge = () => {
+  const entries = load('money.entries', []);
+  const transfers = load('money.transfers', []);
+  const b = balances(Array.isArray(entries) ? entries : []);
+  const moved = Array.isArray(transfers) ? transfers.reduce((sum, t) => sum + Number(t?.amount || 0), 0) : 0;
+  return `<section class="pf-money-bridge" aria-label="Money allocation"><div><span class="eyebrow">MONEY / PORTFOLIO</span><b>${moved ? `โอนเข้าพอร์ตแล้ว ${money(moved)}` : 'วางแผนเงินลงทุนจาก Money'}</b><small>จัดสรรไว้ลงทุน ${money(b.invest)} · ยอดโอนแยกจากมูลค่าหุ้น เพื่อไม่ให้นับซ้ำ</small></div><a href="money.html?view=overview">เปิด Money ${researchIcon('arrow-up-right')}</a></section>`;
+};
 
 const dayKey = (d) => `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, "0")}-${String(d.getDate()).padStart(2, "0")}`;
 
@@ -201,6 +209,8 @@ export default {
           <div><span class="eyebrow">PORTFOLIO / RESEARCH</span><b>Keep the thesis close to the book</b><small>Monitor, Matrix and Earnings Diff for the names you own.</small></div>
           <a class="pf-research-hero-link" href="portfolio.html?view=research">Open Research ${researchIcon("arrow-up-right")}</a>
         </section>
+
+        ${moneyBridge()}
 
         <button class="pf-asof${age.stale ? " stale" : ""}">
           <span class="pf-dot"></span>
@@ -390,6 +400,7 @@ export default {
           <div><span class="eyebrow">PORTFOLIO / RESEARCH</span><b>Start with the names you understand</b><small>Open thesis checks, moat evidence and earnings snapshots.</small></div>
           <a class="pf-research-hero-link" href="portfolio.html?view=research">Open Research ${researchIcon("arrow-up-right")}</a>
         </section>
+        ${moneyBridge()}
         <section class="card pf-blank">
           <svg class="pf-blank-art" viewBox="0 0 220 220" aria-hidden="true">
             <circle cx="110" cy="110" r="78" fill="none" stroke-width="23" />

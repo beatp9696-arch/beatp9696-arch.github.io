@@ -1,6 +1,7 @@
 import { load, save, flushStorage } from "../core/storage.js";
 import { getResearch, researchIcon as icon } from "../core/research-store.js";
 import { POWERS, escapeHTML as esc, dateLabel, metricDelta, needsReview } from "../core/research-model.js";
+import { companyLinks } from "../core/company-catalog.js";
 
 const WATCH_KEY = "research.watchlist";
 const NOTES_KEY = "research.notes";
@@ -29,8 +30,11 @@ export default {
   mount(body, options = {}) {
     body.classList.add("app-pane", "app-research");
     const inPortfolio = options.context === "portfolio";
-    const initialView = new URLSearchParams(location.search).get("researchView");
-    let catalog = [], state = { view: views.some(([id]) => id === initialView) ? initialView : "monitor", scope: "all", query: "", ticker: options.ticker || null, detailTab: "thesis", earningsTicker: "NVDA", report: null, selected: [], scroll: 0 };
+    const routeParams = new URLSearchParams(location.search);
+    const initialView = routeParams.get("researchView");
+    const initialScope = routeParams.get("researchScope");
+    const initialSort = routeParams.get("researchSort");
+    let catalog = [], state = { view: views.some(([id]) => id === initialView) ? initialView : "monitor", scope: ["all", "following", "holdings", "due"].includes(initialScope) ? initialScope : "all", sort: initialSort === "recent" ? "recent" : "coverage", query: "", ticker: options.ticker || null, detailTab: "thesis", earningsTicker: "NVDA", report: null, selected: [], scroll: 0 };
     const stored = load(WATCH_KEY, []);
     const following = new Set(Array.isArray(stored) ? stored.filter((v) => typeof v === "string") : []);
     const drafts = new Map();
@@ -42,6 +46,10 @@ export default {
       else url.searchParams.set('researchView', state.view);
       if (state.ticker) url.searchParams.set('ticker', state.ticker);
       else url.searchParams.delete('ticker');
+      if (state.scope === 'all') url.searchParams.delete('researchScope');
+      else url.searchParams.set('researchScope', state.scope);
+      if (state.sort === 'coverage') url.searchParams.delete('researchSort');
+      else url.searchParams.set('researchSort', state.sort);
       history.replaceState(history.state, '', url);
     };
     const company = (ticker) => catalog.find((c) => c.ticker === ticker);
@@ -80,7 +88,8 @@ export default {
       const holdings = load("pf.holdings", []);
       const owned = new Set((Array.isArray(holdings) ? holdings : []).map((h) => h?.tk));
       const scope = catalog.filter((c) => state.scope === "all" || (state.scope === "following" ? following.has(c.ticker) : state.scope === "due" ? needsReview(c) : owned.has(c.ticker)));
-      const filtered = scope.filter((c) => `${c.ticker} ${c.name} ${c.sector}`.toLowerCase().includes(state.query.toLowerCase().trim()));
+      const ordered = state.sort === "recent" ? [...scope].sort((a, b) => b.snapshotDate.localeCompare(a.snapshotDate)) : scope;
+      const filtered = ordered.filter((c) => `${c.ticker} ${c.name} ${c.sector}`.toLowerCase().includes(state.query.toLowerCase().trim()));
       return `<section class="rx-summary" aria-label="Coverage summary"><div><span>In coverage</span><strong>${catalog.length}<small>companies</small></strong></div><div><button class="rx-summary-filter" data-scope="due" aria-pressed="${state.scope === 'due'}"><span>Review due ${icon('arrow-up-right')}</span><strong class="rx-amber">${catalog.filter((c) => needsReview(c)).length}<small>snapshots</small></strong></button></div><div><span>Following</span><strong>${catalog.filter((c) => following.has(c.ticker)).length}<small>on this device</small></strong></div></section>
         <div class="rx-section-head"><div><span class="rx-eyebrow">RESEARCH COVERAGE</span><h2>Your research desk</h2></div><span class="rx-meta">${filtered.length} of ${catalog.length} companies${state.scope === 'due' ? ' · Review due' : ''}</span></div>
         <div class="rx-toolbar"><div class="rx-segment" aria-label="Company filter" data-no-swipe>${[["all", "All coverage"], ["following", "Following"], ["holdings", "My holdings"]].map(([v, label]) => `<button data-scope="${v}" aria-pressed="${state.scope === v}">${label}</button>`).join("")}</div><label class="rx-search">${icon("search")}<input type="search" aria-label="Search companies" placeholder="Search companies" value="${esc(state.query)}" maxlength="100"></label></div>
@@ -95,7 +104,8 @@ export default {
     }
 
     function detail(c) {
-      return `<header class="rx-detail-head">${iconButton("arrow-left", "Back to research", "data-back")}<div class="rx-detail-identity">${logo(c)}<div>${inPortfolio ? '<span class="rx-eyebrow">PORTFOLIO / RESEARCH</span>' : ''}<span class="rx-meta">${c.ticker} / ${esc(c.sector)}</span><h1>${esc(c.name)}</h1></div></div>${followButton(c, true)}</header>
+      const links = companyLinks(c.ticker);
+      return `<header class="rx-detail-head">${iconButton("arrow-left", "Back to research", "data-back")}<div class="rx-detail-identity">${logo(c)}<div>${inPortfolio ? '<span class="rx-eyebrow">PORTFOLIO / RESEARCH</span>' : ''}<span class="rx-meta">${c.ticker} / ${esc(c.sector)}</span><h1>${esc(c.name)}</h1></div></div><div class="rx-detail-actions">${links ? `<a class="rx-text-btn" href="${links.portfolio}">${icon("book-open")}Portfolio thesis ${icon("arrow-up-right")}</a><a class="rx-text-btn" href="${links.smartMoney}">${icon("activity")}Smart Money ${icon("arrow-up-right")}</a>` : ''}${followButton(c, true)}</div></header>
         ${statusLine(c)}<nav class="rx-tabs" aria-label="Company research views" data-no-swipe>${[["thesis", "activity", "Thesis"], ["earnings", "git-compare-arrows", "Earnings"], ["moat", "table-2", "Moat"]].map(([id, glyph, label]) => `<button data-detail-tab="${id}" class="${state.detailTab === id ? "active" : ""}" aria-current="${state.detailTab === id ? "page" : "false"}">${icon(glyph)}${label}</button>`).join("")}</nav>
         ${state.detailTab === "thesis" ? thesis(c) : state.detailTab === "earnings" ? earnings(c, true) : moat(c)}
         <footer class="rx-foot"><a href="${sourceURL(c)}" target="_blank" rel="noopener">Read ${c.ticker} deep dive ${icon("arrow-up-right")}</a><span>Article snapshot · ${dateLabel(c.snapshotDate)} · Not live</span></footer>`;

@@ -69,7 +69,8 @@ export function chartPanel(data,state) {
 }
 function allocations(data) {
   const b=balances(data.entries);
-  return `<div class="mn-allocations"><div class="mn-allocation-head"><span>YOUR ALLOCATIONS</span>${button('Manage','settings','','mn-text')}</div><div class="mn-allocation-grid">${[['cash','Available cash','wallet'],['savings','Savings','target'],['invest','Set aside to invest','chart']].map(([key,label,glyph])=>`<div>${icon(glyph)}<span>${label}</span><strong class="${b[key]<0?'mn-negative':''}">${money(b[key])}</strong></div>`).join('')}</div><p>Earmarked from your recorded income. These are allocations, not bank account balances.</p></div>`;
+  const transferred=(data.transfers||[]).reduce((sum,t)=>sum+Number(t.amount||0),0);
+  return `<div class="mn-allocations"><div class="mn-allocation-head"><span>YOUR ALLOCATIONS</span>${button('Manage','settings','','mn-text')}</div><div class="mn-allocation-grid">${[['cash','Available cash','wallet'],['savings','Savings','target'],['invest','Set aside to invest','chart'],['transferred','Transferred to portfolio','up']].map(([key,label,glyph])=>`<div>${icon(glyph)}<span>${label}</span><strong class="${(b[key]??transferred)<0?'mn-negative':''}">${money(key==='transferred'?transferred:b[key])}</strong></div>`).join('')}</div><div class="mn-allocation-actions">${button('Record portfolio transfer','add-transfer','up','mn-text')}<a href="portfolio.html?portfolioView=allocation&amp;book=personal">Open Portfolio allocation ${icon('arrow')}</a></div><p>Earmarked from your recorded income. Transfers are tracked separately and are not added to portfolio value automatically.</p></div>`;
 }
 function budgetPreview(data,state) {
   const rows=budgetRows(data.entries,data.budgets,state.month).filter(r=>r.limit>0||r.spent>0).sort((a,b)=>b.spent-a.spent).slice(0,4);

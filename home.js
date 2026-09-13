@@ -117,7 +117,7 @@ function render() {
   const filtered = companies.filter(c => `${c.ticker} ${c.name} ${c.sector}`.toLocaleLowerCase().includes(query));
   host.innerHTML = filtered.length ? filtered.map(c => `<a class="home-company" href="portfolio.html?view=research&amp;ticker=${encodeURIComponent(c.ticker)}">
     <span class="home-company-logo"><span>${esc(c.ticker.slice(0, 2))}</span><img src="app/assets/brands/${encodeURIComponent(c.ticker)}.png" alt="" width="42" height="42"></span>
-    <span class="home-company-body"><span class="home-company-identity"><b>${esc(c.name)}</b><span>${esc(c.ticker)}</span></span><span class="home-company-focus" lang="th">${esc(c.focus)}</span><span class="home-company-metrics"><span>${c.monitors.length} จุดติดตาม</span><span>${Object.keys(c.powers || {}).length} หลักฐานคูเมือง</span></span><span class="home-company-date">บทความอัปเดต ${esc(dateLabel(c.snapshotDate))}</span></span>
+    <span class="home-company-body"><span class="home-company-identity"><b>${esc(c.name)}</b><span>${esc(c.ticker)}</span></span><span class="home-company-focus" lang="th">${esc(c.focus)}</span><span class="home-company-metrics"><span>${c.monitors.length} จุดติดตาม</span><span>${Object.values(c.powers || {}).filter(p => ['evidenced', 'partial'].includes(p.status)).length} หลักฐานคูเมือง</span></span><span class="home-company-date">บทความอัปเดต ${esc(dateLabel(c.snapshotDate))}</span></span>
     <span class="home-company-status"><span class="${needsReview(c) ? 'is-due' : ''}">${needsReview(c) ? 'ถึงรอบทบทวน' : 'Research snapshot'}</span><span aria-hidden="true">↗︎</span></span>
   </a>`).join('') : '<div class="home-loading"><p>ไม่พบบริษัทใน Research ที่ตรงกับคำค้น</p><button class="home-button" type="button" data-clear-search>ดูบริษัททั้งหมด</button></div>';
   for (const img of host.querySelectorAll('img')) img.addEventListener('error', () => img.remove(), { once: true });
@@ -126,7 +126,7 @@ function render() {
 function renderPulse() {
   if (!pulseReview || !pulseEvidence || !pulseLatest || !companies.length) return;
   pulseReview.textContent = companies.filter(c => needsReview(c)).length;
-  pulseEvidence.textContent = companies.reduce((sum, c) => sum + Object.keys(c.powers || {}).length, 0);
+  pulseEvidence.textContent = companies.reduce((sum, c) => sum + Object.values(c.powers || {}).filter(p => ['evidenced', 'partial'].includes(p.status)).length, 0);
   const latest = companies.reduce((date, c) => c.snapshotDate > date ? c.snapshotDate : date, '');
   pulseLatest.textContent = latest ? dateLabel(latest) : '—';
 }
