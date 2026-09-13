@@ -43,11 +43,11 @@ python3 -m http.server 8000
 /portfolio.html?book=personal&portfolioView=allocation
 ```
 
-- **My portfolio** อ่าน `pf.holdings` ของเดิมโดยไม่แตะจำนวนหุ้นหรือราคา ส่วนโดนัทสัดส่วน ความกระจุก เพิ่ม/แก้/ลบหุ้น ความครอบคลุมของ research และการอัปเดตราคา ยังอยู่ครบใน **Holdings & allocation** · พอร์ตจริงเริ่มที่ **INSUFFICIENT DATA** เสมอ ไม่มีการเอาบทวิเคราะห์ตัวอย่างมาสวมแทนหลักฐานจริง
+- **My portfolio** อ่าน `pf.holdings` ของเดิมโดยไม่แตะจำนวนหุ้นหรือราคา ส่วนโดนัทสัดส่วน ความกระจุก เพิ่ม/แก้/ลบหุ้น ความครอบคลุมของ research และการอัปเดตราคา ยังอยู่ครบใน **Holdings & allocation** · บริษัทที่รองรับ 16 แห่งมี **Research draft** พร้อมวันที่และแหล่งอ้างอิงให้ทบทวนและรับเป็น thesis ของตนเอง บริษัทอื่นยังเป็น **INSUFFICIENT DATA** โดยไม่มีการใช้ข้อมูล demo แทนหลักฐาน
 - **Demo portfolio** เป็นสถานการณ์สมมติของ Microsoft, Visa และ Costco ใน `data/living-thesis.json` ตัวเลข เหตุการณ์ คะแนนและคำตีความทั้งหมดเป็นข้อมูลตัวอย่าง ลิงก์แหล่งที่มาเป็นเอกสารอ้างอิงประกอบ ไม่ใช่หลักฐานยืนยันเหตุการณ์สมมติเหล่านั้น
 - `js/features/living-thesis/model.js` คุม domain type (JSDoc), การกรอง, ความสดของ review, ค่าที่หายไป และการประเมิน threshold · มาร์จิน/อัตราเปลี่ยนเป็น percentage point ตัวเงินเปลี่ยนเป็นเปอร์เซ็นต์ ข้อมูลที่ไม่มีจะไม่ถูกแปลงเป็นศูนย์
 - `service.js` export `analyzeThesis(holding, thesis, evidence, earningsData, context)` กับ `demoAdapter` แบบ deterministic ต่อ provider จริงที่ขอบนี้ผ่าน endpoint ฝั่งเซิร์ฟเวอร์ origin เดียวกัน และเก็บ API credential ไว้ที่เซิร์ฟเวอร์นั้น สัญญาผลลัพธ์คือ `AnalysisResult` ใน model — ฝั่ง view ไม่เรียก AI API เอง
-- Refresh เรียก adapter ตัวอย่าง มีสถานะ loading/error/retry/success และคงวันที่ของหลักฐานเดิมไว้ ไม่ได้ไปดึงงานวิจัยสด · ถ้าแก้ thesis เดิม ระบบจะตีธงให้ประเมินใหม่ เพราะคำตีความตัวอย่างที่ตรึงไว้ประเมิน thesis ใหม่ไม่ได้
+- **Refresh research** ของพอร์ตจริงโหลดคลังวิจัยที่มีวันที่เดิมใหม่ ไม่ดึงข้อมูลสดและไม่เขียนทับ thesis ส่วนตัว ส่วน Demo refresh เรียก adapter ตัวอย่าง มีสถานะ loading/error/retry/success และคงวันที่ของหลักฐานเดิมไว้ ไม่ได้ไปดึงงานวิจัยสด · ถ้าแก้ thesis เดิม ระบบจะตีธงให้ประเมินใหม่ เพราะคำตีความตัวอย่างที่ตรึงไว้ประเมิน thesis ใหม่ไม่ได้
 - thesis เดิม เงื่อนไขขายที่แก้ไว้ บันทึก review สถานะคำถาม ธง watchlist และโน้ตการสืบค้น เก็บผ่าน storage adapter เดิม · `pf.living.personal.v1` กับ `pf.living.demo.v1` เป็นคนละ namespace อยู่ในเครื่อง ไม่อยู่ใน sync allowlist และรวมอยู่ในไฟล์ backup ที่ผู้ใช้สั่งเอง · ตัวแก้ไขจะรอ `flushStorage()` ก่อนบอกว่าเซฟสำเร็จ
 - Review บันทึกว่านักลงทุนทบทวนแล้ว โดยไม่ไปเปลี่ยนผลประเมินหรือวันที่ของหลักฐาน · เงื่อนไขขายที่วัดได้จะประเมินจาก snapshot ที่มี ส่วนเงื่อนไขเชิงคุณภาพบันทึกคำตัดสินของนักลงทุน — ไม่มีอันไหนสั่งซื้อขาย · หลักฐานเก่ากว่า 30 วันขึ้นป้ายว่าเก่า
 - dialog คืน focus ให้คีย์บอร์ด แท็บ thesis เดินด้วยลูกศร Home และ End · container query รองรับมือถือและจอกว้าง แถวหุ้นและแถวผลประกอบการยุบเป็นแนวตั้งบนจอเล็ก ไม่ได้เพิ่ม dependency กราฟใดๆ
@@ -172,3 +172,5 @@ for f in app/test/*.test.mjs; do node "$f"; done
 - `market-hours.test.mjs` — ปฏิทิน NYSE ใน `app.js`: แถบ market clock บนหน้าแรกกับการ์ด TARS
   ต้องตอบสถานะตลาดตรงกันทุกกรณี (เคยแยกกันจนวันหยุดหน้าแรกขึ้น "เปิด" ขณะ TARS บอก "ปิด")
   และตรวจทั้ง `app.js` กับ `app.min.js` ที่เว็บเสิร์ฟจริง
+
+Research library (13 September 2026): 16 supported companies in `data/living-thesis-library.json`. Drafts include seven moat pillars, dated source evidence, two reporting periods, opposing arguments, suggested sell conditions and questions. Scores are editorial estimates, not investment-return probabilities. No historical score trajectory or investor rationale is invented. Existing personal notes, positions, prices and custom conditions are preserved.
