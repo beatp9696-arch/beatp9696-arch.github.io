@@ -174,3 +174,13 @@ for f in app/test/*.test.mjs; do node "$f"; done
   และตรวจทั้ง `app.js` กับ `app.min.js` ที่เว็บเสิร์ฟจริง
 
 Research library (13 September 2026): 16 supported companies in `data/living-thesis-library.json`. Drafts include seven moat pillars, dated source evidence, two reporting periods, opposing arguments, suggested sell conditions and questions. Scores are editorial estimates, not investment-return probabilities. No historical score trajectory or investor rationale is invented. Existing personal notes, positions, prices and custom conditions are preserved.
+
+## Unified public home and Research theme
+
+The public home (`index.html`) and Portfolio Research (`portfolio.html?view=research`) share the Portfolio charcoal / mint palette via `app/css/moatrices-theme.css`. The home uses `home.css` and `home.js`, reads only `app/data/research.json`, and links companies to `portfolio.html?view=research&ticker=SNPS`. The BKK / NY clock and the original TradingView symbols are preserved. The fixed dark home does not overwrite a saved article reading theme. Existing `/pp-os/` redirects remain intact.
+
+Use `researchView=matrix` or `researchView=earnings` alongside `view=research` to open a research tool directly. Follow, notes, source dialogs and CSV are preserved; the Review due count filters internal review dates. These dates do not claim to be live business assessments.
+
+Research confirms device writes before acknowledging follows and saved notes, so a reload immediately after confirmation retains them. Home statistics are generated from the article and tool catalogs during the build.
+
+Run `../.venv/bin/python test/home-browser.test.py` from this repository (adjust the virtualenv path for a worktree). Add `--live` to verify the TradingView iframe. Default checks block external requests and verify widget configuration. Screenshots are written to `/private/tmp/moatrices-home-*.png`.

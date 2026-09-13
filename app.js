@@ -219,6 +219,7 @@ window.NYSE = (function () {
 
   // ---- ปุ่มสลับโหมดสว่าง/มืด ----
   function effectiveTheme() {
+    if (document.documentElement.dataset.themeLocked) return document.documentElement.dataset.themeLocked;
     var attr = document.documentElement.getAttribute("data-theme");
     if (attr === "light" || attr === "dark") return attr;
     return (window.matchMedia && window.matchMedia("(prefers-color-scheme: dark)").matches) ? "dark" : "light";
@@ -230,7 +231,7 @@ window.NYSE = (function () {
   // (body.cs ชนะ :root[data-theme]) ขณะที่ localStorage ถูกเขียนไปแล้ว = ผู้อ่านกดแล้ว
   // เหมือนปุ่มเสีย แต่ธีมของทุกหน้าที่เหลือในเว็บพลิกไปโดยไม่มีอะไรบอก
   var nav = document.body.classList.contains("cs") ? null : document.querySelector(".site-nav");
-  if (nav) {
+  if (nav && !document.documentElement.dataset.themeLocked) {
     var b = document.createElement("button");
     b.className = "theme-toggle";
     b.id = "theme-toggle";

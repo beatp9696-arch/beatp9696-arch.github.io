@@ -974,6 +974,11 @@ def write_hero_stats(articles):
             r'(<span class="hero-stat-num">)\d+(</span>\s*'
             r'<span class="hero-stat-label">' + re.escape(label) + r'</span>)',
             lambda m: m.group(1) + str(val) + m.group(2), new, count=1)
+        # The research home places its label first and uses strong for the value.
+        new = re.sub(
+            r'(<span class="hero-stat-label">' + re.escape(label) + r'</span>\s*'
+            r'<strong class="hero-stat-num">)\d+(</strong>)',
+            lambda m: m.group(1) + str(val) + m.group(2), new, count=1)
     new = re.sub(r'(<span class="view-all-count">)\d+(</span>)',
                  lambda m: m.group(1) + str(n_works) + m.group(2), new)
     if new != src:

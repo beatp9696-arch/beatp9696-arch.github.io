@@ -1,0 +1,20 @@
+/* Shared visual foundation for the public home and research / portfolio workspaces. */
+:root {
+  --moa-canvas: #101214;
+  --moa-panel: #15191b;
+  --moa-line: #2a3034;
+  --moa-ink: #e9edef;
+  --moa-muted: #9ba6ac;
+  --moa-accent: #79c9b4;
+  --moa-accent-soft: #192b26;
+  --moa-amber: #e4bd7b;
+  --moa-radius: 6px;
+  --moa-content: 1368px;
+}
+.moa-brand { display:inline-flex; align-items:center; gap:12px; color:var(--moa-ink); text-decoration:none; font:650 20px/1.4 var(--font-head); white-space:nowrap; }
+.moa-brand-mark { display:flex; align-items:flex-end; gap:3px; width:24px; height:24px; flex:0 0 24px; }
+.moa-brand-mark i { display:block; width:5px; height:10px; background:var(--moa-accent); }
+.moa-brand-mark i:nth-child(2) { height:16px; }
+.moa-brand-mark i:nth-child(3) { height:23px; }
+.moa-brand-section { border-left:1px solid #3e454a; padding-left:18px; margin-left:8px; color:var(--moa-muted); font:500 10px/1.4 var(--font-mono); }
+@media(max-width:380px) { .moa-brand { gap:9px; font-size:18px; } .moa-brand-section { padding-left:10px; margin-left:2px; font-size:9px; } }

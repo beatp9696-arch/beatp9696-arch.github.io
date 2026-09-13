@@ -1,5 +1,5 @@
 /* Matrices — the existing research terminal palette, scoped to Portfolio. */
-.app-living-thesis{--canvas:#101214;--panel:#15191b;--line:#2a3034;--ink:#e9edef;--dim:#9ba6ac;--a:#71cdb2;--green:#71cdb2;--amber:#e4bd7b;--red:#e99c98;--blue:#a3b8d3;container:living-thesis / inline-size;display:block!important;min-width:0;background:var(--canvas);color:var(--ink);padding:0!important;font:400 13px/1.65 var(--font-body);letter-spacing:0}
+.app-living-thesis{--canvas:var(--moa-canvas);--panel:var(--moa-panel);--line:var(--moa-line);--ink:var(--moa-ink);--dim:var(--moa-muted);--a:var(--moa-accent);--green:#71cdb2;--amber:#e4bd7b;--red:#e99c98;--blue:#a3b8d3;container:living-thesis / inline-size;display:block!important;min-width:0;background:var(--canvas);color:var(--ink);padding:0!important;font:400 13px/1.65 var(--font-body);letter-spacing:0}
 .app-living-thesis *,.lt-dialog *{box-sizing:border-box;letter-spacing:0}
 .app-living-thesis :is(h1,h2,h3,h4,p,blockquote,ol,dl){margin:0}
 .app-living-thesis :is(h1,h2,h3,h4){font-family:var(--font-head);font-weight:600;color:var(--ink)}
@@ -14,7 +14,7 @@
 .lt-wordmark{display:inline-flex;align-items:center;gap:10px;font-size:18px;font-weight:650;color:var(--ink)!important}
 .lt-wordmark-sub{font:500 9px var(--font-mono);color:var(--dim);border-left:1px solid #3e454a;margin-left:8px;padding-left:18px}
 .lt-brand-mark{display:flex;align-items:flex-end;gap:3px;width:24px;height:23px}
-.lt-brand-mark i{display:block;width:5px;height:10px;background:#79c9b4}.lt-brand-mark i:nth-child(2){height:16px}.lt-brand-mark i:nth-child(3){height:22px}
+.lt-brand-mark i{display:block;width:5px;height:10px;background:var(--moa-accent)}.lt-brand-mark i:nth-child(2){height:16px}.lt-brand-mark i:nth-child(3){height:22px}
 .lt-scope{display:flex;gap:3px;padding:3px;border:1px solid var(--line);border-radius:6px}
 .lt-scope .lt-btn{border:0;background:transparent;min-height:32px;padding:5px 12px;color:var(--dim);font-size:11px}
 .lt-scope .lt-btn[aria-pressed=true]{background:#2a3135;color:#eff5f3}
