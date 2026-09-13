@@ -179,7 +179,8 @@ window.NYSE = (function () {
     { f: "blind-business.html", t: "สามแฟ้มธุรกิจ — เบื้องหลังบริษัทที่เราคิดว่ารู้จัก", sec: "basics" },
     { f: "tesla-robotaxi.html", t: "Tesla Robotaxi — Cybercab และเศรษฐศาสตร์รถไร้คนขับ", sec: "consumer" },
     { f: "situational-awareness.html", t: "Situational Awareness — เมื่อ AI เปลี่ยนกติกาโลก", sec: "market" },
-    { f: "case-study-02-amd.html", t: "เคสศึกษา 2: AMD", sec: "semi" }
+    { f: "case-study-02-amd.html", t: "เคสศึกษา 2: AMD", sec: "semi" },
+    { f: "fix-life-in-1-day.html", t: "ซ่อมชีวิตทั้งใบใน 1 วัน", sec: "other" }
   ];
 
   var progressBar = document.querySelector(".reading-progress");
