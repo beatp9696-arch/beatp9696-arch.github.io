@@ -89,8 +89,10 @@
   padding:20px 20px 18px;display:flex;flex-direction:column}
 .sg-memo-head{display:flex;justify-content:space-between;align-items:center;
   border-bottom:1px solid var(--sg-line);padding-bottom:10px;margin-bottom:14px}
-.sg-from{font-family:"IBM Plex Mono",monospace;font-size:11px;letter-spacing:.14em;
-  text-transform:uppercase;color:var(--sg-dim)}
+/* ทั้งสองช่องในหัวบันทึกเป็นข้อความไทย — ห้าม mono + tracking
+   (WebKit ดันสระ/วรรณยุกต์หลุดจากพยัญชนะ เห็นเฉพาะ iOS Safari) */
+.sg-from{font-family:var(--font-head);font-size:11px;color:var(--sg-dim)}
+
 .sg-stamp{font-family:"IBM Plex Mono",monospace;font-size:10px;letter-spacing:.12em;
   color:var(--sg-film);border:1px solid var(--sg-film-dk);border-radius:4px;padding:3px 7px}
 .sg-memo-title{font-family:var(--font-head);font-weight:600;font-size:19px;line-height:1.5;
@@ -192,14 +194,14 @@
   <main>
 <div class="sg-wrap">
 
-  <p class="sg-kicker">เกมจำลองการตัดสินใจ · ซีรีส์คูเมืองแตก — เคส 1/5</p>
+  <p class="sg-kicker th-safe">เกมจำลองการตัดสินใจ · ซีรีส์คูเมืองแตก — เคส 1/5</p>
   <h1 class="sg-title">10 ปีที่คูเมืองแตก — คุณคือซีอีโอ Kodak ปี 1996</h1>
   <p class="sg-sub">คุณไม่ได้มาที่นี่เพื่อ “ปรับตัวให้ทัน” — Kodak ปรับตัวทัน และเป็นเบอร์ 1 กล้องดิจิทัลในสหรัฐฯ ปี 2005
     แล้วก็ยังล้มละลายในปี 2012 อยู่ดี ลองเล่นดูว่าคุณจะหาทางออกที่พวกเขาหาไม่เจอได้ไหม</p>
 
   <!-- HUD -->
   <div class="sg-hud" id="hud">
-    <div class="sg-year"><span id="yr">1996</span><small id="turn">ปีที่ 1 / 5</small></div>
+    <div class="sg-year"><span id="yr">1996</span><small class="th-safe" id="turn">ปีที่ 1 / 5</small></div>
     <div>
       <div class="sg-gauge-label"><span>กำไรปีนี้ (วอลล์สตรีท)</span><b id="v-profit">100</b></div>
       <div class="sg-bar profit"><i id="b-profit" style="width:100%"></i></div>
@@ -239,14 +241,14 @@
         </defs>
 
         <!-- ท่อเส้นที่ 1: ซื้อฟิล์ม -->
-        <text class="sv-lab" x="14" y="130">ท่อ 1 — ซื้อฟิล์ม</text>
+        <text class="sv-lab th-safe" x="14" y="130">ท่อ 1 — ซื้อฟิล์ม</text>
         <path d="M16 148 H198" stroke="#3a4048" stroke-width="16"/>
         <path d="M16 148 H198" stroke="#12151a" stroke-width="11"/>
         <path id="p1" class="pipe-flow" d="M16 148 H198" stroke="url(#gPipe)" stroke-width="9"/>
         <rect x="13" y="138" width="7" height="20" rx="2" fill="#4a5058"/>
 
         <!-- ท่อเส้นที่ 2: ล้าง–อัด -->
-        <text class="sv-lab" x="14" y="212">ท่อ 2 — ล้าง + อัดรูป</text>
+        <text class="sv-lab th-safe" x="14" y="212">ท่อ 2 — ล้าง + อัดรูป</text>
         <path d="M16 230 H198" stroke="#3a4048" stroke-width="16"/>
         <path d="M16 230 H198" stroke="#12151a" stroke-width="11"/>
         <path id="p2" class="pipe-flow" d="M16 230 H198" stroke="url(#gPipe)" stroke-width="9"/>
@@ -272,14 +274,14 @@
         <path d="M266 300 V344" stroke="#12151a" stroke-width="9"/>
         <path id="pOut" class="pipe-flow" d="M266 300 V344" stroke="#4ecaa0" stroke-width="7"/>
         <rect x="253" y="343" width="26" height="9" rx="2" fill="#4a5058"/>
-        <text class="sv-lab" x="266" y="374" text-anchor="middle" fill="#4ecaa0">→ ผู้ถือหุ้น</text>
+        <text class="sv-lab th-safe" x="266" y="374" text-anchor="middle" fill="#4ecaa0">→ ผู้ถือหุ้น</text>
 
         <!-- ถังดิจิทัล (ก้นรั่ว) — ซ่อนจนกว่าจะลงทุน -->
         <g id="digiRig" class="fade" opacity="0">
           <path d="M336 160 H472 V206" stroke="#3a4048" stroke-width="13" fill="none"/>
           <path d="M336 160 H472 V206" stroke="#12151a" stroke-width="9" fill="none"/>
           <path id="pDigi" class="pipe-flow" d="M336 160 H472 V206" stroke="url(#gDigi)" stroke-width="7" fill="none"/>
-          <text class="sv-lab" x="404" y="146" text-anchor="middle">เงินลงทุน</text>
+          <text class="sv-lab th-safe" x="404" y="146" text-anchor="middle">เงินลงทุน</text>
           <rect x="424" y="206" width="96" height="94" rx="4" fill="#0f1216" stroke="#454c55" stroke-width="2"/>
           <g clip-path="url(#clipDigi)">
             <rect id="lvlDigi" class="lvl" x="424" y="272" width="96" height="28" fill="url(#gDigi)"/>
@@ -291,10 +293,10 @@
           <circle class="drip" cx="472" cy="304" r="3.4" fill="#67b3e6"/>
           <circle class="drip" cx="472" cy="304" r="3.4" fill="#67b3e6" style="animation-delay:.95s"/>
           <text class="sv-tag" x="472" y="336" text-anchor="middle">ธุรกิจกล้องดิจิทัล</text>
-          <text class="sv-lab" x="472" y="356" text-anchor="middle" fill="#d2564b">−$60 ต่อกล้อง · ยิ่งขายยิ่งรั่ว</text>
+          <text class="sv-lab th-safe" x="472" y="356" text-anchor="middle" fill="#d2564b">−$60 ต่อกล้อง · ยิ่งขายยิ่งรั่ว</text>
         </g>
       </svg>
-      <div class="sg-cap" id="cap">คูเมืองจริงของ Kodak ไม่ใช่กล้อง — คือท่อสองเส้นนี้</div>
+      <div class="sg-cap th-safe" id="cap">คูเมืองจริงของ Kodak ไม่ใช่กล้อง — คือท่อสองเส้นนี้</div>
     </div>
 
     <!-- โต๊ะทำงาน -->

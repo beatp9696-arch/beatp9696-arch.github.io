@@ -24,6 +24,7 @@
 :root {
 --font-head: "IBM Plex Sans Thai", -apple-system, "Segoe UI", sans-serif;
 --font-body: "Sarabun", -apple-system, "Segoe UI", sans-serif;
+--font-mono: "IBM Plex Mono", ui-monospace, monospace;
 --bg: #f7f5f0;
 --surface: #ffffff;
 --surface-2: #fbfaf7;
@@ -68,6 +69,10 @@
 --header-bg: rgba(18, 20, 23, 0.82);
 --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.3);
 --shadow-md: 0 8px 30px rgba(0, 0, 0, 0.45);
+}
+.th-safe {
+font-family: var(--font-head) !important;
+letter-spacing: normal !important;
 }
 * { box-sizing: border-box; }
 html {
@@ -1684,7 +1689,7 @@ transition: opacity 0.65s ease, transform 0.65s cubic-bezier(0.2, 0.7, 0.3, 1);
 }
 .ph-fig { margin: 32px 0; }
 .ph-panel { background: #0e1013; border: 1px solid #20242a; border-radius: var(--radius); padding: 26px 22px; }
-.ph-eyebrow { font-family: "IBM Plex Mono", ui-monospace, monospace; text-align: center; letter-spacing: 0.28em; font-size: 12.5px; color: #8a8f96; text-transform: uppercase; margin-bottom: 20px; }
+.ph-eyebrow { font-family: var(--font-head); font-weight: 600; text-align: center; font-size: 12.5px; color: #8a8f96; text-transform: uppercase; margin-bottom: 20px; }
 .ph-fig figcaption { font-size: 15.5px; color: var(--muted); line-height: 1.7; margin-top: 14px; padding-left: 14px; border-left: 3px solid var(--accent); }
 .ph-fig figcaption strong { color: var(--text); font-family: var(--font-head); }
 .ph-svg { width: 100%; height: auto; display: block; }

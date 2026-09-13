@@ -26,6 +26,7 @@ import re
 import shutil
 import subprocess
 import sys
+from html.parser import HTMLParser
 from xml.sax.saxutils import escape
 
 BASE_URL = "https://beatp9696-arch.github.io"
@@ -761,6 +762,346 @@ def build_scenes():
     print(f"scenes      : {minified} minified, {injected} บทฝัง/อัปเดต link"
           + (f", {orphan} scene ไม่มีบทคู่" if orphan else ""))
 
+# ─── กันบั๊กฟอนต์ไทยบน WebKit (iOS Safari) ─────────────────────────────────────
+# อาการ: element ที่มี "ตัวอักษรไทย" + ฟอนต์ที่ไม่มี glyph ไทย (Plex Mono / Playfair /
+# Cinzel) + letter-spacing → WebKit fallback ไทยทีละตัวอักษรแล้วดัน สระ/วรรณยุกต์
+# หลุดจากพยัญชนะ ("เปลี่ยนทุกวินาที" → "เปลยีนทกุวนิาท")
+# กับดัก: Chrome รวม headless ไม่แสดงอาการนี้ → screenshot/CDP จับไม่ได้เลย
+# ต้องกันด้วยกฎ pass นี้จึงอ่าน CSS จริง (style/casestudy/scenes) ไล่ cascade ตาม
+# สายพ่อแม่ลูก แล้วปัก class "th-safe" ให้ element ที่เข้าเงื่อนไข
+# (style.css มีกฎ .th-safe ที่ดึงกลับมาใช้ฟอนต์ไทยจริงและตัด tracking ทิ้ง)
+# idempotent: ถอด th-safe เดิมออกก่อนทุกครั้ง แล้วปักใหม่ → drift check ใน CI คุมต่อ
+TH_SAFE = "th-safe"
+_THAI_CH_RE = re.compile(r"[฀-๿]")
+# ตระกูลฟอนต์ที่มี glyph ไทยจริง — stack ไหนมีตัวใดตัวหนึ่ง ไทยก็ไม่ต้องตกไป fallback
+_THAI_FONT_OK_RE = re.compile(
+    r"--font-head|--font-body|--font-book|Plex Sans Thai|Sarabun|Trirong|Noto Sans Thai"
+    r"|-apple-system|system-ui|BlinkMacSystemFont",
+    re.I,
+)
+_CSS_COMMENT_RE = re.compile(r"/\*.*?\*/", re.S)
+_CSS_RULE_RE = re.compile(r"([^{}]+)\{([^{}]*)\}", re.S)
+_CSS_VAR_DECL_RE = re.compile(r"(?:^|[;{])\s*(--font-[\w-]+)\s*:\s*([^;}]+)", re.I)
+_CLASS_IN_SEL_RE = re.compile(r"\.(-?[_a-zA-Z][\w-]*)")
+_TAG_IN_SEL_RE = re.compile(r"^([a-zA-Z][\w-]*)")
+_ID_IN_SEL_RE = re.compile(r"#(-?[_a-zA-Z][\w-]*)")
+_FONT_DECL_RE = re.compile(r"(?:^|;)\s*font(?:-family)?\s*:\s*([^;]+)", re.I)
+_TRACK_DECL_RE = re.compile(r"(?:^|;)\s*letter-spacing\s*:\s*([^;]+)", re.I)
+_CLASS_ATTR_RE = re.compile(r'\sclass\s*=\s*"([^"]*)"')
+_STYLE_BLOCK_RE = re.compile(r"<style[^>]*>(.*?)</style>", re.S | re.I)
+# tag ที่ไม่ต้องปิด (HTML void + SVG shape) — ห้าม push เข้า stack ไม่งั้นสายพ่อแม่เพี้ยน
+_VOID_TAGS = {
+    "area", "base", "br", "col", "embed", "hr", "img", "input", "link", "meta",
+    "param", "source", "track", "wbr",
+    "path", "circle", "rect", "line", "polyline", "polygon", "ellipse", "use",
+    "stop", "image", "animate", "animatetransform", "set", "mpath",
+    "fegaussianblur", "feoffset", "femergenode", "feflood", "fecomposite",
+    "fecolormatrix", "feblend", "feturbulence", "fedisplacementmap", "fedropshadow",
+    "fefuncr", "fefuncg", "fefuncb", "fefunca",
+}
+
+
+def _track_is_on(value):
+    """letter-spacing ที่ 'มีจริง' — normal/0 ทุกหน่วยถือว่าไม่มี"""
+    v = value.split("!")[0].strip().lower()
+    if not v or v == "normal":
+        return False
+    m = re.match(r"^-?\d*\.?\d+", v)
+    return bool(m) and float(m.group(0)) != 0
+
+
+def _split_selector_list(text):
+    """แยก selector list ที่คอมมาระดับบนสุดเท่านั้น — ห้ามตัดคอมมาที่อยู่ใน :is(a, b)"""
+    out, depth, cur = [], 0, []
+    for ch in text:
+        if ch == "(":
+            depth += 1
+        elif ch == ")":
+            depth = max(0, depth - 1)
+        if ch == "," and depth == 0:
+            out.append("".join(cur))
+            cur = []
+        else:
+            cur.append(ch)
+    out.append("".join(cur))
+    return [x for x in (p.strip() for p in out) if x]
+
+
+_IS_RE = re.compile(r":(?:is|where|matches|any)\(([^()]*)\)", re.I)
+
+
+def _expand_is(selector, depth=0):
+    """คลี่ :is(a, b) เป็นหลาย selector — ถ้าไม่คลี่ การตัด pseudo ทิ้งจะทำให้
+    ".sa-page main :is(h1,h2)" กลายเป็นกฎที่ทา <main> แทนที่จะเป็น h1/h2"""
+    m = _IS_RE.search(selector)
+    if not m or depth > 3:
+        return [selector]
+    out = []
+    for alt in _split_selector_list(m.group(1)):
+        out += _expand_is(selector[:m.start()] + alt + selector[m.end():], depth + 1)
+    return out
+
+
+def _compounds(selector):
+    """แตก selector เดี่ยวเป็นลิสต์ compound จากซ้ายไปขวา: [(tag|None, frozenset(class), id|None)]
+    ตัวขวาสุด = 'ตัวที่กฎทาจริง' ที่เหลือคือเงื่อนไขบรรพบุรุษ
+    (>, +, ~ ถูกมองเป็น descendant เหมือนกันหมด — หลวมกว่าจริง = ฝั่งกันไว้ก่อน)
+    คืน None ถ้ามี compound ที่แปลไม่ได้ (เหลือว่างหลังตัด pseudo/attribute) —
+    ปล่อยไว้จะกลายเป็นกฎที่แมตช์ทุก element แล้วทา th-safe เกินจริงทั้งเว็บ"""
+    sel = re.sub(r"::?[\w-]+(\([^)]*\))?", " ", selector)   # :hover / ::before
+    sel = re.sub(r"\[[^\]]*\]", " ", sel)                    # [attr=...]
+    out = []
+    for part in re.split(r"[\s>+~]+", sel.strip()):
+        if not part or part == "*":
+            continue
+        tag = _TAG_IN_SEL_RE.match(part)
+        ident = _ID_IN_SEL_RE.search(part)
+        classes = frozenset(_CLASS_IN_SEL_RE.findall(part))
+        if not tag and not classes and not ident:
+            return None
+        out.append((tag.group(1).lower() if tag else None, classes,
+                    ident.group(1) if ident else None))
+    return out or None
+
+
+def _css_font_vars(text, into):
+    for name, val in _CSS_VAR_DECL_RE.findall(text):
+        into.setdefault(name, val.strip())
+    return into
+
+
+def _resolve_font_vars(value, var_map, depth=0):
+    if depth > 3 or "var(" not in value:
+        return value
+    new = re.sub(r"var\((--font-[\w-]+)\)",
+                 lambda m: var_map.get(m.group(1), m.group(0)), value)
+    return _resolve_font_vars(new, var_map, depth + 1) if new != value else new
+
+
+def _parse_css_rules(text, var_map, order):
+    """คืน (rules, order ถัดไป) — rule = (ancestors, subject, font, track, (specificity, ลำดับ))
+    subject/ancestor = (tag|None, frozenset(class), id|None)
+    font ∈ {'ok','risky',None} · track ∈ {True,False,None}"""
+    rules = []
+    for sel_list, decls in _CSS_RULE_RE.findall(text):
+        if sel_list.lstrip().startswith("@"):    # @media/@supports header — กฎข้างในจับแยกอยู่แล้ว
+            continue
+        font = track = None
+        fm = _FONT_DECL_RE.search(decls)
+        if fm:
+            value = _resolve_font_vars(fm.group(1), var_map)
+            # ตัวแปรที่ไม่มีใครนิยาม = declaration ใช้ไม่ได้ → ตกไปค่าที่สืบทอดมา
+            if "var(" not in value:
+                font = "ok" if _THAI_FONT_OK_RE.search(value) else "risky"
+        tm = _TRACK_DECL_RE.search(decls)
+        if tm:
+            track = _track_is_on(tm.group(1))
+        if font is None and track is None:
+            continue
+        for sel in _split_selector_list(sel_list):
+            for one in _expand_is(sel):
+                comp = _compounds(one)
+                if not comp:
+                    continue
+                s_tag, s_cls, s_id = comp[-1]
+                if TH_SAFE in s_cls:
+                    continue
+                spec = (sum(1 for _, _, i in comp if i),
+                        sum(len(c) for _, c, _ in comp),
+                        sum(1 for t, _, _ in comp if t))
+                order += 1
+                rules.append((comp[:-1], comp[-1], font, track, (spec, order)))
+    return rules, order
+
+
+def css_font_rules(css_files):
+    """อ่านสไตล์ชีตของเว็บทั้งชุด → (rules, var_map, order ถัดไป)
+    var_map เก็บไว้ต่อ เพราะ <style> ในหน้าก็อ้าง var ชุดเดียวกัน"""
+    texts, var_map = {}, {}
+    for path in css_files:
+        texts[path] = _CSS_COMMENT_RE.sub("", open(path, encoding="utf-8").read())
+        _css_font_vars(texts[path], var_map)
+    rules, order = [], 0
+    for path in css_files:
+        more, order = _parse_css_rules(texts[path], var_map, order)
+        rules += more
+    return rules, var_map, order
+
+
+class _ThaiTypeScanner(HTMLParser):
+    """เดิน DOM แบบ stream แล้วจับคู่กฎ CSS กับ element จริง (subject + เงื่อนไขบรรพบุรุษ)
+    เก็บตำแหน่ง element ที่ 'มีอักษรไทยของตัวเอง + ฟอนต์เสี่ยง + มี letter-spacing'"""
+
+    def __init__(self, rules):
+        super().__init__(convert_charrefs=True)
+        self.rules = rules
+        # index ตามคลาสตัวแรกของ subject เพื่อไม่ต้องไล่ทุกกฎกับทุก element
+        self.by_class = {}
+        self.loose = []
+        for r in rules:
+            cls = r[1][1]
+            if cls:
+                self.by_class.setdefault(next(iter(cls)), []).append(r)
+            else:
+                self.loose.append(r)
+        self.stack = []      # [tag, classes, id, font, track, has_thai, pos]
+        self.hits = []
+        self.skip_depth = 0
+
+    @staticmethod
+    def _hits(sel, tag, classes, ident):
+        s_tag, s_cls, s_id = sel
+        return ((s_tag is None or s_tag == tag)
+                and s_cls <= classes
+                and (s_id is None or s_id == ident))
+
+    def _ancestors_ok(self, ancestors):
+        if not ancestors:
+            return True
+        i = len(self.stack) - 1
+        for sel in reversed(ancestors):
+            while i >= 0:
+                node = self.stack[i]
+                i -= 1
+                if self._hits(sel, node[0], node[1], node[2]):
+                    break
+            else:
+                return False
+        return True
+
+    def handle_starttag(self, tag, attrs):
+        if self.skip_depth or tag in ("script", "style"):
+            self.skip_depth += 1
+            return
+        if tag in _VOID_TAGS:
+            return
+        attr = dict(attrs)
+        classes = frozenset((attr.get("class") or "").split())
+        ident = attr.get("id")
+        font, track = (self.stack[-1][3], self.stack[-1][4]) if self.stack else ("ok", False)
+        cands = list(self.loose)
+        for c in classes:
+            cands.extend(self.by_class.get(c, ()))
+        for anc, subject, r_font, r_track, _ in sorted(cands, key=lambda r: r[4]):
+            if not self._hits(subject, tag, classes, ident):
+                continue
+            if not self._ancestors_ok(anc):
+                continue
+            if r_font is not None:
+                font = r_font
+            if r_track is not None:
+                track = r_track
+        self.stack.append([tag, classes, ident, font, track, False, self.getpos()])
+
+    def handle_data(self, data):
+        if not self.skip_depth and self.stack and _THAI_CH_RE.search(data):
+            self.stack[-1][5] = True
+
+    def handle_endtag(self, tag):
+        if self.skip_depth:
+            self.skip_depth -= 1
+            return
+        if tag in _VOID_TAGS:
+            return
+        for i in range(len(self.stack) - 1, -1, -1):
+            if self.stack[i][0] == tag:
+                for node in self.stack[i:]:
+                    if node[5] and node[3] == "risky" and node[4]:
+                        self.hits.append(node[6])
+                del self.stack[i:]
+                return
+
+
+_SKIP_REGION_RE = re.compile(r"<(script|style)\b[^>]*>.*?</\1>", re.S | re.I)
+
+
+def _strip_th_safe(html):
+    """ถอด th-safe ของรอบก่อนออกให้หมด (idempotent) — แต่ห้ามแตะเนื้อใน <script>/<style>
+    เพราะ template ใน JS ก็มี class="..." ของตัวเอง ถ้าไปยุ่งคือแก้โค้ดเขาโดยไม่ตั้งใจ"""
+    def repl(m):
+        kept = [c for c in m.group(1).split() if c != TH_SAFE]
+        return f' class="{" ".join(kept)}"' if kept else ""
+
+    out, pos = [], 0
+    for region in _SKIP_REGION_RE.finditer(html):
+        out.append(_CLASS_ATTR_RE.sub(repl, html[pos:region.start()]))
+        out.append(region.group(0))
+        pos = region.end()
+    out.append(_CLASS_ATTR_RE.sub(repl, html[pos:]))
+    return "".join(out)
+
+
+def _tag_end(html, start):
+    """index ของ '>' ที่ปิด start tag ที่เริ่มตรง start (ข้าม > ที่อยู่ในค่า attribute)"""
+    i, quote = start + 1, None
+    while i < len(html):
+        c = html[i]
+        if quote:
+            if c == quote:
+                quote = None
+        elif c in "\"'":
+            quote = c
+        elif c == ">":
+            return i
+        i += 1
+    return -1
+
+
+def guard_thai_type(paths):
+    """ปัก class th-safe ให้ทุก element ที่ข้อความไทยจะโดนบั๊ก WebKit (ดูหมายเหตุด้านบน)"""
+    css_files = ["style.css", "casestudy.css"] + sorted(
+        f"{SCENE_DIR}/{f}" for f in os.listdir(SCENE_DIR)
+        if f.endswith(".css") and not f.endswith(".min.css")
+    ) if os.path.isdir(SCENE_DIR) else ["style.css", "casestudy.css"]
+    base_rules, var_map, base_order = css_font_rules(css_files)
+
+    changed = stamped = 0
+    for path in paths:
+        orig = open(path, encoding="utf-8").read()
+        body = _strip_th_safe(orig)          # ล้างของเดิมก่อน → idempotent
+        # <style> ในหน้า (หน้า interactive มีสไตล์ของตัวเอง) ต้องนับด้วย ไม่งั้นฉากพวกนั้นหลุด
+        inline = _CSS_COMMENT_RE.sub("", "\n".join(_STYLE_BLOCK_RE.findall(body)))
+        page_rules = []
+        if inline.strip():
+            page_vars = _css_font_vars(inline, dict(var_map))
+            page_rules, _ = _parse_css_rules(inline, page_vars, base_order)
+        scanner = _ThaiTypeScanner(base_rules + page_rules)
+        scanner.feed(body)
+        scanner.close()
+        if not scanner.hits:
+            if body != orig:
+                open(path, "w", encoding="utf-8").write(body)
+                changed += 1
+            continue
+
+        lines = body.split("\n")
+        offsets, run = [], 0
+        for ln in lines:
+            offsets.append(run)
+            run += len(ln) + 1
+        # ปักจากท้ายไปหน้า เพื่อไม่ให้ offset ที่คำนวณไว้เลื่อน
+        for line, col in sorted(set(scanner.hits), reverse=True):
+            start = offsets[line - 1] + col
+            end = _tag_end(body, start)
+            if end == -1:
+                continue
+            tag = body[start:end + 1]
+            m = _CLASS_ATTR_RE.search(tag)
+            if m:
+                new_tag = tag[:m.end(1)] + " " + TH_SAFE + tag[m.end(1):]
+            else:
+                sp = re.match(r"<[\w:-]+", tag)
+                new_tag = tag[:sp.end()] + f' class="{TH_SAFE}"' + tag[sp.end():]
+            body = body[:start] + new_tag + body[end + 1:]
+            stamped += 1
+        if body != orig:
+            open(path, "w", encoding="utf-8").write(body)
+            changed += 1
+    print(f"thai guard  : ปัก .{TH_SAFE} {stamped} จุด ใน {changed} ไฟล์ "
+          f"(กฎ CSS ที่เกี่ยวข้อง {len(base_rules)} ข้อ + <style> ในหน้า)")
+    return stamped
+
+
 
 # ─── stocks.html + hero stats: generate จาก ARTICLES (app.js = SoT ของ ticker↔sector↔ไฟล์) ───
 # ARTICLES ให้ว่ามี ticker ตัวไหน / อยู่ sector อะไร / ลิงก์ไปไฟล์ไหน (สอดคล้อง articles.html)
@@ -1124,6 +1465,7 @@ def stock_warnings(articles):
     return w
 
 
+
 def validate(posts, articles):
     warnings = []
     archive_files = {p["file"] for p in posts}
@@ -1392,6 +1734,9 @@ def main():
     minify_css("casestudy.css", "casestudy.min.css")
     minify_js()
     build_scenes()
+    # ต้องอยู่หลัง inject_site_chrome/inject_tocs/build_scenes — pass นี้อ่าน HTML ตัวจบ
+    # และอ่าน scenes/*.css ที่ใช้จริง ถ้ารันก่อน จะปักคลาสให้ของที่ยังไม่ครบ
+    guard_thai_type(root_paths + article_paths)
     write_stocks(articles)
     write_hero_stats(articles)
     write_series(posts)
