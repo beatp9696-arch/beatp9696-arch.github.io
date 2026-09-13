@@ -76,7 +76,7 @@ try:
             expect(page.locator('#tv-ticker iframe')).to_be_visible(timeout=25000)
             page.wait_for_timeout(2500)
         expect(page.locator('.home-layer-label')).to_have_text(['ราคา', 'ข่าว', 'งบการเงิน', 'โครงสร้างธุรกิจ', 'คูเมือง'])
-        expect(page.locator('.home-approach-caption')).to_have_text('ความได้เปรียบที่ต้องพิสูจน์')
+        expect(page.locator('.home-approach-caption')).to_have_text('อะไรปกป้องกำไรระยะยาว')
         for width in [320, 390, 768, 820, 821, 1024, 1440]:
             page.set_viewport_size({'width': width, 'height': 1000})
             fitted(page)
@@ -96,6 +96,12 @@ try:
                     expect(page.get_by_role('tabpanel', name=label, exact=True)).to_contain_text('Income Statement')
                     expect(page.get_by_role('tabpanel', name=label, exact=True)).to_contain_text('Balance Sheet')
                     expect(page.get_by_role('tabpanel', name=label, exact=True)).to_contain_text('Cash Flow Statement')
+                if label == 'โครงสร้างธุรกิจ':
+                    expect(page.get_by_role('tabpanel', name=label, exact=True)).to_contain_text('รายได้')
+                    expect(page.get_by_role('tabpanel', name=label, exact=True)).to_contain_text('กำไรต่อหน่วย')
+                if label == 'คูเมือง':
+                    expect(page.get_by_role('tabpanel', name=label, exact=True)).to_contain_text('ปกป้องกำไรระยะยาว')
+                    expect(page.get_by_role('tabpanel', name=label, exact=True)).to_contain_text('เลียนแบบยาก')
             page.evaluate('scrollTo(0, 0)')
         page.evaluate("async () => { const images = [...document.querySelectorAll('img')]; for (const img of images) img.loading = 'eager'; await Promise.all(images.map(img => img.decode().catch(() => {}))); }")
         page.screenshot(path=str(OUT / 'moatrices-home-desktop.png'))
