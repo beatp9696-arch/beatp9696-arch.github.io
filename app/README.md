@@ -185,4 +185,6 @@ Research confirms device writes before acknowledging follows and saved notes, so
 
 The five-layer approach card sits below Your Workspace on desktop. At widths up to 820px, the same card moves after company coverage and before the latest articles, preserving reading and keyboard order. Its SVG uses the shared mint palette and links to the 7 Powers collection; TARS remains in the sidebar.
 
+The approach card is interactive: each layer can be selected by pointer, touch, or ArrowUp/ArrowDown/Home/End. The panel below explains the selected layer, and a small mint dot travels through the layers once when the card first enters the viewport. `prefers-reduced-motion` disables the journey and keeps the card static.
+
 Run `../.venv/bin/python test/home-browser.test.py` from this repository (adjust the virtualenv path for a worktree). Add `--live` to verify the TradingView iframe. Default checks block external requests and verify widget configuration. Screenshots are written to `/private/tmp/moatrices-home-*.png`.

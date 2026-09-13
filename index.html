@@ -208,42 +208,36 @@
 
           <section class="home-panel home-approach" aria-labelledby="approach-title">
             <div class="home-approach-heading"><span class="home-eyebrow">THE MOATRICES APPROACH</span><h2 id="approach-title">มองให้ลึกกว่าราคา</h2></div>
-            <svg class="home-approach-diagram" viewBox="0 0 268 258" width="268" height="258" role="img" aria-labelledby="approach-diagram-title approach-diagram-desc">
-              <title id="approach-diagram-title">จากราคา สู่คูเมือง</title>
-              <desc id="approach-diagram-desc">ข้อมูล 5 ชั้น: ราคา ข่าว งบการเงิน โครงสร้างธุรกิจ และคูเมือง แกนเวลาแสดงแนวคิดจากการเปลี่ยนแปลงระยะสั้นสู่ความได้เปรียบระยะยาว</desc>
-              <g class="home-layer-axis" aria-hidden="true"><path d="M40 8V250M35 28h5M35 74h5M35 120h5M35 166h5M35 222h5"/></g>
-              <g class="home-layer">
-                <text class="home-layer-time" x="30" y="32" text-anchor="end">1s</text>
-                <rect class="home-layer-band" x="48" y="8" width="212" height="40" rx="4"/>
-                <text class="home-layer-label" x="62" y="33">ราคา</text>
-                <path class="home-layer-texture" d="m195 31 10-9 10 7 10-12 10 6 10-4" aria-hidden="true"/>
-              </g>
-              <g class="home-layer">
-                <text class="home-layer-time" x="30" y="78" text-anchor="end">1h</text>
-                <rect class="home-layer-band" x="48" y="54" width="212" height="40" rx="4"/>
-                <text class="home-layer-label" x="62" y="79">ข่าว</text>
-                <path class="home-layer-texture" d="M195 69h50M195 79h34" stroke-dasharray="4 5" aria-hidden="true"/>
-              </g>
-              <g class="home-layer">
-                <text class="home-layer-time" x="30" y="124" text-anchor="end">3M</text>
-                <rect class="home-layer-band" x="48" y="100" width="212" height="40" rx="4"/>
-                <text class="home-layer-label" x="62" y="125">งบการเงิน</text>
-                <path class="home-layer-texture" d="M195 113h50M195 120h50M195 127h34" aria-hidden="true"/>
-              </g>
-              <g class="home-layer">
-                <text class="home-layer-time" x="30" y="170" text-anchor="end">1Y</text>
-                <rect class="home-layer-band" x="48" y="146" width="212" height="40" rx="4"/>
-                <text class="home-layer-label" x="62" y="171">โครงสร้างธุรกิจ</text>
-                <g class="home-layer-texture" aria-hidden="true"><rect x="200" y="158" width="16" height="16" rx="2"/><rect x="225" y="158" width="16" height="16" rx="2"/><path d="M216 166h9"/></g>
-              </g>
-              <g class="home-layer home-layer--moat">
-                <text class="home-layer-time" x="30" y="226" text-anchor="end">10Y+</text>
-                <rect class="home-layer-band" x="48" y="194" width="212" height="56" rx="4"/>
-                <text class="home-layer-label" x="62" y="227">คูเมือง</text>
-                <path class="home-layer-arrow" d="M239 207v27m-5-5 5 5 5-5" aria-hidden="true"/>
-              </g>
-            </svg>
-            <p class="home-approach-caption">ความได้เปรียบที่ต้องพิสูจน์</p>
+            <p class="home-approach-hint" hidden>เลือกแต่ละชั้นเพื่อสำรวจ</p>
+            <div class="home-approach-diagram" role="tablist" aria-label="จากราคา สู่คูเมือง — สำรวจข้อมูล 5 ชั้น" aria-orientation="vertical">
+              <span class="home-layer-axis" aria-hidden="true"></span>
+              <span class="home-approach-dot" aria-hidden="true"></span>
+              <div class="home-layer">
+                <span class="home-layer-time" aria-hidden="true">1s</span>
+                <button class="home-layer-band" id="approach-price" type="button" role="tab" aria-selected="false" aria-controls="approach-panel" tabindex="-1" data-layer="price" disabled><span class="home-layer-label">ราคา</span><svg class="home-layer-texture" viewBox="0 0 50 24" aria-hidden="true"><path d="m1 20 9-9 10 7L30 6l9 7 10-4"/></svg></button>
+              </div>
+              <div class="home-layer">
+                <span class="home-layer-time" aria-hidden="true">1h</span>
+                <button class="home-layer-band" id="approach-news" type="button" role="tab" aria-selected="false" aria-controls="approach-panel" tabindex="-1" data-layer="news" disabled><span class="home-layer-label">ข่าว</span><svg class="home-layer-texture" viewBox="0 0 50 24" aria-hidden="true"><path d="M1 7h48M1 17h34" stroke-dasharray="4 5"/></svg></button>
+              </div>
+              <div class="home-layer">
+                <span class="home-layer-time" aria-hidden="true">3M</span>
+                <button class="home-layer-band" id="approach-financials" type="button" role="tab" aria-selected="false" aria-controls="approach-panel" tabindex="-1" data-layer="financials" disabled><span class="home-layer-label">งบการเงิน</span><svg class="home-layer-texture" viewBox="0 0 50 24" aria-hidden="true"><path d="M1 5h48M1 12h48M1 19h34"/></svg></button>
+              </div>
+              <div class="home-layer">
+                <span class="home-layer-time" aria-hidden="true">1Y</span>
+                <button class="home-layer-band" id="approach-business" type="button" role="tab" aria-selected="false" aria-controls="approach-panel" tabindex="-1" data-layer="business" disabled><span class="home-layer-label">โครงสร้างธุรกิจ</span><svg class="home-layer-texture" viewBox="0 0 50 24" aria-hidden="true"><rect x="3" y="4" width="16" height="16" rx="2"/><rect x="30" y="4" width="16" height="16" rx="2"/><path d="M19 12h11"/></svg></button>
+              </div>
+              <div class="home-layer home-layer--moat">
+                <span class="home-layer-time" aria-hidden="true">10Y+</span>
+                <button class="home-layer-band" id="approach-moat" type="button" role="tab" aria-selected="true" aria-controls="approach-panel" tabindex="0" data-layer="moat" disabled><span class="home-layer-label">คูเมือง</span><svg class="home-layer-arrow" viewBox="0 0 18 34" aria-hidden="true"><path d="M9 3v27m-5-5 5 5 5-5"/></svg></button>
+              </div>
+            </div>
+            <div class="home-approach-panel" id="approach-panel" role="tabpanel" aria-labelledby="approach-moat" aria-live="polite" aria-atomic="true" tabindex="0">
+              <span class="home-approach-step" aria-hidden="true">05 / 05 · คูเมือง</span>
+              <h3 class="home-approach-caption">ความได้เปรียบที่ต้องพิสูจน์</h3>
+              <p class="home-approach-copy">อะไรทำให้ลูกค้าเลือกธุรกิจนี้ต่อ และคู่แข่งเลียนแบบได้ยากเพราะอะไร</p>
+            </div>
             <a class="home-approach-link" href="series-powers.html">สำรวจ 7 Powers <span aria-hidden="true">→</span></a>
           </section>
 

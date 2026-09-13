@@ -25,6 +25,84 @@ function placeApproach() {
 placeApproach();
 compactHome.addEventListener('change', placeApproach);
 
+if (approach) {
+  const diagram = approach.querySelector('.home-approach-diagram');
+  const tabs = [...diagram.querySelectorAll('[data-layer]')];
+  const panel = approach.querySelector('.home-approach-panel');
+  const dot = approach.querySelector('.home-approach-dot');
+  const reducedMotion = matchMedia('(prefers-reduced-motion: reduce)');
+  const explanations = {
+    price: ['ราคาบอกอะไรเรา', 'ตลาดให้มูลค่าเท่าไรวันนี้ และคาดหวังอะไรจากธุรกิจ'],
+    news: ['แยกเหตุการณ์ออกจากเสียงรบกวน', 'ข่าวนี้เปลี่ยนลูกค้า ต้นทุน หรือความสามารถในการแข่งขันจริงไหม'],
+    financials: ['สิ่งที่เล่า สะท้อนในตัวเลขไหม', 'ดูรายได้ กำไร และกระแสเงินสดร่วมกัน แล้วเทียบสิ่งที่เปลี่ยนระหว่างงวด'],
+    business: ['เข้าใจกลไกของธุรกิจ', 'ใครคือลูกค้า ธุรกิจสร้างคุณค่าอย่างไร และอะไรทำให้ลูกค้ากลับมา'],
+    moat: [panel.querySelector('h3').textContent, panel.querySelector('p').textContent],
+  };
+  let observer, journey, glow;
+  const position = tab => tab.parentElement.offsetTop + tab.offsetHeight / 2 - 22;
+  const moveDot = tab => diagram.style.setProperty('--approach-position', `${position(tab)}px`);
+  function finishIntro() {
+    observer?.disconnect();
+    journey?.cancel();
+    glow?.cancel();
+    approach.dataset.intro = 'done';
+  }
+  function selectLayer(tab) {
+    finishIntro();
+    for (const item of tabs) {
+      item.setAttribute('aria-selected', String(item === tab));
+      item.tabIndex = item === tab ? 0 : -1;
+    }
+    const [heading, copy] = explanations[tab.dataset.layer];
+    panel.setAttribute('aria-labelledby', tab.id);
+    panel.querySelector('.home-approach-step').textContent = `${String(tabs.indexOf(tab) + 1).padStart(2, '0')} / 05 · ${tab.textContent}`;
+    panel.querySelector('h3').textContent = heading;
+    panel.querySelector('p').textContent = copy;
+    moveDot(tab);
+  }
+  for (const tab of tabs) {
+    tab.disabled = false;
+    tab.addEventListener('click', () => selectLayer(tab));
+    tab.addEventListener('keydown', event => {
+      const index = tabs.indexOf(tab);
+      const next = { ArrowDown: (index + 1) % tabs.length, ArrowUp: (index + tabs.length - 1) % tabs.length, Home: 0, End: tabs.length - 1 }[event.key];
+      if (next === undefined) return;
+      event.preventDefault();
+      selectLayer(tabs[next]);
+      tabs[next].focus({ preventScroll: true });
+    });
+  }
+  approach.querySelector('.home-approach-hint').hidden = false;
+  approach.dataset.intro = 'pending';
+  function playIntro() {
+    observer?.disconnect();
+    if (approach.dataset.intro !== 'pending') return;
+    if (reducedMotion.matches || !dot.animate) { finishIntro(); return; }
+    approach.dataset.intro = 'playing';
+    const frames = tabs.flatMap((tab, i) => [
+      { transform: `translateY(${position(tab)}px)`, offset: i / 5 },
+      { transform: `translateY(${position(tab)}px)`, offset: (i + .65) / 5 },
+    ]);
+    frames.push({ transform: `translateY(${position(tabs[4])}px)`, offset: 1 });
+    journey = dot.animate(frames, { duration: 2400, easing: 'ease-in-out' });
+    journey.onfinish = () => {
+      approach.dataset.intro = 'done';
+      if (reducedMotion.matches) return;
+      glow = tabs[4].animate([
+        { boxShadow: '0 0 0 0 rgba(121,201,180,.3)' },
+        { boxShadow: '0 0 0 9px rgba(121,201,180,0)' },
+      ], { duration: 650, easing: 'ease-out' });
+    };
+  }
+  if ('IntersectionObserver' in window) {
+    observer = new IntersectionObserver(entries => {
+      if (entries.some(entry => entry.isIntersecting)) playIntro();
+    }, { threshold: .7, rootMargin: '0px 0px -70px 0px' });
+    observer.observe(diagram);
+  } else finishIntro();
+  reducedMotion.addEventListener('change', () => { if (reducedMotion.matches) finishIntro(); });
+}
+
 const title = document.querySelector('.site-header .site-title');
 if (title) {
   title.classList.add('moa-brand');

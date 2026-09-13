@@ -106,17 +106,29 @@ html.moatrices-home[data-theme=dark]{
 .home-toolkit>a{padding:12px 0}
 .home-approach{min-width:0}
 .home-approach h2{font-size:17px;margin:6px 0 0;line-height:1.7}
-.home-approach-diagram{display:block;width:100%;height:auto;max-width:360px;margin:20px auto 14px;overflow:visible}
-.home-layer-axis{fill:none;stroke:var(--border);stroke-width:1}
-.home-layer-time{font:500 10px var(--font-mono);fill:var(--muted)}
-.home-layer-band{fill:#191e21;stroke:var(--border);stroke-width:1}
-.home-layer-label{font:500 14px var(--font-head);fill:#c9d2d6}
-.home-layer-texture{fill:none;stroke:#65767d;stroke-width:1.2;stroke-linecap:round;opacity:.55}
-.home-layer--moat .home-layer-band{fill:var(--moa-accent-soft);stroke:var(--accent)}
-.home-layer--moat .home-layer-label{fill:var(--accent);font-weight:600}
-.home-layer--moat .home-layer-time{fill:var(--accent)}
-.home-layer-arrow{fill:none;stroke:var(--accent);stroke-width:1.6;stroke-linecap:round;stroke-linejoin:round}
-.home-approach .home-approach-caption{font-size:12px;line-height:1.8;color:#c1cec8;margin:0 0 15px}
+.home-approach .home-approach-hint{font-size:10px;line-height:1.8;color:var(--muted);margin-top:5px}
+.home-approach-diagram{display:grid;gap:6px;position:relative;width:100%;max-width:360px;margin:20px auto 18px}
+.home-layer-axis{position:absolute;top:0;bottom:0;left:40px;border-left:1px solid var(--border);pointer-events:none}
+.home-layer{display:grid;grid-template-columns:30px minmax(0,1fr);gap:18px;align-items:center}
+.home-layer-time{position:relative;font:500 10px var(--font-mono);color:var(--muted);text-align:right}
+.home-layer-time::after{content:'';position:absolute;right:-10px;top:50%;width:5px;border-top:1px solid var(--border)}
+.home-layer-band{display:flex;align-items:center;justify-content:space-between;gap:8px;width:100%;min-width:0;min-height:44px;padding:8px 12px;border:1px solid var(--border);border-radius:4px;background:#191e21;color:#c9d2d6;text-align:left;cursor:pointer;transition:background .18s,border-color .18s,color .18s;touch-action:manipulation}
+.home-layer-band:disabled{opacity:1;cursor:default}
+.home-layer-band:focus-visible{outline:2px solid var(--accent);outline-offset:3px}
+.home-layer-label{min-width:0;font:500 13px/1.7 var(--font-head);white-space:nowrap}
+.home-layer-texture{width:32px;height:24px;flex:0 0 32px;fill:none;stroke:#65767d;stroke-width:1.4;stroke-linecap:round;opacity:.65}
+.home-layer--moat .home-layer-band{min-height:56px;background:var(--moa-accent-soft);border-color:#35594d;color:var(--accent)}
+.home-layer-band[aria-selected=true]{background:var(--moa-accent-soft);border-color:var(--accent);color:var(--accent)}
+.home-layer-band[aria-selected=true] .home-layer-label{font-weight:600}
+.home-layer-band[aria-selected=true] .home-layer-texture{stroke:var(--accent);opacity:.8}
+.home-layer--moat .home-layer-time{color:var(--accent)}
+.home-layer-arrow{width:18px;height:34px;flex:0 0 18px;fill:none;stroke:var(--accent);stroke-width:1.6;stroke-linecap:round;stroke-linejoin:round}
+.home-approach-dot{position:absolute;left:37px;top:19px;width:6px;height:6px;border-radius:50%;background:var(--accent);transform:translateY(var(--approach-position,206px));box-shadow:0 0 0 3px #79c9b419;pointer-events:none}
+.home-approach-panel{min-height:150px;padding:14px 0 16px;border-top:1px solid var(--border);outline-offset:4px}
+.home-approach-step{display:block;font:500 9px/1.8 var(--font-mono);color:var(--accent);margin-bottom:7px}
+.home-approach .home-approach-caption{font-size:13px;font-weight:500;line-height:1.8;color:var(--text);margin:0 0 6px}
+.home-approach .home-approach-copy{font-size:12px;line-height:1.9;color:var(--muted);margin:0}
+@media(hover:hover){.home-layer-band:not(:disabled):hover{background:#1d2b27;border-color:var(--accent);color:var(--accent)}}
 .home-approach>.home-approach-link{justify-content:space-between;gap:10px;min-height:44px;padding:12px 0 0;color:var(--accent);font-size:12px}
 .home-approach>.home-approach-link>span:last-child{color:var(--accent);font-size:17px}
 .home-approach>.home-approach-link:hover{color:var(--accent-strong)}
