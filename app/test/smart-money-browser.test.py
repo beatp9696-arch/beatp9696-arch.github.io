@@ -1,4 +1,10 @@
-"""Run with a Python environment containing Playwright and its Chromium browser."""
+"""Run with a Python environment containing Playwright and its Chromium browser.
+
+แอปย้ายจาก /pp-os/ (OS shell + service worker) มาเป็นหน้าเว็บ /smart-money.html แล้ว
+เทสต์ชุดนี้จึงตัดส่วนที่ทดสอบของที่ไม่มีอยู่จริงอีกต่อไปออก: desktop mode + titlebar,
+routing ด้วย ?mode=&tab=, แท็บที่ปลดระวาง (me/health) และ service worker/offline cache
+(sw.js เหลือเป็น kill switch อย่างเดียว) ที่เหลือคือพฤติกรรมของหน้า Smart Money ตัวจริง
+"""
 from pathlib import Path
 import tempfile
 from functools import partial
@@ -6,19 +12,17 @@ from http.server import ThreadingHTTPServer,SimpleHTTPRequestHandler
 from threading import Thread
 from playwright.sync_api import sync_playwright,expect
 import json
-import re
 
 ROOT=Path(__file__).resolve().parents[2]
 OUT=Path(tempfile.gettempdir())
-VERSION=re.search(r'const VERSION = "([^"]+)"', (ROOT/'pp-os/sw.js').read_text()).group(1)
 class Quiet(SimpleHTTPRequestHandler):
     def log_message(self,*args):pass
 class PreviewServer(ThreadingHTTPServer):
-    request_queue_size=128  # The service worker fetches all shell assets together.
+    request_queue_size=128  # หน้าเดียวยิงโลโก้ 16 ใบพร้อมกัน
 server=PreviewServer(('127.0.0.1',0),partial(Quiet,directory=str(ROOT)))
 Thread(target=server.serve_forever,daemon=True).start()
 origin=f'http://127.0.0.1:{server.server_port}'
-url=origin+'/pp-os/?mode=app&tab=smart-money'
+url=origin+'/smart-money.html'
 with sync_playwright() as p:
     browser=p.chromium.launch(headless=True)
     context=browser.new_context(viewport={'width':390,'height':844},reduced_motion='reduce',service_workers='block')
@@ -62,7 +66,7 @@ with sync_playwright() as p:
     page.locator('[data-category="institution"]').click();expect(page.locator('.sm-card')).to_have_count(6)
     page.screenshot(path=str(OUT/'moatrices-smart-money-institutions-mobile.png'))
     page.locator('[data-category="all"]').click()
-    reports=json.loads((ROOT/'pp-os/data/smart-money.json').read_text())
+    reports=json.loads((ROOT/'app/data/smart-money.json').read_text())
     for fund in reports['funds']:
         page.locator('[data-fund="'+fund['id']+'"]').click()
         expect(page.locator('.sm-detail h2')).to_have_text(fund['name'])
@@ -70,7 +74,7 @@ with sync_playwright() as p:
         if fund['positionCount']>50:
             page.locator('[data-more]').click()
             expect(page.locator('.sm-holdings>li')).to_have_count(min(100,fund['positionCount']))
-            last=json.loads((ROOT/'pp-os/data'/fund['detailFile']).read_text())['current']['holdings'][-1]
+            last=json.loads((ROOT/'app/data'/fund['detailFile']).read_text())['current']['holdings'][-1]
             page.locator('.sm-holding-search input').fill(last['cusip'])
             expect(page.locator('.sm-holding-id').first).to_be_visible()
             assert last['issuer'] in page.locator('.sm-holdings').inner_text()
@@ -78,7 +82,7 @@ with sync_playwright() as p:
             expect(page.locator('[data-more]')).to_be_hidden()
             expect(page.locator('.sm-holding-id')).to_have_count(0)
         if fund['id']=='jpmorgan':
-            full=json.loads((ROOT/'pp-os/data'/fund['detailFile']).read_text())
+            full=json.loads((ROOT/'app/data'/fund['detailFile']).read_text())
             previous={r['id']:r for r in full['previous']['holdings']}
             zero=next(r for r in full['current']['holdings'] if r['id'] in previous and previous[r['id']]['shares']==0 and r['shares']>0)
             page.locator('.sm-holding-search input').fill(zero['cusip'])
@@ -128,66 +132,45 @@ with sync_playwright() as p:
     page.set_viewport_size({'width':390,'height':844})
     page.locator('.sm-settings').click();expect(page.locator('.settings-ov.open')).to_be_visible()
     expect(page.locator('[data-d="export"]')).to_be_visible()
-    page.locator('[data-tool="todo"]').click();expect(page.locator('.app-ov.open')).to_be_visible()
-    page.locator('.set-close').click();expect(page.locator('.app-ov')).to_have_count(0)
+    # ระบุหน้าซ้อนของ todo ให้ชัด — Settings ก็เป็น .app-ov เหมือนกัน ถ้าจับหลวมจะไปกดปุ่มปิดของ
+    # Settings ที่กำลังสไลด์ออกอยู่ แล้ว todo จะค้างเปิดทิ้งไว้
+    page.locator('[data-tool="todo"]').click()
+    expect(page.locator('.app-ov[data-tone="todo"].open')).to_be_visible()
+    page.locator('[data-tone="todo"] .set-close').click();expect(page.locator('.app-ov')).to_have_count(0)
     # Seed disposable browser storage, never real account data.
-    page.evaluate("""async()=>{const s=await import('/pp-os/js/core/storage.js');s.save('health.days',{'2026-09-01':{water:7}});s.save('pf.holdings',[{tk:'AAPL',shares:2,cost:100,price:150,priceAt:Date.now()}]);s.save('money.entries',[]);s.save('os.name','Test only');} """)
-    before=page.evaluate("async()=>{const s=await import('/pp-os/js/core/storage.js');return {health:s.load('health.days'),holdings:s.load('pf.holdings')}}")
-    page.locator('[data-tab="portfolio"]').click();expect(page.locator('.app-pf')).to_be_visible()
+    # แต่ละหน้าคือ document คนละใบแล้ว — ต้อง flush ให้ลง IndexedDB จริงก่อนเดินข้ามหน้า
+    page.evaluate("""async()=>{const s=await import('/app/js/core/storage.js');s.save('health.days',{'2026-09-01':{water:7}});s.save('pf.holdings',[{tk:'AAPL',shares:2,cost:100,price:150,priceAt:Date.now()}]);s.save('money.entries',[]);s.save('os.name','Test only');await s.flushStorage();} """)
+    before=page.evaluate("async()=>{const s=await import('/app/js/core/storage.js');return {health:s.load('health.days'),holdings:s.load('pf.holdings')}}")
+    # แท็บล่างเป็นลิงก์ข้ามหน้าแล้ว (ไม่ใช่ปุ่มสลับใน OS) — เดินด้วยลิงก์จริง แล้วกลับมา
+    # Portfolio เปิดมาที่ Living Thesis ตารางน้ำหนัก/ราคาอยู่หลังปุ่ม Holdings & allocation
+    page.locator('#tabbar a[href="portfolio.html"]').click()
+    page.locator('[data-action="allocation"]').first.click()
+    expect(page.locator('.app-pf')).to_be_visible()
     assert page.locator('.app-pf').inner_text().find('300')>=0
-    page.locator('[data-tab="money"]').click();page.locator('#quick-fab').click()
-    assert page.locator('[data-q="water"]').count()==0
-    page.locator('.sheet-x').click()
-    for retired in ['me','health','does-not-exist']:
-        page.goto(origin+'/pp-os/?mode=app&tab='+retired)
-        expect(page.locator('.sm-card')).to_have_count(16)
-    after=page.evaluate("async()=>{const s=await import('/pp-os/js/core/storage.js');return {health:s.load('health.days'),holdings:s.load('pf.holdings')}}")
-    assert before==after
-    # Shared website navigation also drops the retired tabs.
+    page.goto(url);expect(page.locator('.sm-card')).to_have_count(16)
+    after=page.evaluate("async()=>{const s=await import('/app/js/core/storage.js');return {health:s.load('health.days'),holdings:s.load('pf.holdings')}}")
+    assert before==after,'เดินข้ามหน้าแล้วข้อมูลในเครื่องต้องไม่ถูกแตะ'
+    # แถบล่างบนหน้าเนื้อหาต้องเป็นชุดเดียวกับในแอป (app.js ↔ app/js/page.js)
     page.goto(origin+'/index.html');expect(page.locator('.os-tabbar a')).to_have_count(4)
     assert 'Health' not in page.locator('.os-tabbar').inner_text()
     page.set_viewport_size({'width':1280,'height':900})
-    page.goto(origin+'/pp-os/?mode=desktop&open=smart-money');expect(page.locator('.sm-card')).to_have_count(16)
-    assert page.locator('.desk-icon[data-app="health"],.desk-icon[data-app="me"]').count()==0
-    assert page.locator('.sm-cards').evaluate("e=>getComputedStyle(e).gridTemplateColumns.split(' ').length")==1
-    assert page.locator('.titlebar').evaluate('e=>e.getBoundingClientRect().height')<65
-    for selector in ['.app-smart-money','.sm-card','.sm-cards']:
-        assert page.locator(selector).first.evaluate('e=>e.scrollWidth<=e.clientWidth'),selector
-    page.screenshot(path=str(OUT/'moatrices-smart-money-desktop.png'))
     page.goto(url);expect(page.locator('.sm-card')).to_have_count(16)
     assert page.locator('.sm-cards').evaluate("e=>getComputedStyle(e).gridTemplateColumns.split(' ').length")==2
     page.screenshot(path=str(OUT/'moatrices-smart-money-wide.png'))
     page.locator('[data-fund="daily-journal"]').screenshot(path=str(OUT/'moatrices-smart-money-munger.png'))
     page.locator('[data-category="institution"]').click()
     page.screenshot(path=str(OUT/'moatrices-smart-money-institutions-wide.png'))
-    # Installed app retains the new menu, data, and diagrams offline.
-    offline=browser.new_context(viewport={'width':390,'height':844},reduced_motion='reduce')
-    op=offline.new_page();op.on('pageerror',lambda e:errors.append(str(e)))
-    op.goto(url);expect(op.locator('.sm-card')).to_have_count(16,timeout=15000)
-    op.evaluate('navigator.serviceWorker.ready')
-    op.wait_for_function('!!navigator.serviceWorker.controller')
-    assert op.evaluate("async(version)=>{const c=await caches.open(version);return !!(await c.match('/pp-os/data/smart-money.json'))}",VERSION)
-    await_keys=op.evaluate('caches.keys()')
-    assert VERSION in await_keys
-    op.locator('[data-fund="nvidia"]').click();expect(op.locator('.sm-detail h2')).to_have_text('NVIDIA Portfolio')
-    op.wait_for_function("async(version)=>{const c=await caches.open(version);return (await c.keys()).some(r=>r.url.includes('/data/smart-money/nvidia-'))}",arg=VERSION)
-    offline.set_offline(True);op.reload();expect(op.locator('.sm-card')).to_have_count(16)
-    expect(op.locator('.sm-card .sm-brand img, .sm-card .sm-portrait img')).to_have_count(16)
-    op.evaluate('async()=>Promise.all([...document.querySelectorAll(".sm-card .sm-brand img, .sm-card .sm-portrait img")].map(image=>image.decode()))')
-    op.locator('[data-fund="nvidia"]').click();expect(op.locator('.sm-detail h2')).to_have_text('NVIDIA Portfolio')
-    assert op.locator('.sm-brand-nvidia img').evaluate('e=>e.complete&&e.naturalWidth>0')
-    op.locator('.sm-back').click()
-    op.locator('[data-fund="blackrock"]').click()
-    expect(op.locator('[data-retry-detail]')).to_be_visible()
-    op.locator('.sm-back').click();expect(op.locator('.sm-card')).to_have_count(16)
-    op.locator('[data-fund="trump"]').click();expect(op.locator('.sm-estimated-table tbody tr')).to_have_count(50)
-    op.locator('[data-profile-view="transactions"]').click();expect(op.locator('.sm-disclosed-list li')).to_have_count(8)
-    op.locator('[data-profile-view="holdings"]').click();expect(op.locator('.sm-estimated-table tbody tr')).to_have_count(50)
-    op.locator('.sm-back').click()
-    op.locator('[data-fund="blackrock"]').click();expect(op.locator('[data-retry-detail]')).to_be_visible()
-    offline.set_offline(False);op.locator('[data-retry-detail]').click()
-    expect(op.locator('.sm-detail h2')).to_have_text('BlackRock')
+    # เดิมมีเทสต์ offline/service worker ต่อจากนี้ — ตัดออกเพราะ sw.js เหลือเป็น kill switch
+    # ที่คอยถอนตัวเองอย่างเดียว หน้าเว็บชุดใหม่ไม่ลงทะเบียน SW และไม่มี cache ของตัวเองแล้ว
+    # ปุ่มลองใหม่ตอนโหลดรายละเอียดไม่สำเร็จยังอยู่ — ทดสอบด้วยการตัดเน็ตเอาแทน
+    blocked=browser.new_context(viewport={'width':390,'height':844},reduced_motion='reduce')
+    bp=blocked.new_page();bp.on('pageerror',lambda e:errors.append(str(e)))
+    bp.goto(url);expect(bp.locator('.sm-card')).to_have_count(16)
+    blocked.set_offline(True)
+    bp.locator('[data-fund="blackrock"]').click();expect(bp.locator('[data-retry-detail]')).to_be_visible()
+    blocked.set_offline(False);bp.locator('[data-retry-detail]').click()
+    expect(bp.locator('.sm-detail h2')).to_have_text('BlackRock')
     assert not errors,errors
     browser.close()
 server.shutdown()
-print('PASS: 16 profiles; all 14 holdings views; large-portfolio pagination and search; zero-share labels; historical and political disclosures; 6 widths; offline/retry; private storage and navigation; no browser errors.')
+print('PASS: 16 profiles; all 14 holdings views; large-portfolio pagination and search; zero-share labels; historical and political disclosures; 6 widths; retry after network loss; private storage across page navigation; no browser errors.')

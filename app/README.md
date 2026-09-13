@@ -24,10 +24,11 @@ cd website
 python3 -m http.server 8000
 ```
 
-เปิด `http://localhost:8000/pp-os/?mode=app&tab=smart-money`
+เปิด `http://localhost:8000/smart-money.html` (หรือ `money.html` / `portfolio.html`)
 
-- มือถือและ PWA ใช้ app mode เป็นค่าเริ่มต้น; หน้าจอกว้างใช้ desktop mode
-- บังคับโหมดด้วย `?mode=app` หรือ `?mode=desktop&open=smart-money`
+- แอปเป็นหน้าเว็บปกติหน้าละหนึ่งแอปแล้ว — ไม่มี OS shell, desktop mode หรือ `?mode=`/`?tab=` อีก
+  (`/pp-os/` เหลือไว้เป็นหน้าเด้งไปหน้าใหม่ + kill switch ถอน service worker ตัวเก่าเท่านั้น)
+- deep link ที่ยังใช้ได้: `portfolio.html?view=research`, `portfolio.html?symbol=<TICKER>`
 - ไฟล์แอปอยู่ใน repo เว็บเดียวกัน เผยแพร่ตามกระบวนการ push ของเว็บไซต์
 
 ## Matrices: The Living Thesis

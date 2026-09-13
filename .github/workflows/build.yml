@@ -9,6 +9,9 @@ name: build & validate
 # app.min.js กับ casestudy.min.css ต้องอยู่ในลิสต์ด้วย: build.py generate ทั้งคู่ และ
 # 81 หน้าโหลด app.min.js จริง ถ้าไม่ gate = แก้ app.js แล้วลืมรัน build.py ได้ CI เขียว
 # แต่เว็บจริงเสิร์ฟ JS ตัวเก่า
+# gate ทุกไฟล์ .html ไม่ใช่แค่หน้าที่ generate เนื้อหา — guard_thai_type ปัก class th-safe
+# ลงหน้าไหนก็ได้ที่มีอักษรไทยติดฟอนต์เสี่ยง (รวมหน้า interactive ที่มี <style> ของตัวเอง)
+# build.py รันสองรอบได้ผลไบต์ต่อไบต์เดิม จึงเอามา gate drift ได้ทั้งชุด
 
 on:
   push:
@@ -43,11 +46,21 @@ jobs:
       - name: รันเทสต์ (sync merge, research, smart money, stock, market hours)
         run: for f in app/test/*.test.mjs; do echo "── $f"; node "$f" || exit 1; done
 
+      # เทสต์เบราว์เซอร์เคยอยู่นอก CI — พอ pp-os/ ถูกยุบเข้า app/ ทั้งสองชุดของ smart money
+      # ก็ชี้ path ที่ไม่มีอยู่แล้วโดยไม่มีใครรู้ (พังตั้งแต่ import) หน้า Smart Money เลยไม่มี
+      # browser test คุมอยู่เลยหลายสัปดาห์ — เอาเข้ามารันที่นี่เพื่อไม่ให้เน่าเงียบอีก
+      - name: ติดตั้ง Playwright + Chromium
+        run: |
+          python3 -m pip install --quiet playwright
+          python3 -m playwright install --with-deps chromium
+
+      - name: รันเทสต์เบราว์เซอร์ (living thesis, smart money, stock)
+        run: for f in app/test/*-browser.test.py; do echo "── $f"; python3 "$f" || exit 1; done
+
       - name: ตรวจ drift — ไฟล์ที่ generate ต้องถูก commit มาแล้ว
         run: |
           if ! git diff --exit-code -- \
-              articles.html index.html stocks.html 'series-*.html' \
-              style.min.css casestudy.min.css app.min.js articles/ scenes/*.min.css; then
+              '*.html' style.min.css casestudy.min.css app.min.js scenes/*.min.css; then
             echo "::error::build.py แก้ไฟล์ด้านบน = ยังไม่ได้ commit ผล generate — รัน 'python3 build.py' แล้ว commit ก่อน push"
             exit 1
           fi
