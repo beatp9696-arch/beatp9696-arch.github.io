@@ -115,7 +115,7 @@ function render() {
   host.innerHTML = filtered.length ? filtered.map(c => `<a class="home-company" href="portfolio.html?view=research&amp;ticker=${encodeURIComponent(c.ticker)}">
     <span class="home-company-logo"><span>${esc(c.ticker.slice(0, 2))}</span><img src="app/assets/brands/${encodeURIComponent(c.ticker)}.png" alt="" width="42" height="42"></span>
     <span class="home-company-body"><span class="home-company-identity"><b>${esc(c.name)}</b><span>${esc(c.ticker)}</span></span><span class="home-company-focus" lang="th">${esc(c.focus)}</span><span class="home-company-date">บทความอัปเดต ${esc(dateLabel(c.snapshotDate))}</span></span>
-    <span class="home-company-status"><span class="${needsReview(c) ? 'is-due' : ''}">${needsReview(c) ? 'ถึงรอบทบทวน' : 'Research snapshot'}</span><span aria-hidden="true">↗</span></span>
+    <span class="home-company-status"><span class="${needsReview(c) ? 'is-due' : ''}">${needsReview(c) ? 'ถึงรอบทบทวน' : 'Research snapshot'}</span><span aria-hidden="true">↗︎</span></span>
   </a>`).join('') : '<div class="home-loading"><p>ไม่พบบริษัทใน Research ที่ตรงกับคำค้น</p><button class="home-button" type="button" data-clear-search>ดูบริษัททั้งหมด</button></div>';
   for (const img of host.querySelectorAll('img')) img.addEventListener('error', () => img.remove(), { once: true });
 }
