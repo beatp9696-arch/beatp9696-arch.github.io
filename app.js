@@ -710,8 +710,11 @@ window.NYSE = (function () {
   }
 
   // ---- Search modal ----
+  // ยึดกับ .site-nav ไม่ใช่ปุ่มธีม: ซีรีส์เคสศึกษา (body.cs) ตั้งใจไม่มีปุ่มธีม
+  // ถ้ากดที่ปุ่มธีมเหมือนเดิม ค้นหาจะหายไปจากหน้าพวกนั้นทั้งก้อน ทั้งปุ่มและคีย์ลัด / กับ ⌘K
+  var searchNav = document.querySelector(".site-nav");
   var themeToggleBtn = document.getElementById("theme-toggle");
-  if (themeToggleBtn) {
+  if (searchNav) {
     var ICON_SEARCH = '<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>';
 
     var sb = document.createElement("button");
@@ -719,7 +722,8 @@ window.NYSE = (function () {
     sb.setAttribute("aria-label", "ค้นหาหุ้น");
     sb.setAttribute("title", "ค้นหาหุ้น  /");
     sb.innerHTML = ICON_SEARCH;
-    themeToggleBtn.parentNode.insertBefore(sb, themeToggleBtn);
+    if (themeToggleBtn) themeToggleBtn.parentNode.insertBefore(sb, themeToggleBtn);
+    else searchNav.appendChild(sb);   // หน้า .cs: ไม่มีปุ่มธีมให้แทรกหน้า — ต่อท้าย nav แทน
 
     // ค้นบทความในเว็บก่อน — Yahoo Finance เป็นแค่ fallback
     var searchItems = ARTICLES.map(function (a) {
@@ -1183,12 +1187,15 @@ window.NYSE = (function () {
   var PROVIDERS = HAS_TZ ? [marketLine, greetLine] : [greetLine];
 
   // ---- TARS SVG (ใช้ทั้งการ์ดและปุ่มพับ) ----
-  var TARS_SVG =
-    '<svg class="tarsb-bot" viewBox="0 0 47 58" role="img" aria-label="TARS">' +
-    '<defs><linearGradient id="tarsbSteel" x1="0" y1="0" x2="1" y2="0">' +
+  // รับ suffix เพราะรูปนี้ถูกวาดสองครั้งในหน้าเดียว (การ์ด + ปุ่มพับ) — id ของ gradient
+  // จึงต้องไม่ซ้ำกัน ไม่งั้นทุกหน้าจะมี element id เดียวกันสองตัว (HTML ไม่ valid)
+  var tarsSvg = function (sfx) {
+    var gid = "tarsbSteel" + sfx;
+    return '<svg class="tarsb-bot" viewBox="0 0 47 58" role="img" aria-label="TARS">' +
+    '<defs><linearGradient id="' + gid + '" x1="0" y1="0" x2="1" y2="0">' +
     '<stop offset="0" stop-color="#3b414a"/><stop offset=".45" stop-color="#171a20"/>' +
     '<stop offset="1" stop-color="#0d1015"/></linearGradient></defs>' +
-    '<g fill="url(#tarsbSteel)" stroke="#05070b" stroke-width=".6">' +
+    '<g fill="url(#' + gid + ')" stroke="#05070b" stroke-width=".6">' +
     '<rect x="3.5" y="6" width="8.6" height="48" rx="1.6"/>' +
     '<rect x="14.2" y="6" width="8.6" height="48" rx="1.6"/>' +
     '<rect x="24.9" y="2" width="8.6" height="48" rx="1.6"/>' +
@@ -1200,6 +1207,7 @@ window.NYSE = (function () {
     '<line x1="36.2" y1="22" x2="43.6" y2="22"/><line x1="36.2" y1="38" x2="43.6" y2="38"/></g>' +
     '<rect x="5.2" y="11" width="5.2" height="3.2" rx="1" fill="#0a1a26" stroke="#7fc7ff" stroke-width=".5"/>' +
     '<circle cx="39.9" cy="10.6" r="1.2" fill="#ffb763"/></svg>';
+  };
 
   var wrap = document.createElement("div");
   wrap.className = "tarsb"; wrap.id = "tars-buddy";
@@ -1209,9 +1217,9 @@ window.NYSE = (function () {
         '<div class="tarsb-head"><span class="tarsb-dot idle"></span><span class="tarsb-name">TARS</span>' +
           '<button class="tarsb-min" type="button" aria-label="ย่อ TARS" title="ย่อเก็บ">–</button></div>' +
         '<p class="tarsb-msg">…</p>' +
-      '</div>' + TARS_SVG +
+      '</div>' + tarsSvg("Card") +
     '</div>' +
-    '<button class="tarsb-tab" type="button" aria-label="เปิด TARS">' + TARS_SVG +
+    '<button class="tarsb-tab" type="button" aria-label="เปิด TARS">' + tarsSvg("Tab") +
       '<span class="tarsb-dot idle"></span></button>';
   document.body.appendChild(wrap);
 

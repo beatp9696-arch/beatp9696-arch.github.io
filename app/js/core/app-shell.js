@@ -52,6 +52,22 @@ const THEME = {
 let shell, view, bar, themeMeta;
 let curIdx = 0; // แท็บที่เปิดอยู่ (index ใน TABS) — ใช้คำนวณทิศสไลด์เวลากดหรือปัด
 
+// เดิม themeMeta ถูกตั้งใน initShell() ที่เดียว แต่หน้าแอปบนเว็บ (app/js/page.js) ไม่ได้เรียก
+// OS shell แล้ว — overlay() จึง throw ตั้งแต่บรรทัดแรกที่แตะ themeMeta.content ผลคือหน้าซ้อน
+// ของ Weather/Notes/To-do/Calculator/Discover ขึ้นมาเป็นจอเปล่า ปุ่มย้อนกลับกับ Esc ไม่ถูกผูก
+// = ค้างจนกว่าจะรีโหลดหน้า ตัวนี้เลยต้องหาหรือสร้าง meta ให้ได้เสมอ ไม่ผูกกับ shell
+function ensureThemeMeta() {
+  if (themeMeta?.isConnected) return themeMeta;
+  // ตัวที่มี media override ด้วย JS ไม่ได้ — ข้ามไป แล้วสร้างของเราเอง
+  themeMeta = document.querySelector('meta[name="theme-color"]:not([media])');
+  if (!themeMeta) {
+    themeMeta = document.createElement("meta");
+    themeMeta.name = "theme-color";
+    document.head.append(themeMeta);
+  }
+  return themeMeta;
+}
+
 export function initShell() {
   document.body.classList.add("mode-app");
   document.getElementById("desktop")?.remove();
@@ -121,7 +137,7 @@ function goTab(id, opts = {}) {
   shell.dataset.tab = id;
   for (const b of bar.children) b.classList.toggle("on", b.dataset.tab === id);
 
-  themeMeta.content = THEME[id] ?? "#0f1215";
+  ensureThemeMeta().content = THEME[id] ?? "#0f1215";
 
   const tab = TABS.find((t) => t.id === id);
   view.scrollTop = 0;
@@ -204,12 +220,13 @@ function overlay({ title, tone, fill }) {
   document.body.append(ov);
   requestAnimationFrame(() => ov.classList.add("open"));
 
-  const prevTheme = themeMeta.content;
-  if (THEME[tone]) themeMeta.content = THEME[tone];
+  const meta = ensureThemeMeta();
+  const prevTheme = meta.content;
+  if (THEME[tone]) meta.content = THEME[tone];
 
   const close = () => {
     removeEventListener("keydown", onKey);
-    themeMeta.content = prevTheme;
+    meta.content = prevTheme;
     ov.classList.remove("open");
     setTimeout(() => ov.remove(), 220);
   };

@@ -67,9 +67,13 @@ function readAll() {
   });
 }
 
+// transaction ที่เปิดค้างอยู่ (ยังไม่ complete) — flushStorage ต้องรอตัวนี้ด้วย ไม่งั้นเคส
+// "save รอบก่อนกำลังเขียนอยู่ pending เลยว่าง" จะคืน true ทั้งที่ของยังไม่ลงดิสก์จริง
+let inFlight = null;
+
 function flush() {
   flushTimer = null;
-  if (!db || !pending.size) return;
+  if (!db || !pending.size) return inFlight; // ไม่มีของใหม่ — แต่ของรอบก่อนอาจยังไม่ลง
   const batch = [...pending];
   pending.clear();
   const tx = db.transaction(STORE, "readwrite");
@@ -78,7 +82,7 @@ function flush() {
     if (v === DELETE) store.delete(k);
     else store.put(v, k);
   }
-  return new Promise((resolve) => {
+  const done = new Promise((resolve) => {
     tx.oncomplete = () => resolve(true);
     const retry = () => {
       // Keep failed writes queued; never acknowledge an aborted transaction as saved.
@@ -90,13 +94,24 @@ function flush() {
     tx.onerror = retry;
     tx.onabort = retry;
   });
+  // ผูกกับรอบก่อนหน้าด้วย: "ลงแล้วจริง" = ทุกก้อนที่ค้างอยู่ complete หมด ไม่ใช่แค่ก้อนล่าสุด
+  const prev = inFlight;
+  const tracked = Promise.all([prev, done]).then(([a, b]) => {
+    if (inFlight === tracked) inFlight = null;
+    return a !== false && b !== false;
+  });
+  inFlight = tracked;
+  return tracked;
 }
 
 /** Await durability before a thesis editor reports success or allows navigation. */
 export async function flushStorage() {
-  if (flushTimer) clearTimeout(flushTimer);
+  if (flushTimer) {
+    clearTimeout(flushTimer);
+    flushTimer = null;
+  }
   if (!db) return fallbackErrors.size === 0;
-  return (await flush()) !== false;
+  return (await flush()) !== false; // ไม่มีอะไรค้างเลย → flush() คืน null → ถือว่าลงแล้ว
 }
 
 function queue(key, value) {

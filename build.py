@@ -1466,6 +1466,76 @@ def stock_warnings(articles):
 
 
 
+_SOCIAL_IMG_RE = re.compile(
+    r'<meta[^>]*(?:property|name)="(og:image|twitter:image)"[^>]*content="([^"]+)"', re.I)
+_LD_IMAGE_RE = re.compile(r'"image":\s*\[?\s*"([^"]+)"')
+
+
+def social_image_warnings():
+    """ทุกรูปที่ใช้ตอนแชร์ต้องเป็นไฟล์ที่เสิร์ฟได้จริง (โดเมนตัวเอง = ต้องมีไฟล์ใน repo)"""
+    out = []
+    pages = [f for f in sorted(os.listdir(".")) if f.endswith(".html")]
+    pages += [os.path.join("articles", f) for f in sorted(os.listdir("articles"))
+              if f.endswith(".html")]
+    for path in pages:
+        body = open(path, encoding="utf-8").read()
+        urls = {(k, v) for k, v in _SOCIAL_IMG_RE.findall(body)}
+        urls |= {("JSON-LD image", v) for v in _LD_IMAGE_RE.findall(body)}
+        for label, url in sorted(urls):
+            if not url.startswith(BASE_URL + "/"):
+                continue
+            rel = url[len(BASE_URL) + 1:].split("#")[0].split("?")[0]
+            if rel and not os.path.exists(rel):
+                out.append(f"{path}: {label} ชี้ {rel} ที่ไม่มีไฟล์อยู่จริง — การ์ดตอนแชร์จะว่าง")
+    return out
+
+
+
+class _NestingChecker(HTMLParser):
+    """หา tag ที่เปิดแล้วไม่ปิด — บั๊กที่ทำให้ element ไปโผล่ผิดกล่องแบบเงียบๆ
+    (เคสจริง: .ph-panel ไม่ได้ปิดใน 12 บท → <figcaption> ไปอยู่ในกล่องดำแทนที่จะอยู่ใต้รูป)
+    tag ที่สเปกอนุญาตให้ละตัวปิดได้ (p, li, tr, …) ไม่นับ"""
+
+    OPTIONAL_END = {"p", "li", "tr", "td", "th", "option", "dt", "dd",
+                    "thead", "tbody", "tfoot", "html", "head", "body"}
+
+    def __init__(self):
+        super().__init__(convert_charrefs=True)
+        self.stack = []
+        self.problems = []
+
+    def handle_starttag(self, tag, attrs):
+        if tag not in _VOID_TAGS:
+            self.stack.append((tag, self.getpos()[0]))
+
+    def handle_endtag(self, tag):
+        if tag in _VOID_TAGS:
+            return
+        for i in range(len(self.stack) - 1, -1, -1):
+            if self.stack[i][0] == tag:
+                skipped = [t for t, _ in self.stack[i + 1:] if t not in self.OPTIONAL_END]
+                if skipped:
+                    self.problems.append(
+                        f"</{tag}> บรรทัด {self.getpos()[0]} ปิดคร่อม {skipped} ที่ยังไม่ได้ปิด")
+                del self.stack[i:]
+                return
+
+    def leftovers(self):
+        return [f"<{t}> บรรทัด {ln} ไม่ได้ปิด"
+                for t, ln in self.stack if t not in self.OPTIONAL_END]
+
+
+def html_structure_warnings(paths):
+    out = []
+    for path in paths:
+        checker = _NestingChecker()
+        checker.feed(open(path, encoding="utf-8").read())
+        checker.close()
+        for msg in (checker.problems + checker.leftovers())[:3]:
+            out.append(f"{path}: {msg}")
+    return out
+
+
 def validate(posts, articles):
     warnings = []
     archive_files = {p["file"] for p in posts}
@@ -1526,6 +1596,27 @@ def validate(posts, articles):
             body = open(art, encoding="utf-8").read()
             if '"@type": "BlogPosting"' in body and '"image"' not in body:
                 warnings.append(f"{p['file']}: BlogPosting JSON-LD ขาด \"image\" — เสียสิทธิ์ Article rich results")
+
+    # og:image / twitter:image / JSON-LD image ต้องชี้ไฟล์ที่มีอยู่จริง
+    # เช็คแค่ "มี og-<slug>.jpg ไหม" ไม่พอ: situational-awareness เคยชี้ .png ที่ไม่มีอยู่
+    # ทั้งสามจุด — build ผ่านฉลุย แต่การ์ดพรีวิวตอนแชร์ LINE/X/Facebook พังเงียบ
+    warnings.extend(social_image_warnings())
+    warnings.extend(html_structure_warnings(
+        [f for f in sorted(os.listdir(".")) if f.endswith(".html")]
+        + [os.path.join("articles", f) for f in sorted(disk_files)]))
+
+    # บทยาวที่ไม่มีสารบัญเลย — inject_tocs() ต้องเจอ .byline ถึงจะฝังให้ ถ้าบทไหนลืมใส่
+    # byline มันจะ "ข้ามเงียบ" นับเป็น skipped ไม่มีใครรู้ (case-study-02-amd หลุดมาแบบนี้:
+    # 15 หัวข้อ ไม่มีสารบัญ ไม่มีวันที่ ไม่มีเวลาอ่าน) บทที่ทำสารบัญเองด้วยมือก็ผ่านข้อนี้
+    # เพราะเช็คแค่ว่ามี element .toc หรือยัง
+    for f in sorted(disk_files):
+        body = open(os.path.join("articles", f), encoding="utf-8").read()
+        mstart, mend = body.find("<main"), body.find("</main>")
+        if mstart == -1 or mend == -1:
+            continue
+        if len(_H2_RE.findall(body[mstart:mend])) >= TOC_MIN_H2 and 'class="toc' not in body:
+            warnings.append(f"articles/{f}: มี h2 ≥ {TOC_MIN_H2} แต่ไม่มีสารบัญเลย — "
+                            f"มักเพราะขาด .byline (inject_tocs ข้ามเงียบ)")
 
     warnings.extend(stock_warnings(articles))
     if "<!-- STOCKS-START -->" not in open("stocks.html", encoding="utf-8").read():
