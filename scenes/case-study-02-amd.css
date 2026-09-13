@@ -1,109 +1,83 @@
 /* ฟิสิกส์ของธุรกิจ AMD = "ฝนสุ่มตกบนพื้นที่ กับรัศมีความเสียหาย"
-   ตำหนิตกลงบนเวเฟอร์แบบสุ่มและเท่ากันสำหรับทุกคน — สิ่งที่ต่างคือ "กล่อง" ที่รองรับความเสียหายใหญ่แค่ไหน
+   ตำหนิตกลงบนเวเฟอร์แบบสุ่มและเท่ากันสำหรับทุกคน — สิ่งที่ต่างคือกล่องที่รองรับความเสียหายใหญ่แค่ไหน
    แรงที่ทำให้ชนะ = หั่นพื้นที่เสี่ยงให้เล็กลง จนความเสียหายถูกกักอยู่ในชิ้นเดียว แทนที่จะลามทั้งก้อน
-   ⇒ ลีลาประจำตอน: ฝุ่นตกด้วยจังหวะเครื่องจักรที่ไม่แยแส (--e-mech) ไม่มีจังหวะสวย
+   ⇒ ลีลาประจำตอน: ฝุ่นตกด้วยจังหวะเครื่องจักรที่ไม่แยแส (--e-mech)
       การดับต้อง "สแนป" ทันที ไม่มี ease (ชิปไม่ค่อยๆ ตาย มันตายทันที)
-      ตัวเลขผลผลิตวิ่งท้ายสุดด้วย --e-expo หลังเงียบไปหนึ่งจังหวะ
+      ของหนักที่ถูกวาง (ได/ทางลาด/แท่ง) ใช้ --e-mass · ตัวเลขวิ่งท้ายสุดด้วย --e-expo
       ห้ามใช้ ease-in-out ลอยๆ · ห้าม glow เป็นท่าหลัก
+
+   ภาษาภาพ = แบบเขียนของช่าง มุมฉายเดียวกับ FIG.01 ของ Land, Power & Shell
+   (ถอดจากพิกัดจริง: แกน X ชัน 0.240 · แกน Y ชัน 0.523 · แกน Z ตั้งฉาก = dimetric ไม่สมมาตร)
    มาตรฐาน: scene-animation (markup = สถานะจบ, play-once ผ่าน .ph-panel.playing) */
 
 .amd-panel { background: var(--plate-deep); }
-.amd-panel .sa-stage { container-type: inline-size; position: relative; }
-.amd-panel svg { display: block; width: 100%; height: auto; }
+.amd-panel .sa-stage { container-type: inline-size; }
+.amd-iso { display: block; width: 100%; height: auto; shape-rendering: geometricPrecision; }
 
-/* ── ตัวหนังสือในฉาก: ละตินและตัวเลขเท่านั้น (ไทยอยู่ใน eyebrow/figcaption) ── */
-.amd-lat { font-family: "IBM Plex Mono", ui-monospace, monospace; }
-.amd-hd { font-size: 12px; fill: var(--plate-dim); letter-spacing: .14em; }
-.amd-cap { font-size: 11px; fill: var(--title-mid); letter-spacing: .16em; }
-.amd-val { font-size: 15px; fill: var(--plate-ink); letter-spacing: .04em; }
-.amd-micro { font-size: 10px; fill: var(--plate-dim); letter-spacing: .1em; }
-.amd-r { text-anchor: end; }
-.amd-punch { fill: var(--title-hi); font-size: 13px; letter-spacing: .12em; }
-.amd-rule { stroke: var(--plate-edge); stroke-width: 1; fill: none; }
+/* ── เส้นพื้นฐานของแบบเขียน ── */
+.amd-iso .s-fine, .amd-iso .s-survey, .amd-iso .s-registration,
+.amd-iso .s-leader, .amd-iso .s-dimension, .amd-iso .s-gold {
+  fill: none; stroke-linejoin: round; stroke-linecap: butt;
+}
+.amd-iso .s-ground     { fill: #101413; stroke: #5A5F58; stroke-width: .9; }
+.amd-iso .s-fine       { stroke: #6E6154; stroke-width: .7; }
+.amd-iso .s-survey     { stroke: #3E3931; stroke-width: .5; }
+.amd-iso .s-registration { stroke: #4A443B; stroke-width: .7; }
+.amd-iso .s-leader     { stroke: #8A7A64; stroke-width: .75; }
+.amd-iso .s-dimension  { stroke: #9B8B72; stroke-width: .65; }
+.amd-iso .s-gold       { stroke: #C7AC80; stroke-width: 1.4; stroke-dasharray: 5 4; }
+.amd-iso .s-label      { font: 11px "IBM Plex Mono", ui-monospace, monospace; fill: #C7B49A; letter-spacing: .11em; }
+.amd-iso .s-micro      { font: 9px "IBM Plex Mono", ui-monospace, monospace; fill: #8A8177; letter-spacing: .08em; }
 
-/* ══ PLATE I — จอ yield monitor ══════════════════════════════════
-   ช่องตรวจเท่ากัน ฝุ่นชุดเดียวกัน ต่างกันแค่ขนาดได */
-.amd-field { fill: none; stroke: var(--plate-tick); stroke-width: 1; }
-.amd-divider { stroke: var(--plate-edge); stroke-width: 1; stroke-dasharray: 3 5; fill: none; }
-.amd-grid { fill: none; }
-.amd-grid-fine { stroke: none; }  /* ห้ามใส่ fill — ใช้ค่าจาก fill="url(#amd-fine)" */
-.amd-b-die, .amd-s-die { fill: #101413; stroke: var(--plate-tick); stroke-width: .9; }
-.amd-s-die { stroke-width: .6; }
+/* ── หน้ากล่องไอโซเมตริก: ทองแดง = ซิลิคอนบนโหนดแพง · เทา = โหนดถูก/คู่แข่ง ── */
+.amd-iso .amd-sub-top  { fill: #151A18; stroke: #5C6259; stroke-width: .7; }
+.amd-iso .amd-sub-l    { fill: #0C100F; stroke: #4A504A; stroke-width: .7; }
+.amd-iso .amd-sub-r    { fill: #0F1413; stroke: #4A504A; stroke-width: .7; }
+.amd-iso .amd-die-top, .amd-iso .amd-ramp-top, .amd-iso .amd-bar-top { fill: #6E4A2A; stroke: #D7A468; stroke-width: .8; }
+.amd-iso .amd-die-l,   .amd-iso .amd-ramp-side, .amd-iso .amd-bar-l  { fill: #3A2616; stroke: #9A7146; stroke-width: .8; }
+.amd-iso .amd-die-r,   .amd-iso .amd-bar-r                           { fill: #4A3120; stroke: #9A7146; stroke-width: .8; }
+.amd-iso .amd-ramp-face { fill: #22160C; stroke: #9A7146; stroke-width: .8; }
+.amd-iso .amd-die-top-cold, .amd-iso .amd-ramp-top-cold  { fill: #232825; stroke: #7E857C; stroke-width: .8; }
+.amd-iso .amd-die-l-cold,   .amd-iso .amd-ramp-side-cold { fill: #121615; stroke: #5E645C; stroke-width: .8; }
+.amd-iso .amd-die-r-cold                                 { fill: #181D1B; stroke: #5E645C; stroke-width: .8; }
+.amd-iso .amd-ramp-face-cold { fill: #0C100F; stroke: #5E645C; stroke-width: .8; }
+.amd-iso .amd-bar-top-cold { fill: #1B201E; stroke: #6E756C; stroke-width: .8; }
+.amd-iso .amd-bar-l-cold   { fill: #0E1211; stroke: #555B54; stroke-width: .8; }
+.amd-iso .amd-bar-r-cold   { fill: #141917; stroke: #555B54; stroke-width: .8; }
 
-/* ไดที่ตาย = สถานะจบ (แดง) · keyframes ดึงย้อนกลับไปหาสถานะ "ยังไม่ตาย" */
-.amd-dead { fill: var(--cs-alt); fill-opacity: .34; stroke: var(--cs-alt); stroke-opacity: .8; }
-.playing .amd-dead { animation: amdKill var(--beat) steps(1, end) both; }
-@keyframes amdKill { from { fill: var(--plate-card); fill-opacity: 1; stroke: var(--plate-ring); stroke-opacity: 1; } }
+/* ── FIG.01: ไดที่ตาย + ฝุ่น ── */
+.amd-iso .amd-iso-dead { fill: #A8232B; fill-opacity: .42; stroke: #C04A46; stroke-width: .5; }
+.amd-iso .amd-iso-spec circle { fill: #E8C79A; }
 
-/* ฝุ่น: โผล่ทีละจุดแบบเครื่องจักร ไม่ไล่จังหวะให้สวย */
-.amd-spec { fill: var(--title-hi); }
-.playing .amd-spec { animation: amdSpec calc(var(--beat) * .5) var(--e-mech) both; }
-@keyframes amdSpec { from { opacity: 0; r: 7px; } }
+/* ══ narrative — markup คือสถานะจบเสมอ keyframes ดึงย้อนกลับไปหาจุดเริ่ม ══ */
 
-/* ตัวเลขผลผลิต — HTML chip เพราะ SVG text ใช้ CSS counter ไม่ได้ */
-.amd-readout { position: absolute; bottom: 1.5%; width: 42%; text-align: center; }
-.amd-readout-l { left: 2.5%; } .amd-readout-r { left: 53%; }
-.amd-num { font-family: "IBM Plex Mono", ui-monospace, monospace; font-size: 5.4cqw; line-height: 1;
-           color: var(--title-hi); display: block; counter-reset: n var(--n); }
-.amd-num::after { content: counter(n) "%"; }
-.amd-readout i { display: block; font-family: var(--font-book); font-style: normal;
-                 font-size: 1.7cqw; color: var(--plate-dim); margin-top: .35em; }
-.amd-num-b { --n: 50; } .amd-num-s { --n: 93; }
-.playing .amd-num-b { animation: amdRunB calc(var(--beat) * 3) var(--e-expo) calc(var(--beat) * 10) both; }
-.playing .amd-num-s { animation: amdRunS calc(var(--beat) * 3) var(--e-expo) calc(var(--beat) * 10) both; }
-@keyframes amdRunB { from { --n: 0; } } @keyframes amdRunS { from { --n: 0; } }
+/* ชิปดับ = สแนป ไม่มี ease (ของจริงไม่ค่อยๆ ตาย) */
+.playing .amd-iso-kill { animation: amdKill var(--beat) steps(1, end) both; }
+@keyframes amdKill { from { opacity: 0; } }
 
-/* ══ PLATE II — ผังไดบนแผ่นรอง ══════════════════════════════════ */
-.amd-pkg { fill: var(--plate-grid); stroke: var(--plate-tick); stroke-width: 1; }
-.amd-die { fill: var(--a-mute); fill-opacity: .5; stroke: var(--title-mid); stroke-width: 1; }
-.amd-die-cold { fill: var(--plate-card); stroke: var(--plate-tick); }
-.amd-key { stroke-width: 1; }
-.playing .amd-key { animation-delay: calc(var(--beat) * 9); }
-.amd-die-tag { font-size: 30px; fill: var(--plate-ink); text-anchor: middle; }
-.amd-die-tag.amd-sm { font-size: 20px; }
-.amd-die-sub { font-size: 10px; fill: var(--plate-dim); text-anchor: middle; letter-spacing: .1em; }
-.playing .amd-die { animation: amdPlace calc(var(--beat) * 1.2) var(--e-mass) both; }
-@keyframes amdPlace { from { opacity: 0; transform: translateY(-10px); } }
-.amd-die { transform-box: fill-box; transform-origin: center; }
-.playing .amd-die-tag, .playing .amd-die-sub, .playing .amd-pkg { animation: amdFade calc(var(--beat) * 1.4) var(--e-expo) both; }
-@keyframes amdFade { from { opacity: 0; } }
+/* ฝุ่น: ทยอยตกแบบเครื่องจักร ไม่ไล่จังหวะให้สวย */
+.playing .amd-iso-spec { animation: amdSpec calc(var(--beat) * .6) var(--e-mech) both; }
+@keyframes amdSpec { from { opacity: 0; } }
 
-/* แท่งเทียบชิ้นใหญ่สุดที่ต้องลุ้น yield — ความยาวตามสัดส่วน 698 : 74 จริง */
-.amd-bar { transform-box: fill-box; transform-origin: left center; }
-.amd-bar-hot { fill: var(--cs-alt); fill-opacity: .55; }
-.amd-bar-cool { fill: var(--title-mid); fill-opacity: .75; }
-.amd-bar-tag { font-size: 11px; fill: var(--plate-ink); letter-spacing: .1em; }
-.playing .amd-bar { animation: amdGrow calc(var(--beat) * 1.8) var(--e-mass) both; }
-@keyframes amdGrow { from { transform: scaleX(0); } }
+/* ของหนักถูกวางลงที่: ออกตัวช้า จอดนิ่ง */
+.amd-iso-die, .amd-iso-step, .amd-iso-bar { transform-box: fill-box; transform-origin: center; }
+.playing .amd-iso-die  { animation: amdDrop calc(var(--beat) * 1.6) var(--e-mass) both; }
+@keyframes amdDrop { from { opacity: 0; transform: translateY(-14px); } }
+.playing .amd-iso-step { animation: amdStep calc(var(--beat) * 1.3) var(--e-mech) both; }
+@keyframes amdStep { from { opacity: 0; transform: translateY(-9px); } }
+.amd-iso-bar { transform-origin: left center; }
+.playing .amd-iso-bar  { animation: amdGrow calc(var(--beat) * 2.2) var(--e-mass) both; }
+@keyframes amdGrow { from { transform: scaleX(.02); } }
 
-/* ══ PLATE III — บันไดโหนด: เส้นหนึ่งเดินต่อ อีกเส้นค้าง ══════════ */
-.amd-axis path { stroke: var(--plate-edge); stroke-width: 1; fill: none; stroke-dasharray: 2 6; }
-.amd-track { fill: none; stroke-width: 2.4; stroke-linejoin: round; stroke-linecap: round;
-             stroke-dasharray: 1; stroke-dashoffset: 0; }
-.amd-track-cold { stroke: var(--plate-dim); }
-.amd-track-hot { stroke: var(--title-mid); stroke-width: 3; }
-.playing .amd-track { animation: amdDraw calc(var(--beat) * 4) var(--e-mech) both; }
-@keyframes amdDraw { from { stroke-dashoffset: 1; } }
-.amd-track-tag { font-size: 11px; letter-spacing: .1em; }
-.amd-cold-tag { fill: var(--plate-dim); } .amd-hot-tag { fill: var(--title-hi); }
-.amd-crossband { fill: var(--title-mid); fill-opacity: .09; stroke: var(--title-mid); stroke-opacity: .3; stroke-width: 1; }
-.playing .amd-crossband, .playing .amd-track-tag, .playing .amd-cold-tag, .playing .amd-punch {
-  animation: amdFade calc(var(--beat) * 1.2) var(--e-expo) both; }
+/* ตัวเลขในตารางสรุป — ขยับท้ายสุดหลังเงียบไปหนึ่งจังหวะ */
+.amd-iso .amd-iso-yield { font: 19px "IBM Plex Mono", ui-monospace, monospace;
+                          fill: #E0BE90; letter-spacing: .02em; }
+.playing .amd-iso-yield { animation: amdTell calc(var(--beat) * 1.6) var(--e-expo) both; }
+@keyframes amdTell { from { opacity: 0; transform: translateY(5px); } }
+.amd-iso-yield { transform-box: fill-box; transform-origin: left center; }
 
-/* ══ PLATE IV — ส่วนแบ่งชิ้น เทียบ ส่วนแบ่งเงิน ══════════════════ */
-.amd-shell { fill: var(--plate-card); stroke: var(--plate-tick); stroke-width: 1; }
-.amd-share { transform-box: fill-box; transform-origin: left center; }
-.amd-share-hot { fill: var(--title-mid); fill-opacity: .72; }
-.amd-share-tag { font-size: 15px; fill: var(--plate-ink); letter-spacing: .06em; }
-.amd-share-tag.amd-dim { fill: var(--plate-dim); }
-.playing .amd-share { animation: amdGrow calc(var(--beat) * 2) var(--e-mass) both; }
-.playing .amd-share-tag { animation: amdFade calc(var(--beat) * 1.2) var(--e-expo) both; }
-.amd-gap { stroke: var(--title-hi); stroke-width: 1; fill: none; stroke-dasharray: 3 4; }
-.amd-gap-arrow { stroke-dasharray: none; stroke-width: 1.4; }
-.playing .amd-gap { animation: amdFade calc(var(--beat) * 1) var(--e-expo) both; }
-
-/* ── มือถือ: ฉากกว้างอ่านยาก ให้เลื่อนแนวนอนได้แทนการบีบจนอ่านไม่ออก ── */
-@container (max-width: 460px) {
-  .amd-num { font-size: 8cqw; }
-  .amd-readout i { font-size: 2.8cqw; }
+/* ── มือถือ: แบบเขียนกว้าง ให้เลื่อนดูแนวนอนแทนการบีบจนอ่านไม่ออก ── */
+@container (max-width: 520px) {
+  .amd-panel .sa-stage { overflow-x: auto; }
+  .amd-iso { min-width: 560px; }
 }
