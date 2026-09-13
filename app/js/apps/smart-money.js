@@ -110,11 +110,17 @@ const chartRows = fund => fund.estimatedHoldings
   : fund.chart || donutRows(fund.rows, fund.current.totalValue);
 const chartLabel = row => row.id === 'other' ? 'อื่น ๆ' : symbol(row);
 const chartLegend = (rows, estimated = false) => `<ul class="sm-legend">${rows.map((row,i) => `<li data-chart-security="${esc(row.id)}">${row.id === 'other' ? `<i style="background:${COLORS[i]}"></i>` : stockBadge(row)}<span title="${esc(row.issuer)}">${esc(chartLabel(row))}${row.option ? ` · ${esc(row.option)}` : ''}</span><b>${estimatePercent(row.fraction*100)}</b>${estimated ? `<small>${estimatePercent(row.weight)} of estimated portfolio</small>` : `<small>${row.id === 'other' ? 'หลักทรัพย์ที่เหลือในรายงาน' : esc(row.issuer)}</small>`}</li>`).join('')}</ul>`;
+const RING_LOGO_MIN_FRACTION = .075;
 
 // Keep the allocation ring readable while still identifying the securities that
-// make up the visible slices. Small slices receive a smaller marker so the
-// logos remain inside their own proportion instead of colliding with neighbors.
+// make up the visible slices. Small slices move to a compact logo rail below
+// the chart instead of colliding inside the ring.
 const rowLogoKey = row => row.symbol || issuerLogos[row.cusip] || sectorMetadata?.byCusip?.[row.cusip]?.symbol;
+const chartLogoRail = rows => {
+  const small = rows.filter((row, i) => row.id !== 'other' && i < 5 && row.fraction < RING_LOGO_MIN_FRACTION);
+  if (!small.length) return '';
+  return `<div class="sm-chart-logos" aria-label="โลโก้หุ้นสัดส่วนย่อย">${small.map((row, i) => `<span class="sm-chart-logo" style="--logo-color:${COLORS[i]}" title="${esc(chartLabel(row))} · ${estimatePercent(row.fraction * 100)}">${stockBadge(row)}</span>`).join('')}</div>`;
+};
 
 function ring(fund, detailed = false) {
   const ringId = ++ringSequence;
@@ -131,7 +137,7 @@ function ring(fund, detailed = false) {
   const marks = rows.map((row, i) => {
     const mid = angle + row.fraction * Math.PI;
     angle += row.fraction * 2 * Math.PI;
-    if (row.id === 'other' || i > 4 || row.fraction < .02) return '';
+    if (row.id === 'other' || i > 4 || row.fraction < RING_LOGO_MIN_FRACTION) return '';
     const x = 110 + Math.cos(mid) * 78, y = 110 + Math.sin(mid) * 78;
     const url = logoURL(rowLogoKey(row));
     const label = (row.symbol || row.issuer.split(' ')[0]).slice(0, 4);
@@ -147,7 +153,7 @@ function ring(fund, detailed = false) {
   const caption = fund.estimatedHoldings
     ? `Top ${count} · Estimated<br>เฉพาะกลุ่มนี้ = 100%`
     : `${count} อันดับแรก${rows.some(row => row.id === 'other') ? ' + อื่น ๆ' : ''}<br>เทียบมูลค่าทั้งรายงาน`;
-  return `<div class="sm-chart${detailed ? ' sm-ring-large' : ''}" data-chart-basis="${fund.estimatedHoldings ? 'estimated-top-five' : 'reported-total'}"><div class="sm-ring" aria-hidden="true"><svg viewBox="0 0 220 220"><g transform="rotate(-90 110 110)">${circles}</g>${marks}</svg>${center}</div><span class="sm-chart-caption">${caption}</span></div>`;
+  return `<div class="sm-chart${detailed ? ' sm-ring-large' : ''}" data-chart-basis="${fund.estimatedHoldings ? 'estimated-top-five' : 'reported-total'}"><div class="sm-ring" aria-hidden="true"><svg viewBox="0 0 220 220"><g transform="rotate(-90 110 110)">${circles}</g>${marks}</svg>${center}</div><span class="sm-chart-caption">${caption}</span>${detailed ? '' : chartLogoRail(rows)}</div>`;
 }
 
 function card(fund, i) {

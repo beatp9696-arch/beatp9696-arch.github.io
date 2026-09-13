@@ -25,6 +25,10 @@
 .sm-ring-stock-mark{pointer-events:none}
 .sm-legend .sm-stock-logo{width:16px;height:16px;padding:2px;border-radius:4px}
 .sm-legend .sm-stock-fallback{font-size:7px}
+.sm-chart-logos{display:flex;justify-content:center;align-items:center;gap:5px;flex-wrap:wrap;margin:7px auto 0;max-width:100%}
+.sm-chart-logo{display:grid;place-items:center;width:23px;height:23px;border:1px solid var(--logo-color);border-radius:6px;background:#1b2228;box-shadow:0 2px 8px #0003}
+.sm-chart-logo .sm-stock-logo{width:100%;height:100%;padding:4px;border-radius:5px}
+.sm-chart-logo .sm-stock-fallback{font-size:7px;padding:0}
 .sm-chart-note{font-size:11px;line-height:1.8;color:var(--dim);margin:12px 0}
 .sm-brand{inset:25%}
 .sm-brand-photo{background:#19202b}
