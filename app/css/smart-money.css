@@ -317,5 +317,10 @@
 .sm-company-links a{display:inline-flex;align-items:center;gap:4px;padding:5px 8px;border:1px solid var(--moa-line);border-radius:5px;color:var(--moa-accent);font-size:11px;text-decoration:none;background:rgba(121,201,180,.04)}
 .sm-company-links a:hover{background:rgba(121,201,180,.12);border-color:#75b9a8;color:#d5f5e9}
 .sm-company-links .sm-icon{width:11px;height:11px}
+/* Allocation legends use real logo badges; reserve their full column so the
+   ticker and issuer text never sits underneath the image. */
+.sm-allocation-copy .sm-legend li{grid-template-columns:24px minmax(0,1fr) auto}
+.sm-allocation-copy .sm-legend .sm-stock-logo{width:24px;height:24px;padding:3px;border-radius:5px}
+.sm-allocation-copy .sm-legend .sm-stock-fallback{width:24px;height:24px;font-size:7px}
 @container smart-money (max-width:355px){.sm-company-links{gap:5px}.sm-company-links span{width:100%}.sm-company-links a{font-size:10px;padding:4px 6px}}
 @container smart-money (max-width:330px){.sm-head{gap:4px;min-width:0}.sm-head .moa-brand{min-width:0;font-size:15px;gap:5px}.sm-head .moa-brand-section{display:none}.sm-head-actions{gap:0}.sm-head .sm-icon{width:28px;min-width:28px;padding:5px}}
