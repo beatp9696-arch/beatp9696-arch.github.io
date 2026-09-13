@@ -112,3 +112,14 @@
 .pf-thesis-entry>span:nth-child(2){flex:1;min-width:0}.pf-thesis-entry b{display:block;font-size:14px;font-weight:600;line-height:1.6}.pf-thesis-entry small{display:block;margin-top:3px;font-size:11px;line-height:1.7;color:#9cbeb0}
 .pf-thesis-entry>.rx-icon{width:19px;height:19px;flex-basis:19px}.pf-thesis-entry>.rx-icon:last-child{width:16px;height:16px;flex-basis:16px}
 @container living-thesis (max-width:600px){.app-living-thesis .pf-thesis-entry{padding:13px;gap:10px}.pf-thesis-entry b{font-size:13px}.pf-thesis-entry small{font-size:10px}}
+
+/* Source-backed drafts share the terminal's compact rhythm. */
+.lt-library-strip .lt-demo-label{color:#b6d5ca;border-color:#3c5a50;background:#1d2e28}
+.lt-methodology{border-bottom:1px solid var(--line);padding:12px 0;color:var(--dim);font-size:11px;line-height:1.9}
+.lt-methodology summary{cursor:pointer;color:#a5ccbc;min-height:32px;display:list-item}
+.lt-methodology p{max-width:850px;margin:8px 0;overflow-wrap:anywhere}
+.lt-detail-identity,.lt-detail-identity>div,.lt-condition-head>div,.lt-section-head>div{min-width:0}
+.lt-detail-identity h1,.lt-condition h3,.lt-section-head h2,.lt-mini-pillar>span{overflow-wrap:anywhere}
+.lt-detail-stats>div{min-width:0;overflow-wrap:anywhere}
+.lt-original .lt-section-head{flex-wrap:wrap}
+.lt-mini-pillar{min-width:0}

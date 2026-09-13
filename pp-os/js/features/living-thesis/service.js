@@ -1,9 +1,16 @@
-import { validateDemo, evaluateCondition } from './model.js';
+import { validateDemo, validateLibrary, evaluateCondition } from './model.js';
 
 export async function loadDemo({signal}={}) {
   const response=await fetch(new URL('../../../data/living-thesis.json',import.meta.url),{cache:'no-cache',signal});
   if(!response.ok) throw new Error('Sample analysis could not be loaded. Check your connection and try again.');
   return validateDemo(await response.json());
+}
+
+export async function loadResearchLibrary({signal}={}) {
+  const response=await fetch(new URL('../../../data/living-thesis-library.json',import.meta.url),{cache:'no-cache',signal});
+  if(!response.ok) throw new Error('The research library could not be loaded. Your holdings and notes are still saved.');
+  const data=await response.json();
+  return validateLibrary(data);
 }
 
 /** Replace this adapter with a same-origin server endpoint; keep credentials on that server.

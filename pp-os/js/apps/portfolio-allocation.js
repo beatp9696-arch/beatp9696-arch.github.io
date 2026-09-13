@@ -1,3 +1,4 @@
+import {companyIdentity,companyLogoURL} from '../core/company-catalog.js';
 import { load, save } from "../core/storage.js";
 import { SITE } from "../core/app-shell.js";
 import { countUp, flush, num, stagger } from "../core/ui.js";
@@ -62,7 +63,7 @@ const usd2 = (n) => `$${num(n, { minimumFractionDigits: 2, maximumFractionDigits
 const pct = (n, d = 1) => `${n.toFixed(d)}%`;
 const signed = (n, f) => `${n >= 0 ? "+" : "−"}${f(Math.abs(n))}`;
 
-const meta = (tk) => CATALOG[tk] ?? null;
+const meta = (tk) => CATALOG[tk] ?? (companyIdentity(tk) ? [companyIdentity(tk)[0],companyIdentity(tk)[1],['BAC','BRK-B'].includes(tk)?'finance':'consumer',1] : null);
 const val = (h) => (h.shares ?? 0) * (h.price ?? 0);
 const basis = (h) => (h.shares ?? 0) * (h.cost ?? 0);
 const article = (tk) => (CATALOG[tk] ? `${SITE}articles/deep-dive-${tk.toLowerCase()}.html` : null);
@@ -100,9 +101,9 @@ const ICO = {
 function logoHTML(tk, sec, rank) {
   const m = meta(tk);
   const mono = `<span class="pf-mono" style="--c:${shade(sec, rank)}">${tk.slice(0, 2)}</span>`;
-  if (!m?.[3]) return `<span class="pf-logo">${mono}</span>`;
+  if (!m?.[3] && !companyLogoURL(tk)) return `<span class="pf-logo">${mono}</span>`;
   const file = tk === "AAPL" ? "AAPL.svg" : `${tk}.png`;
-  return `<span class="pf-logo"><img src="${SITE}logos/${file}" alt="" loading="lazy"
+  return `<span class="pf-logo"><img src="${companyLogoURL(tk)||`${SITE}logos/${file}`}" alt="" loading="lazy"
     onerror="this.replaceWith(this.nextElementSibling)">${mono}</span>`;
 }
 

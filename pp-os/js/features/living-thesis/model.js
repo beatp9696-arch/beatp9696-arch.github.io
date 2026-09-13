@@ -1,4 +1,5 @@
-/** Living Thesis domain. Monetary earnings values are USD billions; margins are percentages.
+/** Living Thesis domain. Demo money is USD billions. Library metrics specify currency/unit;
+ * bank and insurer metrics are sector-specific. Margins and rates are percentages.
  * @typedef {'STRENGTHENED'|'UNCHANGED'|'WEAKENED'|'THESIS AT RISK'|'INSUFFICIENT DATA'} ThesisStatus
  * @typedef {{id:string,symbol:string,companyName:string,sector:string,portfolioWeight:number|null,shares:number,averageCost:number,currentValue:number|null,thesisId:string,lastUpdated:string|null}} Holding
  * @typedef {{id:string,holdingId:string,originalStatement:string,currentSummary:string,status:ThesisStatus,confidence:number|null,moatScore:number|null,createdAt:string,updatedAt:string}} Thesis
@@ -37,9 +38,11 @@ export function evaluateCondition(condition, company) {
   const value = condition.metric==='moatScore' ? company.thesis.moatScore : company.earnings.at(-1)?.[condition.metric];
   if(condition.metric==='manual') return {...condition};
   if(!Number.isFinite(value)||!Number.isFinite(condition.threshold)) return {...condition,currentState:'Insufficient evidence to evaluate',status:'warning',lastChecked:null,evidenceIds:[]};
+  const unit=company.metrics?.find(m=>m[0]===condition.metric)?.[2];
+  const suffix=unit?({percent:'%',money:'B USD',ntd:'B NTD',usd:' USD',count:''}[unit]||''):['grossMargin','operatingMargin','dilution','customerGrowth'].includes(condition.metric)?'%':condition.metric==='debt'?'B USD':' / 100';
   const hit = condition.operator==='below' ? value<condition.threshold : value>condition.threshold;
   const near = !hit && Math.abs(value-condition.threshold)<=Math.abs(condition.threshold)*0.1;
-  return {...condition,currentState:`${value}${['grossMargin','operatingMargin','dilution','customerGrowth'].includes(condition.metric)?'%':condition.metric==='debt'?'B USD':' / 100'} · threshold ${condition.operator} ${condition.threshold}`,status:hit?'triggered':near?'warning':'not triggered',lastChecked:company.holding.lastUpdated,evidenceIds:company.evidence.filter(e=>e.eventType==='Earnings').map(e=>e.id)};
+  return {...condition,currentState:`${value}${suffix} · threshold ${condition.operator} ${condition.threshold}`,status:hit?'triggered':near?'warning':'not triggered',lastChecked:company.holding.lastUpdated,evidenceIds:company.evidence.filter(e=>e.eventType==='Earnings').map(e=>e.id)};
 }
 export function validateDemo(data) {
   if(data?.schemaVersion!==1||!Array.isArray(data.companies)) throw new Error('The sample analysis format is unavailable.');
@@ -49,6 +52,30 @@ export function validateDemo(data) {
     seen.add(c.holding.symbol);
     for(const p of c.pillars) if(!PILLARS.some(([id])=>id===p.type)||!Number.isFinite(p.score)||p.score<0||p.score>100||!Number.isFinite(p.confidence)||p.confidence<0||p.confidence>100) throw new Error('Invalid moat pillar.');
     for(const e of c.evidence) if(!Number.isFinite(Date.parse(e.publishedAt))||!Number.isFinite(e.confidence)||!e.sourceLabel||!/^https:\/\//.test(e.sourceUrl)) throw new Error('Invalid sample evidence.');
+  }
+  return data;
+}
+
+export function validateLibrary(data) {
+  const fail=()=>{throw new Error('The research library format is unavailable.');};
+  if(data?.kind!=='research-library'||data.schemaVersion!==1||!Array.isArray(data.companies))fail();
+  const symbols=new Set();
+  for(const c of data.companies) {
+    if(c.isDemo!==false||c.researchKind!=='library'||!c.draftStatement||!STATUSES.includes(c.thesis?.status)||!Array.isArray(c.evidence)||!Array.isArray(c.metrics)||!Array.isArray(c.pillars)||symbols.has(c.symbol))fail();
+    symbols.add(c.symbol);
+    const ids=new Set(c.evidence.map(e=>e.id));
+    if(ids.size!==c.evidence.length)fail();
+    for(const e of c.evidence)if(!e.sourceLabel||!Number.isFinite(Date.parse(e.publishedAt))||!(/^(https:\/\/|\.\.\/articles\/deep-dive-[a-z]+\.html#sec-\d+$)/.test(e.sourceUrl)))fail();
+    for(const p of c.pillars)if(!PILLARS.some(([id])=>id===p.type)||!Number.isFinite(p.score)||p.score<0||p.score>100)fail();
+    for(const rows of [c.pillars,c.assumptions,c.redTeam,c.sellConditions,c.questions]) {
+      if(!Array.isArray(rows))fail();
+      for(const row of rows)if(!Array.isArray(row.evidenceIds)||row.evidenceIds.some(id=>!ids.has(id)))fail();
+    }
+    if(!Array.isArray(c.earnings)||c.earnings.length!==2)fail();
+    for(const [id,,unit] of c.metrics) {
+      if(!['money','ntd','usd','percent','count','text'].includes(unit)||!c.metricNotes?.[id])fail();
+      for(const e of c.earnings)if(e[id]!==null&&(unit==='text'?typeof e[id]!=='string':!Number.isFinite(e[id])))fail();
+    }
   }
   return data;
 }

@@ -1,9 +1,13 @@
 // Service worker — precache app shell ทั้งหมด ใช้ offline ได้เต็มตัว
 // เปลี่ยนไฟล์เมื่อไหร่ให้ bump VERSION เพื่อบังคับ cache ใหม่
 
-const VERSION = "pp-os-v39";
+const VERSION = "pp-os-v40";
 
 const SHELL = [
+  "./assets/brands/SPGI.png",
+  "./assets/brands/MELI.png",
+  "./data/living-thesis-library.json",
+  "./js/core/company-catalog.js",
   "./",
   "./index.html",
   "./manifest.webmanifest",
