@@ -138,15 +138,19 @@ try:
         page.get_by_label('Savings (%)',exact=True).fill('30');page.get_by_label('Set aside to invest (%)',exact=True).fill('15');save(page,'Save settings')
         assert stored(page,'money.entries')[0]['split']=={'savings':20,'invest':10}
         assert stored(page,'money.card')['locked'] is False
-        tab(page,'Overview');page.get_by_role('button',name='Add recurring bill',exact=True).click()
-        page.get_by_label('Bill name',exact=True).fill('Cloud storage');page.get_by_label('Amount (THB)',exact=True).fill('99')
-        page.get_by_label('Due day of month',exact=True).fill('15');save(page,'Save bill')
+        tab(page,'Overview');page.get_by_role('button',name='Add subscription',exact=True).click()
+        page.get_by_label('Subscription name',exact=True).fill('Cloud storage');page.get_by_label('Amount (THB)',exact=True).fill('99')
+        page.get_by_label('Due day of month',exact=True).fill('15');save(page,'Save subscription')
         bill=stored(page,'money.recurring')[-1]
         page.locator(f'[data-bill="{bill["id"]}"]').get_by_role('button',name='Record',exact=True).click()
         save(page,'Save transaction')
         expect(page.locator(f'[data-bill="{bill["id"]}"]')).to_contain_text('Paid')
         payment=stored(page,'money.entries')[-1];assert payment['recurringId']==bill['id'] and payment['occurrence']=='2026-09'
         page.reload();expect(page.locator(f'[data-bill="{bill["id"]}"]')).to_contain_text('Paid')
+        tab(page,'Subscriptions');fitted(page)
+        expect(page.locator('.mn-sub-summary')).to_contain_text('Active subscriptions')
+        expect(page.locator('.mn-subscription')).to_have_count(2)
+        expect(page.locator(f'[data-bill="{bill["id"]}"]')).to_contain_text('Paid')
         # Income uses the new allocation; editing old income preserves its original split.
         page.get_by_role('button',name='Add transaction',exact=True).first.click()
         page.get_by_label('Type',exact=True).select_option('in');page.get_by_label('Amount (THB)',exact=True).fill('1000');save(page,'Save transaction')

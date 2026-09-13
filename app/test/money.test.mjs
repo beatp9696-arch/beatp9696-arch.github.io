@@ -1,5 +1,5 @@
 import assert from 'node:assert/strict';
-import {balances,monthTotals,cashFlow,budgetRows,category,makeEntry,roundup,validateAmount,validateSplit,shiftMonth,validDate,selectEntries,allocatedToGoals,fundGoal,billOccurrence,exportCSV,importCSV,entryFingerprint} from '../js/features/money/model.js';
+import {balances,monthTotals,cashFlow,budgetRows,category,makeEntry,roundup,validateAmount,validateSplit,shiftMonth,validDate,selectEntries,allocatedToGoals,fundGoal,billOccurrence,monthlyBills,subscriptionSummary,exportCSV,importCSV,entryFingerprint} from '../js/features/money/model.js';
 
 const today='2026-09-13';
 const ledger=[
@@ -55,6 +55,11 @@ assert.equal(billOccurrence(bill,'2026-02',[]).dueDate,'2026-02-28');
 assert.equal(billOccurrence(bill,'2026-03',[]).dueDate,'2026-03-31');
 assert.equal(billOccurrence(bill,'2025-12',[]),null);
 assert.equal(billOccurrence(bill,'2026-02',[{recurringId:'bill',occurrence:'2026-02',amount:100}]).payment.amount,100);
+const subscriptions=[bill,{id:'streaming',day:8,startDate:'2026-06-01',amount:249,cat:'Fun'},{id:'paused',day:5,startDate:'2026-01-01',amount:500,active:false}];
+const subEntries=[{recurringId:'bill',occurrence:'2026-09',amount:100}];
+const sub=subscriptionSummary(subscriptions,'2026-09',subEntries);
+assert.equal(sub.active,2);assert.equal(sub.monthly,349);assert.equal(sub.annual,4188);assert.equal(sub.paid,100);assert.equal(sub.unpaid.length,1);
+assert.deepEqual(monthlyBills(subscriptions,'2026-09',subEntries).map(b=>b.id),['streaming','bill']);
 const exported=ledger.slice(0,3).map(e=>({...e,note:'=HYPERLINK("evil"), ไทย\nsecond line'}));
 const csv=exportCSV(exported);
 assert.ok(csv.includes("'=HYPERLINK"),'Spreadsheet formulas must be neutralized');

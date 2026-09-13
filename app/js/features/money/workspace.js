@@ -134,7 +134,7 @@ export function mountMoney(body) {
   function editBill(id,trigger) {
     const old=read().recurring.find(b=>String(b.id)===String(id));
     const billId=old?.id||crypto.randomUUID();
-    const el=dialog(old?'Edit recurring bill':'Add a monthly bill',`<p>Add a reminder for a regular expense. Record each payment when it happens.</p><form>${field('Bill name','name',old?.name||'','required maxlength="100" placeholder="e.g. Internet"')}${amountInput(old?.amount||'')}<div class="mn-form-pair">${field('Due day of month','day',old?.day||Number(localDate().slice(-2)),'type="number" min="1" max="31" step="1" required')}${field('Start date','startDate',old?.startDate||localDate(),'type="date" required')}</div><label>Category<select name="cat" aria-label="Category">${selectCats('out',old?.cat||'Home')}</select></label><p class="mn-form-note">For shorter months, a bill due on the 29th–31st falls on the last day. Reminders stay on this device and are included in backups.</p>${actions('Save bill',old?'Delete reminder':'')}</form>`,trigger);
+    const el=dialog(old?'Edit subscription':'Add subscription',`<p>Add a reminder for a regular expense. Record each payment when it happens.</p><form>${field('Subscription name','name',old?.name||'','required maxlength="100" placeholder="e.g. Internet"')}${amountInput(old?.amount||'')}<div class="mn-form-pair">${field('Due day of month','day',old?.day||Number(localDate().slice(-2)),'type="number" min="1" max="31" step="1" required')}${field('Start date','startDate',old?.startDate||localDate(),'type="date" required')}</div><label>Category<select name="cat" aria-label="Category">${selectCats('out',old?.cat||'Home')}</select></label><p class="mn-form-note">For shorter months, a subscription due on the 29th–31st falls on the last day. Reminders stay on this device and are included in backups.</p>${actions('Save subscription',old?'Delete reminder':'')}</form>`,trigger);
     el.querySelector('[data-action="delete-dialog"]')?.addEventListener('click',()=>{el.close();confirmDelete('Delete this reminder?','Future reminders will be removed. Payments already recorded remain in your transactions.',async()=>{await persist({recurring:read().recurring.filter(b=>b.id!==old.id)});},trigger);});
     submit(el,async values=>{const name=values.name.trim(),day=Number(values.day);if(!name||!Number.isInteger(day)||day<1||day>31||!validDate(values.startDate))throw new Error('Enter a name, a due day from 1 to 31, and a valid start date.');const latest=read();await persist({recurring:[...latest.recurring.filter(b=>b.id!==billId),{...old,id:billId,name,amount:validateAmount(values.amount),day,startDate:values.startDate,cat:values.cat}]});finish(el,'Monthly bill reminder saved.');});
   }
@@ -168,7 +168,7 @@ export function mountMoney(body) {
       if(action==='add-goal'||action==='edit-goal'){editGoal(id,target);return;}
       if(action==='fund'){manageFunds(id,target);return;}
       if(action==='settings'){settings(target);return;}
-      if(action==='add-bill'||action==='edit-bill'){editBill(id,target);return;}
+      if(action==='add-subscription'||action==='add-bill'||action==='edit-bill'){editBill(id,target);return;}
       if(action==='pay-bill') {
         const data=read(),bill=monthlyBills(data.recurring,target.dataset.month,data.entries).find(b=>String(b.id)===id);
         if(bill&&!bill.payment)editEntry(null,target,{type:'out',amount:bill.amount,cat:bill.cat,note:bill.name,recurringId:bill.id,occurrence:bill.month});return;

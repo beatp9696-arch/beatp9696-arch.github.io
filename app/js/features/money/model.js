@@ -93,7 +93,15 @@ export function billOccurrence(bill, month, entries) {
   const payment=entries.find(e=>e.recurringId===bill.id && e.occurrence===month);
   return {...bill,dueDate,month,payment};
 }
-export const monthlyBills = (bills,month,entries) => bills.map(b=>billOccurrence(b,month,entries)).filter(Boolean).sort((a,b)=>a.dueDate.localeCompare(b.dueDate));
+export const monthlyBills = (bills,month,entries) => bills.filter(b=>b.active!==false).map(b=>billOccurrence(b,month,entries)).filter(Boolean).sort((a,b)=>a.dueDate.localeCompare(b.dueDate));
+export function subscriptionSummary(bills, month, entries) {
+  const occurrences=monthlyBills(bills,month,entries);
+  const active=bills.filter(b=>b.active!==false);
+  const monthly=active.reduce((sum,b)=>sum+Number(b.amount||0),0);
+  const paid=occurrences.filter(b=>b.payment).reduce((sum,b)=>sum+Number(b.amount||0),0);
+  const unpaid=occurrences.filter(b=>!b.payment);
+  return {active:active.length,monthly,annual:monthly*12,paid,unpaid,occurrences};
+}
 
 // Exported text cells are neutralized for spreadsheet formulas. This prefix is
 // removed by our importer only for the exact escaping convention used here.
