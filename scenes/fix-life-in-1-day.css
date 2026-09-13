@@ -1,148 +1,288 @@
 /* ============================================================
-   fix-life-in-1-day — scene/instrument CSS (โหลดเฉพาะบทนี้) · namespace .fixlif-*
+   fix-life-in-1-day — ดีไซน์ editorial ของต้นฉบับ future/proof + 2 ฉาก
    ฟิสิกส์ของเรื่องนี้: ระบบควบคุมแบบป้อนกลับ (closed-loop control)
    แรงที่ทำให้ชนะ = "จำนวนรอบของการแก้" ไม่ใช่ความแม่นของครั้งแรก
-   → ฉาก 1 (helm) ของหนักที่ออกนอกทางแล้วถูกดึงกลับ ความเบี่ยงเบนเล็กลงทุกรอบ  = --e-mass
-   → ฉาก 2 (identity loop) ลูปเดียวกันที่ "ปิดตัวเอง" เดินทีละสเต็ปแบบเครื่องจักร = --e-mech
+   → ฉาก 1 (helm) ของหนักที่ออกนอกทางแล้วถูกดึงกลับ เบี่ยงเบนเล็กลงทุกรอบ = --e-mass
+   → ฉาก 2 (identity loop) ลูปเดียวกันที่ "ปิดตัวเอง" เดินทีละสเต็ป      = --e-mech
+   ทุก selector ขึ้นต้นด้วย .fx — ไม่รั่วออกไปหน้าอื่น
    ============================================================ */
 
-.fixlif-panel { background: #0b0f0e; border-color: #1e2a26; }
-.ph-eyebrow.fixlif { color: #7fb9a4; }
-.fixlif-panel .sa-stage { container-type: inline-size; }
-.fixlif-t { font-family: var(--font-head); fill: #cfd6d2; font-size: 14px; text-anchor: middle; font-weight: 600; }
-.fixlif-n { font-family: "IBM Plex Mono", ui-monospace, monospace; fill: #0b0f0e; font-size: 13px; text-anchor: middle; font-weight: 600; }
-.fixlif-um { font-family: "IBM Plex Mono", ui-monospace, monospace; fill: #6f7a76; font-size: 11.5px; letter-spacing: .18em; }
+@font-face{font-family:'Trirong';font-style:normal;font-weight:400;font-display:swap;src:url('../fonts/trirong-400-thai.woff2') format('woff2');unicode-range:U+02D7,U+0303,U+0331,U+0E01-0E5B,U+200C-200D,U+25CC;}
+@font-face{font-family:'Trirong';font-style:normal;font-weight:400;font-display:swap;src:url('../fonts/trirong-400-latin.woff2') format('woff2');unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+2000-206F,U+2074,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD;}
+@font-face{font-family:'Trirong';font-style:normal;font-weight:600;font-display:swap;src:url('../fonts/trirong-600-thai.woff2') format('woff2');unicode-range:U+02D7,U+0303,U+0331,U+0E01-0E5B,U+200C-200D,U+25CC;}
+@font-face{font-family:'Trirong';font-style:normal;font-weight:600;font-display:swap;src:url('../fonts/trirong-600-latin.woff2') format('woff2');unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+2000-206F,U+2074,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD;}
+@font-face{font-family:'Trirong';font-style:italic;font-weight:300;font-display:swap;src:url('../fonts/trirong-300-italic-thai.woff2') format('woff2');unicode-range:U+02D7,U+0303,U+0331,U+0E01-0E5B,U+200C-200D,U+25CC;}
+@font-face{font-family:'Trirong';font-style:italic;font-weight:300;font-display:swap;src:url('../fonts/trirong-300-italic-latin.woff2') format('woff2');unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+2000-206F,U+2074,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD;}
 
-/* ---------- ฉาก 1: helm / course plot ---------- */
-.fixlif-target { stroke: #4a5a55; stroke-width: 1.6; stroke-dasharray: 7 7; }
-.fixlif-target-label { fill: #7d8a86; font-size: 13px; text-anchor: start; }
-.fixlif-wind path { stroke: #9a8f6a; stroke-width: 1.6; fill: none; }
-.fixlif-wind text { fill: #9a8f6a; font-size: 13px; }
-.fixlif-track { fill: none; stroke: #4ecaa0; stroke-width: 3; stroke-linecap: round; stroke-dasharray: 1500; stroke-dashoffset: 0; }
-.fixlif-fix circle { fill: none; stroke: #c4614a; stroke-width: 2; }
-.fixlif-fix path { stroke: #c4614a; stroke-width: 2; }
-.fixlif-boat circle { fill: #4ecaa0; }
-.fixlif-boat-label { fill: #4ecaa0; font-size: 13px; }
-
-.playing .fixlif-track { animation: fixlif-sail calc(var(--beat) * 7) var(--e-mass); }
-.playing .fixlif-fix { animation: fixlif-pop var(--beat) var(--e-mass); }
-.playing .fixlif-wind, .playing .fixlif-boat { animation: fixlif-fade var(--beat) var(--e-mass); }
-.playing .fixlif-target { animation: fixlif-rule calc(var(--beat) * 1.5) var(--e-mass); }
-@keyframes fixlif-sail { from { stroke-dashoffset: 1500; } }
-@keyframes fixlif-rule { from { opacity: 0; } }
-@keyframes fixlif-pop  { from { opacity: 0; transform: scale(.4); } }
-@keyframes fixlif-fade { from { opacity: 0; } }
-.fixlif-fix { transform-box: fill-box; transform-origin: center; }
-
-/* ---------- ฉาก 2: identity loop ---------- */
-.fixlif-ring { fill: none; stroke: #1e2a26; stroke-width: 26; }
-.fixlif-ring-live { fill: none; stroke: #3f6f60; stroke-width: 26; stroke-dasharray: 880; stroke-dashoffset: 0; transform: rotate(-90deg); transform-box: fill-box; transform-origin: center; }
-.fixlif-node circle { fill: #7fb9a4; }
-.fixlif-node6 circle { fill: #cba14a; }
-.fixlif-node7 circle { fill: #c4614a; }
-.fixlif-center { fill: #6f7a76; font-size: 13px; }
-.fixlif-cut line { stroke: #c4614a; stroke-width: 3; stroke-dasharray: 6 5; }
-.fixlif-cut-label { fill: #c4614a; font-size: 13px; }
-.fixlif-escape path { fill: none; stroke: #6BA697; stroke-width: 2.4; }
-.fixlif-escape circle { fill: #6BA697; }
-.fixlif-escape-label { fill: #6BA697; font-size: 13px; }
-
-.playing .fixlif-ring-live { animation: fixlif-close calc(var(--beat) * 6) var(--e-mech); }
-.playing .fixlif-node { animation: fixlif-pop var(--beat) var(--e-mech); }
-.playing .fixlif-cut, .playing .fixlif-escape { animation: fixlif-fade calc(var(--beat) * 1.2) var(--e-mass); }
-@keyframes fixlif-close { from { stroke-dashoffset: 880; } }
-.fixlif-node { transform-box: fill-box; transform-origin: center; }
-
-@media (prefers-reduced-motion: reduce) { .ph-panel .sa { animation: none !important; } }
-
-/* ============================================================
-   องค์ประกอบเนื้อบท (ไม่ใช่ฉาก) — โครงตามต้นฉบับ future/proof
-   ============================================================ */
-.fixlif-plain { list-style: none; margin: 18px 0; padding: 0; display: flex; flex-direction: column; gap: 10px; }
-.fixlif-plain li { position: relative; padding-left: 22px; color: var(--text); }
-.fixlif-plain li::before { content: ""; position: absolute; left: 0; top: .85em; width: 11px; height: 1px; background: var(--accent); }
-
-.fixlif-pull { margin: 26px 0; padding: 20px 0; border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); font-family: var(--font-head); font-size: clamp(19px, 3.4vw, 25px); line-height: 1.5; font-weight: 600; }
-
-.fixlif-callout { background: var(--surface-2); border: 1px solid var(--border); border-left: 3px solid var(--accent); border-radius: 6px; padding: 18px 20px; margin: 26px 0; display: flex; flex-direction: column; gap: 10px; }
-.fixlif-callout p { margin: 0; font-size: 15px; color: var(--muted); line-height: 1.8; }
-.fixlif-tag { font-family: "IBM Plex Mono", ui-monospace, monospace; font-size: 11px; letter-spacing: .2em; text-transform: uppercase; color: var(--accent); }
-
-blockquote.fixlif-epi { display: flex; flex-direction: column; gap: 10px; }
-.fixlif-en { font-style: italic; font-size: 17px; line-height: 1.6; color: var(--text); margin: 0; }
-.fixlif-th { font-size: 15px; color: var(--muted); line-height: 1.8; margin: 0; }
-.fixlif-epi cite { font-family: "IBM Plex Mono", ui-monospace, monospace; font-style: normal; font-size: 11.5px; letter-spacing: .16em; text-transform: uppercase; color: var(--accent); }
-
-.fixlif-cycle { list-style: none; margin: 22px 0; padding: 0; counter-reset: fixc; }
-.fixlif-cycle li { counter-increment: fixc; position: relative; padding: 12px 0 12px 40px; border-top: 1px solid var(--border); line-height: 1.75; }
-.fixlif-cycle li:first-child { border-top: 0; }
-.fixlif-cycle li::before { content: counter(fixc); position: absolute; left: 0; top: 12px; font-family: "IBM Plex Mono", ui-monospace, monospace; font-size: 13px; color: var(--accent); padding-top: .35em; }
-.fixlif-cycle li.cut { counter-increment: none; border-top: 1px dashed #c4614a; border-bottom: 1px dashed #c4614a; margin: 6px 0; padding: 8px 0 8px 40px; font-family: var(--font-head); font-size: 13px; font-weight: 600; color: #c4614a; }
-.fixlif-cycle li.cut::before { content: none; }
-
-.fixlif-ladder { display: flex; flex-direction: column; border-top: 1px solid var(--border); margin: 22px 0 10px; }
-.fixlif-rung { display: grid; grid-template-columns: 34px 1fr; gap: 0 14px; padding: 14px 0; border-bottom: 1px solid var(--border); align-items: start; }
-.fixlif-rung .n { font-family: "IBM Plex Mono", ui-monospace, monospace; font-size: 13px; color: var(--accent); padding-top: .3em; }
-.fixlif-rung .body { display: flex; flex-direction: column; gap: 5px; }
-.fixlif-rung .nm { font-family: var(--font-head); font-weight: 600; font-size: 16px; display: flex; flex-wrap: wrap; gap: 2px 10px; align-items: baseline; }
-.fixlif-rung .nm em { font-family: "IBM Plex Mono", ui-monospace, monospace; font-style: normal; font-size: 11px; letter-spacing: .1em; text-transform: uppercase; color: var(--muted); }
-.fixlif-rung .ds { font-size: 15px; color: var(--text); line-height: 1.75; }
-.fixlif-rung .ex { font-size: 14px; color: var(--muted); line-height: 1.75; }
-.fixlif-rung .bar { grid-column: 1/-1; height: 2px; background: var(--border); margin-top: 10px; position: relative; }
-.fixlif-rung .bar i { position: absolute; inset: 0 auto 0 0; display: block; background: var(--accent); width: calc(var(--n) / 9 * 100%); opacity: .75; }
-.fixlif-rung.band { background: var(--accent-tint); margin-inline: -10px; padding-inline: 10px; }
-.fixlif-bandnote { font-family: "IBM Plex Mono", ui-monospace, monospace; font-size: 11.5px; letter-spacing: .14em; text-transform: uppercase; color: var(--accent); margin-top: 0; }
-
-.fixlif-phases { display: grid; gap: 1px; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); background: var(--border); border: 1px solid var(--border); border-radius: 8px; overflow: hidden; margin: 24px 0; }
-.fixlif-phase { background: var(--surface); padding: 16px 18px; display: flex; flex-direction: column; gap: 6px; }
-.fixlif-phase b { font-family: "IBM Plex Mono", ui-monospace, monospace; font-size: 11px; letter-spacing: .18em; text-transform: uppercase; color: var(--accent); font-weight: 500; }
-.fixlif-phase strong { font-family: var(--font-head); font-size: 16px; }
-.fixlif-phase span { font-size: 14px; color: var(--muted); line-height: 1.7; }
-
-.fixlif-part { display: flex; flex-direction: column; gap: 6px; margin: 34px 0; }
-.fixlif-parthead { display: flex; flex-direction: column; gap: 4px; border-top: 2px solid var(--accent); padding-top: 12px; margin-bottom: 6px; }
-.fixlif-parthead b { font-family: "IBM Plex Mono", ui-monospace, monospace; font-size: 11px; letter-spacing: .18em; text-transform: uppercase; color: var(--accent); font-weight: 500; }
-.fixlif-parthead strong { font-family: var(--font-head); font-weight: 600; font-size: 20px; line-height: 1.4; }
-
-.fixlif-qset { list-style: none; margin: 14px 0 22px; padding: 0; counter-reset: fixq var(--start, 0); }
-.fixlif-qset li { counter-increment: fixq; position: relative; padding: 13px 0 13px 46px; border-bottom: 1px solid var(--border); line-height: 1.8; }
-.fixlif-qset li::before { content: counter(fixq, decimal-leading-zero); position: absolute; left: 0; top: 13px; font-family: "IBM Plex Mono", ui-monospace, monospace; font-size: 13px; color: var(--accent); padding-top: .35em; }
-.fixlif-qset li i { display: block; font-style: normal; font-size: 14px; color: var(--muted); margin-top: 4px; }
-
-.fixlif-sched { display: flex; flex-direction: column; border-top: 1px solid var(--border); margin: 18px 0 22px; }
-.fixlif-slot { display: grid; grid-template-columns: 74px 1fr; gap: 0 16px; padding: 13px 0; border-bottom: 1px solid var(--border); align-items: baseline; }
-.fixlif-slot time { font-family: "IBM Plex Mono", ui-monospace, monospace; font-size: 13.5px; color: var(--accent); }
-.fixlif-slot p { margin: 0; font-size: 15.5px; line-height: 1.7; }
-.fixlif-slot p i { font-style: normal; color: var(--muted); font-size: 14px; }
-
-.fixlif-map { display: grid; gap: 1px; background: var(--border); border: 1px solid var(--border); border-radius: 8px; overflow: hidden; margin: 24px 0; }
-.fixlif-maprow { display: grid; grid-template-columns: 1fr 1fr; gap: 1px; background: var(--border); }
-.fixlif-maprow > div { background: var(--surface); padding: 14px 16px; display: flex; flex-direction: column; gap: 4px; }
-.fixlif-maprow .g { background: var(--surface-2); }
-.fixlif-maprow b { font-family: var(--font-head); font-size: 15.5px; font-weight: 600; }
-.fixlif-maprow span { font-size: 14px; color: var(--muted); line-height: 1.65; }
-.fixlif-maprow .g b { color: var(--accent); }
-.fixlif-maphead > div { background: var(--bg); padding: 9px 16px; }
-.fixlif-maphead span { font-family: "IBM Plex Mono", ui-monospace, monospace; font-size: 11px; letter-spacing: .18em; text-transform: uppercase; color: var(--muted); }
-
-.fixlif-poles { display: grid; gap: 1px; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); background: var(--border); border: 1px solid var(--border); border-radius: 8px; overflow: hidden; margin: 24px 0; }
-.fixlif-pole { background: var(--surface); padding: 16px 18px; display: flex; flex-direction: column; gap: 6px; }
-.fixlif-pole b { font-family: "IBM Plex Mono", ui-monospace, monospace; font-size: 11px; letter-spacing: .18em; text-transform: uppercase; font-weight: 500; color: #c4614a; }
-.fixlif-pole p { margin: 0; font-size: 14.5px; color: var(--text); line-height: 1.7; }
-
-.fixlif-credit { border: 1px solid var(--border); border-radius: 10px; background: var(--surface-2); padding: 22px; display: flex; flex-direction: column; gap: 14px; margin: 20px 0 8px; }
-.fixlif-who { font-family: var(--font-head); font-weight: 600; font-size: 19px; margin: 0; }
-.fixlif-credit dl { margin: 0; display: grid; grid-template-columns: auto 1fr; gap: 6px 18px; font-size: 14.5px; align-items: baseline; }
-.fixlif-credit dt { font-family: "IBM Plex Mono", ui-monospace, monospace; font-size: 11px; letter-spacing: .14em; text-transform: uppercase; color: var(--muted); }
-.fixlif-credit dd { margin: 0; }
-.fixlif-credit p { margin: 0; font-size: 14.5px; line-height: 1.8; color: var(--text); }
-.fixlif-fine { font-size: 13px !important; color: var(--muted) !important; border-top: 1px solid var(--border); padding-top: 12px; }
-
-@media (max-width: 560px) {
-  .fixlif-maprow { grid-template-columns: 1fr; }
-  .fixlif-maphead { display: none; }
-  .fixlif-maprow .g b::before { content: "→ "; }
-  .fixlif-slot { grid-template-columns: 1fr; gap: 3px; }
-  .fixlif-credit dl { grid-template-columns: 1fr; gap: 2px; }
-  .fixlif-credit dt { margin-top: 8px; }
+/* ---------- palette: light = ค่าเริ่มต้น, dark ตามธีมเว็บ ---------- */
+.fx{
+  --fx-ground:#E9E7E0; --fx-panel:#F2F0E9; --fx-panel2:#E1DFD6;
+  --fx-rule:#C8C5B9; --fx-soft:#D7D4CA;
+  --fx-ink:#191C21; --fx-ink2:#3B3F46; --fx-dim:#61656C;
+  --fx-brass:#8A6516; --fx-brass2:#6E5010; --fx-rust:#9C4330; --fx-verd:#2C6256;
+  --fx-display:"Trirong", Georgia, "Times New Roman", serif;
+  --fx-mono:"IBM Plex Mono", ui-monospace, "SF Mono", Menlo, monospace;
 }
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]) .fx{
+    --fx-ground:#11141A; --fx-panel:#181C23; --fx-panel2:#1E222A;
+    --fx-rule:#2B313B; --fx-soft:#212630;
+    --fx-ink:#E9E4D9; --fx-ink2:#C3BFB6; --fx-dim:#8B8F97;
+    --fx-brass:#CBA14A; --fx-brass2:#A57F33; --fx-rust:#C4614A; --fx-verd:#6BA697;
+  }
+}
+:root[data-theme="dark"] .fx{
+  --fx-ground:#11141A; --fx-panel:#181C23; --fx-panel2:#1E222A;
+  --fx-rule:#2B313B; --fx-soft:#212630;
+  --fx-ink:#E9E4D9; --fx-ink2:#C3BFB6; --fx-dim:#8B8F97;
+  --fx-brass:#CBA14A; --fx-brass2:#A57F33; --fx-rust:#C4614A; --fx-verd:#6BA697;
+}
+
+/* ---------- พื้นบท + ตารางกริดบนหัวเรื่อง ---------- */
+.fx{ position:relative; color:var(--fx-ink); font-size:17px; line-height:1.85; counter-reset:fxsec; }
+.fx::before{
+  content:""; position:absolute; inset:-28px -24px auto -24px; height:430px; pointer-events:none; z-index:0;
+  background:repeating-linear-gradient(to right,var(--fx-brass) 0 1px,transparent 1px 26px),
+             repeating-linear-gradient(to bottom,var(--fx-brass) 0 1px,transparent 1px 26px);
+  opacity:.07;
+  -webkit-mask-image:linear-gradient(to bottom,#000,transparent 78%);
+  mask-image:linear-gradient(to bottom,#000,transparent 78%);
+}
+.fx > *{ position:relative; z-index:1; }
+.fx p{ color:var(--fx-ink); }
+
+/* ---------- masthead ---------- */
+.fx .kicker{
+  display:flex; flex-wrap:wrap; align-items:baseline; gap:.55rem .9rem; margin-bottom:1.1rem;
+  font-family:var(--fx-mono); font-size:.7rem; letter-spacing:.18em; text-transform:uppercase;
+  color:var(--fx-brass); background:none; padding:0;
+}
+.fx .kicker span:not(:first-child){ color:var(--fx-dim); }
+.fx h1{
+  font-family:var(--fx-display); font-weight:600; letter-spacing:-.01em;
+  font-size:clamp(2.3rem,8.4vw,4rem); line-height:1.12; text-wrap:balance; margin:0 0 1.2rem;
+  color:var(--fx-ink);
+}
+.fx-dek{
+  font-family:var(--fx-display); font-weight:300; font-style:italic;
+  font-size:clamp(1.08rem,3.1vw,1.36rem); line-height:1.6; color:var(--fx-ink2);
+  max-width:34rem; margin:0 0 1.7rem !important; text-wrap:balance;
+}
+.fx .byline{
+  display:flex; flex-wrap:wrap; gap:.45rem 1.1rem; align-items:center;
+  padding-top:1rem; border-top:1px solid var(--fx-soft); border-bottom:0;
+  font-size:.9rem; color:var(--fx-dim); margin-bottom:0;
+}
+.fx .byline b{ color:var(--fx-ink); font-weight:600; }
+.fx .byline .fx-src{ color:var(--fx-brass); text-decoration:none; border-bottom:1px solid var(--fx-brass2); }
+
+/* ---------- สารบัญ 2 คอลัมน์ + เลขโรมัน ---------- */
+.fx .toc{ background:none; border:0; border-top:1px solid var(--fx-rule); border-bottom:1px solid var(--fx-rule);
+          border-radius:0; padding:1.5rem 0; margin:1.6rem 0 0; }
+.fx .toc-title{ font-family:var(--fx-mono); font-size:.68rem; letter-spacing:.2em; text-transform:uppercase;
+                color:var(--fx-dim); font-weight:500; margin-bottom:.9rem; }
+.fx .toc ol{ list-style:none; margin:0; padding:0; counter-reset:fxtoc; display:grid; gap:.15rem;
+             grid-template-columns:repeat(auto-fill,minmax(15rem,1fr)); }
+.fx .toc li{ counter-increment:fxtoc; margin:0; padding:0; }
+.fx .toc li::marker{ content:none; }
+.fx .toc a{ display:flex; gap:.8rem; align-items:baseline; color:var(--fx-ink2); text-decoration:none;
+            padding:.35rem .5rem .35rem 0; border-bottom:1px solid transparent; font-size:.94rem; }
+.fx .toc a::before{ content:counter(fxtoc,upper-roman); font-family:var(--fx-mono); font-size:.75rem;
+                    color:var(--fx-brass); letter-spacing:.08em; min-width:1.9rem; }
+.fx .toc a:hover{ color:var(--fx-ink); border-bottom-color:var(--fx-brass); }
+.fx .toc li:last-child{ counter-increment:none; }
+.fx .toc li:last-child a::before{ content:"·"; }
+
+/* ---------- หัวข้อบท ---------- */
+.fx h2{
+  counter-increment:fxsec; position:relative; margin:3.2rem 0 1.1rem; padding:0; border:0;
+  font-family:var(--fx-display); font-weight:600; letter-spacing:-.005em;
+  font-size:clamp(1.5rem,4.4vw,2.05rem); line-height:1.3; text-wrap:balance; max-width:32rem; color:var(--fx-ink);
+}
+.fx h2::before{
+  content:counter(fxsec,upper-roman); display:block; font-family:var(--fx-mono); font-weight:500;
+  font-size:.8rem; letter-spacing:.22em; color:var(--fx-brass); margin-bottom:.5rem;
+}
+.fx h2:last-of-type{ counter-increment:none; }
+.fx h2:last-of-type::before{ content:"CREDITS"; }
+@media (min-width:900px){ .fx h2::before{ position:absolute; left:-3.6rem; top:.55em; margin:0; } }
+.fx h3{
+  font-family:var(--font-head); font-weight:600; font-size:1.02rem; line-height:1.6;
+  margin:1.8rem 0 .6rem; color:var(--fx-ink); display:flex; align-items:baseline; gap:.7rem;
+}
+.fx h3::before{ content:""; flex:0 0 1.1rem; height:1px; background:var(--fx-brass); transform:translateY(-.35em); }
+.fx .lead{ font-size:1.06rem; color:var(--fx-ink2); border:0; padding:0; background:none; margin-top:2.2rem; }
+.fx a{ color:var(--fx-brass); }
+.fx strong{ color:var(--fx-ink); font-weight:600; }
+.fx blockquote{
+  background:var(--fx-panel); border:1px solid var(--fx-rule); border-left:3px solid var(--fx-brass);
+  border-radius:0; padding:1.25rem 1.35rem; color:var(--fx-ink2); font-size:.95rem; line-height:1.78;
+}
+
+/* ---------- องค์ประกอบเนื้อบท ---------- */
+.fx .fixlif-plain{ list-style:none; margin:1.2rem 0; padding:0; display:flex; flex-direction:column; gap:.55rem; max-width:37rem; }
+.fx .fixlif-plain li{ position:relative; padding-left:1.35rem; color:var(--fx-ink2); }
+.fx .fixlif-plain li::before{ content:""; position:absolute; left:0; top:.85em; width:.6rem; height:1px; background:var(--fx-brass); }
+
+.fx .fixlif-pull{
+  margin:1.6rem 0; padding:1.5rem 0; border-top:1px solid var(--fx-rule); border-bottom:1px solid var(--fx-rule);
+  font-family:var(--fx-display); font-weight:300; font-size:clamp(1.3rem,4vw,1.7rem); line-height:1.5;
+  color:var(--fx-ink); text-wrap:balance; max-width:34rem;
+}
+
+.fx .fixlif-callout{
+  background:var(--fx-panel); border:1px solid var(--fx-rule); border-left:3px solid var(--fx-brass);
+  border-radius:0; padding:1.25rem 1.35rem; display:flex; flex-direction:column; gap:.7rem; margin:1.8rem 0;
+}
+.fx .fixlif-callout p{ font-size:.95rem; color:var(--fx-ink2); line-height:1.75; margin:0; }
+.fx .fixlif-tag{ font-family:var(--fx-mono); font-size:.66rem; letter-spacing:.2em; text-transform:uppercase; color:var(--fx-brass); }
+
+.fx blockquote.fixlif-epi{
+  margin:1.8rem 0; padding:0 0 0 1.4rem; background:none; border:0; border-left:1px solid var(--fx-rule);
+  display:flex; flex-direction:column; gap:.75rem; max-width:36rem;
+}
+.fx .fixlif-en{ font-family:var(--fx-display); font-weight:300; font-style:italic; font-size:1.15rem; line-height:1.55; color:var(--fx-ink); margin:0; }
+.fx .fixlif-th{ font-size:.94rem; color:var(--fx-dim); line-height:1.75; margin:0; }
+.fx .fixlif-epi cite{ font-family:var(--fx-mono); font-style:normal; font-size:.7rem; letter-spacing:.16em; text-transform:uppercase; color:var(--fx-brass); }
+
+.fx .fixlif-cycle{ list-style:none; margin:1.4rem 0; padding:0; counter-reset:fxc; max-width:37rem; }
+.fx .fixlif-cycle li{ counter-increment:fxc; position:relative; padding:.75rem 0 .75rem 2.4rem; border-top:1px solid var(--fx-soft); color:var(--fx-ink2); line-height:1.7; }
+.fx .fixlif-cycle li:first-child{ border-top:0; }
+.fx .fixlif-cycle li::before{ content:counter(fxc); position:absolute; left:0; top:.75rem; font-family:var(--fx-mono); font-size:.78rem; color:var(--fx-brass); padding-top:.42em; font-variant-numeric:tabular-nums; }
+.fx .fixlif-cycle li.cut{ counter-increment:none; border-top:1px dashed var(--fx-rust); border-bottom:1px dashed var(--fx-rust); margin-block:.3rem; padding:.5rem 0 .5rem 2.4rem; font-family:var(--fx-mono); font-size:.72rem; letter-spacing:.14em; text-transform:uppercase; color:var(--fx-rust); }
+.fx .fixlif-cycle li.cut::before{ content:none; }
+
+.fx .fixlif-ladder{ display:flex; flex-direction:column; border-top:1px solid var(--fx-rule); margin:1.4rem 0 .6rem; }
+.fx .fixlif-rung{ display:grid; grid-template-columns:2.1rem 1fr; gap:0 .95rem; align-items:start; padding:.95rem 0; border-bottom:1px solid var(--fx-soft); }
+.fx .fixlif-rung .n{ font-family:var(--fx-mono); font-size:.78rem; color:var(--fx-brass); padding-top:.28em; font-variant-numeric:tabular-nums; }
+.fx .fixlif-rung .body{ display:flex; flex-direction:column; gap:.3rem; }
+.fx .fixlif-rung .nm{ font-family:var(--font-head); font-weight:600; font-size:1rem; line-height:1.5; display:flex; flex-wrap:wrap; gap:.2rem .6rem; align-items:baseline; color:var(--fx-ink); }
+.fx .fixlif-rung .nm em{ font-family:var(--fx-mono); font-style:normal; font-size:.7rem; letter-spacing:.1em; text-transform:uppercase; color:var(--fx-dim); }
+.fx .fixlif-rung .ds{ font-size:.93rem; color:var(--fx-ink2); line-height:1.7; }
+.fx .fixlif-rung .ex{ font-size:.88rem; color:var(--fx-dim); line-height:1.7; }
+.fx .fixlif-rung .bar{ grid-column:1/-1; height:2px; background:var(--fx-soft); margin-top:.7rem; position:relative; }
+.fx .fixlif-rung .bar i{ position:absolute; inset:0 auto 0 0; display:block; background:var(--fx-brass); width:calc(var(--n) / 9 * 100%); opacity:.75; }
+.fx .fixlif-rung.band{ background:color-mix(in srgb,var(--fx-brass) 7%,transparent); margin-inline:-.7rem; padding-inline:.7rem; }
+.fx .fixlif-bandnote{ font-family:var(--fx-mono); font-size:.68rem; letter-spacing:.16em; text-transform:uppercase; color:var(--fx-brass); padding:.75rem 0 0; margin:0; }
+
+.fx .fixlif-phases{ display:grid; gap:1px; grid-template-columns:repeat(auto-fit,minmax(11rem,1fr)); background:var(--fx-rule); border:1px solid var(--fx-rule); margin:1.6rem 0; }
+.fx .fixlif-phase{ background:var(--fx-ground); padding:1.1rem 1.15rem; display:flex; flex-direction:column; gap:.45rem; }
+.fx .fixlif-phase b{ font-family:var(--fx-mono); font-size:.68rem; letter-spacing:.18em; text-transform:uppercase; color:var(--fx-brass); font-weight:500; }
+.fx .fixlif-phase strong{ font-size:1.02rem; }
+.fx .fixlif-phase span{ font-size:.9rem; color:var(--fx-dim); line-height:1.65; }
+
+.fx .fixlif-part{ display:flex; flex-direction:column; gap:1rem; padding-top:.5rem; margin:2rem 0; }
+.fx .fixlif-parthead{ display:flex; flex-direction:column; gap:.3rem; border-top:2px solid var(--fx-brass); padding-top:.85rem; }
+.fx .fixlif-parthead b{ font-family:var(--fx-mono); font-size:.68rem; letter-spacing:.18em; text-transform:uppercase; color:var(--fx-brass); font-weight:500; }
+.fx .fixlif-parthead strong{ font-family:var(--fx-display); font-weight:600; font-size:1.35rem; line-height:1.4; }
+
+.fx .fixlif-qset{ list-style:none; margin:.6rem 0 1.4rem; padding:0; counter-reset:fxq var(--start,0); }
+.fx .fixlif-qset li{ counter-increment:fxq; position:relative; padding:.85rem 0 .85rem 3rem; border-bottom:1px solid var(--fx-soft); line-height:1.75; color:var(--fx-ink); }
+.fx .fixlif-qset li::before{ content:counter(fxq,decimal-leading-zero); position:absolute; left:0; top:.85rem; font-family:var(--fx-mono); font-size:.76rem; color:var(--fx-brass); padding-top:.35em; font-variant-numeric:tabular-nums; }
+.fx .fixlif-qset li i{ display:block; font-style:normal; font-size:.88rem; color:var(--fx-dim); margin-top:.25rem; }
+
+.fx .fixlif-sched{ display:flex; flex-direction:column; border-top:1px solid var(--fx-rule); margin:1.2rem 0 1.4rem; }
+.fx .fixlif-slot{ display:grid; grid-template-columns:5.2rem 1fr; gap:0 1rem; padding:.85rem 0; border-bottom:1px solid var(--fx-soft); align-items:baseline; }
+.fx .fixlif-slot time{ font-family:var(--fx-mono); font-size:.82rem; color:var(--fx-brass); letter-spacing:.04em; font-variant-numeric:tabular-nums; }
+.fx .fixlif-slot p{ font-size:.97rem; line-height:1.7; margin:0; }
+.fx .fixlif-slot p i{ font-style:normal; color:var(--fx-dim); font-size:.88rem; }
+
+.fx .fixlif-map{ display:grid; gap:1px; background:var(--fx-rule); border:1px solid var(--fx-rule); margin:1.6rem 0; }
+.fx .fixlif-maprow{ display:grid; grid-template-columns:1fr 1fr; gap:1px; background:var(--fx-rule); }
+.fx .fixlif-maprow > div{ background:var(--fx-panel); padding:.9rem 1.05rem; display:flex; flex-direction:column; gap:.25rem; }
+.fx .fixlif-maprow .g{ background:var(--fx-panel2); }
+.fx .fixlif-maprow b{ font-size:.97rem; font-weight:600; color:var(--fx-ink); }
+.fx .fixlif-maprow span{ font-size:.87rem; color:var(--fx-dim); line-height:1.65; }
+.fx .fixlif-maprow .g b{ color:var(--fx-brass); }
+.fx .fixlif-maphead > div{ background:var(--fx-ground); padding:.6rem 1.05rem; }
+.fx .fixlif-maphead span{ font-family:var(--fx-mono); font-size:.66rem; letter-spacing:.18em; text-transform:uppercase; color:var(--fx-dim); }
+
+.fx .fixlif-poles{ display:grid; gap:1px; grid-template-columns:repeat(auto-fit,minmax(13rem,1fr)); background:var(--fx-rule); border:1px solid var(--fx-rule); margin:1.6rem 0; }
+.fx .fixlif-pole{ background:var(--fx-ground); padding:1.1rem 1.15rem; display:flex; flex-direction:column; gap:.4rem; }
+.fx .fixlif-pole b{ font-family:var(--fx-mono); font-size:.68rem; letter-spacing:.18em; text-transform:uppercase; font-weight:500; color:var(--fx-rust); }
+.fx .fixlif-pole p{ font-size:.93rem; color:var(--fx-ink2); line-height:1.7; margin:0; }
+
+.fx .fixlif-credit{ border:0; border-top:1px solid var(--fx-rule); background:var(--fx-panel); border-radius:0;
+                    padding:1.8rem 1.5rem; display:flex; flex-direction:column; gap:1.15rem; margin:1.2rem 0 0; }
+.fx .fixlif-who{ font-family:var(--fx-display); font-weight:600; font-size:1.5rem; line-height:1.4; margin:0; }
+.fx .fixlif-credit dl{ margin:0; display:grid; grid-template-columns:auto 1fr; gap:.4rem 1.3rem; font-size:.9rem; align-items:baseline; }
+.fx .fixlif-credit dt{ font-family:var(--fx-mono); font-size:.66rem; letter-spacing:.16em; text-transform:uppercase; color:var(--fx-dim); }
+.fx .fixlif-credit dd{ margin:0; color:var(--fx-ink); }
+.fx .fixlif-credit p{ font-size:.93rem; color:var(--fx-ink2); line-height:1.8; margin:0; }
+.fx .fixlif-fine{ font-size:.82rem !important; color:var(--fx-dim) !important; border-top:1px solid var(--fx-soft); padding-top:1rem; }
+
+/* ---------- ฉาก ---------- */
+.fx .ph-panel{ background:var(--fx-panel); border:1px solid var(--fx-rule); border-radius:0; }
+.fx .ph-eyebrow.fixlif{ color:var(--fx-brass); }
+.fx .ph-fig figcaption{ font-size:.85rem; color:var(--fx-dim); line-height:1.7; }
+.fx .fixlif-panel .sa-stage{ container-type:inline-size; }
+.fx .fixlif-t{ font-family:var(--font-head); fill:var(--fx-ink2); font-size:14px; text-anchor:middle; font-weight:600; }
+.fx .fixlif-n{ font-family:var(--fx-mono); fill:var(--fx-panel); font-size:13px; text-anchor:middle; font-weight:600; }
+.fx .fixlif-um{ font-family:var(--fx-mono); fill:var(--fx-dim); font-size:11.5px; letter-spacing:.18em; }
+
+.fx .fixlif-target{ stroke:var(--fx-rule); stroke-width:1.6; stroke-dasharray:7 7; }
+.fx .fixlif-target-label{ fill:var(--fx-dim); font-size:13px; text-anchor:start; }
+.fx .fixlif-wind path{ stroke:var(--fx-brass2); stroke-width:1.6; fill:none; }
+.fx .fixlif-wind text{ fill:var(--fx-brass2); font-size:13px; }
+.fx .fixlif-track{ fill:none; stroke:var(--fx-verd); stroke-width:3; stroke-linecap:round; stroke-dasharray:1500; stroke-dashoffset:0; }
+.fx .fixlif-fix circle{ fill:none; stroke:var(--fx-rust); stroke-width:2; }
+.fx .fixlif-fix path{ stroke:var(--fx-rust); stroke-width:2; }
+.fx .fixlif-boat circle{ fill:var(--fx-verd); }
+.fx .fixlif-boat-label{ fill:var(--fx-verd); font-size:13px; }
+
+.fx .fixlif-ring{ fill:none; stroke:var(--fx-soft); stroke-width:26; }
+.fx .fixlif-ring-live{ fill:none; stroke:var(--fx-verd); stroke-width:26; stroke-dasharray:855; stroke-dashoffset:0; transform:rotate(-90deg); transform-box:fill-box; transform-origin:center; opacity:.55; }
+.fx .fixlif-node circle{ fill:var(--fx-verd); }
+.fx .fixlif-node6 circle{ fill:var(--fx-brass); }
+.fx .fixlif-node7 circle{ fill:var(--fx-rust); }
+.fx .fixlif-center{ fill:var(--fx-dim); font-size:13px; }
+.fx .fixlif-cut line{ stroke:var(--fx-rust); stroke-width:3; stroke-dasharray:6 5; }
+.fx .fixlif-cut-label{ fill:var(--fx-rust); font-size:13px; }
+.fx .fixlif-escape path{ fill:none; stroke:var(--fx-verd); stroke-width:2.4; }
+.fx .fixlif-escape circle{ fill:var(--fx-verd); }
+.fx .fixlif-escape-label{ fill:var(--fx-verd); font-size:13px; }
+
+.fx .playing .fixlif-track{ animation:fixlif-sail calc(var(--beat) * 7) var(--e-mass); }
+.fx .playing .fixlif-fix{ animation:fixlif-pop var(--beat) var(--e-mass); }
+.fx .playing .fixlif-wind,.fx .playing .fixlif-boat{ animation:fixlif-fade var(--beat) var(--e-mass); }
+.fx .playing .fixlif-target{ animation:fixlif-fade calc(var(--beat) * 1.5) var(--e-mass); }
+.fx .playing .fixlif-ring-live{ animation:fixlif-close calc(var(--beat) * 6) var(--e-mech); }
+.fx .playing .fixlif-node{ animation:fixlif-pop var(--beat) var(--e-mech); }
+.fx .playing .fixlif-cut,.fx .playing .fixlif-escape,.fx .playing .fixlif-legend{ animation:fixlif-fade calc(var(--beat) * 1.2) var(--e-mass); }
+@keyframes fixlif-sail{ from{ stroke-dashoffset:1500; } }
+@keyframes fixlif-close{ from{ stroke-dashoffset:855; } }
+@keyframes fixlif-pop{ from{ opacity:0; transform:scale(.4); } }
+@keyframes fixlif-fade{ from{ opacity:0; } }
+.fx .fixlif-fix,.fx .fixlif-node{ transform-box:fill-box; transform-origin:center; }
+@media (prefers-reduced-motion: reduce){ .fx .ph-panel .sa{ animation:none !important; } }
+
+@media (max-width:560px){
+  .fx .fixlif-maprow{ grid-template-columns:1fr; }
+  .fx .fixlif-maphead{ display:none; }
+  .fx .fixlif-maprow .g b::before{ content:"→ "; }
+  .fx .fixlif-slot{ grid-template-columns:1fr; gap:.25rem; }
+  .fx .fixlif-credit dl{ grid-template-columns:1fr; gap:.15rem; }
+  .fx .fixlif-credit dt{ margin-top:.6rem; }
+}
+
+/* ---------- กันบั๊ก iOS: ข้อความไทยห้ามอยู่บน mono + letter-spacing ----------
+   (สระ/วรรณยุกต์หลุดจากพยัญชนะบน WebKit — Chrome/headless มองไม่เห็นบั๊กนี้)
+   ป้ายที่เป็นไทยจึงใช้ --font-head ไม่มี tracking · เหลือ mono เฉพาะละติน/ตัวเลข */
+.fx .kicker{ letter-spacing:normal; }
+.fx .kicker span:first-child{ font-family:var(--fx-mono); letter-spacing:.18em; }
+.fx .kicker span:not(:first-child){ font-family:var(--font-head); letter-spacing:normal; text-transform:none; font-size:.78rem; }
+.fx .toc-title,
+.fx .fixlif-tag,
+.fx .fixlif-phase b,
+.fx .fixlif-parthead b,
+.fx .fixlif-pole b,
+.fx .fixlif-credit dt,
+.fx .fixlif-maphead span,
+.fx .fixlif-bandnote,
+.fx .fixlif-cycle li.cut{
+  font-family:var(--font-head); letter-spacing:normal; text-transform:none; font-weight:600;
+}
+.fx .toc-title{ font-size:.8rem; }
+.fx .fixlif-tag,.fx .fixlif-phase b,.fx .fixlif-parthead b,.fx .fixlif-pole b{ font-size:.78rem; }
+.fx .fixlif-credit dt,.fx .fixlif-maphead span{ font-size:.76rem; }
+.fx .fixlif-bandnote,.fx .fixlif-cycle li.cut{ font-size:.82rem; }
