@@ -3,6 +3,9 @@ import { escapeHTML as esc, dateLabel, needsReview } from './app/js/core/researc
 // This is the same dated public catalog used by Research; no personal storage is read.
 const host = document.getElementById('home-companies');
 const search = document.getElementById('company-search');
+const pulseReview = document.querySelector('[data-pulse-review]');
+const pulseEvidence = document.querySelector('[data-pulse-evidence]');
+const pulseLatest = document.querySelector('[data-pulse-latest]');
 let companies = [];
 
 // Keep the existing companion and its controls in the sidebar, clear of the reading area.
@@ -114,10 +117,18 @@ function render() {
   const filtered = companies.filter(c => `${c.ticker} ${c.name} ${c.sector}`.toLocaleLowerCase().includes(query));
   host.innerHTML = filtered.length ? filtered.map(c => `<a class="home-company" href="portfolio.html?view=research&amp;ticker=${encodeURIComponent(c.ticker)}">
     <span class="home-company-logo"><span>${esc(c.ticker.slice(0, 2))}</span><img src="app/assets/brands/${encodeURIComponent(c.ticker)}.png" alt="" width="42" height="42"></span>
-    <span class="home-company-body"><span class="home-company-identity"><b>${esc(c.name)}</b><span>${esc(c.ticker)}</span></span><span class="home-company-focus" lang="th">${esc(c.focus)}</span><span class="home-company-date">บทความอัปเดต ${esc(dateLabel(c.snapshotDate))}</span></span>
+    <span class="home-company-body"><span class="home-company-identity"><b>${esc(c.name)}</b><span>${esc(c.ticker)}</span></span><span class="home-company-focus" lang="th">${esc(c.focus)}</span><span class="home-company-metrics"><span>${c.monitors.length} จุดติดตาม</span><span>${Object.keys(c.powers || {}).length} หลักฐานคูเมือง</span></span><span class="home-company-date">บทความอัปเดต ${esc(dateLabel(c.snapshotDate))}</span></span>
     <span class="home-company-status"><span class="${needsReview(c) ? 'is-due' : ''}">${needsReview(c) ? 'ถึงรอบทบทวน' : 'Research snapshot'}</span><span aria-hidden="true">↗︎</span></span>
   </a>`).join('') : '<div class="home-loading"><p>ไม่พบบริษัทใน Research ที่ตรงกับคำค้น</p><button class="home-button" type="button" data-clear-search>ดูบริษัททั้งหมด</button></div>';
   for (const img of host.querySelectorAll('img')) img.addEventListener('error', () => img.remove(), { once: true });
+}
+
+function renderPulse() {
+  if (!pulseReview || !pulseEvidence || !pulseLatest || !companies.length) return;
+  pulseReview.textContent = companies.filter(c => needsReview(c)).length;
+  pulseEvidence.textContent = companies.reduce((sum, c) => sum + Object.keys(c.powers || {}).length, 0);
+  const latest = companies.reduce((date, c) => c.snapshotDate > date ? c.snapshotDate : date, '');
+  pulseLatest.textContent = latest ? dateLabel(latest) : '—';
 }
 
 async function start() {
@@ -130,6 +141,7 @@ async function start() {
     companies = data.companies;
     search.disabled = false;
     render();
+    renderPulse();
   } catch {
     host.innerHTML = '<div class="home-loading"><p>โหลดรายชื่อบริษัทไม่สำเร็จ</p><button class="home-button" type="button" data-retry-research>ลองอีกครั้ง</button><a href="stocks.html">เปิดคลังหุ้น →</a></div>';
   }

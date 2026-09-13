@@ -57,6 +57,10 @@ try:
         page.on('pageerror', lambda error: errors.append(str(error)))
         page.goto(origin + '/index.html', wait_until='domcontentloaded')
         expect(page.locator('.home-company')).to_have_count(3)
+        expect(page.locator('.home-pulse')).to_be_visible()
+        expect(page.locator('.home-pulse-card')).to_have_count(3)
+        expect(page.locator('[data-pulse-review]')).not_to_have_text('—')
+        expect(page.locator('.home-company').first).to_contain_text('จุดติดตาม')
         page.evaluate('document.fonts.ready')
         expect(page.locator('.site-header .moa-brand-section')).to_have_text('RESEARCH')
         assert page.evaluate('getComputedStyle(document.body).backgroundColor') == 'rgb(16, 18, 20)'

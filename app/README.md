@@ -185,6 +185,8 @@ Research confirms device writes before acknowledging follows and saved notes, so
 
 The five-layer approach card sits below Your Workspace on desktop. At widths up to 820px, the same card moves after company coverage and before the latest articles, preserving reading and keyboard order. Its SVG uses the shared mint palette and links to the 7 Powers collection; TARS remains in the sidebar.
 
+The home page also includes a small Research Pulse strip. Its review queue, moat-evidence count, and latest snapshot date are derived from the dated Research catalog, while each company row exposes its monitor and moat-evidence counts as compact metadata.
+
 The approach card is interactive: each layer can be selected by pointer, touch, or ArrowUp/ArrowDown/Home/End. The panel below explains the selected layer, and a small mint dot travels through the layers once when the card first enters the viewport. `prefers-reduced-motion` disables the journey and keeps the card static.
 
 The News layer separates Macro forces (rates, inflation, currency, cycles, regulation) from Micro forces (customers, competitors, pricing, costs, management). The Financials layer connects the Income Statement, Balance Sheet, and Cash Flow Statement so the user can test whether reported profit becomes durable cash flow. The Business layer maps the value engine from customer and revenue to unit economics; the Moat layer asks what protects that profit from imitation over time.
