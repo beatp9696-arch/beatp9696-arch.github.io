@@ -27,6 +27,7 @@ const change = row => row.changePercent === null ? (row.status === 'new' ? 'New'
 const symbol = row => row.symbol || row.issuer;
 const logos = {AAPL: 'AAPL.svg', AXP: 'AXP.png', GOOGL: 'GOOGL.png', GOOG: 'GOOGL.png', NVDA: 'NVDA.png', MSFT: 'MSFT.png', COHR: 'COHR.png', SNPS: 'SNPS.png', KO: 'KO.png', BAC: 'BAC.png', INTC: 'INTC.png', SpaceX: 'SPACEX.svg', BLK: 'BLK.png', BN: 'BN.png', AMZN: 'AMZN.png', UBER: 'UBER.png', QSR: 'QSR.png', SPY: 'SPY.png', IVV: 'IVV.png', TSLA: 'TSLA.png', WFC: 'WFC.png', BABA: 'BABA.png'};
 const logoURL = key => logos[key] ? new URL(`../../assets/brands/${logos[key]}`, import.meta.url).href : null;
+const DARK_LOGO_KEYS = new Set(['NOK', 'TEM']);
 Object.assign(logos, Object.fromEntries(['CRWV','NOK','V','AVGO','AMD','TEM','HOOD','USB','TSM','GPN','MU','META','GS','DELL','OBDC','CVX','XOM','MRK'].map(key => [key, key + '.png'])));
 // Issuer logos also identify disclosed instruments without a mapped stock symbol.
 const issuerLogos = {'902973304': 'USB', '874039100': 'TSM', '37940XAU6': 'GPN', '595112103': 'MU', '500754106': 'KHC', '501044101': 'KR', '530909308': 'LLYVK', '650111107': 'NYT', '14040H105': 'COF', '530909100': 'LLYVA', '546347105': 'LPX', '47233W109': 'JEF'};
@@ -134,12 +135,15 @@ function ring(fund, detailed = false) {
     angle += row.fraction * 2 * Math.PI;
     if (row.id === 'other' || i > 4 || row.fraction < RING_LOGO_MIN_FRACTION) return '';
     const x = 110 + Math.cos(mid) * 78, y = 110 + Math.sin(mid) * 78;
-    const url = logoURL(rowLogoKey(row));
+    const key = rowLogoKey(row);
+    const url = logoURL(key);
     const label = (row.symbol || row.issuer.split(' ')[0]).slice(0, 4);
-    const radius = Math.max(6, Math.min(13, 4 + row.fraction * 38));
-    const imageRadius = Math.max(6, radius - 2);
+    const radius = Math.max(7.5, Math.min(13, 5 + row.fraction * 32));
+    const imageRadius = Math.max(5.5, radius - 1.8);
+    const badgeFill = DARK_LOGO_KEYS.has(key) ? '#101923' : '#f7f9fb';
+    const badgeStroke = DARK_LOGO_KEYS.has(key) ? '#f7f9fb' : '#0d151d';
     const clipId = `sm-stock-${ringId}-${i}`;
-    return `<g class="sm-ring-stock-mark" data-chart-logo="${esc(row.id)}" aria-hidden="true"><circle cx="${x}" cy="${y}" r="${radius}" fill="${url ? '#f5f7fa' : '#101726'}" stroke="#ffffff55" stroke-width=".8"/>${url ? `<defs><clipPath id="${clipId}"><circle cx="${x}" cy="${y}" r="${imageRadius}"/></clipPath></defs><image href="${url}" x="${x-imageRadius}" y="${y-imageRadius}" width="${imageRadius*2}" height="${imageRadius*2}" preserveAspectRatio="xMidYMid meet" clip-path="url(#${clipId})"/>` : `<text x="${x}" y="${y+2.5}" text-anchor="middle" fill="#fff" font-size="${Math.max(6, radius*.55)}" font-weight="600">${esc(label)}</text>`}</g>`;
+    return `<g class="sm-ring-stock-mark" data-chart-logo="${esc(row.id)}" aria-hidden="true"><circle cx="${x}" cy="${y}" r="${radius}" fill="${url ? badgeFill : '#101726'}" stroke="${url ? badgeStroke : '#ffffff80'}" stroke-width="1.2"/>${url ? `<defs><clipPath id="${clipId}"><circle cx="${x}" cy="${y}" r="${imageRadius}"/></clipPath></defs><image href="${url}" x="${x-imageRadius}" y="${y-imageRadius}" width="${imageRadius*2}" height="${imageRadius*2}" preserveAspectRatio="xMidYMid meet" clip-path="url(#${clipId})"/>` : `<text x="${x}" y="${y+2.5}" text-anchor="middle" fill="#fff" font-size="${Math.max(6, radius*.55)}" font-weight="600">${esc(label)}</text>`}</g>`;
   }).join('');
   const center = profileImages[fund.id]
     ? `<span class="sm-brand sm-brand-${esc(fund.id)} sm-brand-${profileImages[fund.id][1]}">${profileImage(fund)}</span>`
