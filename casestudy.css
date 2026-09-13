@@ -838,3 +838,46 @@ body.cs .site-footer { font-family: var(--font-book); }
   .cs-opener-art * { animation: none !important; }
   .cs-opener-art .ar-car { opacity: 0; }
 }
+
+/* AMD — ธีมซิลิคอน: หมึกทองแดง (โลหะที่ใช้เดินสายในชิป) บนกระดาษครีม
+   แผ่นภาพเป็นจอ yield monitor สีเทาเข้ม · แดง AMD สงวนไว้ให้ "ไดที่ตาย" กับวิกฤตปี 2015 เท่านั้น */
+body.cs[data-cs-theme="amd"] {
+  --cs-a:      #7A5230;
+  --cs-a-lit:  #C08A55;
+  --cs-a-hair: #D9C6B0;
+  --cs-a-deep: #5E3D22;
+  --cs-a-tint: #F3ECE3;
+  --cs-alt:    #A8232B;
+
+  --bg: #EBE7DE;
+  --surface: #FBFAF7;
+  --surface-2: #F3F0E9;
+  --text: #16161A;
+  --muted: #66625C;
+  --border: #D9D3C8;
+  --header-bg: rgba(235, 231, 222, 0.88);
+  --shadow-md: 0 10px 40px rgba(40, 32, 20, 0.12);
+
+  --paper: #FBFAF7;
+  --paper-edge: #F0ECE3;
+  --ink: #16161A;
+  --ink-soft: #454138;
+  --plate: #0C0F0F;
+  --plate-line: #2A2A24;
+  --plate-ink: #E6E8E3;
+  --opener-bg: #090B0B;
+  --opener-ink: #EDE9DE;
+  --glow: 192 138 85;
+  --title-hi: #E0BE90;
+  --title-mid: #C08A55;
+  --title-lo: #8A5E33;
+  --plate-dim: #8A8C86;
+  --plate-deep: #060808;
+  --plate-card: #141817;
+  --plate-grid: #121615;
+  --plate-edge: #1C201E;
+  --plate-tick: #3A403C;
+  --plate-ring: #101413;
+  --a-mid: #96683C;
+  --a-mute: #64452A;
+}

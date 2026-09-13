@@ -1,0 +1,1219 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <script>try{var t=localStorage.getItem('theme');if(t)document.documentElement.setAttribute('data-theme',t);}catch(e){}</script>
+  <title>เคสศึกษา 2: AMD — บริษัทที่ขายโรงงานทิ้งตอนจนตรอก แล้วหุ้นขึ้น 318 เด้ง | Moatrices</title>
+  <meta name="description" content="ราคาปิดต่ำสุด $1.62 ปี 2015 → $516 วันนี้ คือ 318 เด้ง แต่คนที่คิดว่า AMD ชนะเพราะ Lisa Su เก่งหรือ Ryzen แรง กำลังอ่านเคสนี้ผิด ตัวจริงคือเรขาคณิตข้อเดียว: ฝุ่นเม็ดเดียวบนเวเฟอร์ฆ่าชิป 698 ตร.มม. ทั้งก้อน แต่ฆ่าชิป 74 ตร.มม. แค่ชิ้นเดียว">
+  <meta property="og:type" content="article">
+  <meta property="og:site_name" content="Moatrices">
+  <meta property="og:title" content="เคสศึกษา 2: AMD — บริษัทที่ขายโรงงานทิ้งตอนจนตรอก แล้วหุ้นขึ้น 318 เด้ง">
+  <meta property="og:description" content="ราคาปิดต่ำสุด $1.62 ปี 2015 → $516 วันนี้ คือ 318 เด้ง แต่คนที่คิดว่า AMD ชนะเพราะ Lisa Su เก่งหรือ Ryzen แรง กำลังอ่านเคสนี้ผิด ตัวจริงคือเรขาคณิตข้อเดียว: ฝุ่นเม็ดเดียวบนเวเฟอร์ฆ่าชิป 698 ตร.มม. ทั้งก้อน แต่ฆ่าชิป 74 ตร.มม. แค่ชิ้นเดียว">
+  <meta property="og:url" content="https://beatp9696-arch.github.io/articles/case-study-02-amd.html">
+  <meta property="og:locale" content="th_TH">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta property="og:image" content="https://beatp9696-arch.github.io/og-case-study-02-amd.jpg">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta name="twitter:image" content="https://beatp9696-arch.github.io/og-case-study-02-amd.jpg">
+  <meta name="author" content="Moatrices">
+  <link rel="canonical" href="https://beatp9696-arch.github.io/articles/case-study-02-amd.html">
+  <link rel="alternate" type="application/rss+xml" title="Moatrices RSS" href="/feed.xml">
+  <meta name="theme-color" media="(prefers-color-scheme: light)" content="#f7f5f0">
+  <meta name="theme-color" media="(prefers-color-scheme: dark)" content="#121417">
+  <link rel="icon" href="../favicon.svg" type="image/svg+xml">
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png">
+  <link rel="manifest" href="/site.webmanifest">
+  <link rel="preload" as="font" type="font/woff2" href="../fonts/sarabun-400-thai.woff2" crossorigin>
+  <link rel="preload" as="font" type="font/woff2" href="../fonts/sarabun-400-latin.woff2" crossorigin>
+  <link rel="preload" as="font" type="font/woff2" href="../fonts/trirong-400-latin.woff2" crossorigin>
+  <link rel="preload" as="font" type="font/woff2" href="../fonts/playfair-display-700-latin.woff2" crossorigin>
+  <link rel="preload" as="font" type="font/woff2" href="../fonts/cinzel-600-latin.woff2" crossorigin>
+  <link rel="stylesheet" href="../style.min.css">
+      <!-- SCENE-CSS -->
+      <link rel="stylesheet" href="../scenes/case-study-02-amd.min.css">
+      <!-- /SCENE-CSS -->
+  <link rel="stylesheet" href="../casestudy.min.css">
+  <script type="application/ld+json">
+  {"@context": "https://schema.org", "@type": "BlogPosting", "headline": "เคสศึกษา 2: AMD", "description": "ราคาปิดต่ำสุด $1.62 ปี 2015 → $516 วันนี้ คือ 318 เด้ง แต่คนที่คิดว่า AMD ชนะเพราะ Lisa Su เก่งหรือ Ryzen แรง กำลังอ่านเคสนี้ผิด ตัวจริงคือเรขาคณิตข้อเดียว: ฝุ่นเม็ดเดียวบนเวเฟอร์ฆ่าชิป 698 ตร.มม. ทั้งก้อน แต่ฆ่าชิป 74 ตร.มม. แค่ชิ้นเดียว", "image": ["https://beatp9696-arch.github.io/og-case-study-02-amd.jpg"], "author": {"@type": "Person", "name": "Moatrices"}, "publisher": {"@type": "Organization", "name": "Moatrices", "logo": {"@type": "ImageObject", "url": "https://beatp9696-arch.github.io/icon-512.png"}}, "mainEntityOfPage": {"@type": "WebPage", "@id": "https://beatp9696-arch.github.io/articles/case-study-02-amd.html"}, "inLanguage": "th", "datePublished": "2026-09-13", "dateModified": "2026-09-13"}
+  </script>
+  <script type="application/ld+json">
+  {"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "หน้าแรก", "item": "https://beatp9696-arch.github.io/"}, {"@type": "ListItem", "position": 2, "name": "เคสศึกษา 2: AMD", "item": "https://beatp9696-arch.github.io/articles/case-study-02-amd.html"}]}
+  </script>
+</head>
+<body class="cs" data-cs-theme="amd">
+
+  <div class="reading-progress"></div>
+  <div class="top-accent"></div>
+
+  <!-- SITE-HEADER-START -->
+  <header class="site-header">
+    <div class="container">
+      <a href="../index.html" class="site-title">Moatrices</a>
+      <nav class="site-nav">
+        <a href="../articles.html">บทความ</a>
+        <a href="../stocks.html">หุ้น</a>
+        <a href="../tools.html">เครื่องมือ</a>
+        <a href="/smart-money.html">Smart Money</a>
+      </nav>
+    </div>
+  </header>
+  <!-- SITE-HEADER-END -->
+
+  <main>
+
+    <!-- ═══════════════════ หน้าเปิดบท ═══════════════════ -->
+    <section class="cs-opener cs-bleed">
+      <div class="cs-opener-inner">
+        <p class="cs-eyebrow">Chapter Two</p>
+        <h1>Case Study<br>AMD</h1>
+        <p class="cs-th-title">บริษัทที่ขายโรงงานทิ้งตอนจนตรอก แล้วหุ้นขึ้น 318 เด้ง</p>
+
+        <div class="cs-rule" aria-hidden="true"><span>&#9670;</span></div>
+
+        <div class="cs-opener-quote">
+          <hr>
+          <blockquote>
+            ฝุ่นตกลงบนแผ่นเวเฟอร์ด้วยความหนาแน่นเท่ากันสำหรับทุกคน
+            สิ่งที่ต่างกันคือฝุ่นหนึ่งเม็ดพาชิปไปด้วยได้มากแค่ไหน
+            <span class="cs-attrib lat">&mdash; Y = e<sup>&minus;AD</sup> &middot; Poisson yield model</span>
+          </blockquote>
+        </div>
+      </div>
+
+      <div class="cs-opener-art" aria-hidden="true">
+        <svg viewBox="0 0 1440 210" preserveAspectRatio="xMidYMax slice">
+          <!-- ขอบเวเฟอร์ 300 มม. ที่โผล่ขึ้นมาจากขอบล่างของหน้าเปิด -->
+          <g class="ar-wafer">
+            <circle cx="720" cy="560" r="420"/>
+            <circle cx="720" cy="560" r="404" class="ar-notch"/>
+          </g>
+          <!-- ตารางเรติเคิล: ซ้ายไดใหญ่ ขวาไดเล็ก — ใบ้ถึงอาร์กิวเมนต์ทั้งบทตั้งแต่หน้าแรก -->
+          <g class="ar-grid-big">
+            <rect x="332" y="150" width="88" height="60"/><rect x="424" y="150" width="88" height="60"/>
+            <rect x="516" y="150" width="88" height="60"/><rect x="608" y="150" width="88" height="60"/>
+          </g>
+          <g class="ar-grid-small">
+            <rect x="744" y="150" width="28" height="20"/><rect x="776" y="150" width="28" height="20"/>
+            <rect x="808" y="150" width="28" height="20"/><rect x="840" y="150" width="28" height="20"/>
+            <rect x="872" y="150" width="28" height="20"/><rect x="904" y="150" width="28" height="20"/>
+            <rect x="744" y="174" width="28" height="20"/><rect x="776" y="174" width="28" height="20"/>
+            <rect x="808" y="174" width="28" height="20"/><rect x="840" y="174" width="28" height="20"/>
+            <rect x="872" y="174" width="28" height="20"/><rect x="904" y="174" width="28" height="20"/>
+            <rect x="744" y="198" width="28" height="20"/><rect x="776" y="198" width="28" height="20"/>
+            <rect x="808" y="198" width="28" height="20"/><rect x="840" y="198" width="28" height="20"/>
+            <rect x="872" y="198" width="28" height="20"/><rect x="904" y="198" width="28" height="20"/>
+          </g>
+          <g class="ar-defect">
+            <circle cx="468" cy="182" r="3.5"/>
+            <circle cx="826" cy="186" r="3.5"/>
+          </g>
+        </svg>
+      </div>
+    </section>
+
+    <div class="container cs-body">
+
+      <!-- ═══════════════════ §1 ═══════════════════ -->
+      <div class="cs-paper">
+        <p class="cs-h2n">Prologue</p>
+        <h2 id="sec-1">ราคาปิดที่ต่ำกว่าค่ารถเมล์</h2>
+
+        <p class="cs-dcp">
+          <span class="cs-dc">ว</span>ันจันทร์ที่ 27 กรกฎาคม 2015 หุ้น <span class="lat">AMD</span> ปิดที่ <strong>$1.62</strong>
+          นั่นคือราคาปิดต่ำสุดที่บริษัทนี้เคยทำไว้ในรอบสิบกว่าปี
+          และเป็นราคาที่ถ้าคุณเดินเข้าร้านกาแฟในกรุงเทพฯ วันนั้น คุณจะซื้อหุ้นได้ทั้งบริษัทน้อยกว่าหนึ่งแก้ว
+        </p>
+
+        <p>
+          บริษัทที่ราคานั้นไม่ใช่สตาร์ตอัปที่เพิ่งเข้าตลาด มันคือ <span class="lat">Advanced Micro Devices</span>
+          บริษัทอายุ 46 ปีที่เคยบังคับให้ <span class="lat">Intel</span> ต้องเปลี่ยนสถาปัตยกรรมทั้งค่าย
+          เคยเป็นเจ้าแรกที่ผลักซีพียูข้ามเส้น 1 กิกะเฮิรตซ์ และเคยถือครองส่วนแบ่งเซิร์ฟเวอร์เกินหนึ่งในสี่ของโลก
+        </p>
+
+        <p>
+          สิบเอ็ดปีต่อมา หุ้นตัวเดียวกันซื้อขายอยู่ที่ <strong>$516.13</strong> มูลค่าบริษัท <strong>$841.6 พันล้าน</strong>
+          จาก $1.62 ไป $516.13 คือ <strong>318 เด้ง</strong>
+        </p>
+
+        <div class="cs-poster">
+          <p>คำอธิบายที่คนจำได้ คือ <span class="hl">&ldquo;Lisa Su เก่ง&rdquo;</span><br>คำอธิบายที่ถูก คือ <span class="hl">เรขาคณิต</span></p>
+          <span class="cs-plaque">ฝุ่นเม็ดเดียว <span class="arw">&rarr;</span> ฆ่าชิปใหญ่ทั้งก้อน <span class="arw">&rarr;</span> ฆ่าชิปเล็กชิ้นเดียว</span>
+        </div>
+
+        <p>
+          บทนี้ไม่ได้จะบอกว่า <span class="lat">Lisa Su</span> ไม่เก่ง เธอเก่งจริง และการตัดสินใจของเธอคือสิ่งที่ทำให้เรื่องนี้เกิดขึ้นได้
+          แต่ถ้าเราหยุดคำอธิบายไว้แค่ &ldquo;ได้ซีอีโอที่เก่ง&rdquo; เราจะไม่ได้อะไรกลับไปใช้เลย
+          เพราะเราไม่มีทางรู้ล่วงหน้าว่าใครเก่ง เรารู้ได้หลังจากเขาชนะไปแล้วเท่านั้น
+        </p>
+
+        <p>
+          สิ่งที่เอากลับไปใช้ได้คือ <strong>กลไก</strong> &mdash; และกลไกของเคสนี้เล็กกว่าที่คิดมาก
+          มันคือข้อเท็จจริงทางเรขาคณิตข้อเดียวที่ทุกคนในวงการรู้มาสามสิบปี
+          แต่มีบริษัทเดียวที่ยอมออกแบบสินค้าทั้งค่ายใหม่เพื่อใช้ประโยชน์จากมัน
+        </p>
+
+        <div class="cs-folio" aria-hidden="true">
+          <i class="orn">&#9670;</i><i class="ln"></i>
+          <span class="pg">01</span>
+          <i class="ln"></i><span class="bk">The Moatrices</span>
+        </div>
+      </div>
+
+      <!-- ═══════════════════ §2 ═══════════════════ -->
+      <div class="cs-paper">
+        <p class="cs-h2n">I</p>
+        <h2 id="sec-2">ปี 2015: ตลาดตีราคาบริษัทนี้ไว้เท่าไหร่</h2>
+
+        <p class="cs-dcp">
+          <span class="cs-dc">ถ</span>้าจะเข้าใจว่าทำไมราคา $1.62 ถึงไม่ใช่เรื่องเกินจริง
+          ต้องดูงบปี 2015 ทั้งปีพร้อมกันทีเดียว
+        </p>
+
+        <div class="cs-stats">
+          <div class="cs-stat"><b>$3.99B</b><span>รายได้ทั้งปี 2015 &mdash; ลดลง 28%</span></div>
+          <div class="cs-stat"><b>27%</b><span>อัตรากำไรขั้นต้น &mdash; ลดลง 6 จุด</span></div>
+          <div class="cs-stat"><b>&minus;$660M</b><span>ขาดทุนสุทธิทั้งปี ($0.84 ต่อหุ้น)</span></div>
+          <div class="cs-stat"><b>$1.62</b><span>ราคาปิดต่ำสุด (27 ก.ค. 2015)</span></div>
+        </div>
+
+        <p>
+          รายได้ทั้งปีของ <span class="lat">AMD</span> ตอนนั้นคือ <strong>$3.99 พันล้าน</strong> หดลงจากปีก่อนหน้า 28%
+          อัตรากำไรขั้นต้นอยู่ที่ <strong>27%</strong> ซึ่งสำหรับบริษัทออกแบบชิปถือว่าต่ำจนน่าตกใจ
+          และขาดทุนสุทธิ <strong>$660 ล้าน</strong>
+        </p>
+
+        <p>
+          ตัวเลข 27% นั้นสำคัญมาก จำไว้ให้ดี เพราะทั้งบทนี้จะจบลงที่ตัวเลขเดียวกันตัวนี้อีกครั้ง
+          &mdash; และตอนนั้นมันจะไม่ใช่ 27%
+        </p>
+
+        <p>
+          อัตรากำไรขั้นต้นคือช่องว่างระหว่างราคาที่ขายได้กับต้นทุนของสิ่งที่ขาย
+          เมื่อมันอยู่ที่ 27% แปลว่าทุก $100 ที่ขายชิปออกไป มี $73 ที่จมไปกับต้นทุนการผลิตชิปนั้น
+          เหลือ $27 มาจ่ายค่าวิจัย ค่าออกแบบ ค่าคน ค่าการตลาด และภาษี
+          <span class="lat">AMD</span> ใช้เงินวิจัยปีละกว่าพันล้าน &mdash; เลขมันไม่พอตั้งแต่ต้น
+        </p>
+
+        <p>
+          ตลาดจึงไม่ได้ตีราคา $1.62 เพราะตลาดโง่ ตลาดกำลังพูดสิ่งที่มีเหตุผลมาก นั่นคือ
+          &ldquo;บริษัทนี้ขายของที่ต้นทุนสูงกว่าคู่แข่ง ในตลาดที่คู่แข่งตัวใหญ่กว่าสิบเท่า และเงินกำลังจะหมด&rdquo;
+        </p>
+
+        <p>
+          คำถามที่ถูกจึงไม่ใช่ &ldquo;ทำไมตลาดถึงมองไม่เห็น&rdquo;
+          แต่คือ <strong>&ldquo;อะไรที่เปลี่ยน แล้วทำให้ $73 ก้อนนั้นหดลงได้จริง&rdquo;</strong>
+        </p>
+
+        <div class="cs-folio" aria-hidden="true">
+          <i class="orn">&#9670;</i><i class="ln"></i>
+          <span class="pg">02</span>
+          <i class="ln"></i><span class="bk">The Moatrices</span>
+        </div>
+      </div>
+
+      <!-- ═══════════════════ §3 ═══════════════════ -->
+      <div class="cs-paper">
+        <p class="cs-h2n">II</p>
+        <h2 id="sec-3">เหตุผลข้อที่หนึ่ง: โรงงานที่ขายทิ้งไปแล้ว</h2>
+
+        <p class="cs-dcp">
+          <span class="cs-dc">เ</span>ดือนมีนาคม 2009 <span class="lat">AMD</span> ทำสิ่งที่ในวันนั้นทุกคนอ่านว่าเป็นการยอมแพ้
+          บริษัทแยกโรงงานผลิตชิปทั้งหมดออกไปตั้งเป็นบริษัทใหม่ชื่อ <span class="lat">GlobalFoundries</span>
+          โดยมีกองทุน <span class="lat">ATIC</span> ของอาบูดาบีใส่เงินเข้ามา <span class="lat">AMD</span> เหลือถือหุ้นราว 34%
+          และกลายเป็นลูกค้ารายแรกของโรงงานที่ตัวเองเพิ่งขายไป
+        </p>
+
+        <p>
+          ต้องเข้าใจก่อนว่าในวัฒนธรรมของวงการชิปยุคนั้น การมีโรงงานเป็นของตัวเองคือเครื่องหมายของการเป็นผู้ใหญ่
+          <span class="lat">Intel</span> มีโรงงาน <span class="lat">Samsung</span> มีโรงงาน <span class="lat">TI</span> มีโรงงาน
+          มีประโยคหนึ่งที่คนในวงการพูดกันติดปากตั้งแต่ยุค 1980 ว่า
+          <em>&ldquo;ผู้ชายตัวจริงต้องมีโรงงานเป็นของตัวเอง&rdquo;</em>
+        </p>
+
+        <p>
+          การขายโรงงานทิ้งจึงถูกอ่านว่า <span class="lat">AMD</span> ถอยออกจากการเป็นบริษัทชิปเต็มตัว
+          ลดตัวเองลงมาเป็นบริษัทออกแบบที่ต้องไปขอให้คนอื่นผลิตให้
+          และตลอดหกปีหลังจากนั้น ราคาหุ้นก็ทำตัวเหมือนตลาดเชื่อเรื่องนั้นจริงๆ
+        </p>
+
+        <p>
+          แต่การตัดสินใจนี้มีอีกด้านที่ไม่มีใครพูดถึงในปี 2009 เพราะมันยังไม่สำคัญ
+          <strong>การไม่มีโรงงาน แปลว่าไม่มีโรงงานที่ต้องปกป้อง</strong>
+        </p>
+
+        <p>
+          บริษัทที่มีโรงงานของตัวเอง ทุกการตัดสินใจเรื่องสินค้าจะมีเงื่อนไขแฝงข้อหนึ่งเสมอ
+          คือ &ldquo;ต้องทำให้โรงงานเราเดินเต็มกำลัง&rdquo; เพราะโรงงานชิปเป็นต้นทุนคงที่ก้อนมหึมา
+          สร้างทีหนึ่งหลายพันล้านดอลลาร์ และไม่ว่าจะมีของเดินผ่านหรือไม่ ค่าเสื่อมก็เดินทุกวัน
+          บริษัทที่ไม่มีโรงงานไม่มีเงื่อนไขข้อนี้ &mdash; มันเลือกได้อย่างเดียวว่า
+          <strong>&ldquo;ใครทำชิปที่ดีที่สุดให้เราตอนนี้&rdquo;</strong>
+        </p>
+
+        <p>
+          ในปี 2009 เสรีภาพข้อนี้แทบไม่มีค่าอะไร เพราะโรงงานของทุกคนยังตามกันติด
+          มันจะมีค่ามหาศาลก็ต่อเมื่อวันหนึ่งโรงงานของคู่แข่งพัง &mdash; ซึ่งเป็นสิ่งที่ไม่มีใครคิดว่าจะเกิดขึ้นกับ <span class="lat">Intel</span>
+        </p>
+
+        <div class="cs-folio" aria-hidden="true">
+          <i class="orn">&#9670;</i><i class="ln"></i>
+          <span class="pg">03</span>
+          <i class="ln"></i><span class="bk">The Moatrices</span>
+        </div>
+      </div>
+
+      <!-- ═══════════════════ §4 ═══════════════════ -->
+      <div class="cs-paper">
+        <p class="cs-h2n">III</p>
+        <h2 id="sec-4">เหตุผลข้อที่สอง: ของที่ขายอยู่ ช้ากว่าเขาจริงๆ</h2>
+
+        <p class="cs-dcp">
+          <span class="cs-dc">เ</span>หตุผลข้อที่สองที่ตลาดตีราคา $1.62 ตรงไปตรงมากว่านั้นมาก
+          คือสินค้าที่ <span class="lat">AMD</span> วางขายอยู่ตอนนั้นสู้ของ <span class="lat">Intel</span> ไม่ได้จริงๆ
+        </p>
+
+        <p>
+          สถาปัตยกรรมที่ <span class="lat">AMD</span> ใช้อยู่ชื่อ <span class="lat">Bulldozer</span>
+          เดิมพันของมันคือการยัดแกนประมวลผลให้ได้จำนวนมากที่สุดโดยให้แต่ละคู่แกนแบ่งใช้อุปกรณ์บางส่วนร่วมกัน
+          แนวคิดคือ &ldquo;ถ้าซอฟต์แวร์ในอนาคตแตกงานออกเป็นหลายเส้นทางพร้อมกัน เราจะชนะ&rdquo;
+        </p>
+
+        <p>
+          ซอฟต์แวร์ในอนาคตมาช้ากว่าที่เดิมพันไว้หลายปี
+          ผลคือในงานที่คนใช้จริงทุกวัน ซึ่งส่วนใหญ่วิ่งบนเส้นทางเดียว ชิป <span class="lat">AMD</span> ช้ากว่า
+          แล้วยังกินไฟมากกว่า &mdash; เป็นการแพ้สองทางพร้อมกันในตลาดที่ลูกค้าเทียบกันตัวต่อตัวได้ง่ายที่สุด
+        </p>
+
+        <p>
+          เมื่อของช้ากว่า ทางเดียวที่ยังขายได้คือลดราคา และเมื่อลดราคาในขณะที่ต้นทุนการผลิตเท่าเดิม
+          อัตรากำไรขั้นต้นก็ไหลลงไปที่ 27% ตามที่เห็นในงบ
+          นี่คือวงจรที่บริษัทฮาร์ดแวร์ตายกันมานับไม่ถ้วน และมันไม่มีทางออกด้วยการตลาด
+        </p>
+
+        <p>
+          วันที่ 8 ตุลาคม 2014 <span class="lat">Lisa Su</span> ขึ้นเป็นซีอีโอ
+          เธอเป็นวิศวกรที่จบปริญญาเอกด้านวิศวกรรมไฟฟ้าจาก <span class="lat">MIT</span> และทำวิจัยเรื่องวัสดุเซมิคอนดักเตอร์มาก่อน
+          &mdash; ไม่ใช่นักการเงินที่ถูกส่งมากอบกู้ และไม่ใช่นักการตลาด
+        </p>
+
+        <p>
+          สิ่งที่เธอต้องแก้ไม่ใช่ปัญหาการตลาด แต่คือสมการต้นทุน
+          และสมการนั้นแก้ด้วยความพยายามไม่ได้ &mdash; มันต้องแก้ด้วยการเปลี่ยนรูปร่างของสินค้า
+        </p>
+
+        <div class="cs-folio" aria-hidden="true">
+          <i class="orn">&#9670;</i><i class="ln"></i>
+          <span class="pg">04</span>
+          <i class="ln"></i><span class="bk">The Moatrices</span>
+        </div>
+      </div>
+
+      <!-- ═══════════════════ §5 ═══════════════════ -->
+      <div class="cs-paper">
+        <p class="cs-h2n">IV</p>
+        <h2 id="sec-5">เรขาคณิต คือสินค้าตัวจริงของโรงงานชิป</h2>
+
+        <p class="cs-dcp">
+          <span class="cs-dc">ช</span>ิปไม่ได้ผลิตทีละชิ้น มันผลิตทีละแผ่น
+          แผ่นซิลิคอนกลมขนาด 300 มิลลิเมตรหนึ่งแผ่นเข้าเครื่อง ผ่านขั้นตอนหลายร้อยขั้นนานหลายสัปดาห์
+          แล้วออกมาพร้อมชิปหลายสิบถึงหลายร้อยชิ้นที่ถูกตัดแบ่งด้วยตารางบนแผ่นเดียวกัน
+        </p>
+
+        <p>
+          ระหว่างทาง จะมีตำหนิเกิดขึ้นบนแผ่นเสมอ &mdash; ฝุ่นหลุดเข้ามา สารเคมีกระจายไม่สม่ำเสมอ
+          ลวดลายพิมพ์เหลื่อมไปนิดเดียว ไม่มีโรงงานไหนในโลกทำให้ตัวเลขนี้เป็นศูนย์ได้
+          วงการจึงวัดมันเป็น <strong>ความหนาแน่นของตำหนิ</strong> คือกี่จุดต่อพื้นที่หนึ่งตารางเซนติเมตร
+        </p>
+
+        <p>
+          และนี่คือจุดที่เรื่องทั้งหมดเริ่มต้น: <strong>ตำหนิหนึ่งจุดฆ่าชิปทั้งชิ้นที่มันตกใส่</strong>
+          ไม่ว่าชิปชิ้นนั้นจะใหญ่แค่ไหน
+        </p>
+
+        <p>
+          ทีนี้ลองคิดตามช้าๆ ถ้าฝนตกลงบนพื้นด้วยความหนาแน่นเท่ากัน
+          แล้วคุณวางถังไว้รองสองใบ ใบหนึ่งใหญ่ ใบหนึ่งเล็ก ถังใหญ่ย่อมโดนหยดน้ำมากกว่า &mdash; อันนี้ตรงไปตรงมา
+          แต่สิ่งที่ไม่ตรงไปตรงมาคือ <strong>โอกาสที่ถังจะรอดโดยไม่โดนเลยสักหยด ไม่ได้ลดลงเป็นเส้นตรงตามขนาด</strong>
+          มันร่วงแบบทบต้น
+        </p>
+
+        <p>
+          เขียนเป็นสมการได้สั้นมาก <span class="lat">Y = e<sup>&minus;AD</sup></span>
+          โดย <span class="lat">A</span> คือพื้นที่ของชิปหนึ่งชิ้น และ <span class="lat">D</span> คือความหนาแน่นของตำหนิ
+          ตัวแปรสำคัญคือ <span class="lat">A</span> อยู่บน &ldquo;ยกกำลัง&rdquo; ไม่ได้อยู่ในตัวคูณธรรมดา
+        </p>
+
+        <p>
+          แปลเป็นภาษาคน: ชิปใหญ่ขึ้นสองเท่า โอกาสรอดไม่ได้ลดลงครึ่งเดียว &mdash; มันลดลงมากกว่านั้นเสมอ
+          และยิ่งชิปใหญ่ ส่วนต่างยิ่งถ่างเร็วขึ้นเรื่อยๆ
+        </p>
+
+        <figure class="ph-fig cs-plate">
+          <div class="ph-panel amd-panel">
+            <div class="ph-eyebrow">Wafer Inspect &middot; Same Field &middot; Same Defect Map</div>
+            <div class="sa-stage">
+              <svg viewBox="0 0 900 560" role="img"
+                   aria-label="ช่องตรวจบนแผ่นเวเฟอร์ขนาดเท่ากันเป๊ะสองช่อง รับฝุ่นชุดเดียวกัน 14 จุดที่ตำแหน่งเดียวกัน ฝั่งชิปใหญ่ 698 ตารางมิลลิเมตรดับไป 10 จาก 20 ชิ้น เหลือผลผลิต 50 เปอร์เซ็นต์ ฝั่งชิปเล็ก 74 ตารางมิลลิเมตรดับไป 14 จาก 190 ชิ้น เหลือผลผลิต 93 เปอร์เซ็นต์ — ตัวแปรเดียวที่ต่างกันคือขนาดของชิป">
+
+                <text class="amd-lat amd-hd" x="40" y="34">WAFER INSPECT &#183; FIELD 139.6 cm&#178;</text>
+                <text class="amd-lat amd-hd amd-r" x="860" y="34">300 mm &#183; D&#8320; = 0.10 cm&#8315;&#178;</text>
+                <path class="amd-rule" d="M40 48H860"/>
+
+                <text class="amd-lat amd-cap" x="40" y="88">MONOLITHIC</text>
+                <text class="amd-lat amd-val" x="40" y="108">698 mm&#178; &#183; 28 CORES</text>
+                <text class="amd-lat amd-cap" x="476" y="88">CHIPLET</text>
+                <text class="amd-lat amd-val" x="476" y="108">74 mm&#178; &#183; 8 CORES</text>
+
+      <defs>
+        <pattern id="amd-fine" x="476" y="118" width="38.40" height="16.84" patternUnits="userSpaceOnUse">
+          <rect class="amd-s-die" x=".4" y=".4" width="37.60" height="16.04"/>
+        </pattern>
+      </defs>
+
+      <!-- ซ้าย: ได 698 ตร.มม. · 5x4 = 20 ชิ้นในช่องตรวจ -->
+      <g class="amd-grid">
+      <rect class="amd-b-die" x="40.0" y="118.0" width="76.0" height="79.2"/>
+      <rect class="amd-b-die" x="116.8" y="118.0" width="76.0" height="79.2"/>
+      <rect class="amd-b-die" x="193.6" y="118.0" width="76.0" height="79.2"/>
+      <rect class="amd-b-die" x="270.4" y="118.0" width="76.0" height="79.2"/>
+      <rect class="amd-b-die" x="347.2" y="118.0" width="76.0" height="79.2"/>
+      <rect class="amd-b-die" x="40.0" y="198.0" width="76.0" height="79.2"/>
+      <rect class="amd-b-die" x="116.8" y="198.0" width="76.0" height="79.2"/>
+      <rect class="amd-b-die" x="193.6" y="198.0" width="76.0" height="79.2"/>
+      <rect class="amd-b-die" x="270.4" y="198.0" width="76.0" height="79.2"/>
+      <rect class="amd-b-die" x="347.2" y="198.0" width="76.0" height="79.2"/>
+      <rect class="amd-b-die" x="40.0" y="278.0" width="76.0" height="79.2"/>
+      <rect class="amd-b-die" x="116.8" y="278.0" width="76.0" height="79.2"/>
+      <rect class="amd-b-die" x="193.6" y="278.0" width="76.0" height="79.2"/>
+      <rect class="amd-b-die" x="270.4" y="278.0" width="76.0" height="79.2"/>
+      <rect class="amd-b-die" x="347.2" y="278.0" width="76.0" height="79.2"/>
+      <rect class="amd-b-die" x="40.0" y="358.0" width="76.0" height="79.2"/>
+      <rect class="amd-b-die" x="116.8" y="358.0" width="76.0" height="79.2"/>
+      <rect class="amd-b-die" x="193.6" y="358.0" width="76.0" height="79.2"/>
+      <rect class="amd-b-die" x="270.4" y="358.0" width="76.0" height="79.2"/>
+      <rect class="amd-b-die" x="347.2" y="358.0" width="76.0" height="79.2"/>
+      </g>
+      <!-- ขวา: ได 74 ตร.มม. · 10x19 = 190 ชิ้นในช่องตรวจเดียวกันเป๊ะ -->
+      <rect class="amd-grid-fine" x="476" y="118" width="384" height="320" fill="url(#amd-fine)"/>
+
+
+      <!-- ผลของฝุ่นชุดเดิม: ซ้ายดับ 10/20 · ขวาดับ 14/190 -->
+      <rect class="amd-b-die amd-dead sa n" style="--i:7.00" x="40.0" y="118.0" width="76.0" height="79.2"/>
+      <rect class="amd-b-die amd-dead sa n" style="--i:7.14" x="40.0" y="278.0" width="76.0" height="79.2"/>
+      <rect class="amd-b-die amd-dead sa n" style="--i:7.14" x="116.8" y="198.0" width="76.0" height="79.2"/>
+      <rect class="amd-b-die amd-dead sa n" style="--i:7.28" x="116.8" y="358.0" width="76.0" height="79.2"/>
+      <rect class="amd-b-die amd-dead sa n" style="--i:7.14" x="193.6" y="118.0" width="76.0" height="79.2"/>
+      <rect class="amd-b-die amd-dead sa n" style="--i:7.28" x="193.6" y="278.0" width="76.0" height="79.2"/>
+      <rect class="amd-b-die amd-dead sa n" style="--i:7.28" x="270.4" y="198.0" width="76.0" height="79.2"/>
+      <rect class="amd-b-die amd-dead sa n" style="--i:7.42" x="270.4" y="358.0" width="76.0" height="79.2"/>
+      <rect class="amd-b-die amd-dead sa n" style="--i:7.28" x="347.2" y="118.0" width="76.0" height="79.2"/>
+      <rect class="amd-b-die amd-dead sa n" style="--i:7.42" x="347.2" y="278.0" width="76.0" height="79.2"/>
+      <rect class="amd-s-die amd-dead sa n" style="--i:7.07" x="476.0" y="134.8" width="37.6" height="16.0"/>
+      <rect class="amd-s-die amd-dead sa n" style="--i:7.77" x="476.0" y="303.3" width="37.6" height="16.0"/>
+      <rect class="amd-s-die amd-dead sa n" style="--i:7.28" x="514.4" y="168.5" width="37.6" height="16.0"/>
+      <rect class="amd-s-die amd-dead sa n" style="--i:7.56" x="552.8" y="219.1" width="37.6" height="16.0"/>
+      <rect class="amd-s-die amd-dead sa n" style="--i:8.33" x="591.2" y="387.5" width="37.6" height="16.0"/>
+      <rect class="amd-s-die amd-dead sa n" style="--i:7.35" x="629.6" y="134.8" width="37.6" height="16.0"/>
+      <rect class="amd-s-die amd-dead sa n" style="--i:7.98" x="629.6" y="286.4" width="37.6" height="16.0"/>
+      <rect class="amd-s-die amd-dead sa n" style="--i:8.26" x="668.0" y="336.9" width="37.6" height="16.0"/>
+      <rect class="amd-s-die amd-dead sa n" style="--i:7.77" x="706.4" y="202.2" width="37.6" height="16.0"/>
+      <rect class="amd-s-die amd-dead sa n" style="--i:8.47" x="706.4" y="370.6" width="37.6" height="16.0"/>
+      <rect class="amd-s-die amd-dead sa n" style="--i:8.05" x="744.8" y="252.7" width="37.6" height="16.0"/>
+      <rect class="amd-s-die amd-dead sa n" style="--i:8.68" x="744.8" y="404.3" width="37.6" height="16.0"/>
+      <rect class="amd-s-die amd-dead sa n" style="--i:7.56" x="783.2" y="118.0" width="37.6" height="16.0"/>
+      <rect class="amd-s-die amd-dead sa n" style="--i:8.40" x="821.6" y="303.3" width="37.6" height="16.0"/>
+
+      <!-- ตำหนิ: ชุดเดียวกัน ตำแหน่งเดียวกัน ตกพร้อมกันทั้งสองฝั่ง = ตัวแปรเดียวที่ต่างคือขนาดได -->
+      <circle class="amd-spec sa n" style="--i:4.00" cx="59.2" cy="137.2" r="2.8"/>
+      <circle class="amd-spec sa n" style="--i:4.13" cx="97.6" cy="178.8" r="2.8"/>
+      <circle class="amd-spec sa n" style="--i:4.26" cx="220.5" cy="150.0" r="2.8"/>
+      <circle class="amd-spec sa n" style="--i:4.39" cx="377.9" cy="134.0" r="2.8"/>
+      <circle class="amd-spec sa n" style="--i:4.52" cx="147.5" cy="226.8" r="2.8"/>
+      <circle class="amd-spec sa n" style="--i:4.65" cx="285.8" cy="210.8" r="2.8"/>
+      <circle class="amd-spec sa n" style="--i:4.78" cx="328.0" cy="258.8" r="2.8"/>
+      <circle class="amd-spec sa n" style="--i:4.91" cx="74.6" cy="303.6" r="2.8"/>
+      <circle class="amd-spec sa n" style="--i:5.04" cx="209.0" cy="294.0" r="2.8"/>
+      <circle class="amd-spec sa n" style="--i:5.17" cx="251.2" cy="342.0" r="2.8"/>
+      <circle class="amd-spec sa n" style="--i:5.30" cx="389.4" cy="319.6" r="2.8"/>
+      <circle class="amd-spec sa n" style="--i:5.43" cx="159.0" cy="393.2" r="2.8"/>
+      <circle class="amd-spec sa n" style="--i:5.56" cx="293.4" cy="370.8" r="2.8"/>
+      <circle class="amd-spec sa n" style="--i:5.69" cx="335.7" cy="415.6" r="2.8"/>
+      <circle class="amd-spec sa n" style="--i:4.00" cx="495.2" cy="137.2" r="2.8"/>
+      <circle class="amd-spec sa n" style="--i:4.13" cx="533.6" cy="178.8" r="2.8"/>
+      <circle class="amd-spec sa n" style="--i:4.26" cx="656.5" cy="150.0" r="2.8"/>
+      <circle class="amd-spec sa n" style="--i:4.39" cx="813.9" cy="134.0" r="2.8"/>
+      <circle class="amd-spec sa n" style="--i:4.52" cx="583.5" cy="226.8" r="2.8"/>
+      <circle class="amd-spec sa n" style="--i:4.65" cx="721.8" cy="210.8" r="2.8"/>
+      <circle class="amd-spec sa n" style="--i:4.78" cx="764.0" cy="258.8" r="2.8"/>
+      <circle class="amd-spec sa n" style="--i:4.91" cx="510.6" cy="303.6" r="2.8"/>
+      <circle class="amd-spec sa n" style="--i:5.04" cx="645.0" cy="294.0" r="2.8"/>
+      <circle class="amd-spec sa n" style="--i:5.17" cx="687.2" cy="342.0" r="2.8"/>
+      <circle class="amd-spec sa n" style="--i:5.30" cx="825.4" cy="319.6" r="2.8"/>
+      <circle class="amd-spec sa n" style="--i:5.43" cx="595.0" cy="393.2" r="2.8"/>
+      <circle class="amd-spec sa n" style="--i:5.56" cx="729.4" cy="370.8" r="2.8"/>
+      <circle class="amd-spec sa n" style="--i:5.69" cx="771.7" cy="415.6" r="2.8"/>
+
+                <rect class="amd-field" x="40" y="118" width="384" height="320"/>
+                <rect class="amd-field" x="476" y="118" width="384" height="320"/>
+                <path class="amd-divider" d="M450 118V438"/>
+
+                <text class="amd-lat amd-micro amd-r" x="424" y="108">20 DIE &#183; 10 KILLED</text>
+                <text class="amd-lat amd-micro amd-r" x="860" y="108">190 DIE &#183; 14 KILLED</text>
+              </svg>
+
+              <div class="amd-readout amd-readout-l">
+                <span class="amd-num amd-num-b sa" aria-hidden="true"></span>
+                <i>ชิปรอด 50% &mdash; ครึ่งแผ่นทิ้ง</i>
+              </div>
+              <div class="amd-readout amd-readout-r">
+                <span class="amd-num amd-num-s sa" aria-hidden="true"></span>
+                <i>ชิปรอด 93% &mdash; เสียแค่เศษ</i>
+              </div>
+            </div>
+          </div>
+          <figcaption>
+            <span class="cs-plate-no">Plate I</span>
+            ช่องตรวจสองช่องนี้มีพื้นที่เท่ากันเป๊ะ (139.6 ตร.ซม.) และรับ<strong>ฝุ่นชุดเดียวกัน 14 จุด
+            ที่ตำแหน่งเดียวกัน</strong> ตัวแปรเดียวที่ต่างกันคือขนาดของชิปที่ตัดลงไปบนพื้นที่นั้น
+            ผลลัพธ์: ฝั่งซ้ายดับ 10 จาก 20 ชิ้น ฝั่งขวาดับ 14 จาก 190 ชิ้น
+            คำนวณด้วยโมเดล <span class="lat">Poisson</span> ที่ความหนาแน่นตำหนิ 0.10 จุด/ตร.ซม.
+            ซึ่งเป็นค่าที่ใช้กันในโรงงานยุคนั้น &mdash; ไม่ใช่ตัวเลขที่โรงงานไหนเปิดเผยรายแผ่น
+          </figcaption>
+        </figure>
+
+        <p>
+          ตัวเลขในภาพข้างบนคือหัวใจของทั้งบท ที่ความหนาแน่นตำหนิเดียวกัน
+          ชิปขนาด 698 ตารางมิลลิเมตรจะรอดราว <strong>50%</strong>
+          ส่วนชิปขนาด 74 ตารางมิลลิเมตรจะรอดราว <strong>93%</strong>
+        </p>
+
+        <p>
+          ลองแปลงเป็นเงิน แผ่นเวเฟอร์ราคาเท่ากัน เดินสายการผลิตเท่ากัน ใช้เวลาเท่ากัน
+          แต่ฝั่งหนึ่งจ่ายค่าแผ่นเต็มราคาแล้วได้ของขายจริงครึ่งแผ่น
+          อีกฝั่งจ่ายเท่ากันแล้วได้ของขายจริงเกือบทั้งแผ่น
+          <strong>ต้นทุนต่อชิปที่ขายได้จริงของสองฝั่งนี้ห่างกันเกือบเท่าตัว ก่อนจะเริ่มแข่งกันที่ประสิทธิภาพด้วยซ้ำ</strong>
+        </p>
+
+        <div class="cs-poster">
+          <p>นี่ไม่ใช่ความรู้ลับ<br>มันอยู่ใน <span class="hl">ตำราเรียนปีหนึ่ง</span> ของวิศวกรรมเซมิคอนดักเตอร์</p>
+          <span class="cs-plaque">คำถามจึงไม่ใช่ &ldquo;ใครรู้&rdquo; <span class="arw">&rarr;</span> แต่คือ &ldquo;ใครยอมรื้อของทั้งค่ายเพราะมัน&rdquo;</span>
+        </div>
+
+        <p>
+          ทุกคนในวงการรู้เรื่องนี้มาตั้งแต่ยุค 1980
+          แต่ความรู้กับการลงมือทำต่างกันตรงที่ &mdash; ถ้าจะใช้ประโยชน์จากมัน คุณต้องเลิกทำชิปเป็นก้อนเดียว
+          แล้วหั่นมันออกเป็นชิ้นเล็กๆ ที่ต้องคุยกันได้เร็วเท่าเดิม
+          ซึ่งเป็นโจทย์วิศวกรรมที่ยากมาก และ<strong>เจ้าตลาดไม่มีเหตุผลจะทำ</strong>
+        </p>
+
+        <p>
+          เพราะเมื่อโรงงานของคุณยังเดินนำคู่แข่งอยู่หนึ่งถึงสองรุ่น ชิปก้อนเดียวใหญ่ๆ ของคุณก็ยังรอดในอัตราที่รับได้
+          การหั่นชิปมีแต่ทำให้ปวดหัวขึ้นโดยไม่ได้อะไรกลับมา
+          <strong>เหตุผลที่ Intel ไม่ทำ ไม่ใช่เพราะโง่ แต่เพราะในโลกที่โรงงานตัวเองยังนำอยู่ มันไม่คุ้ม</strong>
+        </p>
+
+        <div class="cs-folio" aria-hidden="true">
+          <i class="orn">&#9670;</i><i class="ln"></i>
+          <span class="pg">05</span>
+          <i class="ln"></i><span class="bk">The Moatrices</span>
+        </div>
+      </div>
+
+      <!-- ═══════════════════ §6 ═══════════════════ -->
+      <div class="cs-paper">
+        <p class="cs-h2n">V</p>
+        <h2 id="sec-6">พฤศจิกายน 2018: วันที่ AMD วางไพ่ลงบนโต๊ะ</h2>
+
+        <p class="cs-dcp">
+          <span class="cs-dc">ใ</span>นงาน <span class="lat">Next Horizon</span> เดือนพฤศจิกายน 2018
+          <span class="lat">AMD</span> เปิดผังของชิปเซิร์ฟเวอร์รุ่นใหม่รหัส <span class="lat">Rome</span>
+          และคนในห้องที่อ่านผังเป็นก็เห็นทันทีว่านี่ไม่ใช่ชิปที่เร็วขึ้น แต่เป็นชิปที่<strong>ถูกประกอบขึ้นคนละวิธี</strong>
+        </p>
+
+        <p>
+          ชิปเซิร์ฟเวอร์ของ <span class="lat">Intel</span> รุ่นร่วมสมัยกันคือ <span class="lat">Cascade Lake</span> ตัวท็อป
+          เป็นซิลิคอนก้อนเดียวขนาดราว <strong>698 ตารางมิลลิเมตร</strong> บรรจุ 28 แกนประมวลผล
+          ทุกอย่างอยู่บนก้อนนั้นหมด ทั้งแกน ทั้งแคช ทั้งตัวคุมหน่วยความจำ ทั้งช่องทางเชื่อมต่อภายนอก
+        </p>
+
+        <p>
+          <span class="lat">Rome</span> ไม่ได้เป็นก้อนเดียว มันคือซิลิคอน <strong>9 ชิ้น</strong> วางบนแผ่นรองเดียวกัน
+          &mdash; ชิ้นประมวลผลขนาด <strong>74 ตารางมิลลิเมตร</strong> จำนวน 8 ชิ้น (ชิ้นละ 8 แกน รวม 64 แกน)
+          ล้อมรอบชิ้นกลางขนาด <strong>416 ตารางมิลลิเมตร</strong> ที่ทำหน้าที่เป็นชุมทางเชื่อมทุกอย่างเข้าด้วยกัน
+        </p>
+
+        <figure class="ph-fig cs-plate">
+          <div class="ph-panel amd-panel">
+            <div class="ph-eyebrow">Die Floorplan &middot; Server Package &middot; 2019</div>
+            <div class="sa-stage">
+              <svg viewBox="0 0 900 500" role="img"
+                   aria-label="ผังซิลิคอนบนแผ่นรองของชิปเซิร์ฟเวอร์สองรุ่น ฝั่งซ้าย Intel เป็นซิลิคอนก้อนเดียว 698 ตารางมิลลิเมตรบนโหนดแพงทั้งก้อน ฝั่งขวา AMD เป็นซิลิคอน 9 ชิ้นรวม 1008 ตารางมิลลิเมตรซึ่งมากกว่า แต่มีเพียง 592 ตารางมิลลิเมตรที่อยู่บนโหนดแพง และชิ้นใหญ่ที่สุดที่ต้องลุ้นผลผลิตมีแค่ 74 ตารางมิลลิเมตร — เล็กกว่าเก้าเท่า">
+
+                <text class="amd-lat amd-hd" x="40" y="34">DIE FLOORPLAN &#183; TOP VIEW</text>
+                <text class="amd-lat amd-hd amd-r" x="860" y="34">AREA DRAWN TO SCALE</text>
+                <path class="amd-rule" d="M40 48H860"/>
+
+                <text class="amd-lat amd-cap" x="56" y="88">INTEL &#183; CASCADE LAKE XCC</text>
+                <text class="amd-lat amd-cap" x="496" y="88">AMD &#183; EPYC &#8220;ROME&#8221;</text>
+
+                <!-- คำอธิบายสี: ฉากต้องอ่านออกโดยไม่ต้องพึ่งตัวบท -->
+                <rect class="amd-die amd-key" x="596" y="378" width="13" height="13"/>
+                <text class="amd-lat amd-micro" x="616" y="389">7 nm &#183; EXPENSIVE</text>
+                <rect class="amd-die amd-die-cold amd-key" x="742" y="378" width="13" height="13"/>
+                <text class="amd-lat amd-micro" x="762" y="389">14 nm &#183; CHEAP</text>
+
+                <!-- แผ่นรอง (substrate) -->
+                <rect class="amd-pkg sa n" style="--i:0" x="56" y="110" width="360" height="260"/>
+                <rect class="amd-pkg sa n" style="--i:.4" x="496" y="110" width="360" height="260"/>
+
+                <!-- ซ้าย: ซิลิคอนก้อนเดียว 698 ตร.มม. — บนโหนดแพงทั้งก้อน -->
+                <g class="amd-hot">
+                  <rect class="amd-die sa n" style="--i:3" x="156" y="152" width="160" height="175"/>
+                </g>
+                <text class="amd-lat amd-die-tag sa n" style="--i:4" x="236" y="246">698</text>
+                <text class="amd-lat amd-die-sub sa n" style="--i:4" x="236" y="264">mm&#178; &#183; ONE PIECE</text>
+
+                <!-- ขวา: ชิ้นประมวลผล 8 ชิ้น (74 ตร.มม.) บนโหนดแพง -->
+                <g class="amd-hot">
+                  <rect class="amd-die sa n" style="--i:5.0" x="500" y="150" width="62" height="48"/>
+                  <rect class="amd-die sa n" style="--i:5.2" x="570" y="150" width="62" height="48"/>
+                  <rect class="amd-die sa n" style="--i:5.4" x="724" y="150" width="62" height="48"/>
+                  <rect class="amd-die sa n" style="--i:5.6" x="794" y="150" width="62" height="48"/>
+                  <rect class="amd-die sa n" style="--i:5.8" x="500" y="210" width="62" height="48"/>
+                  <rect class="amd-die sa n" style="--i:6.0" x="570" y="210" width="62" height="48"/>
+                  <rect class="amd-die sa n" style="--i:6.2" x="724" y="210" width="62" height="48"/>
+                  <rect class="amd-die sa n" style="--i:6.4" x="794" y="210" width="62" height="48"/>
+                </g>
+                <!-- ชุมทางกลาง 416 ตร.มม. — อยู่บนโหนดเก่าที่ถูกกว่ามาก จึงไม่ใช่ภาระ yield -->
+                <rect class="amd-die amd-die-cold sa n" style="--i:7.2" x="632" y="140" width="88" height="190"/>
+                <text class="amd-lat amd-die-tag amd-sm sa n" style="--i:7.8" x="676" y="238">416</text>
+                <text class="amd-lat amd-die-sub sa n" style="--i:7.8" x="676" y="254">mm&#178; &#183; I/O</text>
+                <text class="amd-lat amd-die-sub sa n" style="--i:8.0" x="531" y="180">74</text>
+                <text class="amd-lat amd-die-sub sa n" style="--i:8.0" x="825" y="180">74</text>
+
+                <path class="amd-rule" d="M40 398H860"/>
+                <text class="amd-lat amd-cap" x="40" y="424">LARGEST PIECE THAT MUST YIELD ON THE EXPENSIVE NODE</text>
+
+                <!-- แท่งเทียบ: ความยาวเป็นสัดส่วนกับ 698 : 74 ตรงตามจริง -->
+                <rect class="amd-bar amd-bar-hot sa n" style="--i:10" x="40" y="438" width="620" height="20"/>
+                <text class="amd-lat amd-bar-tag" x="672" y="453">INTEL 698 mm&#178;</text>
+                <rect class="amd-bar amd-bar-cool sa n" style="--i:11" x="40" y="468" width="66" height="20"/>
+                <text class="amd-lat amd-bar-tag" x="118" y="483">AMD 74 mm&#178;</text>
+              </svg>
+            </div>
+          </div>
+          <figcaption>
+            <span class="cs-plate-no">Plate II</span>
+            พื้นที่ทุกชิ้นในภาพวาดตามสัดส่วน <span class="lat">mm&#178;</span> จริง
+            สิ่งที่สวนสัญชาตญาณคือ <strong>AMD ใช้ซิลิคอนรวม 1,008 ตร.มม. ซึ่ง<em>มากกว่า</em> Intel ที่ใช้ 698</strong>
+            แต่ในก้อน 1,008 นั้น มีแค่ 592 ที่อยู่บนโหนด 7 นาโนราคาแพง (ชิ้นละ 74)
+            ส่วนชุมทาง 416 ตร.มม. วางอยู่บนโหนด 14 นาโนรุ่นเก่าที่ถูกกว่ามากและผลผลิตนิ่งแล้ว
+            แถบล่างคือตัวเลขที่ตัดสินทุกอย่าง: ชิ้นใหญ่สุดที่ต้องลุ้นผลผลิตบนโหนดแพง
+          </figcaption>
+        </figure>
+
+        <p>
+          ตรงนี้คือจุดที่คนอ่านผังผิดกันมากที่สุด และมันคือหัวใจของความฉลาดทั้งหมด
+        </p>
+
+        <p>
+          ถ้านับซิลิคอนทั้งหมดที่ใช้ <span class="lat">Rome</span> กินพื้นที่ <strong>1,008 ตารางมิลลิเมตร</strong>
+          ซึ่ง<strong>มากกว่า</strong>ของ <span class="lat">Intel</span> ที่ใช้ 698 อยู่ราว 44%
+          ในโลกของวิศวกรรมแบบเดิม การใช้ซิลิคอนมากกว่าแปลว่าแพงกว่า
+        </p>
+
+        <p>
+          แต่ต้นทุนจริงของชิปไม่ได้ขึ้นกับ &ldquo;ใช้ซิลิคอนกี่ตารางมิลลิเมตร&rdquo;
+          มันขึ้นกับ <strong>&ldquo;ซิลิคอนกี่ตารางมิลลิเมตรที่ต้องไปลุ้นผลผลิตบนโหนดที่แพงที่สุด และลุ้นเป็นก้อนใหญ่แค่ไหน&rdquo;</strong>
+        </p>
+
+        <p>
+          ในก้อน 1,008 นั้น มีเพียง <strong>592 ตารางมิลลิเมตร</strong> (ชิ้นประมวลผล 8 ชิ้น) ที่ผลิตบนโหนด 7 นาโนของ
+          <span class="lat">TSMC</span> ซึ่งตอนนั้นเป็นโหนดใหม่ที่แพงที่สุดและผลผลิตยังไม่นิ่ง
+          ส่วนชุมทางกลาง 416 ตารางมิลลิเมตร &mdash; ชิ้นที่ใหญ่ที่สุดในแพ็กเกจ &mdash;
+          ถูกวางไว้บนโหนด 14 นาโนของ <span class="lat">GlobalFoundries</span> ที่เก่ากว่า ถูกกว่ามาก และผลผลิตนิ่งมานานแล้ว
+        </p>
+
+        <p>
+          เหตุผลที่ทำแบบนั้นได้ เพราะงานของชุมทางคือรับส่งข้อมูลกับหน่วยความจำและอุปกรณ์ภายนอก
+          ซึ่งเป็นวงจรที่แทบไม่ได้อะไรเลยจากการย่อขนาด ต่างจากแกนประมวลผลที่ย่อแล้วเร็วขึ้นและกินไฟน้อยลงจริง
+          <strong>มันคือการจ่ายเงินแพงเฉพาะตรงที่การจ่ายแพงให้ผลตอบแทน</strong>
+        </p>
+
+        <p>
+          และชิ้นใหญ่ที่สุดที่ <span class="lat">AMD</span> ต้องลุ้นผลผลิตบนโหนดแพงคือ 74 ตารางมิลลิเมตร
+          ขณะที่ <span class="lat">Intel</span> ต้องลุ้นทั้ง 698 เป็นก้อนเดียว
+          กลับไปดู <span class="lat">Plate I</span> อีกครั้งแล้วคุณจะเห็นว่าช่องว่างนี้แปลเป็นเงินเท่าไหร่
+        </p>
+
+        <div class="cs-folio" aria-hidden="true">
+          <i class="orn">&#9670;</i><i class="ln"></i>
+          <span class="pg">06</span>
+          <i class="ln"></i><span class="bk">The Moatrices</span>
+        </div>
+      </div>
+
+      <!-- ═══════════════════ §7 ═══════════════════ -->
+      <div class="cs-paper">
+        <p class="cs-h2n">VI</p>
+        <h2 id="sec-7">แต่ชิปเล็ตไม่ใช่เหตุผลเดียวที่หุ้นขึ้น 318 เด้ง</h2>
+
+        <p class="cs-dcp">
+          <span class="cs-dc">ถ</span>ึงตรงนี้ถ้าหยุดเล่า เรื่องจะกลายเป็นนิทานวิศวกรรมที่จบสวยเกินจริง
+          เพราะชิปเล็ตอย่างเดียวไม่ทำให้หุ้นขึ้น 318 เด้ง
+          มันต้องมีอีกสามอย่างมาต่อกันพอดี และสองในสามนั้น <span class="lat">AMD</span> ไม่ได้เป็นคนทำ
+        </p>
+
+        <h3>หนึ่ง: โรงงานที่ขายทิ้ง กลายเป็นตั๋วขึ้นรถคันที่วิ่งเร็วกว่า</h3>
+
+        <p>
+          เดือนสิงหาคม 2018 <span class="lat">GlobalFoundries</span> ประกาศหยุดพัฒนาโหนด 7 นาโนอย่างไม่มีกำหนด
+          แล้วหันไปโฟกัสโหนดที่โตแล้วแทน &mdash; แปลว่าโรงงานเดิมของ <span class="lat">AMD</span> เพิ่งถอนตัวออกจากการแข่งขันแนวหน้า
+        </p>
+
+        <p>
+          ถ้า <span class="lat">AMD</span> ยังเป็นเจ้าของโรงงานนั้นอยู่ ข่าวนี้คือหายนะ
+          เพราะบริษัทจะติดอยู่กับโหนดที่หยุดพัฒนา พร้อมต้นทุนคงที่มหาศาลที่ขยับไปไหนไม่ได้
+          แต่เพราะขายทิ้งไปตั้งแต่ปี 2009 <span class="lat">AMD</span> แค่เดินไปหา <span class="lat">TSMC</span> แล้วจองคิว 7 นาโน
+        </p>
+
+        <div class="cs-poster">
+          <p>การตัดสินใจที่ปี 2009 อ่านว่า <span class="hl">จนตรอก</span><br>ปี 2018 อ่านว่า <span class="hl">ไม่มีโซ่ล่ามไว้</span></p>
+          <span class="cs-plaque">ตัดสินใจเดิม <span class="arw">&rarr;</span> โลกเปลี่ยน <span class="arw">&rarr;</span> ความหมายเปลี่ยน</span>
+        </div>
+
+        <p>
+          จุดนี้สำคัญกับนักลงทุนมากกว่าที่เห็น: <strong>การตัดสินใจเชิงโครงสร้างมักไม่ถูกหรือผิดในตัวมันเอง
+          มันถูกหรือผิดเมื่อเทียบกับโลกที่มันไปเจอในอีกสิบปีข้างหน้า</strong>
+          และเราตัดสินมันตอนที่ยังไม่รู้โลกนั้นไม่ได้ เราทำได้แค่ถามว่ามันเพิ่มหรือลดทางเลือกของบริษัท
+        </p>
+
+        <h3>สอง: Intel ติดหล่มโรงงานของตัวเอง</h3>
+
+        <p>
+          เดิม <span class="lat">Intel</span> วางแผนย้ายไปโหนด 10 นาโนตั้งแต่ปี 2016
+          แต่ผลผลิตไม่ขึ้นตามที่คาดไว้ และแผนถูกเลื่อนครั้งแล้วครั้งเล่า
+          ปลายเดือนเมษายน 2018 ซีอีโอในตอนนั้นแจ้งนักวิเคราะห์ว่าการผลิตจำนวนมากของ 10 นาโน
+          จะเลื่อนจากครึ่งหลังปี 2018 ออกไปเป็นปี 2019 &mdash; ซึ่งเป็นการเลื่อนอย่างน้อยครั้งที่สาม
+        </p>
+
+        <p>
+          ระหว่างที่รอ <span class="lat">Intel</span> ทำสิ่งเดียวที่ทำได้คือปรับปรุงโหนด 14 นาโนเดิมซ้ำแล้วซ้ำอีก
+          จนเกิดชื่อเล่นที่กลายเป็นเรื่องตลกในวงการว่า <span class="lat">14nm+</span> แล้ว <span class="lat">14nm++</span>
+        </p>
+
+        <figure class="ph-fig cs-plate">
+          <div class="ph-panel amd-panel">
+            <div class="ph-eyebrow">Process Roadmap &middot; Node Shipping In Volume</div>
+            <div class="sa-stage">
+              <svg viewBox="0 0 900 430" role="img"
+                   aria-label="เส้นทางโหนดการผลิตของสองค่ายระหว่างปี 2015 ถึง 2022 AMD เริ่มต้นที่โหนดแย่กว่า Intel หลายรุ่น แล้วเดินลงบันไดทีละขั้นจน 14 เป็น 7 เป็น 5 นาโน ขณะที่เส้นของ Intel ค้างนิ่งอยู่ที่ 14 นาโนหลายปีติดกัน จุดตัดอยู่ที่ปี 2019 ซึ่งเป็นปีที่ AMD ส่งของบนโหนดที่ดีกว่าเป็นครั้งแรก">
+
+                <text class="amd-lat amd-hd" x="40" y="34">NODE IN VOLUME PRODUCTION</text>
+                <text class="amd-lat amd-hd amd-r" x="860" y="34">LOWER IS NEWER</text>
+                <path class="amd-rule" d="M40 48H860"/>
+
+                <!-- แกนโหนด -->
+                <g class="amd-axis">
+                  <path d="M110 340H860"/><text class="amd-lat amd-micro amd-r" x="96" y="344">28 nm</text>
+                  <path d="M110 270H860"/><text class="amd-lat amd-micro amd-r" x="96" y="274">14 nm</text>
+                  <path d="M110 215H860"/><text class="amd-lat amd-micro amd-r" x="96" y="219">10 nm</text>
+                  <path d="M110 165H860"/><text class="amd-lat amd-micro amd-r" x="96" y="169">7 nm</text>
+                  <path d="M110 120H860"/><text class="amd-lat amd-micro amd-r" x="96" y="124">5 nm</text>
+                </g>
+
+                <!-- แกนปี -->
+                <g class="amd-years">
+                  <text class="amd-lat amd-micro" x="110" y="380">2015</text>
+                  <text class="amd-lat amd-micro" x="322" y="380">2017</text>
+                  <text class="amd-lat amd-micro" x="534" y="380">2019</text>
+                  <text class="amd-lat amd-micro" x="746" y="380">2021</text>
+                </g>
+
+                <!-- แถบปีที่เส้นตัดกัน — จังหวะที่ทุกอย่างพลิก -->
+                <rect class="amd-crossband sa n" style="--i:9" x="512" y="100" width="44" height="252"/>
+
+                <!-- INTEL: ค้างที่ 14 นาโนหลายปี = freeze -->
+                <path class="amd-track amd-track-cold sa n" style="--i:2" pathLength="1"
+                      data-draw="0,1" d="M110 270H746V270L810 215H860"/>
+                <text class="amd-lat amd-track-tag amd-cold-tag sa n" style="--i:3" x="200" y="258">INTEL &#183; 14 nm</text>
+                <text class="amd-lat amd-micro amd-cold-tag sa n" style="--i:4.2" x="404" y="258">+</text>
+                <text class="amd-lat amd-micro amd-cold-tag sa n" style="--i:4.8" x="418" y="258">+</text>
+                <text class="amd-lat amd-micro amd-cold-tag sa n" style="--i:5.4" x="432" y="258">+</text>
+
+                <!-- AMD: เริ่มแย่กว่า แล้วเดินลงบันได = divergence -->
+                <path class="amd-track amd-track-hot sa n" style="--i:5" pathLength="1"
+                      data-draw="0,1" d="M110 340H322V340L322 270H534V270L534 165H746V165L746 120H860"/>
+                <text class="amd-lat amd-track-tag amd-hot-tag sa n" style="--i:6" x="140" y="360">AMD &#183; 28 nm</text>
+                <text class="amd-lat amd-track-tag amd-hot-tag sa n" style="--i:10.5" x="566" y="150">AMD &#183; 7 nm</text>
+
+                <path class="amd-rule" d="M40 396H860"/>
+                <text class="amd-lat amd-cap amd-punch sa n" style="--i:11.5" x="40" y="420">2019 &#183; AMD SHIPS 7 nm WHILE INTEL STILL SHIPS 14 nm</text>
+              </svg>
+            </div>
+          </div>
+          <figcaption>
+            <span class="cs-plate-no">Plate III</span>
+            สังเกตจุดเริ่มต้น &mdash; ปี 2015 <span class="lat">AMD</span> อยู่บนโหนดที่<strong>แย่กว่า</strong>
+            <span class="lat">Intel</span> หลายรุ่น เส้นสองเส้นนี้ไม่ได้แยกจากกันเพราะ <span class="lat">AMD</span> วิ่งเร็วขึ้นอย่างเดียว
+            แต่เพราะเส้นหนึ่ง<strong>หยุดเดิน</strong> การชนะครั้งนี้จึงเป็นผลของสองเหตุการณ์ที่ไม่เกี่ยวกันเลย
+            มาบรรจบกันพอดี &mdash; ซึ่งเป็นเรื่องที่เราคาดการณ์ล่วงหน้าไม่ได้ และต้องซื่อสัตย์กับตัวเองเรื่องนี้
+          </figcaption>
+        </figure>
+
+        <p>
+          ผลลัพธ์คือปี 2019 <span class="lat">AMD</span> ส่งของที่ผลิตบนโหนดดีกว่า <span class="lat">Intel</span> หนึ่งรุ่นเต็ม
+          ซึ่งเป็นสิ่งที่ไม่เคยเกิดขึ้นมาก่อนในประวัติศาสตร์ของการแข่งขันคู่นี้
+        </p>
+
+        <p>
+          ต้องพูดให้ตรง: <strong>นี่ไม่ใช่ฝีมือ AMD</strong> มันคือความผิดพลาดของคู่แข่งที่เกิดขึ้นพอดีกับจังหวะที่
+          <span class="lat">AMD</span> เตรียมของเสร็จ ถ้าโหนด 10 นาโนของ <span class="lat">Intel</span> มาตรงเวลาปี 2016
+          เรื่องทั้งหมดนี้อาจจบคนละแบบ
+        </p>
+
+        <h3>สาม: เอาความได้เปรียบไปยืนในช่องที่แพงที่สุด</h3>
+
+        <p>
+          ข้อได้เปรียบของชิปเล็ตไม่ได้กระจายเท่ากันทุกสินค้า
+          ย้อนกลับไปที่สมการ <span class="lat">Y = e<sup>&minus;AD</sup></span> อีกครั้ง &mdash;
+          ยิ่งชิปที่ต้องทำมีขนาดใหญ่เท่าไหร่ ข้อได้เปรียบของการหั่นยิ่งมากขึ้นเท่านั้น
+        </p>
+
+        <p>
+          ในชิปโน้ตบุ๊กเล็กๆ สี่แกน ชิปเล็ตแทบไม่ช่วยอะไร ซ้ำยังเพิ่มภาระเรื่องไฟและการประกอบ
+          แต่ในชิปเซิร์ฟเวอร์ 64 แกน ที่ถ้าทำเป็นก้อนเดียวจะใหญ่จนผลผลิตเหลือแทบไม่กี่เปอร์เซ็นต์
+          <strong>ชิปเล็ตไม่ได้แค่ช่วย &mdash; มันคือเงื่อนไขที่ทำให้สินค้าชิ้นนั้นมีอยู่ได้เลย</strong>
+        </p>
+
+        <p>
+          <span class="lat">AMD</span> จึงเดินเข้าไปในช่องที่มีอัตรากำไรสูงที่สุดของตลาดก่อน คือเซิร์ฟเวอร์แกนเยอะ
+          ไม่ใช่ช่องที่ขายง่ายที่สุด นี่คือการเลือกสนามให้ตรงกับรูปร่างของความได้เปรียบที่ตัวเองมี
+          และมันจะไปโผล่ในตัวเลขส่วนแบ่งตลาดอย่างชัดเจนในอีกไม่กี่ปีถัดมา
+        </p>
+
+        <div class="cs-folio" aria-hidden="true">
+          <i class="orn">&#9670;</i><i class="ln"></i>
+          <span class="pg">07</span>
+          <i class="ln"></i><span class="bk">The Moatrices</span>
+        </div>
+      </div>
+
+      <!-- ═══════════════════ §8 ═══════════════════ -->
+      <div class="cs-paper">
+        <p class="cs-h2n">VII</p>
+        <h2 id="sec-8">เงินเข้ากระเป๋าใครจริงๆ</h2>
+
+        <p class="cs-dcp">
+          <span class="cs-dc">ว</span>ิธีที่ตรงที่สุดในการตรวจว่าข้อได้เปรียบเรื่องต้นทุนเป็นของจริงหรือเปล่า
+          คือดูว่าบริษัทขายของได้ในราคาที่ต่างจากคู่แข่งหรือไม่ &mdash; ไม่ใช่ดูว่าขายได้กี่ชิ้น
+        </p>
+
+        <p>
+          ตัวเลขส่วนแบ่งตลาดเซิร์ฟเวอร์ <span class="lat">x86</span> ไตรมาสแรกปี 2026 จาก
+          <span class="lat">Mercury Research</span> เล่าเรื่องนี้ได้ในบรรทัดเดียว
+        </p>
+
+        <figure class="ph-fig cs-plate">
+          <div class="ph-panel amd-panel">
+            <div class="ph-eyebrow">Server CPU Share &middot; Mercury Research &middot; Q1 2026</div>
+            <div class="sa-stage">
+              <svg viewBox="0 0 900 390" role="img"
+                   aria-label="ส่วนแบ่งตลาดซีพียูเซิร์ฟเวอร์ไตรมาสแรกปี 2026 AMD ส่งของคิดเป็น 33.2 เปอร์เซ็นต์ของจำนวนชิ้น แต่เก็บเงินได้ 46.2 เปอร์เซ็นต์ของมูลค่าตลาด ห่างกัน 13 จุด แปลว่าราคาขายเฉลี่ยต่อชิ้นสูงกว่าคู่แข่งอย่างมีนัยสำคัญ">
+
+                <text class="amd-lat amd-hd" x="40" y="34">x86 SERVER CPU &#183; AMD SHARE</text>
+                <text class="amd-lat amd-hd amd-r" x="860" y="34">Q1 2026</text>
+                <path class="amd-rule" d="M40 48H860"/>
+
+                <!-- แถบที่ 1: ส่วนแบ่งจำนวนชิ้น -->
+                <text class="amd-lat amd-cap" x="40" y="98">BY UNITS SHIPPED</text>
+                <rect class="amd-shell" x="40" y="112" width="820" height="46"/>
+                <rect class="amd-share amd-share-hot sa n" style="--i:2" x="40" y="112" width="272.2" height="46"/>
+                <text class="amd-lat amd-share-tag sa n" style="--i:3.4" x="60" y="141">AMD 33.2%</text>
+                <text class="amd-lat amd-share-tag amd-dim sa n" style="--i:3.4" x="840" y="141" text-anchor="end">INTEL 66.8%</text>
+
+                <!-- แถบที่ 2: ส่วนแบ่งเงิน — ยาวกว่าแถบบนอย่างเห็นได้ชัด -->
+                <text class="amd-lat amd-cap" x="40" y="210">BY REVENUE</text>
+                <rect class="amd-shell" x="40" y="224" width="820" height="46"/>
+                <rect class="amd-share amd-share-hot sa n" style="--i:6" x="40" y="224" width="378.8" height="46"/>
+                <text class="amd-lat amd-share-tag sa n" style="--i:7.4" x="60" y="253">AMD 46.2%</text>
+                <text class="amd-lat amd-share-tag amd-dim sa n" style="--i:7.4" x="840" y="253" text-anchor="end">INTEL 53.8%</text>
+
+                <!-- ช่องว่างระหว่างสองแถบ = หมัดเด็ด ขยับท้ายสุด -->
+                <path class="amd-gap sa n" style="--i:9.5" d="M312.2 158V300M418.8 224V300"/>
+                <path class="amd-gap amd-gap-arrow sa n" style="--i:10" d="M312.2 300H418.8"/>
+                <text class="amd-lat amd-punch sa n" style="--i:10.8" x="365.5" y="326" text-anchor="middle">+13.0 pts</text>
+
+                <path class="amd-rule" d="M40 348H860"/>
+                <text class="amd-lat amd-cap" x="40" y="374">SAME BOX COUNT, HIGHER PRICE PER BOX</text>
+              </svg>
+            </div>
+          </div>
+          <figcaption>
+            <span class="cs-plate-no">Plate IV</span>
+            <span class="lat">AMD</span> ส่งของออกไป <strong>33.2%</strong> ของจำนวนชิ้นทั้งตลาด
+            แต่เก็บเงินกลับมาได้ <strong>46.2%</strong> ของมูลค่าตลาด &mdash; ห่างกัน 13 จุด
+            (ปีก่อนหน้าส่วนแบ่งจำนวนชิ้นอยู่ที่ 27.2%) ช่องว่างนี้คือราคาขายเฉลี่ยต่อชิ้นที่สูงกว่า
+            และมันไม่ได้มาจากการตั้งราคาแพงเฉยๆ &mdash; มาจากการที่ <span class="lat">AMD</span>
+            ขายรุ่นแกนเยอะได้ในต้นทุนที่คู่แข่งทำตามไม่ทัน
+          </figcaption>
+        </figure>
+
+        <p>
+          ช่องว่าง 13 จุดนี้คือสิ่งที่ <span class="lat">Plate I</span> ทำนายไว้ตั้งแต่ต้นบท
+          เพราะข้อได้เปรียบของชิปเล็ตโตขึ้นตามขนาดของชิป
+          <span class="lat">AMD</span> จึงแข็งที่สุดในรุ่นแกนเยอะซึ่งเป็นรุ่นที่แพงที่สุด
+          <strong>เรขาคณิตจากปี 2019 ไปโผล่เป็นอำนาจตั้งราคาในปี 2026</strong>
+        </p>
+
+        <p>
+          และมันโผล่ในงบด้วย ไตรมาสที่สองของปี 2026 รายได้กลุ่มดาต้าเซ็นเตอร์ของ <span class="lat">AMD</span>
+          อยู่ที่ <strong>$6.72 พันล้าน</strong> โตจากปีก่อน <strong>107%</strong>
+          รายได้รวมทั้งบริษัทไตรมาสเดียว <strong>$11.54 พันล้าน</strong>
+          ซึ่งมากกว่ารายได้ทั้งปี 2015 เกือบสามเท่า
+        </p>
+
+        <div class="cs-folio" aria-hidden="true">
+          <i class="orn">&#9670;</i><i class="ln"></i>
+          <span class="pg">08</span>
+          <i class="ln"></i><span class="bk">The Moatrices</span>
+        </div>
+      </div>
+
+      <!-- ═══════════════════ §9 ═══════════════════ -->
+      <div class="cs-paper">
+        <p class="cs-h2n">VIII</p>
+        <h2 id="sec-9">ฝั่งที่ไม่อยู่ในงบ: ราคาที่ชิปเล็ตต้องจ่าย</h2>
+
+        <p class="cs-dcp">
+          <span class="cs-dc">ถ</span>้าชิปเล็ตดีขนาดนั้น คำถามที่ต้องถามคือทำไมไม่มีใครทำมาก่อน
+          คำตอบคือมันมีราคาที่ต้องจ่ายจริง และราคานั้นไม่ได้อยู่ในงบการเงินให้เห็นตรงๆ
+        </p>
+
+        <p>
+          <strong>หนึ่ง &mdash; ข้อมูลที่ต้องข้ามชิ้นเดินช้าลง</strong>
+          บนชิปก้อนเดียว แกนประมวลผลคุยกับตัวคุมหน่วยความจำผ่านเส้นทางที่อยู่บนซิลิคอนแผ่นเดียวกัน
+          พอหั่นออกเป็นชิ้น ข้อมูลต้องวิ่งออกจากชิ้นหนึ่ง ข้ามแผ่นรอง แล้วเข้าอีกชิ้น
+          รุ่นแรกๆ ของสถาปัตยกรรมนี้จึงมีเวลาหน่วงในการเข้าถึงหน่วยความจำสูงกว่าชิปก้อนเดียวอย่างวัดได้
+          และในงานบางประเภทที่ไวต่อเวลาหน่วง มันแพ้จริง
+        </p>
+
+        <p>
+          <strong>สอง &mdash; ชุมทางกินไฟตลอดเวลา</strong>
+          ชิ้นกลางที่ทำหน้าที่เชื่อมทุกอย่างต้องตื่นอยู่เสมอ ทำให้ชิปมีพื้นไฟฐานที่ลดลงยาก
+          ในเซิร์ฟเวอร์ที่เดินเต็มกำลังตลอดเวลา เรื่องนี้ไม่สำคัญ แต่ในโน้ตบุ๊กที่ต้องหลับบ่อยๆ มันสำคัญมาก
+        </p>
+
+        <p>
+          <strong>สาม &mdash; การประกอบและการทดสอบแพงขึ้น</strong>
+          ชิปเก้าชิ้นต้องถูกคัดให้แน่ใจว่าแต่ละชิ้นดีก่อนเอามาประกอบ
+          เพราะถ้าประกอบเสร็จแล้วเจอว่าชิ้นหนึ่งเสีย ของที่เสียคือทั้งแพ็กเกจ ไม่ใช่แค่ชิ้นนั้น
+          ต้นทุนที่ประหยัดได้จากผลผลิตส่วนหนึ่งจึงไหลกลับไปเป็นค่าทดสอบและค่าประกอบ
+        </p>
+
+        <p>
+          <strong>สี่ และข้อนี้สำคัญที่สุด &mdash; ตัวเลข 50% ใน Plate I นั้นโหดกับ Intel เกินจริง</strong>
+        </p>
+
+        <p>
+          โมเดลที่ผมใช้สมมติว่าตำหนิหนึ่งจุดฆ่าชิปทั้งชิ้น ซึ่งไม่จริงเสมอไป
+          ถ้าตำหนิตกใส่แกนประมวลผลแกนหนึ่งบนชิป 28 แกน <span class="lat">Intel</span> ไม่ทิ้งชิปนั้น
+          แต่ปิดแกนที่เสียแล้วขายเป็นรุ่น 24 แกนแทน วิธีนี้เรียกว่าการคัดเกรด
+          และมันกู้ผลผลิตกลับมาได้มากพอสมควร &mdash; ผลผลิตที่ใช้ได้จริงจึงสูงกว่า 50% ที่โมเดลบอก
+        </p>
+
+        <p>
+          แต่การคัดเกรดไม่ใช่ของฟรี มันคือการเอาซิลิคอนที่ต้นทุนเท่ารุ่นท็อปไปขายในราคารุ่นรอง
+          <strong>ผลผลิตถูกกู้กลับมาด้วยการยอมเสียอัตรากำไร</strong> แทนที่จะเสียเป็นของทิ้ง
+          ต้นทุนไม่ได้หายไป มันแค่ย้ายที่ จากบรรทัดของเสีย ไปอยู่ในบรรทัดราคาขายเฉลี่ย
+        </p>
+
+        <p>
+          ซึ่งพอดีกับสิ่งที่เห็นใน <span class="lat">Plate IV</span> &mdash;
+          ฝั่งที่ต้องคัดเกรดหนักกว่าคือฝั่งที่ราคาขายเฉลี่ยต่อชิ้นต่ำกว่า
+          <strong>เรื่องเดียวกัน มองจากคนละบรรทัดของงบ</strong>
+        </p>
+
+        <div class="cs-folio" aria-hidden="true">
+          <i class="orn">&#9670;</i><i class="ln"></i>
+          <span class="pg">09</span>
+          <i class="ln"></i><span class="bk">The Moatrices</span>
+        </div>
+      </div>
+
+      <!-- ═══════════════════ §10 ═══════════════════ -->
+      <div class="cs-paper">
+        <p class="cs-h2n">IX</p>
+        <h2 id="sec-10">หลักฐานในงบ: 27% เดินไป 54%</h2>
+
+        <p class="cs-dcp">
+          <span class="cs-dc">ก</span>ลับมาที่ตัวเลขที่ผมบอกให้จำไว้ตั้งแต่หัวข้อที่สอง
+        </p>
+
+        <div class="cs-stats">
+          <div class="cs-stat"><b>27%</b><span>อัตรากำไรขั้นต้น ปี 2015 ทั้งปี</span></div>
+          <div class="cs-stat"><b>54%</b><span>อัตรากำไรขั้นต้น ไตรมาส 2 ปี 2026</span></div>
+          <div class="cs-stat"><b>$3.99B</b><span>รายได้ทั้งปี 2015</span></div>
+          <div class="cs-stat"><b>$11.54B</b><span>รายได้ไตรมาสเดียว Q2 2026</span></div>
+        </div>
+
+        <p>
+          อัตรากำไรขั้นต้นเดินจาก <strong>27%</strong> ในปี 2015 ไปอยู่ที่ <strong>54%</strong> ในไตรมาสที่สองของปี 2026
+          จากขาดทุนสุทธิ $660 ล้านทั้งปี เป็นกำไรสุทธิ <strong>$2.30 พันล้าน</strong> ในไตรมาสเดียว
+        </p>
+
+        <p>
+          ตัวเลขนี้สำคัญตรงที่มัน<strong>แยกคำอธิบายสองแบบออกจากกันได้</strong>
+          ถ้า <span class="lat">AMD</span> ชนะเพราะ &ldquo;ขายได้เยอะขึ้น&rdquo; เฉยๆ
+          สิ่งที่ควรเห็นคือรายได้โตแต่อัตรากำไรขั้นต้นขยับนิดเดียว เพราะต้นทุนต่อชิปยังเท่าเดิม
+        </p>
+
+        <p>
+          การที่อัตรากำไรขั้นต้นเพิ่มขึ้นเป็นสองเท่า แปลว่า<strong>ช่องว่างระหว่างราคาขายกับต้นทุนการผลิตกว้างขึ้นในเชิงโครงสร้าง</strong>
+          ไม่ใช่แค่ขายของได้มากขึ้น &mdash; นั่นคือลายเซ็นของการเปลี่ยนวิธีผลิต ไม่ใช่ลายเซ็นของการเปลี่ยนวิธีขาย
+        </p>
+
+        <div class="cs-poster">
+          <p>รายได้โต บอกว่า <span class="hl">ลูกค้าซื้อมากขึ้น</span><br>อัตรากำไรขั้นต้นโต บอกว่า <span class="hl">ต้นทุนเปลี่ยนโครงสร้าง</span></p>
+          <span class="cs-plaque">อยากรู้ว่ากลไกจริงหรือไม่ <span class="arw">&rarr;</span> ดูบรรทัดที่สอง ไม่ใช่บรรทัดแรก</span>
+        </div>
+
+        <p>
+          และนี่คือบทเรียนที่เอาไปใช้กับหุ้นตัวอื่นได้ทันที
+          เวลาบริษัทอ้างว่ามีความได้เปรียบด้านต้นทุน <strong>ให้ไปดูอัตรากำไรขั้นต้นหลายปีติดกัน</strong>
+          ถ้าความได้เปรียบเป็นของจริง มันต้องโผล่ตรงนั้น และมันต้องอยู่ทน ไม่ใช่เด้งขึ้นไตรมาสเดียวแล้วหาย
+        </p>
+
+        <div class="cs-folio" aria-hidden="true">
+          <i class="orn">&#9670;</i><i class="ln"></i>
+          <span class="pg">10</span>
+          <i class="ln"></i><span class="bk">The Moatrices</span>
+        </div>
+      </div>
+
+      <!-- ═══════════════════ §11 ═══════════════════ -->
+      <div class="cs-paper">
+        <p class="cs-h2n">X</p>
+        <h2 id="sec-11">บทล่าสุด: สนามเพลาะกลับมาขยับ</h2>
+
+        <p class="cs-dcp">
+          <span class="cs-dc">ถ</span>้าบทนี้จบที่หัวข้อที่แล้ว มันจะเป็นนิทานที่อ่านสนุกและอันตราย
+          เพราะมันจะทิ้งภาพว่า <span class="lat">Intel</span> แพ้ไปแล้วและเรื่องจบแล้ว &mdash; ซึ่งไม่จริง
+        </p>
+
+        <div class="cs-stats">
+          <div class="cs-stat"><b>$24.22</b><span>ราคาต่ำสุดของ INTC ในรอบ 52 สัปดาห์</span></div>
+          <div class="cs-stat"><b>$142.35</b><span>ราคาสูงสุดในรอบ 52 สัปดาห์เดียวกัน</span></div>
+          <div class="cs-stat"><b>~10%</b><span>สัดส่วนที่รัฐบาลสหรัฐถือใน Intel</span></div>
+          <div class="cs-stat"><b>55&ndash;65%</b><span>ผลผลิตโหนด 18A ที่ประเมินกันอยู่</span></div>
+        </div>
+
+        <p>
+          ในรอบปีที่ผ่านมา หุ้น <span class="lat">Intel</span> เดินจากราว <strong>$24</strong> ขึ้นไปแตะ <strong>$142</strong>
+          ปัจจุบันซื้อขายอยู่ราว <strong>$103</strong> มูลค่าบริษัทราว <strong>$519 พันล้าน</strong>
+          นั่นไม่ใช่กราฟของบริษัทที่ตายแล้ว
+        </p>
+
+        <p>
+          สิ่งที่เปลี่ยนคือโหนด <span class="lat">18A</span> เริ่มเดินจริง สินค้ารหัส <span class="lat">Panther Lake</span>
+          เปิดตัวในงาน <span class="lat">CES</span> ต้นปี 2026 บริษัทมีรัฐบาลสหรัฐเข้ามาถือหุ้นราว 10%
+          มี <span class="lat">NVIDIA</span> ใส่เงินลงทุน $5 พันล้านในฝั่งโรงหล่อ
+          และได้ <span class="lat">Apple</span> เข้ามาเป็นลูกค้าหลักรายแรกๆ ของบริการรับผลิต
+        </p>
+
+        <p>
+          แต่ตัวเลขที่สำคัญที่สุดในย่อหน้าข้างบนไม่ใช่ตัวเลขไหนเลยที่ผมเพิ่งเขียนไป
+          มันคือตัวเลขนี้: <strong>ผลผลิตของโหนด 18A ประเมินกันอยู่ที่ราว 55&ndash;65%</strong>
+          ขณะที่เกณฑ์ที่โรงหล่อเชิงพาณิชย์ต้องทำให้ได้เพื่อทำกำไรจริงคือ <strong>เกิน 70%</strong>
+        </p>
+
+        <div class="cs-poster">
+          <p>บทนี้เปิดด้วย <span class="hl">Y = e<sup>&minus;AD</sup></span><br>สิบเอ็ดปีผ่านไป มันยังเป็น <span class="hl">ตัวแปรที่ตัดสิน</span></p>
+          <span class="cs-plaque">สนามรบเปลี่ยน <span class="arw">&rarr;</span> ผู้เล่นเปลี่ยน <span class="arw">&rarr;</span> สกอร์บอร์ดอันเดิม</span>
+        </div>
+
+        <p>
+          ซีอีโอคนปัจจุบันเรียกปี 2026 ว่า &ldquo;ปีแห่งการลงมือทำ&rdquo; และวางจุดกลับตัวของการเติบโตไว้ที่ปี 2027
+          แปลว่าคำถามทั้งหมดของ <span class="lat">Intel</span> ตอนนี้ยังเป็นคำถามเรื่องผลผลิตของแผ่นเวเฟอร์ ไม่ใช่คำถามเรื่องการตลาด
+          และคำถามทั้งหมดของ <span class="lat">AMD</span> ก็เช่นกัน &mdash;
+          ความได้เปรียบของมันมาจากการที่โรงงานที่มันเช่าใช้อยู่ดีกว่าโรงงานของคู่แข่ง
+        </p>
+
+        <p>
+          <strong>ซึ่งแปลว่าความได้เปรียบก้อนนี้ AMD ไม่ได้เป็นเจ้าของ</strong>
+          และนี่คือประโยคที่นักลงทุนในหุ้นตัวนี้ต้องเขียนติดไว้หน้าจอ
+        </p>
+
+        <div class="cs-folio" aria-hidden="true">
+          <i class="orn">&#9670;</i><i class="ln"></i>
+          <span class="pg">11</span>
+          <i class="ln"></i><span class="bk">The Moatrices</span>
+        </div>
+      </div>
+
+      <!-- ═══════════════════ §12 ═══════════════════ -->
+      <div class="cs-paper">
+        <p class="cs-h2n">XI</p>
+        <h2 id="sec-12">สามรอยร้าวที่ต้องจับตา</h2>
+
+        <p class="cs-dcp">
+          <span class="cs-dc">ร</span>าคาวันนี้ที่ <strong>$516</strong> มูลค่าบริษัท <strong>$841.6 พันล้าน</strong>
+          ไม่ได้อยู่บนสมมติฐานว่า <span class="lat">AMD</span> จะรักษาสิ่งที่ทำได้แล้วเอาไว้
+          มันอยู่บนสมมติฐานว่าบริษัทจะทำสิ่งที่ยังไม่เคยทำได้อีกหลายอย่าง
+        </p>
+
+        <ol class="cs-tl">
+          <li><span class="yr">รอยที่ 1</span><span class="ev"><b>ความได้เปรียบเรื่องโหนดเป็นของเช่า</b> &mdash; <span class="lat">AMD</span> ไม่ได้เป็นเจ้าของโรงงาน แปลว่าโหนดที่ดีที่สุดของ <span class="lat">TSMC</span> ใครก็จองได้ รวมถึงคู่แข่งโดยตรง ถ้าวันหนึ่ง <span class="lat">Intel</span> ไล่ทันเรื่องผลผลิตและกลับมามีโรงงานที่ดีกว่าคนอื่น <span class="lat">AMD</span> จะกลับไปเป็นบริษัทออกแบบที่ใช้โรงงานเดียวกับทุกคน</span></li>
+          <li><span class="yr">รอยที่ 2</span><span class="ev"><b>ชิปเล็ตไม่ใช่ความลับอีกต่อไป</b> &mdash; ปี 2019 มันคือความได้เปรียบที่คู่แข่งยังไม่ได้ทำ ปี 2026 มันคือวิธีมาตรฐานของทั้งวงการ ทั้ง <span class="lat">Intel</span> และผู้ออกแบบรายอื่นแยกชิปกันหมดแล้ว &mdash; ข้อได้เปรียบที่กลายเป็นมาตรฐาน ไม่ใช่ข้อได้เปรียบอีกต่อไป</span></li>
+          <li class="hit"><span class="yr">รอยที่ 3</span><span class="ev"><b>เงินก้อนใหญ่ย้ายไปอยู่ในสนามที่ AMD ยังไม่ได้ชนะ</b> &mdash; การเติบโตที่ราคาวันนี้คิดไว้ล่วงหน้ามาจากตัวเร่ง <span class="lat">AI</span> ไม่ใช่ซีพียูเซิร์ฟเวอร์ และในสนามนั้นคู่แข่งไม่ใช่ <span class="lat">Intel</span> ที่กำลังซ่อมโรงงาน แต่คือเจ้าที่มีทั้งของและระบบซอฟต์แวร์ที่คนทั้งโลกเขียนงานทับไว้แล้ว &mdash; และคูเมืองตรงนั้นไม่ใช่เรขาคณิตของแผ่นเวเฟอร์</span></li>
+        </ol>
+
+        <p>
+          รอยที่สามคือรอยที่ใหญ่ที่สุด เพราะมันแปลว่ากลไกที่ทำให้ <span class="lat">AMD</span> ชนะรอบที่แล้ว
+          <strong>ไม่ใช่กลไกที่จะตัดสินรอบหน้า</strong>
+          คนที่ซื้อหุ้นตัวนี้วันนี้เพราะประทับใจเรื่องชิปเล็ต กำลังซื้อของที่ราคาสะท้อนเรื่องอื่นไปแล้ว
+        </p>
+
+        <div class="cs-folio" aria-hidden="true">
+          <i class="orn">&#9670;</i><i class="ln"></i>
+          <span class="pg">12</span>
+          <i class="ln"></i><span class="bk">The Moatrices</span>
+        </div>
+      </div>
+
+      <!-- ═══════════════════ §13 ═══════════════════ -->
+      <div class="cs-paper">
+        <p class="cs-h2n">XII</p>
+        <h2 id="sec-13">Kill Conditions: เขียนให้ได้ก่อนกดซื้อ</h2>
+
+        <p class="cs-dcp">
+          <span class="cs-dc">เ</span>งื่อนไขเหล่านี้ไม่ใช่คำทำนาย มันคือประโยคที่เขียนไว้ล่วงหน้าเพื่อไม่ให้ตัวเองเถียงข้างๆ คูๆ ในวันที่มันเกิดขึ้นจริง
+        </p>
+
+        <ol class="cs-tl">
+          <li><span class="yr">ข้อ 1</span><span class="ev"><b>อัตรากำไรขั้นต้นลดลงติดกันเกินสามไตรมาสโดยที่รายได้ยังโต</b> &mdash; นั่นคือสัญญาณว่าต้องลดราคาเพื่อรักษาส่วนแบ่ง แปลว่าความได้เปรียบด้านต้นทุนถูกไล่ทันแล้ว ไม่ใช่แค่วัฏจักร</span></li>
+          <li><span class="yr">ข้อ 2</span><span class="ev"><b>ช่องว่างระหว่างส่วนแบ่งเงินกับส่วนแบ่งจำนวนชิ้นแคบลง</b> &mdash; วันนี้อยู่ที่ 13 จุด ถ้ามันหดเข้าหาศูนย์ แปลว่า <span class="lat">AMD</span> กลายเป็นผู้ขายสินค้าโภคภัณฑ์รายหนึ่ง ไม่ใช่เจ้าของช่องพรีเมียมอีกต่อไป</span></li>
+          <li><span class="yr">ข้อ 3</span><span class="ev"><b>Intel ประกาศผลผลิตโหนดใหม่เกิน 70% พร้อมลูกค้าภายนอกรายใหญ่ที่ผลิตจริงเป็นจำนวนมาก</b> &mdash; ไม่ใช่ข่าวเซ็นสัญญา แต่คือของที่ออกจากโรงงานจริง นั่นคือวันที่ความได้เปรียบเรื่องโหนดของ <span class="lat">AMD</span> หมดอายุ</span></li>
+          <li class="hit"><span class="yr">ข้อ 4</span><span class="ev"><b>รายได้ตัวเร่ง AI โตช้ากว่าที่ฝ่ายบริหารให้ภาพไว้สองไตรมาสติด</b> &mdash; ราคาวันนี้คิดการเติบโตก้อนนี้ไว้ล่วงหน้าแล้ว ถ้ามันไม่มา สิ่งที่ต้องปรับไม่ใช่ความคาดหวัง แต่คือราคา</span></li>
+        </ol>
+
+        <div class="cs-folio" aria-hidden="true">
+          <i class="orn">&#9670;</i><i class="ln"></i>
+          <span class="pg">13</span>
+          <i class="ln"></i><span class="bk">The Moatrices</span>
+        </div>
+      </div>
+
+      <!-- ═══════════════════ §14 ═══════════════════ -->
+      <div class="cs-paper">
+        <p class="cs-h2n">Epilogue</p>
+        <h2 id="sec-14">สี่ข้อที่ผมเอาไปใช้ต่อ</h2>
+
+        <p class="cs-dcp">
+          <span class="cs-dc">เ</span>คสนี้จบแบบสวย แต่ของที่เอากลับไปใช้ได้จริงไม่ใช่ตอนจบ
+          มันคือสี่ข้อนี้ ซึ่งใช้ได้กับหุ้นที่ไม่เกี่ยวกับชิปเลยด้วยซ้ำ
+        </p>
+
+        <ol class="cs-tl">
+          <li><span class="yr">ข้อ 1</span><span class="ev"><b>ถามหา &ldquo;กลไก&rdquo; ไม่ใช่ &ldquo;คนเก่ง&rdquo;</b> &mdash; คำอธิบายที่ลงท้ายด้วยชื่อซีอีโอ เอาไปใช้ล่วงหน้าไม่ได้ เพราะเรารู้ว่าใครเก่งหลังจากเขาชนะแล้ว แต่กลไกอย่าง &ldquo;หั่นของให้เล็กลงเพราะโอกาสรอดร่วงแบบทบต้นตามขนาด&rdquo; เป็นสิ่งที่ตรวจสอบได้ก่อนผลจะออก</span></li>
+          <li><span class="yr">ข้อ 2</span><span class="ev"><b>ความได้เปรียบด้านต้นทุนต้องโผล่ที่อัตรากำไรขั้นต้น</b> &mdash; ถ้าบริษัทอ้างว่าผลิตถูกกว่าคู่แข่ง แต่อัตรากำไรขั้นต้นหลายปีติดกันไม่ขยับ แปลว่าข้ออ้างนั้นยังไม่เป็นจริงในโลกจริง ไม่ว่าสไลด์จะสวยแค่ไหน</span></li>
+          <li><span class="yr">ข้อ 3</span><span class="ev"><b>แยกให้ออกว่าความได้เปรียบเป็นของที่เราเป็นเจ้าของ หรือของที่เราเช่าใช้</b> &mdash; <span class="lat">AMD</span> ชนะเพราะโรงงานที่เช่าใช้ดีกว่าโรงงานของคู่แข่ง นั่นเป็นความได้เปรียบจริง แต่เป็นความได้เปรียบที่หมดอายุได้ในวันที่คู่แข่งซ่อมโรงงานเสร็จ &mdash; คนละชนิดกับคูเมืองที่ตัวบริษัทสร้างเอง</span></li>
+          <li class="hit"><span class="yr">ข้อ 4</span><span class="ev"><b>ยอมรับให้ตรงว่าส่วนไหนคือฝีมือ ส่วนไหนคือคู่แข่งพลาด</b> &mdash; ถ้าโหนด 10 นาโนของ <span class="lat">Intel</span> มาตรงเวลา เรื่องนี้อาจจบคนละแบบ การเล่าเคสให้เป็นฝีมือล้วนๆ ทำให้เรามั่นใจเกินจริงในครั้งหน้า &mdash; และความมั่นใจเกินจริงแพงกว่าการยอมรับว่าโชคมีส่วน</span></li>
+        </ol>
+
+        <p>
+          ย้อนกลับไปวันที่ 27 กรกฎาคม 2015 ราคา $1.62 นั้นไม่ได้ผิด
+          ตลาดกำลังตีราคาบริษัทที่ขายของแพ้คู่แข่ง ต้นทุนสูงกว่า และเงินกำลังจะหมด &mdash; ซึ่งทั้งหมดเป็นความจริงในวันนั้น
+        </p>
+
+        <p>
+          สิ่งที่ตลาดไม่ได้ตีราคาไว้ ไม่ใช่ &ldquo;<span class="lat">AMD</span> จะเก่งขึ้น&rdquo;
+          แต่คือความเป็นไปได้ที่บริษัทจะ<strong>เปลี่ยนรูปร่างของสินค้าจนสมการต้นทุนเปลี่ยนไปเลย</strong>
+          พร้อมกับที่คู่แข่งสะดุดขาตัวเองพอดี
+        </p>
+
+        <p>
+          สองอย่างนั้นไม่มีใครใส่ไว้ในโมเดลได้ในปี 2015
+          และนั่นคือเหตุผลที่เราอ่านเคสศึกษา &mdash; ไม่ใช่เพื่อหาหุ้นตัวต่อไปที่จะขึ้น 318 เด้ง
+          แต่เพื่อจำรูปร่างของสิ่งที่โมเดลมองไม่เห็นเอาไว้ให้ได้
+        </p>
+
+        <div class="cs-folio" aria-hidden="true">
+          <i class="orn">&#9670;</i><i class="ln"></i>
+          <span class="pg">14</span>
+          <i class="ln"></i><span class="bk">The Moatrices</span>
+        </div>
+      </div>
+
+      <!-- ═══════════════════ ที่มาของตัวเลข ═══════════════════ -->
+      <div class="cs-paper cs-sources">
+        <p class="cs-h2n">Sources</p>
+        <h2 id="sec-15">ที่มาของตัวเลขในบทนี้</h2>
+        <ul>
+          <li><b>ราคาหุ้นและมูลค่าบริษัท</b> &mdash; ราคาปิดรายวันของ <span class="lat">AMD</span> และ <span class="lat">INTC</span>
+            ณ วันที่เผยแพร่ ราคาปิดต่ำสุด $1.62 (27 ก.ค. 2015) และยอดรอบนั้นที่ $161.91 (29 พ.ย. 2021)</li>
+          <li><b>งบปี 2015</b> &mdash; <span class="lat">AMD</span> ประกาศผลประกอบการประจำปี 2015:
+            รายได้ $3.99 พันล้าน (ลดลง 28%), อัตรากำไรขั้นต้นตามบัญชี 27%, ขาดทุนสุทธิ $660 ล้าน ($0.84 ต่อหุ้น)</li>
+          <li><b>งบไตรมาส 2 ปี 2026</b> &mdash; <span class="lat">AMD</span> รายงานรายได้ $11.536 พันล้าน,
+            อัตรากำไรขั้นต้นตามบัญชี 54%, กำไรสุทธิ $2.297 พันล้าน, รายได้กลุ่มดาต้าเซ็นเตอร์ $6.718 พันล้าน (+107%)</li>
+          <li><b>ขนาดได</b> &mdash; <span class="lat">Zen 2 CCD</span> 74 ตร.มม. (3.9 พันล้านทรานซิสเตอร์),
+            ชุมทาง <span class="lat">Rome</span> 416 ตร.มม. (8.34 พันล้าน), รวมทั้งแพ็กเกจ 1,008 ตร.มม. (39.54 พันล้าน) ·
+            <span class="lat">Intel Cascade Lake XCC</span> ราว 698 ตร.มม. 28 แกน</li>
+          <li><b>ส่วนแบ่งตลาด</b> &mdash; <span class="lat">Mercury Research</span> ไตรมาส 1 ปี 2026:
+            <span class="lat">AMD</span> 33.2% ของจำนวนชิ้นที่ส่งมอบ (จาก 27.2% ปีก่อน) และ 46.2% ของมูลค่าตลาดซีพียูเซิร์ฟเวอร์</li>
+          <li><b>เส้นเวลา</b> &mdash; แยก <span class="lat">GlobalFoundries</span> มีนาคม 2009 ·
+            <span class="lat">Lisa Su</span> เป็นซีอีโอ ตุลาคม 2014 ·
+            <span class="lat">GlobalFoundries</span> หยุดพัฒนา 7 นาโน สิงหาคม 2018 ·
+            <span class="lat">Intel</span> แจ้งเลื่อนการผลิต 10 นาโนเข้าปี 2019 เมื่อปลายเมษายน 2018</li>
+          <li><b>สถานะ Intel ปี 2026</b> &mdash; โหนด <span class="lat">18A</span> ผลผลิตที่ประเมินกันราว 55&ndash;65%
+            เทียบเกณฑ์เชิงพาณิชย์เกิน 70% · รัฐบาลสหรัฐถือราว 10% · <span class="lat">NVIDIA</span> ลงทุน $5 พันล้าน</li>
+          <li><b>โมเดลผลผลิต</b> &mdash; <span class="lat">Y = e<sup>&minus;AD</sup></span> ที่ <span class="lat">D</span> = 0.10 จุด/ตร.ซม.
+            เป็นการคำนวณของผมเองเพื่อแสดงกลไก ไม่ใช่ตัวเลขที่โรงงานใดเปิดเผย
+            ผลผลิตจริงสูงกว่านี้เพราะมีการคัดเกรด (ดูหัวข้อที่ 9)</li>
+        </ul>
+      </div>
+
+    </div>
+  </main>
+
+
+  <!-- SITE-FOOTER-START -->
+  <footer class="site-footer">
+    <div class="container footer-grid">
+      <div class="footer-brand">
+        <a href="../index.html" class="site-title">Moatrices</a>
+        <p>บันทึกการเรียนวิเคราะห์หุ้น US เชิงลึก ภาษาไทย — เน้นพื้นฐานธุรกิจ ไม่ใช่ราคา</p>
+      </div>
+      <nav class="footer-nav">
+        <a href="../index.html">หน้าแรก</a>
+        <a href="../articles.html">บทความ</a>
+        <a href="../stocks.html">หุ้น</a>
+        <a href="../tools.html">เครื่องมือ</a>
+        <a href="../about.html">เกี่ยวกับ</a>
+        <a href="/smart-money.html">Smart Money</a>
+      </nav>
+      <div class="footer-follow">
+        <span class="footer-follow-label">ติดตาม</span>
+        <div class="footer-social">
+          <a href="/feed.xml" class="social-btn" aria-label="RSS feed" title="RSS feed"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 11a9 9 0 0 1 9 9"/><path d="M4 4a16 16 0 0 1 16 16"/><circle cx="5" cy="19" r="1"/></svg></a>
+          <a href="mailto:beatp9696@gmail.com" class="social-btn" aria-label="อีเมล" title="อีเมล"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="m3 7 9 6 9-6"/></svg></a>
+        </div>
+      </div>
+    </div>
+    <div class="container footer-legal">
+      <!-- FOOTER-LEGAL-DEFAULT-START -->
+      <p><strong>คำเตือน:</strong> เนื้อหาทั้งหมดเป็นบันทึกการเรียนและความเห็นส่วนตัว
+         เพื่อการศึกษาเท่านั้น <strong>ไม่ใช่คำแนะนำการลงทุน</strong> ไม่ใช่การชี้นำให้ซื้อหรือขายหลักทรัพย์ใดๆ
+         ตัวเลขอ้างอิงงบที่เผยแพร่ ณ ช่วงเวลาหนึ่งและอาจล้าสมัย การตัดสินใจลงทุนเป็นความรับผิดชอบของผู้อ่านเอง</p>
+      <!-- FOOTER-LEGAL-DEFAULT-END -->
+      <p>© 2026 Moatrices · เผยแพร่ผ่าน GitHub Pages</p>
+    </div>
+  </footer>
+  <!-- SITE-FOOTER-END -->
+
+  <button class="to-top" aria-label="กลับขึ้นด้านบน">↑</button>
+  <script defer src="../app.min.js"></script>
+
+</body>
+</html>
