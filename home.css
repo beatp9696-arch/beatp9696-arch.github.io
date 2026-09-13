@@ -124,7 +124,7 @@ html.moatrices-home[data-theme=dark]{
 .home-layer--moat .home-layer-time{color:var(--accent)}
 .home-layer-arrow{width:18px;height:34px;flex:0 0 18px;fill:none;stroke:var(--accent);stroke-width:1.6;stroke-linecap:round;stroke-linejoin:round}
 .home-approach-dot{position:absolute;left:37px;top:19px;width:6px;height:6px;border-radius:50%;background:var(--accent);transform:translateY(var(--approach-position,206px));box-shadow:0 0 0 3px #79c9b419;pointer-events:none}
-.home-approach-panel{min-height:150px;padding:14px 0 16px;border-top:1px solid var(--border);outline-offset:4px}
+.home-approach-panel{min-height:225px;padding:14px 0 16px;border-top:1px solid var(--border);outline-offset:4px}
 .home-approach-step{display:block;font:500 9px/1.8 var(--font-mono);color:var(--accent);margin-bottom:7px}
 .home-approach .home-approach-caption{font-size:13px;font-weight:500;line-height:1.8;color:var(--text);margin:0 0 6px}
 .home-approach .home-approach-copy{font-size:12px;line-height:1.9;color:var(--muted);margin:0}

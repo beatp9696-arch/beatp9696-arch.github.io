@@ -89,6 +89,13 @@ try:
                 expect(page.get_by_role('tabpanel', name=label, exact=True)).to_be_visible()
                 assert abs(page.locator('.home-approach').bounding_box()['height'] - card_height) <= 1
                 assert layer.bounding_box()['height'] >= 44
+                if label == 'ข่าว':
+                    expect(page.get_by_role('tabpanel', name=label, exact=True)).to_contain_text('Macro')
+                    expect(page.get_by_role('tabpanel', name=label, exact=True)).to_contain_text('Micro')
+                if label == 'งบการเงิน':
+                    expect(page.get_by_role('tabpanel', name=label, exact=True)).to_contain_text('Income Statement')
+                    expect(page.get_by_role('tabpanel', name=label, exact=True)).to_contain_text('Balance Sheet')
+                    expect(page.get_by_role('tabpanel', name=label, exact=True)).to_contain_text('Cash Flow Statement')
             page.evaluate('scrollTo(0, 0)')
         page.evaluate("async () => { const images = [...document.querySelectorAll('img')]; for (const img of images) img.loading = 'eager'; await Promise.all(images.map(img => img.decode().catch(() => {}))); }")
         page.screenshot(path=str(OUT / 'moatrices-home-desktop.png'))

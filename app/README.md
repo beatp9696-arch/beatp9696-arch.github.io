@@ -187,4 +187,6 @@ The five-layer approach card sits below Your Workspace on desktop. At widths up 
 
 The approach card is interactive: each layer can be selected by pointer, touch, or ArrowUp/ArrowDown/Home/End. The panel below explains the selected layer, and a small mint dot travels through the layers once when the card first enters the viewport. `prefers-reduced-motion` disables the journey and keeps the card static.
 
+The News layer separates Macro forces (rates, inflation, currency, cycles, regulation) from Micro forces (customers, competitors, pricing, costs, management). The Financials layer connects the Income Statement, Balance Sheet, and Cash Flow Statement so the user can test whether reported profit becomes durable cash flow.
+
 Run `../.venv/bin/python test/home-browser.test.py` from this repository (adjust the virtualenv path for a worktree). Add `--live` to verify the TradingView iframe. Default checks block external requests and verify widget configuration. Screenshots are written to `/private/tmp/moatrices-home-*.png`.
