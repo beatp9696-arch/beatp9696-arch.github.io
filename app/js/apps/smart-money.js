@@ -108,6 +108,7 @@ const portrait = fund => profileImages[fund.id]
 const chartRows = fund => fund.estimatedHoldings
   ? topHoldingRows(fund.estimatedHoldings.rows.map(row => ({...row, id: row.symbol, value: row.weight})))
   : fund.chart || donutRows(fund.rows, fund.current.totalValue);
+const overviewRows = fund => fund.estimatedHoldings ? chartRows(fund) : topHoldingRows(chartRows(fund).filter(row => row.id !== 'other'));
 const chartLabel = row => row.id === 'other' ? 'อื่น ๆ' : symbol(row);
 const chartLegend = (rows, estimated = false) => `<ul class="sm-legend">${rows.map((row,i) => `<li data-chart-security="${esc(row.id)}">${row.id === 'other' ? `<i style="background:${COLORS[i]}"></i>` : stockBadge(row)}<span title="${esc(row.issuer)}">${esc(chartLabel(row))}${row.option ? ` · ${esc(row.option)}` : ''}</span><b>${estimatePercent(row.fraction*100)}</b>${estimated ? `<small>${estimatePercent(row.weight)} of estimated portfolio</small>` : `<small>${row.id === 'other' ? 'หลักทรัพย์ที่เหลือในรายงาน' : esc(row.issuer)}</small>`}</li>`).join('')}</ul>`;
 const RING_LOGO_MIN_FRACTION = .02;
@@ -118,7 +119,7 @@ const rowLogoKey = row => row.symbol || issuerLogos[row.cusip] || sectorMetadata
 
 function ring(fund, detailed = false) {
   const ringId = ++ringSequence;
-  const rows = chartRows(fund);
+  const rows = detailed ? chartRows(fund) : overviewRows(fund);
   const circumference = 2 * Math.PI * 78;
   let offset = 0;
   const circles = rows.map((row, i) => {
@@ -146,8 +147,11 @@ function ring(fund, detailed = false) {
   const count = rows.filter(row => row.id !== 'other').length;
   const caption = fund.estimatedHoldings
     ? `Top ${count} · Estimated<br>เฉพาะกลุ่มนี้ = 100%`
-    : `${count} อันดับแรก${rows.some(row => row.id === 'other') ? ' + อื่น ๆ' : ''}<br>เทียบมูลค่าทั้งรายงาน`;
-  return `<div class="sm-chart${detailed ? ' sm-ring-large' : ''}" data-chart-basis="${fund.estimatedHoldings ? 'estimated-top-five' : 'reported-total'}"><div class="sm-ring" aria-hidden="true"><svg viewBox="0 0 220 220"><g transform="rotate(-90 110 110)">${circles}</g>${marks}</svg>${center}</div><span class="sm-chart-caption">${caption}</span></div>`;
+    : detailed
+      ? `${count} อันดับแรก${rows.some(row => row.id === 'other') ? ' + อื่น ๆ' : ''}<br>เทียบมูลค่าทั้งรายงาน`
+      : `Top ${count} · เฉพาะกลุ่มนี้ = 100%<br>รวม ${estimatePercent(fund.topFiveWeight)} ของพอร์ต`;
+  const basis = fund.estimatedHoldings ? 'estimated-top-five' : detailed ? 'reported-total' : 'reported-top-five';
+  return `<div class="sm-chart${detailed ? ' sm-ring-large' : ''}" data-chart-basis="${basis}"><div class="sm-ring" aria-hidden="true"><svg viewBox="0 0 220 220"><g transform="rotate(-90 110 110)">${circles}</g>${marks}</svg>${center}</div><span class="sm-chart-caption">${caption}</span></div>`;
 }
 
 function card(fund, i) {

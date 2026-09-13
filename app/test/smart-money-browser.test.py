@@ -42,7 +42,7 @@ with sync_playwright() as p:
         fractions=arcs.evaluate_all('(nodes)=>nodes.map(n=>Number(n.dataset.fraction))')
         assert abs(sum(fractions)-1)<1e-9
         estimated='sm-estimated-card' in card.get_attribute('class')
-        expect(card.locator('.sm-chart-caption')).to_contain_text('เฉพาะกลุ่มนี้ = 100%' if estimated else 'เทียบมูลค่าทั้งรายงาน')
+        expect(card.locator('.sm-chart-caption')).to_contain_text('เฉพาะกลุ่มนี้ = 100%')
     assert page.locator('#tabbar .tab').all_text_contents()==['Moatrices','Money','Portfolio','Smart Money']
     expect(page.locator('.sm-head .moa-brand-section')).to_have_text('SMART MONEY')
     assert page.locator('#tabbar .on').evaluate('e=>getComputedStyle(e).color')=='rgb(121, 201, 180)'
