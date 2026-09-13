@@ -7,8 +7,23 @@ let companies = [];
 
 // Keep the existing companion and its controls in the sidebar, clear of the reading area.
 const buddy = document.getElementById('tars-buddy');
-const principle = document.querySelector('.home-principle');
-if (buddy && principle) principle.before(buddy);
+const sidebar = document.querySelector('.home-sidebar');
+if (buddy && sidebar) sidebar.append(buddy);
+
+// Move the same card so reading and keyboard order follow its visual placement.
+const approach = document.querySelector('.home-approach');
+const coverage = document.querySelector('.home-coverage');
+const workspace = document.querySelector('.home-workspace');
+const compactHome = matchMedia('(max-width: 820px)');
+function placeApproach() {
+  if (!approach || !coverage || !workspace) return;
+  const focused = approach.contains(document.activeElement) ? document.activeElement : null;
+  const anchor = compactHome.matches ? coverage : workspace;
+  if (anchor.nextElementSibling !== approach) anchor.after(approach);
+  focused?.focus({ preventScroll: true });
+}
+placeApproach();
+compactHome.addEventListener('change', placeApproach);
 
 const title = document.querySelector('.site-header .site-title');
 if (title) {

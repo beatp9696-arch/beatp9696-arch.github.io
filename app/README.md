@@ -183,4 +183,6 @@ Use `researchView=matrix` or `researchView=earnings` alongside `view=research` t
 
 Research confirms device writes before acknowledging follows and saved notes, so a reload immediately after confirmation retains them. Home statistics are generated from the article and tool catalogs during the build.
 
+The five-layer approach card sits below Your Workspace on desktop. At widths up to 820px, the same card moves after company coverage and before the latest articles, preserving reading and keyboard order. Its SVG uses the shared mint palette and links to the 7 Powers collection; TARS remains in the sidebar.
+
 Run `../.venv/bin/python test/home-browser.test.py` from this repository (adjust the virtualenv path for a worktree). Add `--live` to verify the TradingView iframe. Default checks block external requests and verify widget configuration. Screenshots are written to `/private/tmp/moatrices-home-*.png`.

@@ -30,6 +30,20 @@ def fitted(page):
         .map(e => [e.tagName, e.className]).slice(0, 12) })''')
     assert overflow['scroll'] <= overflow['width'], overflow
 
+def approach_position(page):
+    card = page.locator('.home-approach')
+    expect(card).to_have_count(1)
+    placement = card.evaluate('''e => {
+      const compact = matchMedia('(max-width: 820px)').matches;
+      const anchor = document.querySelector(compact ? '.home-coverage' : '.home-workspace');
+      const next = document.querySelector(compact ? '.home-latest' : '.home-toolkit');
+      const a = anchor.getBoundingClientRect(), c = e.getBoundingClientRect(), n = next.getBoundingClientRect();
+      return { correctOrder: anchor.nextElementSibling === e && e.nextElementSibling === next,
+        sameColumn: Math.abs(c.left - a.left) < 1,
+        above: c.top >= a.bottom, below: c.bottom <= n.top };
+    }''')
+    assert all(placement.values()), (page.viewport_size, placement)
+
 try:
     with sync_playwright() as p:
         browser = p.chromium.launch(headless=True)
@@ -61,15 +75,26 @@ try:
         if LIVE:
             expect(page.locator('#tv-ticker iframe')).to_be_visible(timeout=25000)
             page.wait_for_timeout(2500)
-        for width in [320, 390, 768, 1024, 1440]:
+        expect(page.locator('.home-layer-label')).to_have_text(['ราคา', 'ข่าว', 'งบการเงิน', 'โครงสร้างธุรกิจ', 'คูเมือง'])
+        expect(page.locator('.home-approach-caption')).to_have_text('ความได้เปรียบที่ต้องพิสูจน์')
+        for width in [320, 390, 768, 820, 821, 1024, 1440]:
             page.set_viewport_size({'width': width, 'height': 1000})
             fitted(page)
+            approach_position(page)
         page.evaluate("async () => { const images = [...document.querySelectorAll('img')]; for (const img of images) img.loading = 'eager'; await Promise.all(images.map(img => img.decode().catch(() => {}))); }")
         page.screenshot(path=str(OUT / 'moatrices-home-desktop.png'))
         page.screenshot(path=str(OUT / 'moatrices-home-desktop-full.png'), full_page=True)
         page.set_viewport_size({'width': 390, 'height': 844})
         page.screenshot(path=str(OUT / 'moatrices-home-mobile.png'))
         page.screenshot(path=str(OUT / 'moatrices-home-mobile-full.png'), full_page=True)
+        page.locator('.home-company').last.focus()
+        page.keyboard.press('Tab')
+        approach_link = page.get_by_role('link', name='สำรวจ 7 Powers')
+        expect(approach_link).to_be_focused()
+        approach_link.click()
+        assert page.url.endswith('/series-powers.html')
+        page.go_back()
+        expect(page.locator('.home-company')).to_have_count(3)
         # Browse every retained collection, including the previously featured tools.
         for summary in page.locator('.home-collection summary').all():
             summary.click()
@@ -133,7 +158,7 @@ try:
         expect(page.locator('.home-company')).to_have_count(3)
         failed.close()
         browser.close()
-        print('Home: theme, clock, original ticker symbols, search, retry, collections, Research deep links and 320–1440px layouts passed.' + (' Live TradingView iframe rendered.' if LIVE else ' External market requests blocked for deterministic checks.'))
+        print('Home: theme, clock, original ticker symbols, search, retry, collections, Research deep links, five-layer card placement, keyboard navigation and 320–1440px layouts passed.' + (' Live TradingView iframe rendered.' if LIVE else ' External market requests blocked for deterministic checks.'))
 finally:
     server.shutdown()
     server.server_close()
