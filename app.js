@@ -130,6 +130,7 @@
 
   // ---- ปุ่มสลับโหมดสว่าง/มืด ----
   function effectiveTheme() {
+    if (document.documentElement.dataset.themeLocked) return document.documentElement.dataset.themeLocked;
     var attr = document.documentElement.getAttribute("data-theme");
     if (attr === "light" || attr === "dark") return attr;
     return (window.matchMedia && window.matchMedia("(prefers-color-scheme: dark)").matches) ? "dark" : "light";
@@ -137,7 +138,7 @@
   window.effectiveTheme = effectiveTheme;
 
   var nav = document.querySelector(".site-nav");
-  if (nav) {
+  if (nav && !document.documentElement.dataset.themeLocked) {
     var b = document.createElement("button");
     b.className = "theme-toggle";
     b.id = "theme-toggle";

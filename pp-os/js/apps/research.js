@@ -4,10 +4,11 @@ import { POWERS, escapeHTML as esc, dateLabel, metricDelta, needsReview } from "
 
 const WATCH_KEY = "research.watchlist";
 const NOTES_KEY = "research.notes";
-const views = [["monitor", "activity", "Monitor"], ["earnings", "git-compare-arrows", "Earnings"], ["matrix", "table-2", "Matrix"]];
+const views = [["monitor", "activity", "Overview"], ["earnings", "git-compare-arrows", "Earnings"], ["matrix", "table-2", "Moat Matrix"]];
 const number = (n) => n.toLocaleString("en-US", { maximumFractionDigits: 3 });
 const sourceURL = (c, section = "") => new URL(`../../../articles/${c.article}${section ? `#${section}` : ""}`, import.meta.url).href;
 const libraryURL = new URL("../../../index.html", import.meta.url).href;
+const brand = () => `<div class="rx-topbar"><a class="moa-brand" href="${libraryURL}"><span class="moa-brand-mark" aria-hidden="true"><i></i><i></i><i></i></span>Moatrices<span class="moa-brand-section">RESEARCH</span></a><a class="rx-library-link" href="${new URL('articles.html', libraryURL).href}">${icon('book-open')}<span>Library</span>${icon('arrow-up-right')}</a></div>`;
 const logo = (c, cls = "") => `<span class="rx-logo ${cls}" style="--company:${c.color}"><b>${c.ticker.slice(0, 2)}</b><img src="./assets/brands/${c.ticker}.png" alt="" loading="eager"></span>`;
 const amount = (m, v) => v === null ? '<span class="rx-missing">Not recorded</span>' : `${m.unit === "USD bn" ? "$" : m.unit === "NTD bn" ? "NT$" : ""}${number(v)}${m.unit === "percent" ? "%" : "B"}`;
 function deltaHTML(m) {
@@ -22,18 +23,28 @@ export default {
   id: "research", name: "Research", icon: icon("activity"), defaultSize: { w: 1060, h: 780 },
   mount(body, options = {}) {
     body.classList.add("app-pane", "app-research");
-    let catalog = [], state = { view: "monitor", scope: "all", query: "", ticker: options.ticker || null, detailTab: "thesis", earningsTicker: "NVDA", report: null, selected: [], scroll: 0 };
+    const initialView = new URLSearchParams(location.search).get("view");
+    let catalog = [], state = { view: views.some(([id]) => id === initialView) ? initialView : "monitor", scope: "all", query: "", ticker: options.ticker || null, detailTab: "thesis", earningsTicker: "NVDA", report: null, selected: [], scroll: 0 };
     const stored = load(WATCH_KEY, []);
     const following = new Set(Array.isArray(stored) ? stored.filter((v) => typeof v === "string") : []);
     const drafts = new Map();
     const scrollHost = () => body.closest("#shell-view") || body.closest(".win-body") || body;
+    const syncRoute = () => {
+      if (!body.closest('#shell-view')) return;
+      const url = new URL(location.href);
+      if (state.view === 'monitor') url.searchParams.delete('view');
+      else url.searchParams.set('view', state.view);
+      if (state.ticker) url.searchParams.set('company', state.ticker);
+      else url.searchParams.delete('company');
+      history.replaceState(history.state, '', url);
+    };
     const company = (ticker) => catalog.find((c) => c.ticker === ticker);
     const followButton = (c, large = false) => `<button class="${large ? "rx-command" : "rx-follow"}${following.has(c.ticker) ? " is-following" : ""}" data-follow="${c.ticker}" aria-pressed="${following.has(c.ticker)}" aria-label="${following.has(c.ticker) ? "Unfollow" : "Follow"} ${c.ticker}">${icon(following.has(c.ticker) ? "check" : "bookmark")}<span>${following.has(c.ticker) ? "Following" : "Follow"}</span></button>`;
     const viewTabs = () => `<nav class="rx-tabs" aria-label="Research views" data-no-swipe>${views.map(([id, glyph, label]) => `<button data-view="${id}" aria-current="${state.view === id ? "page" : "false"}" class="${state.view === id ? "active" : ""}">${icon(glyph)}${label}</button>`).join("")}</nav>`;
     const statusLine = (c) => `<div class="rx-snapshot">${badge(c)}<span>Library snapshot · ${esc(c.period)}<br>Article updated ${dateLabel(c.snapshotDate)}</span></div>`;
 
     async function start(retry = false) {
-      body.innerHTML = `<div class="rx-wrap"><header class="rx-head"><h1>Moatrices</h1></header><div class="rx-empty" role="status">Loading research snapshots...</div></div>`;
+      body.innerHTML = `<div class="rx-wrap">${brand()}<div class="rx-empty" role="status">Loading research snapshots...</div></div>`;
       try {
         const data = await getResearch({ retry });
         if (!body.isConnected) return;
@@ -43,38 +54,38 @@ export default {
         if (!company(state.earningsTicker)) state.earningsTicker = catalog[0].ticker;
         render();
       } catch {
-        if (body.isConnected) body.innerHTML = `<div class="rx-wrap"><header class="rx-head"><h1>Moatrices</h1></header><div class="rx-empty" role="alert"><h2>Research unavailable</h2><p>โหลด snapshot ไม่สำเร็จ ข้อมูลพอร์ตของคุณไม่ได้เปลี่ยนแปลง</p><button class="rx-command" data-retry>${icon("activity")}Try again</button></div></div>`;
+        if (body.isConnected) body.innerHTML = `<div class="rx-wrap">${brand()}<div class="rx-empty" role="alert"><h2>Research unavailable</h2><p>โหลด snapshot ไม่สำเร็จ ข้อมูลพอร์ตของคุณไม่ได้เปลี่ยนแปลง</p><button class="rx-command" data-retry>${icon("activity")}Try again</button></div></div>`;
       }
     }
 
     function render(focusTarget) {
-      body.innerHTML = `<div class="rx-wrap">${state.ticker ? detail(company(state.ticker)) : overview()}</div><div class="rx-live" aria-live="polite" role="status"></div>`;
+      body.innerHTML = `<div class="rx-wrap">${brand()}${state.ticker ? detail(company(state.ticker)) : overview()}</div><div class="rx-live" aria-live="polite" role="status"></div>`;
       for (const img of body.querySelectorAll(".rx-logo img")) img.addEventListener("error", () => img.remove(), { once: true });
       if (focusTarget) body.querySelector(focusTarget)?.focus({ preventScroll: true });
     }
 
     function overview() {
-      return `<header class="rx-head"><div><div class="rx-eyebrow">RESEARCH WORKSPACE</div><h1>Moatrices<span class="rx-title-dot">.</span></h1></div><a class="rx-icon-btn" href="${libraryURL}" target="_blank" rel="noopener" aria-label="Open Moatrices library" title="Open Moatrices library">${icon("book-open")}</a></header>
+      return `<header class="rx-head"><div><div class="rx-eyebrow">BUSINESS FIRST. EVIDENCE ALWAYS.</div><h1>Research Overview<span class="rx-title-dot">.</span></h1><p class="rx-intro">เข้าใจธุรกิจ ติดตามคูเมือง และทบทวนสิ่งที่เราเชื่อ</p></div><a class="rx-command rx-home-link" href="${libraryURL}" aria-label="Open Moatrices library">${icon("book-open")}เปิดคลังความรู้ ${icon("arrow-up-right")}</a></header>
         ${viewTabs()}${state.view === "monitor" ? monitor() : state.view === "matrix" ? matrix() : earnings(company(state.earningsTicker))}
-        <footer class="rx-foot">Moatrices library snapshots · Not a live data feed<br>หลักฐานที่ยังไม่ประเมินไม่ใช่ moat ที่ไม่มีอยู่ และไม่ใช่คำแนะนำซื้อขาย</footer>`;
+        <footer class="rx-foot"><span><i class="rx-footer-dot"></i> MOATRICES · RESEARCH</span><span>Library snapshots · Not a live data feed<br>หลักฐานที่ยังไม่ประเมิน ไม่ได้แปลว่าไม่มี moat</span></footer>`;
     }
 
     function monitor() {
       const holdings = load("pf.holdings", []);
       const owned = new Set((Array.isArray(holdings) ? holdings : []).map((h) => h?.tk));
-      const scope = catalog.filter((c) => state.scope === "all" || (state.scope === "following" ? following.has(c.ticker) : owned.has(c.ticker)));
+      const scope = catalog.filter((c) => state.scope === "all" || (state.scope === "following" ? following.has(c.ticker) : state.scope === "due" ? needsReview(c) : owned.has(c.ticker)));
       const filtered = scope.filter((c) => `${c.ticker} ${c.name} ${c.sector}`.toLowerCase().includes(state.query.toLowerCase().trim()));
-      return `<section class="rx-summary" aria-label="Coverage summary"><div><span>In coverage</span><strong>${String(catalog.length).padStart(2, "0")}<small>companies</small></strong></div><div><span>Review due</span><strong class="rx-amber">${String(catalog.filter((c) => needsReview(c)).length).padStart(2, "0")}<small>snapshots</small></strong></div><div><span>Following</span><strong>${String(catalog.filter((c) => following.has(c.ticker)).length).padStart(2, "0")}<small>on this device</small></strong></div></section>
-        <div class="rx-section-head"><h2>Thesis Monitor</h2><span class="rx-meta">${filtered.length} of ${catalog.length} companies</span></div>
+      return `<section class="rx-summary" aria-label="Coverage summary"><div><span>In coverage</span><strong>${catalog.length}<small>companies</small></strong></div><div><button class="rx-summary-filter" data-scope="due" aria-pressed="${state.scope === 'due'}"><span>Review due ${icon('arrow-up-right')}</span><strong class="rx-amber">${catalog.filter((c) => needsReview(c)).length}<small>snapshots</small></strong></button></div><div><span>Following</span><strong>${catalog.filter((c) => following.has(c.ticker)).length}<small>on this device</small></strong></div></section>
+        <div class="rx-section-head"><div><span class="rx-eyebrow">RESEARCH COVERAGE</span><h2>Your research desk</h2></div><span class="rx-meta">${filtered.length} of ${catalog.length} companies${state.scope === 'due' ? ' · Review due' : ''}</span></div>
         <div class="rx-toolbar"><div class="rx-segment" aria-label="Company filter" data-no-swipe>${[["all", "All coverage"], ["following", "Following"], ["holdings", "My holdings"]].map(([v, label]) => `<button data-scope="${v}" aria-pressed="${state.scope === v}">${label}</button>`).join("")}</div><label class="rx-search">${icon("search")}<input type="search" aria-label="Search companies" placeholder="Search companies" value="${esc(state.query)}" maxlength="100"></label></div>
         <div class="rx-grid">${filtered.map(card).join("")}</div>
-        ${filtered.length ? "" : `<div class="rx-empty"><h3>${state.query ? "No companies found" : state.scope === "following" ? "No followed companies" : "No covered holdings"}</h3><p>${state.scope === "holdings" && !state.query ? "Research coverage: SNPS, TSM, NVDA. Your holdings remain private." : "SNPS · TSM · NVDA"}</p><button class="rx-command" data-reset>${icon("arrow-left")}All coverage</button></div>`}`;
+        ${filtered.length ? "" : `<div class="rx-empty"><h3>${state.query ? "No companies found" : state.scope === "following" ? "No followed companies" : state.scope === "due" ? "No reviews due" : "No covered holdings"}</h3><p>${state.scope === "holdings" && !state.query ? "Research coverage: SNPS, TSM, NVDA. Your holdings remain private." : "SNPS · TSM · NVDA"}</p><button class="rx-command" data-reset>${icon("arrow-left")}All coverage</button></div>`}
+        <div class="rx-desk-bottom"><div><span class="rx-eyebrow">A NOTE ON THE EVIDENCE</span><h3>วันที่ข้อมูล เป็นส่วนหนึ่งของคำตอบ</h3><p>ข้อมูลชุดนี้มาจากบทวิเคราะห์ในคลัง วันที่แสดงคือวันอัปเดตบทความ ส่วน Review due คือกำหนดทบทวนภายใน เปิดบริษัทเพื่ออ่านแหล่งที่มาและสิ่งที่ยังต้องตรวจสอบ</p></div><a class="rx-reading-link" href="${new URL('series-powers.html', libraryURL).href}">${icon('book-open')}<span><small>BUILD YOUR FRAMEWORK</small><b>อ่านคูเมืองทั้ง 7 แบบ</b><span>7 Powers · Hamilton Helmer</span></span>${icon('arrow-up-right')}</a></div>`;
     }
 
     function card(c) {
       const count = Object.values(c.powers).filter((p) => p.status === "evidenced").length;
-      const slices = POWERS.map(([id], i) => `${c.powers[id]?.status === "evidenced" ? c.color : c.powers[id]?.status === "partial" ? "#b6a069" : "#2b3034"} ${i / 7 * 360 + 2}deg ${(i + 1) / 7 * 360 - 2}deg, transparent ${(i + 1) / 7 * 360 - 2}deg ${(i + 1) / 7 * 360 + 2}deg`).join(",");
-      return `<article class="rx-card"><button class="rx-company" data-company="${c.ticker}" aria-label="Open ${c.ticker} research"><div class="rx-card-top"><div class="rx-identity"><span class="rx-ticker">${c.ticker}</span><h3>${esc(c.name)}</h3><span class="rx-meta">${esc(c.sector)}</span></div><div class="rx-power-ring" style="background:conic-gradient(${slices})" aria-hidden="true">${logo(c)}</div></div><div class="rx-power-count"><span style="background:${c.color}"></span>${count} / 7 powers evidenced</div><h4>${esc(c.headline)}</h4><p lang="th">${esc(c.focus)}</p></button><div class="rx-card-foot"><span class="rx-card-date">${badge(c)}<small>${esc(c.period)}</small></span>${followButton(c)}</div></article>`;
+      return `<article class="rx-card"><button class="rx-company" data-company="${c.ticker}" aria-label="Open ${c.ticker} research"><div class="rx-card-top">${logo(c)}<div class="rx-identity"><span class="rx-ticker">${c.ticker} <span>· ${esc(c.sector)}</span></span><h3>${esc(c.name)}</h3></div>${icon('arrow-up-right')}</div><h4>${esc(c.headline)}</h4><p lang="th">${esc(c.focus)}</p><div class="rx-power-count"><span class="rx-power-bars" aria-hidden="true">${POWERS.map(([id]) => `<i class="${c.powers[id]?.status || ''}"></i>`).join('')}</span><span>${count} / 7 powers evidenced</span></div></button><div class="rx-card-foot"><span class="rx-card-date">${badge(c)}<small>Article updated ${dateLabel(c.snapshotDate)}</small><small>${esc(c.period)}</small></span>${followButton(c)}</div></article>`;
     }
 
     function detail(c) {
@@ -162,11 +173,12 @@ export default {
         body.querySelector(".rx-live").textContent = `${ticker} ${following.has(ticker) ? "followed" : "unfollowed"}`;
       } else if (b.dataset.company) {
         state.scroll = scrollHost().scrollTop; state.ticker = b.dataset.company; state.detailTab = "thesis"; state.report = null;
+        syncRoute();
         render("[data-back]"); scrollHost().scrollTop = 0;
       } else if (b.hasAttribute("data-back")) {
-        const ticker = state.ticker; state.ticker = null; state.report = null; render(`[data-company="${ticker}"]`); scrollHost().scrollTop = state.scroll;
+        const ticker = state.ticker; state.ticker = null; state.report = null; syncRoute(); render(`[data-company="${ticker}"]`); scrollHost().scrollTop = state.scroll;
       } else if (b.dataset.view) {
-        state.view = b.dataset.view; state.report = null; render(`[data-view="${state.view}"]`); scrollHost().scrollTop = 0;
+        state.view = b.dataset.view; state.report = null; syncRoute(); render(`[data-view="${state.view}"]`); scrollHost().scrollTop = 0;
       } else if (b.dataset.detailTab) {
         state.detailTab = b.dataset.detailTab; state.report = null; render(`[data-detail-tab="${state.detailTab}"]`);
       } else if (b.dataset.scope) {
@@ -183,7 +195,8 @@ export default {
         if (e.isComposing) return;
         const start = e.target.selectionStart, end = e.target.selectionEnd;
         render(".rx-search input");
-        body.querySelector(".rx-search input").setSelectionRange(start, end);
+        // Search inputs do not support setSelectionRange in every browser.
+        if (start !== null && end !== null) body.querySelector(".rx-search input").setSelectionRange(start, end);
       } else if (e.target.matches(".rx-note textarea")) {
         drafts.set(state.ticker, e.target.value);
         body.querySelector(".rx-note-status").textContent = "Unsaved changes";

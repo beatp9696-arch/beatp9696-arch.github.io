@@ -72,6 +72,12 @@ The app has no separate bundling or lint script. Native ES module syntax and dom
 
 ## Research Workspace
 
+หน้าเว็บหลัก `../index.html` และ Research ใช้โทนดำ / มิ้นต์เดียวกับ Portfolio ผ่าน `css/moatrices-theme.css` (พื้น `#101214`, สีแบรนด์ `#79c9b4`). หน้าเว็บหลักใช้ `../home.css` / `../home.js`, อ่าน catalog สาธารณะ `data/research.json`, ค้นหาบริษัท และเปิด Research ของบริษัทนั้นโดยตรง ไม่อ่านพอร์ตหรือโน้ตส่วนตัว แถบเวลา BKK / NY และ TradingView เดิมยังอยู่ หน้าแรกใช้ dark theme โดยไม่เขียนทับค่าธีมสำหรับการอ่านบทความที่ผู้ใช้บันทึกไว้
+
+ลิงก์ `?mode=app&tab=moatrices&view=matrix` และ `&view=earnings` เปิดเครื่องมือได้โดยตรง ปุ่ม Review due กรองกำหนดทบทวนภายใน วันที่การ์ดคือวันอัปเดตบทความ ไม่ใช่สถานะธุรกิจล่าสุด รูปแบบการ์ดใหม่แสดงโลโก้ขนาดเล็กและหลักฐาน 7 Powers แบบขีด โดยเก็บ Follow, notes, dialogs และ CSV เดิม
+
+ตรวจหน้าเว็บหลักจากโฟลเดอร์แม่ของ repo ด้วย `.venv/bin/python website/test/home-browser.test.py`; เพิ่ม `--live` เพื่อตรวจการโหลด TradingView จริง ชุดทดสอบปกติบล็อก requests ภายนอกและตรวจ config / รายชื่อหลักทรัพย์แทน ภาพหน้าจออยู่ใน `/private/tmp/moatrices-home-*.png`. Service worker `pp-os-v41` เก็บ shared theme สำหรับเปิด Research และ Portfolio ออฟไลน์
+
 เปิด `http://localhost:8000/pp-os/?mode=app&tab=moatrices` หรือระบุบริษัทด้วย `&company=SNPS` ใน desktop ใช้ `?mode=desktop&open=research`
 
 - `data/research.json` เป็น snapshot ของบทความ SNPS, TSM, NVDA ที่มีอยู่ในคลัง ไม่ใช่ข้อมูลล่าสุดจาก API หรือ transcript diff อัตโนมัติ แต่ละ observation เชื่อมไปยัง section ของบทความ

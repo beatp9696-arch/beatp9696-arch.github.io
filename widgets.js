@@ -13,6 +13,8 @@
     if (!host) return;
     host.innerHTML = "";              // เคลียร์ก่อน เผื่อ re-render ตอนสลับ theme
     config.colorTheme = theme();
+    // A solid dark canvas prevents transparent cross-origin frames flashing white.
+    if (document.documentElement.dataset.themeLocked === "dark") config.isTransparent = false;
 
     var container = document.createElement("div");
     container.className = "tradingview-widget-container";

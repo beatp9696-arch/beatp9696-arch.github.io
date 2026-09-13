@@ -1,7 +1,7 @@
 // Service worker — precache app shell ทั้งหมด ใช้ offline ได้เต็มตัว
 // เปลี่ยนไฟล์เมื่อไหร่ให้ bump VERSION เพื่อบังคับ cache ใหม่
 
-const VERSION = "pp-os-v40";
+const VERSION = "pp-os-v41";
 
 const SHELL = [
   "./assets/brands/SPGI.png",
@@ -12,6 +12,7 @@ const SHELL = [
   "./index.html",
   "./manifest.webmanifest",
   "./css/base.css",
+  "./css/moatrices-theme.css",
   "./css/desktop.css",
   "./css/window.css",
   "./css/taskbar.css",
