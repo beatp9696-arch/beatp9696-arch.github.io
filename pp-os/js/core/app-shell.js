@@ -114,13 +114,15 @@ export function initShell() {
 
   sync.initSync(); // ดึงของใหม่จาก cloud ถ้าตั้ง sync ไว้ + ตั้ง auto-sync เวลาข้อมูลเปลี่ยน
 
-  const start = new URLSearchParams(location.search).get("tab");
+  const start = new URLSearchParams(location.search).get("tab") || load("os.lastTab", "smart-money");
   goTab(TABS.some((t) => t.id === start) ? start : "smart-money", { ticker: new URLSearchParams(location.search).get("company") });
 }
 
 function goTab(id, opts = {}) {
   if (!TABS.some((t) => t.id === id)) id = "smart-money";
+  save("os.lastTab", id);
   const url = new URL(location.href);
+  if(id!=="smart-money")url.searchParams.delete("stock");
   url.searchParams.set("tab", id);
   if (id !== "portfolio") {
     for (const key of ["symbol", "thesis", "book", "portfolioView"]) url.searchParams.delete(key);

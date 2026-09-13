@@ -35,7 +35,7 @@ try:
         page=context.new_page(); errors=[]
         page.clock.set_fixed_time(datetime(2026,9,13,tzinfo=timezone.utc))
         page.on('pageerror',lambda e:errors.append(str(e)))
-        page.goto(url)
+        page.goto(url+'&book=demo')
         expect(page.locator('[data-holding]')).to_have_count(3)
         page.evaluate('document.fonts.ready')
         page.screenshot(path=str(OUT/'matrices-portfolio-desktop.png'),full_page=True)
@@ -208,6 +208,7 @@ try:
         researched.route('**/*',lambda r:r.continue_() if r.request.url.startswith(origin) else r.abort())
         page=researched.new_page();page.on('pageerror',lambda e:errors.append(str(e)))
         page.goto(url+'&book=personal')
+        expect(page.locator('.lt-library-strip')).to_be_visible()
         symbols=['MELI','LLY','GOOGL','SNPS','NVDA','COST','BRK-B','MSFT','TSM','SPGI','UNH','AXP','AAPL','AMZN','NFLX','BAC']
         page.evaluate("""async symbols=>{const s=await import('./js/core/storage.js');s.save('pf.holdings',symbols.map((tk,i)=>({id:'test-'+i,tk,shares:1,cost:1,price:2,sec:'other'})));await s.flushStorage();}""",symbols)
         page.reload();expect(page.locator('.lt-library-strip')).to_be_visible()
@@ -295,14 +296,14 @@ try:
         # Initial load error and an observable loading skeleton.
         failed=browser.new_context(service_workers='block')
         failed.route('**/data/living-thesis.json',lambda r:r.fulfill(status=503,body='Unavailable'))
-        page=failed.new_page();page.goto(url)
+        page=failed.new_page();page.goto(url+'&book=demo')
         expect(page.locator('.lt-alert')).to_be_visible()
         failed.unroute('**/data/living-thesis.json')
         page.locator('[data-action="retry"]').click()
         expect(page.locator('[data-holding]')).to_have_count(3)
         failed.close()
         offline=browser.new_context(viewport={'width':390,'height':844})
-        page=offline.new_page();page.goto(url)
+        page=offline.new_page();page.goto(url+'&book=demo')
         expect(page.locator('[data-holding]')).to_have_count(3)
         page.evaluate("async () => { await navigator.serviceWorker.ready; if (!navigator.serviceWorker.controller) await new Promise(r => navigator.serviceWorker.addEventListener('controllerchange',r,{once:true})); }")
         offline.set_offline(True);page.reload()

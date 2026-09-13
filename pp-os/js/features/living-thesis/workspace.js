@@ -10,11 +10,14 @@ import {icon,button,empty,evidenceRows} from './components.js';
 export function mountWorkspace(body) {
   body.classList.add('app-pane','app-living-thesis');
   const params=new URLSearchParams(location.search);
-  const real=personalCompanies();
-  const state={scope:params.get('book')||load('pf.living.scope',real.length?'personal':'demo'),symbol:params.get('symbol'),tab:params.get('thesis')||'thesis',view:params.get('portfolioView')||'health',filter:'All',sort:'priority',query:'',loading:true,error:'',message:''};
-  if(!['demo','personal'].includes(state.scope)) state.scope='demo';
+  const saved=load('pf.workspace.v1',{});
+  const explicit=params.has('book')||params.has('symbol');
+  const initialView=params.get('portfolioView')||(explicit?'health':saved.view||'allocation');
+  const state={scope:params.get('book')||(explicit?'personal':saved.scope||'personal'),symbol:params.get('symbol'),tab:params.get('thesis')||'thesis',view:['health','allocation'].includes(initialView)?initialView:'allocation',filter:'All',sort:'priority',query:'',loading:true,error:'',message:''};
+  if(!['demo','personal'].includes(state.scope)) state.scope='personal';
+  if(state.view==='allocation')state.scope='personal';
   if(!TABS.some(([id])=>id===state.tab)) state.tab='thesis';
-  let samples=[],library=[],libraryLoaded=false,request=null;
+  let samples=[],library=[],libraryLoaded=false,request=null,allocationController=null;
   const life=new AbortController();
   const scrollHost=()=>body.closest('#shell-view')||body.closest('.win-body')||body;
   const companies=()=>state.scope==='demo'?samples:personalCompanies(library);
@@ -24,6 +27,7 @@ export function mountWorkspace(body) {
   detector.observe(document.body,{childList:true,subtree:true});
 
   function route({replace=false}={}) {
+    save('pf.workspace.v1',{view:state.view,scope:state.scope});
     const url=new URL(location.href);
     url.searchParams.set('tab','portfolio');url.searchParams.set('open','portfolio');url.searchParams.set('book',state.scope);
     url.searchParams.delete('company');
@@ -31,19 +35,28 @@ export function mountWorkspace(body) {
     history[replace?'replaceState':'pushState']({livingThesis:true},'',url);
   }
   function render(focus) {
+    // A slow library response must not replace an active holding/target editor.
+    if(state.view==='allocation' && body.querySelector('.lt-allocation dialog[open]')) {
+      body.querySelector('.lt-loading')?.remove();
+      body.querySelector('.lt-content')?.removeAttribute('aria-busy');
+      allocationController?.refresh();return;
+    }
     const active=body.querySelector('dialog');
     if(active?.open) active.close();
     const c=current();
-    body.innerHTML=`<div class="lt-wrap"><div class="lt-topbar"><a class="lt-wordmark" href="?mode=app&tab=portfolio" data-action="back"><span class="lt-brand-mark" aria-hidden="true"><i></i><i></i><i></i></span>Moatrices<span class="lt-wordmark-sub">PORTFOLIO</span></a><div class="lt-scope" aria-label="Portfolio data source">${button('My portfolio','personal','','',`aria-pressed="${state.scope==='personal'}"`)}${button('Demo portfolio','demo','','',`aria-pressed="${state.scope==='demo'}"`)}</div></div>
+    body.classList.toggle('has-cockpit',state.view==='allocation');
+    body.innerHTML=`<div class="lt-wrap"><div class="lt-topbar"><a class="lt-wordmark" href="?mode=app&tab=portfolio" data-action="back"><span class="lt-brand-mark" aria-hidden="true"><i></i><i></i><i></i></span>Moatrices<span class="lt-wordmark-sub">PORTFOLIO</span></a><div class="lt-scope" aria-label="Portfolio data source">${button('Cockpit','cockpit','','',`aria-pressed="${state.view==='allocation'}"`)}${button('My portfolio','personal','','',`aria-pressed="${state.scope==='personal'&&state.view!=='allocation'}"`)}${button('Demo portfolio','demo','','',`aria-pressed="${state.scope==='demo'}"`)}</div></div>
       ${state.scope==='demo'&&state.view!=='allocation'?'<div class="lt-demo-strip"><span class="lt-demo-label">DEMO ANALYSIS</span><p>Sample portfolio, fictional events and mock financial data. For exploring the workspace; not verified research.</p><span class="lt-local">'+icon('book-open')+' Saved on this device</span></div>':''}
       ${state.scope==='personal'&&state.view!=='allocation'&&libraryLoaded?'<div class="lt-demo-strip lt-library-strip"><span class="lt-demo-label">RESEARCH DRAFTS</span><p>บทวิเคราะห์จากคลัง · มีวันที่และแหล่งอ้างอิง · ไม่ใช่ข้อมูลสดหรือเหตุผลที่คุณซื้อ คะแนนเป็นการประเมินเชิงคุณภาพ</p></div>':''}
       ${state.error?`<div class="lt-alert" role="alert"><div><b>Analysis unavailable</b><p>${esc(state.error)}</p></div>${button('Try again','retry','activity')}${button('Dismiss','dismiss','x','lt-quiet')}</div>`:''}
       ${state.message?`<div class="lt-success" role="status">${icon('check')}<span>${esc(state.message)}</span>${button('Dismiss','dismiss','x','lt-quiet')}</div>`:''}
       ${state.loading?`<div class="lt-loading" role="status" aria-label="Loading analysis"><span>${icon('activity')} ${state.scope==='demo'&&samples.length?'Refreshing demo analysis…':'Loading thesis workspace…'}</span><div class="lt-skeleton"></div><div class="lt-skeleton"></div><div class="lt-skeleton"></div></div>`:''}
-      <div class="lt-content" ${state.loading?'aria-busy="true"':''}>${state.view==='allocation'?`<div class="lt-allocation-back">${button('Portfolio Health','health','arrow-left','lt-quiet')}<span>Your original holdings, prices and allocation</span></div><div class="lt-allocation"></div>`:state.symbol?(c?detail(c,state):state.loading?'':empty('Holding not found','This business is not in the selected portfolio.',button('Back to Portfolio Health','back','arrow-left'))):overview(companies(),state)}</div>
+      <div class="lt-content" ${state.loading?'aria-busy="true"':''}>${state.view==='allocation'?`<div class="lt-allocation-back">${button('Portfolio Health','health','arrow-left','lt-quiet')}<span>Auto mode · latest view saved on this device</span></div><div class="lt-allocation"></div>`:state.symbol?(c?detail(c,state):state.loading?'':empty('Holding not found','This business is not in the selected portfolio.',button('Back to Portfolio Health','back','arrow-left'))):overview(companies(),state)}</div>
       <footer class="lt-footer"><span><i></i> MATRICES · THE LIVING THESIS</span><span>${state.scope==='demo'?'Demo analysis · Sample evidence · Mock data':'Private thesis notes · Stored on this device'}</span><span>Conviction, held accountable.</span></footer></div>`;
     for(const img of body.querySelectorAll('.lt-logo img')) img.addEventListener('error',()=>img.remove(),{once:true});
-    if(state.view==='allocation') allocation.mount(body.querySelector('.lt-allocation'), {
+    if(state.view==='allocation') allocationController=allocation.mount(body.querySelector('.lt-allocation'), {
+      getCompanies:()=>personalCompanies(library),
+      onOpenThesis(symbol) {state.scope='personal';navigate(symbol);if(!libraryLoaded)fetchLibrary();},
       onOpenHealth() {
         state.scope='personal';state.symbol=null;state.view='health';state.error='';state.message='';
         route();render();if(!libraryLoaded)fetchLibrary();scrollHost().scrollTop=0;
@@ -143,7 +156,7 @@ export function mountWorkspace(body) {
     if(action==='close-dialog'){target.closest('dialog')?.close();return;}
     if(action==='personal'||action==='demo'){state.scope=action;save('pf.living.scope',action);state.symbol=null;state.view='health';state.filter='All';state.error='';state.message='';route();render();if(action==='demo'&&!samples.length)await fetchSamples();if(action==='personal'&&!libraryLoaded)await fetchLibrary();return;}
     if(['back','health'].includes(action)){state.symbol=null;state.view='health';state.error='';state.message='';route();render();if(state.scope==='personal'&&!libraryLoaded)await fetchLibrary();scrollHost().scrollTop=0;return;}
-    if(action==='allocation'){state.symbol=null;state.scope='personal';state.view='allocation';route();render();scrollHost().scrollTop=0;return;}
+    if(action==='allocation'||action==='cockpit'){state.symbol=null;state.scope='personal';state.view='allocation';route();render();scrollHost().scrollTop=0;return;}
     if(action==='refresh'){await refresh();return;}
     if(action==='retry'){if(samples.length||state.scope==='personal')await refresh();else await fetchSamples();return;}
     if(action==='dismiss'){state.error='';state.message='';render();return;}

@@ -123,7 +123,8 @@ try:
         holdings = [{"tk": "SNPS", "shares": 2, "price": 100, "cost": 90, "priceAt": 1}, {"tk": "MSFT", "shares": 3, "price": 100, "cost": 90, "priceAt": 1}]
         page.evaluate("async hs => { const s = await import('./js/core/storage.js'); s.save('pf.holdings', hs); }", holdings)
         page.locator('#tabbar [data-tab="portfolio"]').click()
-        page.locator('[data-action="allocation"]').click()
+        if page.locator('[data-action="allocation"]').count():
+            page.locator('[data-action="allocation"]').click()
         expect(page.locator(".pf-research p")).to_contain_text("40.0% by entered value")
         page.get_by_role("button", name="Research SNPS", exact=True).click()
         expect(page.locator(".rx-detail-head h1")).to_have_text("Synopsys")

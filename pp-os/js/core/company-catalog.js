@@ -17,7 +17,21 @@ export const COMPANY_CATALOG = {
   NFLX: ['Netflix', 'Streaming entertainment', 'NFLX.png'],
   BAC: ['Bank of America', 'Banking & wealth management', 'BAC.png'],
   V: ['Visa', 'Payment network', 'V.png'],
+  ASML: ['ASML Holding', 'EUV / lithography', null],
+  MU: ['Micron Technology', 'Memory', 'MU.png'],
+  MRVL: ['Marvell Technology', 'Custom chip', null],
+  COHR: ['Coherent', 'Optical', 'COHR.png'],
+  AVGO: ['Broadcom', 'AI chip', 'AVGO.png'],
+  LMT: ['Lockheed Martin', 'Defense', 'LMT.png'],
 };
+// Shared business group metadata; a holding's explicit sector takes precedence.
+export const COMPANY_SECTORS = Object.fromEntries(Object.entries({
+  semi: ['SNPS','TSM','NVDA','ASML','MU','MRVL','COHR','AVGO'],
+  software: ['MSFT','GOOGL','NFLX'], health: ['LLY','UNH'],
+  finance: ['AXP','SPGI','BAC','BRK-B','V'], consumer: ['AAPL','COST','MELI','AMZN'],
+  space: ['LMT'],
+}).flatMap(([sector,symbols]) => symbols.map(symbol => [symbol,sector])));
+export const companySector = symbol => COMPANY_SECTORS[canonicalSymbol(symbol)] || 'other';
 export const canonicalSymbol = value => String(value || '').toUpperCase().replace(/^BRK[./]B$/, 'BRK-B');
 export const companyIdentity = symbol => COMPANY_CATALOG[canonicalSymbol(symbol)];
 export function companyLogoURL(symbol) {

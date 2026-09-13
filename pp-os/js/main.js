@@ -86,7 +86,7 @@ function initDesktop() {
   initTaskbar();
 
   // deep link: ?open=notes,calculator เปิดแอปให้เลยตอน boot
-  const auto = params.get("open");
+  const auto = params.get("open") || (load("os.lastTab", null)==="portfolio" ? "portfolio" : null);
   if (auto) {
     for (const id of auto.split(",")) {
       const app = getApp(id.trim());

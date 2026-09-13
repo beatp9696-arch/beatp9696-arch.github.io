@@ -8,7 +8,7 @@
 
 - **Moatrices** Research workspace: Thesis Monitor, Moat Matrix และ Earnings Diff พร้อมทางเข้าคลังบทความ
 - **Money** บันทึกรายรับ รายจ่าย และงบประมาณในเครื่อง
-- **Portfolio** Portfolio Health และ Matrices: The Living Thesis; พอร์ตส่วนตัวเดิมและการแก้ราคาอยู่ใน Holdings & allocation ข้อมูลยังอยู่ในเครื่อง
+- **Portfolio** Portfolio Cockpit: holdings, allocation, targets, Money bridge และ review queue; เชื่อม Portfolio Health และ Matrices: The Living Thesis โดยใช้พอร์ตเดิมในเครื่อง
 - **Smart Money** 16 รายการ: พอร์ตสาธารณะ 14 แห่งและเอกสารเปิดเผยของ Trump / Pelosi พร้อมค้นหา แยกประเภท และอ่านแหล่งอ้างอิง
 
 หน้า Me และ Health ถูกถอดออกจากทะเบียนแอป เมนู ทางลัด และการโหลดข้อมูลสุขภาพอัตโนมัติแล้ว ลิงก์แท็บเก่าจะเปิด Smart Money ข้อมูลเดิมใน storage ยังสำรองออกได้
@@ -28,9 +28,32 @@ python3 -m http.server 8000
 - บังคับโหมดด้วย `?mode=app` หรือ `?mode=desktop&open=smart-money`
 - ไฟล์แอปอยู่ใน repo เว็บเดียวกัน เผยแพร่ตามกระบวนการ push ของเว็บไซต์
 
+## Portfolio Cockpit
+
+The first Portfolio visit opens the personal Cockpit, including a usable empty state. Subsequent visits restore the latest Cockpit/Health view, sector/holding selection, search, thesis filter, sort and allocation grouping. App mode remembers the last tab; desktop automatically reopens Portfolio if it was the last tab. Explicit links such as `&book=demo`, `&book=personal&symbol=MSFT` and `&portfolioView=allocation` still take precedence. Demo research remains explicitly selected and separate from personal holdings.
+
+The existing `js/apps/portfolio-allocation.js` retains holding add/edit/remove and manual price updates. It now renders the Cockpit with `js/features/portfolio/model.js` and `views.js`. The Holdings table shows company logos, shares, average cost, entered price/date, value, weight, unrealized gain, target and thesis state. It stacks into labeled cards on smaller screens. Clicking a stock opens its detail/editor with routes to the existing Research, Living Thesis and Smart Money records. `&tab=smart-money&stock=MSFT` opens the existing cross-portfolio ownership view; Berkshire B aliases are canonicalized without merging share classes, options or principal instruments.
+
+- Summary value is **holdings only**, invested is **cost basis of current holdings**, and gain is **unrealized price gain**. This is not lifetime performance. No prices, transactions, historical returns, dividends, benchmark series or FX rates are invented.
+- The donut, concentration, targets and table share one complete-book denominator. Table filters never normalize a subset to 100%. An unpriced position, missing share quantity or unsupported currency suppresses aggregate valuation/weights; missing costs suppress total cost and gain. Zero is distinct from missing. Rows retain individual recorded values and dates.
+- New device-local keys: `pf.cockpit.view.v1`, `pf.workspace.v1`, `pf.targets.v1`, `os.lastTab`. Holdings and thesis storage remain unchanged. Portfolio keys are outside the sync allowlist and included in requested backups. Holding, price and target edits await durable storage before closing their dialogs.
+- Targets are explicitly entered by the user, separately for holdings and sectors, each totaling at most 100%. Blank is unset, 0% is an explicit target, and unassigned target weight is not cash. Default **UI alert thresholds** are Top 3 above 60%, Top 5 above 80%, and an on-target tolerance of ±2 percentage points; they are adjustable and are not investment recommendations.
+- Money bridge reads `money.entries` in THB: income minus expenses, with savings/investment splits and roundups remaining inside the same total. Investment reserve is an earmark, not a broker deposit or additional asset. Broker transfers, allocation to purchases and available-to-invest cash are **unavailable** because the existing ledger has no settled broker linkage. Unsupported transfer/currency records make the ledger balance unavailable. No THB/USD conversion or combined asset total is shown.
+- Review queue covers overweight holdings/sectors, Top 3/Top 5 thresholds, existing thesis review rules, reviews due within seven days of the 30-day interval, dated Research review deadlines, and Money investment earmarks awaiting reconciliation. A research review deadline is not an earnings release date. Price freshness is a labeled weekday-based check, not an exchange calendar.
+- Service worker `pp-os-v42` precaches the Cockpit modules and CSS. Empty, stale, unpriced, failed research, broken logos and offline states stay usable. Research or broker data are never silently replaced with demo data.
+
+Validation from the parent directory:
+
+```bash
+node --test website/pp-os/test/*.test.mjs
+.venv/bin/python website/pp-os/test/portfolio-browser.test.py
+```
+
+The Cockpit browser suite uses a disposable profile and checks 320, 390, 768, 1024 and 1440px, stock workspace links, saved targets/filters, math consistency, no horizontal overflow, logo fallback, absent prices and offline refresh. Preview screenshots use test fixtures only and are saved to `/private/tmp/moatrices-cockpit-*.png` and `/private/tmp/moatrices-holdings-*.png`.
+
 ## Matrices: The Living Thesis
 
-Portfolio now opens to a business-focused thesis health overview. Open a holding for its original thesis, current assessment, seven moat pillars, evidence timeline, earnings comparison, adversarial review, sell conditions, and investigation questions.
+Portfolio Health remains available from the Cockpit and My portfolio tab. Open a holding for its original thesis, current assessment, seven moat pillars, evidence timeline, earnings comparison, adversarial review, sell conditions, and investigation questions.
 
 This remains the existing vanilla JavaScript PWA. There is no new package manager, framework, database, or build dependency. Query routes follow the app's existing static hosting pattern:
 
