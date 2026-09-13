@@ -22,6 +22,9 @@
 .sm-chart .sm-ring{max-width:none}
 .sm-chart.sm-ring-large{width:45%;max-width:240px}
 .sm-chart-caption{display:block;text-align:center;font-size:8px;line-height:1.6;color:var(--dim);margin-top:4px}
+.sm-ring-stock-mark{pointer-events:none}
+.sm-legend .sm-stock-logo{width:16px;height:16px;padding:2px;border-radius:4px}
+.sm-legend .sm-stock-fallback{font-size:7px}
 .sm-chart-note{font-size:11px;line-height:1.8;color:var(--dim);margin:12px 0}
 .sm-brand{inset:25%}
 .sm-brand-photo{background:#19202b}

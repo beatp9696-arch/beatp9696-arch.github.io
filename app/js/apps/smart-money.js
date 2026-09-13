@@ -109,7 +109,12 @@ const chartRows = fund => fund.estimatedHoldings
   ? topHoldingRows(fund.estimatedHoldings.rows.map(row => ({...row, id: row.symbol, value: row.weight})))
   : fund.chart || donutRows(fund.rows, fund.current.totalValue);
 const chartLabel = row => row.id === 'other' ? 'อื่น ๆ' : symbol(row);
-const chartLegend = (rows, estimated = false) => `<ul class="sm-legend">${rows.map((row,i) => `<li data-chart-security="${esc(row.id)}"><i style="background:${COLORS[i]}"></i><span title="${esc(row.issuer)}">${esc(chartLabel(row))}${row.option ? ` · ${esc(row.option)}` : ''}</span><b>${estimatePercent(row.fraction*100)}</b>${estimated ? `<small>${estimatePercent(row.weight)} of estimated portfolio</small>` : `<small>${row.id === 'other' ? 'หลักทรัพย์ที่เหลือในรายงาน' : esc(row.issuer)}</small>`}</li>`).join('')}</ul>`;
+const chartLegend = (rows, estimated = false) => `<ul class="sm-legend">${rows.map((row,i) => `<li data-chart-security="${esc(row.id)}">${row.id === 'other' ? `<i style="background:${COLORS[i]}"></i>` : stockBadge(row)}<span title="${esc(row.issuer)}">${esc(chartLabel(row))}${row.option ? ` · ${esc(row.option)}` : ''}</span><b>${estimatePercent(row.fraction*100)}</b>${estimated ? `<small>${estimatePercent(row.weight)} of estimated portfolio</small>` : `<small>${row.id === 'other' ? 'หลักทรัพย์ที่เหลือในรายงาน' : esc(row.issuer)}</small>`}</li>`).join('')}</ul>`;
+
+// Keep the allocation ring readable while still identifying the securities that
+// make up the visible slices. Small slices receive a smaller marker so the
+// logos remain inside their own proportion instead of colliding with neighbors.
+const rowLogoKey = row => row.symbol || issuerLogos[row.cusip] || sectorMetadata?.byCusip?.[row.cusip]?.symbol;
 
 function ring(fund, detailed = false) {
   const ringId = ++ringSequence;
@@ -126,12 +131,14 @@ function ring(fund, detailed = false) {
   const marks = rows.map((row, i) => {
     const mid = angle + row.fraction * Math.PI;
     angle += row.fraction * 2 * Math.PI;
-    if (row.id === 'other' || i > 4 || row.fraction < .075) return '';
+    if (row.id === 'other' || i > 4 || row.fraction < .02) return '';
     const x = 110 + Math.cos(mid) * 78, y = 110 + Math.sin(mid) * 78;
-    const url = logoURL(row.symbol || issuerLogos[row.cusip]);
+    const url = logoURL(rowLogoKey(row));
     const label = (row.symbol || row.issuer.split(' ')[0]).slice(0, 4);
+    const radius = Math.max(8, Math.min(13, 7 + row.fraction * 28));
+    const imageRadius = Math.max(6, radius - 2);
     const clipId = `sm-stock-${ringId}-${i}`;
-    return `<g><circle cx="${x}" cy="${y}" r="14" fill="${url ? '#f5f7fa' : '#101726'}" stroke="#ffffff30" stroke-width=".8"/>${url ? `<defs><clipPath id="${clipId}"><circle cx="${x}" cy="${y}" r="12"/></clipPath></defs><image href="${url}" x="${x-12}" y="${y-12}" width="24" height="24" preserveAspectRatio="xMidYMid meet" clip-path="url(#${clipId})"/>` : `<text x="${x}" y="${y+3}" text-anchor="middle" fill="#fff" font-size="7.5" font-weight="600">${esc(label)}</text>`}</g>`;
+    return `<g class="sm-ring-stock-mark" data-chart-logo="${esc(row.id)}" aria-hidden="true"><circle cx="${x}" cy="${y}" r="${radius}" fill="${url ? '#f5f7fa' : '#101726'}" stroke="#ffffff55" stroke-width=".8"/>${url ? `<defs><clipPath id="${clipId}"><circle cx="${x}" cy="${y}" r="${imageRadius}"/></clipPath></defs><image href="${url}" x="${x-imageRadius}" y="${y-imageRadius}" width="${imageRadius*2}" height="${imageRadius*2}" preserveAspectRatio="xMidYMid meet" clip-path="url(#${clipId})"/>` : `<text x="${x}" y="${y+2.5}" text-anchor="middle" fill="#fff" font-size="${Math.max(6, radius*.55)}" font-weight="600">${esc(label)}</text>`}</g>`;
   }).join('');
   const center = profileImages[fund.id]
     ? `<span class="sm-brand sm-brand-${esc(fund.id)} sm-brand-${profileImages[fund.id][1]}">${profileImage(fund)}</span>`
