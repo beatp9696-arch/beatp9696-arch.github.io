@@ -110,17 +110,11 @@ const chartRows = fund => fund.estimatedHoldings
   : fund.chart || donutRows(fund.rows, fund.current.totalValue);
 const chartLabel = row => row.id === 'other' ? 'อื่น ๆ' : symbol(row);
 const chartLegend = (rows, estimated = false) => `<ul class="sm-legend">${rows.map((row,i) => `<li data-chart-security="${esc(row.id)}">${row.id === 'other' ? `<i style="background:${COLORS[i]}"></i>` : stockBadge(row)}<span title="${esc(row.issuer)}">${esc(chartLabel(row))}${row.option ? ` · ${esc(row.option)}` : ''}</span><b>${estimatePercent(row.fraction*100)}</b>${estimated ? `<small>${estimatePercent(row.weight)} of estimated portfolio</small>` : `<small>${row.id === 'other' ? 'หลักทรัพย์ที่เหลือในรายงาน' : esc(row.issuer)}</small>`}</li>`).join('')}</ul>`;
-const RING_LOGO_MIN_FRACTION = .075;
+const RING_LOGO_MIN_FRACTION = .02;
 
-// Keep the allocation ring readable while still identifying the securities that
-// make up the visible slices. Small slices move to a compact logo rail below
-// the chart instead of colliding inside the ring.
+// Keep the allocation ring focused on the largest visible securities. The
+// validated chart contains at most six slices, including the remainder.
 const rowLogoKey = row => row.symbol || issuerLogos[row.cusip] || sectorMetadata?.byCusip?.[row.cusip]?.symbol;
-const chartLogoRail = rows => {
-  const small = rows.filter((row, i) => row.id !== 'other' && i < 5 && row.fraction < RING_LOGO_MIN_FRACTION);
-  if (!small.length) return '';
-  return `<div class="sm-chart-logos" aria-label="โลโก้หุ้นสัดส่วนย่อย">${small.map((row, i) => `<span class="sm-chart-logo" style="--logo-color:${COLORS[i]}" title="${esc(chartLabel(row))} · ${estimatePercent(row.fraction * 100)}">${stockBadge(row)}</span>`).join('')}</div>`;
-};
 
 function ring(fund, detailed = false) {
   const ringId = ++ringSequence;
@@ -141,7 +135,7 @@ function ring(fund, detailed = false) {
     const x = 110 + Math.cos(mid) * 78, y = 110 + Math.sin(mid) * 78;
     const url = logoURL(rowLogoKey(row));
     const label = (row.symbol || row.issuer.split(' ')[0]).slice(0, 4);
-    const radius = Math.max(8, Math.min(13, 7 + row.fraction * 28));
+    const radius = Math.max(6, Math.min(13, 4 + row.fraction * 38));
     const imageRadius = Math.max(6, radius - 2);
     const clipId = `sm-stock-${ringId}-${i}`;
     return `<g class="sm-ring-stock-mark" data-chart-logo="${esc(row.id)}" aria-hidden="true"><circle cx="${x}" cy="${y}" r="${radius}" fill="${url ? '#f5f7fa' : '#101726'}" stroke="#ffffff55" stroke-width=".8"/>${url ? `<defs><clipPath id="${clipId}"><circle cx="${x}" cy="${y}" r="${imageRadius}"/></clipPath></defs><image href="${url}" x="${x-imageRadius}" y="${y-imageRadius}" width="${imageRadius*2}" height="${imageRadius*2}" preserveAspectRatio="xMidYMid meet" clip-path="url(#${clipId})"/>` : `<text x="${x}" y="${y+2.5}" text-anchor="middle" fill="#fff" font-size="${Math.max(6, radius*.55)}" font-weight="600">${esc(label)}</text>`}</g>`;
@@ -153,7 +147,7 @@ function ring(fund, detailed = false) {
   const caption = fund.estimatedHoldings
     ? `Top ${count} · Estimated<br>เฉพาะกลุ่มนี้ = 100%`
     : `${count} อันดับแรก${rows.some(row => row.id === 'other') ? ' + อื่น ๆ' : ''}<br>เทียบมูลค่าทั้งรายงาน`;
-  return `<div class="sm-chart${detailed ? ' sm-ring-large' : ''}" data-chart-basis="${fund.estimatedHoldings ? 'estimated-top-five' : 'reported-total'}"><div class="sm-ring" aria-hidden="true"><svg viewBox="0 0 220 220"><g transform="rotate(-90 110 110)">${circles}</g>${marks}</svg>${center}</div><span class="sm-chart-caption">${caption}</span>${detailed ? '' : chartLogoRail(rows)}</div>`;
+  return `<div class="sm-chart${detailed ? ' sm-ring-large' : ''}" data-chart-basis="${fund.estimatedHoldings ? 'estimated-top-five' : 'reported-total'}"><div class="sm-ring" aria-hidden="true"><svg viewBox="0 0 220 220"><g transform="rotate(-90 110 110)">${circles}</g>${marks}</svg>${center}</div><span class="sm-chart-caption">${caption}</span></div>`;
 }
 
 function card(fund, i) {
