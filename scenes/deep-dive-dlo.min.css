@@ -1,7 +1,7 @@
 .dlo-panel { background: radial-gradient(120% 140% at 50% 0%, #0b1a26 0%, #060a0e 70%); border-color: #16303f; }
 .ph-eyebrow.dlo { color: #38bdf8; }
 .dlo-panel .s-t { fill: #d3e6f2; }
-.dlo-panel .s-t.sm { fill: #8ba7ba; }
+.dlo-panel .s-t.sm { fill: #8ba7ba; letter-spacing: 0; }
 .dlo-panel .sim-mono { fill: #5f7d92; }
 .dlo-lbl { fill: #a8c4d6; }
 .dlo-mono { font-family: "IBM Plex Mono", ui-monospace, monospace; font-size: 11px; }
@@ -37,7 +37,11 @@ animation: dlo-collapse calc(var(--beat) * 2.2) var(--e-fail); }
 .dlo-grid line { stroke: #12262f; stroke-width: 1; }
 .dlo-killzone { fill: rgba(248,113,113,.10); }
 .dlo-killline { stroke: #f87171; stroke-width: 1.4; stroke-dasharray: 6 4; }
-.dlo-killzone.sa, .dlo-killline.sa, .dlo-kill-th.sa { animation: dlo-wall calc(var(--beat) * 1.6) var(--e-expo); }
+.dlo-killzone.sa, .dlo-killline.sa, .dlo-kill-th.sa {
+animation-name: dlo-wall;
+animation-duration: calc(var(--beat) * 1.6);
+animation-timing-function: var(--e-expo);
+}
 @keyframes dlo-wall { from { opacity: 0; } }
 .dlo-line { fill: none; stroke: #38bdf8; stroke-width: 2.6; stroke-linejoin: round; stroke-linecap: round;
 stroke-dasharray: 820; animation: dlo-draw calc(var(--beat) * 5) var(--e-fail); }
@@ -48,16 +52,28 @@ stroke-dasharray: 820; animation: dlo-draw calc(var(--beat) * 5) var(--e-fail); 
 transform-box: fill-box; transform-origin: center;
 animation: dlo-drop calc(var(--beat) * 1.8) var(--e-fail),
 dlo-alive 3.2s var(--e-expo) calc(var(--beat) * 8) infinite; }
+.dlo-panel .dlo-dot-now.sa.n {
+animation-iteration-count: 1, infinite;
+animation-delay: calc(var(--i, 0) * var(--beat)), calc(var(--beat) * 8);
+}
 @keyframes dlo-drop { from { opacity: 0; transform: translateY(-64px); } }
 @keyframes dlo-alive { 0%, 100% { filter: none; } 50% { filter: drop-shadow(0 0 5px rgba(251,191,36,.75)); } }
-.dlo-num.warn { animation: dlo-rise calc(var(--beat) * 1.6) var(--e-expo); }
+.dlo-num.warn {
+animation-name: dlo-rise;
+animation-duration: calc(var(--beat) * 1.6);
+animation-timing-function: var(--e-expo);
+}
 @keyframes dlo-rise { from { opacity: 0; transform: translateY(6px); } }
 .dlo-num.warn { transform-box: fill-box; transform-origin: center; }
 .dlo-cmp-a { fill: #1d6f9b; stroke: #38bdf8; stroke-width: 1.5; }
 .dlo-cmp-b { fill: #123449; stroke: #1e4a63; stroke-width: 1.5; }
 .dlo-cmp-a, .dlo-cmp-b { transform-box: fill-box; transform-origin: left center;
 animation: dlo-extend calc(var(--beat) * 2.4) var(--e-mass); }
-.dlo-panel .sa.n.dlo-th, .dlo-panel .sa.n.dlo-lbl { animation: dlo-rise calc(var(--beat) * 1.6) var(--e-expo); }
+.dlo-panel .sa.n.dlo-th, .dlo-panel .sa.n.dlo-lbl {
+animation-name: dlo-rise;
+animation-duration: calc(var(--beat) * 1.6);
+animation-timing-function: var(--e-expo);
+}
 .dlo-track { fill: #0e2231; }
 .dlo-red { fill: rgba(248,113,113,.22); }
 .dlo-fill { fill: #1d6f9b; }
@@ -70,13 +86,23 @@ animation: dlo-extend calc(var(--beat) * 2.4) var(--e-mass); }
 .dlo-needle.ok { fill: #34d399; }
 .dlo-needle.warn { fill: #fbbf24; }
 .dlo-needle.stop { fill: #f87171; }
-.dlo-panel g.sa.n:has(.dlo-led) { animation: dlo-rowin calc(var(--beat) * 1.5) var(--e-expo); }
+.dlo-panel g.sa.n:has(.dlo-led) {
+animation-name: dlo-rowin;
+animation-duration: calc(var(--beat) * 1.5);
+animation-timing-function: var(--e-expo);
+}
 @keyframes dlo-rowin { from { opacity: 0; transform: translateX(-14px); } }
-.dlo-panel g.sa.n:has([class*="dlo-bar-"]) { animation: dlo-fade calc(var(--beat) * 1.8) var(--e-expo); }
+.dlo-panel g.sa.n:has([class*="dlo-bar-"]) {
+animation-name: dlo-fade;
+animation-duration: calc(var(--beat) * 1.8);
+animation-timing-function: var(--e-expo);
+}
 .dlo-fill { transform-box: fill-box; transform-origin: left center;
 animation: dlo-extend calc(var(--beat) * 2) var(--e-mass); }
 .dlo-needle.travel { transform-box: fill-box; transform-origin: center;
-animation: dlo-toward calc(var(--beat) * 2.6) var(--e-fail); }
+animation-name: dlo-toward;
+animation-duration: calc(var(--beat) * 2.6);
+animation-timing-function: var(--e-fail); }
 @keyframes dlo-toward { from { transform: translateX(-176px); } }
 @media (prefers-reduced-motion: reduce) { .dlo-dot-now { animation: none; } }
 .dlo-tw { overflow-x: auto; margin: 22px 0; }
