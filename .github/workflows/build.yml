@@ -50,6 +50,8 @@ jobs:
 
       - name: Portfolio and Smart Money browser workflows
         run: |
+          python3 app/test/money-browser.test.py
+          python3 app/test/money-multitab-browser.test.py
           python3 app/test/portfolio-browser.test.py
           python3 app/test/living-thesis-browser.test.py
           python3 app/test/smart-money-browser.test.py

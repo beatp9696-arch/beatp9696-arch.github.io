@@ -19,6 +19,22 @@ const cache = new Map();
 const pending = new Map(); // key -> value | DELETE
 const DELETE = Symbol("delete");
 let flushTimer = null;
+const activeFlushes = new Set();
+let revision = 0;
+let changesChannel;
+
+function notifyChange(key) {
+  for (const cb of changeListeners) {
+    try { cb(key); } catch {}
+  }
+}
+
+function broadcast(keys) {
+  try {
+    changesChannel ??= new BroadcastChannel('pp-os:committed');
+    changesChannel.postMessage({ keys });
+  } catch {} // Saving remains atomic when cross-tab notifications are unavailable.
+}
 
 // ---- sync bookkeeping ----
 // จำ "แก้ครั้งล่าสุดเมื่อไหร่" ต่อ key ไว้ทำ merge แบบ last-write-wins ตอน sync ข้ามเครื่อง
@@ -35,11 +51,7 @@ function stampMeta(key) {
   const obj = Object.fromEntries(syncMeta);
   cache.set("_syncmeta", obj);
   queue("_syncmeta", obj);
-  for (const cb of changeListeners) {
-    try {
-      cb(key);
-    } catch {}
-  }
+  notifyChange(key);
 }
 
 function openDB() {
@@ -78,7 +90,7 @@ function flush() {
     if (v === DELETE) store.delete(k);
     else store.put(v, k);
   }
-  return new Promise((resolve) => {
+  const completion = new Promise((resolve) => {
     tx.oncomplete = () => resolve(true);
     const retry = () => {
       // Keep failed writes queued; never acknowledge an aborted transaction as saved.
@@ -87,16 +99,130 @@ function flush() {
       console.error("storage: เขียน IndexedDB ไม่สำเร็จ", tx.error);
       resolve(false);
     };
-    tx.onerror = retry;
     tx.onabort = retry;
   });
+  activeFlushes.add(completion);
+  completion.then(() => activeFlushes.delete(completion));
+  return completion;
 }
 
 /** Await durability before a thesis editor reports success or allows navigation. */
 export async function flushStorage() {
   if (flushTimer) clearTimeout(flushTimer);
+  flushTimer = null;
   if (!db) return fallbackErrors.size === 0;
-  return (await flush()) !== false;
+  flush();
+  return (await Promise.all([...activeFlushes])).every(Boolean);
+}
+
+/** Read, calculate and commit together. The updater must be synchronous and
+ * return only changed keys; cache snapshots must never be used to build writes.
+ * IndexedDB serializes readwrite transactions across all tabs on this store. */
+export async function updateStorage(defaults, updater) {
+  if (!await flushStorage()) throw new Error('Your device could not confirm the save. Keep this page open and try again.');
+  const keys = Object.keys(defaults);
+  const calculate = values => {
+    const updates = updater(structuredClone(Object.fromEntries(keys.map(k => [k, values.has(k) ? values.get(k) : defaults[k]]))));
+    if (!updates || typeof updates !== 'object' || typeof updates.then === 'function' || Object.keys(updates).some(k => !keys.includes(k))) {
+      throw new Error('Invalid storage update.');
+    }
+    const meta = { ...values.get('_syncmeta') };
+    for (const key of Object.keys(updates)) if (isSyncable(key)) meta[key] = Math.max(Date.now(), (meta[key] || 0) + 1);
+    return { updates, meta };
+  };
+  const accept = (values, { updates, meta }) => {
+    for (const key of keys) {
+      if (values.has(key)) cache.set(key, values.get(key));
+      else cache.delete(key);
+    }
+    for (const [key, value] of Object.entries(updates)) cache.set(key, value);
+    cache.set('_syncmeta', meta);
+    syncMeta.clear();
+    for (const [key, at] of Object.entries(meta)) syncMeta.set(key, at);
+    revision++;
+    for (const key of Object.keys(updates)) notifyChange(key);
+    broadcast(Object.keys(updates));
+    return updates;
+  };
+  if (!db) {
+    // localStorage has no transactions: serialize the complete read/modify/write
+    // with a browser lock. Without either mechanism, refuse an unsafe write.
+    if (!navigator.locks?.request) throw new Error('Browser storage is unavailable. Enable site storage or use another browser before saving.');
+    return navigator.locks.request('pp-os:storage-update', () => {
+      const values = new Map(legacyEntries());
+      const result = calculate(values);
+      const writes = { ...result.updates, _syncmeta: result.meta };
+      const before = new Map(Object.keys(writes).map(k => [k, localStorage.getItem(LS_PREFIX + k)]));
+      try {
+        for (const [key, value] of Object.entries(writes)) localStorage.setItem(LS_PREFIX + key, JSON.stringify(value));
+      } catch (error) {
+        for (const [key, value] of before) {
+          try { value === null ? localStorage.removeItem(LS_PREFIX + key) : localStorage.setItem(LS_PREFIX + key, value); } catch {}
+        }
+        throw error;
+      }
+      return accept(values, result);
+    });
+  }
+  return new Promise((resolve, reject) => {
+    const tx = db.transaction(STORE, 'readwrite');
+    const store = tx.objectStore(STORE);
+    const values = new Map();
+    let remaining = keys.length + 1, result, error;
+    tx.onabort = () => reject(error || tx.error || new Error('Your device could not confirm the save. Keep this page open and try again.'));
+    tx.oncomplete = () => resolve(accept(values, result));
+    for (const key of [...keys, '_syncmeta']) {
+      const request = store.get(key);
+      request.onsuccess = () => {
+        if (request.result !== undefined) values.set(key, request.result);
+        if (--remaining) return;
+        try {
+          result = calculate(values);
+          for (const [k, value] of Object.entries(result.updates)) store.put(value, k);
+          store.put(result.meta, '_syncmeta');
+        } catch (cause) { error = cause; tx.abort(); }
+      };
+    }
+  });
+}
+
+/** Refresh visible Money data after another tab commits, including tabs returning
+ * from suspension. This changes no timestamps and never broadcasts an echo. */
+export function watchStorage(keys) {
+  const life = new AbortController();
+  let channel;
+  const refresh = async () => {
+    try {
+      if (!await flushStorage() || life.signal.aborted) return;
+      const before = revision;
+      const values = db ? await readAll() : new Map(legacyEntries());
+      if (life.signal.aborted) return;
+      if (revision !== before) { queueMicrotask(refresh); return; }
+      const changed = [];
+      for (const key of keys) {
+        if (JSON.stringify(cache.get(key)) === JSON.stringify(values.get(key))) continue;
+        if (values.has(key)) cache.set(key, values.get(key));
+        else cache.delete(key);
+        changed.push(key);
+      }
+      const meta = values.get('_syncmeta') || {};
+      for (const key of keys) {
+        if (key in meta) syncMeta.set(key, meta[key]);
+        else syncMeta.delete(key);
+      }
+      cache.set('_syncmeta', Object.fromEntries(syncMeta));
+      for (const key of changed) notifyChange(key);
+    } catch (error) { console.warn('storage: could not refresh another tab', error); }
+  };
+  try {
+    channel = new BroadcastChannel('pp-os:committed');
+    channel.onmessage = e => { if (e.data?.keys?.some(k => keys.includes(k))) refresh(); };
+  } catch {}
+  addEventListener('focus', refresh, { signal: life.signal });
+  addEventListener('pageshow', refresh, { signal: life.signal });
+  addEventListener('storage', e => { if (keys.some(k => e.key === LS_PREFIX + k)) refresh(); }, { signal: life.signal });
+  document.addEventListener('visibilitychange', () => { if (document.visibilityState === 'visible') refresh(); }, { signal: life.signal });
+  return () => { life.abort(); channel?.close(); };
 }
 
 function queue(key, value) {
@@ -180,12 +306,14 @@ export function load(key, fallback = null) {
 }
 
 export function save(key, value) {
+  revision++;
   cache.set(key, value);
   queue(key, value);
   stampMeta(key);
 }
 
 export function remove(key) {
+  revision++;
   cache.delete(key);
   queue(key, DELETE);
   stampMeta(key);
@@ -272,6 +400,7 @@ export function syncSnapshot() {
 
 /** เขียนผล merge ลงเครื่อง — เก็บ snapshot ของเดิมไว้ให้กด Undo ได้ (กัน merge พลาดทำข้อมูลหาย) */
 export function applySync(data, meta) {
+  revision++;
   save("_snapshot", { at: Date.now(), data: dumpAll(), reason: "sync" });
   for (const [k, t] of Object.entries(meta)) {
     if (!isSyncable(k)) continue;
