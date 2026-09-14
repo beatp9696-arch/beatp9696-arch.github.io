@@ -45,6 +45,12 @@ document.addEventListener("pp-open-web", (e) => {
   const url = e.detail?.url;
   if (url) location.href = url;
 });
+document.addEventListener("pp-research", (e) => {
+  const url = new URL("portfolio.html", location.href);
+  url.searchParams.set("view", "research");
+  if (e.detail?.ticker) url.searchParams.set("ticker", e.detail.ticker);
+  location.href = `${url.pathname}${url.search}`;
+});
 
 if (root && APPS[id]) {
   try {

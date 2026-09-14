@@ -8,7 +8,7 @@
 
 - **Moatrices** เปิด Research workspace: Thesis Monitor, Moat Matrix และ Earnings Diff
 - **Money** บันทึกรายรับ รายจ่าย และงบประมาณในเครื่อง
-- **Portfolio** Portfolio Health และ Matrices: The Living Thesis; พอร์ตส่วนตัวเดิมและการแก้ราคาอยู่ใน Holdings & allocation ข้อมูลยังอยู่ในเครื่อง
+- **Portfolio** เปิด Portfolio Cockpit สำหรับสัดส่วน เป้าหมาย และรายการถือครอง เชื่อมต่อ Portfolio Health และ Matrices: The Living Thesis ข้อมูลส่วนตัวยังอยู่ในเครื่อง
 - **Smart Money** 16 รายการ: พอร์ตสาธารณะ 14 แห่งและเอกสารเปิดเผยของ Trump / Pelosi พร้อมค้นหา แยกประเภท และอ่านแหล่งอ้างอิง
 
 Research อยู่ภายใน Portfolio ที่ `portfolio.html?view=research` และใช้ snapshot ของบทความ SNPS, TSM, NVDA ใน `data/research.json` ไม่ใช่ live feed; ค่าที่ไม่มีจะแสดงเป็น `Not recorded` และหลักฐานทุกจุดลิงก์กลับไปยัง section ของบทความเดิม ส่วน Follow และ thesis notes เก็บในเครื่อง ไม่อยู่ใน cloud sync
@@ -30,9 +30,23 @@ python3 -m http.server 8000
 - บังคับโหมดด้วย `?mode=app` หรือ `?mode=desktop&open=smart-money`
 - ไฟล์แอปอยู่ใน repo เว็บเดียวกัน เผยแพร่ตามกระบวนการ push ของเว็บไซต์
 
+## Portfolio Cockpit
+
+`portfolio.html` เปิดพอร์ตส่วนตัวเป็นค่าเริ่มต้น และจำมุมมอง Cockpit/Health ล่าสุด รวมถึงการค้นหา ตัวกรอง การเรียง และการแบ่งโดนัทตาม sector/holding ลิงก์ที่ระบุ `book`, `symbol` หรือ `portfolioView` มีลำดับก่อนค่าที่บันทึกไว้
+
+- Portfolio value คือมูลค่าหุ้นที่กรอกไว้, Invested คือต้นทุนหุ้นที่ยังถือ และ Gain/Loss คือกำไรขาดทุนที่ยังไม่รับรู้ ราคาเก่าหรือข้อมูลที่ขาดแสดงสถานะกำกับ ไม่คำนวณผลตอบแทนย้อนหลัง เงินปันผล หรือ FX โดยไม่มีข้อมูล
+- โดนัท, Top 3/Top 5 concentration, Target vs actual และตารางใช้ยอดรวมพอร์ตเดียวกัน การกรองตารางไม่ทำให้น้ำหนักของรายการที่เหลือเพิ่มเป็น 100% หากมีหุ้นที่ประเมินมูลค่าไม่ได้ จะระงับยอดรวมและน้ำหนักรวม
+- ผู้ใช้กำหนดเป้าหมายหุ้นและ sector ได้อย่างละไม่เกิน 100% ค่าเริ่มต้นของการแจ้งเตือนปรับได้: Top 3 เกิน 60%, Top 5 เกิน 80% และช่วง On target ±2 จุดเปอร์เซ็นต์ เป้าหมายที่ยังไม่จัดสรรไม่ใช่ยอดเงินสด
+- ตารางแสดงโลโก้ จำนวนหุ้น ต้นทุน ราคาและวันที่ มูลค่า น้ำหนัก กำไร เป้าหมาย และ Thesis กดหุ้นเพื่อแก้รายการหรือไป Research, Living Thesis และ Smart Money โดยใช้ company catalog เดียวกัน
+- Money bridge อ่าน `money.entries` สกุล THB แยกจากหุ้น USD การแบ่ง savings/investment reserve อยู่ในเงินก้อนเดิม ไม่บวกซ้ำเป็นสินทรัพย์ เงินโอนเข้าบัญชีหุ้น ยอดซื้อ และเงินพร้อมลงทุนแสดง unavailable จนกว่าจะมีข้อมูลเชื่อมต่อ
+- Review queue รวมรายการเกินเป้าหมาย ความกระจุก Thesis ที่ต้องทบทวน Research ที่ถึงกำหนด และเงินสำรองลงทุนที่ต้องกระทบยอด
+- ใช้ storage เดิม: `pf.holdings` และ notes ไม่เปลี่ยน เพิ่ม `pf.cockpit.view.v1`, `pf.workspace.v1`, `pf.targets.v1` ที่อยู่ในเครื่องและรวมใน backup การแก้หุ้น ราคา และเป้าหมายรอการบันทึกเสร็จก่อนปิด dialog
+
+ตรวจจาก root ของ repo ด้วย `node --test app/test/*.test.mjs` และ `python3 app/test/portfolio-browser.test.py` (ต้องติดตั้ง Playwright) ชุด browser ใช้ข้อมูลจำลองในโปรไฟล์ชั่วคราว ตรวจ 320/390/768/1024/1440px การบันทึก ตัวกรอง ลิงก์ข้ามหน้า โลโก้ล้มเหลว ข้อมูลที่ขาด และความสอดคล้องของตัวเลข
+
 ## Matrices: The Living Thesis
 
-`portfolio.html` เปิดมาเป็นภาพรวมสุขภาพของ thesis รายธุรกิจ กดที่หุ้นตัวหนึ่งเพื่อดู thesis เดิม การประเมินปัจจุบัน เสาคูเมือง 7 ด้าน ไทม์ไลน์หลักฐาน การเทียบผลประกอบการ adversarial review เงื่อนไขขาย และคำถามที่ต้องไปขุดต่อ
+กด Portfolio Health หรือ My portfolio จาก Cockpit เพื่อเปิดภาพรวมสุขภาพของ thesis รายธุรกิจ กดที่หุ้นตัวหนึ่งเพื่อดู thesis เดิม การประเมินปัจจุบัน เสาคูเมือง 7 ด้าน ไทม์ไลน์หลักฐาน การเทียบผลประกอบการ adversarial review เงื่อนไขขาย และคำถามที่ต้องไปขุดต่อ
 
 ยังเป็น vanilla JavaScript ชุดเดิม ไม่มี package manager, framework, ฐานข้อมูล หรือ build step เพิ่ม เส้นทางเป็น query string บน static hosting เหมือนส่วนอื่นของแอป:
 

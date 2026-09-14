@@ -2,7 +2,7 @@ import { stockOwnership } from '../core/smart-money-stock.js';
 import { esc } from '../core/ui.js';
 import { summarizeFund, donutRows, topHoldingRows, matchesFund, validateDataset, validateFund } from '../core/smart-money-model.js';
 import { classifySecurity, sectorAllocation, SECTOR_LABELS } from '../core/smart-money-sectors.js';
-import { canonicalSymbol, companyIdentity, companyLinks } from '../core/company-catalog.js';
+import { canonicalSymbol, companyIdentity, companyLinks, companyLogoURL } from '../core/company-catalog.js';
 
 const svg = content => `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">${content}</svg>`;
 const ICON = {
@@ -26,7 +26,7 @@ const quarter = value => `Q${Math.ceil(Number(value.slice(5, 7)) / 3)} ${value.s
 const change = row => row.changePercent === null ? (row.status === 'new' ? 'New' : '—') : `${row.changePercent > 0 ? '+' : row.changePercent < 0 ? '−' : ''}${percent(Math.abs(row.changePercent))}`;
 const symbol = row => row.symbol || row.issuer;
 const logos = {AAPL: 'AAPL.svg', AXP: 'AXP.png', GOOGL: 'GOOGL.png', GOOG: 'GOOGL.png', NVDA: 'NVDA.png', MSFT: 'MSFT.png', COHR: 'COHR.png', SNPS: 'SNPS.png', KO: 'KO.png', BAC: 'BAC.png', INTC: 'INTC.png', SpaceX: 'SPACEX.svg', BLK: 'BLK.png', BN: 'BN.png', AMZN: 'AMZN.png', UBER: 'UBER.png', QSR: 'QSR.png', SPY: 'SPY.png', IVV: 'IVV.png', TSLA: 'TSLA.png', WFC: 'WFC.png', BABA: 'BABA.png'};
-const logoURL = key => logos[key] ? new URL(`../../assets/brands/${logos[key]}`, import.meta.url).href : null;
+const logoURL = key => companyLogoURL(key) || (logos[key] ? new URL(`../../assets/brands/${logos[key]}`, import.meta.url).href : null);
 const DARK_LOGO_KEYS = new Set(['NOK', 'TEM']);
 Object.assign(logos, Object.fromEntries(['CRWV','NOK','V','AVGO','AMD','TEM','HOOD','USB','TSM','GPN','MU','META','GS','DELL','OBDC','CVX','XOM','MRK'].map(key => [key, key + '.png'])));
 // Issuer logos also identify disclosed instruments without a mapped stock symbol.
@@ -205,7 +205,6 @@ export default {
   mount(body) {
     body.classList.add('app-pane', 'app-smart-money');
     let funds = [], query = '', category = 'all', selected = null, filter = 'all';
-    const requestedStock = canonicalSymbol(new URLSearchParams(location.search).get('stock'));
     let requestId=0, visibleCount=PAGE_SIZE, holdingQuery='';
     let scrollBeforeDetail = 0;
     let stockTarget = null, stockOrigin = null;
@@ -315,7 +314,7 @@ export default {
       const title = stockTarget.symbol || stockTarget.cusip || stockTarget.issuer;
       const total = cachedData.funds.length;
       const section = (heading, entries, className) => entries.length ? `<section class="${className}"><h3>${heading} <span>${entries.length}</span></h3><div class="sm-owner-list">${entries.map(stockReportCard).join('')}</div></section>` : '';
-      content.innerHTML = `<section class="sm-detail sm-stock-detail"><button class="sm-back" data-stock-back>${ICON.back} Back to ${esc(selected.name)}</button>
+      content.innerHTML = `<section class="sm-detail sm-stock-detail"><button class="sm-back" data-stock-back>${ICON.back} Back to ${esc(selected?.name || 'all portfolios')}</button>
         <div class="sm-detail-heading sm-stock-heading">${stockBadge(stockTarget)}<div><span class="sm-kicker">Across portfolios · Reported holdings</span><h2 tabindex="-1">${esc(title)}</h2><p>${esc(stockTarget.issuer)}</p>${stockCrossLinks(stockTarget)}</div></div>
         ${stockTarget.option || stockTarget.unit === 'PRN' ? `<p class="sm-stock-historical">${stockTarget.option ? esc(stockTarget.option)+' options · underlying share counts' : 'Principal instrument · amounts are not share counts'}. Only the same instrument is compared.</p>` : ''}
         <div class="sm-stock-summary"><strong>${result.portfolioCount}<span>portfolios report holdings${loading || failed.length ? ' · partial' : ''}</span></strong><strong>${loaded.length} / ${total}<span>filings checked</span></strong></div>
@@ -412,6 +411,7 @@ export default {
         requestId++;
         const origin = stockOrigin;
         stockTarget=null;stockOrigin=null;
+        if (!origin) { const url = new URL(location.href); url.searchParams.delete('stock'); history.replaceState(history.state, '', url); drawList(); return; }
         content.replaceChildren(...origin.nodes);
         scrollHost().scrollTop=origin.scrollTop;
         origin.focus?.focus({preventScroll:true});
@@ -451,25 +451,11 @@ export default {
         }
         const order=['berkshire','trump','bridgewater','ark','daily-journal','soros','pelosi','pershing','blackrock','vanguard-capital','state-street','jpmorgan','morgan-stanley','invesco','nvidia','temasek'];
         funds=[...cachedData.funds,...cachedData.disclosures].sort((a,b)=>order.indexOf(a.id)-order.indexOf(b.id));drawList();
-        if (requestedStock) openRequestedStock();
+        const stock=canonicalSymbol(new URLSearchParams(location.search).get('stock'));
+        if(/^[A-Z0-9.-]{1,20}$/.test(stock)){stockTarget={symbol:stock,issuer:companyIdentity(stock)?.[0]||stock,unit:'SH',option:''};selected=null;stockOrigin=null;openStock();}
       } catch {
         if (!body.isConnected) return;
         content.innerHTML='<div class="sm-empty" role="status"><b>ยังเปิดข้อมูลพอร์ตไม่ได้</b><p>ตรวจการเชื่อมต่อแล้วลองอีกครั้ง</p><button class="sm-text-btn" data-retry>ลองอีกครั้ง</button></div>';
-      }
-    }
-    async function openRequestedStock() {
-      const needle = requestedStock;
-      for (const summary of cachedData.funds) {
-        try {
-          const full = await loadFund(summary);
-          const row = [...full.rows, ...(full.exits || [])].find(item => canonicalSymbol(item.symbol) === needle);
-          if (!row || !body.isConnected) continue;
-          selected = full;
-          stockTarget = row;
-          stockOrigin = { nodes: [...content.childNodes], scrollTop: 0, focus: null };
-          await openStock();
-          return;
-        } catch { /* one unavailable filing should not block the other reports */ }
       }
     }
     loadData();

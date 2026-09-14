@@ -1,19 +1,20 @@
+import {canonicalSymbol} from './company-catalog.js';
 // Match securities, not issuer names or logo/sector aliases. Options and principal
 // instruments must never be counted as ordinary share holdings.
 export function sameSecurity(target, row) {
   if (target.cusip) {
     return row.cusip === target.cusip && row.unit === target.unit && row.option === target.option;
   }
-  return Boolean(target.symbol) && row.symbol === target.symbol && row.unit === 'SH' && row.option === '';
+  return Boolean(target.symbol) && canonicalSymbol(row.symbol) === canonicalSymbol(target.symbol) && row.unit === 'SH' && row.option === '';
 }
 
 export function stockOwnership(target, funds, disclosures = []) {
   const current = [], exited = [], historical = [];
-  const symbols = new Set(target.symbol ? [target.symbol] : []);
+  const symbols = new Set(target.symbol ? [canonicalSymbol(target.symbol)] : []);
   for (const fund of funds) {
     for (const row of [...fund.rows, ...fund.exits]) {
       if (!sameSecurity(target, row)) continue;
-      if (row.symbol) symbols.add(row.symbol);
+      if (row.symbol) symbols.add(canonicalSymbol(row.symbol));
       const entry = {fund, row};
       (fund.historical ? historical : row.status === 'exited' ? exited : current).push(entry);
     }
@@ -26,7 +27,7 @@ export function stockOwnership(target, funds, disclosures = []) {
   if ((!target.cusip || target.unit === 'SH' && target.option === '') && symbols.size === 1) {
     const [symbol] = symbols;
     for (const fund of disclosures) {
-      const row = fund.estimatedHoldings?.rows.find(row => row.symbol === symbol);
+      const row = fund.estimatedHoldings?.rows.find(row => canonicalSymbol(row.symbol) === symbol);
       if (row) estimates.push({fund, row});
     }
   }

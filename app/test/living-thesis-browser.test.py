@@ -35,7 +35,7 @@ try:
         page=context.new_page(); errors=[]
         page.clock.set_fixed_time(datetime(2026,9,13,tzinfo=timezone.utc))
         page.on('pageerror',lambda e:errors.append(str(e)))
-        page.goto(url)
+        page.goto(url+'?book=demo')
         expect(page.locator('[data-holding]')).to_have_count(3)
         page.evaluate('document.fonts.ready')
         page.screenshot(path=str(OUT/'matrices-portfolio-desktop.png'),full_page=True)
@@ -159,7 +159,7 @@ try:
         expect(page.locator('.pf-row')).to_have_count(1)
         personal=store(page,'pf.holdings')
         assert personal[0]['shares']==2
-        page.locator('.pf-row').click()
+        page.locator('.pf-row .pc-stock').click()
         page.locator('.pf-form input[name="shares"]').fill('3')
         page.get_by_role('button',name='Save changes',exact=True).click()
         page.locator('.pf-asof').click()
@@ -167,8 +167,8 @@ try:
         page.get_by_role('button',name='Save prices',exact=True).click()
         personal=store(page,'pf.holdings')
         assert personal[0]['shares']==3 and personal[0]['price']==420
-        expect(page.locator('.pf-thesis-entry')).to_have_count(1)
-        page.get_by_role('button',name='Open Portfolio Health and Living Thesis',exact=True).click()
+        expect(page.locator('.lt-allocation-back [data-action="health"]')).to_have_count(1)
+        page.locator('.lt-allocation-back [data-action="health"]').click()
         expect(page.locator('[data-holding]')).to_have_count(1)
         assert store(page,'pf.holdings')==personal
         expect(page.locator('[data-holding]')).to_contain_text('Draft · review to adopt')
@@ -284,7 +284,7 @@ try:
         expect(page.locator('.pf-row')).to_have_count(16)
         page.wait_for_function("[...document.querySelectorAll('.pf-row .pf-logo img')].every(i=>i.complete&&i.naturalWidth>0)")
         assert page.locator('.pf-row .pf-logo img').count()==16
-        page.get_by_role('button',name='Open Portfolio Health and Living Thesis',exact=True).click()
+        page.locator('.lt-allocation-back [data-action="health"]').click()
         expect(page.locator('[data-holding]')).to_have_count(16)
         assert store(page,'pf.holdings')==portfolio
         page.evaluate("""async()=>{const s=await import('/app/js/core/storage.js');s.save('pf.holdings',[{id:'unknown',tk:'ZZZZ',shares:1,cost:1,price:2}]);await s.flushStorage();}""")
@@ -297,7 +297,7 @@ try:
         # Initial load error and an observable loading skeleton.
         failed=browser.new_context(service_workers='block')
         failed.route('**/data/living-thesis.json',lambda r:r.fulfill(status=503,body='Unavailable'))
-        page=failed.new_page();page.goto(url)
+        page=failed.new_page();page.goto(url+'?book=demo')
         expect(page.locator('.lt-alert')).to_be_visible()
         failed.unroute('**/data/living-thesis.json')
         page.locator('[data-action="retry"]').click()

@@ -1,9 +1,6 @@
-// Portfolio — Matrices: The Living Thesis
-//
-// แท็บ Portfolio เปิดมาเป็น "สุขภาพของ thesis" ไม่ใช่ตารางน้ำหนักพอร์ตอีกต่อไป:
-// ถือเพราะอะไร วันนี้ยังจริงอยู่ไหม หลักฐานล่าสุดพูดว่าอะไร และอะไรที่จะทำให้ขาย
-// ของเดิม (โดนัท/CRUD/แก้ราคา) ยังอยู่ครบใน portfolio-allocation.js — เข้าผ่านปุ่ม
-// "Holdings & allocation" ในหน้านี้ · ข้อมูลพอร์ตยังอยู่ในเครื่องเหมือนเดิม ไม่ขึ้น cloud
+// Portfolio opens the personal Cockpit and restores the last Cockpit/Health view.
+// Living Thesis and its explicit demo remain in the same workspace. Holdings,
+// prices and allocation targets stay on this device.
 import { mountWorkspace } from "../features/living-thesis/workspace.js";
 import { researchIcon } from "../core/research-store.js";
 
