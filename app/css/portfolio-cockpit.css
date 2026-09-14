@@ -57,7 +57,7 @@
 .pc-legend-logo{width:34px;height:34px;position:relative;display:grid;place-items:center;flex:0 0 34px;overflow:hidden;border:1px solid color-mix(in srgb,var(--logo-color) 52%,#394642);border-radius:10px;background:color-mix(in srgb,var(--logo-color) 13%,#171b1e);box-shadow:0 4px 12px #0002}
 .pc-legend-logo>span{color:var(--logo-color);font-size:10px;font-weight:700;letter-spacing:.02em}
 .pc-legend-logo>img{position:absolute;inset:2px;width:28px;height:28px;object-fit:contain;padding:4px;background:#f5f7f5;border-radius:8px}
-.pc-legend button>span{flex:1;overflow-wrap:anywhere}
+.pc-legend button>span:not(.pc-legend-logo){flex:1;overflow-wrap:anywhere}
 .pc-legend small{display:block;color:var(--dim);font-size:8px;margin-top:4px}
 .pc-legend b{font-size:11px;font-weight:500;font-variant-numeric:tabular-nums}
 .pc-live-dot{width:6px;height:6px;border-radius:50%;background:var(--a);box-shadow:0 0 0 5px #79c9b412;margin:0 5px}
