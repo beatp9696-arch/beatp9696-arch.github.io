@@ -28,11 +28,12 @@
   <link rel="preload" as="font" type="font/woff2" href="fonts/sarabun-400-thai.woff2" crossorigin>
   <link rel="preload" as="font" type="font/woff2" href="fonts/sarabun-400-latin.woff2" crossorigin>
   <link rel="stylesheet" href="style.min.css">
+  <link rel="stylesheet" href="home.css">
   <script type="application/ld+json">
   {"@context": "https://schema.org", "@type": "WebSite", "name": "Moatrices", "url": "https://beatp9696-arch.github.io/", "description": "บันทึกการเรียนวิเคราะห์หุ้น US เชิงลึก เน้นพื้นฐานธุรกิจ ไม่ใช่ราคา", "inLanguage": "th", "author": {"@type": "Person", "name": "Moatrices"}}
   </script>
 </head>
-<body>
+<body class="home-page">
 
   <div class="top-accent"></div>
 
@@ -50,134 +51,130 @@
   </header>
   <!-- SITE-HEADER-END -->
 
-  <div id="tv-ticker"></div>
+  <div class="home-market"><div id="tv-ticker"></div></div>
 
   <main>
     <div class="container">
 
-      <div class="hero">
-        <div class="hero-inner">
-        <div class="hero-copy">
-        <span class="kicker">บันทึกการเรียน · วิเคราะห์หุ้น US</span>
-        <h1>เจาะแก่นธุรกิจ<br><span class="grad-text">หาคูเมืองที่แท้จริง</span></h1>
-        <div class="hero-stats">
-          <div class="hero-stat">
-            <span class="hero-stat-num">39</span>
-            <span class="hero-stat-label">บทความ</span>
-          </div>
-          <div class="hero-stat">
-            <span class="hero-stat-num">21</span>
-            <span class="hero-stat-label">Deep-dive</span>
-          </div>
-          <div class="hero-stat">
-            <span class="hero-stat-num">6</span>
-            <span class="hero-stat-label">เครื่องมือ Interactive</span>
+      <section class="home-hero" aria-labelledby="home-title">
+        <a class="home-announcement" href="series-powers.html">
+          <span class="home-status-dot" aria-hidden="true"></span>
+          7 Powers — เริ่มรู้จักคูเมืองของธุรกิจ <span aria-hidden="true">↗</span>
+        </a>
+        <p class="home-eyebrow">A PERSONAL INVESTING LAB</p>
+        <h1 id="home-title">มองหุ้นให้ลึกกว่า ticker<br><span>อ่านธุรกิจให้เป็น</span></h1>
+        <p class="home-intro">บันทึกการเรียนวิเคราะห์หุ้น US ผ่านธุรกิจและงบการเงิน<br class="home-desktop-break">
+          เข้าใจคูเมือง ตามรอยเงินสด และตั้งคำถามกับสิ่งที่เชื่อ</p>
+        <div class="home-actions">
+          <a class="home-button home-button--primary" href="#home-explore">เริ่มสำรวจ <span aria-hidden="true">→</span></a>
+          <a class="home-button home-button--secondary" href="stocks.html">เลือกหุ้นที่สนใจ <span aria-hidden="true">↗</span></a>
+        </div>
+        <p class="home-hero-note">อ่านฟรี · ภาษาไทย · เปิดเผยกระบวนการคิด</p>
+      </section>
+
+      <section class="home-workspace" id="home-explore" aria-label="เลือกทางเริ่มต้นกับ Moatrices">
+        <div class="home-workspace-bar">
+          <span class="home-workspace-brand"><img src="favicon.svg" alt="" width="18" height="18"> Moatrices <span>/</span> ห้องอ่านธุรกิจ</span>
+          <span class="home-workspace-label">CURIOUS BY DESIGN</span>
+        </div>
+        <div class="home-workspace-layout">
+          <nav class="home-explore-nav" aria-label="เลือกสิ่งที่อยากสำรวจ">
+            <p class="home-nav-label">เริ่มจากสิ่งที่อยากรู้</p>
+            <div class="home-tabs">
+              <a class="home-tab" id="home-tab-research" href="#home-panel-research">
+                <svg viewBox="0 0 24 24" aria-hidden="true"><rect x="4" y="3" width="16" height="18" rx="2"/><path d="M8 8h8M8 12h8M8 16h5"/></svg>
+                <span>อ่านธุรกิจ<small>เจาะหุ้นทีละบริษัท</small></span><span class="home-tab-arrow" aria-hidden="true">↗</span>
+              </a>
+              <a class="home-tab" id="home-tab-frameworks" href="#home-panel-frameworks">
+                <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 5v16M3 4c3-1 6 0 9 2 3-2 6-3 9-2v15c-3-1-6 0-9 2-3-2-6-3-9-2Z"/><path d="m6 8 3 1m6 0 3-1M6 12l3 1m6 0 3-1"/></svg>
+                <span>กรอบคิด<wbr>การลงทุน<small>อ่านงบ เข้าใจคูเมือง</small></span><span class="home-tab-arrow" aria-hidden="true">↗</span>
+              </a>
+              <a class="home-tab" id="home-tab-money" href="#home-panel-money">
+                <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="8"/><path d="m8 14 3-4 3 2 3-5M12 2v2M12 20v2"/></svg>
+                <span>Smart Money<small>สำรวจพอร์ตนักลงทุน</small></span><span class="home-tab-arrow" aria-hidden="true">↗</span>
+              </a>
+            </div>
+            <a class="home-start-link" href="series-financials.html"><span>เพิ่งเริ่มอ่านงบ?</span> เริ่มจากพื้นฐาน <span aria-hidden="true">→</span></a>
+          </nav>
+          <div class="home-panels">
+            <section class="home-panel" id="home-panel-research" aria-labelledby="home-tab-research">
+              <div class="home-panel-heading"><span class="home-eyebrow">01 / UNDERSTAND THE BUSINESS</span><a href="stocks.html">ดูหุ้นทั้งหมด <span aria-hidden="true">↗</span></a></div>
+              <h2>เริ่มที่คำถาม แล้วค่อยเปิดงบ</h2>
+              <p class="home-panel-intro">บริษัทหาเงินอย่างไร อะไรทำให้คู่แข่งตามยาก และอะไรจะทำให้เราคิดผิด</p>
+              <a class="home-research-card" href="articles/deep-dive-nvda.html">
+                <div class="home-research-copy">
+                  <span class="home-chip">NVDA <span>·</span> Deep-dive</span>
+                  <h3>NVIDIA</h3>
+                  <p>มองผ่านชิป ไปถึงธุรกิจ<br>และระบบนิเวศที่อยู่เบื้องหลัง</p>
+                  <span class="home-inline-cta">เปิดบันทึกวิเคราะห์ <span aria-hidden="true">→</span></span>
+                </div>
+                <img src="img/thumbs/deep-dive-nvda.jpg" alt="ภาพประกอบบทวิเคราะห์ธุรกิจ NVIDIA" width="640" height="336" fetchpriority="high" decoding="async">
+              </a>
+              <div class="home-related-links">
+                <a href="articles/deep-dive-asml.html"><span class="home-company-mark">AS</span><span><strong>ASML</strong><small>เทคโนโลยีที่สร้างคูเมือง</small></span><span aria-hidden="true">↗</span></a>
+                <a href="articles/deep-dive-cost.html"><span class="home-company-mark">CO</span><span><strong>Costco</strong><small>อ่านธุรกิจผ่านโมเดลสมาชิก</small></span><span aria-hidden="true">↗</span></a>
+              </div>
+            </section>
+            <section class="home-panel" id="home-panel-frameworks" aria-labelledby="home-tab-frameworks">
+              <div class="home-panel-heading"><span class="home-eyebrow">02 / BUILD YOUR FRAMEWORK</span><a href="#home-series">สำรวจซีรีส์ <span aria-hidden="true">↗</span></a></div>
+              <h2>ก่อนเลือกหุ้น วางวิธีคิดให้ชัด</h2>
+              <p class="home-panel-intro">เริ่มจากอ่านงบ เข้าใจคูเมือง แล้วฝึกตั้งคำถามผ่านแนวคิดของ Buffett และ Munger</p>
+              <a class="home-tool-card home-framework-card" href="series-powers.html">
+                <div><span class="home-chip">ซีรีส์ · 7 ตอน</span><h3>7 Powers</h3><p>อะไรทำให้ธุรกิจได้เปรียบระยะยาว<br>เรียนรู้คูเมือง 7 แบบ ผ่านบริษัทจริง</p><span class="home-inline-cta">เริ่มรู้จักคูเมือง <span aria-hidden="true">→</span></span></div>
+                <div class="home-framework-emblem" aria-hidden="true">
+                  <svg viewBox="0 0 220 220" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round">
+                    <circle cx="110" cy="116" r="86" opacity=".5"/><circle cx="110" cy="116" r="78" opacity=".2"/>
+                    <rect x="98" y="98" width="24" height="38" rx="2"/>
+                    <path d="M98 98v-7h5v4h4v-4h6v4h4v-4h5v7M106 136v-8a4 4 0 0 1 8 0v8M110 91V76"/>
+                    <path d="m110 76 13 4.5-13 4.5Z" fill="currentColor"/>
+                    <g transform="translate(110 30)"><rect x="-8" y="-8" width="16" height="16" transform="rotate(45)"/><circle r="2" fill="currentColor"/></g>
+                    <g transform="translate(177 62)"><rect x="-8" y="-8" width="16" height="16" transform="rotate(45)"/><circle r="2" fill="currentColor"/></g>
+                    <g transform="translate(194 135)"><rect x="-8" y="-8" width="16" height="16" transform="rotate(45)"/><circle r="2" fill="currentColor"/></g>
+                    <g transform="translate(147 194)"><rect x="-8" y="-8" width="16" height="16" transform="rotate(45)"/><circle r="2" fill="currentColor"/></g>
+                    <g transform="translate(73 194)"><rect x="-8" y="-8" width="16" height="16" transform="rotate(45)"/><circle r="2" fill="currentColor"/></g>
+                    <g transform="translate(26 135)"><rect x="-8" y="-8" width="16" height="16" transform="rotate(45)"/><circle r="2" fill="currentColor"/></g>
+                    <g transform="translate(43 62)"><rect x="-8" y="-8" width="16" height="16" transform="rotate(45)"/><circle r="2" fill="currentColor"/></g>
+                  </svg>
+                </div>
+              </a>
+              <div class="home-related-links">
+                <a href="series-financials.html"><span class="home-company-mark">01</span><span><strong>อ่านงบแบบลงมือทำ</strong><small>เชื่อมงบการเงิน 3 ชุดให้เป็นภาพเดียว</small></span><span aria-hidden="true">↗</span></a>
+                <a href="articles/buffett-4-pillars.html"><span class="home-company-mark">WB</span><span><strong>4 เสาหลักของ Buffett</strong><small>วางหลักคิดก่อนตัดสินใจลงทุน</small></span><span aria-hidden="true">↗</span></a>
+              </div>
+            </section>
+            <section class="home-panel" id="home-panel-money" aria-labelledby="home-tab-money">
+              <div class="home-panel-heading"><span class="home-eyebrow">03 / FOLLOW THE EVIDENCE</span><a href="smart-money.html">เปิด Smart Money <span aria-hidden="true">↗</span></a></div>
+              <h2>สำรวจความคิดผ่านพอร์ตจริง</h2>
+              <p class="home-panel-intro">ดูข้อมูลการถือครองที่เปิดเผย แล้วใช้เป็นจุดเริ่มต้นของคำถามถัดไป</p>
+              <a class="home-tool-card home-money-card" href="smart-money.html">
+                <div><span class="home-chip">SMART MONEY</span><h3>ใครถืออะไร<br>และมีอะไรเปลี่ยนไป</h3><p>สำรวจนักลงทุน กองทุน และการเปลี่ยนแปลงของพอร์ต</p><span class="home-inline-cta">สำรวจข้อมูลการถือครอง <span aria-hidden="true">→</span></span></div>
+                <div class="home-money-visual" aria-hidden="true"><span>HOLDINGS</span><div><i></i><i></i><i></i><i></i><i></i></div><span>DISCOVER THE PATTERN</span></div>
+              </a>
+              <div class="home-related-links">
+                <a href="series-buffett-deals.html"><span class="home-company-mark">WB</span><span><strong>ดีลที่สร้างบัฟเฟตต์</strong><small>ศึกษาวิธีคิดผ่าน 5 ดีลจริง</small></span><span aria-hidden="true">↗</span></a>
+                <a href="series-munger-talks.html"><span class="home-company-mark">CM</span><span><strong>Munger Talks</strong><small>เติมกรอบคิดก่อนดูตัวเลข</small></span><span aria-hidden="true">↗</span></a>
+              </div>
+            </section>
           </div>
         </div>
-        </div>
+        <div class="home-workspace-foot"><span class="home-status-dot" aria-hidden="true"></span> อ่านธุรกิจ → ตั้งสมมติฐาน → ทดสอบด้วยหลักฐาน <span class="home-foot-note">หนึ่งคำถามที่ดี พาไปได้ไกลกว่าเดิม</span></div>
+      </section>
 
-        <!-- ฉากประจำเว็บ: เจาะผ่านชั้นข้อมูล 4 ชั้นที่เปลี่ยนเร็ว ลงไปหาชั้นที่เว็บนี้สนใจ -->
-        <div class="hero-scene">
-          <svg viewBox="0 0 470 400" role="img"
-            aria-label="ภาพตัดขวางชั้นข้อมูลการลงทุน เรียงตามความเร็วที่มันเปลี่ยน: ราคา (วินาที) ข่าว (ชั่วโมง) งบการเงิน (ไตรมาส) โครงสร้างธุรกิจ (ปี) และชั้นล่างสุดคือคูเมือง (ทศวรรษ) — หัวเจาะหยุดที่ชั้นคูเมือง">
-            <defs>
-              <linearGradient id="hsGlass" x1="0" y1="0" x2="0" y2="1">
-                <stop offset="0" stop-color="var(--surface)"/>
-                <stop offset="1" stop-color="var(--surface-2)"/>
-              </linearGradient>
-              <linearGradient id="hsVein" x1="0" y1="0" x2="1" y2="1">
-                <stop offset="0" stop-color="var(--accent-strong)"/>
-                <stop offset="1" stop-color="var(--accent)"/>
-              </linearGradient>
-              <linearGradient id="hsShine" x1="0" y1="0" x2="1" y2="0">
-                <stop offset="0" stop-color="#ffffff" stop-opacity="0"/>
-                <stop offset=".5" stop-color="#ffffff" stop-opacity=".28"/>
-                <stop offset="1" stop-color="#ffffff" stop-opacity="0"/>
-              </linearGradient>
-              <clipPath id="hsMoatClip"><rect x="64" y="268" width="336" height="88" rx="3"/></clipPath>
-            </defs>
-
-            <!-- แกนเวลา: ยิ่งลึกยิ่งเปลี่ยนช้า — หน่วยเป็นอักษรละตินล้วน จึงใช้ mono ได้โดยไม่ทำสระไทยเพี้ยน -->
-            <g class="hs-axis">
-              <line class="hs-axis-line" x1="56" y1="30" x2="56" y2="356"/>
-              <g class="hs-tick">
-                <line x1="50" y1="54" x2="56" y2="54"/>
-                <line x1="50" y1="108" x2="56" y2="108"/>
-                <line x1="50" y1="167" x2="56" y2="167"/>
-                <line x1="50" y1="232" x2="56" y2="232"/>
-                <line x1="50" y1="312" x2="56" y2="312"/>
-              </g>
-              <text class="hs-unit" x="44" y="58" text-anchor="end">1s</text>
-              <text class="hs-unit" x="44" y="112" text-anchor="end">1h</text>
-              <text class="hs-unit" x="44" y="171" text-anchor="end">3M</text>
-              <text class="hs-unit" x="44" y="236" text-anchor="end">1Y</text>
-              <text class="hs-unit hs-unit-on" x="44" y="316" text-anchor="end">10Y+</text>
-            </g>
-
-            <g class="hs-band hs-b1">
-              <rect class="hs-bg" x="64" y="30" width="336" height="48" rx="3"/>
-              <polyline class="hs-tex" points="196,58 214,44 230,62 248,48 264,60 280,46 292,56" stroke-width="1.6"/>
-              <text class="hs-lab" x="78" y="59">ราคา</text>
-            </g>
-            <g class="hs-band hs-b2">
-              <rect class="hs-bg" x="64" y="82" width="336" height="52" rx="3"/>
-              <g class="hs-tex" stroke-width="1.4" stroke-dasharray="6 7">
-                <path d="M196 102 H292"/><path d="M196 116 H272"/>
-              </g>
-              <text class="hs-lab" x="78" y="113">ข่าว · เสียงตลาด</text>
-            </g>
-            <g class="hs-band hs-b3">
-              <rect class="hs-bg" x="64" y="138" width="336" height="58" rx="3"/>
-              <g class="hs-tex" stroke-width="1.2">
-                <path d="M196 155 H292"/><path d="M196 167 H292"/><path d="M196 179 H268"/>
-              </g>
-              <text class="hs-lab" x="78" y="171">งบการเงิน</text>
-            </g>
-            <g class="hs-band hs-b4">
-              <rect class="hs-bg" x="64" y="200" width="336" height="64" rx="3"/>
-              <g class="hs-tex" stroke-width="1.3">
-                <rect x="198" y="217" width="40" height="30" rx="2"/>
-                <rect x="246" y="217" width="40" height="30" rx="2"/>
-              </g>
-              <text class="hs-lab" x="78" y="236">โครงสร้างธุรกิจ</text>
-            </g>
-            <g class="hs-moat">
-              <rect class="hs-vein" x="64" y="268" width="336" height="88" rx="3"/>
-              <g stroke="#ffffff" opacity=".18" fill="none" stroke-width="1.4">
-                <path d="M84 340 H380"/>
-              </g>
-              <text class="hs-lab" x="78" y="304">คูเมือง</text>
-              <text class="hs-sub" x="78" y="325">ของจริงอยู่ชั้นนี้</text>
-              <!-- แสงกวาดครั้งเดียวตอนหัวเจาะถึงชั้นนี้ = จังหวะ "เจอ" ไม่ใช่ไฟกะพริบประดับ -->
-              <g clip-path="url(#hsMoatClip)">
-                <rect class="hs-shine" x="64" y="268" width="336" height="88" fill="url(#hsShine)"/>
-              </g>
-            </g>
-            <!-- หัวเจาะ: เริ่มที่ผิวดิน หยุดที่ชั้นคูเมือง (สถานะจบ = จอดในคูเมือง) -->
-            <g class="hs-rig">
-              <line x1="232" y1="-40" x2="232" y2="296" stroke="#d8a33a" stroke-width="3"/>
-              <path d="M232 310 l-8 -14 h16 Z" fill="#d8a33a"/>
-            </g>
-            <circle class="hs-pulse" cx="232" cy="304" r="16"/>
-          </svg>
-          <p class="hs-cap">4 ชั้นบนเปลี่ยนเร็วเกินกว่าจะถือ 10 ปี — เว็บนี้ขุดลงชั้นล่างสุด</p>
-        </div>
+      <div class="home-proof">
+        <p>ห้องเรียนเล็ก ๆ<br><strong>สำหรับคนที่อยากเข้าใจธุรกิจ</strong></p>
+        <div class="hero-stats" aria-label="เนื้อหาใน Moatrices">
+          <div class="hero-stat"><span class="hero-stat-num">39</span><span class="hero-stat-label">บทความ</span></div>
+          <div class="hero-stat"><span class="hero-stat-num">21</span><span class="hero-stat-label">Deep-dive</span></div>
+          <div class="hero-stat"><span class="hero-stat-num">6</span><span class="hero-stat-label">เครื่องมือ Interactive</span></div>
         </div>
       </div>
 
-      <p>
-        ที่นี่ไม่ใช่ที่บอกว่า "ซื้อตัวไหนดี" แต่เป็นที่ผมหัด<strong>อ่านธุรกิจให้เป็น</strong>
-        ทีละบริษัท ทีละงบ ด้วยกรอบคิดสาย Fundamental — moat, Owner Earnings, ROIC
-        และที่สำคัญที่สุดคือ <em>"อะไรจะทำให้ผมรู้ว่าคิดผิด"</em> (Kill Conditions)
-        ทุกบทเขียนแบบเปิดเผยกระบวนการคิด ผิดถูกว่ากันตามหลักฐาน
-      </p>
-
-      <h2 class="sec"><span class="sec-no">01</span>ต้องอ่าน</h2>
+      <div class="home-section-heading"><div><p class="home-eyebrow">THE READING DESK</p><h2 class="sec"><span class="sec-no">01</span>คัดมาให้เริ่มอ่าน</h2></div><a href="articles.html">คลังบทความ <span aria-hidden="true">↗</span></a></div>
       <div class="featured-grid">
         <a class="featured-card featured-card--lead" href="articles/deep-dive-snps.html">
           <span class="featured-thumb"><img src="img/thumbs/deep-dive-snps.jpg"
             alt="ผ่าธุรกิจ SNPS (Synopsys)" width="640" height="336"
-            loading="eager" fetchpriority="high" decoding="async"></span>
+            loading="lazy" decoding="async"></span>
           <span class="featured-body">
             <span class="kicker">หุ้นเด่น · SNPS</span>
             <span class="featured-title">ผ่าธุรกิจ SNPS (Synopsys) — EDA duopoly,
@@ -217,7 +214,7 @@
         </a>
       </div>
 
-      <h2 class="sec"><span class="sec-no">02</span>ซีรีส์</h2>
+      <div class="home-section-heading"><div><p class="home-eyebrow">BUILD YOUR FOUNDATION</p><h2 class="sec" id="home-series"><span class="sec-no">02</span>ค่อย ๆ ต่อภาพใหญ่ ทีละซีรีส์</h2></div></div>
       <div class="series-cards series-cards--index" id="series-grid">
         <a class="series-card" href="series-cases.html">
           <span class="kicker">ซีรีส์ใหม่ · ฟอร์แมตหนังสือ</span>
@@ -274,7 +271,7 @@
       <button type="button" class="more-toggle" aria-controls="series-grid" aria-expanded="false"
         data-more="ดูซีรีส์ทั้งหมด" data-less="ย่อกลับ">ดูซีรีส์ทั้งหมด</button>
 
-      <h2 class="sec"><span class="sec-no">03</span>Interactive</h2>
+      <div class="home-section-heading"><div><p class="home-eyebrow">LEARN BY DOING</p><h2 class="sec"><span class="sec-no">03</span>อ่านแล้ว ลองลงมือคิด</h2></div><a href="tools.html">เครื่องมือทั้งหมด <span aria-hidden="true">↗</span></a></div>
       <div class="series-cards series-cards--index" id="interactive-grid">
         <a class="series-card" href="moat-break-game-kodak.html">
           <span class="kicker">Interactive · เกม — ใหม่</span>
@@ -328,7 +325,7 @@
       <button type="button" class="more-toggle" aria-controls="interactive-grid" aria-expanded="false"
         data-more="ดูเครื่องมือทั้งหมด" data-less="ย่อกลับ">ดูเครื่องมือทั้งหมด</button>
 
-      <h2 class="sec"><span class="sec-no">04</span>บทความล่าสุด</h2>
+      <div class="home-section-heading"><div><p class="home-eyebrow">LATEST NOTES</p><h2 class="sec"><span class="sec-no">04</span>บันทึกล่าสุดจากห้องเรียน</h2></div><a href="feed.xml">ติดตามผ่าน RSS <span aria-hidden="true">↗</span></a></div>
       <ul class="post-list post-list--recent">
 
         <li>
@@ -438,7 +435,14 @@
         <a class="view-all-btn" href="articles.html">ดูบทความทั้งหมด <span class="view-all-count">39</span> เรื่อง →</a>
       </div>
 
+      <section class="home-closing" aria-labelledby="home-closing-title">
+        <p class="home-eyebrow">STAY CURIOUS. KEEP QUESTIONING.</p>
+        <h2 id="home-closing-title">ธุรกิจหนึ่งแห่ง<br>อาจเปลี่ยนวิธีมองทั้งตลาด</h2>
+        <p>เริ่มจากบริษัทที่คุณสงสัย แล้วค่อย ๆ หาคำตอบไปด้วยกัน</p>
+        <a class="home-button home-button--primary" href="stocks.html">เลือกธุรกิจที่อยากเข้าใจ <span aria-hidden="true">→</span></a>
+      </section>
     </div>
+    <div class="home-companion"></div>
   </main>
 
   <!-- SITE-FOOTER-START -->
@@ -477,6 +481,7 @@
 
   <button class="to-top" aria-label="กลับขึ้นด้านบน">↑</button>
   <script defer src="app.min.js"></script>
+  <script defer src="home.js"></script>
   <script defer src="widgets.js"></script>
 
 </body>
