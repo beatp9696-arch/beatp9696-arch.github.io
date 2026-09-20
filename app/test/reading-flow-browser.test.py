@@ -76,6 +76,8 @@ try:
                 heights = []
                 for index, (layer, href) in enumerate(lenses):
                     tab = page.locator('#approach-' + layer)
+                    # Keep the target clear of the fixed header and mobile tabbar.
+                    tab.evaluate("e => e.scrollIntoView({block: 'center', behavior: 'instant'})")
                     tab.click()
                     expect(tab).to_have_attribute('aria-selected', 'true')
                     expect(page.locator('.home-layer-band[aria-selected=true]')).to_have_count(1)
