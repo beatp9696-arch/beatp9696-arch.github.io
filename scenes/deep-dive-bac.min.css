@@ -1,193 +1,94 @@
-.bac-panel { background: radial-gradient(120% 140% at 50% 0%, #101b28 0%, #08101a 72%); border-color: #1d2c3d; }
-.ph-eyebrow.bac { color: #c9a15e; }
-.bac-panel .s-t { fill: #e9dcc3; }
-.bac-panel .s-t.sm { fill: #a08e73; }
-.bac-panel .s-t.warn { fill: #e07b6f; }
-.bac-panel .s-t.ok { fill: #c9a15e; }
-.bac-panel .sim-mono { fill: #7d8a99; }
-.bac-ground { stroke: #2d4055; stroke-width: 1.4; }
-.bac-bld { fill: #16263a; stroke: #3c5670; stroke-width: 1.4; }
-.bac-bld.sm { fill: #14222f; }
-.bac-roof { fill: #1d3148; stroke: #c9a15e; stroke-width: 1.3; }
-.bac-roof.sm { stroke-width: 1.1; }
-.bac-door { fill: #0b141f; stroke: #c9a15e; stroke-width: 1.1; }
-.bac-win { fill: #223c56; stroke: #3c5670; stroke-width: .9; }
-.bac-atm { fill: #16263a; stroke: #c9a15e; stroke-width: 1.3; }
-.bac-atm-scr { fill: #24405c; }
-.bac-slot { fill: #0b141f; stroke: #c9a15e; stroke-width: .8; }
-.bac-phone { fill: #16263a; stroke: #c9a15e; stroke-width: 1.4; }
-.bac-phone-scr { fill: #1d334a; }
-.bac-phone-dot { fill: #c9a15e; opacity: .85; }
-.bac-tag { fill: #13202e; stroke: #3c5670; stroke-width: 1.1; }
-.bac-tag.warn { stroke: #b43b3b; }
-.bac-stamp { fill: rgba(201,161,94,.10); stroke: #c9a15e; stroke-width: 1.2; }
-.bac-stamp.wide { fill: rgba(201,161,94,.07); }
-.bac-stamp.ok { stroke: #c9a15e; }
-.bac-wall-grid { stroke: #1d2c3d; stroke-width: 1; }
-.bac-spoke { stroke: #c9a15e; stroke-width: 1.2; fill: none; }
-.bac-crack { stroke: #b43b3b; stroke-width: 1.6; stroke-dasharray: 3 4; }
-.bac-panel .sa { animation-fill-mode: both; animation-delay: calc(var(--i, 0) * var(--beat)); }
-.bac-pipe-in, .bac-pipe-out, .bac-stream, .bac-redline, .bac-melt-path, .bac-split, .bac-cable {
-fill: none; stroke-linecap: round; }
-.bac-pipe-in { stroke: #c9a15e; stroke-width: 2.4; stroke-dasharray: var(--len) var(--len);
-animation-name: bacDraw; animation-duration: calc(var(--beat) * 2); }
-.bac-pipe-out { stroke: #7fa8c9; stroke-width: 2.2; stroke-dasharray: var(--len) var(--len);
-animation-name: bacDraw; animation-duration: calc(var(--beat) * 1.6); animation-timing-function: var(--e-expo); }
-@keyframes bacDraw { from { stroke-dashoffset: var(--len); } to { stroke-dashoffset: 0; } }
-.bac-vault { fill: #0e1a27; stroke: #c9a15e; stroke-width: 2; }
-.bac-vault-in { fill: #13202e; stroke: #2d4055; stroke-width: 1.2; }
-.bac-wheel { fill: #16263a; stroke: #c9a15e; stroke-width: 2; }
-.bac-wheel-in { fill: #0b141f; stroke: #c9a15e; stroke-width: 1.2; }
-.bac-fill { fill: rgba(201,161,94,.07); transform-box: fill-box; transform-origin: bottom;
-animation-name: bacRise; animation-duration: calc(var(--beat) * 3.4); }
-@keyframes bacRise { from { transform: scaleY(0); } to { transform: scaleY(1); } }
-.bac-bundle { fill: rgba(201,161,94,.34); stroke: #c9a15e; stroke-width: 1; }
-.bac-bundle-band { stroke: #e9dcc3; stroke-width: 1.1; opacity: .55; fill: none; }
-.bac-card { fill: #13202e; stroke: #7fa8c9; stroke-width: 1.3; }
-.bac-card.alt { stroke: #3c5670; }
-.bac-icon-home, .bac-icon-bond { fill: none; stroke: #c9a15e; stroke-width: 1.4; }
-.bac-stand { stroke: #3c5670; stroke-width: 3; fill: none; }
-.bac-beam { stroke: #c9a15e; stroke-width: 4; stroke-linecap: round; }
-.bac-hang { stroke: #3c5670; stroke-width: 1.4; }
-.bac-pan { fill: #13202e; stroke: #c9a15e; stroke-width: 1.4; }
-.bac-brick { fill: #24405c; stroke: #7fa8c9; stroke-width: 1; animation-name: bacDrop; }
-.bac-brick.own { fill: rgba(201,161,94,.30); stroke: #c9a15e; }
-.bac-brick.chip { fill: rgba(180,59,59,.35); stroke: #b43b3b; }
-.bac-tilt { transform-box: fill-box; transform-origin: 50% 24%;
-animation-name: bacTilt; animation-duration: calc(var(--beat) * 2.6); }
-@keyframes bacTilt { from { transform: rotate(0deg); } to { transform: rotate(-3.2deg); } }
-.bac-wall { fill: #0e1a27; stroke: #2d4055; stroke-width: 1.4; }
-.bac-acct { fill: #16263a; stroke: #c9a15e; stroke-width: 1.6; }
-.bac-hoist { stroke: #3c5670; stroke-width: 3; fill: none; }
-.bac-cable { stroke: #7d8a99; stroke-width: 1.2; animation-name: bacApp; }
-.bac-crate { fill: #1a2433; stroke: #b43b3b; stroke-width: 1.4; }
-.bac-hook { stroke: #7d8a99; stroke-width: 1.6; fill: none; }
-.bac-pediment { fill: #16263a; stroke: #c9a15e; stroke-width: 1.5; }
-.bac-arch { fill: #1d3148; stroke: #c9a15e; stroke-width: 1.2; }
-.bac-col { fill: #16263a; stroke: #7fa8c9; stroke-width: 1.1; }
-.bac-step { fill: #13202e; stroke: #3c5670; stroke-width: 1.1; }
-.bac-bill { fill: #13202e; stroke: #b43b3b; stroke-width: 1.2; }
-.bac-crate1, .bac-crate2 { transform-box: fill-box; transform-origin: center; }
-.bac-crate1 { animation-name: bacCrate1; animation-duration: calc(var(--beat) * 2.6); animation-timing-function: var(--e-mass); }
-.bac-crate2 { animation-name: bacCrate2; animation-duration: calc(var(--beat) * 2.6); animation-timing-function: var(--e-mass); }
-@keyframes bacCrate1 { 0% { transform: none; opacity: 1; } 45% { transform: translateY(-46px); opacity: 1; }
-100% { transform: translate(-300px, 88px) scale(.6); opacity: 0; } }
-@keyframes bacCrate2 { 0% { transform: none; opacity: 1; } 45% { transform: translateY(-46px); opacity: 1; }
-100% { transform: translate(-300px, 150px) scale(.6); opacity: 0; } }
-.bac-crate-x { stroke: #b43b3b; stroke-width: 1.1; fill: none; opacity: .75; }
-.bac-lift { animation-name: bacLift; animation-duration: calc(var(--beat) * 3.2); }
-@keyframes bacLift { from { transform: translateY(74px); opacity: .25; } to { transform: translateY(-92px); opacity: 0; } }
-.bac-tower rect { fill: #13202e; stroke: #3c5670; stroke-width: 1.4; }
-.bac-tower-grid { fill: none; stroke: #2d4055; stroke-width: 1; }
-.bac-tilt-fix { transform-box: fill-box; transform-origin: bottom center;
-animation-name: bacStraighten; animation-duration: calc(var(--beat) * 3); }
-@keyframes bacStraighten { from { transform: rotate(-3.4deg); } to { transform: rotate(0deg); } }
-.bac-block { fill: #0e1a27; stroke: #2d4055; stroke-width: 1.6; }
-.bac-cyl-wall { fill: #13202e; stroke: #7fa8c9; stroke-width: 1.4; }
-.bac-piston-a { fill: rgba(127,168,201,.45); stroke: #7fa8c9; stroke-width: 1.2;
-animation-name: bacStrokeA; animation-duration: calc(var(--beat) * 1.5); animation-iteration-count: 4;
-animation-timing-function: var(--e-fail); }
-@keyframes bacStrokeA { 0% { transform: translateY(0); } 30% { transform: translateY(-46px); }
-55% { transform: translateY(-8px); } 78% { transform: translateY(-34px); } 100% { transform: translateY(-40px); } }
-.bac-piston-b { fill: rgba(201,161,94,.45); stroke: #c9a15e; stroke-width: 1.2;
-animation-name: bacStrokeB; animation-duration: calc(var(--beat) * 1.5); animation-iteration-count: 4;
-animation-timing-function: var(--e-mass); }
-@keyframes bacStrokeB { 0% { transform: translateY(0); } 50% { transform: translateY(-46px); } 100% { transform: translateY(-4px); } }
-.bac-crank, .bac-fly, .bac-gear { fill: #13202e; stroke: #c9a15e; stroke-width: 1.6; }
-.bac-head { stroke: #7fa8c9; stroke-width: 2; fill: none; }
-.bac-pinpt { fill: #c9a15e; stroke: #e9dcc3; stroke-width: .8; }
-.bac-shaft { stroke: #7d8a99; stroke-width: 2.6; fill: none; stroke-linejoin: round; }
-.bac-rod { stroke: #7d8a99; stroke-width: 2.4; stroke-linecap: round; }
-.bac-crank-g, .bac-fly-g { transform-box: fill-box; transform-origin: center;
-animation-duration: calc(var(--beat) * 6); animation-iteration-count: 1; animation-timing-function: linear; }
-.bac-crank-g { animation-name: bacTurnJerky; }
-.bac-fly-g { animation-name: bacTurnSteady; }
-@keyframes bacTurnSteady { to { transform: rotate(360deg); } }
-@keyframes bacTurnJerky { 0% { transform: rotate(0); } 22% { transform: rotate(40deg); }
-40% { transform: rotate(180deg); } 62% { transform: rotate(206deg); } 100% { transform: rotate(360deg); } }
-.bac-sheet { fill: rgba(127,168,201,.35); stroke: #7fa8c9; stroke-width: 1.2;
-animation-name: bacSlide; animation-duration: calc(var(--beat) * 1.6); animation-timing-function: var(--e-mass); }
-.bac-sheet.thin { fill: rgba(127,168,201,.30); }
-.bac-sheet.thinner { fill: rgba(201,161,94,.34); stroke: #c9a15e; }
-@keyframes bacSlide { from { opacity: 0; transform: translateX(-30px); } to { opacity: 1; transform: none; } }
-.bac-roller { fill: #16263a; stroke: #c9a15e; stroke-width: 1.5; }
-.bac-roll { transform-box: fill-box; transform-origin: center; animation-name: bacRollTurn;
-animation-duration: calc(var(--beat) * 3); animation-iteration-count: 1; animation-timing-function: var(--e-mass); }
-@keyframes bacRollTurn { to { transform: rotate(300deg); } }
-.bac-lam { fill: rgba(201,161,94,.30); stroke: #c9a15e; stroke-width: .8;
-animation-name: bacLam; animation-duration: calc(var(--beat) * .9); }
-@keyframes bacLam { from { opacity: 0; transform: translateY(16px); } to { opacity: 1; transform: none; } }
-.bac-vanish { transform-box: fill-box; transform-origin: bottom center;
-animation-name: bacVanish; animation-duration: calc(var(--beat) * 1.1); animation-timing-function: var(--e-fail); }
-@keyframes bacVanish { from { opacity: 1; transform: none; } to { opacity: 0; transform: translateY(10px) scaleY(.12); } }
-.bac-stay { animation-name: bacApp; animation-duration: calc(var(--beat) * 1.2); }
-.bac-grow { transform-box: fill-box; transform-origin: center;
-animation-name: bacGrow; animation-duration: calc(var(--beat) * 3.4); }
-@keyframes bacGrow { from { transform: scale(.55); opacity: .35; } to { transform: scale(1); opacity: 1; } }
-.bac-phone.big { stroke-width: 2; }
-.bac-tap-body { fill: #16263a; stroke: #c9a15e; stroke-width: 1.5; }
-.bac-tap-body.alt { stroke: #b43b3b; }
-.bac-tap-handle { fill: rgba(201,161,94,.35); stroke: #c9a15e; stroke-width: 1.2; }
-.bac-tap-handle.alt { fill: rgba(180,59,59,.3); stroke: #b43b3b; }
-.bac-tap-stem { stroke: #c9a15e; stroke-width: 2; fill: none; }
-.bac-spout { stroke: #c9a15e; stroke-width: 3.4; fill: none; stroke-linejoin: round; }
-.bac-spout.alt { stroke: #b43b3b; }
-.bac-surface { stroke: #e9dcc3; stroke-width: 1.4; opacity: .5; fill: none;
-animation-name: bacApp; animation-duration: calc(var(--beat) * 1.2); }
-.bac-ghost rect { fill: none; stroke: #3c5670; stroke-width: 1.2; stroke-dasharray: 4 4; }
-.bac-app-bar { fill: rgba(201,161,94,.14); stroke: #c9a15e; stroke-width: .9; }
-.bac-app-row { fill: rgba(127,168,201,.16); stroke: #3c5670; stroke-width: .8; }
-.bac-stream { stroke: #c9a15e; stroke-width: 3; stroke-dasharray: var(--len) var(--len);
-animation-name: bacDraw; animation-duration: calc(var(--beat) * 2.2); }
-.bac-stream.thick { stroke: #b43b3b; stroke-width: 6; }
-.bac-tank { fill: #0e1a27; stroke: #c9a15e; stroke-width: 2; }
-.bac-tank-fill { fill: rgba(201,161,94,.20); transform-box: fill-box; transform-origin: bottom;
-animation-name: bacRise; animation-duration: calc(var(--beat) * 3.6); }
-.bac-valve { fill: #1a2433; stroke: #b43b3b; stroke-width: 2; }
-.bac-valve-bar { stroke: #b43b3b; stroke-width: 3; stroke-linecap: round; }
-.bac-rail { stroke: #2d4055; stroke-width: 2.4; fill: none; }
-.bac-coin { fill: rgba(201,161,94,.85); stroke: #e9dcc3; stroke-width: 1.2; }
-.bac-coin.big { fill: rgba(201,161,94,.30); stroke: #c9a15e; stroke-width: 2; }
-.bac-coin-t { fill: #e9dcc3; font-family: "IBM Plex Mono", ui-monospace, monospace; font-size: 10px; font-weight: 700; }
-.bac-coin-t.lg { fill: #e9dcc3; font-size: 20px; }
-.bac-coin-t.sm { fill: #a08e73; font-size: 10px; font-weight: 400; }
-.bac-coin-run { animation-name: bacRun; animation-duration: calc(var(--beat) * 6);
-animation-timing-function: var(--e-mass); }
-@keyframes bacRun { 0% { transform: translateX(0) scale(1); opacity: 1; }
-88% { transform: translateX(640px) scale(.46); opacity: 1; }
-100% { transform: translateX(690px) scale(.3); opacity: 0; } }
-.bac-rail.thin { stroke-width: 1.2; opacity: .55; }
-.bac-hopper { fill: rgba(201,161,94,.16); stroke: #c9a15e; stroke-width: 1.3; }
-.bac-chute { stroke: #c9a15e; stroke-width: 1.6; fill: none; stroke-dasharray: 3 5; }
-.bac-drain { fill: none; stroke: #b43b3b; stroke-width: 1.6; }
-.bac-drain.sm { stroke-dasharray: 3 4; }
-.bac-sink { fill: rgba(180,59,59,.16); stroke: #b43b3b; stroke-width: 1.3; }
-.bac-hop { animation-name: bacApp; animation-duration: calc(var(--beat) * 1.2); animation-timing-function: var(--e-expo); }
-.bac-coin.sm { fill: #16263a; stroke: #c9a15e; stroke-width: 1.4; }
-.bac-socket { fill: none; stroke: #3c5670; stroke-width: 1.2; stroke-dasharray: 3 4; }
-.bac-crucible { fill: #13202e; stroke: #c9a15e; stroke-width: 1.6; }
-.bac-molten { fill: rgba(201,161,94,.5); stroke: #e9dcc3; stroke-width: 1.2; }
-.bac-groove { stroke: #24364a; stroke-width: 3; fill: none; stroke-linecap: round; }
-.bac-chip { fill: rgba(201,161,94,.12); stroke: #c9a15e; stroke-width: 1.2; }
-.bac-split { stroke: #c9a15e; stroke-width: 1.4; }
-.bac-ring { fill: none; stroke: #2d4055; stroke-width: 1.6; stroke-dasharray: 5 7; }
-.bac-hold { fill: rgba(201,161,94,.22); stroke: #c9a15e; stroke-width: 1.3; }
-.bac-melt { fill: rgba(180,59,59,.30); stroke: #b43b3b; stroke-width: 1.3;
-animation-name: bacMelt; animation-duration: calc(var(--beat) * 1.6); animation-timing-function: var(--e-fail); }
-@keyframes bacMelt { from { opacity: 1; transform: none; } to { opacity: 0; transform: translate(150px, 20px) scale(.35); } }
-.bac-melt-path { stroke: #b43b3b; stroke-width: 1.6; stroke-dasharray: 4 5; }
-.bac-crucible { fill: #13202e; stroke: #c9a15e; stroke-width: 1.6; }
-.bac-fire { fill: none; stroke: #b43b3b; stroke-width: 2.4; stroke-linecap: round;
-animation: bacFire calc(var(--beat) * 2.4) var(--e-mass) infinite; }
-@keyframes bacFire { 0%, 100% { opacity: .55; } 50% { opacity: .78; } }
-.bac-wallplate { fill: #0e1a27; stroke: #2d4055; stroke-width: 1.6; }
-.bac-redline { stroke: #b43b3b; stroke-width: 2.4; stroke-dasharray: 240 240;
-animation-name: bacRedline; animation-duration: calc(var(--beat) * 1.6); animation-timing-function: var(--e-fail); }
-@keyframes bacRedline { from { stroke-dashoffset: 240; } to { stroke-dashoffset: 0; } }
-.bac-dot { fill: #c9a15e; stroke: #e9dcc3; stroke-width: 1.2; }
-.bac-pin { transform-box: fill-box; transform-origin: center;
-animation-name: bacPin; animation-duration: calc(var(--beat) * 1.1); animation-timing-function: var(--e-snapback); }
-@keyframes bacPin { from { opacity: 0; transform: scale(2.2); } to { opacity: 1; transform: scale(1); } }
-@media (max-width: 600px) {
-.bac-panel { padding: 18px 12px; }
+.bac-plate {
+--pl-bg: #0c1116; --pl-line: #2a343d; --pl-ink: #d9dbd4; --pl-muted: #8e9aa2;
+--pl-brass: #c2a06a; --pl-red: #c05a4e; --pl-steel: #8f9ca6;
+background: var(--pl-bg); border-color: var(--pl-line); border-top-color: #5d666d;
+border-radius: 2px; padding: 26px 28px 22px; overflow: hidden;
 }
+.bac-plate-head { display: flex; justify-content: space-between; align-items: flex-start; gap: 22px;
+padding-bottom: 18px; border-bottom: 1px solid var(--pl-line); }
+.bac-plate-code { font: 10px/1.6 "IBM Plex Mono", ui-monospace, monospace; color: #93a0a8;
+letter-spacing: .14em; display: block; }
+.bac-plate-head h3 { font: 500 clamp(17px, 2.2vw, 21px)/1.55 var(--font-head); color: #dcdfda;
+margin: 8px 0 0; letter-spacing: 0; }
+.bac-plate-meta { max-width: 176px; font: 11.5px/1.75 var(--font-body); color: #8b9299; text-align: right; padding-top: 3px; }
+.bac-plate .sa-stage { margin: 18px 0 4px; }
+.bac-plate .sa-stage > svg, .b-art { display: block; width: 100%; height: auto; overflow: visible; }
+.bac-facts { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 20px;
+border-top: 1px solid #454f57; padding-top: 16px; margin-top: 14px; }
+.bac-facts > div + div { border-left: 1px solid var(--pl-line); padding-left: 20px; }
+.bac-facts strong { display: block; font: 23px/1.4 "IBM Plex Mono", ui-monospace, monospace;
+color: #dfe1da; letter-spacing: -.045em; white-space: nowrap; }
+.bac-facts span { display: block; font-size: 12.5px; line-height: 1.75; color: #939da4; margin-top: 2px; }
+.bac-facts em { font-style: normal; color: var(--pl-brass); }
+@media (max-width: 560px) {
+.bac-plate { padding: 18px 14px 16px; }
+.bac-plate-head { flex-direction: column; gap: 8px; }
+.bac-plate-meta { text-align: left; max-width: none; }
+.bac-facts { grid-template-columns: 1fr; gap: 12px; }
+.bac-facts > div + div { border-left: 0; border-top: 1px solid var(--pl-line); padding-left: 0; padding-top: 12px; }
+}
+.b-line, .b-fine, .b-reg, .b-survey, .b-dim, .b-leader, .b-rule, .b-guilloche,
+.b-brass, .b-red, .b-steel, .b-pending, .b-ghost, .b-pipe, .b-ink { fill: none; stroke-linejoin: round; }
+.b-line    { stroke: #8390a0; stroke-width: 1; }
+.b-fine    { stroke: #4e5a66; stroke-width: .7; }
+.b-reg     { stroke: #414c56; stroke-width: .7; }
+.b-survey  { stroke: #333d47; stroke-width: .55; }
+.b-rule    { stroke: #2b353f; stroke-width: .5; }
+.b-dim     { stroke: #8b98a2; stroke-width: .65; }
+.b-leader  { stroke: #6f7d88; stroke-width: .7; }
+.b-guilloche { stroke: #c2a06a; stroke-width: .45; stroke-opacity: .30; }
+.b-brass   { stroke: var(--pl-brass); stroke-width: 1.3; }
+.b-red     { stroke: var(--pl-red); stroke-width: 1.2; }
+.b-steel   { stroke: #9fadb8; stroke-width: 1.5; }
+.b-pipe    { stroke: #7f8d99; stroke-width: 2.6; stroke-linecap: round; }
+.b-pending { stroke: #7d7462; stroke-width: .9; stroke-dasharray: 4 6; }
+.b-ghost   { stroke: #3a444e; stroke-width: .7; stroke-dasharray: 3 4; }
+.b-face-top   { fill: #1b242c; stroke: #8b98a2; stroke-width: .75; }
+.b-face-front { fill: #121a21; stroke: #79868f; stroke-width: .75; }
+.b-face-side  { fill: #0e161c; stroke: #6c7983; stroke-width: .75; }
+.b-paper  { fill: #161d23; stroke: #6c7983; stroke-width: .8; }
+.b-plate-f{ fill: #111920; stroke: #55626c; stroke-width: .8; }
+.b-brass-f{ fill: rgba(194,160,106,.16); stroke: var(--pl-brass); stroke-width: .9; }
+.b-red-f  { fill: rgba(192,90,78,.14); stroke: var(--pl-red); stroke-width: .9; }
+.b-void   { fill: #0a0f14; stroke: #4a545e; stroke-width: .7; }
+.b-dot    { fill: #9fadb8; }
+.b-dot-brass { fill: var(--pl-brass); }
+.b-dot-red   { fill: var(--pl-red); }
+.b-label { font: 10.5px "IBM Plex Mono", ui-monospace, monospace; fill: #a4b0b8; letter-spacing: .11em; }
+.b-micro { font: 9px "IBM Plex Mono", ui-monospace, monospace; fill: #7f8c95; letter-spacing: .07em; }
+.b-num   { font: 14px "IBM Plex Mono", ui-monospace, monospace; fill: #e2e4dd; letter-spacing: -.02em; }
+.b-num.brass { fill: var(--pl-brass); }
+.b-num.red   { fill: var(--pl-red); }
+.b-th    { font: 12.5px var(--font-body); fill: #c3cad0; }
+.b-th.sm { font-size: 11px; fill: #97a2aa; }
+.b-note  { font: 11.5px var(--font-body); fill: #8e9aa2; }
+.b-stamp { font: 12px "IBM Plex Mono", ui-monospace, monospace; fill: var(--pl-brass); letter-spacing: .14em; }
+.bac-plate .sa { animation-fill-mode: both; animation-delay: calc(var(--i, 0) * var(--beat)); }
+.b-engrave { stroke-dasharray: var(--len) var(--len);
+animation-name: bEngrave; animation-duration: calc(var(--beat) * 2.4); animation-timing-function: var(--e-mass); }
+@keyframes bEngrave { from { stroke-dashoffset: var(--len); } to { stroke-dashoffset: 0; } }
+.b-level { transform-box: fill-box; transform-origin: bottom;
+animation-name: bLevel; animation-duration: calc(var(--beat) * 4); animation-timing-function: var(--e-mass); }
+@keyframes bLevel { from { transform: scaleY(.04); } to { transform: scaleY(1); } }
+.b-set { animation-name: bSet; animation-duration: calc(var(--beat) * 1.1); animation-timing-function: var(--e-mass); }
+@keyframes bSet { from { opacity: 0; transform: translateY(-7px); } to { opacity: 1; transform: none; } }
+.b-strike { transform-box: fill-box; transform-origin: center;
+animation-name: bStrike; animation-duration: calc(var(--beat) * .9); animation-timing-function: var(--e-fail); }
+@keyframes bStrike { 0% { opacity: 0; transform: scale(1.5); } 70% { opacity: 1; transform: scale(.96); } 100% { opacity: 1; transform: none; } }
+.b-lift { animation-name: bLift; animation-duration: calc(var(--beat) * 3); animation-timing-function: var(--e-mass); }
+@keyframes bLift { 0% { transform: none; opacity: 1; } 55% { transform: translateY(-58px); opacity: 1; }
+100% { transform: translate(-236px, 26px); opacity: 0; } }
+.b-throw { animation-name: bThrow; animation-duration: calc(var(--beat) * 1.6); animation-timing-function: var(--e-mech); }
+@keyframes bThrow { from { transform: translateX(-26px); } to { transform: none; } }
+.b-spin { transform-box: fill-box; transform-origin: center;
+animation-name: bSpin; animation-duration: calc(var(--beat) * 5); animation-timing-function: var(--e-mass); }
+@keyframes bSpin { from { transform: rotate(-42deg); } to { transform: none; } }
+.b-roll { animation-name: bRoll; animation-duration: calc(var(--beat) * 7); animation-timing-function: var(--e-mass); }
+@keyframes bRoll {
+0%   { transform: translate(30px, 120px) scale(1); }
+24%  { transform: translate(214px, 120px) scale(.92); }
+40%  { transform: translate(310px, 120px) scale(.66); }
+58%  { transform: translate(452px, 120px) scale(.72); }
+76%  { transform: translate(596px, 120px) scale(.46); }
+100% { transform: translate(742px, 120px) scale(.34); } }
+@media (prefers-reduced-motion: reduce) { .bac-plate .sa { animation: none !important; } }
