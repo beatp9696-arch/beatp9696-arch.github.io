@@ -180,7 +180,8 @@ window.NYSE = (function () {
     { f: "tesla-robotaxi.html", t: "Tesla Robotaxi — Cybercab และเศรษฐศาสตร์รถไร้คนขับ", sec: "consumer" },
     { f: "situational-awareness.html", t: "Situational Awareness — เมื่อ AI เปลี่ยนกติกาโลก", sec: "market" },
     { f: "case-study-02-amd.html", t: "เคสศึกษา 2: AMD", sec: "semi" },
-    { f: "fix-life-in-1-day.html", t: "ซ่อมชีวิตทั้งใบใน 1 วัน", sec: "other" }
+    { f: "fix-life-in-1-day.html", t: "ซ่อมชีวิตทั้งใบใน 1 วัน", sec: "other" },
+    { f: "deep-dive-bac.html", t: "BAC (Bank of America)", tk: "BAC", sec: "finance" }
   ];
 
   var progressBar = document.querySelector(".reading-progress");

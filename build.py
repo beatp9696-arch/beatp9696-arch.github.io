@@ -797,7 +797,7 @@ STOCK_SECTORS = [
 ]
 # ลำดับการ์ดภายในกลุ่ม (curated — ไม่ใช่ลำดับเวลาแบบ ARTICLES)
 STOCK_ORDER = ["ASML", "SNPS", "TSM", "NVDA", "MU", "MRVL", "COHR", "AVGO",
-               "MSFT", "GOOGL", "NFLX", "LLY", "UNH", "AXP", "DLO", "SPGI",
+               "MSFT", "GOOGL", "NFLX", "LLY", "UNH", "AXP", "BAC", "DLO", "SPGI",
                "AAPL", "COST", "MELI", "SPACEX", "LMT"]
 # ticker (ตรงกับ tk ใน ARTICLES) -> หน้าตาการ์ด
 #   logo ("img", "X.png")                 = <img> โลโก้ราสเตอร์/svg
@@ -818,6 +818,7 @@ STOCK_META = {
     "LLY":    {"name": "Eli Lilly", "sub": "Pharma", "logo": ("img", "LLY.png")},
     "UNH":    {"name": "UnitedHealth Group", "sub": "ประกัน", "logo": ("img", "UNH.png")},
     "AXP":    {"name": "American Express", "sub": "Payments", "logo": ("img", "AXP.png")},
+    "BAC":    {"name": "Bank of America", "sub": "ธนาคาร", "logo": ("img", "BAC.png")},
     "DLO":    {"name": "DLocal", "sub": "EM payments", "logo": ("img", "DLO.svg")},
     "SPGI":   {"name": "S&amp;P Global", "sub": "Ratings", "logo": ("img", "SPGI.png")},
     "AAPL":   {"name": "Apple", "sub": "อุปกรณ์ + บริการ", "logo": ("img", "AAPL.svg")},
