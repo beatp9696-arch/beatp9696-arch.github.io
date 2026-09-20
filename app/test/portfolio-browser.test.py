@@ -1,5 +1,6 @@
 """Cockpit math, filters, targets, shared stock navigation, small screens and auto restore."""
 from functools import partial
+import tempfile
 from http.server import ThreadingHTTPServer, SimpleHTTPRequestHandler
 from pathlib import Path
 from threading import Thread
@@ -7,6 +8,7 @@ from datetime import datetime, timezone
 from playwright.sync_api import sync_playwright, expect
 
 ROOT = Path(__file__).resolve().parents[2]
+OUT = Path(tempfile.mkdtemp(prefix='moatrices-portfolio-'))
 class Quiet(SimpleHTTPRequestHandler):
     def log_message(self, *args): pass
 class Server(ThreadingHTTPServer):
@@ -51,9 +53,9 @@ try:
     page.wait_for_function("[...document.querySelectorAll('.pf-logo img')].every(i=>i.complete&&i.naturalWidth)")
     for width in [320,390,768,1024,1440]:
         page.set_viewport_size({'width':width,'height':1080});fitted(page)
-        page.screenshot(path=f'/private/tmp/moatrices-cockpit-{width}.png',full_page=True)
+        page.screenshot(path=str(OUT/f'moatrices-cockpit-{width}.png'),full_page=True)
         page.locator('.pc-holdings').evaluate("e=>e.scrollIntoView({block:'start'})")
-        page.screenshot(path=f'/private/tmp/moatrices-holdings-{width}.png')
+        page.screenshot(path=str(OUT/f'moatrices-holdings-{width}.png'))
         page.locator('#shell-view').evaluate('e=>e.scrollTop=0')
     page.locator('.pc-legend [data-pc-sector="semi"]').click()
     expect(page.locator('.pf-row')).to_have_count(2)

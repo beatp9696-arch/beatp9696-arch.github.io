@@ -49,3 +49,14 @@
 .mn-allocation-actions{display:flex;align-items:center;gap:12px;flex-wrap:wrap;margin-top:14px}.mn-allocation-actions a{display:inline-flex;align-items:center;gap:5px;color:var(--a);font-size:10px;text-decoration:none}.mn-allocation-actions a:hover{color:#d5f5e9}
 @media(max-width:500px){.mn-dialog{padding:18px;width:calc(100% - 24px);max-height:calc(100dvh - 24px)}.mn-dialog h2{font-size:20px}.mn-form-actions{gap:7px}.mn-form-actions .mn-btn{padding:8px 10px;font-size:10px!important}.mn-form-actions .mn-danger{flex-basis:100%;margin-bottom:5px}.mn-dialog input[type=date]{font-size:11px!important;padding:9px 7px}.mn-form-pair{gap:10px}}
 @media(prefers-reduced-motion:no-preference){.mn-panel{animation:mn-appear .3s ease both}@keyframes mn-appear{from{opacity:.5;transform:translateY(5px)}to{opacity:1;transform:none}}.mn-btn{transition:background .15s,border-color .15s}}
+
+/* The selected month's spending plan uses the same ledger as the detail tabs. */
+.app-money .mn-month-brief{display:grid;grid-template-columns:minmax(0,1.5fr) minmax(200px,1fr);gap:28px;padding:26px;margin:24px 0 0;border:1px solid #354c43;border-radius:9px;background:linear-gradient(115deg,#1b2b25,#15191b)}
+.app-money .mn-month-brief h2{font-size:15px;margin:10px 0 5px}
+.mn-brief-remaining{display:block;font:500 clamp(25px,4vw,38px)/1.6 var(--font-head);color:var(--a);overflow-wrap:anywhere}
+.app-money .mn-month-brief p{color:var(--dim);font-size:11px;line-height:1.9;margin:8px 0 14px}
+.mn-brief-aside{display:flex;align-items:flex-start;flex-direction:column;justify-content:center;border-left:1px solid var(--line);padding-left:28px}
+.mn-brief-aside>span,.mn-brief-aside>small{color:var(--dim);font-size:11px;line-height:1.9}
+.mn-brief-net{font-size:23px;font-weight:500;margin:5px 0}
+.mn-brief-aside button{margin-top:16px}
+@container money (max-width:650px){.app-money .mn-month-brief{grid-template-columns:minmax(0,1fr);padding:19px;gap:16px}.mn-brief-aside{border-left:0;border-top:1px solid var(--line);padding:16px 0 0}.mn-brief-net{font-size:20px}}

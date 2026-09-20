@@ -1,5 +1,6 @@
 """Portfolio-integrated living thesis: navigation, edits, privacy, failures, deep links and layouts."""
 from functools import partial
+import tempfile
 from datetime import datetime, timezone
 from http.server import ThreadingHTTPServer, SimpleHTTPRequestHandler
 from pathlib import Path
@@ -7,7 +8,7 @@ from threading import Thread
 from playwright.sync_api import sync_playwright, expect
 
 ROOT = Path(__file__).resolve().parents[2]
-OUT = Path('/private/tmp')
+OUT = Path(tempfile.mkdtemp(prefix='moatrices-thesis-'))
 class Quiet(SimpleHTTPRequestHandler):
     def log_message(self, *args): pass
 class Server(ThreadingHTTPServer):

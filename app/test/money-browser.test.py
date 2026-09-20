@@ -1,5 +1,6 @@
 """Money: old ledger compatibility, real workflows, durability, navigation and layout."""
 import json
+import tempfile
 from datetime import datetime, timezone
 from functools import partial
 from http.server import ThreadingHTTPServer, SimpleHTTPRequestHandler
@@ -8,7 +9,7 @@ from threading import Thread
 from playwright.sync_api import sync_playwright, expect
 
 ROOT=Path(__file__).resolve().parents[2]
-OUT=Path('/private/tmp')
+OUT=Path(tempfile.mkdtemp(prefix='moatrices-money-'))
 class Quiet(SimpleHTTPRequestHandler):
     def log_message(self,*args): pass
 server=ThreadingHTTPServer(('127.0.0.1',0),partial(Quiet,directory=str(ROOT)))

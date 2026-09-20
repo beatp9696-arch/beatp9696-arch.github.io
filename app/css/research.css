@@ -37,6 +37,15 @@
 .rx-search input{appearance:none;width:100%;min-width:0;background:transparent;border:0;outline:none!important;color:var(--ink);font-family:inherit;font-size:12px;padding:9px 0}
 .rx-search input::placeholder{color:#8f989f}
 .rx-grid{display:grid;grid-template-columns:1fr;gap:16px;align-items:stretch}
+.rx-view-controls{display:flex;align-items:center;flex-wrap:wrap;gap:14px;margin:0 0 20px}
+.rx-view-controls label{display:flex;align-items:center;gap:8px;color:var(--dim);font-size:11px}
+.rx-view-controls select{max-width:165px;border:1px solid var(--line);border-radius:6px;background:#191d20;color:var(--ink);padding:9px;font:inherit}
+.rx-watch-table{min-width:650px}
+.rx-watch-table td:nth-child(2){max-width:360px;white-space:normal;line-height:1.7}
+.rx-watch-table .rx-text-btn{display:flex;gap:10px;text-align:left}
+.rx-watch-table small{display:block;margin-top:5px;color:var(--dim);font-size:10px}
+.rx-watch-table .rx-logo{width:30px;height:30px;flex-shrink:0}
+@container research (max-width:600px){.rx-toolbar{flex-wrap:wrap}.rx-toolbar .rx-segment{flex-wrap:wrap;flex-shrink:1}.rx-view-controls{gap:10px}.rx-segment button{padding-inline:9px}}
 .rx-card{display:flex;flex-direction:column;min-width:0;border:1px solid var(--line);border-radius:8px;background:#141719;transition:border-color .16s,background .16s}
 .rx-card:hover{border-color:#485259;background:#171b1e}
 .rx-company{display:flex;flex-direction:column;flex:1;width:100%;text-align:left;background:transparent;color:inherit;border:0;padding:21px 20px 17px;border-radius:8px 8px 0 0}

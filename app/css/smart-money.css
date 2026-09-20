@@ -324,3 +324,18 @@
 .sm-allocation-copy .sm-legend .sm-stock-fallback{width:24px;height:24px;font-size:7px}
 @container smart-money (max-width:355px){.sm-company-links{gap:5px}.sm-company-links span{width:100%}.sm-company-links a{font-size:10px;padding:4px 6px}}
 @container smart-money (max-width:330px){.sm-head{gap:4px;min-width:0}.sm-head .moa-brand{min-width:0;font-size:15px;gap:5px}.sm-head .moa-brand-section{display:none}.sm-head-actions{gap:0}.sm-head .sm-icon{width:28px;min-width:28px;padding:5px}}
+.sm-view-switch{display:flex;gap:8px;margin:20px 0 16px;flex-wrap:wrap}
+.sm-view-switch button{min-height:40px;padding:10px 16px;border:1px solid #303840;border-radius:7px;background:transparent;color:#9aa4ae;font:500 13px var(--font-head,sans-serif);cursor:pointer}
+.sm-view-switch button[aria-pressed=true]{color:var(--a);border-color:#416858;background:var(--a-soft)}
+.sm-cards.sm-cards--activity{display:block}
+.sm-activity-head{margin:24px 0 18px;padding:22px;border:1px solid #2b333b;border-radius:10px;background:var(--card)}
+.sm-activity-head h2{font-size:22px;margin:8px 0}
+.sm-activity-head p{font-size:12px;color:#9aa4ae;line-height:1.8}
+.sm-activity-head .sm-categories{margin:16px 0 0}
+.sm-activity-row{display:grid;grid-template-columns:38px minmax(120px,1.4fr) minmax(130px,1fr) minmax(110px,.7fr) 20px;gap:16px;align-items:center;width:100%;padding:20px 12px;text-align:left;color:#e7ecf2;background:transparent;border:0;border-bottom:1px solid #2b333b;font:inherit;cursor:pointer}
+.sm-activity-row:hover{background:var(--a-soft)}
+.sm-activity-row small{display:block;margin-top:6px;font-size:11px;color:#9aa4ae;line-height:1.6}
+.sm-activity-row b{font-size:13px;line-height:1.7}
+.sm-activity-row svg{width:18px;height:18px;color:#9aa4ae}
+.sm-activity-date{font-size:12px}
+@media(max-width:600px){.sm-activity-row{grid-template-columns:32px minmax(0,1fr) minmax(0,1fr);gap:12px;padding:18px 4px}.sm-activity-date{grid-column:2 / -1;font-size:10px}.sm-activity-date small{display:inline;margin-left:8px}.sm-activity-row>svg{display:none}.sm-activity-row b{font-size:12px}.sm-activity-head{padding:16px}.sm-activity-head h2{font-size:19px}}

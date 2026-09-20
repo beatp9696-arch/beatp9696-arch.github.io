@@ -1239,3 +1239,14 @@ window.NYSE = (function () {
   tick();                       // แสดง market ก่อน (ถ้ารองรับ)
   setInterval(tick, 8000);      // หมุนทุก 8 วินาที
 })();
+
+// Load personal reading tools relative to this script, including article subpages.
+(function () {
+  var script = document.currentScript;
+  if (!script || !script.src) return;
+  var page = location.pathname;
+  if (!(/\/articles\/[^/]+\.html$/.test(page) || /\/(?:index|articles|stocks|reading)\.html$/.test(page) || page.endsWith('/'))) return;
+  var reader = document.createElement('script');
+  reader.type = 'module'; reader.src = new URL('reading.js', script.src).href;
+  document.head.append(reader);
+})();

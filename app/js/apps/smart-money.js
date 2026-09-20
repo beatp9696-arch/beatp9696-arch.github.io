@@ -206,6 +206,7 @@ export default {
     body.classList.add('app-pane', 'app-smart-money');
     let funds = [], query = '', category = 'all', selected = null, filter = 'all';
     let requestId=0, visibleCount=PAGE_SIZE, holdingQuery='';
+    let listView='portfolios', activityFilter='all';
     let scrollBeforeDetail = 0;
     let stockTarget = null, stockOrigin = null;
     body.innerHTML = `<header class="sm-head"><a class="moa-brand" href="index.html"><span class="moa-brand-mark" aria-hidden="true"><i></i><i></i><i></i></span>Moatrices<span class="moa-brand-section">SMART MONEY</span></a><div class="sm-head-actions"><button class="sm-icon sm-search-toggle" aria-label="ค้นหาพอร์ต">${ICON.search}</button><button class="sm-icon sm-settings" aria-label="Settings">${ICON.gear}</button></div></header>
@@ -233,8 +234,22 @@ export default {
       const filtered = funds.filter(fund => (category === 'all' || fund.category === category) && matchesFund(fund, query));
       const grid = content.querySelector('.sm-cards');
       if (!grid) return;
+      if (listView === 'changes') { drawChanges(filtered); return; }
+      grid.classList.remove('sm-cards--activity');
       grid.innerHTML = filtered.length ? filtered.map(card).join('') : `<div class="sm-empty"><b>ไม่พบพอร์ตที่ตรงกับคำค้น</b><p>ลองชื่อบริษัท ชื่อกองทุน หรือรหัสหุ้นอื่น</p><button class="sm-text-btn" data-reset>ล้างตัวกรอง</button></div>`;
       content.querySelector('.sm-results-count').textContent = `${filtered.length} รายการ`;
+    }
+
+    function drawChanges(filtered) {
+      const grid=content.querySelector('.sm-cards');
+      grid.classList.add('sm-cards--activity');
+      const needle=query.trim().toLocaleLowerCase();
+      const rows=filtered.filter(fund=>fund.kind==='13f'&&!fund.historical).flatMap(fund=>fund.changes.map(row=>({fund,row})))
+        .filter(({fund,row})=>(activityFilter==='all'||row.status===activityFilter)&&(!needle||[fund.name,fund.subtitle,...(fund.aliases||[]),row.symbol||'',row.issuer].some(text=>text.toLocaleLowerCase().includes(needle))))
+        .sort((a,b)=>b.fund.current.filedDate.localeCompare(a.fund.current.filedDate)||b.row.weight-a.row.weight);
+      grid.innerHTML=`<div class="sm-activity-head"><div><span class="sm-kicker">FROM THE FILINGS</span><h2>อะไรเปลี่ยนในรายงาน</h2><p>รายการเด่นสูงสุด 2 รายการต่อพอร์ต 13F · เรียงตามวันยื่นรายงาน · เปิดพอร์ตเพื่อดูทั้งหมด</p></div><div class="sm-categories" aria-label="การเปลี่ยนแปลง">${[['all','ทั้งหมด'],['new','พบใหม่'],['added','จำนวนเพิ่ม'],['reduced','จำนวนลด']].map(([id,label])=>`<button data-activity-filter="${id}" aria-pressed="${activityFilter===id}">${label}</button>`).join('')}</div></div>
+        ${rows.length?rows.map(({fund,row})=>`<button class="sm-activity-row" data-fund="${esc(fund.id)}" aria-label="เปิดรายงาน ${esc(fund.name)}: ${esc(symbol(row))}">${stockBadge(row)}<span class="sm-activity-company"><b>${esc(symbol(row))}${row.option?' · '+esc(row.option):''}</b><small>${esc(fund.name)}</small></span><span class="sm-activity-change sm-${row.status}"><b>${STATUS[row.status]}</b><small>${change(row)} · ${percent(row.weight)} ของพอร์ต</small></span><span class="sm-activity-date">${quarter(fund.current.reportDate)}<small>ยื่น ${date(fund.current.filedDate)}</small></span>${ICON.arrow}</button>`).join(''):'<div class="sm-empty"><b>ไม่มีรายการที่ตรงกับตัวกรอง</b><p>มุมมองนี้แสดงรายงาน 13F ที่มีข้อมูลเปรียบเทียบ</p></div>'}`;
+      content.querySelector('.sm-results-count').textContent=`${rows.length} รายการเด่น`;
     }
 
     function drawList() {
@@ -242,7 +257,8 @@ export default {
       selected = null;
       stockTarget = null;stockOrigin = null;
       requestId++;
-      content.innerHTML = `<div class="sm-categories" aria-label="ประเภทพอร์ต">${[['all','ทั้งหมด'],['investor','นักลงทุน'],['institution','สถาบัน'],['company','บริษัท'],['public-figure','บุคคลสาธารณะ']].map(([id,label])=>`<button data-category="${id}" aria-pressed="${category===id}">${label}</button>`).join('')}<span class="sm-results-count" aria-live="polite"></span></div>
+      content.innerHTML = `<div class="sm-view-switch" aria-label="มุมมอง Smart Money">${[['portfolios','สำรวจพอร์ต'],['changes','รายการเปลี่ยนแปลง']].map(([id,label])=>`<button data-list-view="${id}" aria-pressed="${listView===id}">${label}</button>`).join('')}</div>
+        <div class="sm-categories" aria-label="ประเภทพอร์ต">${[['all','ทั้งหมด'],['investor','นักลงทุน'],['institution','สถาบัน'],['company','บริษัท'],['public-figure','บุคคลสาธารณะ']].map(([id,label])=>`<button data-category="${id}" aria-pressed="${category===id}">${label}</button>`).join('')}<span class="sm-results-count" aria-live="polite"></span></div>
         <div class="sm-intro"><p>กราฟรายงาน: 5 อันดับแรก + อื่น ๆ · ข้อมูลประมาณการแยกป้ายกำกับ</p><span class="sm-source-badge">${ICON.check} วันที่กำกับแต่ละพอร์ต</span></div>
         <div class="sm-cards"></div>
         <div class="sm-disclosure"><b>อ่านข้อมูลตามประเภทและวันที่ในรายงาน</b><p>13F แสดงหลักทรัพย์ ณ สิ้นไตรมาสที่สถาบันรายงาน อาจเผยแพร่ภายหลังได้ถึง 45 วัน และไม่ได้รวมสินทรัพย์ทุกประเภท การเปลี่ยนแปลงคือจำนวนหุ้นตามรายงาน ส่วนเอกสารของบุคคลสาธารณะแสดงช่วงมูลค่าหรือธุรกรรมตามต้นฉบับ</p><p>แฟ้ม Charlie Munger เป็นข้อมูลย้อนหลังปี 2023 · ตรวจแหล่งข้อมูล ${date(cachedData.checkedAt)}</p><a href="https://www.investor.gov/introduction-investing/investing-basics/glossary/form-13f-reports-filed-institutional-investment" target="_blank" rel="noopener noreferrer">รู้จักรายงาน 13F ${ICON.arrow}</a><p><a href="${new URL('../../assets/credits.html', import.meta.url).href}" target="_blank" rel="noopener noreferrer">เครดิตภาพและโลโก้ ${ICON.arrow}</a></p></div>`;
@@ -420,6 +436,10 @@ export default {
       else if (target.dataset.fund) {scrollBeforeDetail=scrollHost().scrollTop;openDetail(target.dataset.fund);}
       else if (target.classList.contains('sm-back')) {
         const id=selected.id;drawList();scrollHost().scrollTop=scrollBeforeDetail;content.querySelector(`[data-fund="${id}"]`)?.focus({preventScroll:true});
+      } else if (target.dataset.listView) {
+        listView=target.dataset.listView;drawList();content.querySelector(`[data-list-view="${listView}"]`)?.focus();
+      } else if (target.dataset.activityFilter) {
+        activityFilter=target.dataset.activityFilter;drawCards();content.querySelector(`[data-activity-filter="${activityFilter}"]`)?.focus();
       } else if (target.dataset.category) {
         category=target.dataset.category;content.querySelectorAll('[data-category]').forEach(button=>button.setAttribute('aria-pressed',String(button===target)));drawCards();
       } else if (target.dataset.holdings) {

@@ -1,0 +1,40 @@
+import assert from 'node:assert/strict';
+import { articlePath, saveArticle, getArticle, saveNote, records, notesFor, dueNote, reviewNote, deleteNote, PREFIX } from '../../reading-store.js';
+const data = new Map();
+globalThis.localStorage = {
+  get length() { return data.size; }, key: index => [...data.keys()][index],
+  getItem: key => data.get(key) ?? null, setItem: (key, value) => data.set(key, value), removeItem: key => data.delete(key),
+};
+const path = '/articles/deep-dive-nvda.html';
+assert.equal(articlePath(path + '?resume=1#sec-2'), path);
+for (const url of ['javascript:alert(1)', '//evil.example/articles/a.html', '/articles/../money.html', '/money.html']) assert.equal(articlePath(url), '');
+saveArticle(path, { title: 'NVIDIA', saved: true });
+saveArticle('/articles/deep-dive-cost.html', { title: 'Costco', saved: true });
+saveArticle(path, { progress: 47, anchor: 'sec-4', opened: true });
+assert.equal(getArticle(path).saved, true, 'progress from another tab preserves bookmark');
+saveArticle(path, { saved: false });
+assert.equal(getArticle(path).progress, 47);
+assert.equal(records('article').length, 2);
+const first = saveNote({ path, title: 'NVIDIA', quote: 'A quote with context', ticker: 'nvda', impact: 'challenges', reviewOn: '2026-09-20' });
+const second = saveNote({ path, quote: 'Another independently saved idea', ticker: 'COST' });
+assert.equal(notesFor('NVDA').length, 1);
+assert.equal(dueNote(first, '2026-09-20'), true);
+assert.equal(dueNote(first, '2026-09-19'), false);
+reviewNote(first.id);
+assert.equal(dueNote(notesFor('nvda')[0], '2026-09-21'), false);
+saveNote({ ...first, quote: first.quote, reviewOn: '2026-10-01', reviewedAt: null });
+assert.equal(dueNote(notesFor('NVDA')[0], '2026-10-01'), true);
+deleteNote(second.id);
+assert.equal(records('note').length, 1);
+assert.equal(saveNote({ path, quote: 'date validation', reviewOn: '2026-02-31', impact: '__proto__' }).reviewOn, '');
+assert.equal(saveNote({ path, quote: 'default impact', impact: 'invented' }).impact, 'question');
+assert.throws(() => saveNote({ path: 'https://evil.example', quote: 'no' }));
+assert.throws(() => saveNote({ path, quote: 'no', ticker: '<svg>' }));
+data.set(PREFIX + 'note.broken', '{');
+assert.equal(records('note').length, 3, 'malformed records do not hide valid notes');
+const before = data.size;
+localStorage.setItem = () => { throw new Error('Quota exceeded'); };
+assert.throws(() => saveArticle(path, { saved: true }));
+assert.equal(data.size, before);
+assert.equal(getArticle(path).saved, false, 'failed write is not reported as persisted');
+console.log('Reading store: independent saves, bookmark/progress merging, review dates, validation, corruption and failed writes passed.');

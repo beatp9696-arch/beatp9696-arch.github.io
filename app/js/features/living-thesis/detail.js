@@ -1,3 +1,4 @@
+import { evidenceHTML } from "../../../../reading-ui.js";
 import {esc,date,tone,stale,reviewed,signed,metricChange} from './model.js';
 import {icon,button,badge,logo,analysisLabel,score,number,sectionHead,provenance,evidenceRows,pillarName,empty,sellRows,questions} from './components.js';
 import { companyLinks } from '../../core/company-catalog.js';
@@ -15,7 +16,7 @@ export function detail(c,state) {
     ${c.researchKind==='library'?`<details class="lt-methodology"><summary>Research draft · Sources & scoring method</summary><p>${esc(c.sourceNote)}</p><p>สถานะและทิศทางประเมินเทียบกับร่างในคลัง ไม่ใช่เหตุผลที่คุณซื้อ ผลตอบแทน หรือความน่าจะเป็นที่จะได้กำไร ไม่มีประวัติคะแนนจึงไม่สร้าง thesis drift ย้อนหลัง</p></details>`:''}
     <nav class="lt-tabs" role="tablist" aria-label="Living thesis sections" data-no-swipe>${TABS.map(([id,glyph,label])=>`<button role="tab" id="lt-tab-${id}" aria-controls="lt-panel" aria-selected="${state.tab===id}" tabindex="${state.tab===id?0:-1}" data-thesis-tab="${id}">${icon(glyph)}${label}${id==='sell'?` <small>${c.sellConditions.length}</small>`:''}</button>`).join('')}</nav>
     <div role="tabpanel" id="lt-panel" aria-labelledby="lt-tab-${state.tab}" tabindex="0">${({thesis:investment,moat:moatMap,timeline:timeline,earnings:earnings,redteam:redTeam,sell:sell})[state.tab](c)}</div>
-    ${questions(c)}`;
+    ${!c.isDemo ? evidenceHTML(c.holding.symbol) : ''}${questions(c)}`;
 }
 function investment(c) {
   return `<div class="lt-thesis-grid"><div><section class="lt-section lt-original">${sectionHead(c.draftStatement&&!c.thesis.originalStatement?'ร่างเหตุผลในการถือ':'Why I bought it',c.draftStatement&&!c.thesis.originalStatement?'DRAFT · REVIEW BEFORE ADOPTING':'THE ORIGINAL THESIS',button(c.draftStatement&&!c.thesis.originalStatement?'Review & use draft':'Edit original','edit-thesis','book-open','lt-quiet'))}<blockquote>${esc(c.thesis.originalStatement||c.draftStatement)||'Write the reasons you chose to own this business.'}</blockquote><div class="lt-meta"><span>${c.originalEdited?'Edited on this device':c.draftStatement&&!c.thesis.originalStatement?'Not yet adopted':c.thesis.createdAt?`Established ${date(c.thesis.createdAt)}`:'Saved on this device'}</span><span>${c.isDemo?'Sample investor statement':c.draftStatement&&!c.thesis.originalStatement?'Suggested rationale · not your recorded reason':'Your investment rationale'}</span></div></section>
