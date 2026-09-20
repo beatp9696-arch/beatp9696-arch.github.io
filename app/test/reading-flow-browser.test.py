@@ -61,7 +61,43 @@ try:
         page.goto(origin + '/index.html')
         expect(page.locator('.reading-home')).to_be_visible()
         assert page.locator('h1').count() == 1
+        assert page.locator('.home-hero').evaluate("e => e.nextElementSibling.classList.contains('home-approach-section')")
+        assert page.locator('.home-approach-section').evaluate("e => e.nextElementSibling.id === 'home-overview'")
+        expect(page.locator('#home-reading-slot .reading-home')).to_have_count(1)
+        assert page.locator('#home-explore').evaluate("e => e.nextElementSibling.id === 'home-reading-slot'")
         assert page.evaluate("document.querySelector('.home-hero').compareDocumentPosition(document.querySelector('.home-overview')) & Node.DOCUMENT_POSITION_FOLLOWING")
+        lenses = [('price', 'reverse-dcf.html'), ('news', 'portfolio.html?view=research'),
+                  ('financials', 'series-financials.html'), ('business', 'stocks.html'), ('moat', 'series-powers.html')]
+        for theme in ['light', 'dark']:
+            page.evaluate('(theme) => document.documentElement.dataset.theme = theme', theme)
+            for width in [320, 390, 768, 1440]:
+                page.set_viewport_size({'width': width, 'height': 1000})
+                page.evaluate('document.fonts.ready')
+                heights = []
+                for index, (layer, href) in enumerate(lenses):
+                    tab = page.locator('#approach-' + layer)
+                    tab.click()
+                    expect(tab).to_have_attribute('aria-selected', 'true')
+                    expect(page.locator('.home-layer-band[aria-selected=true]')).to_have_count(1)
+                    expect(page.locator('#approach-panel')).to_have_attribute('aria-labelledby', 'approach-' + layer)
+                    expect(page.locator('.home-approach')).to_have_attribute('data-depth', str(index + 1))
+                    expect(page.locator('.home-approach-link')).to_have_attribute('href', href)
+                    assert page.evaluate('document.documentElement.scrollWidth <= innerWidth'), (theme, width, layer)
+                    assert tab.bounding_box()['height'] >= 44
+                    heights.append(page.locator('.home-approach').bounding_box()['height'])
+                assert max(heights) - min(heights) <= 1, (theme, width, heights)
+                assert page.locator('.home-approach').evaluate("e => e.getAnimations({subtree: true}).length === 0"), 'reduced motion'
+                if width in [390, 1440]:
+                    page.locator('.home-approach').screenshot(path=str(out / f'approach-{theme}-{width}.png'))
+        page.locator('#approach-moat').focus()
+        page.keyboard.press('Home')
+        expect(page.locator('#approach-price')).to_be_focused()
+        page.keyboard.press('ArrowDown')
+        expect(page.locator('#approach-news')).to_be_focused()
+        page.keyboard.press('End')
+        expect(page.locator('#approach-moat')).to_have_attribute('aria-selected', 'true')
+        page.evaluate("document.documentElement.dataset.theme = 'light'")
+        print('PASS approach placement, five lenses, links, keyboard, stable layout and reduced motion', flush=True)
         check_layout(page, 'home')
         for tab in ['frameworks', 'money', 'research']:
             page.locator('#home-tab-' + tab).click()

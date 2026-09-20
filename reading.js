@@ -122,15 +122,17 @@ function initLibrary() {
 }
 
 function initHome() {
-  const hero = document.querySelector('.home-hero'); if (!hero) return;
+  const slot = document.getElementById('home-reading-slot'); if (!slot) return;
   const section = document.createElement('section'); section.className = 'reading-home';
-  section.setAttribute('aria-label', 'คลังอ่านของฉัน'); hero.after(section);
+  section.setAttribute('aria-label', 'คลังอ่านของฉัน'); slot.append(section);
   function render() {
     let articles, notes;
     try { articles = records('article'); notes = records('note'); } catch { section.hidden = true; return; }
     const progress = articles.filter(item => item.progress > 0 && !item.completed).sort((a,b) => String(b.lastReadAt).localeCompare(String(a.lastReadAt))).slice(0, 2);
     const saved = articles.filter(item => item.saved).length, due = notes.filter(note => dueNote(note)).length;
-    section.innerHTML = `<div class="reading-heading"><div><span class="reading-eyebrow">YOUR READING DESK</span><h2>${progress.length ? 'อ่านต่อจากครั้งก่อน' : 'พื้นที่สำหรับสิ่งที่คุณอยากรู้'}</h2></div><a href="${libraryURL}">คลังอ่านของฉัน ↗</a></div>${progress.length ? `<div class="reading-card-grid">${progress.map(articleCard).join('')}</div>` : '<p class="reading-muted">บันทึกเรื่องที่สนใจ แล้วกลับมาอ่านต่อ พร้อมเก็บหลักฐานเข้าบันทึกหุ้นของคุณ</p>'}<div class="reading-home-links"><a href="${libraryURL}?view=saved">${saved} เรื่องไว้อ่าน →</a><a href="${libraryURL}?view=due">${due} บันทึกถึงรอบทบทวน →</a></div>`;
+    section.hidden = false;
+    section.classList.toggle('is-empty', !progress.length);
+    section.innerHTML = `<div class="reading-heading"><div><span class="reading-eyebrow">YOUR READING DESK</span><h2>${progress.length ? 'อ่านต่อจากครั้งก่อน' : 'เก็บเรื่องที่สนใจ ไว้กลับมาอ่าน'}</h2></div><a href="${libraryURL}">คลังอ่านของฉัน ↗</a></div>${progress.length ? `<div class="reading-card-grid">${progress.map(articleCard).join('')}</div>` : '<p class="reading-muted">บันทึกบทความ ไฮไลต์ และคำถามไว้ในคลังอ่านของคุณ</p>'}${saved || due ? `<div class="reading-home-links">${saved ? `<a href="${libraryURL}?view=saved">${saved} เรื่องไว้อ่าน →</a>` : ''}${due ? `<a href="${libraryURL}?view=due">${due} บันทึกถึงรอบทบทวน →</a>` : ''}</div>` : ''}`;
   }
   section.addEventListener('click', event => {
     const button = event.target.closest('[data-save-path]'); if (!button) return;
