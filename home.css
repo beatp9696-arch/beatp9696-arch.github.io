@@ -178,6 +178,61 @@
 .home-page .home-companion .tarsb { position: relative; z-index: 0; inset: auto; width: fit-content; max-width: 100%; margin: 20px auto; }
 .home-page .site-footer .container { border-left: 0; }
 
+/* The approach card is the final reflection point of the homepage. Keep Thai
+   copy in the body face so it stays open and readable alongside the mono labels. */
+.home-page .home-pulse-heading h2,
+.home-page .home-pulse-body strong,
+.home-page .home-workspace-brand,
+.home-page .home-nav-label,
+.home-page .home-tab,
+.home-page .home-panel h2,
+.home-page .home-panel h3,
+.home-page .home-section-heading .sec,
+.home-page .home-approach h2,
+.home-page .home-approach-caption,
+.home-page .home-approach-copy { font-family: var(--font-body); }
+.home-page .home-pulse-heading h2 { font-weight: 600; }
+.home-page .home-pulse-body strong { font-weight: 600; }
+
+.home-approach-section { display: flex; justify-content: center; margin: 76px auto 0; }
+.home-approach {
+  width: min(100%, 620px);
+  min-width: 0;
+  padding: 32px 40px 22px;
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  background: var(--surface);
+}
+.home-approach h2 { margin: 12px 0 0; padding: 0; font-size: 24px; line-height: 1.5; letter-spacing: normal; }
+.home-approach .home-approach-hint { margin: 5px 0 0; color: var(--muted); font-size: 12px; line-height: 1.8; }
+.home-approach-diagram { display: grid; position: relative; width: 100%; max-width: 360px; gap: 6px; margin: 28px auto 18px; }
+.home-layer-axis { position: absolute; top: 0; bottom: 0; left: 40px; border-left: 1px solid var(--border); pointer-events: none; }
+.home-layer { display: grid; grid-template-columns: 30px minmax(0, 1fr); gap: 18px; align-items: center; }
+.home-layer-time { position: relative; color: var(--muted); font: 500 10px var(--font-mono); text-align: right; }
+.home-layer-time::after { content: ''; position: absolute; top: 50%; right: -10px; width: 5px; border-top: 1px solid var(--border); }
+.home-layer-band { display: flex; align-items: center; justify-content: space-between; gap: 8px; width: 100%; min-width: 0; min-height: 44px; padding: 8px 12px; border: 1px solid var(--border); border-radius: 6px; background: #191e21; color: #c9d2d6; text-align: left; cursor: pointer; transition: background .18s, border-color .18s, color .18s; touch-action: manipulation; }
+.home-layer-band:disabled { opacity: 1; cursor: default; }
+.home-layer-band:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; }
+.home-layer-label { min-width: 0; color: inherit; font: 600 14px/1.7 var(--font-body); white-space: nowrap; }
+.home-layer-texture { width: 42px; height: 24px; flex: 0 0 42px; fill: none; stroke: #65767d; stroke-width: 1.4; stroke-linecap: round; opacity: .65; }
+.home-layer--moat .home-layer-band { min-height: 56px; background: var(--accent-tint); border-color: var(--accent); color: var(--accent); }
+.home-layer-band[aria-selected="true"] { background: var(--accent-tint); border-color: var(--accent); color: var(--accent); }
+.home-layer-band[aria-selected="true"] .home-layer-label { font-weight: 700; }
+.home-layer-band[aria-selected="true"] .home-layer-texture { stroke: var(--accent); opacity: .8; }
+.home-layer--moat .home-layer-time { color: var(--accent); }
+.home-layer-arrow { width: 18px; height: 34px; flex: 0 0 18px; fill: none; stroke: var(--accent); stroke-width: 1.6; stroke-linecap: round; stroke-linejoin: round; }
+.home-approach-dot { position: absolute; top: 19px; left: 37px; width: 6px; height: 6px; border-radius: 50%; background: var(--accent); transform: translateY(var(--approach-position, 206px)); box-shadow: 0 0 0 3px color-mix(in srgb, var(--accent) 20%, transparent); pointer-events: none; }
+.home-approach-panel { min-height: 150px; padding: 14px 0 16px; border-top: 1px solid var(--border); outline-offset: 4px; }
+.home-approach-step { display: block; margin-bottom: 7px; color: var(--accent); font: 500 10px/1.8 var(--font-mono); }
+.home-approach .home-approach-caption { margin: 0 0 6px; color: var(--text); font-size: 18px; font-weight: 600; line-height: 1.8; }
+.home-approach .home-approach-copy { margin: 0; color: var(--muted); font-size: 13px; line-height: 1.9; }
+.home-approach-link { display: flex; align-items: center; justify-content: space-between; gap: 10px; min-height: 44px; padding: 12px 0 0; border-top: 1px solid var(--border); color: var(--accent); font: 600 13px var(--font-body); }
+.home-approach-link > span:last-child { color: var(--accent); font-size: 20px; }
+.home-approach-link:hover { color: var(--accent-strong); }
+@media (hover: hover) {
+  .home-layer-band:not(:disabled):hover { background: var(--surface-2); border-color: var(--accent); color: var(--accent); }
+}
+
 @media (min-width: 701px) and (max-width: 960px) {
   .home-workspace-layout { grid-template-columns: 190px minmax(0, 1fr); }
   .home-explore-nav { padding-inline: 9px; }
@@ -213,6 +268,13 @@
   .home-hero h1 { font-size: clamp(23px, 6.5vw, 32px); }
   .home-hero p:not(.home-eyebrow) { font-size: 13px; }
   .home-button { padding: 11px 16px; font-size: 12px; gap: 13px; }
+  .home-approach-section { margin-top: 52px; }
+  .home-approach { padding: 28px 26px 20px; }
+  .home-approach h2 { font-size: clamp(21px, 7vw, 24px); }
+  .home-approach-diagram { margin-top: 24px; }
+  .home-layer-label { font-size: 14px; }
+  .home-approach .home-approach-caption { font-size: 18px; }
+  .home-approach .home-approach-copy { font-size: 13px; }
   .home-workspace { scroll-margin-top: 84px; border-radius: 10px; }
   .home-workspace-bar { padding: 12px 15px; min-height: 42px; }
   .home-workspace-brand { font-size: 10px; gap: 7px; }
