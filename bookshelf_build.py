@@ -16,7 +16,7 @@ E = lambda value: html.escape(str(value), quote=True)
 def load_catalog():
     catalog = json.loads((ROOT / "data/bookshelf.json").read_text())
     slugs = set()
-    required = "slug title titleThai author editor year edition categories status cover coverAlt shortDescription oneLineSummary summarySections keyIdeas suitableFor readingOrder editorialSynthesis relatedLinks purchaseLinks affiliateDisclosure sourceLinks updatedAt".split()
+    required = "slug title titleThai author editor year edition categories status cover coverAlt shortDescription oneLineSummary summarySections keyIdeas bookChapters coreThemes coreThemesSource keyTakeaways relatedLinks purchaseLinks affiliateDisclosure sourceLinks updatedAt".split()
     for book in catalog["books"]:
         assert all(key in book for key in required), "Missing book field"
         assert re.fullmatch(r"[a-z0-9]+(?:-[a-z0-9]+)*", book["slug"])
@@ -28,8 +28,8 @@ def load_catalog():
         datetime.date.fromisoformat(book["updatedAt"])
         assert (ROOT / book["cover"]).is_file(), "Missing cover"
         if book["status"] == "ready":
-            assert len(book["keyIdeas"]) == 5 and len(book["applicationQuestions"]) == 3
-        for link in book["relatedLinks"] + book["readingOrder"] + book["sourceLinks"] + [{"href": book["fullArticle"]}]:
+            assert len(book["keyIdeas"]) == 5 and len(book["keyTakeaways"]) == 3
+        for link in book["relatedLinks"] + book["bookChapters"] + book["sourceLinks"] + [idea["source"] for idea in book["keyIdeas"]] + [book["coreThemesSource"], {"href": book["fullArticle"]}]:
             url = link.get("href", link.get("url"))
             if url.startswith("https://"):
                 continue
@@ -51,6 +51,10 @@ def load_catalog():
 
 def paragraphs(items):
     return "\n".join(f"<p>{E(text)}</p>" for text in items)
+
+
+def source_reference(source):
+    return f'<p class="bs-source-reference"><a href="{E(source["url"])}">{E(source["title"])} ↗</a></p>'
 
 
 def asset_url(path, source=None):
@@ -77,9 +81,9 @@ def book_schema(book):
 def reading_sections(book):
     return [(s['id'], s['title']) for s in book['summarySections']] + [
         ('one-line', 'สรุปในหนึ่งประโยค'), ('key-ideas', '5 แนวคิดสำคัญ'),
-        ('suitable', 'เหมาะกับใคร'), ('reading-order', 'ควรอ่านอย่างไร'),
-        ('synthesis', 'สังเคราะห์แนวคิด'), ('related', 'อ่านต่อใน Moatrices'),
-        ('questions', 'คำถามนำไปใช้'), ('sources', 'ข้อมูลและแหล่งอ้างอิง')]
+        ('reading-order', 'สุนทรพจน์ในเล่ม'), ('synthesis', 'การเรียนรู้และความน่าเชื่อถือ'),
+        ('questions', 'ประเด็นสำคัญจากหนังสือ'), ('related', 'อ่านเพิ่มเติม'),
+        ('sources', 'ข้อมูลและแหล่งอ้างอิง')]
 
 
 def chapter_links(book, numbered=False):
@@ -250,12 +254,11 @@ def detail(b):
     verified = max((p.get("verifiedAt", "") for p in b["purchaseLinks"]), default="")
     disclosure = f'<p class="bs-small">{E(b["affiliateDisclosure"])}</p>' if b["affiliateDisclosure"] else ''
     sections = ''.join(f'<section id="{E(s["id"])}"><p class="bs-eyebrow">01 / THE QUESTION</p><h2>{E(s["title"])}</h2>{paragraphs(s["paragraphs"])}</section>' for s in b["summarySections"])
-    ideas = ''.join(f'<section class="bs-idea"><span class="bs-idea-index">{i:02d}</span><div><h3><span lang="en">{E(idea["english"])}</span>{E(idea["thai"])}</h3>{paragraphs(idea["paragraphs"])}<div class="bs-example"><span class="bs-eyebrow">ลองใช้กับธุรกิจ · MOATRICES</span><p>{E(idea["example"])}</p></div></div></section>' for i, idea in enumerate(b["keyIdeas"], 1))
-    suitable = ''.join(f'<li>{E(item)}</li>' for item in b["suitableFor"])
-    order = ''.join(f'<li><h3>{E(item["title"])}</h3><p>{E(item["text"])}</p><a href="../{E(item["href"])}">อ่านต่อในบทความเดิม ↗</a></li>' for item in b["readingOrder"])
+    ideas = ''.join(f'<section class="bs-idea"><span class="bs-idea-index">{i:02d}</span><div><h3><span lang="en">{E(idea["english"])}</span>{E(idea["thai"])}</h3>{paragraphs(idea["paragraphs"])}{source_reference(idea["source"])}</div></section>' for i, idea in enumerate(b["keyIdeas"], 1))
+    book_chapters = ''.join(f'<li><h3 lang="en">{E(item["title"])}</h3><p>{E(item["text"])}</p><a href="{E(item["href"])}">อ่านสุนทรพจน์ต้นฉบับ ↗</a></li>' for item in b["bookChapters"])
     related = ''.join(f'<a href="../{E(link["href"])}"><span><strong>{E(link["title"])}</strong><small>{E(link["description"])}</small></span><span aria-hidden="true">↗</span></a>' for link in b["relatedLinks"])
     sources = ''.join(f'<li><a href="{E(link["url"] if link["url"].startswith("https://") else "../" + link["url"])}">{E(link["title"])}</a></li>' for link in b["sourceLinks"])
-    questions = ''.join(f'<li>{E(q)}</li>' for q in b["applicationQuestions"])
+    takeaways = ''.join(f'<li>{E(item)}</li>' for item in b["keyTakeaways"])
     toc = chapter_links(b)
     date = datetime.date.fromisoformat(b["updatedAt"]).strftime("%d/%m/%Y")
     body = f'''<nav class="bs-breadcrumb" aria-label="เส้นทางหน้า"><a href="../index.html">Moatrices</a><span>/</span><a href="../books.html">Bookshelf</a><span>/</span><span aria-current="page">{E(b['title'])}</span></nav>
@@ -272,16 +275,15 @@ def detail(b):
       <header class="bs-reader-header" hidden><div><p class="bs-eyebrow">BOOKSHELF · อ่าน {b['readingMinutes']} นาที</p><div class="bs-reader-title-slot"></div><p class="bs-small">{E(b['author'])} · {E(b['edition'])}</p></div></header>
       <div class="bs-reading-slot"></div>
       <aside class="bs-toc"><p class="bs-eyebrow">READING GUIDE</p><h2>ในบทสรุปนี้</h2><nav aria-label="สารบัญบทสรุป">{toc}</nav><span class="bs-small">อ่านประมาณ {b['readingMinutes']} นาที</span></aside>
-      <article class="bs-prose" aria-label="บทสรุปหนังสือ"><p class="bs-editor-note">เรียบเรียงโดย Moatrices จากบทความเดิม · เนื้อหาหลักอธิบายแนวคิดของ Munger ส่วนตัวอย่างการใช้และบทสังเคราะห์เป็นการเรียบเรียงของเว็บไซต์</p>
+      <article class="bs-prose" aria-label="บทสรุปหนังสือ"><p class="bs-editor-note">สรุปแนวคิดจากหนังสือฉบับออนไลน์ของ Stripe Press · ลิงก์ใต้แต่ละแนวคิดเปิดสุนทรพจน์ต้นฉบับ</p>
         {sections}
-        <section class="bs-one-line" id="one-line"><p class="bs-eyebrow">02 / IN ONE SENTENCE</p><h2>สรุปในหนึ่งประโยค</h2><p>{E(b['oneLineSummary'])}</p><small>สรุปโดย Moatrices · ไม่ใช่คำพูดจากต้นฉบับ</small></section>
+        <section class="bs-one-line" id="one-line"><p class="bs-eyebrow">02 / IN ONE SENTENCE</p><h2>สรุปในหนึ่งประโยค</h2><p>{E(b['oneLineSummary'])}</p><small>สรุปใจความ · ไม่ใช่ข้อความอ้างโดยตรง</small></section>
         <section id="key-ideas"><p class="bs-eyebrow">03 / FIVE IDEAS TO THINK WITH</p><h2>แนวคิดสำคัญ 5 ข้อ</h2>{ideas}</section>
-        <section id="suitable"><p class="bs-eyebrow">04 / IS THIS FOR YOU?</p><h2>เหมาะกับใคร</h2><ul>{suitable}</ul><p>{E(b['readingCaveat'])}</p></section>
-        <section id="reading-order"><p class="bs-eyebrow">05 / A WAY THROUGH THE BOOK</p><h2>ควรอ่านอย่างไร</h2><ol class="bs-reading-order">{order}</ol></section>
-        <section id="synthesis"><p class="bs-eyebrow">06 / EDITORIAL SYNTHESIS</p><h2>แก่นที่เชื่อมทุกบทเข้าด้วยกัน</h2>{paragraphs(b['editorialSynthesis'])}</section>
-        <section id="related"><p class="bs-eyebrow">07 / KEEP EXPLORING</p><h2>เชื่อมกับเนื้อหาใน Moatrices</h2><div class="bs-related">{related}</div></section>
-        <section class="bs-questions" id="questions"><p class="bs-eyebrow">08 / TAKE IT INTO PRACTICE</p><h2>คำถามสำหรับนำไปใช้</h2><ol>{questions}</ol><a href="../portfolio.html?view=research">นำคำถามไปใช้ใน Research workspace ↗</a></section>
-        <section id="sources"><p class="bs-eyebrow">09 / THE COLOPHON</p><h2>แหล่งอ้างอิงและข้อมูลหนังสือ</h2><dl class="bs-facts"><dt>ชื่อหนังสือ</dt><dd>{E(b['title'])}</dd><dt>ผู้เขียน</dt><dd>{E(b['author'])}</dd><dt>ผู้เรียบเรียง</dt><dd>{E(b['editor'])}</dd><dt>ฉบับที่อ้างถึง</dt><dd>{E(b['edition'])} · {b['year']}</dd><dt>สำนักพิมพ์</dt><dd>{E(b['publisher'])}</dd><dt>ISBN</dt><dd>{E(b['isbn'])}</dd><dt>อัปเดตบทสรุป</dt><dd><time datetime="{b['updatedAt']}">{date}</time></dd></dl><p class="bs-small">{E(b['editionNote'])}</p><ul class="bs-sources">{sources}</ul></section>
+        <section id="reading-order"><p class="bs-eyebrow">04 / TALKS IN THE BOOK</p><h2>สุนทรพจน์ในเล่ม</h2><ol class="bs-reading-order">{book_chapters}</ol></section>
+        <section id="synthesis"><p class="bs-eyebrow">05 / LEARNING AND CHARACTER</p><h2>การเรียนรู้และความน่าเชื่อถือ</h2>{paragraphs(b['coreThemes'])}{source_reference(b['coreThemesSource'])}</section>
+        <section class="bs-takeaways" id="questions"><p class="bs-eyebrow">06 / KEY TAKEAWAYS</p><h2>ประเด็นสำคัญจากหนังสือ</h2><ol>{takeaways}</ol></section>
+        <section id="related"><p class="bs-eyebrow">07 / FURTHER READING</p><h2>อ่านเพิ่มเติม</h2><div class="bs-related">{related}</div></section>
+        <section id="sources"><p class="bs-eyebrow">08 / THE COLOPHON</p><h2>แหล่งอ้างอิงและข้อมูลหนังสือ</h2><dl class="bs-facts"><dt>ชื่อหนังสือ</dt><dd>{E(b['title'])}</dd><dt>ผู้เขียน</dt><dd>{E(b['author'])}</dd><dt>ผู้เรียบเรียง</dt><dd>{E(b['editor'])}</dd><dt>ฉบับที่อ้างถึง</dt><dd>{E(b['edition'])} · {b['year']}</dd><dt>สำนักพิมพ์</dt><dd>{E(b['publisher'])}</dd><dt>ISBN</dt><dd>{E(b['isbn'])}</dd><dt>อัปเดตบทสรุป</dt><dd><time datetime="{b['updatedAt']}">{date}</time></dd></dl><p class="bs-small">{E(b['editionNote'])}</p><ul class="bs-sources">{sources}</ul></section>
       </article></div></div></div>'''
     chapters = reading_sections(b)
     for i, (key, _) in enumerate(chapters):
@@ -300,8 +302,8 @@ def detail(b):
                 body = body[:end] + next_link + body[end:]
                 break
     url = BASE_URL + "/books/" + b["slug"] + ".html"
-    schema = [book_schema(b), {"@type": "Article", "headline": b["title"] + " — บทสรุป", "description": b["shortDescription"], "inLanguage": "th", "datePublished": b["updatedAt"], "dateModified": b["updatedAt"], "author": {"@type": "Organization", "name": "Moatrices"}, "about": {"@id": url + "#book"}, "mainEntityOfPage": url, "image": BASE_URL + "/" + b.get("shareImage", b["cover"]), "isBasedOn": BASE_URL + "/" + b["fullArticle"]}, breadcrumb_schema(b)]
-    return shell(b["title"] + " · บทสรุปและวิธีอ่าน", b["shortDescription"], "books/" + b["slug"] + ".html", body, schema, "../", b)
+    schema = [book_schema(b), {"@type": "Article", "headline": b["title"] + " — บทสรุป", "description": b["shortDescription"], "inLanguage": "th", "datePublished": b["updatedAt"], "dateModified": b["updatedAt"], "author": {"@type": "Organization", "name": "Moatrices"}, "about": {"@id": url + "#book"}, "mainEntityOfPage": url, "image": BASE_URL + "/" + b.get("shareImage", b["cover"]), "isBasedOn": b["sourceLinks"][0]["url"]}, breadcrumb_schema(b)]
+    return shell(b["title"] + " · บทสรุปและแนวคิดสำคัญ", b["shortDescription"], "books/" + b["slug"] + ".html", body, schema, "../", b)
 
 
 def write_if_changed(path, text):

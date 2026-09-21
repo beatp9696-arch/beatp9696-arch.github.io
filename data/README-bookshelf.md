@@ -58,10 +58,15 @@ a link. No current link is affiliate. If affiliate links are added, set
 
 > ลิงก์บางรายการอาจเป็น affiliate link ซึ่งช่วยสนับสนุนการทำเว็บไซต์ โดยไม่มีค่าใช้จ่ายเพิ่มสำหรับผู้อ่าน
 
-Related links and reading-order anchors are checked against actual local files at
-build time. Keep examples and editorial synthesis separate from Munger's concepts.
-Current Thai prose is approximately 1,397 words (232 in editorial synthesis), using
-`Intl.Segmenter('th', {granularity: 'word'})`, excluding navigation/bibliography.
+Related local links are checked against actual files at build time. Summaries
+describe the book's own ideas, with primary-source links under each key idea.
+Use `bookChapters` for referenced talks, `coreThemes` with `coreThemesSource` for
+additional themes from the book, and `keyTakeaways` for a brief recap. Do not add
+invented business applications, audience recommendations, personal commentary,
+or prompts that send readers into the site's investment tools. The source is the
+publisher's online book, not the site's older interpretive article. Summaries are
+paraphrases, not direct quotations. Existing `reading-order`, `synthesis`, and
+`questions` anchors stay stable for saved reading positions and incoming links.
 
 Reading uses the existing `moatrices.reading.v1` store, including bookmarks,
 progress, resume and notes. `/books/` and `/articles/` records stay independent.

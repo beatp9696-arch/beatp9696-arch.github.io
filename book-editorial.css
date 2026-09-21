@@ -99,8 +99,6 @@
 .book-detail-page .bs-idea-index { display: inline-block; color: var(--accent); background: var(--accent-tint); border-radius: 3px; padding: 4px 10px; font: 500 13px/1.6 'IBM Plex Mono', monospace; }
 .book-detail-page .bs-idea h3 { font-size: 22px; line-height: 1.6; margin: 18px 0 24px; }
 .book-detail-page .bs-idea h3 span { font-family: Georgia, serif; font-size: clamp(27px, 1.95vw, 36px); font-weight: 700; line-height: 1.3; margin-bottom: 12px; }
-.book-detail-page .bs-example { border-color: var(--accent); background: var(--surface); padding: 20px 22px; font-size: inherit; }
-.book-detail-page .bs-example .bs-eyebrow { display: block; color: var(--accent); margin-bottom: 12px; }
 .book-detail-page .bs-reading-order h3 { font-size: 22px; line-height: 1.6; }
 .book-detail-page .bs-facts { grid-template-columns: 120px minmax(0, 1fr); }
 .book-detail-page .site-footer { padding-left: 240px; background: var(--bg); border-color: var(--border); }
