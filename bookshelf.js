@@ -7,30 +7,12 @@
       const control = document.querySelector(selector);
       if (control) rail.append(control);
     });
-    const stops = [...document.querySelectorAll('.bs-rail-stop')];
-    const updateRail = () => {
-      let active = stops[0];
-      for (const stop of stops) {
-        const section = document.getElementById(stop.hash.slice(1));
-        if (section && section.getBoundingClientRect().top <= innerHeight * .4) active = stop;
-      }
-      for (const stop of stops) {
-        if (stop === active) stop.setAttribute('aria-current', 'location');
-        else stop.removeAttribute('aria-current');
-      }
-    };
-    let scheduled = false;
-    addEventListener('scroll', () => {
-      if (scheduled) return;
-      scheduled = true;
-      requestAnimationFrame(() => { updateRail(); scheduled = false; });
-    }, { passive: true });
-    updateRail();
   }
-  document.querySelectorAll('.bs-cover-face img').forEach(image => {
+  document.querySelectorAll('.bs-cover-face img, .bs-nav-cover img').forEach(image => {
     const fallback = () => {
       image.hidden = true;
       const face = image.closest('.bs-cover-face');
+      if (!face) return;
       face.setAttribute('role', 'img');
       face.setAttribute('aria-label', image.alt + ' · แสดงชื่อหนังสือแทนภาพปก');
     };

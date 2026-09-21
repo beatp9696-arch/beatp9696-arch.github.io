@@ -30,8 +30,26 @@ Light mode uses the site's neutral background and green accent.
 Main headings use mint (deep green in light mode); subheadings use blue, with
 larger bold type and section spacing. Bookshelf CSS links include content hashes
 so a rebuilt page loads the current palette and typography even after caching.
-Mobile uses a top navigation bar and a non-sticky cover;
-reduced motion removes the cover's 3D rotation.
+The fixed navigation shows a small book cover with its title and author on the
+right, replacing the site logo. Desktop keeps it above the scrollable contents;
+mobile separates the book identity and controls into two rows, including in reader
+mode. Chapter anchors account for the bar height so headings stay visible.
+The large overview cover stays non-sticky on mobile; reduced motion removes its
+3D rotation.
+
+`book-reader.js` opens a centered, maximum 720px reading column from the summary
+CTA or a chapter link. The original title moves into a compact header; the article
+nodes, bookmarks and notes are shared with the overview. `?reader=1` keeps the
+layout on reload; direct chapter links and saved-reading resumes also open it.
+The information/purchase links return to the overview, including browser history.
+
+Font sizes (18/20/22/24px) and line spacing (1.7/1.9/2.2) are stored under
+`moatrices.book-reader.v1`, with 20px / 1.9 defaults. Invalid values and blocked
+storage fall back safely. Changing settings preserves the visible text position.
+The labelled desktop contents, mobile modal and static inline contents use the
+same chapter list; each section ends with a next-chapter link. Without JavaScript,
+inline contents and next links still work. CSS and reader scripts use content
+hashes; the shared reading module is versioned through `data-reading-src`.
 
 Each purchase entry needs `store`, `format`, `url`, `verifiedAt`, and `affiliate`.
 For an unverified destination, use `url: null`; the renderer shows text instead of
@@ -57,11 +75,13 @@ python3 build.py
 node app/test/reading-store.test.mjs
 python3 test/bookshelf-build.test.py
 python3 test/bookshelf-browser.test.py --screenshots /tmp/bookshelf-previews
+python3 app/test/reading-flow-browser.test.py
 ```
 
 The browser suite covers 320/390/768/1440 px, light/dark, search/categories, empty
-state, local links, anchors, bookmark/progress persistence, keyboard focus,
-reduced motion, failed covers and no JavaScript. External navigation is checked
+state, local links, anchors, reader layout/settings/history, mobile dialogs,
+bookmark/progress persistence, keyboard focus, reduced motion, failed covers,
+blocked storage and no JavaScript. External navigation is checked
 with an intercepted destination; real retailer verification is a separate source
 check, so CI does not depend on retailer uptime. CI also checks generated Bookshelf
 HTML for drift. As before, feed build timestamps and filesystem-derived sitemap

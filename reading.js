@@ -255,22 +255,24 @@ function initArticle() {
     dialog.onclose = () => { window.removeEventListener('reading-change', render); dialog.remove(); opener.focus(); };
   };
   let paused = true, timer;
+  const readingArea = main.querySelector('.bs-prose') || main;
   function progress() {
     if (paused) return;
-    const top = main.getBoundingClientRect().top + scrollY, end = top + main.offsetHeight - innerHeight;
+    const top = readingArea.getBoundingClientRect().top + scrollY, end = top + readingArea.offsetHeight - innerHeight;
     const position = Math.max(0, Math.min(1, (scrollY - top) / Math.max(1, end - top)));
     if (scrollY < top + 30) return;
     let anchor = '';
-    main.querySelectorAll('h2[id], h3[id], .bs-prose > section[id]').forEach(heading => { if (heading.getBoundingClientRect().top < innerHeight / 2) anchor = heading.id; });
+    main.querySelectorAll('h2[id], h3[id], .bs-prose > section[id]').forEach(heading => { if (heading.getClientRects().length && heading.getBoundingClientRect().top < innerHeight / 2) anchor = heading.id; });
     try { saveArticle(path, { ...meta, progress: position * 100, position, anchor, opened: true }); }
     catch { if (!progress.warned) { notify('ยังจำตำแหน่งอ่านไม่ได้ กรุณาอนุญาตการจัดเก็บในเบราว์เซอร์', true); progress.warned = true; } }
   }
   async function resume() {
     if (!previous) return;
+    document.dispatchEvent(new CustomEvent('book-reader:open'));
     await document.fonts.ready;
     const heading = previous.anchor && document.getElementById(previous.anchor);
     if (heading) heading.scrollIntoView({ block: 'start' });
-    else { const top = main.getBoundingClientRect().top + scrollY; window.scrollTo(0, top + previous.position * Math.max(1, main.offsetHeight - innerHeight)); }
+    else { const top = readingArea.getBoundingClientRect().top + scrollY; window.scrollTo(0, top + previous.position * Math.max(1, readingArea.offsetHeight - innerHeight)); }
   }
   if (previous?.progress > 2 && !previous.completed) {
     const banner = document.createElement('div'); banner.className = 'reading-resume';

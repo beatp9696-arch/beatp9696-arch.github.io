@@ -28,7 +28,7 @@ errors = []
 
 def fitted(page):
     result = page.evaluate('''() => ({width: innerWidth, scroll: document.documentElement.scrollWidth,
-      outside: [...document.querySelectorAll('main *, .site-header *')].filter(e => {
+      outside: [...document.querySelectorAll('main *, .site-header *, .bs-reader-toolbar *, .bs-book-rail *, .bs-reader-dialog[open] *')].filter(e => {
         const r=e.getBoundingClientRect(); return r.width && (r.right>innerWidth+1 || r.left < -1);
       }).map(e => [e.tagName, e.className]).slice(0,8)})''')
     assert result['scroll'] <= result['width'], result
@@ -63,7 +63,7 @@ try:
                     fitted(page)
                     expect(page.locator('html')).to_have_attribute('data-theme', theme)
                     local_links(page)
-                    for image in page.locator('main img').all():
+                    for image in page.locator('main img:visible').all():
                         image.scroll_into_view_if_needed()
                         expect(image).to_have_js_property('complete', True)
                         assert image.evaluate('e => e.naturalWidth > 0')
@@ -78,9 +78,19 @@ try:
                         size = 'mobile' if width == 390 else 'desktop'
                         page.screenshot(path=str(OUT / f'{label}-{size}-{theme}.png'), full_page=False)
                         page.emulate_media(reduced_motion='reduce')
-                        if path == routes[1]:
+                    if path == routes[1]:
+                        page.get_by_role('link', name='อ่านบทสรุป', exact=True).click()
+                        expect(page.locator('.bs-detail-art')).to_be_hidden()
+                        expect(page.locator('.bs-reader-header h1')).to_be_visible()
+                        assert page.locator('.bs-prose').bounding_box()['width'] <= 721
+                        fitted(page)
+                        if width in [390,1440]:
+                            page.screenshot(path=str(OUT / f'book-reader-{size}-{theme}.png'), full_page=False)
                             page.locator('#key-ideas').evaluate("e => e.scrollIntoView({block: 'start', behavior: 'instant'})")
                             page.screenshot(path=str(OUT / f'book-headings-{size}-{theme}.png'), full_page=False)
+                        page.get_by_role('link', name='กลับไปข้อมูลหนังสือ', exact=True).click()
+                        expect(page.locator('.bs-detail-copy h1')).to_be_visible()
+                        fitted(page)
         page.goto(origin + routes[0])
         search = page.get_by_role('searchbox', name='ค้นหาหนังสือ')
         for query in ['ชาร์ลี', 'Poor Charlie\'s', 'Munger', 'Peter', 'จิตวิทยา', 'Mental Models', 'CHARLIE']:
@@ -117,11 +127,52 @@ try:
         assert abs(page.locator('.bs-detail-art').bounding_box()['y'] - art_top) < 2
         page.get_by_role('link', name='อ่านบทสรุป', exact=False).first.click()
         assert page.url.endswith('#summary')
-        for link in page.locator('.bs-toc a').all():
+        assert 'reader=1' in page.url
+        page.go_back()
+        expect(page.locator('.bs-detail-art')).to_be_visible()
+        expect(page.locator('.bs-detail-copy h1')).to_be_visible()
+        page.go_forward()
+        expect(page.locator('.bs-reader-header h1')).to_be_visible()
+        page.get_by_role('button', name='ปรับการอ่าน', exact=True).click()
+        settings = page.get_by_role('dialog', name='ปรับการอ่าน', exact=True)
+        settings.get_by_role('radio', name='24', exact=True).check()
+        settings.get_by_role('radio', name='โปร่ง', exact=True).check()
+        assert page.locator('.bs-prose').evaluate('e => getComputedStyle(e).fontSize') == '24px'
+        assert float(page.locator('.bs-prose').evaluate('e => getComputedStyle(e).lineHeight').removesuffix('px')) > 52
+        page.keyboard.press('Escape')
+        expect(page.get_by_role('button', name='ปรับการอ่าน', exact=True)).to_be_focused()
+        page.reload()
+        expect(page.locator('.bs-reader-header h1')).to_be_visible()
+        assert page.locator('.bs-prose').evaluate('e => getComputedStyle(e).fontSize') == '24px'
+        for width in [320,390,768,1440]:
+            page.set_viewport_size({'width':width,'height':1000})
+            fitted(page)
+        page.get_by_role('button', name='ปรับการอ่าน', exact=True).click()
+        settings.get_by_role('button', name='คืนค่าเริ่มต้น').click()
+        page.keyboard.press('Escape')
+        assert page.locator('.bs-prose').evaluate('e => getComputedStyle(e).fontSize') == '20px'
+        # Next links and browser back/forward keep the reader layout and correct chapter.
+        page.locator('#question .bs-next-section a').click()
+        assert page.url.endswith('#one-line')
+        page.go_back()
+        assert page.url.endswith('#summary')
+        page.go_forward()
+        assert page.url.endswith('#one-line')
+        for link in page.locator('.bs-rail-index .bs-chapter-link').all():
             link.click()
             target = page.locator(link.get_attribute('href'))
             top = target.bounding_box()['y']
             assert top >= 70 and top < 200, (link.text_content(), top)
+            expect(link).to_have_attribute('aria-current', 'location')
+        page.locator('.bs-rail-index a[href="#summary"]').click()
+        # Adjusting type midway through a chapter keeps the same text on screen.
+        page.locator('.bs-rail-index a[href="#synthesis"]').click()
+        before_adjustment = page.locator('#synthesis > h2').bounding_box()['y']
+        page.get_by_role('button', name='ปรับการอ่าน', exact=True).click()
+        settings.get_by_role('radio', name='22', exact=True).check()
+        settings.get_by_role('radio', name='โปร่ง', exact=True).check()
+        page.keyboard.press('Escape')
+        assert abs(page.locator('#synthesis > h2').bounding_box()['y'] - before_adjustment) < 3
         page.get_by_role('button', name='＋ ไว้อ่าน', exact=True).click()
         expect(page.locator('[data-bookmark]')).to_have_attribute('aria-pressed','true')
         page.reload()
@@ -135,6 +186,8 @@ try:
         expect(page.locator('.reading-article-card a[href*="/books/"]')).to_have_count(1)
         page.locator('.reading-article-card a[href*="/books/"]').click()
         expect(page.locator('.reading-resume')).to_be_attached()
+        expect(page.locator('.bs-reader-header')).to_be_visible()
+        page.get_by_role('link', name='กลับไปข้อมูลหนังสือ', exact=True).click()
         page.get_by_role('link', name='ดูตัวเลือกการซื้อ').click()
         assert page.url.endswith('#purchase')
         purchases = page.locator('.bs-purchase-rows a')
@@ -156,6 +209,24 @@ try:
         expect(page.locator('.nav-drawer a[href="../books.html"]')).to_be_visible()
         page.keyboard.press('Escape')
         expect(page.get_by_role('button', name='เปิดเมนู', exact=True)).to_be_focused()
+        # Mobile contents is a modal with keyboard focus, active chapter and normal links.
+        page.get_by_role('button', name='สารบัญ', exact=True).click()
+        toc_dialog = page.get_by_role('dialog', name='สารบัญหนังสือ', exact=True)
+        expect(toc_dialog).to_be_visible()
+        fitted(page)
+        page.keyboard.press('Escape')
+        expect(page.get_by_role('button', name='สารบัญ', exact=True)).to_be_focused()
+        page.get_by_role('button', name='สารบัญ', exact=True).click()
+        toc_dialog.locator('a[href="#key-ideas"]').click()
+        expect(toc_dialog).not_to_be_visible()
+        expect(page.locator('.bs-reader-toolbar')).to_be_visible()
+        expect(page.locator('#key-ideas > h2')).to_be_focused()
+        page.get_by_role('button', name='สารบัญ', exact=True).click()
+        expect(toc_dialog.locator('a[href="#key-ideas"]')).to_have_attribute('aria-current', 'location')
+        toc_dialog.get_by_role('button', name='ปิดสารบัญ', exact=True).click()
+        page.get_by_role('button', name='ปรับการอ่าน', exact=True).click()
+        fitted(page)
+        page.keyboard.press('Escape')
         page.goto(origin + '/index.html')
         expect(page.locator('.home-bookshelf-entry')).to_have_attribute('href','books.html')
         for width in [320,390,768,1440]:
@@ -182,9 +253,24 @@ try:
         expect(static.locator('[data-book]')).to_be_visible()
         static.locator('.bs-card h3').click()
         expect(static.locator('#key-ideas')).to_be_attached()
+        static.locator('#question .bs-next-section a').click()
+        assert static.url.endswith('#one-line')
+        # Reader still works with blocked browser storage and a direct chapter URL.
+        blocked = browser.new_context(viewport={'width':320,'height':900}, reduced_motion='reduce')
+        blocked.route('**/*', lambda route: route.continue_() if route.request.url.startswith(origin) else route.abort())
+        blocked.add_init_script("Storage.prototype.getItem = Storage.prototype.setItem = () => { throw new Error('storage blocked'); }")
+        restricted = blocked.new_page()
+        restricted.on('pageerror', lambda error: errors.append(str(error)))
+        restricted.goto(origin + routes[1] + '#key-ideas')
+        expect(restricted.locator('.bs-reader-header')).to_be_visible()
+        restricted.get_by_role('button', name='ปรับการอ่าน', exact=True).click()
+        restricted.get_by_role('radio', name='22', exact=True).check()
+        restricted.keyboard.press('Escape')
+        assert restricted.locator('.bs-prose').evaluate('e => getComputedStyle(e).fontSize') == '22px'
+        fitted(restricted)
         assert not errors, errors
         browser.close()
-    print('Bookshelf: 16 theme/viewport checks; search, filters, empty state, links, TOC, reading persistence, keyboard, reduced motion, failed images and no-JS passed.')
+    print('Bookshelf: 16 theme/viewport checks; reader layout/settings, labelled TOC, next chapters, history, mobile dialogs, reading persistence, search, links, keyboard, reduced motion, failed images, blocked storage and no-JS passed.')
     print(f'Previews: {OUT}')
 finally:
     server.shutdown()

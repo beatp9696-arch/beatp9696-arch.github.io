@@ -53,9 +53,9 @@ def paragraphs(items):
     return "\n".join(f"<p>{E(text)}</p>" for text in items)
 
 
-def asset_url(path):
+def asset_url(path, source=None):
     """Change the asset URL when its contents change, including in cached previews."""
-    version = hashlib.sha256((ROOT / path).read_bytes()).hexdigest()[:12]
+    version = hashlib.sha256((ROOT / (source or path)).read_bytes()).hexdigest()[:12]
     return f"{path}?v={version}"
 
 
@@ -74,6 +74,49 @@ def book_schema(book):
     return {"@type": "Book", "@id": BASE_URL + "/books/" + book["slug"] + ".html#book", "name": book["title"], "author": {"@type": "Person", "name": book["author"]}, "editor": {"@type": "Person", "name": book["editor"]}, "datePublished": str(book["year"]), "bookEdition": book["edition"], "isbn": book["isbn"], "inLanguage": "en", "image": BASE_URL + "/" + book["cover"], "publisher": {"@type": "Organization", "name": book["publisher"]}}
 
 
+def reading_sections(book):
+    return [(s['id'], s['title']) for s in book['summarySections']] + [
+        ('one-line', 'สรุปในหนึ่งประโยค'), ('key-ideas', '5 แนวคิดสำคัญ'),
+        ('suitable', 'เหมาะกับใคร'), ('reading-order', 'ควรอ่านอย่างไร'),
+        ('synthesis', 'สังเคราะห์แนวคิด'), ('related', 'อ่านต่อใน Moatrices'),
+        ('questions', 'คำถามนำไปใช้'), ('sources', 'ข้อมูลและแหล่งอ้างอิง')]
+
+
+def chapter_links(book, numbered=False):
+    return ''.join(f'<a class="bs-chapter-link" href="#{E(key)}">'
+                   + (f'<span aria-hidden="true">{i:02d}</span>' if numbered else '')
+                   + f'<span>{E(label)}</span></a>'
+                   for i, (key, label) in enumerate(reading_sections(book), 1))
+
+
+def book_identity(book):
+    return f'''<a class="bs-book-identity" href="#book-intro" aria-label="ข้อมูลหนังสือ: {E(book['title'])}">
+      <span class="bs-nav-cover" style="--book-accent:{E(book['accent'])}" aria-hidden="true"><svg viewBox="0 0 24 32" fill="none" stroke="currentColor" stroke-width="1.2"><path d="M4 2h16v28H4zM7 2v28M10 9h7M10 13h7"/></svg><img src="../{E(book['cover'])}" alt="" width="44" height="64" decoding="async"></span>
+      <span class="bs-book-identity-copy"><strong lang="en">{E(book['title'])}</strong><small lang="en">{E(book['author'])}</small></span>
+    </a>'''
+
+
+def reader_controls(book):
+    return f'''<div class="bs-reader-toolbar" aria-label="เครื่องมือโหมดอ่าน" hidden>
+    {book_identity(book)}
+    <a class="bs-reader-exit" href="#book-intro" aria-label="กลับไปข้อมูลหนังสือ">← <span>ข้อมูลหนังสือ</span></a>
+    <p class="bs-reader-current"><span>กำลังอ่าน</span><strong data-current-chapter>เริ่มบทสรุป</strong></p>
+    <div class="bs-reader-tools"><button type="button" data-open-toc aria-haspopup="dialog" aria-controls="book-toc-dialog">สารบัญ</button><button type="button" data-open-settings aria-haspopup="dialog" aria-controls="book-reader-settings" aria-label="ปรับการอ่าน">Aa</button><span class="bs-reader-theme-slot"></span></div>
+  </div>
+  <dialog class="bs-reader-dialog bs-toc-dialog" id="book-toc-dialog" aria-labelledby="book-toc-title">
+    <div class="bs-dialog-heading"><h2 id="book-toc-title">สารบัญหนังสือ</h2><button type="button" data-close-dialog aria-label="ปิดสารบัญ" autofocus>✕</button></div>
+    <p class="bs-small">{E(book['title'])} · {book['readingMinutes']} นาที</p>
+    <nav aria-label="สารบัญสำหรับมือถือ"><a class="bs-chapter-link" href="#summary">เริ่มบทสรุป</a>{chapter_links(book, True)}<a class="bs-chapter-link" href="#purchase">ตัวเลือกการซื้อ ↗</a></nav>
+  </dialog>
+  <dialog class="bs-reader-dialog" id="book-reader-settings" aria-labelledby="book-settings-title">
+    <div class="bs-dialog-heading"><h2 id="book-settings-title">ปรับการอ่าน</h2><button type="button" data-close-dialog aria-label="ปิดการตั้งค่าการอ่าน" autofocus>✕</button></div>
+    <fieldset><legend>ขนาดตัวอักษร</legend><div class="bs-reader-options">{''.join(f'<label><input type="radio" name="reader-size" value="{size}" {"checked" if size == 20 else ""}><span>{size}</span></label>' for size in [18, 20, 22, 24])}</div></fieldset>
+    <fieldset><legend>ระยะบรรทัด</legend><div class="bs-reader-options">{''.join(f'<label><input type="radio" name="reader-spacing" value="{value}" {"checked" if value == "1.9" else ""}><span>{label}</span></label>' for value, label in [('1.7', 'กระชับ'), ('1.9', 'ปกติ'), ('2.2', 'โปร่ง')])}</div></fieldset>
+    <p class="bs-settings-sample" aria-hidden="true">อ่านให้กว้าง คิดให้รอบ<br>ค่อย ๆ เชื่อมแนวคิดเข้าด้วยกัน</p>
+    <button class="bs-reader-reset" type="button" data-reset-reader>คืนค่าเริ่มต้น</button>
+  </dialog>'''
+
+
 def shell(title, description, path, body, schema, prefix="", book=None):
     url = BASE_URL + "/" + path
     image = BASE_URL + "/" + book.get("shareImage", book["cover"]) if book else BASE_URL + "/og-image.jpg"
@@ -87,11 +130,11 @@ def shell(title, description, path, body, schema, prefix="", book=None):
     theme_default = 'dark' if book else ''
     rail = ''
     if book:
-        stops = [('book-intro', 'ข้อมูลหนังสือ'), ('purchase', 'ตัวเลือกการซื้อ'), ('summary', 'เริ่มบทสรุป'), ('key-ideas', 'แนวคิดสำคัญ'), ('suitable', 'เหมาะกับใคร'), ('reading-order', 'ควรอ่านอย่างไร'), ('synthesis', 'สังเคราะห์แนวคิด'), ('related', 'เนื้อหาที่เกี่ยวข้อง'), ('questions', 'คำถามนำไปใช้'), ('sources', 'แหล่งอ้างอิง')]
-        ticks = ''.join(f'<a class="bs-rail-stop" href="#{anchor}" aria-label="{label}"><span></span><small>{label}</small></a>' for anchor, label in stops)
         rail = f'''<aside class="bs-book-rail" aria-label="เมนูหนังสือ">
-          <a class="bs-rail-brand" href="../index.html" aria-label="Moatrices — หน้าแรก"><svg viewBox="0 0 32 40" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M4 35V19h6v16M13 35V12h6v23M22 35V5h6v30M2 39h28"/></svg></a>
-          <nav class="bs-rail-index" aria-label="ข้ามไปส่วนของหนังสือ"><a class="bs-rail-back" href="../books.html" aria-label="กลับ Bookshelf">←</a>{ticks}</nav>
+          {book_identity(book)}
+          <a class="bs-rail-back" href="../books.html" aria-label="กลับ Bookshelf">← <span>Bookshelf</span></a>
+          <nav class="bs-rail-index" aria-label="สารบัญด้านข้าง"><p class="bs-eyebrow">ในหนังสือเล่มนี้</p><a class="bs-chapter-link" href="#book-intro">ข้อมูลหนังสือ</a><a class="bs-chapter-link" href="#summary">เริ่มบทสรุป</a>{chapter_links(book, True)}<a class="bs-chapter-link" href="#purchase">ตัวเลือกการซื้อ ↗</a></nav>
+          <button class="bs-mobile-toc" type="button" data-open-toc aria-haspopup="dialog" aria-controls="book-toc-dialog" hidden>สารบัญ</button>
           <div class="bs-rail-tools"></div>
         </aside>'''
     return f'''<!DOCTYPE html>
@@ -123,9 +166,10 @@ def shell(title, description, path, body, schema, prefix="", book=None):
 {'  <link rel="stylesheet" href="' + prefix + asset_url('book-editorial.css') + '">' if book else ''}
   <script type="application/ld+json">{structured}</script>
 </head>
-<body class="bookshelf-page {'book-detail-page' if book else 'book-collection-page'}" {'style="--book-accent:' + E(book['accent']) + '"' if book else ''}>
+<body class="bookshelf-page {'book-detail-page' if book else 'book-collection-page'}" {'style="--book-accent:' + E(book['accent']) + '" data-reading-src="' + prefix + asset_url('reading.js') + '"' if book else ''}>
   <a class="bs-skip" href="#main-content">ข้ามไปเนื้อหา</a>
 {('  ' + rail) if rail else ''}
+{reader_controls(book) if book else ''}
   <div class="top-accent"></div>
   <!-- SITE-HEADER-START -->
 {header}
@@ -139,8 +183,9 @@ def shell(title, description, path, body, schema, prefix="", book=None):
 {footer}
   <!-- SITE-FOOTER-END -->
   <button class="to-top" aria-label="กลับขึ้นด้านบน">↑</button>
-  <script defer src="{prefix}app.min.js"></script>
-  <script defer src="{prefix}bookshelf.js"></script>
+  <script defer src="{prefix}{asset_url('app.min.js', 'app.js')}"></script>
+  <script defer src="{prefix}{asset_url('bookshelf.js')}"></script>
+{'  <script defer src="' + prefix + asset_url('book-reader.js') + '"></script>' if book else ''}
 </body>
 </html>
 '''
@@ -211,7 +256,7 @@ def detail(b):
     related = ''.join(f'<a href="../{E(link["href"])}"><span><strong>{E(link["title"])}</strong><small>{E(link["description"])}</small></span><span aria-hidden="true">↗</span></a>' for link in b["relatedLinks"])
     sources = ''.join(f'<li><a href="{E(link["url"] if link["url"].startswith("https://") else "../" + link["url"])}">{E(link["title"])}</a></li>' for link in b["sourceLinks"])
     questions = ''.join(f'<li>{E(q)}</li>' for q in b["applicationQuestions"])
-    toc = ''.join(f'<a href="#{key}">{label}</a>' for key, label in [("question", "เล่มนี้ตอบอะไร"), ("one-line", "สรุปหนึ่งประโยค"), ("key-ideas", "5 แนวคิดสำคัญ"), ("suitable", "เหมาะกับใคร"), ("reading-order", "ควรอ่านอย่างไร"), ("synthesis", "สังเคราะห์แนวคิด"), ("related", "อ่านต่อใน Moatrices"), ("questions", "คำถามนำไปใช้"), ("sources", "ข้อมูลและแหล่งอ้างอิง")])
+    toc = chapter_links(b)
     date = datetime.date.fromisoformat(b["updatedAt"]).strftime("%d/%m/%Y")
     body = f'''<nav class="bs-breadcrumb" aria-label="เส้นทางหน้า"><a href="../index.html">Moatrices</a><span>/</span><a href="../books.html">Bookshelf</a><span>/</span><span aria-current="page">{E(b['title'])}</span></nav>
       <div class="bs-detail-layout">
@@ -223,8 +268,10 @@ def detail(b):
           <a class="bs-buy-jump" href="#purchase">ดูตัวเลือกการซื้อ ↓</a>
         </header>
         <section class="bs-purchase" id="purchase" aria-labelledby="purchase-title"><div class="bs-section-heading"><h2 id="purchase-title">เลือกฉบับที่อยากอ่าน</h2><span>BUY THE BOOK</span></div><p class="bs-small">{E(b.get('purchaseNote', ''))}</p><div class="bs-purchase-rows">{''.join(purchases)}</div>{disclosure}<p class="bs-small">{"ลิงก์ปกติ ไม่มี affiliate · " if not b["affiliateDisclosure"] else ""}ตรวจสอบ {E(verified)}<br>ราคาและการจัดส่งดูได้จากเว็บไซต์ร้านค้า</p></section>
+      <div class="bs-reading-layout" id="summary">
+      <header class="bs-reader-header" hidden><div><p class="bs-eyebrow">BOOKSHELF · อ่าน {b['readingMinutes']} นาที</p><div class="bs-reader-title-slot"></div><p class="bs-small">{E(b['author'])} · {E(b['edition'])}</p></div></header>
       <div class="bs-reading-slot"></div>
-      <div class="bs-reading-layout" id="summary"><aside class="bs-toc"><p class="bs-eyebrow">READING GUIDE</p><h2>ในบทสรุปนี้</h2><nav aria-label="สารบัญบทสรุป">{toc}</nav><span class="bs-small">อ่านประมาณ {b['readingMinutes']} นาที</span></aside>
+      <aside class="bs-toc"><p class="bs-eyebrow">READING GUIDE</p><h2>ในบทสรุปนี้</h2><nav aria-label="สารบัญบทสรุป">{toc}</nav><span class="bs-small">อ่านประมาณ {b['readingMinutes']} นาที</span></aside>
       <article class="bs-prose" aria-label="บทสรุปหนังสือ"><p class="bs-editor-note">เรียบเรียงโดย Moatrices จากบทความเดิม · เนื้อหาหลักอธิบายแนวคิดของ Munger ส่วนตัวอย่างการใช้และบทสังเคราะห์เป็นการเรียบเรียงของเว็บไซต์</p>
         {sections}
         <section class="bs-one-line" id="one-line"><p class="bs-eyebrow">02 / IN ONE SENTENCE</p><h2>สรุปในหนึ่งประโยค</h2><p>{E(b['oneLineSummary'])}</p><small>สรุปโดย Moatrices · ไม่ใช่คำพูดจากต้นฉบับ</small></section>
@@ -236,6 +283,22 @@ def detail(b):
         <section class="bs-questions" id="questions"><p class="bs-eyebrow">08 / TAKE IT INTO PRACTICE</p><h2>คำถามสำหรับนำไปใช้</h2><ol>{questions}</ol><a href="../portfolio.html?view=research">นำคำถามไปใช้ใน Research workspace ↗</a></section>
         <section id="sources"><p class="bs-eyebrow">09 / THE COLOPHON</p><h2>แหล่งอ้างอิงและข้อมูลหนังสือ</h2><dl class="bs-facts"><dt>ชื่อหนังสือ</dt><dd>{E(b['title'])}</dd><dt>ผู้เขียน</dt><dd>{E(b['author'])}</dd><dt>ผู้เรียบเรียง</dt><dd>{E(b['editor'])}</dd><dt>ฉบับที่อ้างถึง</dt><dd>{E(b['edition'])} · {b['year']}</dd><dt>สำนักพิมพ์</dt><dd>{E(b['publisher'])}</dd><dt>ISBN</dt><dd>{E(b['isbn'])}</dd><dt>อัปเดตบทสรุป</dt><dd><time datetime="{b['updatedAt']}">{date}</time></dd></dl><p class="bs-small">{E(b['editionNote'])}</p><ul class="bs-sources">{sources}</ul></section>
       </article></div></div></div>'''
+    chapters = reading_sections(b)
+    for i, (key, _) in enumerate(chapters):
+        if i + 1 < len(chapters):
+            next_key, label = chapters[i + 1]
+            next_link = f'<nav class="bs-next-section" aria-label="อ่านหัวข้อถัดไป"><a href="#{E(next_key)}"><span><small>หัวข้อถัดไป · {i + 2:02d} / {len(chapters):02d}</small><strong>{E(label)}</strong></span><span aria-hidden="true">→</span></a></nav>'
+        else:
+            next_link = '<nav class="bs-next-section" aria-label="ท้ายบทสรุป"><a href="../books.html"><span><small>จบบทสรุปแล้ว</small><strong>กลับไปเลือกหนังสือ</strong></span><span aria-hidden="true">→</span></a></nav>'
+        # Scan nesting so the five idea subsections stay inside their parent chapter.
+        start = body.index(f'id="{E(key)}"')
+        depth = 1
+        for match in re.finditer(r'<section\b|</section>', body[start:]):
+            depth += 1 if match.group().startswith('<section') else -1
+            if depth == 0:
+                end = start + match.start()
+                body = body[:end] + next_link + body[end:]
+                break
     url = BASE_URL + "/books/" + b["slug"] + ".html"
     schema = [book_schema(b), {"@type": "Article", "headline": b["title"] + " — บทสรุป", "description": b["shortDescription"], "inLanguage": "th", "datePublished": b["updatedAt"], "dateModified": b["updatedAt"], "author": {"@type": "Organization", "name": "Moatrices"}, "about": {"@id": url + "#book"}, "mainEntityOfPage": url, "image": BASE_URL + "/" + b.get("shareImage", b["cover"]), "isBasedOn": BASE_URL + "/" + b["fullArticle"]}, breadcrumb_schema(b)]
     return shell(b["title"] + " · บทสรุปและวิธีอ่าน", b["shortDescription"], "books/" + b["slug"] + ".html", body, schema, "../", b)

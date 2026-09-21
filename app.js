@@ -1250,6 +1250,8 @@ window.NYSE = (function () {
   var page = location.pathname;
   if (!(/\/(?:articles|books)\/[^/]+\.html$/.test(page) || /\/(?:index|articles|stocks|reading)\.html$/.test(page) || page.endsWith('/'))) return;
   var reader = document.createElement('script');
-  reader.type = 'module'; reader.src = new URL('reading.js', script.src).href;
+  reader.type = 'module'; reader.src = document.body.dataset.readingSrc
+    ? new URL(document.body.dataset.readingSrc, location.href).href
+    : new URL('reading.js', script.src).href;
   document.head.append(reader);
 })();
