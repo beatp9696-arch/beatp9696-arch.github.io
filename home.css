@@ -152,26 +152,6 @@
 .home-page .featured-title, .home-page .featured-card--lead .featured-title { font-size: 18px; line-height: 1.6; }
 .home-page .featured-sub, .home-page .featured-card--lead .featured-sub { font-size: 13px; line-height: 1.85; }
 .home-page .featured-cta { font-size: 12px; padding-top: 10px; }
-.home-page .series-cards { gap: 14px; }
-.home-page .series-card { background: var(--surface); border-radius: 9px; box-shadow: none; padding: 22px; }
-.home-page .series-card::before { display: none; }
-.home-page .series-card .kicker { font-size: 10px; }
-.home-page .series-card-title { font-size: 17px; line-height: 1.6; }
-.home-page .series-card-sub { font-size: 13px; line-height: 1.8; }
-.home-page .series-card-cta { font-size: 12px; }
-.home-page .post-list--recent { display: grid; grid-template-columns: 1fr; gap: 0; border-top: 1px solid var(--border); }
-.home-page .post-list--recent > li { display: grid; grid-template-columns: minmax(0, 1fr) 160px; grid-template-rows: auto auto 1fr auto; column-gap: 30px; margin: 0; padding: 24px 0 24px 38px; border: 0; border-bottom: 1px solid var(--border); border-radius: 0; background: transparent; box-shadow: none; }
-.home-page .post-list--recent > li:hover { transform: none; }
-.home-page .post-list--recent > li::before { left: 0; top: 29px; font-size: 12px; }
-.home-page .post-list--recent > li::after { display: none; }
-.home-page .post-list--recent .article-meta-row,
-.home-page .post-list--recent li > a,
-.home-page .post-list--recent .excerpt,
-.home-page .post-list--recent .read-more { grid-column: 1; }
-.home-page .post-list--recent li > a { font-size: 18px; line-height: 1.6; }
-.home-page .post-list--recent .excerpt { font-size: 13px; -webkit-line-clamp: 2; line-clamp: 2; }
-.home-page .post-list--recent .read-more { grid-row: 4; font-size: 12px; }
-.home-page .post-list--recent .card-thumb { grid-column: 2; grid-row: 1 / span 4; align-self: center; width: 160px; margin: 0; border-radius: 6px; }
 .home-market { border-bottom: 1px solid var(--border); }
 .home-market .market-clock { border: 0; }
 .home-market #tv-ticker { margin-bottom: 0; border-bottom: 0; }
@@ -288,7 +268,6 @@
   .home-page .featured-grid { gap: 12px; }
   .home-page .featured-body, .home-page .featured-card--lead .featured-body { padding: 16px; }
   .home-page .featured-title, .home-page .featured-card--lead .featured-title { font-size: 16px; }
-  .home-page .series-cards { grid-template-columns: 1fr 1fr; }
 }
 @media (max-width: 700px) {
   .home-page .container { padding-inline: 20px; }
@@ -377,17 +356,6 @@
   .home-page .featured-grid { grid-template-columns: 1fr; gap: 17px; }
   .home-page .featured-body, .home-page .featured-card--lead .featured-body { padding: 20px; }
   .home-page .featured-sub { font-size: 13px; }
-  .home-page .series-cards { grid-template-columns: 1fr; }
-  .home-page .series-card { padding: 16px; }
-  .home-page .series-card-title { font-size: 15px; }
-  .home-page .series-cards--index .series-card-cta { font-size: 0; }
-  .home-page .series-cards--index .series-card-cta::after { content: "→"; font-size: 17px; }
-  .home-page .post-list--recent > li { grid-template-columns: minmax(0, 1fr) 83px; column-gap: 15px; padding: 20px 0; }
-  .home-page .post-list--recent > li::before { display: none; }
-  .home-page .post-list--recent .article-meta-row { grid-column: 1 / -1; }
-  .home-page .post-list--recent li > a { font-size: 15px; }
-  .home-page .post-list--recent .excerpt { font-size: 12px; }
-  .home-page .post-list--recent .card-thumb { width: 83px; grid-row: 2 / span 2; align-self: start; margin-top: 5px; }
 }
 @media (max-width: 370px) {
   .home-approach { padding-inline: 16px; }

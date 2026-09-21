@@ -561,8 +561,10 @@ def write_thumbnails(posts):
     เก็บ og jpg เต็มไว้สำหรับ meta og:image — thumb ใช้แค่เป็นภาพการ์ด ลดหน้าแรก ~90%"""
     os.makedirs(THUMB_DIR, exist_ok=True)
     made = skipped = missing = 0
-    for p in posts:
-        base = p["file"].replace(".html", "")
+    # The homepage also previews interactive tools; keep those images small and current.
+    image_pages = dict.fromkeys([p["file"] for p in posts] + TOOLS)
+    for page in image_pages:
+        base = page.replace(".html", "")
         og = f"og-{base}.jpg"
         thumb = f"{THUMB_DIR}/{base}.jpg"
         if not os.path.exists(og):
