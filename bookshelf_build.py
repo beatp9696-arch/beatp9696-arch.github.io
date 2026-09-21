@@ -122,7 +122,7 @@ def render_chapters(book):
             assert source, f'Missing chapter source: {slug}'
             references.append(f'<a href="{E(source["url"])}">{E(source["title"].split(" · ")[0])} ↗</a>')
         source_line = '<p class="bs-source-reference">ต้นฉบับ · ' + ' / '.join(references) + '</p>' if references else ''
-        sections.append(f'<section class="bs-chapter" id="{E(chapter["id"])}"><p class="bs-eyebrow">บทที่ {i:02d}</p><h2>{E(chapter["title"])}</h2><p class="bs-chapter-subtitle" lang="en">{E(chapter["subtitle"])}</p>{"".join(render_block(block) for block in chapter["blocks"])}{source_line}</section>')
+        sections.append(f'<section class="bs-chapter" id="{E(chapter["id"])}"><p class="bs-eyebrow">บทที่ {i:02d}</p><h2>{E(chapter["title"])}</h2><p class="bs-chapter-subtitle"><span lang="en">{E(chapter["subtitle"])}</span></p>{"".join(render_block(block) for block in chapter["blocks"])}{source_line}</section>')
     return '\n'.join(sections)
 
 

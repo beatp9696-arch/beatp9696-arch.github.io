@@ -105,7 +105,15 @@
 .book-detail-page .bs-prose > .bs-chapter { margin-bottom: 52px; padding-bottom: 40px; }
 .book-detail-page .bs-prose > .bs-chapter > .bs-eyebrow { margin: 0 0 12px; font-size: 11px; letter-spacing: .08em; color: var(--accent); }
 .book-detail-page .bs-prose > .bs-chapter > h2 { border: 0; padding: 0; margin: 0; font-size: clamp(25px, 2vw, 31px); line-height: 1.5; letter-spacing: -.01em; }
-.book-detail-page .bs-chapter-subtitle { margin: 6px 0 30px; color: var(--muted); font: 400 16px/1.6 Georgia, serif; }
+.book-detail-page .bs-chapter-subtitle {
+  margin: 6px 0 30px; color: var(--muted); font: 400 16px/1.6 Georgia, serif;
+}
+.book-detail-page .bs-chapter-subtitle > span {
+  display: inline; padding: .08em .38em .13em;
+  color: #101716; background: var(--accent);
+  font: 400 16px/1.6 Georgia, serif;
+  box-decoration-break: clone; -webkit-box-decoration-break: clone;
+}
 .book-detail-page .bs-chapter > h3 { margin: 34px 0 14px; font-size: 22px; line-height: 1.65; }
 .book-detail-page .bs-chapter > h3 > span { display: block; margin-top: 3px; color: var(--muted); font: 400 14px/1.6 Georgia, serif; }
 .book-detail-page .bs-chapter > p:not([class]) { margin: 0 0 22px; }
