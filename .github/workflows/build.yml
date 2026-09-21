@@ -32,7 +32,9 @@ jobs:
         run: sudo apt-get update && sudo apt-get install -y imagemagick
 
       - name: รัน build.py (generate + validate)
-        run: python3 build.py
+        run: |
+          python3 build.py
+          python3 test/bookshelf-build.test.py
 
       # เทสต์ทั้ง 5 ชุดไม่เคยอยู่ใน CI — รันแต่ในเครื่องตอนที่นึกได้ (builder test ของ
       # smart-money เป็น python ต้องการ source XML จึงยังไม่เอาเข้า job นี้)
@@ -57,11 +59,12 @@ jobs:
           python3 app/test/living-thesis-browser.test.py
           python3 app/test/smart-money-browser.test.py
           python3 app/test/smart-money-stock-browser.test.py
+          python3 test/bookshelf-browser.test.py
 
       - name: ตรวจ drift — ไฟล์ที่ generate ต้องถูก commit มาแล้ว
         run: |
           if ! git diff --exit-code -- \
-              articles.html index.html stocks.html 'series-*.html' \
+              articles.html index.html stocks.html books.html books/ 'series-*.html' \
               style.min.css casestudy.min.css app.min.js articles/ scenes/*.min.css; then
             echo "::error::build.py แก้ไฟล์ด้านบน = ยังไม่ได้ commit ผล generate — รัน 'python3 build.py' แล้ว commit ก่อน push"
             exit 1

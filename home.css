@@ -379,3 +379,9 @@
   .home-panel[hidden] { display: block; }
   .home-workspace { box-shadow: none; }
 }
+.home-bookshelf-entry { display: grid; grid-template-columns: 150px minmax(0, 1fr) auto; align-items: center; gap: 24px; margin-block: 28px 40px; padding: 26px 0; border-block: 1px solid var(--border); color: var(--text); }
+.home-bookshelf-entry strong { display: block; font: 500 22px/1.6 var(--font-head); }
+.home-bookshelf-entry small { display: block; font-size: 14px; color: var(--muted); }
+.home-bookshelf-entry .home-eyebrow { margin: 0; }
+.home-bookshelf-entry:hover strong { color: var(--accent); }
+@media (max-width: 600px) { .home-bookshelf-entry { grid-template-columns: minmax(0, 1fr) auto; gap: 12px; } .home-bookshelf-entry .home-eyebrow { grid-column: 1 / -1; } }

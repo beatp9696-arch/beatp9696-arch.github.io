@@ -5,7 +5,7 @@ const clean = (value, max) => typeof value === 'string' ? value.trim().slice(0, 
 export const tickerName = value => clean(value, 16).toUpperCase().replace(/^BRK[./]B$/, 'BRK-B');
 export function articlePath(value) {
   const path = String(value || '').split(/[?#]/)[0];
-  return /^\/articles\/[a-z0-9-]+\.html$/.test(path) ? path : '';
+  return /^\/(?:articles|books)\/[a-z0-9-]+\.html$/.test(path) ? path : '';
 }
 const validDate = value => /^\d{4}-\d{2}-\d{2}$/.test(value || '') && !Number.isNaN(Date.parse(value)) && new Date(value + 'T12:00:00Z').toISOString().slice(0, 10) === value ? value : '';
 function read(key) {

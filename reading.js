@@ -166,13 +166,15 @@ function initArticle() {
   const ticker = main.querySelector('.company-ticker')?.firstChild?.textContent.trim() || '';
   let sourceDate = '';
   document.querySelectorAll('script[type="application/ld+json"]').forEach(script => {
-    try { const data = JSON.parse(script.textContent); sourceDate ||= data.dateModified || data.datePublished || ''; } catch {}
+    try { const data = JSON.parse(script.textContent); const article = data['@graph']?.find(item => item['@type'] === 'Article') || data; sourceDate ||= article.dateModified || article.datePublished || ''; } catch {}
   });
   const meta = { title, ticker, sourceDate };
   let previous; try { previous = getArticle(path); } catch {}
   const bar = document.createElement('div'); bar.className = 'reading-toolbar';
   bar.innerHTML = `<button data-bookmark aria-pressed="false">＋ ไว้อ่าน</button><button data-notebook>หลักฐานของบทนี้ <span>0</span></button><button data-complete aria-pressed="false">อ่านจบแล้ว</button><a href="${libraryURL}">คลังของฉัน ↗</a>`;
-  (main.querySelector('.byline') || main.querySelector('h1')).after(bar);
+  const bookSlot = main.querySelector('.bs-reading-slot');
+  if (bookSlot) bookSlot.append(bar);
+  else (main.querySelector('.byline') || main.querySelector('h1')).after(bar);
   const popup = document.createElement('button'); popup.type = 'button'; popup.className = 'reading-selection reading-primary'; popup.hidden = true;
   popup.textContent = '✎ บันทึกข้อความที่เลือก'; document.body.append(popup);
   const corpus = () => {
@@ -259,7 +261,7 @@ function initArticle() {
     const position = Math.max(0, Math.min(1, (scrollY - top) / Math.max(1, end - top)));
     if (scrollY < top + 30) return;
     let anchor = '';
-    main.querySelectorAll('h2[id], h3[id]').forEach(heading => { if (heading.getBoundingClientRect().top < innerHeight / 2) anchor = heading.id; });
+    main.querySelectorAll('h2[id], h3[id], .bs-prose > section[id]').forEach(heading => { if (heading.getBoundingClientRect().top < innerHeight / 2) anchor = heading.id; });
     try { saveArticle(path, { ...meta, progress: position * 100, position, anchor, opened: true }); }
     catch { if (!progress.warned) { notify('ยังจำตำแหน่งอ่านไม่ได้ กรุณาอนุญาตการจัดเก็บในเบราว์เซอร์', true); progress.warned = true; } }
   }

@@ -26,13 +26,15 @@ import re
 import shutil
 import subprocess
 import sys
+from pathlib import Path
 from xml.sax.saxutils import escape
+from bookshelf_build import build_bookshelf, load_catalog
 
 BASE_URL = "https://beatp9696-arch.github.io"
 TOOLS = ["follow-the-money-nvda.html", "compound-interest.html", "reverse-dcf.html",
          "ai-iceberg.html", "econ-lessons.html",
          "moat-break-game-kodak.html"]  # เครื่องมือ interactive — นับเป็น hero stat + ลิสต์ใน tools.html
-ROOT_PAGES = ["", "articles.html", "stocks.html", "tools.html",
+ROOT_PAGES = ["", "articles.html", "books.html", "stocks.html", "tools.html",
               "about.html"] + TOOLS + [
     # ซิมูเลชันประกอบบทความ interstellar-investing (ไม่ใช่ tool เดี่ยว — เข้าถึงผ่านบทความ)
     "interstellar/gargantua.html", "interstellar/endurance.html", "interstellar/tesseract.html"]
@@ -129,6 +131,9 @@ def _replace_marked_block(src, start, end, rendered, path):
 
 def _render_partial(template, path):
     rendered = template.replace("@@PATH_PREFIX@@", _path_prefix(path))
+    if path == "books.html" or path.startswith("books/"):
+        href = _path_prefix(path) + "books.html"
+        rendered = rendered.replace(f'href="{href}"', f'href="{href}" aria-current="page"')
     leftovers = re.findall(r"@@[A-Z0-9_]+@@", rendered)
     if leftovers:
         raise ValueError(f"{path}: partial มี placeholder ที่ยังไม่ถูกแทน: {leftovers}")
@@ -209,7 +214,7 @@ def site_chrome_warnings():
                      if f.endswith(".html")]
     root_paths = [f for f in sorted(os.listdir("."))
                   if f.endswith(".html") and not f.startswith("_ebook") and f != "404.html"]
-    managed = root_paths + article_paths
+    managed = root_paths + article_paths + [str(p) for p in sorted(Path('books').glob('*.html'))]
 
     for path in managed:
         if path in CHROME_EXCLUSIONS:
@@ -399,9 +404,13 @@ def write_sitemap(posts):
             f"  <url><loc>{BASE_URL}/articles/{p['file']}</loc>"
             f"<lastmod>{article_datemod(art, p['date'])}</lastmod></url>"
         )
+    for book in load_catalog()["books"]:
+        if book["status"] == "ready":
+            lines.append(f'  <url><loc>{BASE_URL}/books/{book["slug"]}.html</loc><lastmod>{book["updatedAt"]}</lastmod></url>')
     lines.append("</urlset>")
     open("sitemap.xml", "w", encoding="utf-8").write("\n".join(lines) + "\n")
-    print(f"sitemap.xml : {len(pages)} pages + {len(posts)} articles")
+    print(f"sitemap.xml : {len(pages)} pages + {len(posts)} articles + "
+          f"{sum(b['status'] == 'ready' for b in load_catalog()['books'])} books")
 
 
 def xmltext(s):
@@ -470,7 +479,10 @@ def write_feed(posts):
     kept = 0
     items = []
     entries = ([{**p, "url": f"{BASE_URL}/articles/{p['file']}"} for p in posts]
-               + [{**e, "url": f"{BASE_URL}/{e['file']}"} for e in FEED_EXTRAS])
+               + [{**e, "url": f"{BASE_URL}/{e['file']}"} for e in FEED_EXTRAS]
+               + [{"url": f"{BASE_URL}/books/{b['slug']}.html", "date": b["updatedAt"],
+                   "title": "Bookshelf · " + b["title"], "excerpt": b["shortDescription"]}
+                  for b in load_catalog()["books"] if b["status"] == "ready"])
     entries.sort(key=lambda e: e["date"], reverse=True)  # stable — ลำดับเดิมภายในวันเดียวกันคงอยู่
     for p in entries:  # ใหม่สุดก่อน
         url = p["url"]
@@ -504,6 +516,7 @@ def write_feed(posts):
     )
     open("feed.xml", "w", encoding="utf-8").write(feed)
     print(f"feed.xml    : {len(entries)} items = {len(posts)} บทความ + {len(FEED_EXTRAS)} interactive "
+          f"+ {len(entries) - len(posts) - len(FEED_EXTRAS)} books "
           f"({kept} เดิม, {len(entries) - kept} ใหม่)")
 
 
@@ -1379,6 +1392,7 @@ def write_related():
 
 
 def main():
+    book_records = build_bookshelf()
     posts = parse_archive()
     if not posts:
         print(f"ERROR: parse {ARCHIVE} ไม่เจอบทความเลย — โครงสร้าง HTML อาจเปลี่ยน")
@@ -1387,9 +1401,9 @@ def main():
     articles = parse_articles_js()
     article_paths = [os.path.join("articles", f) for f in sorted(os.listdir("articles"))
                      if f.endswith(".html")]
-    # root pages + articles เท่านั้น; nested app/simulations และ partial files อยู่นอก scope
+    # root pages + articles + generated books; app/simulations และ partials อยู่นอก scope
     root_paths = [f for f in sorted(os.listdir(".")) if f.endswith(".html")]
-    inject_site_chrome(root_paths + article_paths)
+    inject_site_chrome(root_paths + article_paths + ["books/" + b["slug"] + ".html" for b in book_records])
     inject_tocs()
     write_related()
     write_itemlist(posts)

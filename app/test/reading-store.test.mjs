@@ -8,6 +8,8 @@ globalThis.localStorage = {
 const path = '/articles/deep-dive-nvda.html';
 assert.equal(articlePath(path + '?resume=1#sec-2'), path);
 for (const url of ['javascript:alert(1)', '//evil.example/articles/a.html', '/articles/../money.html', '/money.html']) assert.equal(articlePath(url), '');
+assert.equal(articlePath('/books/poor-charlies-almanack.html?resume=1#synthesis'), '/books/poor-charlies-almanack.html');
+for (const url of ['/books/../money.html', '/books/%2e%2e/money.html', '//evil.example/books/a.html']) assert.equal(articlePath(url), '');
 saveArticle(path, { title: 'NVIDIA', saved: true });
 saveArticle('/articles/deep-dive-cost.html', { title: 'Costco', saved: true });
 saveArticle(path, { progress: 47, anchor: 'sec-4', opened: true });

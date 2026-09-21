@@ -108,7 +108,7 @@ window.NYSE = (function () {
                  category: "Announcements", categoryId: "DIC_kwDOTG4Dqs4DA9O5" };
 
   // ---- base path: หน้า root vs หน้าใน articles/ ----
-  var IS_ARTICLE_DIR = location.pathname.indexOf("/articles/") !== -1;
+  var IS_ARTICLE_DIR = /\/(?:articles|books)\//.test(location.pathname);
   var BASE = IS_ARTICLE_DIR ? "../" : "";
 
   // ---- ข้อมูลบทความ (แหล่งเดียว — ใช้ทั้ง prev/next, related, search, sector filter) ----
@@ -257,7 +257,7 @@ window.NYSE = (function () {
     b.addEventListener("click", function () {
       var next = effectiveTheme() === "dark" ? "light" : "dark";
       document.documentElement.setAttribute("data-theme", next);
-      try { localStorage.setItem("theme", next); } catch (e) {}
+      try { localStorage.setItem('theme', next); } catch (e) {}
       syncIcon();
       if (window.renderTradingViewWidgets) window.renderTradingViewWidgets();
       var giFrame = document.querySelector("iframe.giscus-frame");
@@ -888,10 +888,12 @@ window.NYSE = (function () {
     overlay.className = "nav-overlay";
     document.body.appendChild(overlay);
 
-    var isInArticles = location.pathname.indexOf("/articles/") !== -1;
+    var isInArticles = /\/(?:articles|books)\//.test(location.pathname);
     var base = isInArticles ? "../" : "";
     var NAV_LINKS = [
       { href: base + "articles.html", label: "บทความทั้งหมด" },
+      { href: base + "books.html", label: "Bookshelf" },
+      { href: base + "reading.html", label: "คลังไว้อ่าน" },
       { href: base + "stocks.html", label: "หุ้นทั้งหมด" },
       { href: base + "tools.html", label: "เครื่องมือ" },
       { href: base + "about.html", label: "เกี่ยวกับ" },
@@ -1104,7 +1106,7 @@ window.NYSE = (function () {
   if (window.self !== window.top) return;
 
   // หน้าแอปย้ายออกจาก /pp-os/ มาเป็นหน้าเว็บปกติแล้ว — ลิงก์ตรงไม่ต้องผ่าน query string
-  var UP = location.pathname.indexOf("/articles/") !== -1 ? "../" : "";
+  var UP = /\/(?:articles|books)\//.test(location.pathname) ? "../" : "";
   var svg = function (d) {
     return '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" ' +
       'stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">' + d + "</svg>";
@@ -1246,7 +1248,7 @@ window.NYSE = (function () {
   var script = document.currentScript;
   if (!script || !script.src) return;
   var page = location.pathname;
-  if (!(/\/articles\/[^/]+\.html$/.test(page) || /\/(?:index|articles|stocks|reading)\.html$/.test(page) || page.endsWith('/'))) return;
+  if (!(/\/(?:articles|books)\/[^/]+\.html$/.test(page) || /\/(?:index|articles|stocks|reading)\.html$/.test(page) || page.endsWith('/'))) return;
   var reader = document.createElement('script');
   reader.type = 'module'; reader.src = new URL('reading.js', script.src).href;
   document.head.append(reader);

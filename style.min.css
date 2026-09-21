@@ -146,7 +146,7 @@ white-space: nowrap;
 }
 .site-nav a {
 color: var(--muted);
-margin-left: 20px;
+margin-left: 14px;
 position: relative;
 }
 .site-nav a::after {
