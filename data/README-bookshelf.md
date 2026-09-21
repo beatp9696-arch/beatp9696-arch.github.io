@@ -12,6 +12,18 @@ article; `draft` shows a non-linked “กำลังเรียบเรี�
 on the book to feature. Category names must come from the top-level category list.
 `titleThai` is a Moatrices descriptive title, not a claim about a published translation.
 
+Optional per-book fields keep the renderer general instead of special-casing a title.
+`labels` overrides page wording (`readCta`, `readingMeta`, `proseAria`, `editionLabel`) for a
+book whose page is a summary rather than a rendering of the whole text. `proseNote` is the
+small line above the first chapter. `editorRole` selects how the second name is credited:
+`editor` (default, “Edited by” / “ผู้เรียบเรียง” / schema.org `editor`) or `commentary`
+(“Commentary by” / “บทวิเคราะห์ประกอบ” / `contributor`). `coverCaption` replaces the cover's
+screen-reader caption, which otherwise names the edition year. `fullArticle` is optional and
+belongs only to a book that grew out of an existing article. A `sourceLinks` entry may be a
+repository-relative path instead of an https URL; it is validated at build time and rendered
+relative to `/books/`. A chapter may set `referencesLabel` when its links are further reading
+rather than the original source.
+
 Use actual `coverWidth` / `coverHeight`, a six-digit hex `accent`, and a local
 `shareImage` (or the cover will be used). The collection uses Georgia for English
 headings; detail pages use the local Playfair Display fonts. Thai uses the site's
@@ -79,6 +91,16 @@ anchors stay stable. The reader maps removed `one-line`, `suitable` and `related
 links to the corresponding current section; individual tendencies also support
 direct links. Local source links are validated at build time.
 
+The second book, The Intelligent Investor, is a Thai summary and analysis, not a rendering of
+the book: eight chapters, about 3,779 Thai words / 19 minutes. It quotes only short attributed
+passages from Warren Buffett's public shareholder letters and from the publisher's page, and
+nothing from Graham's text or Jason Zweig's commentary. Bibliographic data follows the third
+edition (Harper Business, 22 October 2024, ISBN 9780063356726), which the publisher calls the
+75th Anniversary Edition. Its cover is `img/books/intelligent-investor-moatrices.svg`, drawn
+for this site, because no cover image with clear rights was available; `coverAlt`,
+`coverCaption` and `editionNote` all state that. The share image is
+`og-intelligent-investor.jpg`, rendered from the same motif.
+
 Reading uses the existing `moatrices.reading.v1` store, including bookmarks,
 progress, resume and notes. `/books/` and `/articles/` records stay independent.
 No new analytics service is introduced: no shared analytics integration was found
@@ -94,7 +116,10 @@ python3 test/bookshelf-browser.test.py --screenshots /tmp/bookshelf-previews
 python3 app/test/reading-flow-browser.test.py
 ```
 
-The browser suite covers 320/390/768/1440 px, light/dark, search/categories, empty
+The browser suite covers every ready book at 320/390/768/1440 px, light/dark; routes, search
+result counts, category counts and per-book expectations (reading CTA, numbered lists, preview
+filenames) all come from `bookshelf.json`, so a new book is covered without editing the test.
+It checks search/categories, empty
 state, local links, anchors, reader layout/settings/history, mobile dialogs,
 bookmark/progress persistence, keyboard focus, reduced motion, failed covers,
 blocked storage and no JavaScript. External navigation is checked

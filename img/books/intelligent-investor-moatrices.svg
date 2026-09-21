@@ -1,0 +1,58 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 1200" width="800" height="1200" role="img" aria-label="Abstract Moatrices cover art: a volatile price line swinging around a steady value line, with the gap between value and price shaded as a margin of safety.">
+  <title>The Intelligent Investor — Moatrices abstract cover art</title>
+  <defs>
+    <linearGradient id="ii-ground" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#1d3854"/>
+      <stop offset=".55" stop-color="#132738"/>
+      <stop offset="1" stop-color="#0c1a26"/>
+    </linearGradient>
+    <linearGradient id="ii-cushion" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#5fd0a6" stop-opacity=".34"/>
+      <stop offset="1" stop-color="#5fd0a6" stop-opacity=".02"/>
+    </linearGradient>
+    <linearGradient id="ii-edge" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0" stop-color="#5fd0a6" stop-opacity=".1"/>
+      <stop offset=".5" stop-color="#5fd0a6" stop-opacity=".85"/>
+      <stop offset="1" stop-color="#5fd0a6" stop-opacity=".1"/>
+    </linearGradient>
+  </defs>
+
+  <rect width="800" height="1200" fill="url(#ii-ground)"/>
+  <rect x="34" y="34" width="732" height="1132" fill="none" stroke="#5fd0a6" stroke-opacity=".22" stroke-width="1.5"/>
+
+  <g stroke="#ffffff" stroke-opacity=".05" stroke-width="1">
+    <path d="M90 300H710M90 400H710M90 500H710M90 600H710M90 700H710M90 800H710"/>
+    <path d="M200 260V840M320 260V840M440 260V840M560 260V840"/>
+  </g>
+
+  <!-- The cushion between a conservative estimate of value and the price actually paid. -->
+  <rect x="90" y="560" width="620" height="140" fill="url(#ii-cushion)"/>
+  <path d="M90 560H710" stroke="url(#ii-edge)" stroke-width="2.5"/>
+  <path d="M90 700H710" stroke="#9fb4c4" stroke-opacity=".5" stroke-width="1.5" stroke-dasharray="7 9"/>
+
+  <!-- Quotations arrive every day; most of them say nothing about the business. -->
+  <polyline points="90,470 130,392 168,520 206,330 244,612 282,300 320,742 358,455 396,812 434,398 472,640 510,286 548,690 586,372 624,596 662,318 710,505"
+    fill="none" stroke="#e8edf2" stroke-opacity=".78" stroke-width="3" stroke-linejoin="round" stroke-linecap="round"/>
+  <g fill="#5fd0a6">
+    <circle cx="396" cy="812" r="7"/>
+    <circle cx="320" cy="742" r="5.5"/>
+  </g>
+
+  <g font-family="'IBM Plex Mono', 'Courier New', monospace" font-size="17" letter-spacing="2.4" fill="#8fa6b6">
+    <text x="90" y="546">VALUE</text>
+    <text x="90" y="732">PRICE PAID</text>
+    <text x="698" y="662" text-anchor="end" fill="#5fd0a6">MARGIN OF SAFETY</text>
+  </g>
+
+  <text x="90" y="150" font-family="'IBM Plex Mono', 'Courier New', monospace" font-size="19" letter-spacing="5" fill="#5fd0a6">MOATRICES · BOOKSHELF</text>
+  <path d="M90 180H710" stroke="#ffffff" stroke-opacity=".14" stroke-width="1"/>
+
+  <text x="90" y="880" font-family="'IBM Plex Mono', 'Courier New', monospace" font-size="16" letter-spacing="3" fill="#8fa6b6">SUMMARY &amp; ANALYSIS · ORIGINAL ART</text>
+  <g font-family="Georgia, 'Times New Roman', serif" fill="#f3f6f8" font-size="68" font-weight="700">
+    <text x="90" y="952">THE</text>
+    <text x="90" y="1022">INTELLIGENT</text>
+    <text x="90" y="1092">INVESTOR</text>
+  </g>
+  <path d="M90 1116H710" stroke="#ffffff" stroke-opacity=".14" stroke-width="1"/>
+  <text x="90" y="1146" font-family="Georgia, 'Times New Roman', serif" font-size="25" fill="#9fb4c4">Benjamin Graham</text>
+</svg>

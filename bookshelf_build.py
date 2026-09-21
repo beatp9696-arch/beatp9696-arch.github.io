@@ -10,7 +10,26 @@ from urllib.parse import urlsplit, unquote
 ROOT = Path(__file__).resolve().parent
 BASE_URL = "https://beatp9696-arch.github.io"
 STATUS = {"ready": "พร้อมอ่าน", "draft": "กำลังเรียบเรียง"}
+# How the second name on a book is credited: byline, facts label and schema.org property.
+CONTRIBUTORS = {"editor": ("Edited by", "ผู้เรียบเรียง", "editor"),
+                "commentary": ("Commentary by", "บทวิเคราะห์ประกอบ", "contributor")}
+# Wording a book may override when the page is a summary rather than a full rendering.
+LABELS = {"readCta": "อ่านฉบับเต็ม", "readingMeta": "บทความฉบับเต็ม",
+          "proseAria": "บทความหนังสือฉบับเต็ม", "editionLabel": "ฉบับเรียบเรียงเต็ม"}
+DETAIL_PREFIX = "../"  # book pages live in /books/, sources are recorded from the repository root
 E = lambda value: html.escape(str(value), quote=True)
+
+
+def labels(book):
+    return {**LABELS, **book.get("labels", {})}
+
+
+def contributor(book):
+    return CONTRIBUTORS[book.get("editorRole", "editor")]
+
+
+def source_href(url, prefix=DETAIL_PREFIX):
+    return url if url.startswith("https://") else prefix + url
 
 
 def load_catalog():
@@ -34,7 +53,7 @@ def load_catalog():
         assert chapter_ids and len(chapter_ids) == len(set(chapter_ids)), "Missing or duplicate chapters"
         assert not set(chapter_ids) & {"summary", "sources", "purchase", "book-intro"}
         assert all(re.fullmatch(r"[a-z0-9-]+", key) for key in chapter_ids)
-        links = list(book["sourceLinks"]) + [{"href": book["fullArticle"]}]
+        links = list(book["sourceLinks"]) + ([{"href": book["fullArticle"]}] if book.get("fullArticle") else [])
         for chapter in book["chapters"]:
             assert chapter["title"] and chapter["blocks"]
             for block in chapter["blocks"]:
@@ -83,7 +102,7 @@ def cover(book, prefix="", lazy=False):
 
 
 def book_schema(book):
-    return {"@type": "Book", "@id": BASE_URL + "/books/" + book["slug"] + ".html#book", "name": book["title"], "author": {"@type": "Person", "name": book["author"]}, "editor": {"@type": "Person", "name": book["editor"]}, "datePublished": str(book["year"]), "bookEdition": book["edition"], "isbn": book["isbn"], "inLanguage": "en", "image": BASE_URL + "/" + book["cover"], "publisher": {"@type": "Organization", "name": book["publisher"]}}
+    return {"@type": "Book", "@id": BASE_URL + "/books/" + book["slug"] + ".html#book", "name": book["title"], "author": {"@type": "Person", "name": book["author"]}, contributor(book)[2]: {"@type": "Person", "name": book["editor"]}, "datePublished": str(book["year"]), "bookEdition": book["edition"], "isbn": book["isbn"], "inLanguage": "en", "image": BASE_URL + "/" + book["cover"], "publisher": {"@type": "Organization", "name": book["publisher"]}}
 
 
 def reading_sections(book):
@@ -120,8 +139,8 @@ def render_chapters(book):
         for slug in chapter.get('references', []):
             source = next((source for source in book['sourceLinks'] if source['url'].rstrip('/').rsplit('/', 1)[-1] == slug), None)
             assert source, f'Missing chapter source: {slug}'
-            references.append(f'<a href="{E(source["url"])}">{E(source["title"].split(" · ")[0])} ↗</a>')
-        source_line = '<p class="bs-source-reference">ต้นฉบับ · ' + ' / '.join(references) + '</p>' if references else ''
+            references.append(f'<a href="{E(source_href(source["url"]))}">{E(source["title"].split(" · ")[0])} ↗</a>')
+        source_line = f'<p class="bs-source-reference">{E(chapter.get("referencesLabel", "ต้นฉบับ"))} · ' + ' / '.join(references) + '</p>' if references else ''
         sections.append(f'<section class="bs-chapter" id="{E(chapter["id"])}"><p class="bs-eyebrow">บทที่ {i:02d}</p><h2>{E(chapter["title"])}</h2><p class="bs-chapter-subtitle"><span lang="en">{E(chapter["subtitle"])}</span></p>{"".join(render_block(block) for block in chapter["blocks"])}{source_line}</section>')
     return '\n'.join(sections)
 
@@ -284,6 +303,7 @@ def collection(catalog):
 
 
 def detail(b):
+    L = labels(b)
     purchases = []
     for p in b["purchaseLinks"]:
         content = f'<span><strong>{E(p["store"])}</strong><small>{E(p["format"])}</small></span>'
@@ -294,15 +314,15 @@ def detail(b):
     verified = max((p.get("verifiedAt", "") for p in b["purchaseLinks"]), default="")
     disclosure = f'<p class="bs-small">{E(b["affiliateDisclosure"])}</p>' if b["affiliateDisclosure"] else ''
     sections = render_chapters(b)
-    sources = ''.join(f'<li><a href="{E(link["url"])}">{E(link["title"])}</a></li>' for link in b["sourceLinks"])
+    sources = ''.join(f'<li><a href="{E(source_href(link["url"]))}">{E(link["title"])}</a></li>' for link in b["sourceLinks"])
     toc = chapter_links(b)
     date = datetime.date.fromisoformat(b["updatedAt"]).strftime("%d/%m/%Y")
     body = f'''<nav class="bs-breadcrumb" aria-label="เส้นทางหน้า"><a href="../index.html">Moatrices</a><span>/</span><a href="../books.html">Bookshelf</a><span>/</span><span aria-current="page">{E(b['title'])}</span></nav>
       <div class="bs-detail-layout">
-        <figure class="bs-detail-art"><div class="bs-stage">{cover(b, '../')}</div><figcaption class="bs-sr">ปกฉบับปี {b['year']} · ตีพิมพ์ครั้งแรก {b['firstPublished']}</figcaption></figure>
+        <figure class="bs-detail-art"><div class="bs-stage">{cover(b, '../')}</div><figcaption class="bs-sr">{E(b.get('coverCaption', f"ปกฉบับปี {b['year']} · ตีพิมพ์ครั้งแรก {b['firstPublished']}"))}</figcaption></figure>
         <div class="bs-detail-content">
-        <header class="bs-detail-copy" id="book-intro"><h1 class="bs-book-title" lang="en">{E(b.get('fullTitle', b['title']))}</h1><p class="bs-author" lang="en">Edited by {E(b['editor'])}</p>
-          <div class="bs-actions"><a class="bs-button bs-button-primary" href="#summary">อ่านฉบับเต็ม <span aria-hidden="true">→</span></a><button class="bs-button" type="button" data-open-toc hidden>ดูสารบัญ</button></div><p class="bs-reading-meta">บทความฉบับเต็ม · {b['readingMinutes']} นาที · {len(reading_sections(b))} บท</p>
+        <header class="bs-detail-copy" id="book-intro"><h1 class="bs-book-title" lang="en">{E(b.get('fullTitle', b['title']))}</h1><p class="bs-author" lang="en">{E(contributor(b)[0])} {E(b['editor'])}</p>
+          <div class="bs-actions"><a class="bs-button bs-button-primary" href="#summary">{E(L['readCta'])} <span aria-hidden="true">→</span></a><button class="bs-button" type="button" data-open-toc hidden>ดูสารบัญ</button></div><p class="bs-reading-meta">{E(L['readingMeta'])} · {b['readingMinutes']} นาที · {len(reading_sections(b))} บท</p>
           <div class="bs-book-intro"><h2 class="bs-intro-heading">หนังสือเล่มนี้เกี่ยวกับอะไร</h2>{paragraphs(b.get('intro', [b['shortDescription']]))}</div>
           <a class="bs-buy-jump" href="#purchase">ดูตัวเลือกการซื้อ ↓</a>
         </header>
@@ -311,9 +331,9 @@ def detail(b):
       <header class="bs-reader-header" hidden><div><p class="bs-eyebrow">BOOKSHELF · อ่าน {b['readingMinutes']} นาที</p><div class="bs-reader-title-slot"></div><p class="bs-small">{E(b['author'])} · {E(b['edition'])}</p></div></header>
       <div class="bs-reading-slot"></div>
       <aside class="bs-toc"><p class="bs-eyebrow">READING GUIDE</p><h2>IN THIS ARTICLE</h2><nav aria-label="สารบัญบทความ">{toc}</nav><span class="bs-small">ประมาณ {b['readingMinutes']} นาที</span></aside>
-      <article class="bs-prose" aria-label="บทความหนังสือฉบับเต็ม"><p class="bs-editor-note">เรียบเรียงเนื้อหาฉบับเต็ม · ตรวจเทียบหนังสือฉบับออนไลน์ของ Stripe Press</p>
+      <article class="bs-prose" aria-label="{E(L['proseAria'])}">{f'<p class="bs-editor-note">{E(b["proseNote"])}</p>' if b.get('proseNote') else ''}
         {sections}
-        <section class="bs-chapter" id="sources"><p class="bs-eyebrow">บทที่ {len(reading_sections(b)):02d}</p><h2>แหล่งอ้างอิงและข้อมูลหนังสือ</h2><dl class="bs-facts"><dt>ชื่อหนังสือ</dt><dd>{E(b['title'])}</dd><dt>ผู้เขียน</dt><dd>{E(b['author'])}</dd><dt>ผู้เรียบเรียง</dt><dd>{E(b['editor'])}</dd><dt>ฉบับที่อ้างถึง</dt><dd>{E(b['edition'])} · {b['year']}</dd><dt>สำนักพิมพ์</dt><dd>{E(b['publisher'])}</dd><dt>ISBN</dt><dd>{E(b['isbn'])}</dd><dt>อัปเดตบทความ</dt><dd><time datetime="{b['updatedAt']}">{date}</time></dd></dl><p class="bs-small">{E(b['editionNote'])}</p><ul class="bs-sources">{sources}</ul></section>
+        <section class="bs-chapter" id="sources"><p class="bs-eyebrow">บทที่ {len(reading_sections(b)):02d}</p><h2>แหล่งอ้างอิงและข้อมูลหนังสือ</h2><dl class="bs-facts"><dt>ชื่อหนังสือ</dt><dd>{E(b['title'])}</dd><dt>ผู้เขียน</dt><dd>{E(b['author'])}</dd><dt>{E(contributor(b)[1])}</dt><dd>{E(b['editor'])}</dd><dt>ฉบับที่อ้างถึง</dt><dd>{E(b['edition'])} · {b['year']}</dd><dt>สำนักพิมพ์</dt><dd>{E(b['publisher'])}</dd><dt>ISBN</dt><dd>{E(b['isbn'])}</dd><dt>อัปเดตบทความ</dt><dd><time datetime="{b['updatedAt']}">{date}</time></dd></dl><p class="bs-small">{E(b['editionNote'])}</p><ul class="bs-sources">{sources}</ul></section>
       </article></div></div></div>'''
     chapters = reading_sections(b)
     for i, (key, _) in enumerate(chapters):
@@ -332,8 +352,8 @@ def detail(b):
                 body = body[:end] + next_link + body[end:]
                 break
     url = BASE_URL + "/books/" + b["slug"] + ".html"
-    schema = [book_schema(b), {"@type": "Article", "headline": b["title"] + " — ฉบับเรียบเรียงเต็ม", "description": b["shortDescription"], "inLanguage": "th", "datePublished": b["updatedAt"], "dateModified": b["updatedAt"], "author": {"@type": "Organization", "name": "Moatrices"}, "about": {"@id": url + "#book"}, "mainEntityOfPage": url, "image": BASE_URL + "/" + b.get("shareImage", b["cover"]), "isBasedOn": [b["sourceLinks"][0]["url"], BASE_URL + "/" + b["fullArticle"]]}, breadcrumb_schema(b)]
-    return shell(b["title"] + " · ฉบับเรียบเรียงเต็ม", b["shortDescription"], "books/" + b["slug"] + ".html", body, schema, "../", b)
+    schema = [book_schema(b), {"@type": "Article", "headline": b["title"] + " — " + L["editionLabel"], "description": b["shortDescription"], "inLanguage": "th", "datePublished": b["updatedAt"], "dateModified": b["updatedAt"], "author": {"@type": "Organization", "name": "Moatrices"}, "about": {"@id": url + "#book"}, "mainEntityOfPage": url, "image": BASE_URL + "/" + b.get("shareImage", b["cover"]), "isBasedOn": [b["sourceLinks"][0]["url"]] + ([BASE_URL + "/" + b["fullArticle"]] if b.get("fullArticle") else [])}, breadcrumb_schema(b)]
+    return shell(b["title"] + " · " + L["editionLabel"], b["shortDescription"], "books/" + b["slug"] + ".html", body, schema, "../", b)
 
 
 def write_if_changed(path, text):

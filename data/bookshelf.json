@@ -129,6 +129,7 @@
         }
       ],
       "editionNote": "ข้อมูลหนังสือและปกอ้างอิงฉบับกระชับ Stripe Press (2023) บทความนี้เรียบเรียงเนื้อหาจากบทความเต็มของเว็บไซต์และตรวจเทียบฉบับออนไลน์ของผู้จัดพิมพ์ เป็นการอธิบายแนวคิดภาษาไทย ไม่ใช่คำแปลหนังสือทั้งเล่ม",
+      "proseNote": "เรียบเรียงเนื้อหาฉบับเต็ม · ตรวจเทียบหนังสือฉบับออนไลน์ของ Stripe Press",
       "updatedAt": "2026-09-21",
       "shareImage": "og-poor-charlies-almanack.jpg",
       "coverWidth": 843,
@@ -140,6 +141,109 @@
         "ฉบับเรียบเรียงนี้รวมเนื้อหาจากบทความเต็มไว้ในหน้าเดียว พร้อมอธิบายแนวโน้มทางจิตวิทยาครบ 25 ข้อและเส้นเรื่องของสุนทรพจน์ทั้ง 11 บท อ่านต่อได้ตามลำดับหรือเลือกหัวข้อจากสารบัญ"
       ],
       "contentFile": "data/books/poor-charlies-almanack.json"
+    },
+    {
+      "slug": "intelligent-investor",
+      "title": "The Intelligent Investor",
+      "titleThai": "วินัยของนักลงทุนที่ใช้เหตุผล",
+      "searchAliases": [
+        "Benjamin Graham",
+        "เบนจามิน เกรแฮม",
+        "เกรแฮม",
+        "Mr. Market",
+        "Margin of Safety",
+        "ส่วนเผื่อความปลอดภัย",
+        "value investing"
+      ],
+      "author": "Benjamin Graham",
+      "editor": "Jason Zweig",
+      "editorRole": "commentary",
+      "year": 2024,
+      "firstPublished": 1949,
+      "edition": "ฉบับที่ 3 · 75th Anniversary Edition",
+      "publisher": "Harper Business",
+      "isbn": "9780063356726",
+      "categories": [
+        "การลงทุน",
+        "การตัดสินใจ"
+      ],
+      "status": "ready",
+      "featured": false,
+      "cover": "img/books/intelligent-investor-moatrices.svg",
+      "coverAlt": "ภาพประกอบของ Moatrices สำหรับ The Intelligent Investor เส้นราคาผันผวนเหวี่ยงรอบเส้นมูลค่าที่นิ่ง และแถบสีเขียวมิ้นต์แทนส่วนเผื่อความปลอดภัยระหว่างมูลค่ากับราคาที่จ่าย ไม่ใช่ภาพปกของผู้จัดพิมพ์",
+      "coverCaption": "ภาพประกอบสร้างขึ้นเองโดย Moatrices ไม่ใช่ภาพปกของผู้จัดพิมพ์ · หนังสือตีพิมพ์ครั้งแรกปี 1949 ฉบับที่อ้างอิงคือฉบับที่ 3 ปี 2024",
+      "accent": "#1d3854",
+      "shortDescription": "บทสรุปและบทวิเคราะห์ภาษาไทย 8 บท: นักลงทุนกับนักเก็งกำไร Mr. Market ส่วนเผื่อความปลอดภัย แนวทางเชิงรับและเชิงรุก และข้อจำกัดของกรอบเดิมในตลาดที่สินทรัพย์ไม่มีตัวตนเป็นแกน",
+      "readingMinutes": 19,
+      "labels": {
+        "readCta": "อ่านบทสรุปและบทวิเคราะห์",
+        "readingMeta": "บทสรุปและบทวิเคราะห์",
+        "proseAria": "บทสรุปและบทวิเคราะห์หนังสือ",
+        "editionLabel": "บทสรุปและบทวิเคราะห์"
+      },
+      "purchaseLinks": [
+        {
+          "store": "HarperCollins",
+          "format": "ปกแข็ง · Harper Business 2024 (ฉบับที่ 3)",
+          "url": "https://www.harpercollins.com/products/the-intelligent-investor-3rd-ed-benjamin-grahamjason-zweig",
+          "verifiedAt": "2026-09-21",
+          "affiliate": false
+        },
+        {
+          "store": "Bookshop",
+          "format": "ปกแข็ง · Harper Business 2024 (ISBN 9780063356726)",
+          "url": "https://bookshop.org/p/books/the-intelligent-investor-third-edition-the-definitive-book-on-value-investing-benjamin-graham/bdc8854036fd9331?ean=9780063356726",
+          "verifiedAt": "2026-09-21",
+          "affiliate": false
+        },
+        {
+          "store": "Amazon",
+          "format": "ปกแข็ง · Harper Business 2024 (ฉบับที่ 3)",
+          "url": "https://www.amazon.com/Intelligent-Investor-3rd-Ed/dp/0063356724",
+          "verifiedAt": "2026-09-21",
+          "affiliate": false
+        }
+      ],
+      "affiliateDisclosure": null,
+      "sourceLinks": [
+        {
+          "title": "HarperCollins · ข้อมูลหนังสือฉบับที่ 3 (75th Anniversary Edition)",
+          "url": "https://www.harpercollins.com/products/the-intelligent-investor-3rd-ed-benjamin-grahamjason-zweig"
+        },
+        {
+          "title": "Wikipedia · ประวัติการพิมพ์ของ The Intelligent Investor",
+          "url": "https://en.wikipedia.org/wiki/The_Intelligent_Investor"
+        },
+        {
+          "title": "Berkshire Hathaway · จดหมายถึงผู้ถือหุ้นปี 1987 (อุปมา Mr. Market)",
+          "url": "https://www.berkshirehathaway.com/letters/1987.html"
+        },
+        {
+          "title": "Berkshire Hathaway · จดหมายถึงผู้ถือหุ้นปี 1992 (ส่วนเผื่อความปลอดภัยและการเติบโต)",
+          "url": "https://www.berkshirehathaway.com/letters/1992.html"
+        },
+        {
+          "title": "Wikipedia · Jason Zweig ผู้เขียนบทวิเคราะห์ประกอบในฉบับปัจจุบัน",
+          "url": "https://en.wikipedia.org/wiki/Jason_Zweig"
+        },
+        {
+          "title": "Poor Charlie’s Almanack · ฉบับเรียบเรียงใน Moatrices Bookshelf",
+          "url": "books/poor-charlies-almanack.html"
+        }
+      ],
+      "editionNote": "ข้อมูลบรรณานุกรมอ้างอิงฉบับที่ 3 ของสำนักพิมพ์ Harper Business วางจำหน่าย 22 ตุลาคม 2024 จำนวน 640 หน้า ISBN 9780063356726 ซึ่งผู้จัดพิมพ์เรียกว่า 75th Anniversary Edition ข้อความหลักเป็นของ Benjamin Graham บทวิเคราะห์ประกอบท้ายบททุกบทเป็นของ Jason Zweig ส่วนบทนำและภาคผนวกเป็นของ Warren Buffett บทความนี้เป็นบทสรุปและบทวิเคราะห์ภาษาไทยของ Moatrices ไม่ใช่คำแปลและไม่ใช่ฉบับทดแทนหนังสือ ภาพประกอบปกบนหน้านี้สร้างขึ้นเองโดย Moatrices ไม่ได้ใช้ภาพปกของผู้จัดพิมพ์",
+      "proseNote": "บทความนี้เป็นบทสรุปและบทวิเคราะห์จาก The Intelligent Investor ไม่ใช่คำแปลหรือฉบับทดแทนหนังสือ กรุณาอ่านฉบับจริงจากผู้จัดพิมพ์",
+      "updatedAt": "2026-09-21",
+      "shareImage": "og-intelligent-investor.jpg",
+      "coverWidth": 800,
+      "coverHeight": 1200,
+      "purchaseNote": "ฉบับภาษาอังกฤษ · ราคาและพื้นที่จัดส่งดูได้จากแต่ละร้าน",
+      "fullTitle": "The Intelligent Investor, 3rd Ed.: The Definitive Book on Value Investing",
+      "intro": [
+        "The Intelligent Investor ตีพิมพ์ครั้งแรกปี 1949 เป็นหนังสือที่ Benjamin Graham เขียนให้ผู้ลงทุนทั่วไปมากกว่านักวิเคราะห์อาชีพ แกนของเล่มคือการแยกการลงทุนออกจากการเก็งกำไร การมองตลาดเป็นคู่ค้าที่อารมณ์แปรปรวนแทนที่จะเป็นผู้ตัดสินมูลค่า และการยืนยันว่าทุกการตัดสินใจต้องมีส่วนเผื่อความปลอดภัยรองรับความผิดพลาดของตัวผู้ประเมินเอง",
+        "หน้านี้เป็นบทสรุปและบทวิเคราะห์ภาษาไทยของ Moatrices จำนวน 8 บท เขียนขึ้นใหม่ด้วยสำนวนของเราเอง ไม่ใช่คำแปลและไม่ได้ไล่เรียงตามบททุกบทของต้นฉบับ เนื้อหาแยกให้ชัดระหว่างสิ่งที่หนังสือเสนอ การตีความของผู้เขียนบทความ และการมองกลับมาที่ตลาดปัจจุบัน พร้อมบทว่าด้วยข้อจำกัดของกรอบเดิมเมื่อธุรกิจยุคนี้ลงทุนผ่านสินทรัพย์ที่ไม่มีตัวตนเป็นหลัก"
+      ],
+      "contentFile": "data/books/intelligent-investor.json"
     }
   ]
 }

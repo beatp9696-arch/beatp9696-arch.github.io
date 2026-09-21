@@ -3,6 +3,8 @@ Run: python3 test/bookshelf-browser.test.py [--screenshots /path/to/output]
 """
 import argparse
 import json
+import re
+import unicodedata
 from functools import partial
 from http.server import ThreadingHTTPServer, SimpleHTTPRequestHandler
 from pathlib import Path
@@ -23,8 +25,31 @@ class Quiet(SimpleHTTPRequestHandler):
 server = ThreadingHTTPServer(('127.0.0.1', 0), partial(Quiet, directory=str(ROOT)))
 Thread(target=server.serve_forever, daemon=True).start()
 origin = f'http://127.0.0.1:{server.server_port}'
-routes = ['/books.html', '/books/poor-charlies-almanack.html']
+catalog = json.loads((ROOT / 'data/bookshelf.json').read_text())
+books = [book for book in catalog['books'] if book['status'] == 'ready']
+content = {book['slug']: json.loads((ROOT / book['contentFile']).read_text())['chapters'] for book in books}
+routes = ['/books.html'] + [f"/books/{book['slug']}.html" for book in books]
 errors = []
+
+
+def normalize(value):
+    """Same rule as bookshelf.js so expected counts come from the data, not from one book."""
+    return re.sub(r'\s+', ' ', re.sub(r"[’‘']", '', unicodedata.normalize('NFKC', value).lower())).strip()
+
+
+def searchable(book):
+    return normalize(' '.join([book['title'], book['titleThai'], book['author'], book['editor'],
+                               *book.get('searchAliases', []), *book['categories']]))
+
+
+def hits(query):
+    terms = [term for term in normalize(query).split(' ') if term]
+    return sum(all(term in searchable(book) for term in terms) for book in books)
+
+
+def blocks_of(slug, kind):
+    return [item for chapter in content[slug] for block in chapter['blocks']
+            if block['type'] == kind for item in block['items']]
 
 def fitted(page):
     result = page.evaluate('''() => ({width: innerWidth, scroll: document.documentElement.scrollWidth,
@@ -74,43 +99,49 @@ try:
                     if width in [390,1440]:
                         page.emulate_media(reduced_motion='no-preference')
                         page.wait_for_timeout(400)
-                        label = 'bookshelf' if path == routes[0] else 'book'
+                        label = 'bookshelf' if path == routes[0] else ('book' if path == routes[1] else 'book-' + path.rsplit('/', 1)[-1].removesuffix('.html'))
                         size = 'mobile' if width == 390 else 'desktop'
                         page.screenshot(path=str(OUT / f'{label}-{size}-{theme}.png'), full_page=False)
                         page.emulate_media(reduced_motion='reduce')
-                    if path == routes[1]:
-                        page.get_by_role('link', name='อ่านฉบับเต็ม', exact=True).click()
-                        expect(page.locator('.bs-tendencies > li')).to_have_count(25)
-                        expect(page.locator('.bs-talks > li')).to_have_count(11)
-                        expect(page.locator('main a[href="../articles/poor-charlies-almanack.html"]')).to_have_count(0)
+                    if path != routes[0]:
+                        book = books[routes.index(path) - 1]
+                        page.get_by_role('link', name=book.get('labels', {}).get('readCta', 'อ่านฉบับเต็ม'), exact=True).click()
+                        expect(page.locator('.bs-tendencies > li')).to_have_count(len(blocks_of(book['slug'], 'tendencies')))
+                        expect(page.locator('.bs-talks > li')).to_have_count(len(blocks_of(book['slug'], 'talks')))
+                        if book.get('fullArticle'):  # the book article is readable here; no CTA back to the older article
+                            expect(page.locator(f'main a[href="../{book["fullArticle"]}"]')).to_have_count(0)
                         expect(page.locator('.bs-detail-art')).to_be_hidden()
                         expect(page.locator('.bs-reader-header h1')).to_be_visible()
                         assert page.locator('.bs-prose').bounding_box()['width'] <= 721
                         fitted(page)
                         if width in [390,1440]:
-                            page.screenshot(path=str(OUT / f'book-reader-{size}-{theme}.png'), full_page=False)
-                            page.locator('#key-ideas').evaluate("e => e.scrollIntoView({block: 'start', behavior: 'instant'})")
-                            page.screenshot(path=str(OUT / f'book-headings-{size}-{theme}.png'), full_page=False)
+                            page.screenshot(path=str(OUT / f'{label}-reader-{size}-{theme}.png'), full_page=False)
+                            page.locator('#' + content[book['slug']][1]['id']).evaluate("e => e.scrollIntoView({block: 'start', behavior: 'instant'})")
+                            page.screenshot(path=str(OUT / f'{label}-headings-{size}-{theme}.png'), full_page=False)
                         page.get_by_role('link', name='กลับไปข้อมูลหนังสือ', exact=True).click()
                         expect(page.locator('.bs-detail-copy h1')).to_be_visible()
                         fitted(page)
         page.goto(origin + routes[0])
         search = page.get_by_role('searchbox', name='ค้นหาหนังสือ')
-        for query in ['ชาร์ลี', 'Poor Charlie\'s', 'Munger', 'Peter', 'จิตวิทยา', 'Mental Models', 'CHARLIE']:
+        for query in ['ชาร์ลี', 'Poor Charlie\'s', 'Munger', 'Peter', 'จิตวิทยา', 'Mental Models', 'CHARLIE',
+                      'Graham', 'เกรแฮม', 'Margin of Safety', 'การลงทุน']:
             search.fill(query)
-            expect(page.locator('[data-book]:visible')).to_have_count(1)
+            assert hits(query), query  # a query nothing matches would make the assertion meaningless
+            expect(page.locator('[data-book]:visible')).to_have_count(hits(query))
         search.fill('หนังสือที่ไม่มี')
         expect(page.locator('.bs-empty')).to_be_visible()
         page.get_by_role('button', name='ล้างตัวกรอง').click()
         expect(search).to_be_focused()
-        page.get_by_role('button', name='ธุรกิจและคูเมือง', exact=True).click()
-        expect(page.locator('.bs-empty')).to_be_visible()
-        page.get_by_role('button', name='ล้างตัวกรอง').click()
+        unused = next((name for name in catalog['categories'] if not any(name in b['categories'] for b in books)), None)
+        if unused:
+            page.get_by_role('button', name=unused, exact=True).click()
+            expect(page.locator('.bs-empty')).to_be_visible()
+            page.get_by_role('button', name='ล้างตัวกรอง').click()
         page.get_by_role('button', name='การตัดสินใจ', exact=True).focus()
         page.keyboard.press('Enter')
         expect(page.get_by_role('button', name='การตัดสินใจ', exact=True)).to_have_attribute('aria-pressed','true')
         assert page.evaluate('getComputedStyle(document.activeElement).outlineStyle') != 'none'
-        expect(page.locator('[data-book]:visible')).to_have_count(1)
+        expect(page.locator('[data-book]:visible')).to_have_count(sum('การตัดสินใจ' in b['categories'] for b in books))
         assert page.locator('.bs-volume').first.evaluate('e => getComputedStyle(e).transform') == 'none'
         page.goto(origin + routes[1])
         # Default to charcoal; ignore the retired paper theme and share the site's preference.
@@ -253,8 +284,10 @@ try:
             fitted(static)
         static.goto(origin + routes[0])
         expect(static.locator('.bs-controls')).to_be_hidden()
-        expect(static.locator('[data-book]')).to_be_visible()
-        static.locator('.bs-card h3').click()
+        expect(static.locator('[data-book]')).to_have_count(len(books))
+        for card in static.locator('[data-book]').all():
+            expect(card).to_be_visible()
+        static.locator('.bs-card h3').first.click()
         expect(static.locator('#key-ideas')).to_be_attached()
         static.locator('#question .bs-next-section a').click()
         assert static.url.endswith('#key-ideas')
@@ -283,7 +316,7 @@ try:
         expect(restricted.locator('.bs-toc-dialog a[href="#misjudgment"]')).to_have_attribute('aria-current', 'location')
         assert not errors, errors
         browser.close()
-    print('Bookshelf: 16 theme/viewport checks; reader layout/settings, labelled TOC, next chapters, history, mobile dialogs, reading persistence, search, links, keyboard, reduced motion, failed images, blocked storage and no-JS passed.')
+    print(f'Bookshelf: {len(routes) * 8} theme/viewport checks; reader layout/settings, labelled TOC, next chapters, history, mobile dialogs, reading persistence, search, links, keyboard, reduced motion, failed images, blocked storage and no-JS passed.')
     print(f'Previews: {OUT}')
 finally:
     server.shutdown()
