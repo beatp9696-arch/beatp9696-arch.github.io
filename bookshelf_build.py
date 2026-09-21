@@ -87,8 +87,8 @@ def book_schema(book):
 
 
 def reading_sections(book):
-    return [(chapter['id'], chapter['title']) for chapter in book['chapters']] + [
-        ('sources', 'ข้อมูลและแหล่งอ้างอิง')]
+    return [(chapter['id'], chapter.get('navTitle', chapter['title'])) for chapter in book['chapters']] + [
+        ('sources', 'Sources & Bibliography')]
 
 
 def render_block(block):
@@ -150,7 +150,7 @@ def reader_controls(book):
   <dialog class="bs-reader-dialog bs-toc-dialog" id="book-toc-dialog" aria-labelledby="book-toc-title">
     <div class="bs-dialog-heading"><h2 id="book-toc-title">สารบัญหนังสือ</h2><button type="button" data-close-dialog aria-label="ปิดสารบัญ" autofocus>✕</button></div>
     <p class="bs-small">{E(book['title'])} · {book['readingMinutes']} นาที</p>
-    <nav aria-label="สารบัญสำหรับมือถือ"><a class="bs-chapter-link" href="#summary">เริ่มอ่าน</a>{chapter_links(book, True)}<a class="bs-chapter-link" href="#purchase">ตัวเลือกการซื้อ ↗</a></nav>
+    <nav aria-label="สารบัญสำหรับมือถือ"><a class="bs-chapter-link" href="#summary">Start reading</a>{chapter_links(book, True)}<a class="bs-chapter-link" href="#purchase">Purchase options ↗</a></nav>
   </dialog>
   <dialog class="bs-reader-dialog" id="book-reader-settings" aria-labelledby="book-settings-title">
     <div class="bs-dialog-heading"><h2 id="book-settings-title">ปรับการอ่าน</h2><button type="button" data-close-dialog aria-label="ปิดการตั้งค่าการอ่าน" autofocus>✕</button></div>
@@ -177,7 +177,7 @@ def shell(title, description, path, body, schema, prefix="", book=None):
         rail = f'''<aside class="bs-book-rail" aria-label="เมนูหนังสือ">
           {book_identity(book)}
           <a class="bs-rail-back" href="../books.html" aria-label="กลับ Bookshelf">← <span>Bookshelf</span></a>
-          <nav class="bs-rail-index" aria-label="สารบัญด้านข้าง"><p class="bs-eyebrow">ในหนังสือเล่มนี้</p><a class="bs-chapter-link" href="#book-intro">ข้อมูลหนังสือ</a><a class="bs-chapter-link" href="#summary">เริ่มอ่าน</a>{chapter_links(book, True)}<a class="bs-chapter-link" href="#purchase">ตัวเลือกการซื้อ ↗</a></nav>
+          <nav class="bs-rail-index" aria-label="สารบัญด้านข้าง"><p class="bs-eyebrow">IN THIS BOOK</p><a class="bs-chapter-link" href="#book-intro">Book information</a><a class="bs-chapter-link" href="#summary">Start reading</a>{chapter_links(book, True)}<a class="bs-chapter-link" href="#purchase">Purchase options ↗</a></nav>
           <button class="bs-mobile-toc" type="button" data-open-toc aria-haspopup="dialog" aria-controls="book-toc-dialog" hidden>สารบัญ</button>
           <div class="bs-rail-tools"></div>
         </aside>'''
@@ -310,7 +310,7 @@ def detail(b):
       <div class="bs-reading-layout" id="summary">
       <header class="bs-reader-header" hidden><div><p class="bs-eyebrow">BOOKSHELF · อ่าน {b['readingMinutes']} นาที</p><div class="bs-reader-title-slot"></div><p class="bs-small">{E(b['author'])} · {E(b['edition'])}</p></div></header>
       <div class="bs-reading-slot"></div>
-      <aside class="bs-toc"><p class="bs-eyebrow">READING GUIDE</p><h2>ในบทความนี้</h2><nav aria-label="สารบัญบทความ">{toc}</nav><span class="bs-small">อ่านประมาณ {b['readingMinutes']} นาที</span></aside>
+      <aside class="bs-toc"><p class="bs-eyebrow">READING GUIDE</p><h2>IN THIS ARTICLE</h2><nav aria-label="สารบัญบทความ">{toc}</nav><span class="bs-small">ประมาณ {b['readingMinutes']} นาที</span></aside>
       <article class="bs-prose" aria-label="บทความหนังสือฉบับเต็ม"><p class="bs-editor-note">เรียบเรียงเนื้อหาฉบับเต็ม · ตรวจเทียบหนังสือฉบับออนไลน์ของ Stripe Press</p>
         {sections}
         <section class="bs-chapter" id="sources"><p class="bs-eyebrow">บทที่ {len(reading_sections(b)):02d}</p><h2>แหล่งอ้างอิงและข้อมูลหนังสือ</h2><dl class="bs-facts"><dt>ชื่อหนังสือ</dt><dd>{E(b['title'])}</dd><dt>ผู้เขียน</dt><dd>{E(b['author'])}</dd><dt>ผู้เรียบเรียง</dt><dd>{E(b['editor'])}</dd><dt>ฉบับที่อ้างถึง</dt><dd>{E(b['edition'])} · {b['year']}</dd><dt>สำนักพิมพ์</dt><dd>{E(b['publisher'])}</dd><dt>ISBN</dt><dd>{E(b['isbn'])}</dd><dt>อัปเดตบทความ</dt><dd><time datetime="{b['updatedAt']}">{date}</time></dd></dl><p class="bs-small">{E(b['editionNote'])}</p><ul class="bs-sources">{sources}</ul></section>
