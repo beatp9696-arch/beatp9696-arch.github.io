@@ -4,7 +4,8 @@
   if (!body.classList.contains('book-detail-page')) return;
   const prose = document.querySelector('.bs-prose');
   const chapters = [...prose.querySelectorAll(':scope > section[id]')];
-  const readerIDs = new Set(['summary', ...chapters.map(section => section.id)]);
+  const readerIDs = new Set(['summary', ...prose.querySelectorAll('[id]')].map(item => typeof item === 'string' ? item : item.id));
+  const legacyIDs = { 'one-line': 'question', suitable: 'reading-order', related: 'sources' };
   const title = document.querySelector('.bs-detail-copy h1');
   const titleHome = title.parentElement;
   const readerHeader = document.querySelector('.bs-reader-header');
@@ -59,7 +60,7 @@
       else link.removeAttribute('aria-current');
     }
     const index = chapters.findIndex(section => section.id === current);
-    const label = index < 0 ? 'เริ่มบทสรุป' : chapters[index].querySelector('h2').textContent;
+    const label = index < 0 ? 'เริ่มอ่าน' : chapters[index].querySelector('h2').textContent;
     document.querySelector('[data-current-chapter]').textContent = label;
     toolbar.querySelector('.bs-reader-current > span').textContent = index < 0 ? 'โหมดอ่าน' : `กำลังอ่าน ${index + 1} / ${chapters.length}`;
   }
@@ -76,7 +77,7 @@
     if (!section) return;
     section.scrollIntoView({ block: 'start', behavior: 'instant' });
     if (focus) {
-      const heading = section.querySelector('h1, h2') || section;
+      const heading = section.querySelector('h1, h2, h3') || section;
       heading.tabIndex = -1;
       heading.focus({ preventScroll: true });
     }
@@ -104,7 +105,12 @@
 
   function restoreLocation() {
     const url = new URL(location.href);
-    const id = url.hash.slice(1);
+    let id = url.hash.slice(1);
+    if (legacyIDs[id]) {
+      id = legacyIDs[id];
+      url.hash = id;
+      history.replaceState(null, '', url);
+    }
     setMode(readerIDs.has(id) || (!['book-intro', 'purchase'].includes(id) && (url.searchParams.get('reader') === '1' || url.searchParams.get('resume') === '1' || url.searchParams.has('highlight'))));
     if (id && (readerIDs.has(id) || ['book-intro', 'purchase'].includes(id))) jump(id, false);
     else if (active && !url.searchParams.has('resume') && !url.searchParams.has('highlight')) jump('summary', false);

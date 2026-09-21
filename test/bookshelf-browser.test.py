@@ -79,7 +79,10 @@ try:
                         page.screenshot(path=str(OUT / f'{label}-{size}-{theme}.png'), full_page=False)
                         page.emulate_media(reduced_motion='reduce')
                     if path == routes[1]:
-                        page.get_by_role('link', name='อ่านบทสรุป', exact=True).click()
+                        page.get_by_role('link', name='อ่านฉบับเต็ม', exact=True).click()
+                        expect(page.locator('.bs-tendencies > li')).to_have_count(25)
+                        expect(page.locator('.bs-talks > li')).to_have_count(11)
+                        expect(page.locator('main a[href="../articles/poor-charlies-almanack.html"]')).to_have_count(0)
                         expect(page.locator('.bs-detail-art')).to_be_hidden()
                         expect(page.locator('.bs-reader-header h1')).to_be_visible()
                         assert page.locator('.bs-prose').bounding_box()['width'] <= 721
@@ -125,7 +128,7 @@ try:
         art_top = page.locator('.bs-detail-art').bounding_box()['y']
         page.evaluate('scrollTo(0, 500)')
         assert abs(page.locator('.bs-detail-art').bounding_box()['y'] - art_top) < 2
-        page.get_by_role('link', name='อ่านบทสรุป', exact=False).first.click()
+        page.get_by_role('link', name='อ่านฉบับเต็ม', exact=False).first.click()
         assert page.url.endswith('#summary')
         assert 'reader=1' in page.url
         page.go_back()
@@ -153,11 +156,11 @@ try:
         assert page.locator('.bs-prose').evaluate('e => getComputedStyle(e).fontSize') == '20px'
         # Next links and browser back/forward keep the reader layout and correct chapter.
         page.locator('#question .bs-next-section a').click()
-        assert page.url.endswith('#one-line')
+        assert page.url.endswith('#key-ideas')
         page.go_back()
         assert page.url.endswith('#summary')
         page.go_forward()
-        assert page.url.endswith('#one-line')
+        assert page.url.endswith('#key-ideas')
         for link in page.locator('.bs-rail-index .bs-chapter-link').all():
             link.click()
             target = page.locator(link.get_attribute('href'))
@@ -254,7 +257,7 @@ try:
         static.locator('.bs-card h3').click()
         expect(static.locator('#key-ideas')).to_be_attached()
         static.locator('#question .bs-next-section a').click()
-        assert static.url.endswith('#one-line')
+        assert static.url.endswith('#key-ideas')
         # Reader still works with blocked browser storage and a direct chapter URL.
         blocked = browser.new_context(viewport={'width':320,'height':900}, reduced_motion='reduce')
         blocked.route('**/*', lambda route: route.continue_() if route.request.url.startswith(origin) else route.abort())
@@ -268,6 +271,16 @@ try:
         restricted.keyboard.press('Escape')
         assert restricted.locator('.bs-prose').evaluate('e => getComputedStyle(e).fontSize') == '22px'
         fitted(restricted)
+        # Incoming links from the previous short edition still open the full reader.
+        for old, current in [('one-line', 'question'), ('suitable', 'reading-order'), ('related', 'sources')]:
+            restricted.goto(origin + routes[1] + '#' + old)
+            expect(restricted.locator('.bs-reader-toolbar')).to_be_visible()
+            assert restricted.url.endswith('#' + current), restricted.url
+            expect(restricted.locator(f'.bs-toc-dialog a[href="#{current}"]')).to_have_attribute('aria-current', 'location')
+        restricted.goto(origin + routes[1] + '#tendency-25')
+        expect(restricted.locator('.bs-reader-toolbar')).to_be_visible()
+        assert restricted.locator('#tendency-25').bounding_box()['y'] >= 120
+        expect(restricted.locator('.bs-toc-dialog a[href="#misjudgment"]')).to_have_attribute('aria-current', 'location')
         assert not errors, errors
         browser.close()
     print('Bookshelf: 16 theme/viewport checks; reader layout/settings, labelled TOC, next chapters, history, mobile dialogs, reading persistence, search, links, keyboard, reduced motion, failed images, blocked storage and no-JS passed.')

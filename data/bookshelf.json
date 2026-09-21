@@ -35,94 +35,9 @@
       "cover": "img/books/poor-charlies-almanack-stripe.jpg",
       "coverAlt": "ปก Poor Charlie’s Almanack ฉบับ Stripe Press ปี 2023 ภาพ Charles T. Munger จากเส้นสีเหลืองบนพื้นสีน้ำเงิน",
       "accent": "#1d1d62",
-      "shortDescription": "คิดให้รอบด้านก่อนตัดสินใจ ด้วยกรอบคิดข้ามศาสตร์ การกลับด้านปัญหา และการมองแรงจูงใจที่อยู่หลังพฤติกรรม",
-      "oneLineSummary": "การตัดสินใจที่รอบคอบเริ่มจากมองหลายมุม รู้ขอบเขตความเข้าใจ และหาทางหลีกเลี่ยงความผิดพลาดก่อนหาคำตอบที่ถูกใจ",
-      "readingMinutes": 5,
+      "shortDescription": "เรียบเรียงฉบับเต็ม: โครงข่ายความคิด การคิดกลับด้าน จิตวิทยา 25 ประการ แนวทางลงทุน และสุนทรพจน์ทั้ง 11 บท อ่านต่อเนื่องในหน้าเดียว",
+      "readingMinutes": 25,
       "fullArticle": "articles/poor-charlies-almanack.html",
-      "summarySections": [
-        {
-          "id": "question",
-          "title": "หนังสือเล่มนี้ตอบคำถามอะไร",
-          "paragraphs": [
-            "Poor Charlie’s Almanack รวบรวมชีวิต วิธีคิด และสุนทรพจน์ของ Charles T. Munger โดยมี Peter D. Kaufman เป็นผู้เรียบเรียง เนื้อหาครอบคลุมการเรียนรู้ การตัดสินใจ จิตวิทยา และการลงทุน โดยมีความรู้จากหลายศาสตร์เป็นพื้นฐานร่วมกัน",
-            "ในสุนทรพจน์เรื่อง Worldly Wisdom มังเกอร์อธิบายว่าข้อเท็จจริงที่จำแยกจากกันยังไม่ใช่ความรู้ที่พร้อมใช้งาน เขาเสนอให้จัดประสบการณ์และความรู้เข้ากับโครงข่ายแบบจำลองทางความคิด เพื่อให้มองปัญหาได้จากหลายด้าน",
-            "หนังสือยังให้ความสำคัญกับข้อจำกัดของผู้ตัดสินใจ ทั้งขอบเขตความสามารถ แรงจูงใจ และแนวโน้มทางจิตวิทยาที่อาจทำให้คิดผิด การศึกษาความผิดพลาดจึงปรากฏควบคู่กับการสะสมความรู้ตลอดทั้งเล่ม"
-          ]
-        }
-      ],
-      "keyIdeas": [
-        {
-          "english": "Latticework of Mental Models",
-          "thai": "โครงข่ายกรอบคิดหลายศาสตร์",
-          "paragraphs": [
-            "มังเกอร์อธิบายว่าการจำข้อเท็จจริงเพียงอย่างเดียวไม่เพียงพอ ความรู้ต้องเชื่อมกับแบบจำลองทางความคิดจึงจะเรียกใช้และนำไปทำความเข้าใจประสบการณ์ได้ เขาเน้นการมีแบบจำลองหลายชนิด เพราะการอาศัยเครื่องมือเพียงอย่างเดียวทำให้พยายามอธิบายทุกปัญหาด้วยคำตอบแบบเดิม",
-            "ในสุนทรพจน์ Worldly Wisdom เขายกความรู้พื้นฐานจากคณิตศาสตร์ วิศวกรรม ชีววิทยา และจิตวิทยามาประกอบกัน แต่ละศาสตร์ช่วยอธิบายคนละส่วนของปัญหา จึงต้องเรียนรู้แนวคิดสำคัญข้ามสาขา"
-          ],
-          "source": {
-            "title": "Talk Two · A Lesson on Elementary, Worldly Wisdom",
-            "url": "https://www.stripe.press/poor-charlies-almanack/talk-two"
-          }
-        },
-        {
-          "english": "Circle of Competence",
-          "thai": "รู้ขอบเขตที่เข้าใจจริง",
-          "paragraphs": [
-            "มังเกอร์อธิบายว่าทุกคนมีขอบเขตความสามารถของตน และการขยายขอบเขตนั้นไม่ใช่เรื่องง่าย การเลือกทำสิ่งที่ผู้อื่นมีความถนัดเหนือกว่าโดยตนไม่มีข้อได้เปรียบ ย่อมทำให้เสียเปรียบตั้งแต่ต้น",
-            "เขายกตัวอย่างการเป็นนักเทนนิสระดับโลก ซึ่งความพยายามเพียงอย่างเดียวไม่รับประกันว่าจะไปถึงได้ ประเด็นสำคัญคือรู้ว่าตนถนัดอะไรและเลือกทำงานภายในขอบเขตที่เข้าใจจริง"
-          ],
-          "source": {
-            "title": "Talk Two · A Lesson on Elementary, Worldly Wisdom",
-            "url": "https://www.stripe.press/poor-charlies-almanack/talk-two"
-          }
-        },
-        {
-          "english": "Inversion",
-          "thai": "กลับด้านเพื่อเห็นทางพลาด",
-          "paragraphs": [
-            "การคิดกลับด้านคือการพิจารณาปัญหาจากทิศทางตรงข้าม มังเกอร์ใช้วิธีนี้ในสุนทรพจน์แรกของเล่ม โดยเริ่มจากสิ่งที่จะทำให้ชีวิตเป็นทุกข์ แทนการแจกแจงหนทางสู่ความสุข",
-            "เขาต่อยอดเรื่องเล่าของ Johnny Carson ด้วยพฤติกรรมอย่างการเป็นคนที่พึ่งพาไม่ได้และการไม่เรียนรู้จากประสบการณ์ของผู้อื่น การมองเห็นทางที่ทำให้ล้มเหลวช่วยให้รู้ว่าสิ่งใดควรหลีกเลี่ยง"
-          ],
-          "source": {
-            "title": "Talk One · Harvard School Commencement Speech",
-            "url": "https://www.stripe.press/poor-charlies-almanack/talk-one"
-          }
-        },
-        {
-          "english": "Incentive-Caused Bias",
-          "thai": "อคติจากแรงจูงใจ",
-          "paragraphs": [
-            "ใน The Psychology of Human Misjudgment มังเกอร์อธิบายพลังของรางวัลและบทลงโทษที่มีต่อพฤติกรรม รวมถึงการที่แรงจูงใจอาจทำให้คนเชื่อคำอธิบายที่เข้าข้างผลประโยชน์ของตนโดยไม่รู้ตัว",
-            "ตัวอย่างหนึ่งในเล่มคือ Federal Express ซึ่งต้องขนถ่ายพัสดุให้เสร็จทันเวลา มังเกอร์เล่าว่าการเปลี่ยนจากค่าจ้างรายชั่วโมงเป็นค่าจ้างต่อกะ และให้พนักงานกลับบ้านได้เมื่องานเสร็จ ช่วยแก้ปัญหาความล่าช้า เพราะผลตอบแทนสอดคล้องกับงานที่ต้องการให้สำเร็จ"
-          ],
-          "source": {
-            "title": "Talk Eleven · The Psychology of Human Misjudgment",
-            "url": "https://www.stripe.press/poor-charlies-almanack/talk-eleven"
-          }
-        },
-        {
-          "english": "Lollapalooza Effect",
-          "thai": "หลายแรงที่เสริมกันจนผลเปลี่ยนขนาด",
-          "paragraphs": [
-            "มังเกอร์ใช้คำว่า Lollapalooza กับผลลัพธ์ที่รุนแรงเมื่อแนวโน้มทางจิตวิทยาหลายอย่างทำงานไปในทิศทางเดียวกัน การแยกศึกษาอคติทีละข้อจึงยังไม่เพียงพอ ต้องพิจารณาด้วยว่าเมื่อเกิดพร้อมกันแล้ว แต่ละแรงส่งเสริมกันอย่างไร"
-          ],
-          "source": {
-            "title": "Talk Eleven · The Psychology of Human Misjudgment",
-            "url": "https://www.stripe.press/poor-charlies-almanack/talk-eleven"
-          }
-        }
-      ],
-      "relatedLinks": [
-        {
-          "title": "บทความเกี่ยวกับ Poor Charlie’s Almanack",
-          "description": "อ่านบทความประกอบเกี่ยวกับแนวคิดในเล่ม",
-          "href": "articles/poor-charlies-almanack.html"
-        },
-        {
-          "title": "Munger Talks",
-          "description": "กลับไปอ่านบริบทของแต่ละสุนทรพจน์",
-          "href": "series-munger-talks.html"
-        }
-      ],
       "purchaseLinks": [
         {
           "store": "Stripe Press",
@@ -153,85 +68,78 @@
           "url": "https://www.stripe.press/poor-charlies-almanack"
         },
         {
-          "title": "Talk Two · A Lesson on Elementary, Worldly Wisdom",
-          "url": "https://www.stripe.press/poor-charlies-almanack/talk-two"
-        },
-        {
-          "title": "Talk One · Harvard School Commencement Speech",
-          "url": "https://www.stripe.press/poor-charlies-almanack/talk-one"
-        },
-        {
-          "title": "Talk Eleven · The Psychology of Human Misjudgment",
-          "url": "https://www.stripe.press/poor-charlies-almanack/talk-eleven"
-        },
-        {
-          "title": "Talk Ten · USC Gould School of Law Commencement Address",
-          "url": "https://www.stripe.press/poor-charlies-almanack/talk-ten"
-        },
-        {
-          "title": "Talk Four · Practical Thought about Practical Thought?",
-          "url": "https://www.stripe.press/poor-charlies-almanack/talk-four"
-        },
-        {
-          "title": "Stripe Press · ข้อมูลหนังสือและฉบับกระชับ",
+          "title": "Stripe Press · ข้อมูลฉบับพิมพ์",
           "url": "https://press.stripe.com/poor-charlies-almanack"
         },
         {
-          "title": "Bookshop · ปีพิมพ์ สำนักพิมพ์ และ ISBN ฉบับ 2023",
-          "url": "https://bookshop.org/p/books/poor-charlie-s-almanack-the-essential-wit-and-wisdom-of-charles-t-munger-charles-t-munger/52a309f806d085b2?ean=9781953953230"
+          "title": "Talk 01 · Harvard School Commencement Speech",
+          "url": "https://www.stripe.press/poor-charlies-almanack/talk-one"
         },
         {
-          "title": "Bookshop · ภาพปกฉบับ Stripe Press",
-          "url": "https://images-us.bookshop.org/ingram/9781953953230.jpg?v=4be0897ba78b5212f520e413f29a1ddd&width=1200"
+          "title": "Talk 02 · A Lesson on Elementary, Worldly Wisdom",
+          "url": "https://www.stripe.press/poor-charlies-almanack/talk-two"
+        },
+        {
+          "title": "Talk 03 · Worldly Wisdom Revisited",
+          "url": "https://www.stripe.press/poor-charlies-almanack/talk-three"
+        },
+        {
+          "title": "Talk 04 · Practical Thought about Practical Thought?",
+          "url": "https://www.stripe.press/poor-charlies-almanack/talk-four"
+        },
+        {
+          "title": "Talk 05 · Harvard Law School 50th Reunion Address",
+          "url": "https://www.stripe.press/poor-charlies-almanack/talk-five"
+        },
+        {
+          "title": "Talk 06 · Investment Practices of Leading Charitable Foundations",
+          "url": "https://www.stripe.press/poor-charlies-almanack/talk-six"
+        },
+        {
+          "title": "Talk 07 · Philanthropy Roundtable",
+          "url": "https://www.stripe.press/poor-charlies-almanack/talk-seven"
+        },
+        {
+          "title": "Talk 08 · The Great Financial Scandal of 2003",
+          "url": "https://www.stripe.press/poor-charlies-almanack/talk-eight"
+        },
+        {
+          "title": "Talk 09 · Academic Economics: Strengths and Faults",
+          "url": "https://www.stripe.press/poor-charlies-almanack/talk-nine"
+        },
+        {
+          "title": "Talk 10 · USC Gould School of Law Commencement Address",
+          "url": "https://www.stripe.press/poor-charlies-almanack/talk-ten"
+        },
+        {
+          "title": "Talk 11 · The Psychology of Human Misjudgment",
+          "url": "https://www.stripe.press/poor-charlies-almanack/talk-eleven"
+        },
+        {
+          "title": "About the Book",
+          "url": "https://www.stripe.press/poor-charlies-almanack/about"
+        },
+        {
+          "title": "Chapter One · A Portrait of Charles T. Munger",
+          "url": "https://www.stripe.press/poor-charlies-almanack/chapter-one"
+        },
+        {
+          "title": "Chapter Three · The Munger Approach",
+          "url": "https://www.stripe.press/poor-charlies-almanack/chapter-three"
         }
       ],
-      "editionNote": "ปกและข้อมูลหนังสือเป็นฉบับกระชับของ Stripe Press (2023) เนื้อหาหน้านี้เป็นบทสรุปภาษาไทยจากฉบับออนไลน์ของผู้จัดพิมพ์ ไม่ใช่คำแปลเต็มเล่มหรือข้อความอ้างโดยตรง",
+      "editionNote": "ข้อมูลหนังสือและปกอ้างอิงฉบับกระชับ Stripe Press (2023) บทความนี้เรียบเรียงเนื้อหาจากบทความเต็มของเว็บไซต์และตรวจเทียบฉบับออนไลน์ของผู้จัดพิมพ์ เป็นการอธิบายแนวคิดภาษาไทย ไม่ใช่คำแปลหนังสือทั้งเล่ม",
       "updatedAt": "2026-09-21",
-      "fullArticleMinutes": 14,
       "shareImage": "og-poor-charlies-almanack.jpg",
       "coverWidth": 843,
       "coverHeight": 1200,
       "purchaseNote": "ฉบับภาษาอังกฤษ · ราคาและพื้นที่จัดส่งดูได้จากแต่ละร้าน",
       "fullTitle": "Poor Charlie’s Almanack: The Essential Wit and Wisdom of Charles T. Munger",
       "intro": [
-        "การตัดสินใจที่ดีไม่ได้อาศัยความรู้เรื่องใดเรื่องหนึ่งเพียงอย่างเดียว Poor Charlie’s Almanack รวบรวมสุนทรพจน์และแนวคิดของ Charles T. Munger ที่ชวนเชื่อมความรู้ด้านธุรกิจ เศรษฐศาสตร์ จิตวิทยา และวิทยาศาสตร์เข้าด้วยกัน เพื่อเข้าใจทั้งปัญหาที่อยู่ตรงหน้าและอคติของผู้ตัดสินใจ",
-        "สุนทรพจน์ในเล่มอธิบายทั้งโครงข่ายแบบจำลองทางความคิด การคิดกลับด้าน ขอบเขตความสามารถ และจิตวิทยาของการตัดสินใจผิดพลาด โดยใช้เรื่องเล่าและตัวอย่างประกอบจากชีวิตและธุรกิจ บทสรุปนี้คัดประเด็นจากหนังสือ พร้อมลิงก์กลับไปยังสุนทรพจน์ต้นฉบับ"
+        "Poor Charlie’s Almanack รวบรวมวิธีคิดของ Charles T. Munger ตั้งแต่การเชื่อมความรู้หลายศาสตร์ การมองปัญหากลับด้าน ไปจนถึงจิตวิทยาที่ทำให้คนตัดสินใจพลาด ทั้งหมดเชื่อมกับแนวทางลงทุน การเรียนรู้ และการดำเนินชีวิตของเขา",
+        "ฉบับเรียบเรียงนี้รวมเนื้อหาจากบทความเต็มไว้ในหน้าเดียว พร้อมอธิบายแนวโน้มทางจิตวิทยาครบ 25 ข้อและเส้นเรื่องของสุนทรพจน์ทั้ง 11 บท อ่านต่อได้ตามลำดับหรือเลือกหัวข้อจากสารบัญ"
       ],
-      "bookChapters": [
-        {
-          "title": "A Lesson on Elementary, Worldly Wisdom",
-          "text": "สุนทรพจน์เรื่องโครงข่ายแบบจำลองทางความคิด การเชื่อมความรู้หลายศาสตร์ และขอบเขตความสามารถ",
-          "href": "https://www.stripe.press/poor-charlies-almanack/talk-two"
-        },
-        {
-          "title": "Practical Thought about Practical Thought?",
-          "text": "มังเกอร์ตั้งโจทย์สมมติการสร้างธุรกิจเครื่องดื่มขนาดใหญ่ แล้วใช้แบบจำลองจากหลายศาสตร์อธิบายแนวทางคิดผ่านกรณี Coca-Cola",
-          "href": "https://www.stripe.press/poor-charlies-almanack/talk-four"
-        },
-        {
-          "title": "USC Gould School of Law Commencement Address",
-          "text": "สุนทรพจน์ว่าด้วยการเรียนรู้อย่างต่อเนื่อง ความน่าเชื่อถือ และการปฏิบัติต่อผู้อื่นอย่างสมควรได้รับความไว้วางใจ",
-          "href": "https://www.stripe.press/poor-charlies-almanack/talk-ten"
-        },
-        {
-          "title": "The Psychology of Human Misjudgment",
-          "text": "การอธิบายแนวโน้มทางจิตวิทยา 25 ประการ ตั้งแต่ผลของรางวัลและบทลงโทษไปจนถึงการทำงานร่วมกันของหลายแนวโน้ม",
-          "href": "https://www.stripe.press/poor-charlies-almanack/talk-eleven"
-        }
-      ],
-      "coreThemes": [
-        "ในสุนทรพจน์รับปริญญาที่ USC มังเกอร์มองการเรียนรู้เป็นงานตลอดชีวิต ความรู้ที่มีอยู่เดิมไม่เพียงพอสำหรับปัญหาใหม่ เขาเล่าว่าความก้าวหน้าของ Berkshire Hathaway ต้องอาศัยการเรียนรู้อย่างต่อเนื่องของ Warren Buffett",
-        "เขาให้ความสำคัญกับความน่าเชื่อถือควบคู่กับความรู้ การทำตามสิ่งที่รับปากต้องเป็นส่วนหนึ่งของพฤติกรรม และการยึดติดกับความเชื่ออย่างรุนแรงอาจขัดขวางความสามารถในการพิจารณาเหตุผล"
-      ],
-      "coreThemesSource": {
-        "title": "Talk Ten · USC Gould School of Law Commencement Address",
-        "url": "https://www.stripe.press/poor-charlies-almanack/talk-ten"
-      },
-      "keyTakeaways": [
-        "ความรู้หลายศาสตร์ต้องเชื่อมกันเป็นโครงข่าย จึงจะช่วยอธิบายประสบการณ์และปัญหาได้กว้างกว่าการจำข้อเท็จจริงเป็นเรื่อง ๆ",
-        "การรู้ขอบเขตความสามารถและการคิดกลับด้านเป็นส่วนหนึ่งของวิธีหลีกเลี่ยงความผิดพลาดที่มังเกอร์อธิบายในเล่ม",
-        "แรงจูงใจและแนวโน้มทางจิตวิทยามีผลต่อการตัดสินใจ และอาจสร้างผลลัพธ์ที่รุนแรงเมื่อหลายแรงทำงานร่วมกัน"
-      ]
+      "contentFile": "data/books/poor-charlies-almanack.json"
     }
   ]
 }

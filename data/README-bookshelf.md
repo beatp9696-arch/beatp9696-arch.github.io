@@ -1,13 +1,14 @@
 # Bookshelf
 
-`bookshelf.json` is the source for the collection, detail pages, Book/Article JSON-LD,
+`bookshelf.json` holds catalog metadata; each book's `contentFile` points to its
+full reading text under `data/books/`. These feed detail pages, Book/Article JSON-LD,
 sitemap entries and RSS summaries. `bookshelf_build.py` renders static HTML during
 `python3 build.py`; `bookshelf.js` only enhances filtering and image fallbacks.
 Do not edit `books.html` or `books/*.html` directly.
 
 To add a book, add one record in `bookshelf.json`, add its cover under `img/books/`,
 and run `python3 build.py`. No copied HTML is required. `ready` generates a public
-summary; `draft` shows a non-linked “กำลังเรียบเรียง” catalog card. Set `featured`
+article; `draft` shows a non-linked “กำลังเรียบเรียง” catalog card. Set `featured`
 on the book to feature. Category names must come from the top-level category list.
 `titleThai` is a Moatrices descriptive title, not a claim about a published translation.
 
@@ -37,7 +38,7 @@ mode. Chapter anchors account for the bar height so headings stay visible.
 The large overview cover stays non-sticky on mobile; reduced motion removes its
 3D rotation.
 
-`book-reader.js` opens a centered, maximum 720px reading column from the summary
+`book-reader.js` opens a centered, maximum 720px reading column from the full-article
 CTA or a chapter link. The original title moves into a compact header; the article
 nodes, bookmarks and notes are shared with the overview. `?reader=1` keeps the
 layout on reload; direct chapter links and saved-reading resumes also open it.
@@ -58,15 +59,25 @@ a link. No current link is affiliate. If affiliate links are added, set
 
 > ลิงก์บางรายการอาจเป็น affiliate link ซึ่งช่วยสนับสนุนการทำเว็บไซต์ โดยไม่มีค่าใช้จ่ายเพิ่มสำหรับผู้อ่าน
 
-Related local links are checked against actual files at build time. Summaries
-describe the book's own ideas, with primary-source links under each key idea.
-Use `bookChapters` for referenced talks, `coreThemes` with `coreThemesSource` for
-additional themes from the book, and `keyTakeaways` for a brief recap. Do not add
-invented business applications, audience recommendations, personal commentary,
-or prompts that send readers into the site's investment tools. The source is the
-publisher's online book, not the site's older interpretive article. Summaries are
-paraphrases, not direct quotations. Existing `reading-order`, `synthesis`, and
-`questions` anchors stay stable for saved reading positions and incoming links.
+The full article is readable within Bookshelf; there is no second “full version”
+CTA sending readers back to the older article. The original article links forward
+to this edition. Its topics are reworked and checked against the publisher's
+online book, retaining the book's own ideas and examples. Do not add invented
+business applications, audience recommendations, personal commentary, or prompts
+that send readers into the site's investment tools. This is an original Thai
+explanation, not a full translation of the book.
+
+`contentFile` contains ordered `chapters` with stable IDs, titles, subtitles,
+content blocks and source references. Supported blocks are paragraphs, headings,
+paraphrased notes, lists, numbered psychological tendencies and talk descriptions.
+Chapter numbering, all contents menus and next links use the same ordered list.
+The Almanack edition includes 25 psychological tendencies and all 11 talks,
+approximately 4,969 words / 25 minutes at 200 words per minute using
+`Intl.Segmenter('th', {granularity: 'word'})` for the count.
+Existing `question`, `key-ideas`, `reading-order`, `synthesis`, and `questions`
+anchors stay stable. The reader maps removed `one-line`, `suitable` and `related`
+links to the corresponding current section; individual tendencies also support
+direct links. Local source links are validated at build time.
 
 Reading uses the existing `moatrices.reading.v1` store, including bookmarks,
 progress, resume and notes. `/books/` and `/articles/` records stay independent.
