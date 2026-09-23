@@ -1077,8 +1077,9 @@ def _chapter_body(src, n, ep_anchor, is_cs):
                       lambda m: f'<h2 class="cs-title" id="ep-{n}-title">{m.group(1)}</h2>',
                       body, count=1, flags=re.S)
     else:
-        for rx in (_EP_KICKER_RE, _EP_H1_RE, _EP_BYLINE_RE):
-            body = rx.sub("", body, count=1)
+        body = _EP_H1_RE.sub("", body, count=1)
+    for rx in (_EP_KICKER_RE, _EP_BYLINE_RE):
+        body = rx.sub("", body, count=1)
     body = _EP_AUTHOR_RE.sub("", body)
     body = _EP_BACK_RE.sub("", body)
     body = re.sub(r'\bid="sec-(\d+)"', rf'id="ep{n}-sec-\1"', body)
@@ -1102,9 +1103,7 @@ def _chapter_body(src, n, ep_anchor, is_cs):
 
 def _scope_casestudy_css(css):
     """casestudy.css เขียนไว้ให้ทั้งหน้า (body.cs) — ในหน้าเล่มแต่ละเคสคือบทหนึ่ง จึงย้าย scope ลง
-    <article class="cs-chapter" data-cs-theme="…"> (ธีมกระดาษ/สีประจำหุ้นอยู่ในบทนั้น ไม่ลามทั้งหน้า)
-    กฎของ header/footer (body.cs .site-title ฯลฯ) กลายเป็น selector ที่ไม่ match อะไร = ไม่มีผลเอง"""
-    css = re.sub(r"html:has\(body\.cs\)\s*\{[^}]*\}", "", css)
+    <article class="cs-chapter" data-cs-theme="…"> (สีหมึกประจำหุ้นอยู่ในบทนั้น ไม่ลามทั้งหน้า)"""
     css = css.replace("body.cs main > .container", ".cs-chapter > .container")
     css = css.replace("body.cs main", ".cs-chapter").replace("body.cs", ".cs-chapter")
     css = css.replace(".cs-opener h1", ".cs-opener .cs-title")

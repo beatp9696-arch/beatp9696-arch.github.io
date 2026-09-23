@@ -148,23 +148,15 @@ body.has-os-tabbar .book-pill { bottom: calc(74px + env(safe-area-inset-bottom, 
 --cs-a-deep: #8E6A2C;
 --cs-a-tint: #F1E9D7;
 --cs-alt:    #8A4A2A;
---bg: #EDE7D9;
---surface: #FAF7F0;
---surface-2: #F4EFE3;
---text: #1A1611;
---muted: #6E6353;
 --accent: var(--cs-a-deep);
 --accent-strong: var(--cs-a-deep);
 --accent-tint: var(--cs-a-tint);
 --accent-bright: var(--cs-a-lit);
---border: #DDD2BB;
---header-bg: rgba(237, 231, 217, 0.88);
 --grad: linear-gradient(90deg, var(--cs-a-deep), var(--cs-a-lit));
---shadow-md: 0 10px 40px rgba(58, 44, 22, 0.10);
---paper: #FAF7F0;
---paper-edge: #EFE8D8;
---ink: #1A1611;
---ink-soft: #4A4136;
+--paper: var(--surface);
+--paper-edge: var(--surface-2);
+--ink: var(--text);
+--ink-soft: color-mix(in srgb, var(--text) 78%, var(--muted));
 --gold: var(--cs-a);
 --gold-lit: var(--cs-a-lit);
 --gold-hair: var(--cs-a-hair);
@@ -194,6 +186,22 @@ body.has-os-tabbar .book-pill { bottom: calc(74px + env(safe-area-inset-bottom, 
 background: var(--bg);
 overflow-x: clip;
 }
+@media (prefers-color-scheme: dark) {
+:root:not([data-theme="light"]) .cs-chapter {
+--gold: var(--cs-a-lit);
+--gold-hair: color-mix(in srgb, var(--cs-a-lit) 30%, var(--border));
+--accent: var(--cs-a-lit);
+--accent-strong: color-mix(in srgb, var(--cs-a-lit) 72%, #fff);
+--accent-tint: color-mix(in srgb, var(--cs-a-lit) 10%, var(--surface));
+}
+}
+:root[data-theme="dark"] .cs-chapter {
+--gold: var(--cs-a-lit);
+--gold-hair: color-mix(in srgb, var(--cs-a-lit) 30%, var(--border));
+--accent: var(--cs-a-lit);
+--accent-strong: color-mix(in srgb, var(--cs-a-lit) 72%, #fff);
+--accent-tint: color-mix(in srgb, var(--cs-a-lit) 10%, var(--surface));
+}
 .cs-chapter[data-cs-theme="dpz"] {
 --cs-a:      #0A4C74;
 --cs-a-lit:  #3E93C4;
@@ -201,18 +209,6 @@ overflow-x: clip;
 --cs-a-deep: #073A59;
 --cs-a-tint: #EBF2F7;
 --cs-alt:    #B9182F;
---bg: #E8E6E0;
---surface: #FBFAF7;
---surface-2: #F2F1EC;
---text: #14181C;
---muted: #5F6A72;
---border: #D3D8DA;
---header-bg: rgba(232, 230, 224, 0.88);
---shadow-md: 0 10px 40px rgba(11, 32, 48, 0.12);
---paper: #FBFAF7;
---paper-edge: #EFEEE9;
---ink: #14181C;
---ink-soft: #414C55;
 --plate: #0A1219;
 --plate-line: #1D3547;
 --plate-ink: #E7EEF3;
@@ -259,17 +255,6 @@ letter-spacing: 0.26em;
 font-size: 0.72rem;
 color: var(--gold);
 }
-.cs-chapter .site-title {
-font-family: var(--font-display);
-font-weight: 700;
-letter-spacing: 0.06em;
-gap: 0;
-padding-bottom: 3px;
-border-bottom: 1px solid var(--gold);
-}
-.cs-chapter .site-title::before { display: none; }
-.cs-chapter .site-nav a { font-family: var(--font-book); font-weight: 600; }
-.cs-chapter .top-accent { height: 2px; }
 .cs-chapter .cs-bleed {
 width: 100vw;
 max-width: 100vw;
@@ -754,7 +739,6 @@ letter-spacing: 0;
 .cs-chapter p a:hover, .cs-chapter li a:hover { text-decoration-color: var(--gold); }
 .cs-chapter li::marker { color: var(--gold); }
 .cs-chapter table { font-family: var(--font-book); }
-.cs-chapter .site-footer { font-family: var(--font-book); }
 @media (prefers-reduced-motion: reduce) {
 .cs-opener .cs-amb { animation: none !important; }
 }
@@ -814,18 +798,6 @@ transform-box: fill-box; transform-origin: 617px 202px; }
 --cs-a-deep: #5E3D22;
 --cs-a-tint: #F3ECE3;
 --cs-alt:    #A8232B;
---bg: #EBE7DE;
---surface: #FBFAF7;
---surface-2: #F3F0E9;
---text: #16161A;
---muted: #66625C;
---border: #D9D3C8;
---header-bg: rgba(235, 231, 222, 0.88);
---shadow-md: 0 10px 40px rgba(40, 32, 20, 0.12);
---paper: #FBFAF7;
---paper-edge: #F0ECE3;
---ink: #16161A;
---ink-soft: #454138;
 --plate: #0C0F0F;
 --plate-line: #2A2A24;
 --plate-ink: #E6E8E3;

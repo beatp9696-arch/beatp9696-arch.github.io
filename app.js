@@ -228,11 +228,9 @@ window.NYSE = (function () {
   }
   window.effectiveTheme = effectiveTheme;
 
-  // ซีรีส์เคสศึกษา (body.cs) ตั้งใจเป็นกระดาษครีมเสมอ — ดูเหตุผลใน casestudy.css
-  // จึงไม่ฉีดปุ่มสลับธีมในหน้านั้น: ปุ่มเดิมโผล่และกดได้ แต่หน้าไม่เปลี่ยนอะไรเลย
-  // (body.cs ชนะ :root[data-theme]) ขณะที่ localStorage ถูกเขียนไปแล้ว = ผู้อ่านกดแล้ว
-  // เหมือนปุ่มเสีย แต่ธีมของทุกหน้าที่เหลือในเว็บพลิกไปโดยไม่มีอะไรบอก
-  var nav = document.body.classList.contains("cs") ? null : document.querySelector(".site-nav");
+  // ฉีดปุ่มสลับธีมทุกหน้า — เคสศึกษา (body.cs) เคยข้ามเพราะล็อกกระดาษครีม
+  // ตั้งแต่ 23 ก.ย. 2026 ตามธีมเว็บแล้ว (casestudy.css) จึงสลับได้เหมือนหน้าอื่น
+  var nav = document.querySelector(".site-nav");
   if (nav && !document.documentElement.dataset.themeLocked) {
     var b = document.createElement("button");
     b.className = "theme-toggle";
