@@ -59,13 +59,19 @@ try:
         page.on('response', lambda response: failures.append(response.url) if response.url.startswith(origin) and response.status >= 400 else None)
 
         page.goto(origin + '/index.html')
-        expect(page.locator('.reading-home')).to_be_visible()
+        # A first-time reader has nothing to resume, so the reading desk stays out of the way.
+        expect(page.locator('.reading-home')).to_be_hidden()
         assert page.locator('h1').count() == 1
-        assert page.locator('.home-hero').evaluate("e => e.nextElementSibling.classList.contains('home-approach-section')")
-        assert page.locator('.home-approach-section').evaluate("e => e.nextElementSibling.id === 'home-overview'")
+        # hero → series shelf (+ Bookshelf) → reading desk → approach → research overview → latest notes
+        assert page.locator('.home-hero').evaluate("e => e.nextElementSibling.classList.contains('press-series')")
+        expect(page.locator('.press-series .press-book')).to_have_count(8)
+        expect(page.locator('.press-series a[href="books.html"]')).to_have_count(1)
+        assert page.locator('.press-series').evaluate("e => e.nextElementSibling.id === 'home-reading-slot'")
         expect(page.locator('#home-reading-slot .reading-home')).to_have_count(1)
-        assert page.locator('#home-explore').evaluate("e => e.nextElementSibling.id === 'home-reading-slot'")
-        assert page.evaluate("document.querySelector('.home-hero').compareDocumentPosition(document.querySelector('.home-overview')) & Node.DOCUMENT_POSITION_FOLLOWING")
+        assert page.locator('#home-reading-slot').evaluate("e => e.nextElementSibling.classList.contains('home-approach-section')")
+        assert page.locator('.home-approach-section').evaluate("e => e.nextElementSibling.id === 'home-overview'")
+        assert page.locator('#home-overview').evaluate("e => e.nextElementSibling.classList.contains('press-notes')")
+        expect(page.locator('.home-workspace, .featured-grid, .press-lab, .press-collection-more, .home-bookshelf-entry')).to_have_count(0)
         lenses = [('price', 'reverse-dcf.html'), ('news', 'portfolio.html?view=research'),
                   ('financials', 'series-financials.html'), ('business', 'stocks.html'), ('moat', 'series-powers.html')]
         for theme in ['light', 'dark']:
@@ -101,12 +107,6 @@ try:
         page.evaluate("document.documentElement.dataset.theme = 'light'")
         print('PASS approach placement, five lenses, links, keyboard, stable layout and reduced motion', flush=True)
         check_layout(page, 'home')
-        for tab in ['frameworks', 'money', 'research']:
-            page.locator('#home-tab-' + tab).click()
-            expect(page.locator('#home-panel-' + tab)).to_be_visible()
-        page.locator('#home-tab-research').focus()
-        page.keyboard.press('ArrowRight')
-        expect(page.locator('#home-tab-frameworks')).to_have_attribute('aria-selected', 'true')
         page.locator('#theme-toggle').click()
         expect(page.locator('html')).to_have_attribute('data-theme', 'dark')
         check_layout(page, 'home-dark')

@@ -130,6 +130,8 @@ function initHome() {
     try { articles = records('article'); notes = records('note'); } catch { section.hidden = true; return; }
     const progress = articles.filter(item => item.progress > 0 && !item.completed).sort((a,b) => String(b.lastReadAt).localeCompare(String(a.lastReadAt))).slice(0, 2);
     const saved = articles.filter(item => item.saved).length, due = notes.filter(note => dueNote(note)).length;
+    // Nothing to resume yet: keep the homepage clean for first-time readers.
+    if (!progress.length && !saved && !due) { section.hidden = true; return; }
     section.hidden = false;
     section.classList.toggle('is-empty', !progress.length);
     section.innerHTML = `<div class="reading-heading"><div><span class="reading-eyebrow">YOUR READING DESK</span><h2>${progress.length ? 'อ่านต่อจากครั้งก่อน' : 'เก็บเรื่องที่สนใจ ไว้กลับมาอ่าน'}</h2></div><a href="${libraryURL}">คลังอ่านของฉัน ↗</a></div>${progress.length ? `<div class="reading-card-grid">${progress.map(articleCard).join('')}</div>` : '<p class="reading-muted">บันทึกบทความ ไฮไลต์ และคำถามไว้ในคลังอ่านของคุณ</p>'}${saved || due ? `<div class="reading-home-links">${saved ? `<a href="${libraryURL}?view=saved">${saved} เรื่องไว้อ่าน →</a>` : ''}${due ? `<a href="${libraryURL}?view=due">${due} บันทึกถึงรอบทบทวน →</a>` : ''}</div>` : ''}`;

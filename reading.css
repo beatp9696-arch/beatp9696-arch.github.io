@@ -40,7 +40,6 @@
 .reading-dialog label small { font-weight:400; color:var(--rd-muted); }
 .reading-dialog input,.reading-dialog textarea,.reading-dialog select,.reading-library-search input,.reading-library-search select { display:block; width:100%; min-width:0; padding:11px 12px; margin-top:7px; border:1px solid var(--rd-line); border-radius:7px; background:var(--bg,#11161a); color:var(--rd-ink); font:400 14px/1.6 var(--font-body,'Sarabun',sans-serif); }
 .reading-dialog textarea { resize:vertical; min-height:105px; }
-.reading-library-page #tars-buddy { display:none; }
 .reading-dialog blockquote::before,.reading-note blockquote::before,.reading-note-preview blockquote::before { display:none; }
 .reading-dialog blockquote,.reading-note blockquote,.reading-note-preview blockquote { margin:14px 0; padding:12px 16px; border:0; border-left:2px solid var(--rd-accent); background:transparent; color:var(--rd-ink); font-size:14px; font-style:normal; line-height:1.9; max-height:230px; overflow:auto; white-space:pre-wrap; overflow-wrap:anywhere; }
 .reading-form-row { display:grid; grid-template-columns:1fr 1.6fr; gap:14px; }
