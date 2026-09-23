@@ -149,10 +149,17 @@ a:hover { color: var(--accent-strong); }
   align-items: center;
   gap: 9px;
 }
-.site-title::before {
+/* โลโก้ = แท่งกราฟ 3 แท่งเปล่า ไม่มีกล่อง (ชุดเดียวกับ .moa-brand-mark ของหน้าแอป) —
+   วาดด้วย gradient ให้สีตาม --accent เปลี่ยนตามธีม; กล่องเขียว favicon.svg เก็บไว้ใช้แค่ไอคอนแท็บ/PWA */
+.site-title::before,
+.nav-drawer-brand::before {
   content: "";
-  width: 22px; height: 22px;
-  background: url("favicon.svg") center / contain no-repeat;
+  width: 21px; height: 22px;
+  flex: none;
+  background:
+    linear-gradient(var(--accent) 0 0) 0 100% / 5px 10px no-repeat,
+    linear-gradient(var(--accent) 0 0) 8px 100% / 5px 16px no-repeat,
+    linear-gradient(var(--accent) 0 0) 16px 100% / 5px 22px no-repeat;
 }
 /* flex + nowrap: ปุ่มค้นหา/ธีมถูก inject เข้ามาใน .site-nav ด้วย (app.js)
    ถ้าปล่อยเป็น inline flow พอลิงก์เยอะขึ้น (7 อัน) ปุ่มจะตกไปบรรทัดสอง หัวเว็บสูงขึ้น 20px */
@@ -1194,12 +1201,6 @@ tbody tr:hover td { background: var(--accent-tint); }/* ========================
   display: inline-flex;
   align-items: center;
   gap: 8px;
-}
-.nav-drawer-brand::before {
-  content: "";
-  width: 20px; height: 20px;
-  background: url("favicon.svg") center / contain no-repeat;
-  flex: none;
 }
 
 .nav-drawer-close {
