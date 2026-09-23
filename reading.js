@@ -157,8 +157,11 @@ function initCards() {
     card.append(button); refresh(); window.addEventListener('reading-change', refresh); window.addEventListener('storage', refresh);
   });
   if (!document.querySelector('.home-page') && !path && !document.getElementById('reading-library') && main && document.querySelector('.post-list--all, .stock-grid')) {
-    const link = document.createElement('a'); link.className = 'reading-library-link'; link.href = libraryURL; link.textContent = 'เปิดคลังอ่านของฉัน · ไว้อ่าน / ไฮไลต์ / โน้ต ↗';
-    main.querySelector('h1')?.after(link);
+    const link = document.createElement('a'); link.className = 'reading-library-link'; link.href = libraryURL;
+    // หน้าคลังบทความ: เป็นลิงก์เล็กท้ายแถวแท็บ (แทรกใต้ h1 แล้วคั่นระหว่างหัวข้อกับเนื้อหา)
+    const tabs = document.querySelector('.post-tabs');
+    if (tabs) { link.textContent = 'คลังของฉัน ↗'; tabs.append(link); }
+    else { link.textContent = 'เปิดคลังอ่านของฉัน · ไว้อ่าน / ไฮไลต์ / โน้ต ↗'; main.querySelector('h1')?.after(link); }
   }
 }
 

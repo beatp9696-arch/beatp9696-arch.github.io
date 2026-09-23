@@ -429,120 +429,69 @@ window.NYSE = (function () {
     });
   }
 
-  // ---- แท็บกรองบทความ (หมวด × กลุ่มธุรกิจ) — เฉพาะหน้าคลังบทความ ----
+  // ---- แท็บกรองบทความตามหมวด — เฉพาะหน้าคลังบทความ ----
+  // แถวเดียวพอ: แถวกลุ่มธุรกิจเดิมกรองได้แค่ ~1/3 ของบท และซ้ำกับ stocks.html ที่แบ่งตามกลุ่มไว้แล้ว
   var postList = document.querySelector(".post-list--all");
   if (postList) {
-    var SEC_BY_FILE = {};
-    ARTICLES.forEach(function (a) { SEC_BY_FILE[a.f] = a.sec || "other"; });
-
     var items = Array.prototype.slice.call(postList.querySelectorAll("li"));
     items.forEach(function (li) {
       var tagEl = li.querySelector(".tag");
       var txt = tagEl ? tagEl.textContent : "";
-      var cat = "other";
+      // บทที่ไม่เข้าหมวดไหน (เรียบเรียง / อ่านเอกสาร / บทเดี่ยว) ตกไป "บทวิเคราะห์" — ทุกบทต้องมีบ้าน
+      var cat = "analysis";
       if (txt.indexOf("Deep-dive") !== -1) cat = "deepdive";
       else if (txt.indexOf("สุนทรพจน์") !== -1) cat = "talks";
-      else if (txt.indexOf("ซีรีส์") !== -1 || txt.indexOf("งบ") !== -1) cat = "financials";
+      else if (txt.indexOf("ซีรีส์") !== -1) cat = "series";
       else if (txt.indexOf("หนังสือ") !== -1) cat = "book";
-      else if (txt.indexOf("บทวิเคราะห์") !== -1) cat = "analysis";
       li.setAttribute("data-cat", cat);
-      var link = li.querySelector("a[href]");
-      var fname = link ? link.getAttribute("href").split("/").pop() : "";
-      li.setAttribute("data-sec", SEC_BY_FILE[fname] || "other");
     });
 
-    var counts = { all: items.length, deepdive: 0, financials: 0, book: 0, analysis: 0, talks: 0 };
-    var secCounts = {};
-    items.forEach(function (li) {
-      var cat = li.getAttribute("data-cat");
-      if (counts.hasOwnProperty(cat)) counts[cat]++;
-      var sec = li.getAttribute("data-sec");
-      secCounts[sec] = (secCounts[sec] || 0) + 1;
-    });
+    var counts = { all: items.length, deepdive: 0, series: 0, analysis: 0, talks: 0, book: 0 };
+    items.forEach(function (li) { counts[li.getAttribute("data-cat")]++; });
 
     var filters = [
       { key: "all", label: "ทั้งหมด" },
       { key: "deepdive", label: "Deep-dive" },
+      { key: "series", label: "ซีรีส์" },
       { key: "analysis", label: "บทวิเคราะห์" },
-      { key: "financials", label: "อ่านงบ" },
-      { key: "book", label: "หนังสือ" },
-      { key: "talks", label: "สุนทรพจน์" }
+      { key: "talks", label: "สุนทรพจน์" },
+      { key: "book", label: "หนังสือ" }
     ];
-    var filterBar = document.createElement("div");
-    filterBar.className = "filter-bar";
+    var tabBar = document.createElement("nav");
+    tabBar.className = "post-tabs";
+    tabBar.setAttribute("aria-label", "กรองบทความตามหมวด");
     filters.forEach(function (f, i) {
       if (f.key !== "all" && !counts[f.key]) return;
-      var c = document.createElement("button");
-      c.type = "button";
-      c.className = "chip" + (i === 0 ? " active" : "");
-      c.setAttribute("data-key", f.key);
-      c.innerHTML = f.label + '<span class="chip-count">' + (counts[f.key] || 0) + '</span>';
-      filterBar.appendChild(c);
+      var t = document.createElement("button");
+      t.type = "button";
+      t.className = "post-tab";
+      t.setAttribute("data-key", f.key);
+      t.setAttribute("aria-pressed", i === 0 ? "true" : "false");
+      t.innerHTML = f.label + '<span class="post-tab-count">' + counts[f.key] + '</span>';
+      tabBar.appendChild(t);
     });
-    postList.parentNode.insertBefore(filterBar, postList);
+    postList.parentNode.insertBefore(tabBar, postList);
 
-    var SECTORS = [
-      { key: "all", label: "ทุกกลุ่ม" },
-      { key: "semi", label: "เซมิ & AI" },
-      { key: "software", label: "ซอฟต์แวร์ & อินเทอร์เน็ต" },
-      { key: "health", label: "สุขภาพ" },
-      { key: "finance", label: "การเงิน" },
-      { key: "consumer", label: "ผู้บริโภค" }
-    ];
-    var sectorBar = document.createElement("div");
-    sectorBar.className = "filter-bar filter-bar--sector";
-    SECTORS.forEach(function (s, i) {
-      if (s.key !== "all" && !secCounts[s.key]) return;
-      var c = document.createElement("button");
-      c.type = "button";
-      c.className = "chip chip--sm" + (i === 0 ? " active" : "");
-      c.setAttribute("data-key", s.key);
-      c.innerHTML = s.label + (s.key === "all" ? "" : '<span class="chip-count">' + secCounts[s.key] + '</span>');
-      sectorBar.appendChild(c);
-    });
-    postList.parentNode.insertBefore(sectorBar, postList);
-
-    var activeCat = "all";
-    var activeSec = "all";
-    function applyFilters() {
+    function selectTab(key) {
+      var target = tabBar.querySelector('.post-tab[data-key="' + key + '"]');
+      if (!target) return;
+      tabBar.querySelectorAll(".post-tab").forEach(function (x) {
+        x.setAttribute("aria-pressed", x === target ? "true" : "false");
+      });
       items.forEach(function (li) {
-        var okCat = activeCat === "all" || li.getAttribute("data-cat") === activeCat;
-        var okSec = activeSec === "all" || li.getAttribute("data-sec") === activeSec;
-        var show = okCat && okSec;
+        var show = key === "all" || li.getAttribute("data-cat") === key;
         li.style.display = show ? "" : "none";
         if (show) li.classList.add("is-visible");
       });
     }
-    filterBar.addEventListener("click", function (e) {
-      var c = e.target.closest ? e.target.closest(".chip") : null;
-      if (!c) return;
-      activeCat = c.getAttribute("data-key");
-      filterBar.querySelectorAll(".chip").forEach(function (x) { x.classList.toggle("active", x === c); });
-      applyFilters();
-    });
-    sectorBar.addEventListener("click", function (e) {
-      var c = e.target.closest ? e.target.closest(".chip") : null;
-      if (!c) return;
-      activeSec = c.getAttribute("data-key");
-      sectorBar.querySelectorAll(".chip").forEach(function (x) { x.classList.toggle("active", x === c); });
-      applyFilters();
+    tabBar.addEventListener("click", function (e) {
+      var t = e.target.closest ? e.target.closest(".post-tab") : null;
+      if (t) selectTab(t.getAttribute("data-key"));
     });
 
-    // preset จาก hash เช่น articles.html#cat=talks หรือ #cat=deepdive&sec=semi
-    function presetChip(bar, key) {
-      var target = bar.querySelector('.chip[data-key="' + key + '"]');
-      if (!target) return false;
-      bar.querySelectorAll(".chip").forEach(function (x) { x.classList.toggle("active", x === target); });
-      return true;
-    }
-    if (location.hash.length > 1) {
-      location.hash.slice(1).split("&").forEach(function (kv) {
-        var p = kv.split("=");
-        if (p[0] === "cat" && presetChip(filterBar, p[1])) activeCat = p[1];
-        else if (p[0] === "sec" && presetChip(sectorBar, p[1])) activeSec = p[1];
-      });
-      applyFilters();
-    }
+    // preset จาก hash เช่น articles.html#cat=talks
+    var hashCat = location.hash.match(/(?:^#|&)cat=([a-z]+)/);
+    if (hashCat) selectTab(hashCat[1]);
   }
 
   // ---- TOC scroll-spy ----

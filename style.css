@@ -1059,29 +1059,53 @@ tbody tr:hover td { background: var(--accent-tint); }/* ========================
   .post-list li::before { left: 16px; top: 21px; font-size: 15px; }
   .post-list li::after { top: 14px; bottom: 14px; }
 }/* ============================================================
-   Filter chips + TOC scroll-spy + Prev/Next
+   Post tabs + TOC scroll-spy + Prev/Next
    ============================================================ */
 
-.filter-bar {
+/* แท็บหมวดหน้าคลังบทความ — แถวเดียว เส้นใต้แบบเดียวกับเมนูหัวเว็บ (เดิมเป็น pill 2 แถวที่แย่งกันเด่น)
+   มือถือเลื่อนซ้ายขวาแทนการตัดบรรทัด; เส้นฐานใช้ inset shadow จะได้ไม่ต้อง margin ติดลบใต้ overflow */
+.post-tabs {
   display: flex;
-  flex-wrap: wrap;
-  gap: 9px;
-  margin: 0 0 24px;
+  align-items: baseline;
+  gap: 24px;
+  margin: 0 0 28px;
+  box-shadow: inset 0 -1px 0 var(--border);
+  overflow-x: auto;
+  scrollbar-width: none;
 }
-.chip {
+.post-tabs::-webkit-scrollbar { display: none; }
+.post-tab {
+  flex: none;
   font-family: var(--font-head);
-  font-size: 14px;
+  font-size: 15px;
   font-weight: 600;
   color: var(--muted);
-  background: var(--surface);
-  border: 1px solid var(--border);
-  border-radius: 999px;
-  padding: 6px 16px;
+  background: none;
+  border: 0;
+  border-bottom: 2px solid transparent;
+  padding: 10px 0 12px;
   cursor: pointer;
-  transition: color 0.15s ease, background 0.15s ease, border-color 0.15s ease;
+  white-space: nowrap;
+  transition: color 0.15s ease, border-color 0.15s ease;
 }
-.chip:hover { color: var(--accent); border-color: var(--accent); }
-.chip.active { color: #fff; background: var(--accent); border-color: var(--accent); }
+.post-tab:hover { color: var(--text); }
+.post-tab[aria-pressed="true"] { color: var(--accent); border-bottom-color: var(--accent); }
+.post-tab-count {
+  margin-left: 6px;
+  font-size: 12px;
+  font-weight: 500;
+  font-variant-numeric: tabular-nums;
+  color: var(--muted);
+}
+.post-tab[aria-pressed="true"] .post-tab-count { color: inherit; }
+.post-tabs .reading-library-link {
+  flex: none;
+  margin: 0 0 0 auto;
+  padding-left: 12px;
+  font-size: 13px;
+  white-space: nowrap;
+}
+@media (max-width: 700px) { .post-tabs { gap: 20px; } }
 
 .toc a {
   display: inline-block;
@@ -1421,7 +1445,7 @@ main:focus { outline: none; }/* ================================================
   .to-top,
   .theme-toggle,
   .search-btn,
-  .filter-bar,
+  .post-tabs,
   .article-nav,
   .share-bar,
   .nav-overlay,
@@ -1594,26 +1618,7 @@ main:focus { outline: none; }/* ================================================
   .profile-tags { justify-content: center; }
 }
 
-.chip-count {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 11px;
-  font-weight: 700;
-  min-width: 18px;
-  height: 18px;
-  border-radius: 999px;
-  padding: 0 5px;
-  margin-left: 4px;
-  background: color-mix(in srgb, var(--muted) 18%, transparent);
-  color: var(--text);
-  line-height: 1;
-  vertical-align: middle;
-}
-.chip.active .chip-count {
-  background: rgba(255, 255, 255, 0.22);
-  color: #fff;
-}/* ============================================================
+/* ============================================================
    Share bar
    ============================================================ */
 .share-bar {
@@ -1699,11 +1704,7 @@ h2:hover > .heading-anchor, h3:hover > .heading-anchor { opacity: 0.45; }
 .heading-anchor.copied::after { content: " คัดลอกแล้ว"; font-size: 0.62em; color: var(--accent); white-space: nowrap; }
 @media print { .heading-anchor { display: none; } }/* ============================================================
    A11y contrast fixes (จาก Lighthouse)
-   ============================================================ *//* chip.active: ใน dark mode accent เป็นเขียวอ่อน → ใช้ตัวอักษรเข้มแทนขาว */
-@media (prefers-color-scheme: dark) {
-  :root:not([data-theme="light"]) .chip.active { color: #0e1f1a; }
-}
-:root[data-theme="dark"] .chip.active { color: #0e1f1a; }/* วินาทีนาฬิกา: เพิ่ม contrast ให้ผ่านเกณฑ์ */
+   ============================================================ *//* วินาทีนาฬิกา: เพิ่ม contrast ให้ผ่านเกณฑ์ */
 .clk-sec { opacity: 0.85; }/* ============================================================
    Company header (โลโก้บริษัทในบทความ deep-dive)
    ============================================================ */
@@ -2145,10 +2146,7 @@ h2:hover > .heading-anchor, h3:hover > .heading-anchor { opacity: 0.45; }
   border-radius: 999px;
   padding: 2.5px 9px;
   flex: none;
-}/* --- แถวกรองกลุ่มธุรกิจ (ใต้แถวหมวด) --- */
-.filter-bar--sector { margin: -14px 0 24px; }
-.chip--sm { font-size: 12.5px; padding: 4px 13px; }
-.chip--sm .chip-count { font-size: 10.5px; }/* --- ผลค้นหาบทความใน search modal --- */
+}/* --- ผลค้นหาบทความใน search modal --- */
 .search-results { display: flex; flex-direction: column; }
 .search-results:not(:empty) { border-top: 1px solid var(--border); }
 .search-result {
