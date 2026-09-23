@@ -1008,8 +1008,12 @@ def write_hero_stats(articles):
           + ("" if new != src else " (ไม่เปลี่ยน)"))
 
 
-# ─── series landing pages: generate รายชื่อตอนระหว่าง marker <!-- SERIES-START/END --> ───
+# ─── หน้าซีรีส์ = ฉบับอ่านรวมเล่ม (แบบ Stripe Press): generate ระหว่าง marker <!-- SERIES-START/END --> ───
 # สมาชิกซีรีส์ = บทความใน articles.html ที่ชื่อไฟล์ขึ้นต้นด้วย prefix (เรียงตามเลขตอนในชื่อไฟล์)
+# build ดึงเนื้อใน <main> ของทุกตอนมาต่อกันเป็นหน้าเดียว — กดปกจากหน้าแรกแล้วเลื่อนอ่านจบทั้งเล่ม
+# ไม่ต้องกดเข้าทีละตอน · articles/*.html ยังเป็นต้นฉบับ (แก้ที่บทเสมอ หน้าเล่มคือสำเนาที่ gen ใหม่ทุก build)
+# CSS: series-reader.css + scene CSS ของทุกตอน (+ casestudy.css ที่ scope ลงบท) = scenes/series-<book>.min.css
+# JS : series-reader.js — แถบ tick ซ้าย / ปุ่มสารบัญลอยบนมือถือ ติดตามตอนและหัวข้อที่กำลังอ่าน
 # เพิ่มตอนใหม่ = new-article.py ตามปกติ แล้วรัน build.py — หน้าซีรีส์อัปเดตเอง
 SERIES = [
     {"page": "series-financials.html", "prefix": "financials-", "name": "อ่านงบแบบลงมือทำ"},
@@ -1025,13 +1029,23 @@ _SERIES_BLOCK_RE = re.compile(r"<!-- SERIES-START -->.*?<!-- SERIES-END -->", re
 _READTIME_RE = re.compile(
     r'<span class="read-time">\s*([^<]+?)\s*</span>.*?'
     r'<a href="articles/([a-z0-9-]+\.html)">', re.S)
-THAI_MONTHS = ["ม.ค.", "ก.พ.", "มี.ค.", "เม.ย.", "พ.ค.", "มิ.ย.",
-               "ก.ค.", "ส.ค.", "ก.ย.", "ต.ค.", "พ.ย.", "ธ.ค."]
-
-
-def thai_date(iso):
-    d = datetime.date.fromisoformat(iso)
-    return f"{d.day} {THAI_MONTHS[d.month - 1]} {d.year}"
+# link CSS ของเล่มที่ build ฝังต่อจาก style.min.css (คั่นด้วย marker ให้ idempotent เหมือน SCENE-CSS)
+_SERIES_CSS_LINK_RE = re.compile(r'\n[ \t]*<!-- SERIES-CSS -->.*?<!-- /SERIES-CSS -->', re.S)
+_ROOT_STYLE_LINK_RE = re.compile(r'<link rel="stylesheet" href="style\.min\.css">')
+# "7 Powers ตอนที่ 3: Counter-Positioning — …" -> "Counter-Positioning — …" (หัวบทบอกเลขตอนเองแล้ว)
+_EP_TITLE_PREFIX_RE = re.compile(r"^[^:—]*?(?:ตอนที่\s*\d+|ตอนจบ|เคสศึกษา\s*\d+)\s*:\s*")
+# หัวบท/ท้ายบทของหน้าเดี่ยวที่หน้าเล่มทำเองแล้ว (หัวบท + แถบ tick แทน kicker/byline/TOC/ปุ่มกลับ)
+_EP_KICKER_RE = re.compile(r'\n?[ \t]*<span class="kicker">.*?</span>', re.S)
+_EP_H1_RE = re.compile(r'\n?[ \t]*<h1>.*?</h1>', re.S)
+_EP_BYLINE_RE = re.compile(
+    r'\n?[ \t]*<div class="byline">\s*<span class="byline-avatar">.*?</span>\s*<div>\s*'
+    r'<div class="byline-author">.*?</div>\s*<div class="byline-info">.*?</div>\s*</div>\s*</div>', re.S)
+_EP_AUTHOR_RE = re.compile(
+    r'\n?[ \t]*<div class="author-card">\s*<span class="byline-avatar">.*?</span>\s*<div>.*?</div>\s*</div>', re.S)
+_EP_BACK_RE = re.compile(r'\n?[ \t]*<p class="back">.*?</p>', re.S)
+_EP_SEC_H2_RE = re.compile(r'<h2 id="sec-(\d+)">(.*?)</h2>', re.S)
+_EP_URL_RE = re.compile(r'\b(href|src)="([^"]*)"')
+_CS_THEME_RE = re.compile(r'<body class="cs"(?: data-cs-theme="([a-z0-9-]+)")?>')
 
 
 def episode_no(file, prefix):
@@ -1045,33 +1059,183 @@ def parse_read_times():
     return {m.group(2): m.group(1) for m in _READTIME_RE.finditer(src)}
 
 
-def _series_card_html(p, n, read_time):
-    tag = f"ตอนที่ {n}" if n is not None else "ตอนพิเศษ"
-    rt = (f'\n            <span class="read-time">{read_time}</span>'
-          if read_time else "")
-    alt = escape(html.unescape(p["title"]), {'"': "&quot;"})
-    thumb = p["file"].replace(".html", "")
+def _plain(fragment):
+    """HTML ในหัวข้อ -> ข้อความล้วน (escape แล้ว) สำหรับป้ายบนแถบ tick"""
+    text = re.sub(r"\s+", " ", html.unescape(re.sub(r"<[^>]+>", "", fragment))).strip()
+    return escape(text, {'"': "&quot;"})
+
+
+def _chapter_body(src, n, ep_anchor, is_cs):
+    """เนื้อใน <main> ของตอน -> ส่วนหนึ่งของหน้าเล่ม (อยู่ที่ root ไม่ใช่ articles/)
+    ตัดหัวบทของหน้าเดี่ยว · id="sec-N" ซ้ำกันทุกตอน จึงเติม prefix ep<n>- ·
+    ลิงก์ ../x -> x, ลิงก์ไปบทอื่น -> articles/x และลิงก์ข้ามตอนในเล่มเดียวกัน -> anchor ในหน้า"""
+    body = src.split("<main>", 1)[1].split("</main>", 1)[0]
+    body = _TOC_BLOCK_RE.sub("", body)
+    if is_cs:
+        # หน้าเปิดบทของเคสศึกษาคือหัวบทอยู่แล้ว — h1 ลดเป็น h2 (หน้าเล่มมี h1 เดียว = ชื่อซีรีส์)
+        body = re.sub(r"<h1>(.*?)</h1>",
+                      lambda m: f'<h2 class="cs-title" id="ep-{n}-title">{m.group(1)}</h2>',
+                      body, count=1, flags=re.S)
+    else:
+        for rx in (_EP_KICKER_RE, _EP_H1_RE, _EP_BYLINE_RE):
+            body = rx.sub("", body, count=1)
+    body = _EP_AUTHOR_RE.sub("", body)
+    body = _EP_BACK_RE.sub("", body)
+    body = re.sub(r'\bid="sec-(\d+)"', rf'id="ep{n}-sec-\1"', body)
+
+    def fix_url(m):
+        attr, url = m.group(1), m.group(2)
+        if url.startswith("../"):
+            return f'{attr}="{url[3:]}"'
+        if url.startswith("#sec-"):
+            return f'{attr}="#ep{n}-{url[1:]}"'
+        if re.match(r"[a-z0-9-]+\.html(?:#|$)", url):
+            f, _, frag = url.partition("#")
+            if f in ep_anchor:
+                k = ep_anchor[f]
+                return f'{attr}="#ep{k}-{frag}"' if frag.startswith("sec-") else f'{attr}="#ep-{k}"'
+            return f'{attr}="articles/{url}"'
+        return m.group(0)
+
+    return _EP_URL_RE.sub(fix_url, body).strip("\n")
+
+
+def _scope_casestudy_css(css):
+    """casestudy.css เขียนไว้ให้ทั้งหน้า (body.cs) — ในหน้าเล่มแต่ละเคสคือบทหนึ่ง จึงย้าย scope ลง
+    <article class="cs-chapter" data-cs-theme="…"> (ธีมกระดาษ/สีประจำหุ้นอยู่ในบทนั้น ไม่ลามทั้งหน้า)
+    กฎของ header/footer (body.cs .site-title ฯลฯ) กลายเป็น selector ที่ไม่ match อะไร = ไม่มีผลเอง"""
+    css = re.sub(r"html:has\(body\.cs\)\s*\{[^}]*\}", "", css)
+    css = css.replace("body.cs main > .container", ".cs-chapter > .container")
+    css = css.replace("body.cs main", ".cs-chapter").replace("body.cs", ".cs-chapter")
+    css = css.replace(".cs-opener h1", ".cs-opener .cs-title")
+    return css.replace("url('fonts/", "url('../fonts/")  # bundle อยู่ใน scenes/
+
+
+def _write_book_css(book, eps, has_cs):
+    """series-reader.css + scene CSS ของทุกตอน -> scenes/series-<book>.min.css ไฟล์เดียว (request เดียว)"""
+    parts = [open("series-reader.css", encoding="utf-8").read()]
+    if has_cs:
+        parts.append(open("casestudy.css", encoding="utf-8").read())
+    for p in eps:
+        scene = f"{SCENE_DIR}/{p['file'][:-5]}.css"
+        if os.path.exists(scene):
+            parts.append(open(scene, encoding="utf-8").read())
+    css = "\n".join(parts)
+    if has_cs:
+        css = _scope_casestudy_css(css)
+    out = _minify_css_text(css)
+    dst = f"{SCENE_DIR}/series-{book}.min.css"
+    if not os.path.exists(dst) or open(dst, encoding="utf-8").read() != out:
+        open(dst, "w", encoding="utf-8").write(out)
+    return dst
+
+
+def _book_html(s, book, eps, read_times):
+    """ประกอบหน้าเล่ม: แถบ tick + ปุ่มสารบัญลอย + สารบัญ + ทุกตอนต่อกัน + ท้ายเล่ม"""
+    ep_anchor = {}
+    for i, p in enumerate(eps):
+        n = episode_no(p["file"], s["prefix"])
+        ep_anchor[p["file"]] = n if n is not None else 100 + i
+    total_min = 0
+    rail, pill, contents, chapters = [], [], [], []
+    for p in eps:
+        n = ep_anchor[p["file"]]
+        src = open(os.path.join("articles", p["file"]), encoding="utf-8").read()
+        cs = _CS_THEME_RE.search(src)
+        rt = read_times.get(p["file"])
+        mins = re.search(r"\d+", rt or "")
+        total_min += int(mins.group()) if mins else 0
+        title = _EP_TITLE_PREFIX_RE.sub("", p["title"])
+        head, _, dek = title.partition(" — ")
+        no = f"{n:02d}" if n < 100 else "✦"
+        label = f"ตอนที่ {n}" if n < 100 else "ตอนพิเศษ"
+        secs = [(k, _plain(re.sub(r"^\s*\d+\.\s*", "", t))) for k, t in _EP_SEC_H2_RE.findall(src)]
+        body = _chapter_body(src, n, ep_anchor, bool(cs))
+
+        sub = "".join(f'\n              <li><a class="rail-sub" href="#ep{n}-sec-{k}">'
+                      f'<span class="rail-label">{t}</span></a></li>' for k, t in secs)
+        rail.append(
+            f'          <li class="rail-ch">\n'
+            f'            <a class="rail-tick" href="#ep-{n}"><span class="rail-label">'
+            f'<b>{no}</b>{head}</span></a>\n'
+            f'            <ol class="rail-secs">{sub}\n            </ol>\n'
+            f'          </li>')
+        pill.append(f'          <li><a href="#ep-{n}"><b>{no}</b><span>{head}</span></a></li>')
+        dek_html = f"<small>{dek}</small>" if dek else ""
+        contents.append(
+            f'          <li><a href="#ep-{n}"><span class="bc-no">{no}</span>'
+            f'<span class="bc-title"><strong>{head}</strong>{dek_html}</span>'
+            f'<span class="bc-time">{rt or ""}</span></a></li>')
+        if cs:
+            theme = f' data-cs-theme="{cs.group(1)}"' if cs.group(1) else ""
+            chapters.append(
+                f'    <article class="book-chapter cs-chapter" id="ep-{n}"{theme} '
+                f'data-short="{head}" aria-labelledby="ep-{n}-title">\n'
+                f"{body}\n"
+                "    </article>")
+            continue
+        meta = f"{label} · อ่าน {rt}" if rt else label
+        dek_span = f"<span>{dek}</span>" if dek else ""
+        chapters.append(
+            f'    <article class="book-chapter" id="ep-{n}" data-short="{head}" aria-labelledby="ep-{n}-title">\n'
+            '      <header class="container chapter-opener">\n'
+            f'        <span class="chapter-no" aria-hidden="true">{no}</span>\n'
+            f'        <p class="chapter-kicker"><span>{meta}</span>'
+            f'<a href="articles/{p["file"]}">เปิดเป็นหน้าเดี่ยว <span aria-hidden="true">↗</span></a></p>\n'
+            f'        <h2 class="chapter-title" id="ep-{n}-title">{head}{dek_span}</h2>\n'
+            "      </header>\n"
+            f"{body}\n"
+            "    </article>")
+
+    first = f"#ep-{ep_anchor[eps[0]['file']]}"
+    total = f" · อ่านรวม ~{total_min} นาที" if total_min else ""
+    rail_html = "\n".join(rail)
+    pill_html = "\n".join(pill)
+    contents_html = "\n".join(contents)
+    chapters_html = "\n".join(chapters)
     return (
-        "        <li>\n"
-        '          <div class="article-meta-row">\n'
-        f'            <span class="tag">{tag}</span>{rt}\n'
-        f'            <time class="post-date" datetime="{p["date"]}">{thai_date(p["date"])}</time>\n'
-        "          </div>\n"
-        f'          <a href="articles/{p["file"]}">\n'
-        f'            {p["title"]}\n'
-        "          </a>\n"
-        '          <p class="excerpt">\n'
-        f'            {p["excerpt"]}\n'
-        "          </p>\n"
-        f'          <img class="card-thumb" src="img/thumbs/{thumb}.jpg" alt="{alt}" '
-        'loading="lazy" decoding="async" width="640" height="336">\n'
-        '          <span class="read-more">อ่านต่อ →</span>\n'
-        "        </li>"
-    )
+        f'    <div class="book" data-book="{book}">\n'
+        '      <nav class="book-rail" aria-label="ตอนในเล่มนี้">\n'
+        '        <a class="rail-back" href="index.html#home-series" aria-label="กลับชั้นหนังสือ">'
+        '<svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2" '
+        'stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M19 12H5M11 6l-6 6 6 6"/></svg>'
+        '<span class="rail-label">กลับชั้นหนังสือ</span></a>\n'
+        '        <ol class="rail-list">\n'
+        f"{rail_html}\n"
+        "        </ol>\n"
+        "      </nav>\n"
+        '      <details class="book-pill">\n'
+        '        <summary><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" '
+        'stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h10"/></svg>'
+        '<span class="pill-now" data-pill-now>สารบัญ</span><span class="pill-count" data-pill-count></span></summary>\n'
+        '        <ol class="pill-sheet">\n'
+        f"{pill_html}\n"
+        "        </ol>\n"
+        "      </details>\n"
+        '      <div class="container">\n'
+        '        <nav class="book-contents" id="contents" aria-labelledby="book-contents-title">\n'
+        '          <div class="book-contents-head"><h2 id="book-contents-title">สารบัญ</h2>'
+        f"<p>{len(eps)} ตอน{total}</p></div>\n"
+        "          <ol>\n"
+        f"{contents_html}\n"
+        "          </ol>\n"
+        f'          <a class="book-start" href="{first}">เริ่มอ่านตอนแรก <span aria-hidden="true">↓</span></a>\n'
+        "        </nav>\n"
+        "      </div>\n"
+        '      <div class="book-flow">\n'
+        f"{chapters_html}\n"
+        "      </div>\n"
+        '      <footer class="container book-end">\n'
+        '        <span class="book-end-mark" aria-hidden="true">◆ ◆ ◆</span>\n'
+        f'        <p class="book-end-title">จบเล่ม · {s["name"]}</p>\n'
+        '        <p class="book-end-links"><a href="#contents">กลับไปสารบัญ ↑</a>'
+        '<a href="index.html#home-series">เลือกเล่มอื่นบนชั้น →</a></p>\n'
+        "      </footer>\n"
+        "    </div>\n")
 
 
 def write_series(posts):
-    """เขียนรายชื่อตอน (เรียงเลขตอน) + ItemList JSON-LD ลงหน้า series-*.html ระหว่าง marker
+    """เขียนฉบับอ่านรวมเล่ม + ItemList JSON-LD ลงหน้า series-*.html ระหว่าง marker
     ใช้ข้อมูลการ์ดชุดเดียวกับ sitemap/feed (articles.html) — หน้าซีรีส์ไม่มีข้อมูลของตัวเอง"""
     read_times = parse_read_times()
     for s in SERIES:
@@ -1086,9 +1250,12 @@ def write_series(posts):
             (p for p in posts if p["file"].startswith(s["prefix"])),
             key=lambda p: (episode_no(p["file"], s["prefix"]) is None,
                            episode_no(p["file"], s["prefix"]) or 0, p["file"]))
-        cards = "\n".join(
-            _series_card_html(p, episode_no(p["file"], s["prefix"]), read_times.get(p["file"]))
-            for p in eps)
+        if not eps:
+            continue
+        book = s["page"][len("series-"):-len(".html")]
+        has_cs = any(_CS_THEME_RE.search(open(os.path.join("articles", p["file"]), encoding="utf-8").read())
+                     for p in eps)
+        css = _write_book_css(book, eps, has_cs)
         itemlist = json.dumps({
             "@context": "https://schema.org", "@type": "ItemList",
             "name": f"{s['name']} — Moatrices",
@@ -1100,15 +1267,23 @@ def write_series(posts):
         }, ensure_ascii=False, separators=(", ", ": "))
         block = (
             "<!-- SERIES-START -->\n"
-            f'      <ul class="post-list post-list--series">\n{cards}\n      </ul>\n'
-            '      <script type="application/ld+json">\n'
-            f"      {itemlist}\n"
-            "      </script>\n"
-            "      <!-- SERIES-END -->")
+            f"{_book_html(s, book, eps, read_times)}"
+            '    <script type="application/ld+json">\n'
+            f"    {itemlist}\n"
+            "    </script>\n"
+            '    <script defer src="series-reader.js"></script>\n'
+            "    <!-- SERIES-END -->")
         new = _SERIES_BLOCK_RE.sub(lambda _: block, src)
+        new = _SERIES_CSS_LINK_RE.sub("", new)
+        m = _ROOT_STYLE_LINK_RE.search(new)
+        if m:
+            new = (new[:m.end()] + '\n  <!-- SERIES-CSS -->\n'
+                   f'  <link rel="stylesheet" href="{css}">\n  <!-- /SERIES-CSS -->' + new[m.end():])
+        else:
+            print(f"series      : WARNING {s['page']} ไม่พบ link style.min.css — ไม่ได้ฝัง {css}")
         if new != src:
             open(s["page"], "w", encoding="utf-8").write(new)
-        print(f"{s['page']} : {len(eps)} ตอน" + ("" if new != src else " (ไม่เปลี่ยน)"))
+        print(f"{s['page']} : {len(eps)} ตอน (ฉบับอ่านรวมเล่ม)" + ("" if new != src else " (ไม่เปลี่ยน)"))
 
 
 def series_warnings(posts):

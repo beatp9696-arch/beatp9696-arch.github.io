@@ -1,0 +1,158 @@
+/* ============================================================
+   ฉบับอ่านรวมเล่ม — หน้า series-*.html (HTML gen โดย build.py write_series)
+   ทุกตอนต่อกันเป็นหน้าเดียว เลื่อนอ่านจบทั้งเล่มแบบ Stripe Press
+   · ≥1000px: แถบ tick ลอยซ้าย (1 ขีด = 1 ตอน, ตอนที่กำลังอ่านกางขีดย่อยของหัวข้อ)
+   · <1000px: ปุ่มสารบัญลอยมุมล่างซ้าย
+   build รวมไฟล์นี้กับ scene CSS ของทุกตอนเป็น scenes/series-<book>.min.css — แก้ที่นี่แล้วรัน build.py
+   ============================================================ */
+
+/* สีประจำเล่ม = สีปกเดียวกับชั้นหนังสือหน้าแรก (home-editorial.css .press-book--*)
+   ผสมกับสีตัวอักษร → โหมดสว่างได้โทนเข้ม โหมดมืดได้โทนอ่อน จากค่าเดียว */
+.book { --book-cover: var(--accent); --book-accent: color-mix(in oklab, var(--book-cover) 66%, var(--text)); }
+.book[data-book="cases"] { --book-cover: #d8b36b; }
+.book[data-book="buffett-deals"] { --book-cover: #b96750; }
+.book[data-book="powers"] { --book-cover: #8fb07f; }
+.book[data-book="financials"] { --book-cover: #7fa3c0; }
+.book[data-book="moat-break"] { --book-cover: #8a4d5b; }
+.book[data-book="buffett-talks"] { --book-cover: #b3a57c; }
+.book[data-book="munger-talks"] { --book-cover: #3d6b5c; }
+
+/* ---------- สารบัญหน้าเล่ม ---------- */
+.book-contents { margin: 8px 0 0; padding-top: 26px; border-top: 1px solid var(--border); }
+.book-contents-head { display: flex; align-items: baseline; justify-content: space-between; gap: 16px; margin-bottom: 6px; }
+.book-contents-head h2 { margin: 0; padding: 0; font: 600 15px/1.5 var(--font-head); color: var(--text); }
+.book-contents-head p { margin: 0; color: var(--muted); font-size: 14px; }
+.book-contents ol { list-style: none; margin: 0; padding: 0; }
+.book-contents li + li { border-top: 1px solid var(--border); }
+.book-contents li a {
+  display: grid; grid-template-columns: 46px minmax(0, 1fr) auto; column-gap: 14px; align-items: baseline;
+  padding: 16px 0; color: var(--text); text-decoration: none;
+}
+.bc-no { font: 400 24px/1 Georgia, "Times New Roman", serif; letter-spacing: -.03em; color: var(--book-accent); }
+.bc-title strong { display: block; font: 600 17px/1.55 var(--font-head); transition: color .18s ease; }
+.bc-title small { display: block; margin-top: 3px; color: var(--muted); font-size: 14.5px; line-height: 1.65; }
+.bc-time { color: var(--muted); font-size: 13px; white-space: nowrap; }
+.book-contents li a:hover strong { color: var(--book-accent); }
+.book-start {
+  display: inline-flex; align-items: center; gap: 10px; margin-top: 22px; padding: 12px 22px;
+  border-radius: 999px; background: var(--text); color: var(--bg); font-weight: 600; font-size: 15px;
+  text-decoration: none; transition: transform .18s ease;
+}
+.book-start:hover { transform: translateY(1px); color: var(--bg); }
+
+/* ---------- หัวบท ---------- */
+.book-chapter { scroll-margin-top: 12px; }
+.chapter-opener { padding-top: clamp(80px, 13vw, 150px); margin-bottom: clamp(26px, 5vw, 40px); }
+.chapter-no {
+  display: block; font: 400 clamp(68px, 12vw, 116px)/.8 Georgia, "Times New Roman", serif;
+  letter-spacing: -.05em; color: var(--book-accent);
+}
+.chapter-kicker {
+  display: flex; flex-wrap: wrap; justify-content: space-between; align-items: baseline; gap: 6px 16px;
+  margin: 26px 0 18px; padding-top: 14px; border-top: 1px solid var(--border);
+  color: var(--muted); font-size: 14px;
+}
+.chapter-kicker a { color: var(--muted); text-decoration: underline; text-decoration-color: var(--border); text-underline-offset: 3px; }
+.chapter-kicker a:hover { color: var(--text); text-decoration-color: currentColor; }
+.chapter-title {
+  margin: 0; padding: 0; font: 700 clamp(29px, 4.8vw, 42px)/1.34 var(--font-head);
+  letter-spacing: -.01em; text-wrap: balance;
+}
+.chapter-title span {
+  display: block; margin-top: 10px; font-size: clamp(18px, 2.5vw, 22px); font-weight: 500;
+  line-height: 1.6; letter-spacing: 0; color: var(--muted); text-wrap: pretty;
+}
+
+/* เคสศึกษา = บทที่มีกระดาษ/ธีมของตัวเอง (casestudy.css ถูก scope ลง .cs-chapter ตอน build) */
+.cs-chapter { padding-bottom: 64px; }
+.book-flow > .cs-chapter:not(:first-child) { margin-top: clamp(64px, 10vw, 120px); }
+
+/* ---------- ท้ายเล่ม ---------- */
+.book-end { padding-top: clamp(80px, 13vw, 140px); padding-bottom: 8px; text-align: center; }
+.book-end-mark { display: block; color: var(--book-accent); font-size: 11px; letter-spacing: .9em; }
+.book-end-title { margin: 18px 0 20px; font: 600 20px/1.5 var(--font-head); }
+.book-end-links { display: flex; flex-wrap: wrap; justify-content: center; gap: 10px 28px; margin: 0; font-size: 15px; }
+.book-end-links a { color: var(--muted); text-decoration: none; }
+.book-end-links a:hover { color: var(--text); }
+
+/* ---------- แถบ tick ซ้าย (≥1000px) ---------- */
+.book-rail { display: none; }
+.rail-list, .rail-secs { list-style: none; margin: 0; padding: 0; }
+.rail-label {
+  position: absolute; left: 100%; top: 50%; z-index: 1; margin-left: 8px; max-width: 320px;
+  padding: 6px 12px; border: 1px solid var(--border); border-radius: 8px;
+  background: var(--surface); box-shadow: var(--shadow-md); color: var(--text);
+  font: 500 13px/1.45 var(--font-body); white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+  opacity: 0; transform: translate(-4px, -50%); pointer-events: none;
+  transition: opacity .16s ease, transform .16s ease;
+}
+.rail-label b { margin-right: 8px; font: 400 13px/1 Georgia, "Times New Roman", serif; color: var(--book-accent); }
+.book-rail a:hover > .rail-label, .book-rail a:focus-visible > .rail-label { opacity: 1; transform: translate(0, -50%); }
+
+@media (min-width: 1000px) {
+  /* พื้นโปร่งแสงสีเดียวกับหน้า: กลืนหายบนพื้นปกติ แต่ยังอ่านออกเมื่อลอยทับกระดาษครีม/หน้าเปิดบทสีเข้มของเคสศึกษา */
+  .book-rail {
+    position: fixed; z-index: 40; left: 10px; top: max(120px, 24vh);
+    display: flex; flex-direction: column; align-items: flex-start; gap: 12px;
+    padding: 8px 10px 10px; border-radius: 20px;
+    background: color-mix(in srgb, var(--bg) 80%, transparent);
+    -webkit-backdrop-filter: blur(10px); backdrop-filter: blur(10px);
+  }
+  .book-rail a { position: relative; display: flex; align-items: center; color: var(--text); text-decoration: none; }
+  .rail-back { width: 34px; height: 34px; justify-content: center; margin-left: -6px; border-radius: 50%; }
+  .rail-back:hover { background: var(--surface-2); }
+  .rail-tick { width: 34px; height: 20px; }
+  .rail-tick::before, .rail-sub::before {
+    content: ""; display: block; height: 2px; border-radius: 2px; background: currentColor;
+    transition: width .25s ease, opacity .25s ease, background-color .25s ease;
+  }
+  .rail-tick::before { width: 22px; opacity: .24; }
+  .rail-ch.is-read > .rail-tick::before { opacity: .62; }
+  .rail-ch.is-active > .rail-tick::before { width: 34px; opacity: 1; background: var(--book-accent); }
+  .rail-secs { display: none; padding: 3px 0 7px 10px; }
+  .rail-ch.is-active > .rail-secs { display: block; }
+  .rail-sub { width: 24px; height: 13px; }
+  .rail-sub::before { width: 10px; height: 1.5px; opacity: .3; }
+  .rail-sub.is-read::before { opacity: .6; }
+  .rail-sub[aria-current]::before { width: 18px; opacity: 1; background: var(--book-accent); }
+}
+
+/* ---------- ปุ่มสารบัญลอย (<1000px) ---------- */
+.book-pill {
+  position: fixed; z-index: 45; left: 16px; bottom: calc(22px + env(safe-area-inset-bottom, 0px));
+  max-width: calc(100% - 104px); opacity: 0; visibility: hidden; transform: translateY(8px);
+  transition: opacity .2s ease, transform .2s ease, visibility 0s linear .2s;
+}
+.book-pill.is-shown { opacity: 1; visibility: visible; transform: none; transition: opacity .2s ease, transform .2s ease; }
+.book-pill > summary {
+  display: flex; align-items: center; gap: 10px; min-height: 44px; padding: 0 16px;
+  border: 1px solid var(--border); border-radius: 22px; background: var(--surface);
+  box-shadow: var(--shadow-md); color: var(--text); font-size: 14px; cursor: pointer; list-style: none;
+}
+.book-pill > summary::-webkit-details-marker { display: none; }
+.book-pill > summary svg { flex: none; color: var(--book-accent); }
+.pill-now { min-width: 0; overflow: hidden; white-space: nowrap; text-overflow: ellipsis; font-weight: 600; }
+.pill-count { flex: none; color: var(--muted); font-size: 13px; font-variant-numeric: tabular-nums; }
+.pill-sheet {
+  position: absolute; left: 0; bottom: calc(100% + 8px); width: min(340px, calc(100vw - 32px));
+  max-height: min(62vh, 480px); overflow-y: auto; list-style: none; margin: 0; padding: 6px;
+  border: 1px solid var(--border); border-radius: 14px; background: var(--surface); box-shadow: var(--shadow-md);
+}
+.pill-sheet a {
+  display: grid; grid-template-columns: 34px minmax(0, 1fr); align-items: baseline; gap: 8px;
+  min-height: 44px; padding: 10px 12px; border-radius: 9px; color: var(--text); text-decoration: none;
+  font-size: 15px; line-height: 1.5;
+}
+.pill-sheet b { font: 400 16px/1 Georgia, "Times New Roman", serif; color: var(--book-accent); }
+.pill-sheet a[aria-current] { background: var(--surface-2); font-weight: 600; }
+@media (min-width: 1000px) { .book-pill { display: none; } }
+@media (max-width: 700px) {
+  body.has-os-tabbar .book-pill { bottom: calc(74px + env(safe-area-inset-bottom, 0px)); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .book-pill, .rail-label, .book-rail a::before, .book-start { transition: none; }
+}
+@media print {
+  .book-rail, .book-pill, .book-start { display: none; }
+}
