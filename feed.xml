@@ -5,8 +5,22 @@
 <link>https://beatp9696-arch.github.io/</link>
 <description>บันทึกการเรียนวิเคราะห์หุ้น US เชิงลึก เน้นพื้นฐานธุรกิจ ไม่ใช่ราคา</description>
 <language>th</language>
-<lastBuildDate>Wed, 23 Sep 2026 10:07:12 +0700</lastBuildDate>
+<lastBuildDate>Wed, 23 Sep 2026 16:32:23 +0700</lastBuildDate>
 <atom:link href="https://beatp9696-arch.github.io/feed.xml" rel="self" type="application/rss+xml"/>
+<item>
+<title>American Express (AXP) — เบื้องหลังบัตรหนึ่งใบ มีธุรกิจอะไรอยู่บ้าง</title>
+<link>https://beatp9696-arch.github.io/articles/deep-dive-axp.html</link>
+<guid isPermaLink="true">https://beatp9696-arch.github.io/articles/deep-dive-axp.html</guid>
+<pubDate>Sat, 27 Jun 2026 09:00:00 +0700</pubDate>
+<description>เข้าใจธุรกิจ Amex ผ่านลูกค้า เส้นทางเงิน รายได้ ต้นทุน และความเสี่ยง พร้อมภาพเคลื่อนไหวอธิบายการจ่ายเงิน การเกิดกำไร และเงินทุนที่รองรับธุรกิจ</description>
+</item>
+<item>
+<title>AXP Q2 2026 — Technical report · 23 September 2026</title>
+<link>https://beatp9696-arch.github.io/articles/deep-dive-axp-2026-09-23.html</link>
+<guid isPermaLink="true">https://beatp9696-arch.github.io/articles/deep-dive-axp-2026-09-23.html</guid>
+<pubDate>Wed, 23 Sep 2026 12:00:00 +0700</pubDate>
+<description>รายงานเต็มภาษาอังกฤษ: งบ เครดิต valuation scenarios สมมติฐาน 41 ข้อ และ calculation workbook พร้อมแหล่งอ้างอิง</description>
+</item>
 <item>
 <title>ผ่าธุรกิจ BAC (Bank of America) — วัตถุดิบคือเงินของคนอื่น</title>
 <link>https://beatp9696-arch.github.io/articles/deep-dive-bac.html</link>
@@ -517,13 +531,6 @@
 <guid isPermaLink="true">https://beatp9696-arch.github.io/articles/deep-dive-snps.html</guid>
 <pubDate>Sat, 27 Jun 2026 09:00:00 +0700</pubDate>
 <description>ผ่าธุรกิจ Synopsys (SNPS) — EDA duopoly, ดีล Ansys $35B, ความหวัง Physical AI, GAAP vs adjusted margin, dilution และ Kill Conditions อ้างอิงงบ FY2025 + Q2 2026</description>
-</item>
-<item>
-<title>ผ่าธุรกิจ AXP (American Express) — โมเดล "spend-centric" กับคูเมืองที่คนมองข้าม</title>
-<link>https://beatp9696-arch.github.io/articles/deep-dive-axp.html</link>
-<guid isPermaLink="true">https://beatp9696-arch.github.io/articles/deep-dive-axp.html</guid>
-<pubDate>Sat, 27 Jun 2026 09:00:00 +0700</pubDate>
-<description>ผ่าธุรกิจ American Express (AXP) — closed-loop network, โมเดล spend-centric, moat, bull/bear และ Kill Conditions อ้างอิงงบ FY2025 + Q1 2026</description>
 </item>
 <item>
 <title>ตอนที่ 3: งบดุล + เชื่อม 3 งบ — ฐานะ ณ วันนี้ และภาพใหญ่ที่ครบ</title>

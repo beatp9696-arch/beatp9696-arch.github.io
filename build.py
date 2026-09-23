@@ -350,6 +350,10 @@ def inject_tocs():
             continue
         path = os.path.join(art_dir, fn)
         orig = open(path, encoding="utf-8").read()
+        # Bespoke editorial pages own their accessible diagram IDs and TOC.
+        if 'data-editorial-layout="manual"' in orig:
+            skipped += 1
+            continue
         body = _TOC_BLOCK_RE.sub("", orig)  # ล้าง TOC เดิมก่อน (idempotent)
 
         mstart, mend = body.find("<main"), body.find("</main>")
@@ -1580,6 +1584,8 @@ def write_related():
             src = open(path, encoding="utf-8").read()
         except OSError:
             print(f"related     : WARNING ไม่พบ {path} — ข้าม")
+            continue
+        if 'data-editorial-layout="manual"' in src:
             continue
         cards = "\n".join(
             f'          <a class="related-card" href="{href}">{html.escape(label, quote=False)}</a>'

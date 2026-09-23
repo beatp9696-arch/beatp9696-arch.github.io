@@ -118,7 +118,6 @@ window.NYSE = (function () {
     { f: "financials-02-cash-flow-statement.html", t: "ตอนที่ 2: งบกระแสเงินสด", sec: "basics" },
     { f: "financials-03-balance-sheet.html", t: "ตอนที่ 3: งบดุล + เชื่อม 3 งบ", sec: "basics" },
     { f: "deep-dive-snps.html", t: "ผ่าธุรกิจ SNPS (Synopsys)", tk: "SNPS", sec: "semi" },
-    { f: "deep-dive-axp.html", t: "ผ่าธุรกิจ AXP (American Express)", tk: "AXP", sec: "finance" },
     { f: "buffett-4-pillars.html", t: "4 เสาหลักความคิดของ Warren Buffett", sec: "basics" },
     { f: "deep-dive-cost.html", t: "ผ่าธุรกิจ COST (Costco)", tk: "COST", sec: "consumer" },
     { f: "deep-dive-meli.html", t: "ผ่าธุรกิจ MELI (MercadoLibre)", tk: "MELI", sec: "consumer" },
@@ -180,7 +179,9 @@ window.NYSE = (function () {
     { f: "situational-awareness.html", t: "Situational Awareness — เมื่อ AI เปลี่ยนกติกาโลก", sec: "market" },
     { f: "case-study-02-amd.html", t: "เคสศึกษา 2: AMD", sec: "semi" },
     { f: "fix-life-in-1-day.html", t: "ซ่อมชีวิตทั้งใบใน 1 วัน", sec: "other" },
-    { f: "deep-dive-bac.html", t: "BAC (Bank of America)", tk: "BAC", sec: "finance" }
+    { f: "deep-dive-bac.html", t: "BAC (Bank of America)", tk: "BAC", sec: "finance" },
+    { f: "deep-dive-axp-2026-09-23.html", t: "AXP Q2 2026 Technical report · สมมติฐานและโมเดล", sec: "finance" },
+    { f: "deep-dive-axp.html", t: "American Express (AXP) · เบื้องหลังบัตรและธุรกิจ", tk: "AXP", sec: "finance" }
   ];
 
   var progressBar = document.querySelector(".reading-progress");
