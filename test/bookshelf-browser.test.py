@@ -262,7 +262,7 @@ try:
         fitted(page)
         page.keyboard.press('Escape')
         page.goto(origin + '/index.html')
-        expect(page.locator('.home-bookshelf-entry')).to_have_attribute('href','books.html')
+        expect(page.locator('.press-series .press-book--bookshelf')).to_have_attribute('href','books.html')
         for width in [320,390,768,1440]:
             page.set_viewport_size({'width':width,'height':1000})
             fitted(page)
