@@ -90,11 +90,24 @@ def asset_url(path, source=None):
     return f"{path}?v={version}"
 
 
+def cover_img(book, prefix, attrs):
+    """<img> ปก + <source> AVIF เมื่อมีไฟล์ .avif ชื่อเดียวกันวางคู่ไว้
+    (ปกลายเส้นถี่อย่าง Poor Charlie's JPEG บีบไม่ลง: 296KB → AVIF 47KB = LCP ของ books.html)"""
+    img = f'<img src="{prefix}{E(book["cover"])}" {attrs}>'
+    avif = Path(book["cover"]).with_suffix(".avif")
+    if (ROOT / avif).is_file():
+        return f'<picture><source type="image/avif" srcset="{prefix}{E(avif.as_posix())}">{img}</picture>'
+    return img
+
+
 def cover(book, prefix="", lazy=False):
+    attrs = (f'alt="{E(book["coverAlt"])}" width="{int(book.get("coverWidth", 348))}" '
+             f'height="{int(book.get("coverHeight", 360))}" '
+             + ('loading="lazy"' if lazy else 'fetchpriority="high"') + ' decoding="async"')
     return f'''<div class="bs-volume" style="--book-accent:{E(book['accent'])};--cover-ratio:{int(book.get('coverWidth', 3))}/{int(book.get('coverHeight', 4))}">
       <div class="bs-cover-face">
         <span class="bs-cover-fallback" aria-hidden="true"><small>MOATRICES · BOOKSHELF</small><strong lang="en">{E(book['title'])}</strong><span>{E(book['author'])}</span></span>
-        <img src="{prefix}{E(book['cover'])}" alt="{E(book['coverAlt'])}" width="{int(book.get('coverWidth', 348))}" height="{int(book.get('coverHeight', 360))}" {'loading="lazy"' if lazy else 'fetchpriority="high"'} decoding="async">
+        {cover_img(book, prefix, attrs)}
       </div>
       <span class="bs-volume-spine" aria-hidden="true">{E(book['title'])}</span>
       <span class="bs-volume-pages" aria-hidden="true"></span>
@@ -154,7 +167,7 @@ def chapter_links(book, numbered=False):
 
 def book_identity(book):
     return f'''<a class="bs-book-identity" href="#book-intro" aria-label="ข้อมูลหนังสือ: {E(book['title'])}">
-      <span class="bs-nav-cover" style="--book-accent:{E(book['accent'])}" aria-hidden="true"><svg viewBox="0 0 24 32" fill="none" stroke="currentColor" stroke-width="1.2"><path d="M4 2h16v28H4zM7 2v28M10 9h7M10 13h7"/></svg><img src="../{E(book['cover'])}" alt="" width="44" height="64" decoding="async"></span>
+      <span class="bs-nav-cover" style="--book-accent:{E(book['accent'])}" aria-hidden="true"><svg viewBox="0 0 24 32" fill="none" stroke="currentColor" stroke-width="1.2"><path d="M4 2h16v28H4zM7 2v28M10 9h7M10 13h7"/></svg>{cover_img(book, "../", 'alt="" width="44" height="64" decoding="async"')}</span>
       <span class="bs-book-identity-copy"><strong lang="en">{E(book['title'])}</strong><small lang="en">{E(book['author'])}</small></span>
     </a>'''
 
@@ -352,7 +365,7 @@ def detail(b):
                 body = body[:end] + next_link + body[end:]
                 break
     url = BASE_URL + "/books/" + b["slug"] + ".html"
-    schema = [book_schema(b), {"@type": "Article", "headline": b["title"] + " — " + L["editionLabel"], "description": b["shortDescription"], "inLanguage": "th", "datePublished": b["updatedAt"], "dateModified": b["updatedAt"], "author": {"@type": "Organization", "name": "Moatrices"}, "about": {"@id": url + "#book"}, "mainEntityOfPage": url, "image": BASE_URL + "/" + b.get("shareImage", b["cover"]), "isBasedOn": [b["sourceLinks"][0]["url"]] + ([BASE_URL + "/" + b["fullArticle"]] if b.get("fullArticle") else [])}, breadcrumb_schema(b)]
+    schema = [book_schema(b), {"@type": "Article", "headline": b["title"] + " — " + L["editionLabel"], "description": b["shortDescription"], "inLanguage": "th", "datePublished": b["updatedAt"], "dateModified": b["updatedAt"], "author": {"@type": "Organization", "name": "Moatrices", "url": BASE_URL + "/about.html"}, "about": {"@id": url + "#book"}, "mainEntityOfPage": url, "image": BASE_URL + "/" + b.get("shareImage", b["cover"]), "isBasedOn": [b["sourceLinks"][0]["url"]] + ([BASE_URL + "/" + b["fullArticle"]] if b.get("fullArticle") else [])}, breadcrumb_schema(b)]
     return shell(b["title"] + " · " + L["editionLabel"], b["shortDescription"], "books/" + b["slug"] + ".html", body, schema, "../", b)
 
 

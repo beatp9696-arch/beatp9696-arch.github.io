@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <script>try{var t=localStorage.getItem('theme');if(t)document.documentElement.setAttribute('data-theme',t);}catch(e){}</script>
   <title>ผ่าธุรกิจ MU (Micron) — โรงงานความจำของยุค AI ในวัฏจักรที่โหดที่สุด | Moatrices</title>
-  <meta name="description" content="ผ่าธุรกิจ Micron (MU) — ผู้ผลิตความจำ DRAM/NAND สัญชาติสหรัฐรายเดียว, oligopoly 3 ราย, เดิมพัน HBM กับยุค AI และวัฏจักร commodity ที่โหด อ้างอิงงบ FY2025: รายได้ $37.4B, GM พลิก 22%→40%, DRAM $28.6B">
+  <meta name="description" content="ผ่าธุรกิจ Micron (MU) — ผู้ผลิต DRAM/NAND สัญชาติสหรัฐรายเดียวใน oligopoly 3 ราย เดิมพัน HBM ยุค AI กับวัฏจักร commodity ที่โหด: รายได้ $37.4B, GM 22%→40%">
   <meta property="og:type" content="article">
   <meta property="og:site_name" content="Moatrices">
   <meta property="og:title" content="ผ่าธุรกิจ MU (Micron) — โรงงานความจำของยุค AI ในวัฏจักรที่โหดที่สุด">
@@ -32,7 +32,7 @@
       <link rel="stylesheet" href="../scenes/deep-dive-mu.min.css">
       <!-- /SCENE-CSS -->
   <script type="application/ld+json">
-  {"@context": "https://schema.org", "@type": "BlogPosting", "headline": "ผ่าธุรกิจ MU (Micron) — โรงงานความจำของยุค AI ในวัฏจักรที่โหดที่สุด", "description": "ผ่าธุรกิจ Micron (MU) — DRAM/NAND oligopoly 3 ราย, กำแพงทุน, เดิมพัน HBM กับ AI และวัฏจักร commodity ที่กำไรเหวี่ยง อ้างอิงงบ FY2025 รายได้ $37.4B, GM 40%, DRAM $28.6B", "image": ["https://beatp9696-arch.github.io/og-deep-dive-mu.jpg"], "author": {"@type": "Person", "name": "Moatrices"}, "publisher": {"@type": "Organization", "name": "Moatrices", "logo": {"@type": "ImageObject", "url": "https://beatp9696-arch.github.io/icon-512.png"}}, "mainEntityOfPage": {"@type": "WebPage", "@id": "https://beatp9696-arch.github.io/articles/deep-dive-mu.html"}, "inLanguage": "th", "datePublished": "2026-06-30", "dateModified": "2026-06-30"}
+  {"@context": "https://schema.org", "@type": "BlogPosting", "headline": "ผ่าธุรกิจ MU (Micron) — โรงงานความจำของยุค AI ในวัฏจักรที่โหดที่สุด", "description": "ผ่าธุรกิจ Micron (MU) — DRAM/NAND oligopoly 3 ราย, กำแพงทุน, เดิมพัน HBM กับ AI และวัฏจักร commodity ที่กำไรเหวี่ยง อ้างอิงงบ FY2025 รายได้ $37.4B, GM 40%, DRAM $28.6B", "image": ["https://beatp9696-arch.github.io/og-deep-dive-mu.jpg"], "author": {"@type": "Organization", "name": "Moatrices", "url": "https://beatp9696-arch.github.io/about.html"}, "publisher": {"@type": "Organization", "name": "Moatrices", "logo": {"@type": "ImageObject", "url": "https://beatp9696-arch.github.io/icon-512.png"}}, "mainEntityOfPage": {"@type": "WebPage", "@id": "https://beatp9696-arch.github.io/articles/deep-dive-mu.html"}, "inLanguage": "th", "datePublished": "2026-06-30", "dateModified": "2026-06-30"}
   </script>
   <script type="application/ld+json">
   {"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "หน้าแรก", "item": "https://beatp9696-arch.github.io/"}, {"@type": "ListItem", "position": 2, "name": "ผ่าธุรกิจ MU (Micron) — โรงงานความจำของยุค AI ในวัฏจักรที่โหดที่สุด", "item": "https://beatp9696-arch.github.io/articles/deep-dive-mu.html"}]}
@@ -83,14 +83,14 @@
       <nav class="toc">
         <div class="toc-title">ในบทความนี้</div>
         <ol>
-          <li><a href="#sec-1">1. ธุรกิจนี้หาเงินจากอะไร</a></li>
-          <li><a href="#sec-2">2. สองขา: DRAM (เร็ว) กับ NAND (ถาวร)</a></li>
-          <li><a href="#sec-3">3. คูเมืองของ commodity: oligopoly 3 ราย + กำแพงทุน</a></li>
-          <li><a href="#sec-4">4. HBM: เดิมพันที่เปลี่ยน Micron จาก commodity เป็นของหายาก</a></li>
-          <li><a href="#sec-5">5. วัฏจักร: ทำไมธุรกิจดีแต่กำไรเหวี่ยงสุดขั้ว</a></li>
-          <li><a href="#sec-6">6. Bull Case</a></li>
-          <li><a href="#sec-7">7. Bear Case / จุดเปราะ</a></li>
-          <li><a href="#sec-8">8. Kill Conditions — อะไรจะทำให้ thesis พัง</a></li>
+          <li><a href="#sec-1">ธุรกิจนี้หาเงินจากอะไร</a></li>
+          <li><a href="#sec-2">สองขา: DRAM (เร็ว) กับ NAND (ถาวร)</a></li>
+          <li><a href="#sec-3">คูเมืองของ commodity: oligopoly 3 ราย + กำแพงทุน</a></li>
+          <li><a href="#sec-4">HBM: เดิมพันที่เปลี่ยน Micron จาก commodity เป็นของหายาก</a></li>
+          <li><a href="#sec-5">วัฏจักร: ทำไมธุรกิจดีแต่กำไรเหวี่ยงสุดขั้ว</a></li>
+          <li><a href="#sec-6">Bull Case</a></li>
+          <li><a href="#sec-7">Bear Case / จุดเปราะ</a></li>
+          <li><a href="#sec-8">Kill Conditions — อะไรจะทำให้ thesis พัง</a></li>
           <li><a href="#sec-9">สรุป</a></li>
         </ol>
       </nav>

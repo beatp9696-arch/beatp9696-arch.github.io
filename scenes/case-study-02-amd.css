@@ -76,8 +76,11 @@
 @keyframes amdTell { from { opacity: 0; transform: translateY(5px); } }
 .amd-iso-yield { transform-box: fill-box; transform-origin: left center; }
 
-/* ── มือถือ: แบบเขียนกว้าง ให้เลื่อนดูแนวนอนแทนการบีบจนอ่านไม่ออก ── */
+/* ── มือถือ: แบบเขียนกว้าง ให้เลื่อนดูแนวนอนแทนการบีบจนอ่านไม่ออก ──
+   overflow ต้องอยู่นอก @container: .sa-stage คือตัว container เอง query ตัวเองไม่ได้
+   (เดิมใส่ไว้ข้างใน → ไม่เคยทำงาน แต่ min-width ของ svg ทำงาน = ทั้งหน้าเลื่อนซ้ายขวาได้ 618px)
+   จอกว้างพอ svg กว้าง 100% พอดี จึงไม่มีแถบเลื่อนโผล่ */
+.amd-panel .sa-stage { overflow-x: auto; overflow-y: hidden; }
 @container (max-width: 520px) {
-  .amd-panel .sa-stage { overflow-x: auto; }
   .amd-iso { min-width: 560px; }
 }

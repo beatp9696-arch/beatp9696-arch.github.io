@@ -280,7 +280,8 @@ window.NYSE = (function () {
       var inner = '<div class="toc-title">ในบทความนี้</div><ol>';
       hs.forEach(function (h, i) {
         if (!h.id) h.id = "sec-" + (i + 1);
-        inner += '<li><a href="#' + h.id + '">' + h.textContent + "</a></li>";
+        // ตัดเลขนำหน้าในหัวข้อ ("1. …") — <ol> ใส่เลขให้แล้ว (ตรงกับ build.py _TOC_NUM_RE)
+        inner += '<li><a href="#' + h.id + '">' + h.textContent.replace(/^\s*\d+[.)]\s+/, "") + "</a></li>";
       });
       inner += "</ol>";
       toc.innerHTML = inner;
@@ -1233,8 +1234,12 @@ window.NYSE = (function () {
   // พับเก็บ (จำสถานะ)
   var KEY = "tarsCollapsed";
   function setCollapsed(v) { wrap.setAttribute("data-collapsed", v ? "true" : "false"); try { localStorage.setItem(KEY, v ? "1" : "0"); } catch (e) {} }
-  var stored = "0"; try { stored = localStorage.getItem(KEY) || "0"; } catch (e) {}
-  setCollapsed(stored === "1");
+  var stored = null; try { stored = localStorage.getItem(KEY); } catch (e) {}
+  // ผู้อ่านยังไม่เคยเลือกเอง: จอแคบพับเก็บไว้ก่อน (ยกเว้นหน้าแรก) — การ์ดลอยทับเนื้อความตอนอ่านบนมือถือ
+  // ค่าเริ่มต้นนี้ไม่บันทึกลง localStorage จำเฉพาะตอนผู้อ่านกดพับ/กางเอง
+  var isHome = /\/(index\.html)?$/.test(location.pathname);
+  var collapsed = stored === null ? (!isHome && window.matchMedia("(max-width: 700px)").matches) : stored === "1";
+  wrap.setAttribute("data-collapsed", collapsed ? "true" : "false");
   wrap.querySelector(".tarsb-min").addEventListener("click", function () { setCollapsed(true); });
   wrap.querySelector(".tarsb-tab").addEventListener("click", function () { setCollapsed(false); });
   wrap.querySelector(".tarsb-card .tarsb-bot").addEventListener("click", tick); // แตะ TARS = ข้อความถัดไป

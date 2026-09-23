@@ -41,7 +41,10 @@
 /* ---------- พื้นบท + ตารางกริดบนหัวเรื่อง ---------- */
 .fx{ position:relative; color:var(--fx-ink); font-size:17px; line-height:1.85; counter-reset:fxsec; }
 .fx::before{
-  content:""; position:absolute; inset:-28px -24px auto -24px; height:430px; pointer-events:none; z-index:0;
+  /* ยื่นออกข้างละ 24px แต่ไม่เกินขอบจอ — มือถือขอบคอลัมน์เหลือ ~22px ถ้ายื่นเต็มหน้าจอจะเลื่อนข้างได้ 2px
+     ((100% − 100vw) / 2 = ระยะขอบจอฝั่งละ ติดลบ) */
+  content:""; position:absolute; inset:-28px max(-24px, calc((100% - 100vw) / 2)) auto max(-24px, calc((100% - 100vw) / 2));
+  height:430px; pointer-events:none; z-index:0;
   background:repeating-linear-gradient(to right,var(--fx-brass) 0 1px,transparent 1px 26px),
              repeating-linear-gradient(to bottom,var(--fx-brass) 0 1px,transparent 1px 26px);
   opacity:.07;

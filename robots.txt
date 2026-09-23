@@ -5,5 +5,7 @@ Allow: /
 Disallow: /partials/
 # asset ภายในของแอป
 Disallow: /app/assets/
+# ต้นฉบับร่าง (.md) และหน้า redirect ของบทที่ย้ายไปแล้ว — ไม่ใช่เนื้อหาที่ควรขึ้นผลค้นหา
+Disallow: /drafts/
 
 Sitemap: https://beatp9696-arch.github.io/sitemap.xml

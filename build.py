@@ -19,6 +19,7 @@ index.html เป็นหน้า curated: โชว์แค่บทล่�
 """
 
 import datetime
+import email.utils
 import html
 import json
 import os
@@ -330,6 +331,9 @@ _BYLINE_RE = re.compile(
 # กินขึ้นบรรทัดว่าง+ย่อหน้าที่นำหน้า TOC ที่เราใส่ไว้ (\n\n<indent>) แต่ไม่แตะ \n ต่อท้าย
 # เพื่อให้ strip→re-inject ได้ผลไบต์ต่อไบต์เดิม (idempotent, diff สะอาด)
 _TOC_BLOCK_RE = re.compile(r"\n*[ \t]*<!-- TOC-START -->.*?<!-- TOC-END -->", re.S)
+# h2 หลายบทมีเลขนำหน้าอยู่แล้ว ("1. ธุรกิจนี้…") — <ol> ใส่เลขให้เองอีกชั้น จึงตัดเลขในข้อความทิ้ง
+# (เลขในหัวข้อตรงกับลำดับ <ol> ทุกบท ตรวจแล้ว 23 ก.ย. 2026) กัน TOC ขึ้น "1. 1. ธุรกิจนี้…"
+_TOC_NUM_RE = re.compile(r"^\s*\d+[.)]\s+")
 
 
 def inject_tocs():
@@ -366,7 +370,7 @@ def inject_tocs():
             m = _BYLINE_RE.search(body)
             if m:
                 items = "\n".join(
-                    f'          <li><a href="#sec-{n}">{text}</a></li>'
+                    f'          <li><a href="#sec-{n}">{_TOC_NUM_RE.sub("", text)}</a></li>'
                     for n, text in heads
                 )
                 toc = (
@@ -1145,6 +1149,45 @@ def stock_warnings(articles):
     return w
 
 
+# รูปที่ชี้ด้วย URL เต็มของเว็บ (og:image / twitter:image / JSON-LD "image") ต้องมีไฟล์จริง
+# เคยพัง: situational-awareness ชี้ .png แต่ไฟล์เป็น .jpg → แชร์ลง LINE/FB ไม่มีภาพ (404)
+_SITE_IMG_RE = re.compile(re.escape(BASE_URL) + r"/([^\"'<>\s]+\.(?:jpg|jpeg|png|webp|svg|gif))")
+
+
+def image_url_warnings():
+    w = []
+    pages = [f for f in os.listdir(".") if f.endswith(".html")]
+    for d in ("articles", "books", "interstellar"):
+        if os.path.isdir(d):
+            pages += [f"{d}/{f}" for f in os.listdir(d) if f.endswith(".html")]
+    for page in sorted(pages):
+        head = open(page, encoding="utf-8").read().split("</head>", 1)[0]
+        for rel in sorted(set(_SITE_IMG_RE.findall(head))):
+            if not os.path.exists(rel):
+                w.append(f"{page}: meta/JSON-LD ชี้รูป /{rel} ที่ไม่มีไฟล์ — preview ตอนแชร์จะว่าง")
+    return w
+
+
+def date_warnings(p, body):
+    """วันที่ของบทเดียวกันต้องตรงกันทุกที่: การ์ดใน articles.html = datePublished หรือ dateModified
+    (การ์ดใช้วันเขียนใหม่ได้ เช่น fin-01) และ pubDate ใน feed = วันการ์ดหรือ datePublished"""
+    w = []
+    m = re.search(r'"datePublished":\s*"([\d-]+)"(?:,\s*"dateModified":\s*"([\d-]+)")?', body)
+    if m:
+        ok = {m.group(1)[:10], (m.group(2) or m.group(1))[:10]}
+        if p["date"] not in ok:
+            w.append(f"{p['file']}: วันที่การ์ด {p['date']} ไม่ตรง JSON-LD ({' / '.join(sorted(ok))})")
+        feed = open("feed.xml", encoding="utf-8").read()
+        f = re.search(r"<guid[^>]*>" + re.escape(f"{BASE_URL}/articles/{p['file']}") +
+                      r"</guid>\s*<pubDate>([^<]+)</pubDate>", feed)
+        if f:
+            d = email.utils.parsedate_to_datetime(f.group(1)).astimezone(TZ).date().isoformat()
+            if d not in (p["date"], m.group(1)[:10]):
+                w.append(f"{p['file']}: pubDate ใน feed.xml = {d} แต่การ์ด/JSON-LD = {p['date']} "
+                         f"— แก้ <pubDate> ของ item นี้ใน feed.xml (build รักษาค่าเดิมไว้ตาม guid)")
+    return w
+
+
 def validate(posts, articles):
     warnings = []
     archive_files = {p["file"] for p in posts}
@@ -1205,7 +1248,9 @@ def validate(posts, articles):
             body = open(art, encoding="utf-8").read()
             if '"@type": "BlogPosting"' in body and '"image"' not in body:
                 warnings.append(f"{p['file']}: BlogPosting JSON-LD ขาด \"image\" — เสียสิทธิ์ Article rich results")
+            warnings.extend(date_warnings(p, body))
 
+    warnings.extend(image_url_warnings())
     warnings.extend(stock_warnings(articles))
     if "<!-- STOCKS-START -->" not in open("stocks.html", encoding="utf-8").read():
         warnings.append("stocks.html ไม่มี marker <!-- STOCKS-START --> — build ไม่ gen การ์ดหุ้นให้")

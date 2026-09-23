@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <script>try{var t=localStorage.getItem('theme');if(t)document.documentElement.setAttribute('data-theme',t);}catch(e){}</script>
   <title>10 ปีที่คูเมืองแตก: คุณคือซีอีโอ Kodak ปี 1996 (เกมจำลองการตัดสินใจ) — Moatrices</title>
-  <meta name="description" content="เกมจำลองภาษาไทย — นั่งเก้าอี้ซีอีโอ Kodak ปี 1996 ตัดสินใจ 5 ครั้งจากเหตุการณ์จริง แล้วดูว่าคุณจะรอดจากสิ่งที่ฆ่า Kodak ไหม: บริษัทที่รู้ล่วงหน้าสิบปี เป็นเบอร์ 1 กล้องดิจิทัล และยังล้มละลาย เพราะเกจที่ซีอีโอเฝ้ามองไม่ใช่เกจที่ตัดสินเขา">
+  <meta name="description" content="เกมจำลอง: นั่งเก้าอี้ซีอีโอ Kodak ปี 1996 ตัดสินใจ 5 ครั้งจากเหตุการณ์จริง แล้วดูว่าคุณจะรอดจากสิ่งที่ฆ่า Kodak ไหม — เพราะเกจที่ซีอีโอเฝ้ามองไม่ใช่เกจที่ตัดสินเขา">
   <meta property="og:type" content="website">
   <meta property="og:site_name" content="Moatrices">
   <meta property="og:title" content="10 ปีที่คูเมืองแตก: คุณคือซีอีโอ Kodak ปี 1996 (เกมจำลองการตัดสินใจ) — Moatrices">
@@ -170,6 +170,11 @@
   .lvl,.crack,.fade{transition:none}
 }
   </style>
+  <!-- EXTRA-JSONLD -->
+  <script type="application/ld+json">
+  {"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "หน้าแรก", "item": "https://beatp9696-arch.github.io/"}, {"@type": "ListItem", "position": 2, "name": "เครื่องมือ", "item": "https://beatp9696-arch.github.io/tools.html"}, {"@type": "ListItem", "position": 3, "name": "10 ปีที่คูเมืองแตก: คุณคือซีอีโอ Kodak ปี 1996", "item": "https://beatp9696-arch.github.io/moat-break-game-kodak.html"}]}
+  </script>
+  <!-- /EXTRA-JSONLD -->
 </head>
 <body>
 
@@ -447,7 +452,11 @@ function paintHUD(){
   $('turn').textContent = 'ปีที่ ' + Math.min(S.i+1, TURNS.length) + ' / ' + TURNS.length;
 }
 
-function renderTurn(){
+// แทนที่เนื้อหาใน #desk ทั้งก้อน → โฟกัสเดิมหายไปกับปุ่มที่ถูกลบ ต้องย้ายโฟกัสเองทุกครั้ง
+// (ไม่งั้นคนใช้คีย์บอร์ด/โปรแกรมอ่านจอหลุดไปต้นหน้า) — ครั้งแรกตอนโหลดหน้าไม่ขโมยโฟกัส
+const focusIn = sel => { const el = document.querySelector(sel); if (el) el.focus({ preventScroll: true }); };
+
+function renderTurn(moveFocus){
   const t = TURNS[S.i];
   paintHUD(); paintStage();
   $('desk').innerHTML = `
@@ -455,7 +464,7 @@ function renderTurn(){
       <span class="sg-from">${t.from}</span>
       <span class="sg-stamp">${t.stamp}</span>
     </div>
-    <h2 class="sg-memo-title">${t.title}</h2>
+    <h2 class="sg-memo-title" tabindex="-1">${t.title}</h2>
     <p class="sg-memo-body">${t.body}</p>
     <div class="sg-choices">
       ${t.choices.map((c,n)=>`
@@ -465,6 +474,7 @@ function renderTurn(){
     </div>`;
   $('desk').querySelectorAll('.sg-choice').forEach(b =>
     b.onclick = () => choose(+b.dataset.n));
+  if (moveFocus) focusIn('.sg-memo-title');
 }
 
 function choose(n){
@@ -487,7 +497,7 @@ function choose(n){
       <span class="sg-from">${t.year} · คุณเลือก</span>
       <span class="sg-stamp">${c.t}</span>
     </div>
-    <div class="sg-reveal">
+    <div class="sg-reveal" tabindex="-1">
       <p class="sg-real">เกิดอะไรขึ้นจริง</p>
       <p>${c.rev}</p>
       <div class="sg-deltas">${chips}</div>
@@ -495,16 +505,17 @@ function choose(n){
     </div>`;
 
   $('next').onclick = () => {
-    if (S.board <= 0) return ending('fired');
-    if (last) return ending('done');
-    S.i++; renderTurn();
+    if (S.board <= 0) return ending('fired', true);
+    if (last) return ending('done', true);
+    S.i++; renderTurn(true);
   };
+  focusIn('.sg-reveal');
   $('cap').textContent = S.moat < 50
     ? 'ท่อเริ่มแห้ง — ถังยังอยู่ แต่ไม่มีอะไรไหลเข้า'
     : 'คูเมืองจริงของ Kodak ไม่ใช่กล้อง — คือท่อสองเส้นนี้';
 }
 
-function ending(kind){
+function ending(kind, moveFocus){
   let head, body;
   if (kind === 'fired' || S.board <= 0){
     head = 'บอร์ดปลดคุณออกก่อนที่คุณจะได้พิสูจน์';
@@ -533,7 +544,7 @@ function ending(kind){
   document.getElementById('game').innerHTML = `
     <div class="sg-end" style="grid-column:1/-1">
       <p class="sg-kicker">ปี 2012 · คำตัดสิน</p>
-      <h2 class="sg-verdict">${head}</h2>
+      <h2 class="sg-verdict" tabindex="-1">${head}</h2>
       ${body}
       <div class="sg-score">
         <div><span>มูลค่าผู้ถือหุ้น (ซ่อนไว้ตลอดเกม)</span><b>${Math.round(S.sv)}</b></div>
@@ -545,6 +556,8 @@ function ending(kind){
       </p>
       <button class="sg-again" onclick="location.reload()">เล่นใหม่</button>
     </div>`;
+  // กระดานเกมทั้งก้อนถูกแทนด้วยคำตัดสิน — พาโฟกัส (และจอ) ไปที่หัวคำตัดสิน
+  if (moveFocus) document.querySelector('.sg-verdict').focus();
 }
 
 // debug: #sim=0,1 = เล่นตามลำดับที่กำหนดแล้วหยุดที่เทิร์นถัดไป (ใช้ถ่ายภาพตรวจงาน)

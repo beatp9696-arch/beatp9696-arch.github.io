@@ -173,8 +173,11 @@ function initArticle() {
   const bar = document.createElement('div'); bar.className = 'reading-toolbar';
   bar.innerHTML = `<button data-bookmark aria-pressed="false">＋ ไว้อ่าน</button><button data-notebook>หลักฐานของบทนี้ <span>0</span></button><button data-complete aria-pressed="false">อ่านจบแล้ว</button><a href="${libraryURL}">คลังของฉัน ↗</a>`;
   const bookSlot = main.querySelector('.bs-reading-slot');
+  // บางหน้า (เช่นเคสศึกษา) h1 อยู่ใน hero นอก .container — ไม่มีจุดยึดก็วางต้นคอลัมน์ แทนที่จะ throw ทั้งฟังก์ชัน
+  const anchor = main.querySelector('.byline') || main.querySelector('h1');
   if (bookSlot) bookSlot.append(bar);
-  else (main.querySelector('.byline') || main.querySelector('h1')).after(bar);
+  else if (anchor) anchor.after(bar);
+  else main.prepend(bar);
   const popup = document.createElement('button'); popup.type = 'button'; popup.className = 'reading-selection reading-primary'; popup.hidden = true;
   popup.textContent = '✎ บันทึกข้อความที่เลือก'; document.body.append(popup);
   const corpus = () => {

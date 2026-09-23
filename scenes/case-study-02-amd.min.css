@@ -47,7 +47,7 @@ fill: #E0BE90; letter-spacing: .02em; }
 .playing .amd-iso-yield { animation: amdTell calc(var(--beat) * 1.6) var(--e-expo) both; }
 @keyframes amdTell { from { opacity: 0; transform: translateY(5px); } }
 .amd-iso-yield { transform-box: fill-box; transform-origin: left center; }
+.amd-panel .sa-stage { overflow-x: auto; overflow-y: hidden; }
 @container (max-width: 520px) {
-.amd-panel .sa-stage { overflow-x: auto; }
 .amd-iso { min-width: 560px; }
 }

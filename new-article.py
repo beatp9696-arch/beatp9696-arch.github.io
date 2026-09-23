@@ -10,7 +10,7 @@
                               เข้าถึงผ่านการ์ดซีรีส์/คลังบทความแทน)
   5. app.js                 — ต่อ entry ท้าย ARTICLES (เรียงเก่า→ใหม่ — search + prev/next เห็น)
 
-หลังรัน: เขียนเนื้อหา + scene, ทำ og-<slug>.png, แล้วรัน `python3 build.py`
+หลังรัน: เขียนเนื้อหา + scene, ทำ og-<slug>.jpg, แล้วรัน `python3 build.py`
 (build.py จะ gen thumbnail/sitemap/feed/TOC/ItemList + ฝัง scene link + validate)
 
 ตัวอย่าง:
@@ -64,10 +64,10 @@ ARTICLE_TMPL = """<!DOCTYPE html>
   <meta property="og:url" content="@@BASE@@/articles/@@SLUG@@.html">
   <meta property="og:locale" content="th_TH">
   <meta name="twitter:card" content="summary_large_image">
-  <meta property="og:image" content="@@BASE@@/og-@@SLUG@@.png">
+  <meta property="og:image" content="@@BASE@@/og-@@SLUG@@.jpg">
   <meta property="og:image:width" content="1200">
   <meta property="og:image:height" content="630">
-  <meta name="twitter:image" content="@@BASE@@/og-@@SLUG@@.png">
+  <meta name="twitter:image" content="@@BASE@@/og-@@SLUG@@.jpg">
   <meta name="author" content="Moatrices">
   <link rel="canonical" href="@@BASE@@/articles/@@SLUG@@.html">
   <link rel="alternate" type="application/rss+xml" title="Moatrices RSS" href="/feed.xml">
@@ -80,7 +80,7 @@ ARTICLE_TMPL = """<!DOCTYPE html>
   <link rel="preload" as="font" type="font/woff2" href="../fonts/sarabun-400-latin.woff2" crossorigin>
   <link rel="stylesheet" href="../style.min.css">
   <script type="application/ld+json">
-  {"@context": "https://schema.org", "@type": "BlogPosting", "headline": "@@JTITLE@@", "description": "@@JDESC@@", "image": ["@@BASE@@/og-@@SLUG@@.png"], "author": {"@type": "Person", "name": "Moatrices"}, "publisher": {"@type": "Organization", "name": "Moatrices", "logo": {"@type": "ImageObject", "url": "@@BASE@@/icon-512.png"}}, "mainEntityOfPage": {"@type": "WebPage", "@id": "@@BASE@@/articles/@@SLUG@@.html"}, "inLanguage": "th", "datePublished": "@@DATE@@", "dateModified": "@@DATE@@"}
+  {"@context": "https://schema.org", "@type": "BlogPosting", "headline": "@@JTITLE@@", "description": "@@JDESC@@", "image": ["@@BASE@@/og-@@SLUG@@.jpg"], "author": {"@type": "Organization", "name": "Moatrices", "url": "https://beatp9696-arch.github.io/about.html"}, "publisher": {"@type": "Organization", "name": "Moatrices", "logo": {"@type": "ImageObject", "url": "@@BASE@@/icon-512.png"}}, "mainEntityOfPage": {"@type": "WebPage", "@id": "@@BASE@@/articles/@@SLUG@@.html"}, "inLanguage": "th", "datePublished": "@@DATE@@", "dateModified": "@@DATE@@"}
   </script>
   <script type="application/ld+json">
   {"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "หน้าแรก", "item": "@@BASE@@/"}, {"@type": "ListItem", "position": 2, "name": "@@JTITLE@@", "item": "@@BASE@@/articles/@@SLUG@@.html"}]}
@@ -304,7 +304,7 @@ def main():
     print("✓ ต่อ entry ท้าย app.js ARTICLES" + (" (มี tk)" if tk_part else ""))
     print("\nต่อไป:")
     print(f"  1. เขียนเนื้อหาใน {art} (แทน TODO) + scene ใน scenes/{a.slug}.css")
-    print(f"  2. ทำ og-{a.slug}.png (1200×630) วางที่ website/")
+    print(f"  2. ทำ og-{a.slug}.jpg (1200×630) วางที่ website/")
     print("  3. python3 build.py   # thumbnail/sitemap/feed/TOC/ItemList + ฝัง scene link + validate")
 
 

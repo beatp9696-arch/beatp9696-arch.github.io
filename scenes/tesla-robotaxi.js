@@ -42,7 +42,9 @@
 
   function needsFrame() {
     if(document.hidden || paused) return false;
-    return [...states].some(([el,s]) => s.visible && ((!s.done && el.id !== 'cybercab-studio') || (el.id === 'cybercab-studio' && studio?.isMoving()) || (el.id === 'economics' && Math.abs(shownProfit-targetProfit)>.005)));
+    // (เดิมมีเคสพิเศษของ cybercab-studio ที่อ้าง `studio` — ตัวแปรถูกลบไปพร้อมโมเดล 3D ใน c366e7e
+    //  ทำให้ ReferenceError ทุกครั้งที่ฉากนี้โผล่ แล้วลูปแอนิเมชันทั้งหน้าหยุด; ตอนนี้มันเป็น FIG plate ธรรมดา)
+    return [...states].some(([el,s]) => s.visible && (!s.done || (el.id === 'economics' && Math.abs(shownProfit-targetProfit)>.005)));
   }
   function wake() {
     if(!frame && needsFrame()) {previous=0; frame=requestAnimationFrame(tick);}
@@ -55,7 +57,6 @@
       const playing=state.visible && !paused && !document.hidden;
       el.dataset.playing=String(playing && !state.done);
       if(!playing) continue;
-      if(el.id === 'cybercab-studio') {studio?.update(dt); continue;}
       if(!state.done) {
         state.time=Math.min(state.duration,state.time+dt);
         if(el === dispatch) renderTrip(state.time/state.duration);
