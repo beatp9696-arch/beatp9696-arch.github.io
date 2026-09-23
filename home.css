@@ -192,7 +192,6 @@
 .home-overview-heading h2 { margin: 8px 0; padding: 0; font-size: 32px; line-height: 1.4; letter-spacing: -.6px; }
 .home-overview-heading h2 > span { color: var(--accent); }
 .home-overview-heading p { margin: 0; color: var(--muted); font-size: 14px; }
-.home-overview-heading .home-button { flex-shrink: 0; color: var(--bg); background: var(--accent-strong); border-color: var(--accent-strong); font-size: 12px; }
 .home-views { display: flex; gap: 30px; border-bottom: 1px solid var(--border); }
 .home-views a { padding: 15px 0; border-bottom: 2px solid transparent; color: var(--muted); font: 500 12px var(--font-head); }
 .home-views a[aria-current="page"] { border-color: var(--accent); color: var(--accent); }
