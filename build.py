@@ -34,7 +34,7 @@ from bookshelf_build import build_bookshelf, load_catalog
 BASE_URL = "https://beatp9696-arch.github.io"
 TOOLS = ["follow-the-money-nvda.html", "compound-interest.html", "reverse-dcf.html",
          "ai-iceberg.html", "econ-lessons.html",
-         "moat-break-game-kodak.html"]  # เครื่องมือ interactive — นับเป็น hero stat + ลิสต์ใน tools.html
+         "moat-break-game-kodak.html", "chip-zoom.html"]  # เครื่องมือ interactive — นับเป็น hero stat + ลิสต์ใน tools.html
 ROOT_PAGES = ["", "articles.html", "books.html", "stocks.html", "tools.html",
               "about.html"] + TOOLS + [
     # ซิมูเลชันประกอบบทความ interstellar-investing (ไม่ใช่ tool เดี่ยว — เข้าถึงผ่านบทความ)
@@ -80,6 +80,8 @@ CHROME_EXCLUSIONS = {
     # หน้าที่ปลดระวางแล้ว — เหลือไว้เป็น redirect กันลิงก์เก่าใน RSS/โซเชียลตาย
     "dashboard.html": 'url=/smart-money.html',
     "moat-city.html": 'url=/stocks.html',
+    # แล็บ 3D เต็มจอ (ซูมดาต้าเซ็นเตอร์ → อะตอม) — มีแถบบน/รางเองในธีมมืดตายตัว
+    "chip-zoom.html": 'id="rail-track"',
     "interstellar/endurance.html": 'class="backlink"',
     "interstellar/gargantua.html": 'class="backlink"',
     "interstellar/tesseract.html": 'class="backlink"',
@@ -475,6 +477,9 @@ FEED_EXTRAS = [
     {"file": "moatrices-7powers.pdf", "date": "2026-07-13",
      "title": "E-book ฟรี: 7 Powers — เจ็ดอำนาจของคูเมืองธุรกิจ (รวมเล่ม PDF 62 หน้า)",
      "excerpt": "ซีรีส์ 7 Powers ครบทั้ง 7 ตอนจัดเลย์เป็นหนังสือ — ภาพประกอบทุกฉาก แผนที่ 7 อำนาจ สารบัญกดกระโดดได้ อ่านออฟไลน์หรือส่งต่อให้เพื่อนได้เลย"},
+    {"file": "chip-zoom.html", "date": "2026-09-26",
+     "title": "หนึ่งชิป ห้าด่าน: ซูมจากดาต้าเซ็นเตอร์ถึงอะตอม — แล็บ 3D Interactive",
+     "excerpt": "ซูมต่อเนื่อง 40 เมตรถึง 1.6 นาโนเมตร ผ่านตู้ GB200 ถาด แพ็กเกจ ได สายทองแดง ทรานซิสเตอร์ จนถึงอะตอมซิลิคอน แล้วดูว่าแต่ละขนาดใครเก็บเงิน พร้อม gross margin จากงบจริงของ Microsoft, NVIDIA, TSMC, Synopsys, Cadence และ ASML"},
     {"file": "moatrices-buffett-munger.pdf", "date": "2026-07-21",
      "title": "E-book ฟรี: Buffett × Munger — เส้นทางตัดสินใจของนักลงทุน (รวมเล่ม PDF 80 หน้า)",
      "excerpt": "Buffett Talks + Munger Talks ครบ 12 บท เรียบเรียงใหม่เป็น 5 ภาคตามเส้นทางตัดสินใจ — ภาพประกอบใหม่ทุกบท บทนำ บทปิดแผนที่รวม สารบัญกดกระโดดได้ อ่านออฟไลน์หรือส่งต่อให้เพื่อนได้เลย"},

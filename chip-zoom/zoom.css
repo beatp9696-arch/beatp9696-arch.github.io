@@ -1,0 +1,196 @@
+/* หนึ่งชิป ห้าด่าน — หน้าแล็บโทนมืดตายตัว (ไม่ผูกธีมเว็บ เหมือนแล็บอื่น) */
+@font-face{font-family:'IBM Plex Sans Thai';font-weight:500;font-display:swap;src:url('../fonts/ibm-plex-sans-thai-500-thai.woff2') format('woff2');unicode-range:U+0E01-0E5B,U+200C-200D,U+25CC;}
+@font-face{font-family:'IBM Plex Sans Thai';font-weight:500;font-display:swap;src:url('../fonts/ibm-plex-sans-thai-500-latin.woff2') format('woff2');unicode-range:U+0000-00FF,U+2000-206F,U+2212;}
+@font-face{font-family:'IBM Plex Sans Thai';font-weight:600;font-display:swap;src:url('../fonts/ibm-plex-sans-thai-600-thai.woff2') format('woff2');unicode-range:U+0E01-0E5B,U+200C-200D,U+25CC;}
+@font-face{font-family:'IBM Plex Sans Thai';font-weight:600;font-display:swap;src:url('../fonts/ibm-plex-sans-thai-600-latin.woff2') format('woff2');unicode-range:U+0000-00FF,U+2000-206F,U+2212;}
+@font-face{font-family:'IBM Plex Sans Thai';font-weight:700;font-display:swap;src:url('../fonts/ibm-plex-sans-thai-700-thai.woff2') format('woff2');unicode-range:U+0E01-0E5B,U+200C-200D,U+25CC;}
+@font-face{font-family:'IBM Plex Sans Thai';font-weight:700;font-display:swap;src:url('../fonts/ibm-plex-sans-thai-700-latin.woff2') format('woff2');unicode-range:U+0000-00FF,U+2000-206F,U+2212;}
+@font-face{font-family:'Sarabun';font-weight:400;font-display:swap;src:url('../fonts/sarabun-400-thai.woff2') format('woff2');unicode-range:U+0E01-0E5B,U+200C-200D,U+25CC;}
+@font-face{font-family:'Sarabun';font-weight:400;font-display:swap;src:url('../fonts/sarabun-400-latin.woff2') format('woff2');unicode-range:U+0000-00FF,U+2000-206F,U+2212;}
+@font-face{font-family:'IBM Plex Mono';font-weight:500;font-display:swap;src:url('../fonts/ibm-plex-mono-500-latin.woff2') format('woff2');}
+
+:root{
+  --bg:#050908; --ink:#e8efea; --mute:#93a39b; --dim:#5f6f68;
+  --accent:#3ddc97; --gc:#3ddc97;
+  --panel:rgba(9,14,12,.72); --line:rgba(255,255,255,.09);
+  --head:'IBM Plex Sans Thai',-apple-system,'Segoe UI',sans-serif;
+  --body:'Sarabun',-apple-system,'Segoe UI',sans-serif;
+  --mono:'IBM Plex Mono',ui-monospace,monospace;
+  --railw:190px;
+  color-scheme:dark;
+}
+*{box-sizing:border-box}
+html,body{margin:0;height:100%}
+body{background:var(--bg);color:var(--ink);font-family:var(--head);overflow:hidden;-webkit-font-smoothing:antialiased;overscroll-behavior:none}
+button{font:inherit;color:inherit}
+#stage{position:fixed;inset:0;width:100%;height:100%;display:block;opacity:0;transition:opacity 1.4s ease;touch-action:none;cursor:grab}
+#stage:active{cursor:grabbing}
+#stage.on{opacity:1}
+.vignette{position:fixed;inset:0;pointer-events:none;z-index:1;
+  background:radial-gradient(120% 90% at 50% 55%,rgba(5,9,8,0) 55%,rgba(5,9,8,.55) 100%),
+             linear-gradient(180deg,rgba(5,9,8,.7) 0,rgba(5,9,8,0) 16%,rgba(5,9,8,0) 78%,rgba(5,9,8,.75) 100%)}
+
+/* ---------- แถบบน ---------- */
+.bar{position:fixed;top:0;left:0;right:0;z-index:6;display:grid;grid-template-columns:auto 1fr auto;align-items:center;gap:24px;padding:16px 28px}
+.brand{display:inline-flex;align-items:center;gap:10px;color:var(--ink);text-decoration:none;font:600 12.5px/1 var(--mono);letter-spacing:.14em;white-space:nowrap}
+.brand svg{width:18px;height:18px;fill:var(--accent)}
+.brand span{color:var(--mute)}
+.ttl{justify-self:center;text-align:center;min-width:0}
+.ttl h1{margin:0;font:700 21px/1.2 var(--head);letter-spacing:.01em}
+.ttl h1 em{font-style:normal;color:var(--gc);transition:color .6s}
+.ttl p{margin:3px 0 0;font:400 13px/1.4 var(--body);color:var(--mute)}
+.acts{display:flex;gap:8px}
+.btn{appearance:none;border:1px solid var(--line);background:rgba(255,255,255,.03);color:var(--ink);font:600 12.5px/1 var(--head);padding:9px 14px;border-radius:99px;cursor:pointer;white-space:nowrap;transition:background .2s,border-color .2s}
+.btn:hover{background:rgba(255,255,255,.07)}
+.btn.primary{border-color:color-mix(in srgb,var(--gc) 55%,transparent);background:color-mix(in srgb,var(--gc) 16%,transparent)}
+.btn.primary span{font-size:10px;margin-right:4px}
+.btn.ghost{color:var(--mute)}
+.btn:focus-visible,.node:focus-visible,.zbtns button:focus-visible,.d-close:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+
+/* ---------- รางขนาด + ด่าน ---------- */
+.rail{position:fixed;z-index:5;left:28px;top:96px;bottom:110px;width:var(--railw);display:flex;flex-direction:column}
+.rail::before{content:'';position:fixed;left:0;top:0;bottom:0;width:calc(var(--railw) + 90px);z-index:-1;pointer-events:none;background:linear-gradient(90deg,rgba(5,9,8,.78) 0,rgba(5,9,8,.5) 55%,rgba(5,9,8,0) 100%)}
+.rail-h{margin:0 0 10px;font:600 10.5px/1 var(--mono);letter-spacing:.14em;color:var(--dim);text-transform:uppercase}
+.rail-track{position:relative;flex:1;margin-left:58px;border-left:1px solid rgba(255,255,255,.14);cursor:ns-resize;touch-action:none}
+.band{position:absolute;left:-2px;width:3px;background:var(--gc);opacity:.35;border-radius:2px}
+.tick{position:absolute;right:calc(100% + 9px);transform:translateY(-50%);font:500 10px/1 var(--mono);color:var(--dim);white-space:nowrap}
+.tick i{position:absolute;right:-12px;top:50%;width:7px;height:1px;background:rgba(255,255,255,.2)}
+.node{appearance:none;position:absolute;left:-10px;transform:translateY(-50%);display:flex;align-items:center;gap:8px;background:none;border:0;padding:2px 4px 2px 0;cursor:pointer;color:var(--mute)}
+.node b{display:grid;place-items:center;width:19px;height:19px;border-radius:50%;background:var(--bg);border:1.5px solid var(--gc);font:600 10.5px/1 var(--mono);color:var(--gc);transition:background .3s,color .3s,box-shadow .3s}
+.node span{font:600 12px/1.1 var(--head);white-space:nowrap;transition:color .3s}
+.node:hover span{color:var(--ink)}
+.node.on b{background:var(--gc);color:#06100c;box-shadow:0 0 0 5px color-mix(in srgb,var(--gc) 22%,transparent)}
+.node.on span{color:var(--ink)}
+.marker{position:absolute;left:-1px;right:-8px;height:0;pointer-events:none;transition:none}
+.marker i{position:absolute;left:-7px;top:-1px;width:calc(100% + 8px);height:1.5px;background:linear-gradient(90deg,#fff 0,rgba(255,255,255,.7) 30%,rgba(255,255,255,0))}
+.marker b{position:absolute;right:calc(100% + 16px);top:-9px;font:600 11px/1 var(--mono);color:#fff;background:rgba(5,9,8,.92);padding:4px 6px;border-radius:5px;border:1px solid rgba(255,255,255,.18);white-space:nowrap}
+.zbtns{display:flex;gap:6px;margin:14px 0 0 50px}
+.zbtns button{appearance:none;width:34px;height:34px;border-radius:10px;border:1px solid var(--line);background:rgba(255,255,255,.03);font:500 18px/1 var(--mono);cursor:pointer;color:var(--ink)}
+.zbtns button:hover{background:rgba(255,255,255,.08)}
+
+/* ---------- ตัวอ่านขนาด ---------- */
+.readout{position:fixed;z-index:5;right:28px;top:88px;text-align:right;display:flex;flex-direction:column;gap:3px;pointer-events:none;text-shadow:0 1px 14px rgba(0,0,0,.9),0 0 3px rgba(0,0,0,.8)}
+.ro-k{font:600 10.5px/1 var(--mono);letter-spacing:.14em;color:var(--dim);text-transform:uppercase}
+.readout b{font:500 30px/1.05 var(--mono);letter-spacing:-.01em;font-variant-numeric:tabular-nums}
+#ro-c{font:500 12.5px/1.3 var(--head);color:var(--mute)}
+
+/* ---------- การ์ดด่าน ---------- */
+.card-wrap{position:fixed;z-index:5;right:28px;top:176px;width:340px;max-height:calc(100% - 290px);overflow:auto;scrollbar-width:none}
+.card-wrap::-webkit-scrollbar{display:none}
+.card-toggle{display:none}
+.card{background:var(--panel);border:1px solid var(--line);border-top:2px solid var(--gc);border-radius:14px;padding:18px 20px 16px;backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px)}
+.card.in{animation:cardIn .55s cubic-bezier(.2,.7,.2,1)}
+@keyframes cardIn{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
+.c-kick{display:flex;justify-content:space-between;align-items:center;margin:0 0 8px;font:600 11px/1 var(--mono);letter-spacing:.1em;color:var(--gc)}
+.c-kick em{font-style:normal;color:var(--dim)}
+.c-tick{color:var(--mute);letter-spacing:.06em}
+.c-co{margin:0;font:700 25px/1.15 var(--head)}
+.c-head{margin:4px 0 10px;font:600 15px/1.4 var(--head);color:var(--gc)}
+.c-body{margin:0 0 14px;font:400 14.5px/1.62 var(--body);color:#c9d5cf}
+.c-stats{margin:0 0 12px;display:grid;gap:9px}
+.c-stats>div{position:relative;display:flex;justify-content:space-between;align-items:baseline;gap:12px;padding-bottom:7px;border-bottom:1px solid var(--line)}
+.c-stats dt{font:500 12.5px/1.35 var(--head);color:var(--mute)}
+.c-stats dd{margin:0;font:500 16px/1 var(--mono);text-align:right;white-space:nowrap}
+.c-stats dd small{display:block;margin-top:4px;font:500 11px/1.2 var(--head);color:var(--dim);white-space:normal}
+.c-stats .gm{padding-bottom:12px}
+.gm-bar{position:absolute;left:0;right:0;bottom:3px;height:4px;border-radius:2px;background:rgba(255,255,255,.07);overflow:hidden}
+.gm-bar::after{content:'';position:absolute;inset:0;width:var(--w);background:var(--gc);border-radius:2px;animation:grow .9s cubic-bezier(.2,.7,.2,1)}
+@keyframes grow{from{width:0}}
+.c-note{margin:0 0 10px;font:400 13px/1.55 var(--body);color:var(--mute)}
+.c-src{display:inline-block;font:500 11.5px/1.4 var(--head);color:var(--dim);text-decoration:none;border-bottom:1px dotted var(--dim)}
+.c-src:hover{color:var(--ink)}
+
+/* ---------- คำบรรยายฉาก ---------- */
+.caption{position:fixed;z-index:5;left:calc(28px + var(--railw) + 36px);bottom:28px;max-width:min(640px,calc(100% - var(--railw) - 470px));pointer-events:none}
+.caption.in{animation:capIn .7s cubic-bezier(.2,.7,.2,1)}
+@keyframes capIn{from{opacity:0;transform:translateX(-10px)}to{opacity:1;transform:none}}
+.cap-en{margin:0;font:600 12px/1 var(--mono);letter-spacing:.18em;color:var(--gc)}
+.cap-th{margin:7px 0 6px;font:600 18px/1.4 var(--head);text-shadow:0 1px 12px rgba(0,0,0,.8)}
+.cap-tag{margin:0;font:400 11.5px/1.4 var(--body);color:var(--dim)}
+.hint{position:fixed;z-index:5;left:calc(50% - 75px);top:86px;transform:translateX(-50%);margin:0;padding:8px 14px;border-radius:99px;background:rgba(5,9,8,.7);border:1px solid var(--line);font:500 12.5px/1.3 var(--head);color:var(--mute);white-space:nowrap;transition:opacity .8s;pointer-events:none}
+.hint b{color:var(--ink)}
+.hint.gone{opacity:0}
+
+/* ---------- ป้ายชี้ในฉาก ---------- */
+#labels{position:fixed;inset:0;z-index:3;pointer-events:none;overflow:hidden}
+.lbl{position:absolute;left:0;top:0;will-change:transform,opacity;transition:opacity .25s}
+.lbl i{position:absolute;left:-4px;top:-4px;width:8px;height:8px;border-radius:50%;border:1.5px solid var(--gc);background:rgba(5,9,8,.6)}
+.lbl span{position:absolute;left:12px;bottom:10px;display:block;padding:6px 9px 6px 10px;border-left:2px solid var(--gc);background:rgba(5,9,8,.78);border-radius:0 7px 7px 0;white-space:nowrap}
+.lbl span::before{content:'';position:absolute;left:-12px;bottom:-10px;width:12px;height:12px;border-left:1px solid color-mix(in srgb,var(--gc) 70%,transparent);transform:skewX(45deg);transform-origin:bottom left}
+.lbl b{display:block;font:600 12.5px/1.25 var(--head)}
+.lbl small{display:block;font:400 11.5px/1.3 var(--body);color:var(--mute)}
+.lbl.flip span{left:auto;right:12px;border-left:0;border-right:2px solid var(--gc);border-radius:7px 0 0 7px;text-align:right}
+.lbl.flip span::before{left:auto;right:-12px;border-left:0;border-right:1px solid color-mix(in srgb,var(--gc) 70%,transparent);transform:skewX(-45deg);transform-origin:bottom right}
+.lbl.violet{--gc:#c3a4ff}
+.lbl.gold{--gc:#e0bb62}
+
+/* ---------- dialogs ---------- */
+dialog{max-width:min(760px,calc(100% - 32px));width:100%;border:1px solid var(--line);border-top:2px solid var(--accent);border-radius:16px;background:#0a110f;color:var(--ink);padding:26px 28px 24px;box-shadow:0 30px 80px rgba(0,0,0,.6)}
+dialog::backdrop{background:rgba(2,5,4,.62);backdrop-filter:blur(3px)}
+.d-close{appearance:none;position:absolute;right:14px;top:12px;width:34px;height:34px;border-radius:50%;border:1px solid var(--line);background:none;font-size:20px;cursor:pointer;color:var(--mute)}
+.d-kick{margin:0 0 6px;font:600 11px/1 var(--mono);letter-spacing:.16em;color:var(--accent);text-transform:uppercase}
+dialog h2{margin:0 0 12px;font:700 22px/1.3 var(--head);padding-right:36px}
+.s-lead{margin:0 0 16px;font:400 15px/1.65 var(--body);color:#c9d5cf}
+.s-tab{width:100%;border-collapse:collapse;font-size:13.5px}
+.s-tab th{text-align:left;font:600 11px/1.3 var(--mono);letter-spacing:.06em;color:var(--dim);padding:0 8px 8px 0;border-bottom:1px solid var(--line)}
+.s-tab td{padding:10px 8px 10px 0;border-bottom:1px solid var(--line);vertical-align:middle;font-family:var(--head)}
+.s-tab td:first-child b{display:grid;place-items:center;width:22px;height:22px;border-radius:50%;border:1.5px solid var(--gc);color:var(--gc);font:600 11px/1 var(--mono)}
+.s-tab td:last-child{color:var(--mute);font-size:12.5px}
+.s-gm{position:relative;display:flex;align-items:center;gap:8px;min-width:130px}
+.s-gm i{display:block;height:6px;border-radius:3px;background:var(--gc)}
+.s-gm em{font:500 13px/1 var(--mono);font-style:normal}
+.s-watch{margin:16px 0 8px;padding:12px 14px;border-radius:10px;background:rgba(61,220,151,.07);border:1px solid rgba(61,220,151,.22);font:500 14px/1.55 var(--head)}
+.s-cav,.d-note{margin:8px 0 0;font:400 12.5px/1.55 var(--body);color:var(--dim)}
+#src-list{margin:0;padding:0 0 0 18px;display:grid;gap:8px}
+#src-list a{color:var(--ink);font:500 14px/1.45 var(--head);text-decoration:none;border-bottom:1px dotted var(--mute)}
+
+/* ---------- โหลด / ล้มเหลว ---------- */
+.loader{position:fixed;inset:0;z-index:20;display:grid;place-items:center;align-content:center;gap:18px;background:var(--bg);transition:opacity .8s}
+.loader.gone{opacity:0;pointer-events:none}
+.loader p{margin:0;text-align:center;font:600 15px/1.5 var(--head)}
+.loader small{font:400 12.5px var(--body);color:var(--mute)}
+.ld-ring{width:44px;height:44px;border-radius:50%;border:2px solid rgba(255,255,255,.1);border-top-color:var(--accent);animation:spin 1s linear infinite}
+@keyframes spin{to{transform:rotate(360deg)}}
+body[data-fail] .loader p::after{content:'\A เบราว์เซอร์นี้เปิด WebGL ไม่ได้';white-space:pre;color:#ff8a7a}
+body[data-fail] .ld-ring{display:none}
+.nojs{position:fixed;inset:0;display:grid;place-items:center;margin:0;z-index:30;background:var(--bg)}
+
+/* ---------- จอกลาง ---------- */
+@media (max-width:1180px){
+  :root{--railw:150px}
+  .node span{font-size:11px}
+  .caption{max-width:calc(100% - var(--railw) - 420px)}
+  .ttl p{display:none}
+}
+/* ---------- มือถือ ---------- */
+@media (max-width:760px){
+  :root{--railw:44px}
+  .bar{grid-template-columns:1fr auto;gap:10px;padding:12px 14px}
+  .brand{font-size:11px}
+  .ttl{display:none}
+  .acts .btn.ghost{display:none}
+  .btn{padding:8px 11px;font-size:12px}
+  .rail{left:10px;top:64px;bottom:auto;height:46vh}
+  .rail-h,.tick,.node span{display:none}
+  .rail-track{margin-left:12px}
+  .marker b{left:calc(100% + 18px);right:auto;top:-10px}
+  .zbtns{margin:10px 0 0 0;flex-direction:column}
+  .readout{top:64px;right:14px}
+  .readout b{font-size:22px}
+  .caption{left:14px;right:14px;bottom:auto;top:calc(64px + 46vh + 96px);max-width:none;display:none}
+  .hint{left:50%;top:132px;font-size:11.5px;white-space:normal;width:max-content;max-width:calc(100% - 110px);text-align:center;animation:hintOut .8s ease 6s forwards}
+  @keyframes hintOut{to{opacity:0}}
+  .rail::before{display:none}
+  .card-wrap{left:0;right:0;top:auto;bottom:0;width:auto;max-height:62vh;border-radius:16px 16px 0 0}
+  .card{border-radius:16px 16px 0 0;padding:14px 16px calc(14px + env(safe-area-inset-bottom));border-left:0;border-right:0;border-bottom:0}
+  .card-toggle{display:block;position:absolute;left:50%;top:0;transform:translateX(-50%);z-index:2;width:72px;height:20px;border:0;background:none;cursor:pointer}
+  .card-toggle::before{content:'';position:absolute;left:22px;top:7px;width:28px;height:4px;border-radius:2px;background:rgba(255,255,255,.3)}
+  .card{padding-top:20px}
+  body:not(.card-open) .c-body,body:not(.card-open) .c-note,body:not(.card-open) .c-src,body:not(.card-open) .c-stats>div:not(.gm){display:none}
+  .c-co{font-size:21px}
+  .c-head{margin-bottom:8px}
+  .lbl small{display:none}
+}
+@media (prefers-reduced-motion:reduce){
+  .card.in,.caption.in,.gm-bar::after{animation:none}
+}

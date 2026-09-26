@@ -1,0 +1,100 @@
+<!doctype html>
+<html lang="th">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#050908">
+  <title>หนึ่งชิป ห้าด่าน — ซูมจากดาต้าเซ็นเตอร์ถึงอะตอม | Moatrices Lab</title>
+  <meta name="description" content="ซูม 3D ต่อเนื่องจากห้องเซิร์ฟเวอร์ AI ลงไปถึงอะตอมซิลิคอน แล้วดูว่าแต่ละขนาดใครเก็บเงิน: Hyperscaler, NVIDIA, TSMC, Synopsys/Cadence, ASML พร้อม gross margin จากงบจริง">
+  <link rel="canonical" href="https://beatp9696-arch.github.io/chip-zoom.html">
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="Moatrices">
+  <meta property="og:title" content="หนึ่งชิป ห้าด่าน — ซูมจากดาต้าเซ็นเตอร์ถึงอะตอม (แล็บ 3D) — Moatrices">
+  <meta property="og:description" content="ซูม 3D ต่อเนื่องจากห้องเซิร์ฟเวอร์ AI ลงไปถึงอะตอมซิลิคอน แล้วดูว่าแต่ละขนาดใครเก็บเงิน: Hyperscaler, NVIDIA, TSMC, Synopsys/Cadence, ASML พร้อม gross margin จากงบจริง">
+  <meta property="og:url" content="https://beatp9696-arch.github.io/chip-zoom.html">
+  <meta property="og:locale" content="th_TH">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta property="og:image" content="https://beatp9696-arch.github.io/og-chip-zoom.jpg">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta name="twitter:image" content="https://beatp9696-arch.github.io/og-chip-zoom.jpg">
+  <link rel="icon" href="favicon.svg" type="image/svg+xml">
+  <link rel="preload" href="fonts/ibm-plex-sans-thai-700-thai.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="stylesheet" href="chip-zoom/zoom.css">
+  <script type="importmap">
+  {"imports":{"three":"./chip-zoom/vendor/three.module.min.js","three/addons/":"./chip-zoom/vendor/"}}
+  </script>
+  <script type="module" src="chip-zoom/zoom.mjs"></script>
+</head>
+<body>
+  <canvas id="stage" aria-label="ฉาก 3D ซูมจากดาต้าเซ็นเตอร์ลงไปถึงอะตอม" role="img"></canvas>
+  <div class="vignette" aria-hidden="true"></div>
+  <div id="labels" aria-hidden="true"></div>
+
+  <header class="bar">
+    <a class="brand" href="index.html" aria-label="กลับหน้าแรก Moatrices">
+      <svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="12" width="4" height="9" rx="1"/><rect x="10" y="7" width="4" height="14" rx="1"/><rect x="17" y="3" width="4" height="18" rx="1"/></svg>
+      MOATRICES <span>/ LAB</span>
+    </a>
+    <div class="ttl">
+      <h1>หนึ่งชิป <em>ห้าด่าน</em></h1>
+      <p>ซูมจากดาต้าเซ็นเตอร์ลงไปถึงอะตอม แล้วดูว่าใครเก็บเงินตรงไหน</p>
+    </div>
+    <div class="acts">
+      <button type="button" id="play" class="btn primary" aria-pressed="false"><span aria-hidden="true">▶</span> เล่นทั้งทาง</button>
+      <button type="button" id="open-summary" class="btn">สรุป 5 ด่าน</button>
+      <button type="button" id="open-src" class="btn ghost">แหล่งข้อมูล</button>
+    </div>
+  </header>
+
+  <nav class="rail" id="rail" aria-label="ขนาดภาพและด่านเก็บเงิน">
+    <p class="rail-h">ขนาดภาพ</p>
+    <div class="rail-track" id="rail-track"></div>
+    <div class="zbtns">
+      <button type="button" id="zin" aria-label="ซูมเข้า">+</button>
+      <button type="button" id="zout" aria-label="ซูมออก">−</button>
+    </div>
+  </nav>
+
+  <div class="readout" aria-live="off">
+    <span class="ro-k">ความกว้างภาพ</span>
+    <b id="ro-v">–</b>
+    <span id="ro-c"></span>
+  </div>
+
+  <aside class="card-wrap" aria-label="ด่านที่กำลังดู">
+    <button type="button" class="card-toggle" id="card-toggle" aria-label="ย่อ/ขยายการ์ด"></button>
+    <div class="card" id="card" aria-live="polite"></div>
+  </aside>
+
+  <div class="caption" id="caption">
+    <p class="cap-en" id="cap-en"></p>
+    <p class="cap-th" id="cap-th"></p>
+    <p class="cap-tag">ภาพอธิบาย · ขนาดตามจริงโดยประมาณ แต่ผังภายในไม่ใช่ผังจริงของผู้ผลิต</p>
+  </div>
+
+  <p class="hint" id="hint">เลื่อนลูกกลิ้งหรือบีบนิ้วเพื่อซูม · ลากเพื่อหมุน · หรือกด <b>เล่นทั้งทาง</b></p>
+
+  <dialog id="summary" aria-labelledby="sum-h">
+    <button type="button" class="d-close" aria-label="ปิด">×</button>
+    <p class="d-kick">สรุป</p>
+    <h2 id="sum-h">ซูมกลับออกมา: ห้าด่านนี้ขายของให้กองเดียวกัน</h2>
+    <div id="sum-body"></div>
+  </dialog>
+
+  <dialog id="sources" aria-labelledby="src-h">
+    <button type="button" class="d-close" aria-label="ปิด">×</button>
+    <p class="d-kick">แหล่งข้อมูล</p>
+    <h2 id="src-h">ตัวเลขทุกตัวมาจากเอกสารเหล่านี้</h2>
+    <ul id="src-list"></ul>
+    <p class="d-note">โมเดล 3D ทั้งหมดวาดขึ้นเองจากโค้ด ขนาดแต่ละชั้นใกล้เคียงของจริง (ตู้ ถาด แพ็กเกจ ได ทรานซิสเตอร์ อะตอม) แต่ผังภายในชิป ตำแหน่งบล็อก และจำนวนชั้นโลหะเป็นภาพอธิบาย ไม่ใช่ผังจริงของ NVIDIA, TSMC หรือบริษัทใด · ข้อมูลงบดึงเมื่อ ก.ย. 2026 · ไม่ใช่คำแนะนำการลงทุน</p>
+  </dialog>
+
+  <div class="loader" id="loader" role="status">
+    <div class="ld-ring" aria-hidden="true"></div>
+    <p>กำลังสร้างโลก 8 ชั้น<br><small>จากดาต้าเซ็นเตอร์ถึงอะตอม</small></p>
+  </div>
+  <noscript><p class="nojs">หน้านี้ต้องเปิด JavaScript และ WebGL</p></noscript>
+  <script async src="https://gc.zgo.at/count.js" data-goatcounter="https://moatrices.goatcounter.com/count"></script>
+</body>
+</html>
