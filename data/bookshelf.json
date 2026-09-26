@@ -229,6 +229,10 @@
         {
           "title": "Poor Charlie’s Almanack · ฉบับเรียบเรียงใน Moatrices Bookshelf",
           "url": "books/poor-charlies-almanack.html"
+        },
+        {
+          "title": "Security Analysis · ฉบับบทสรุปใน Moatrices Bookshelf",
+          "url": "books/security-analysis.html"
         }
       ],
       "editionNote": "ข้อมูลบรรณานุกรมอ้างอิงฉบับที่ 3 ของสำนักพิมพ์ Harper Business วางจำหน่าย 22 ตุลาคม 2024 จำนวน 640 หน้า ISBN 9780063356726 ซึ่งผู้จัดพิมพ์เรียกว่า 75th Anniversary Edition ข้อความหลักเป็นของ Benjamin Graham บทวิเคราะห์ประกอบท้ายบททุกบทเป็นของ Jason Zweig ส่วนบทนำและภาคผนวกเป็นของ Warren Buffett บทความนี้เป็นบทสรุปและบทวิเคราะห์ภาษาไทยของ Moatrices ไม่ใช่คำแปลและไม่ใช่ฉบับทดแทนหนังสือ ภาพประกอบปกบนหน้านี้สร้างขึ้นเองโดย Moatrices ไม่ได้ใช้ภาพปกของผู้จัดพิมพ์",
@@ -244,6 +248,129 @@
         "หน้านี้เป็นบทสรุปและบทวิเคราะห์ภาษาไทยของ Moatrices จำนวน 8 บท เขียนขึ้นใหม่ด้วยสำนวนของเราเอง ไม่ใช่คำแปลและไม่ได้ไล่เรียงตามบททุกบทของต้นฉบับ เนื้อหาแยกให้ชัดระหว่างสิ่งที่หนังสือเสนอ การตีความของผู้เขียนบทความ และการมองกลับมาที่ตลาดปัจจุบัน พร้อมบทว่าด้วยข้อจำกัดของกรอบเดิมเมื่อธุรกิจยุคนี้ลงทุนผ่านสินทรัพย์ที่ไม่มีตัวตนเป็นหลัก"
       ],
       "contentFile": "data/books/intelligent-investor.json"
+    },
+    {
+      "slug": "security-analysis",
+      "title": "Security Analysis",
+      "titleThai": "กระบวนการตรวจสอบมูลค่าของหลักทรัพย์",
+      "searchAliases": [
+        "Benjamin Graham",
+        "David L. Dodd",
+        "David Dodd",
+        "Graham and Dodd",
+        "เบนจามิน เกรแฮม",
+        "เดวิด ดอดด์",
+        "การวิเคราะห์หลักทรัพย์",
+        "intrinsic value",
+        "มูลค่าที่แท้จริง",
+        "earning power",
+        "margin of safety",
+        "งบการเงิน",
+        "value investing"
+      ],
+      "author": "Benjamin Graham & David L. Dodd",
+      "editor": "Seth A. Klarman",
+      "editorRole": "commentary",
+      "year": 2008,
+      "firstPublished": 1934,
+      "edition": "ฉบับที่ 6 · Sixth Edition",
+      "publisher": "McGraw Hill",
+      "isbn": "9780071642934",
+      "categories": [
+        "การลงทุน",
+        "การตัดสินใจ"
+      ],
+      "status": "ready",
+      "featured": false,
+      "cover": "img/books/security-analysis-moatrices.svg",
+      "coverAlt": "ภาพประกอบของ Moatrices สำหรับ Security Analysis งบการเงินสามฉบับเรียงซ้อนกันเป็นหลักฐานสามชั้น เชื่อมด้วยเส้นตรวจสอบไขว้ และมีแถบช่วงมูลค่าสีเขียวมิ้นต์อยู่เหนือจุดราคาที่จ่าย ไม่ใช่ภาพปกของผู้จัดพิมพ์",
+      "coverCaption": "ภาพประกอบสร้างขึ้นเองโดย Moatrices ไม่ใช่ภาพปกของผู้จัดพิมพ์ · หนังสือตีพิมพ์ครั้งแรกปี 1934 ฉบับที่อ้างอิงคือฉบับที่ 6 ซึ่งผู้จัดพิมพ์ระบุว่าอิงเนื้อหาฉบับปี 1940",
+      "accent": "#1f4d45",
+      "shortDescription": "บทสรุปและบทวิเคราะห์ภาษาไทย 9 บท: อ่านหลักทรัพย์แบบเจ้าของ มูลค่าที่แท้จริงในฐานะช่วงประมาณการ งบการเงินในฐานะหลักฐาน คุณภาพกำไร ตราสารหนี้ หุ้นสามัญ และส่วนเผื่อความปลอดภัย",
+      "readingMinutes": 23,
+      "labels": {
+        "readCta": "อ่านบทสรุปและบทวิเคราะห์",
+        "readingMeta": "บทสรุปและบทวิเคราะห์",
+        "proseAria": "บทสรุปและบทวิเคราะห์หนังสือ",
+        "editionLabel": "บทสรุปและบทวิเคราะห์"
+      },
+      "purchaseLinks": [
+        {
+          "store": "McGraw Hill",
+          "format": "eBook · ฉบับที่ 6 (ISBN 9780071642934)",
+          "url": "https://www.mheducation.com/highered/mhp/product/security-analysis-sixth-edition-foreword-warren-buffett.html",
+          "verifiedAt": "2026-09-21",
+          "affiliate": false
+        },
+        {
+          "store": "Bookshop",
+          "format": "ปกแข็ง · McGraw Hill 2008 (ISBN 9780071592536)",
+          "url": null,
+          "affiliate": false
+        },
+        {
+          "store": "Amazon",
+          "format": "ปกแข็ง · McGraw Hill 2008 (ISBN 9780071592536)",
+          "url": null,
+          "affiliate": false
+        }
+      ],
+      "affiliateDisclosure": null,
+      "sourceLinks": [
+        {
+          "title": "McGraw Hill · ข้อมูลหนังสือฉบับที่ 6 (Foreword by Warren Buffett)",
+          "url": "https://www.mheducation.com/highered/mhp/product/security-analysis-sixth-edition-foreword-warren-buffett.html"
+        },
+        {
+          "title": "Wikipedia · ประวัติการพิมพ์ของ Security Analysis",
+          "url": "https://en.wikipedia.org/wiki/Security_Analysis_(book)"
+        },
+        {
+          "title": "SEC · Beginners’ Guide to Financial Statements",
+          "url": "https://www.sec.gov/reportspubs/investor-publications/investorpubsbegfinstmtguide"
+        },
+        {
+          "title": "SEC · Non-GAAP Financial Measures (Compliance & Disclosure Interpretations)",
+          "url": "https://www.sec.gov/corpfin/non-gaap-financial-measures"
+        },
+        {
+          "title": "SEC · Staff Accounting Bulletin No. 107 (ค่าตอบแทนที่จ่ายเป็นหุ้น)",
+          "url": "https://www.sec.gov/interps/account/sab107.htm"
+        },
+        {
+          "title": "SEC · Investor Bulletin: What Are Corporate Bonds?",
+          "url": "https://www.sec.gov/files/ib_corporatebonds.pdf"
+        },
+        {
+          "title": "Berkshire Hathaway · จดหมายถึงผู้ถือหุ้นปี 1986 (แนวคิด owner earnings)",
+          "url": "https://www.berkshirehathaway.com/letters/1986.html"
+        },
+        {
+          "title": "Berkshire Hathaway · จดหมายถึงผู้ถือหุ้นปี 1992 (การเติบโตในสมการมูลค่า)",
+          "url": "https://www.berkshirehathaway.com/letters/1992.html"
+        },
+        {
+          "title": "The Intelligent Investor · ฉบับบทสรุปใน Moatrices Bookshelf",
+          "url": "books/intelligent-investor.html"
+        },
+        {
+          "title": "Poor Charlie’s Almanack · ฉบับเรียบเรียงใน Moatrices Bookshelf",
+          "url": "books/poor-charlies-almanack.html"
+        }
+      ],
+      "editionNote": "ข้อมูลบรรณานุกรมอ้างอิงฉบับที่ 6 ของสำนักพิมพ์ McGraw Hill ซึ่งหน้าข้อมูลหนังสือของผู้จัดพิมพ์ระบุว่าเผยแพร่เมื่อ 24 สิงหาคม 2008 ลิขสิทธิ์ปี 2009 ISBN ฉบับอิเล็กทรอนิกส์ 9780071642934 และระบุว่าฉบับนี้อิงเนื้อหาฉบับปี 1940 พร้อมบทวิเคราะห์ร่วมสมัยเพิ่มอีกราว 200 หน้า ข้อความหลักเป็นของ Benjamin Graham และ David L. Dodd ส่วนบทวิเคราะห์ประกอบเป็นของผู้ร่วมเขียนสิบคน คือ Seth A. Klarman, James Grant, Jeffrey M. Laderman, Roger Lowenstein, Howard S. Marks, J. Ezra Merkin, Bruce Berkowitz, Glenn H. Greenberg, Bruce Greenwald และ David Abrams โดยคำนำเป็นของ Warren E. Buffett หนังสือตีพิมพ์ครั้งแรกปี 1934 และมีฉบับต่อมาในปี 1940, 1951, 1962, 1988, 2008 และ 2023 ตามข้อมูลสารานุกรม บทความนี้เป็นบทสรุปและบทวิเคราะห์ภาษาไทยของ Moatrices ไม่ใช่คำแปลและไม่ใช่ฉบับทดแทนหนังสือ ไม่ได้สรุปบทวิเคราะห์ร่วมสมัยในฉบับที่ 6 เป็นเนื้อหาเพื่อการศึกษาและไม่ใช่คำแนะนำการลงทุน ภาพประกอบปกบนหน้านี้สร้างขึ้นเองโดย Moatrices ไม่ได้ใช้ภาพปกของผู้จัดพิมพ์",
+      "proseNote": "บทความนี้เป็นบทสรุปและบทวิเคราะห์จาก Security Analysis ไม่ใช่คำแปลหรือฉบับทดแทนหนังสือ กรุณาอ่านฉบับจริงจากผู้จัดพิมพ์",
+      "updatedAt": "2026-09-21",
+      "shareImage": "og-security-analysis.jpg",
+      "coverWidth": 800,
+      "coverHeight": 1200,
+      "purchaseNote": "ฉบับภาษาอังกฤษ · ราคาและพื้นที่จัดส่งดูได้จากแต่ละร้าน",
+      "fullTitle": "Security Analysis: Sixth Edition, Foreword by Warren Buffett",
+      "intro": [
+        "Security Analysis ตีพิมพ์ครั้งแรกปี 1934 โดย Benjamin Graham และ David L. Dodd เป็นตำราที่วางวิธีทำงานของการวิเคราะห์หลักทรัพย์ไว้เป็นระบบ ตั้งแต่การอ่านงบการเงินในฐานะหลักฐาน การประเมินความสามารถในการทำกำไร ไปจนถึงการตัดสินว่าหลักทรัพย์แต่ละชั้นให้สิทธิอะไรกับผู้ถือบ้าง ถ้า The Intelligent Investor คือวิธีคิดและวินัย เล่มนี้คือกระบวนการตรวจสอบหลักฐานและมูลค่า",
+        "หน้านี้เป็นบทสรุปและบทวิเคราะห์ภาษาไทยของ Moatrices จำนวน 9 บท เขียนขึ้นใหม่ด้วยสำนวนของเราเอง ไม่ใช่คำแปล ไม่ได้ไล่เรียงตามบททุกบทของต้นฉบับ และไม่ใช่ฉบับทดแทนหนังสือ เนื้อหาแยกให้ชัดระหว่างหลักคิดของ Graham และ Dodd การตีความของผู้เขียนบทความ และการนำกรอบเดิมมาใช้กับธุรกิจยุคที่สินทรัพย์ไม่มีตัวตนเป็นแกน"
+      ],
+      "contentFile": "data/books/security-analysis.json"
     }
   ]
 }

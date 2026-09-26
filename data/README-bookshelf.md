@@ -101,6 +101,21 @@ for this site, because no cover image with clear rights was available; `coverAlt
 `coverCaption` and `editionNote` all state that. The share image is
 `og-intelligent-investor.jpg`, rendered from the same motif.
 
+The third book, Security Analysis, is a Thai summary and analysis, not a rendering of the book:
+nine chapters, about 4,435 Thai words / 23 minutes, plus the generated sources chapter.
+Bibliographic data follows the sixth edition (McGraw Hill, published 24 August 2008, copyright
+2009, eBook ISBN 9780071642934); the publisher's page states that edition is based on the 1940
+text and adds about 200 pages of contemporary commentary from ten contributors. The page keeps
+Graham and Dodd's own argument separate from that commentary and does not summarize it. Its only
+direct quotation is one short attributed line from Warren Buffett's foreword as shown on the
+publisher's page; everything attributed to Graham and Dodd is paraphrased, and no table, example
+or chapter order is taken from the book. Chapters are an original nine-part arrangement, not the
+book's own. Its cover is `img/books/security-analysis-moatrices.svg`, drawn for this site, because
+the older `img/books/security-analysis.jpg` has no rights record; the share image
+`og-security-analysis.jpg` is rendered from the same motif. The Bookshop and Amazon destinations
+stay `url: null` until someone opens and checks them, since both block automated requests. The
+Intelligent Investor's closing chapter and `articles/buffett-4-pillars.html` link forward to it.
+
 Reading uses the existing `moatrices.reading.v1` store, including bookmarks,
 progress, resume and notes. `/books/` and `/articles/` records stay independent.
 No new analytics service is introduced: no shared analytics integration was found

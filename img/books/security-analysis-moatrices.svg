@@ -1,0 +1,83 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 1200" width="800" height="1200" role="img" aria-label="Abstract Moatrices cover art: three ruled statement panels stacked as evidence and tied together by cross-check lines, with a mint band showing a range of estimated value sitting above a single marked price.">
+  <title>Security Analysis — Moatrices abstract cover art</title>
+  <defs>
+    <linearGradient id="sa-ground" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#1f4d45"/>
+      <stop offset=".55" stop-color="#143029"/>
+      <stop offset="1" stop-color="#0b1a18"/>
+    </linearGradient>
+    <linearGradient id="sa-band" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#5fd0a6" stop-opacity=".30"/>
+      <stop offset="1" stop-color="#5fd0a6" stop-opacity=".04"/>
+    </linearGradient>
+    <linearGradient id="sa-edge" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0" stop-color="#5fd0a6" stop-opacity=".12"/>
+      <stop offset=".5" stop-color="#5fd0a6" stop-opacity=".85"/>
+      <stop offset="1" stop-color="#5fd0a6" stop-opacity=".12"/>
+    </linearGradient>
+  </defs>
+
+  <rect width="800" height="1200" fill="url(#sa-ground)"/>
+  <rect x="34" y="34" width="732" height="1132" fill="none" stroke="#5fd0a6" stroke-opacity=".22" stroke-width="1.5"/>
+
+  <text x="90" y="150" font-family="'IBM Plex Mono', 'Courier New', monospace" font-size="19" letter-spacing="5" fill="#5fd0a6">MOATRICES · BOOKSHELF</text>
+  <path d="M90 180H710" stroke="#ffffff" stroke-opacity=".14" stroke-width="1"/>
+
+  <!-- Three statements read as one body of evidence, not three separate documents. -->
+  <g>
+    <rect x="90" y="236" width="300" height="118" fill="#ffffff" fill-opacity=".05" stroke="#9fb4c4" stroke-opacity=".35"/>
+    <g stroke="#e8edf2" stroke-opacity=".34" stroke-width="2">
+      <path d="M112 272H330M112 296H300M112 320H344"/>
+    </g>
+    <rect x="90" y="386" width="300" height="118" fill="#ffffff" fill-opacity=".05" stroke="#9fb4c4" stroke-opacity=".35"/>
+    <g stroke="#e8edf2" stroke-opacity=".34" stroke-width="2">
+      <path d="M112 422H344M112 446H286M112 470H322"/>
+    </g>
+    <rect x="90" y="536" width="300" height="118" fill="#ffffff" fill-opacity=".05" stroke="#9fb4c4" stroke-opacity=".35"/>
+    <g stroke="#e8edf2" stroke-opacity=".34" stroke-width="2">
+      <path d="M112 572H308M112 596H340M112 620H268"/>
+    </g>
+  </g>
+
+  <!-- Cross-checks: one statement is only evidence when it agrees with the other two. -->
+  <g stroke="#5fd0a6" stroke-opacity=".6" stroke-width="1.6" fill="none">
+    <path d="M390 295H470V445H390" stroke-dasharray="6 7"/>
+    <path d="M390 445H440V595H390" stroke-dasharray="6 7"/>
+  </g>
+  <g fill="#5fd0a6">
+    <circle cx="470" cy="295" r="4"/>
+    <circle cx="470" cy="445" r="4"/>
+    <circle cx="440" cy="595" r="4"/>
+  </g>
+
+  <g font-family="'IBM Plex Mono', 'Courier New', monospace" font-size="15" letter-spacing="2.4" fill="#8fa6b6">
+    <text x="112" y="262">INCOME</text>
+    <text x="112" y="412">BALANCE</text>
+    <text x="112" y="562">CASH FLOW</text>
+  </g>
+
+  <!-- Value is estimated as a band; the price paid is one point, and the gap is the cushion. -->
+  <rect x="520" y="256" width="190" height="212" fill="url(#sa-band)"/>
+  <path d="M520 256H710" stroke="url(#sa-edge)" stroke-width="2.5"/>
+  <path d="M520 468H710" stroke="url(#sa-edge)" stroke-width="2.5"/>
+  <path d="M615 256V468" stroke="#5fd0a6" stroke-opacity=".35" stroke-width="1" stroke-dasharray="5 8"/>
+  <path d="M520 620H710" stroke="#9fb4c4" stroke-opacity=".5" stroke-width="1.5" stroke-dasharray="7 9"/>
+  <circle cx="615" cy="620" r="7" fill="#e8edf2"/>
+  <path d="M615 468V612" stroke="#5fd0a6" stroke-opacity=".55" stroke-width="1.5"/>
+
+  <g font-family="'IBM Plex Mono', 'Courier New', monospace" font-size="15" letter-spacing="2.4" fill="#8fa6b6">
+    <text x="710" y="240" text-anchor="end" fill="#5fd0a6">RANGE OF VALUE</text>
+    <text x="710" y="548" text-anchor="end" fill="#5fd0a6">MARGIN OF SAFETY</text>
+    <text x="710" y="648" text-anchor="end">PRICE PAID</text>
+  </g>
+
+  <path d="M90 728H710" stroke="#ffffff" stroke-opacity=".14" stroke-width="1"/>
+  <text x="90" y="880" font-family="'IBM Plex Mono', 'Courier New', monospace" font-size="16" letter-spacing="3" fill="#8fa6b6">SUMMARY &amp; ANALYSIS · ORIGINAL ART</text>
+  <g font-family="Georgia, 'Times New Roman', serif" fill="#f3f6f8" font-size="74" font-weight="700">
+    <text x="90" y="972">SECURITY</text>
+    <text x="90" y="1052">ANALYSIS</text>
+  </g>
+  <path d="M90 1096H710" stroke="#ffffff" stroke-opacity=".14" stroke-width="1"/>
+  <text x="90" y="1128" font-family="Georgia, 'Times New Roman', serif" font-size="25" fill="#9fb4c4">Benjamin Graham</text>
+  <text x="90" y="1160" font-family="Georgia, 'Times New Roman', serif" font-size="25" fill="#9fb4c4">David L. Dodd</text>
+</svg>
