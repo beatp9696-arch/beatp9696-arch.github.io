@@ -1,0 +1,115 @@
+<!doctype html>
+<html lang="th">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#070a09">
+  <title>ผ่า iPhone Duo — จากตัวเครื่องถึงชิป | Moatrices Lab</title>
+  <meta name="description" content="สำรวจ iPhone Duo แบบ 3D 7 บท: ตัวเครื่อง บานพับกว่า 100 ชิ้น จอพับที่ชั้นกระจกไถลผ่านกันเหมือนหน้าหนังสือ ชิ้นส่วนภายใน ชิป A20 Pro และมุมของผู้ถือหุ้น">
+  <link rel="canonical" href="https://beatp9696-arch.github.io/iphone-duo-lab.html">
+  <link rel="icon" href="favicon.svg" type="image/svg+xml">
+  <link rel="preload" href="fonts/ibm-plex-sans-thai-700-thai.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="stylesheet" href="duo-lab/lab.css">
+  <script type="importmap">
+  {"imports":{"three":"./duo-lab/vendor/three.module.min.js","three/addons/":"./duo-lab/vendor/"}}
+  </script>
+  <script type="module" src="duo-lab/boot.mjs"></script>
+</head>
+<body data-ui="parts" data-ctl="slider">
+  <canvas id="stage" aria-hidden="true"></canvas>
+  <svg id="leader" aria-hidden="true"><line id="leader-line"/><circle id="leader-dot" r="5"/></svg>
+  <div id="callouts"><svg id="co-lines" aria-hidden="true"></svg></div>
+
+  <header class="bar">
+    <a class="brand" href="index.html" aria-label="กลับหน้าแรก Moatrices">
+      <svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="12" width="4" height="9" rx="1"/><rect x="10" y="7" width="4" height="14" rx="1"/><rect x="17" y="3" width="4" height="18" rx="1"/></svg>
+      MOATRICES <span>/ LAB</span>
+    </a>
+    <nav class="chapters" id="chapters" aria-label="บทของการสำรวจ"></nav>
+    <button type="button" class="src-btn" id="src-open">แหล่งข้อมูล <span aria-hidden="true">↗</span></button>
+  </header>
+
+  <main class="hud">
+    <div class="side">
+      <section class="intro">
+        <p class="kicker"><span id="k-no">01</span> <b id="k-en">iPHONE DUO</b></p>
+        <h1 id="title">ผ่า iPhone Duo</h1>
+        <p class="hook" id="lead"></p>
+      </section>
+
+      <section class="ctrl" data-for="glass">
+        <div class="mode" role="radiogroup" aria-label="วิธียึดชั้นจอเข้าด้วยกัน">
+          <button type="button" role="radio" aria-checked="false" data-mode="bond">ติดกาวแน่น</button>
+          <button type="button" role="radio" aria-checked="true" data-mode="glide">ไถลได้ <small>แบบ Apple</small></button>
+        </div>
+        <dl class="reads">
+          <div><dt>กระจกโดนยืดสูงสุด</dt><dd id="r-strain">–</dd></div>
+          <div><dt>ขอบชั้นเหลื่อมกัน</dt><dd id="r-shift">–</dd></div>
+        </dl>
+        <p class="explain" id="explain" aria-live="polite"></p>
+      </section>
+
+      <section class="plist" data-for="parts">
+        <p class="plist-h">ชิ้นส่วนในบทนี้</p>
+        <div id="plist"></div>
+      </section>
+
+      <section class="biz" data-for="biz" id="biz"></section>
+
+      <nav class="pager" aria-label="เปลี่ยนบท">
+        <button type="button" id="prev" aria-label="บทก่อนหน้า">←</button>
+        <button type="button" id="next">ต่อไป <span>→</span></button>
+      </nav>
+    </div>
+
+    <aside class="lens-wrap" data-for="glass" aria-label="ภาพตัดขวางจอตรงบานพับ">
+      <div class="lens-ring"><canvas id="lens" role="img" aria-label="ภาพตัดขวางชั้นจอตรงบานพับ"></canvas></div>
+      <p class="lens-cap">ภาพตัดขวางจอตรงบานพับ <span>ความหนาขยาย ×5</span></p>
+      <ul class="legend" id="legend"></ul>
+    </aside>
+
+    <aside class="insp" id="insp" data-for="parts" aria-live="polite">
+      <p class="i-cat" id="i-cat"></p>
+      <h2 id="i-name"></h2>
+      <p class="i-body" id="i-body"></p>
+      <blockquote class="i-apple" id="i-apple"></blockquote>
+      <p class="i-model" id="i-model" hidden></p>
+    </aside>
+
+    <aside class="srcpanel" data-for="biz">
+      <p class="plist-h">อ่านต่อจากแหล่งข้อมูลทางการ</p>
+      <ul id="src-list-2"></ul>
+    </aside>
+
+    <div class="dial-wrap" data-ctl-for="dial">
+      <svg id="dial" viewBox="0 0 320 196" role="slider" tabindex="0" aria-label="มุมพับ" aria-valuemin="0" aria-valuemax="180" aria-valuenow="0">
+        <path class="d-track" d="M36 160 A124 124 0 0 1 284 160"/>
+        <path class="d-fill" id="d-fill" d="M284 160 A124 124 0 0 0 284 160"/>
+        <g id="d-ticks"></g>
+        <rect class="d-half d-fixed" x="46" y="156" width="114" height="8" rx="4"/>
+        <g id="d-arm"><rect class="d-half d-move" x="160" y="156" width="114" height="8" rx="4"/></g>
+        <circle class="d-hinge" cx="160" cy="160" r="7"/>
+        <circle class="d-knob" id="d-knob" cx="284" cy="160" r="11"/>
+        <text class="d-lbl" x="284" y="186" text-anchor="middle">กางสุด</text>
+        <text class="d-lbl" x="36" y="186" text-anchor="middle">ปิด</text>
+      </svg>
+      <p class="dial-read"><span>มุมพับ</span> <b id="d-val">0°</b></p>
+    </div>
+
+    <div class="slider-wrap" data-ctl-for="slider">
+      <div class="sl-head"><label for="sl" id="sl-label"></label><output id="sl-val" for="sl"></output></div>
+      <input id="sl" type="range" min="0" max="1000" value="0">
+      <div class="sl-ends"><span id="sl-from"></span><span id="sl-to"></span></div>
+    </div>
+
+    <p class="fine" id="fine"></p>
+  </main>
+
+  <dialog id="sources" aria-labelledby="src-h">
+    <h2 id="src-h">แหล่งข้อมูล</h2>
+    <p>ข้อมูลชิ้นส่วนและตัวเลขทั้งหมดมาจาก Apple ส่วนรูปทรงและตำแหน่งชิ้นส่วนภายในเป็นภาพอธิบายที่สร้างขึ้นใหม่ เพราะเครื่องยังไม่วางขาย (23 ต.ค. 2026) จึงยังไม่มีการแกะเครื่องจริง ผังชิปไม่ใช่ภาพ die จริง และความหนาชั้นจอในเลนส์เป็นค่าสมมติ</p>
+    <ul id="src-list"></ul>
+    <button type="button" id="src-close">ปิด</button>
+  </dialog>
+</body>
+</html>

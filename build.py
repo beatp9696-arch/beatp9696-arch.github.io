@@ -68,6 +68,9 @@ LEGAL_OVERRIDE_RE = re.compile(
 )
 HEADER_ONLY_PAGES = set()   # (เคยมี moat-city — ปลดระวางแล้ว)
 CHROME_EXCLUSIONS = {
+    # Apple owns its reading layout, dark palette, and interactive scenes.
+    "articles/deep-dive-aapl.html": '<body class="article-story"',
+    "iphone-duo-lab.html": '<canvas id="stage"',
     "404.html": '<header class="nav">',
     # หน้าแอป (Money / Portfolio / Smart Money): จงใจไม่มี header/footer ของเว็บ
     # apps.css มี selector ระดับบนสุด 585 ตัว ชนกับชื่อคลาสของเว็บ (.sec .card .btn) —
@@ -774,6 +777,8 @@ def build_scenes():
             orphan += 1
             continue
         body = open(art, encoding="utf-8").read()
+        if art in CHROME_EXCLUSIONS:
+            continue
         stripped = _SCENE_LINK_RE.sub("", body)  # ล้าง block เดิมก่อน (idempotent)
         m = _STYLE_LINK_RE.search(stripped)
         if not m:
@@ -1419,7 +1424,7 @@ def validate(posts, articles):
             art = f"articles/{slug}.html"
             if not os.path.exists(art):
                 warnings.append(f"scenes/{f} ไม่มีบทคู่ articles/{slug}.html")
-            elif f"scenes/{slug}.min.css" not in open(art, encoding="utf-8").read():
+            elif art not in CHROME_EXCLUSIONS and f"scenes/{slug}.min.css" not in open(art, encoding="utf-8").read():
                 warnings.append(f"{slug}.html ไม่ได้ link scenes/{slug}.min.css — รัน build.py")
 
     for p in posts:
@@ -1450,6 +1455,8 @@ def validate(posts, articles):
     # และไอคอนปุ่มจะโชว์ตามธีมเครื่องแทน คลิกแรกเลยไปทางตรงข้ามกับที่ควรเป็น
     # (case-study-01-dominos.html หลุดมาแบบนี้เพราะสร้างนอก new-article.py)
     for f in sorted(disk_files):
+        if os.path.join("articles", f) in CHROME_EXCLUSIONS:
+            continue
         head = open(os.path.join("articles", f), encoding="utf-8").read()[:2000]
         if THEME_BOOTSTRAP not in head:
             warnings.append(f"articles/{f} ไม่มี theme bootstrap ใน <head> — "

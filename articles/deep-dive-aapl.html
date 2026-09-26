@@ -1,462 +1,177 @@
-<!DOCTYPE html>
-<html lang="th">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <script>try{var t=localStorage.getItem('theme');if(t)document.documentElement.setAttribute('data-theme',t);}catch(e){}</script>
-  <title>ผ่าธุรกิจ AAPL (Apple) — Services flywheel และ lock-in | Moatrices</title>
-  <meta name="description" content="ผ่าธุรกิจ Apple (AAPL) — iPhone + Services flywheel (margin 75.4%), ecosystem lock-in, App Store เก็บค่าเช่า และแผงมอนิเตอร์ thesis จากงบ FY2025 + Q2 FY2026">
-  <meta property="og:type" content="article">
-  <meta property="og:site_name" content="Moatrices">
-  <meta property="og:title" content="ผ่าธุรกิจ AAPL (Apple) — Services flywheel, ecosystem lock-in และเครื่องเก็บค่าเช่าที่ใหญ่ที่สุดในโลก">
-  <meta property="og:description" content="iPhone + Services flywheel (margin 75.4%), ecosystem lock-in, App Store เก็บค่าเช่า, เงินทุก $100 เดินทางผ่านงบไปไหน — เน้นธุรกิจ ไม่ใช่ราคา">
-  <meta property="og:url" content="https://beatp9696-arch.github.io/articles/deep-dive-aapl.html">
-  <meta property="og:locale" content="th_TH">
-  <meta name="twitter:card" content="summary_large_image">
-  <meta property="og:image" content="https://beatp9696-arch.github.io/og-deep-dive-aapl.jpg">
-  <meta property="og:image:width" content="1200">
-  <meta property="og:image:height" content="630">
-  <meta name="twitter:image" content="https://beatp9696-arch.github.io/og-deep-dive-aapl.jpg">
-  <meta name="author" content="Moatrices">
-  <link rel="canonical" href="https://beatp9696-arch.github.io/articles/deep-dive-aapl.html">
-  <link rel="alternate" type="application/rss+xml" title="Moatrices RSS" href="/feed.xml">
-  <meta name="theme-color" media="(prefers-color-scheme: light)" content="#f7f5f0">
-  <meta name="theme-color" media="(prefers-color-scheme: dark)" content="#121417">
-  <link rel="icon" href="../favicon.svg" type="image/svg+xml">
-  <link rel="apple-touch-icon" href="/apple-touch-icon.png">
-  <link rel="manifest" href="/site.webmanifest">
-  <link rel="preload" as="font" type="font/woff2" href="../fonts/sarabun-400-thai.woff2" crossorigin>
-  <link rel="preload" as="font" type="font/woff2" href="../fonts/sarabun-400-latin.woff2" crossorigin>
-  <link rel="stylesheet" href="../style.min.css">
-      <!-- SCENE-CSS -->
-      <link rel="stylesheet" href="../scenes/deep-dive-aapl.min.css">
-      <!-- /SCENE-CSS -->
-  <script type="application/ld+json">
-  {"@context": "https://schema.org", "@type": "BlogPosting", "headline": "ผ่าธุรกิจ AAPL (Apple) — Services flywheel, ecosystem lock-in และเครื่องเก็บค่าเช่าที่ใหญ่ที่สุดในโลก", "description": "iPhone + Services flywheel (margin 75.4%), ecosystem lock-in, App Store เก็บค่าเช่า, เงินทุก $100 เดินทางผ่านงบไปไหน — เน้นธุรกิจ ไม่ใช่ราคา", "image": ["https://beatp9696-arch.github.io/og-deep-dive-aapl.jpg"], "author": {"@type": "Organization", "name": "Moatrices", "url": "https://beatp9696-arch.github.io/about.html"}, "publisher": {"@type": "Organization", "name": "Moatrices", "logo": {"@type": "ImageObject", "url": "https://beatp9696-arch.github.io/icon-512.png"}}, "mainEntityOfPage": {"@type": "WebPage", "@id": "https://beatp9696-arch.github.io/articles/deep-dive-aapl.html"}, "inLanguage": "th", "datePublished": "2026-07-03", "dateModified": "2026-07-03"}
-  </script>
-  <script type="application/ld+json">
-  {"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "หน้าแรก", "item": "https://beatp9696-arch.github.io/"}, {"@type": "ListItem", "position": 2, "name": "ผ่าธุรกิจ AAPL (Apple) — Services flywheel, ecosystem lock-in และเครื่องเก็บค่าเช่าที่ใหญ่ที่สุดในโลก", "item": "https://beatp9696-arch.github.io/articles/deep-dive-aapl.html"}]}
-  </script>
-</head>
-<body>
-
-  <div class="reading-progress"></div>
-  <div class="top-accent"></div>
-
-  <!-- SITE-HEADER-START -->
-  <header class="site-header">
-    <div class="container">
-      <a href="../index.html" class="site-title">Moatrices</a>
-      <nav class="site-nav">
-        <a href="../articles.html">บทความ</a>
-        <a href="../books.html">Bookshelf</a>
-        <a href="../stocks.html">หุ้น</a>
-        <a href="../tools.html">เครื่องมือ</a>
-        <a href="/smart-money.html">Smart Money</a>
-      </nav>
-    </div>
-  </header>
-  <!-- SITE-HEADER-END -->
-
-  <main>
-    <div class="container">
-
-      <span class="kicker">Deep-dive · หุ้นจริง</span>
-      <h1>ผ่าธุรกิจ AAPL (Apple) — Services flywheel, ecosystem lock-in และเครื่องเก็บค่าเช่าที่ใหญ่ที่สุดในโลก</h1>
-      <div class="company-header">
-        <span class="company-logo"><img src="../logos/AAPL.svg" alt="Apple Inc. logo" width="44" height="44"></span>
-        <span class="company-meta">
-          <span class="company-ticker">AAPL <span class="company-exch">NASDAQ</span></span>
-          <span class="company-name">Apple Inc.</span>
-        </span>
-      <span class="sig-stamp" aria-hidden="true"><svg viewBox="0 0 60 60"><line class="sg-l" x1="8" y1="52" x2="52" y2="52" opacity=".6"/><rect class="sg-t" x="23" y="20" width="14" height="32" fill="#eef0f4" fill-opacity=".85"/><ellipse class="sg-t" cx="30" cy="13" rx="10" ry="3"/></svg></span>
+<!doctype html>
+<html lang="th"><head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="theme-color" content="#080b0c"><title>Apple (AAPL): ข้างในความเรียบง่าย — จากอุปกรณ์ถึงคูเมือง | Moatrices</title>
+<meta name="description" content="เจาะธุรกิจ Apple ภาษาไทย ผ่าน MacBook และ iPhone Duo แบบเลื่อนสำรวจในบทความ วิเคราะห์รายได้ Services คูเมือง กำไร กระแสเงินสด และความเสี่ยง อ้างอิง FY2025 และ Q3 FY2026"><meta name="author" content="Moatrices">
+<link rel="canonical" href="https://beatp9696-arch.github.io/articles/deep-dive-aapl.html">
+<meta property="og:type" content="article"><meta property="og:site_name" content="Moatrices"><meta property="og:locale" content="th_TH">
+<meta property="og:title" content="Apple (AAPL): ข้างในความเรียบง่าย — จากอุปกรณ์ถึงคูเมือง | Moatrices"><meta property="og:description" content="เจาะธุรกิจ Apple ภาษาไทย ผ่าน MacBook และ iPhone Duo แบบเลื่อนสำรวจในบทความ วิเคราะห์รายได้ Services คูเมือง กำไร กระแสเงินสด และความเสี่ยง อ้างอิง FY2025 และ Q3 FY2026">
+<meta property="og:url" content="https://beatp9696-arch.github.io/articles/deep-dive-aapl.html">
+<meta property="og:image" content="https://beatp9696-arch.github.io/og-deep-dive-aapl.jpg">
+<meta name="twitter:card" content="summary_large_image"><meta name="twitter:title" content="Apple (AAPL): ข้างในความเรียบง่าย — จากอุปกรณ์ถึงคูเมือง | Moatrices"><meta name="twitter:description" content="เจาะธุรกิจ Apple ภาษาไทย ผ่าน MacBook และ iPhone Duo แบบเลื่อนสำรวจในบทความ วิเคราะห์รายได้ Services คูเมือง กำไร กระแสเงินสด และความเสี่ยง อ้างอิง FY2025 และ Q3 FY2026">
+<meta name="twitter:image" content="https://beatp9696-arch.github.io/og-deep-dive-aapl.jpg">
+<meta property="article:modified_time" content="2026-09-26T00:00:00+07:00">
+<link rel="icon" href="../favicon.svg" type="image/svg+xml">
+<link rel="preload" as="font" type="font/woff2" href="../fonts/sarabun-400-thai.woff2" crossorigin>
+<link rel="stylesheet" href="../apple-story/story.css"><link rel="stylesheet" href="../apple-story/article.css">
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "Article", "headline": "Apple (AAPL): ข้างในความเรียบง่าย — จากอุปกรณ์ถึงคูเมือง", "description": "เจาะธุรกิจ Apple ภาษาไทย ผ่าน MacBook และ iPhone Duo แบบเลื่อนสำรวจในบทความ วิเคราะห์รายได้ Services คูเมือง กำไร กระแสเงินสด และความเสี่ยง อ้างอิง FY2025 และ Q3 FY2026", "inLanguage": "th", "author": {"@type": "Organization", "name": "Moatrices"}, "publisher": {"@type": "Organization", "name": "Moatrices"}, "datePublished": "2026-07-03", "dateModified": "2026-09-26", "mainEntityOfPage": "https://beatp9696-arch.github.io/articles/deep-dive-aapl.html", "image": "https://beatp9696-arch.github.io/og-deep-dive-aapl.jpg"}</script>
+<script type="importmap">{"imports":{"three":"../macbook-lab/vendor/three.module.js"}}</script>
+<script type="module" src="../apple-story/article.mjs"></script>
+</head><body class="article-story" data-editorial-layout="manual">
+<a class="skip-link" href="#business">ข้ามฉากไปอ่านบทวิเคราะห์</a>
+<header class="mast"><a href="../index.html">MOATRICES<span> / DEEP DIVE</span></a><a href="../articles.html">บทความทั้งหมด</a></header>
+<main><article>
+    <div class="journey" id="journey">
+      <div class="stage">
+        <div id="scene" aria-label="ภาพสามมิติจาก MacBook ไปถึงแบบจำลองอะตอม" role="img"></div>
+        <div class="vignette"></div>
+        <p class="scene-status" id="status" role="status">กำลังเตรียมการเดินทาง…</p>
+        <div class="scene-meta"><span id="object-label">01 / THE OBJECT</span><span class="concept">APPLE / THE BUSINESS</span></div>
+        <aside class="scale" aria-label="ระดับขนาดโดยประมาณ">
+          <span class="scale-label">SCALE<br><small>ลำดับขนาดสมมติ</small></span>
+          <div class="scale-line"><i id="scale-marker"></i><span>1 m</span><span>1 cm</span><span>100 μm</span><span>1 μm</span><span>10 nm</span><span>0.1 nm</span></div>
+          <output id="scale-value">30 cm</output>
+        </aside>
+        <div class="bottom-bar"><span id="step-count">01 / 07</span><span id="model-note">โมเดลตัวเครื่องเพื่อการเรียนรู้</span><span class="scroll-cue">เลื่อนเพื่อมองลึกลงไป ↓</span></div>
+        <div class="progress"><i id="progress"></i></div>
       </div>
-      <div class="byline">
-        <span class="byline-avatar">M</span>
-        <div>
-          <div class="byline-author">Moatrices</div>
-          <div class="byline-info">3 ก.ค. 2026 · อ่าน ~15 นาที</div>
-        </div>
-      </div>
-
-      <!-- TOC-START -->
-      <nav class="toc">
-        <div class="toc-title">ในบทความนี้</div>
-        <ol>
-          <li><a href="#sec-1">ธุรกิจนี้หาเงินจากอะไร</a></li>
-          <li><a href="#sec-2">คูเมืองอยู่ตรงไหน</a></li>
-          <li><a href="#sec-3">Services เก็บค่าเช่ายังไง — App Store กับด่านเก็บเงิน</a></li>
-          <li><a href="#sec-4">ลูกค้าจ่าย $100 — เงินไปไหนต่อ</a></li>
-          <li><a href="#sec-5">ตลาดกำลังเถียงอะไรกัน</a></li>
-          <li><a href="#sec-6">แผงมอนิเตอร์ thesis — ตอนนี้ห่างเส้นแดงแค่ไหน</a></li>
-          <li><a href="#sec-7">สรุป</a></li>
-        </ol>
-      </nav>
-      <!-- TOC-END -->
-
-      <p class="lead">
-        คนส่วนใหญ่มอง Apple เป็น "บริษัทขายมือถือ" แต่หัวใจที่ทำให้มันเป็น <em>ธุรกิจคุณภาพ</em> คือสิ่งที่เกิด
-        <strong>หลัง</strong> ขายเครื่องไปแล้ว — เมื่อ iPhone อยู่ในมือคุณ มันกลายเป็น "ท่อเก็บค่าเช่า"
-        ที่ดูดรายได้ margin 75% เข้ามาทุกเดือนผ่าน App Store, iCloud, โฆษณา บทนี้ผ่าว่าธุรกิจนี้
-        <strong>หาเงินจากอะไร คูเมืองอยู่ตรงไหน และเงินทุก $100 เดินทางไปไหน</strong> — เน้นตัวธุรกิจ ไม่พูดเรื่องราคา
-      </p>
-
-      <blockquote>
-        ตัวเลขอ้างอิงงบ 10-K FY2025 (สิ้นสุด ก.ย. 2025) + earnings call Q2 FY2026 ที่อยู่ใน sources
-        เป็นบันทึกการเรียนเพื่อการศึกษา <strong>ไม่ใช่คำแนะนำซื้อขาย</strong> — เน้นอธิบายโครงสร้างธุรกิจ
-        บางตัวเลขกระแสเงินสดเป็นค่าประมาณ ควรตรวจกับ filing ล่าสุดก่อนใช้จริง
-      </blockquote>
-
-      <h2 id="sec-1">ธุรกิจนี้หาเงินจากอะไร</h2>
-      <p>
-        Apple ขายของสองแบบที่ต่างกันสิ้นเชิง แบบแรกคือ <strong>ฮาร์ดแวร์</strong> — iPhone (ราวครึ่งหนึ่งของรายได้),
-        Mac, iPad, Wearables ลูกค้าจ่าย <em>ครั้งเดียว</em> ตอนซื้อ แบบที่สองคือ <strong>Services</strong> —
-        App Store, iCloud, โฆษณา, ค่า default search จาก Google, Apple Pay ที่เก็บเงิน <em>ซ้ำๆ</em>
-        จากเครื่องที่ขายไปแล้ว ภาพนี้คือหัวใจ: เครื่องหนึ่งเครื่อง = ก้อนเดียว แต่ท่อบริการหยดเงินไม่หยุด
-      </p>
-      <figure class="ph-fig"><div class="ph-panel aapl-panel"><div class="ph-eyebrow aapl">iPhone · ขายครั้งเดียว แล้วเก็บค่าเช่าตลอด</div>
-        <svg viewBox="0 0 840 340" role="img" aria-label="iPhone sold once then generates recurring Services revenue">
-          <!-- one-time hardware coin -->
-          <circle class="aapl-coin aapl-once" cx="170" cy="42" r="12"/>
-          <text class="aapl-mono" x="170" y="34" style="text-anchor:middle" fill="#d9a86b">ขายเครื่อง = ก้อนเดียว</text>
-          <!-- iPhone product -->
-          <rect class="aapl-frame" x="110" y="66" width="120" height="230" rx="26"/>
-          <rect class="aapl-screen" x="120" y="76" width="100" height="210" rx="18"/>
-          <rect class="aapl-island" x="152" y="86" width="36" height="10" rx="5"/>
-          <rect class="aapl-appicon lit" x="130" y="106" width="20" height="20" rx="5" fill="#3b82f6" style="animation-delay:0s"/>
-          <rect class="aapl-appicon lit" x="160" y="106" width="20" height="20" rx="5" fill="#fb7185" style="animation-delay:.3s"/>
-          <rect class="aapl-appicon lit" x="190" y="106" width="20" height="20" rx="5" fill="#38bdf8" style="animation-delay:.6s"/>
-          <rect class="aapl-appicon lit" x="130" y="146" width="20" height="20" rx="5" fill="#34d399" style="animation-delay:.9s"/>
-          <rect class="aapl-appicon lit" x="160" y="146" width="20" height="20" rx="5" fill="#f4c15b" style="animation-delay:1.2s"/>
-          <rect class="aapl-appicon lit" x="190" y="146" width="20" height="20" rx="5" fill="#a855f7" style="animation-delay:1.5s"/>
-          <rect class="aapl-appicon lit" x="130" y="186" width="20" height="20" rx="5" fill="#22d3ee" style="animation-delay:1.8s"/>
-          <rect class="aapl-appicon lit" x="160" y="186" width="20" height="20" rx="5" fill="#ef4444" style="animation-delay:2.1s"/>
-          <rect class="aapl-appicon lit" x="190" y="186" width="20" height="20" rx="5" fill="#8b5cf6" style="animation-delay:2.4s"/>
-          <rect class="aapl-appicon lit" x="130" y="226" width="20" height="20" rx="5" fill="#ec4899" style="animation-delay:2.7s"/>
-          <rect class="aapl-appicon lit" x="160" y="226" width="20" height="20" rx="5" fill="#fbbf24" style="animation-delay:3s"/>
-          <rect class="aapl-appicon lit" x="190" y="226" width="20" height="20" rx="5" fill="#60a5fa" style="animation-delay:3.3s"/>
-          <text class="aapl-t sm" x="170" y="314">iPhone — จ่ายครั้งเดียว</text>
-          <!-- service pipes to tank -->
-          <line class="aapl-flow" x1="230" y1="120" x2="560" y2="150"/>
-          <line class="aapl-flow" x1="230" y1="160" x2="560" y2="165"/>
-          <line class="aapl-flow" x1="230" y1="200" x2="560" y2="180"/>
-          <line class="aapl-flow" x1="230" y1="240" x2="560" y2="195"/>
-          <text class="aapl-mono" x="300" y="112" style="text-anchor:start" fill="#7fb0d0">App Store</text>
-          <text class="aapl-mono" x="300" y="250" style="text-anchor:start" fill="#7fb0d0">iCloud · โฆษณา · Google search</text>
-          <!-- recurring coins dripping into tank -->
-          <circle class="aapl-drip" cx="612" cy="96" r="8" style="animation-delay:0s"/>
-          <circle class="aapl-drip" cx="636" cy="96" r="8" style="animation-delay:.9s"/>
-          <circle class="aapl-drip" cx="660" cy="96" r="8" style="animation-delay:1.7s"/>
-          <!-- Services tank -->
-          <rect class="aapl-tank" x="588" y="120" width="96" height="164" rx="10"/>
-          <rect class="aapl-fill" x="592" y="150" width="88" height="130" rx="6"/>
-          <text class="aapl-t" x="636" y="200" fill="#d9f5ec">Services</text>
-          <text class="aapl-t lg aapl-green" x="636" y="228" style="text-anchor:middle">$109B</text>
-          <text class="aapl-t sm" x="636" y="248" fill="#a7d9c9">margin 75.4% · +14%/ปี</text>
-          <text class="aapl-mono" x="636" y="304" style="text-anchor:middle">รายได้ที่หยดซ้ำทุกเดือน</text>
-        </svg>
-      </div><figcaption>ขาย iPhone ได้เงินก้อนเดียว — แต่หลังจากนั้นทุกแอป/บริการบนเครื่องคือ <strong>ท่อค่าเช่าที่ไหลไม่หยุด</strong> Services โต +14% ทำ margin 75.4% (สูงกว่าฮาร์ดแวร์ที่ 36.8% เท่าตัว) ยิ่งเครื่องสะสมในมือคนมากเท่าไหร่ ท่อนี้ยิ่งใหญ่ขึ้นเอง — นี่คือเหตุผลว่าทำไม gross margin รวมขยับจาก 44.1% → 46.9% ใน 3 ปี</figcaption></figure>
-
-      <h2 id="sec-2">คูเมืองอยู่ตรงไหน</h2>
-      <p>
-        ท่อค่าเช่าจะไหลได้ต่อเมื่อลูกค้า <strong>ไม่เดินหนี</strong> — และนี่คือคูเมืองตัวจริงของ Apple:
-        ไม่ใช่ชิปเร็วสุดหรือกล้องดีสุด (คู่แข่งไล่ทัน) แต่เป็น <strong>ecosystem lock-in</strong> เมื่ออุปกรณ์ทุกชิ้น
-        ผูกเข้าบัญชีเดียว รูป/แชท/บัตร/แอปที่ซื้อไว้ sync ข้ามเครื่องอัตโนมัติ การย้ายไป Android
-        ไม่ใช่แค่ซื้อมือถือใหม่ แต่คือการรื้อชีวิตดิจิทัลทั้งชุด
-      </p>
-      <figure class="ph-fig"><div class="ph-panel aapl-panel"><div class="ph-eyebrow aapl">Ecosystem · อุปกรณ์จริงที่ sync เข้าบัญชีเดียว</div>
-        <svg viewBox="0 0 840 360" role="img" aria-label="Apple devices syncing into one iCloud account (lock-in)">
-          <!-- sync links to hub -->
-          <line class="aapl-sync" x1="196" y1="110" x2="378" y2="182"/>
-          <line class="aapl-sync" x1="612" y1="118" x2="462" y2="182"/>
-          <line class="aapl-sync" x1="202" y1="272" x2="378" y2="200"/>
-          <line class="aapl-sync" x1="628" y1="276" x2="462" y2="200"/>
-          <!-- iPhone (top-left) -->
-          <g class="aapl-glow-on" style="animation-delay:0s">
-            <rect class="aapl-frame" x="144" y="54" width="54" height="112" rx="14"/>
-            <rect class="aapl-screen" x="150" y="60" width="42" height="100" rx="9"/>
-            <rect class="aapl-island" x="160" y="66" width="22" height="6" rx="3"/>
-          </g>
-          <text class="aapl-t sm" x="171" y="182">iPhone</text>
-          <!-- MacBook (top-right) -->
-          <g class="aapl-glow-on" style="animation-delay:.8s">
-            <rect class="aapl-mac-lid" x="600" y="60" width="110" height="66" rx="7"/>
-            <rect class="aapl-mac-scr" x="607" y="67" width="96" height="52" rx="3"/>
-            <path class="aapl-mac-base" d="M590,126 H720 L730,138 H580 Z"/>
-          </g>
-          <text class="aapl-t sm" x="655" y="158">Mac</text>
-          <!-- Apple Watch (bottom-left) -->
-          <g class="aapl-glow-on" style="animation-delay:1.6s">
-            <rect class="aapl-band" x="162" y="228" width="26" height="20" rx="5"/>
-            <rect class="aapl-band" x="162" y="300" width="26" height="20" rx="5"/>
-            <rect class="aapl-watch" x="150" y="244" width="50" height="60" rx="16"/>
-            <rect class="aapl-watch-scr" x="156" y="250" width="38" height="48" rx="11"/>
-            <rect class="aapl-crown" x="200" y="264" width="7" height="14" rx="2"/>
-          </g>
-          <text class="aapl-t sm" x="175" y="334">Watch</text>
-          <!-- AirPods (bottom-right) -->
-          <g class="aapl-glow-on" style="animation-delay:2.4s">
-            <rect class="aapl-bud" x="636" y="250" width="7" height="26" rx="3.5"/><circle class="aapl-bud" cx="639.5" cy="250" r="8"/>
-            <rect class="aapl-bud" x="662" y="250" width="7" height="26" rx="3.5"/><circle class="aapl-bud" cx="665.5" cy="250" r="8"/>
-            <rect class="aapl-case" x="622" y="282" width="64" height="34" rx="10"/>
-          </g>
-          <text class="aapl-t sm" x="654" y="336">AirPods</text>
-          <!-- hub -->
-          <rect x="372" y="166" width="96" height="52" rx="13" fill="#16202b" stroke="#9fb0c4" stroke-width="2.2" filter="drop-shadow(0 0 12px rgba(159,176,196,.3))"/>
-          <rect class="aapl-lock" x="412" y="150" width="16" height="12" rx="2"/><path d="M414,150 v-4 a6,6 0 0 1 12,0 v4" fill="none" stroke="#34d399" stroke-width="2"/>
-          <text class="aapl-t" x="420" y="190" fill="#cfe7f2">iCloud</text>
-          <text class="aapl-t sm" x="420" y="207" fill="#9fb6c6">บัญชีเดียว</text>
-          <!-- exit blocked -->
-          <path class="aapl-block" d="M486,300 q46,-16 82,4"/>
-          <line class="aapl-block" x1="500" y1="286" x2="556" y2="322"/>
-          <text class="aapl-mono" x="528" y="278" style="text-anchor:middle" fill="#f0a0a0">ย้ายค่าย = รื้อทั้งชุด</text>
-        </svg>
-      </div><figcaption>iPhone, Mac, Watch, AirPods — sync เข้า <strong>บัญชีเดียว</strong> อัตโนมัติ ยิ่งซื้อของ Apple มาก ต้นทุนการย้ายค่ายยิ่งสูง (Helmer's Switching-cost Power) นี่คือเหตุผลที่ Apple ตั้งราคา premium เหนือคู่แข่งได้ต่อเนื่อง และเก็บค่าเช่า Services ได้โดยไม่เสียลูกค้า</figcaption></figure>
-      <ul>
-        <li><strong>Switching cost</strong> — ย้ายค่ายต้องยอมทิ้งรูป/แชท/แอปที่ซื้อ + เรียนรู้ระบบใหม่ คนส่วนใหญ่จึงไม่ย้าย</li>
-        <li><strong>Branding + pricing power</strong> — ตั้งราคา premium เหนือ peer ต่อเนื่อง สะท้อนใน gross margin 46.9% ที่ยังขยาย</li>
-        <li><strong>Network effect เบาๆ</strong> — iMessage, FaceTime, AirDrop ทำให้ "เพื่อนใช้ Apple" ดึงให้เราใช้ตาม</li>
-      </ul>
-
-      <h2 id="sec-3">Services เก็บค่าเช่ายังไง — App Store กับด่านเก็บเงิน</h2>
-      <p>
-        ท่อค่าเช่าที่ใหญ่และทำกำไรงามสุดคือ <strong>App Store</strong>: นักพัฒนาทั่วโลกอยากขายแอป/ไอเทมให้ผู้ใช้ iPhone
-        ต้องผ่าน "ด่าน" ของ Apple ที่หักส่วนแบ่ง <strong>15–30%</strong> ของทุกธุรกรรม โดยที่ Apple แทบไม่มีต้นทุนเพิ่ม
-        อีกด่านที่เงียบแต่ใหญ่มากคือ <strong>Google จ่ายค่า default search</strong> ประเมิน $20B+/ปี เพื่อเป็นช่องค้นหาเริ่มต้นบน Safari
-      </p>
-      <figure class="ph-fig"><div class="ph-panel aapl-panel"><div class="ph-eyebrow aapl">App Store · ด่านเก็บส่วนแบ่ง 15–30%</div>
-        <svg viewBox="0 0 840 300" role="img" aria-label="developers pass through App Store toll into iPhone, Apple takes a cut">
-          <text class="aapl-t sm" x="86" y="46">นักพัฒนา / แอป</text>
-          <rect class="aapl-app" x="56" y="64" width="60" height="40" rx="8"/><rect class="aapl-appicon" x="70" y="74" width="20" height="20" rx="5" fill="#34d399"/>
-          <rect class="aapl-app" x="56" y="116" width="60" height="40" rx="8"/><rect class="aapl-appicon" x="70" y="126" width="20" height="20" rx="5" fill="#fb7185"/>
-          <rect class="aapl-app" x="56" y="168" width="60" height="40" rx="8"/><rect class="aapl-appicon" x="70" y="178" width="20" height="20" rx="5" fill="#a855f7"/>
-          <rect class="aapl-app" x="56" y="220" width="60" height="40" rx="8"/><rect class="aapl-appicon" x="70" y="230" width="20" height="20" rx="5" fill="#f4c15b"/>
-          <line class="aapl-flow" x1="120" y1="84" x2="352" y2="150"/>
-          <line class="aapl-flow" x1="120" y1="136" x2="352" y2="150"/>
-          <line class="aapl-flow" x1="120" y1="188" x2="352" y2="150"/>
-          <line class="aapl-flow" x1="120" y1="240" x2="352" y2="150"/>
-          <!-- toll gate -->
-          <circle class="aapl-gatelight" cx="398" cy="80" r="6"/>
-          <text class="aapl-mono" x="398" y="66" style="text-anchor:middle" fill="#f0a0a0">ด่าน</text>
-          <rect class="aapl-gatebar" x="356" y="90" width="84" height="9" rx="2"/>
-          <rect class="aapl-gatepost" x="356" y="98" width="12" height="104" rx="2"/>
-          <rect class="aapl-gatepost" x="428" y="98" width="12" height="104" rx="2"/>
-          <!-- Apple's cut -->
-          <circle class="aapl-cut" cx="386" cy="150" r="8" style="animation-delay:0s"/>
-          <circle class="aapl-cut" cx="410" cy="150" r="8" style="animation-delay:1.1s"/>
-          <rect class="aapl-coffer" x="352" y="214" width="92" height="54" rx="8"/>
-          <text class="aapl-t sm" x="398" y="238" fill="#f6d79a">Apple หัก</text>
-          <text class="aapl-t" x="398" y="257" fill="#f4c15b">15–30%</text>
-          <!-- iPhone receiving -->
-          <line class="aapl-flow" x1="440" y1="150" x2="600" y2="150"/>
-          <rect class="aapl-frame" x="618" y="70" width="86" height="164" rx="20"/>
-          <rect class="aapl-screen" x="626" y="78" width="70" height="148" rx="14"/>
-          <rect class="aapl-island" x="647" y="86" width="28" height="8" rx="4"/>
-          <rect class="aapl-appicon lit" x="636" y="104" width="18" height="18" rx="5" fill="#3b82f6" style="animation-delay:0s"/>
-          <rect class="aapl-appicon lit" x="662" y="104" width="18" height="18" rx="5" fill="#fb7185" style="animation-delay:.5s"/>
-          <rect class="aapl-appicon lit" x="636" y="130" width="18" height="18" rx="5" fill="#34d399" style="animation-delay:1s"/>
-          <rect class="aapl-appicon lit" x="662" y="130" width="18" height="18" rx="5" fill="#f4c15b" style="animation-delay:1.5s"/>
-          <rect class="aapl-appicon lit" x="636" y="156" width="18" height="18" rx="5" fill="#a855f7" style="animation-delay:2s"/>
-          <rect class="aapl-appicon lit" x="662" y="156" width="18" height="18" rx="5" fill="#22d3ee" style="animation-delay:2.5s"/>
-          <text class="aapl-t sm" x="661" y="252">ผู้ใช้ iPhone</text>
-        </svg>
-      </div><figcaption>ทุกแอปที่อยากถึงมือผู้ใช้ iPhone ต้องผ่าน <strong>ด่าน App Store</strong> ที่ Apple หัก 15–30% — เก็บเงินจากคนอื่นทำงาน จึงเป็นรายได้ margin สูงมาก แต่ "ด่าน" แบบนี้เองที่ทำให้ Apple ตกเป็นเป้า regulator (DMA ยุโรป, antitrust สหรัฐ) และดีล Google search $20B+ ก็อยู่ระหว่างคำสั่งศาล — จุดเปราะที่ต้องจับตา</figcaption></figure>
-
-      <h2 id="sec-4">ลูกค้าจ่าย $100 — เงินไปไหนต่อ</h2>
-      <p>
-        ลืมตารางงบไปก่อน แล้วตามเงินก้อนเดียวเดินทาง: ทุก <strong>$100</strong> ที่ลูกค้าจ่ายให้ Apple ในปี FY2025
-        (รายได้รวม $416.2B) เงินไหลผ่านด่านแบบนี้ — ท่อยิ่งบางลงเมื่อเงินรั่วออกเป็นต้นทุน จนเหลือกำไรปลายทาง
-      </p>
-      <figure class="ph-fig"><div class="ph-panel aapl-panel"><div class="ph-eyebrow aapl">Follow the money · ทุก $100 ของรายได้ FY2025</div>
-        <svg viewBox="0 0 840 330" role="img" aria-label="every 100 dollars of Apple revenue: where it goes">
-          <defs>
-            <linearGradient id="aaplmoney" gradientUnits="userSpaceOnUse" x1="30" y1="0" x2="770" y2="0">
-              <stop offset="0" stop-color="#9fb0c4"/><stop offset=".6" stop-color="#5c7a9c"/><stop offset="1" stop-color="#34d399"/>
-            </linearGradient>
-          </defs>
-          <text class="aapl-mono" x="40" y="26" style="text-anchor:start">INCOME STATEMENT · FY2025 · หน่วย = ส่วนแบ่งจากทุก $100</text>
-          <!-- narrowing pipe -->
-          <path d="M30,58 H210 L230,75 H410 L430,77.5 H590 L610,81.5 H770 V98.5 H610 L590,102.5 H430 L410,105 H230 L210,122 H30 Z"
-                fill="url(#aaplmoney)" opacity=".32" class="aapl-pipe"/>
-          <!-- drains -->
-          <rect class="aapl-drainbox" x="205" y="118" width="22" height="86" fill="url(#aaplmoney)" opacity=".16"/>
-          <rect class="aapl-drainbox" x="405" y="103" width="22" height="101" fill="url(#aaplmoney)" opacity=".16"/>
-          <rect class="aapl-drainbox" x="585" y="100" width="22" height="104" fill="url(#aaplmoney)" opacity=".16"/>
-          <!-- amount labels above pipe -->
-          <text class="aapl-t sm" x="115" y="44">ลูกค้าจ่าย</text>
-          <text class="aapl-t" x="115" y="62" style="font-size:15px" fill="#cfe7f2">$100</text>
-          <text class="aapl-t" x="315" y="66" fill="#cdd6e0">$47</text>
-          <text class="aapl-t" x="513" y="74" fill="#d7dde6">$32</text>
-          <!-- tanks -->
-          <rect class="aapl-mtank" x="173" y="206" width="86" height="62" rx="8"/>
-          <rect x="177" y="216" width="78" height="48" rx="5" fill="#4f6a88" opacity=".35"/>
-          <text class="aapl-t" x="216" y="245" fill="#c4d2e0">$53</text>
-          <rect class="aapl-mtank" x="373" y="206" width="86" height="62" rx="8"/>
-          <rect x="377" y="240" width="78" height="24" rx="5" fill="#4f6a88" opacity=".35"/>
-          <text class="aapl-t" x="416" y="245" fill="#c4d2e0">$8</text>
-          <rect class="aapl-mtank" x="573" y="206" width="86" height="62" rx="8"/>
-          <rect x="577" y="234" width="78" height="30" rx="5" fill="#4f6a88" opacity=".35"/>
-          <text class="aapl-t" x="616" y="245" fill="#c4d2e0">$12</text>
-          <!-- tank labels -->
-          <text class="aapl-t sm" x="216" y="286">ต้นทุนการผลิต</text>
-          <text class="aapl-t sm" x="216" y="300">(COGS)</text>
-          <text class="aapl-t sm" x="416" y="286">R&amp;D</text>
-          <text class="aapl-t sm" x="416" y="300">(ลงทุนอนาคต 8%)</text>
-          <text class="aapl-t sm" x="616" y="286">ขาย/บริหาร + ภาษี</text>
-          <text class="aapl-t sm" x="616" y="300">+ อื่นๆ</text>
-          <!-- wallet: net profit -->
-          <rect class="aapl-wallet" x="772" y="66" width="58" height="50" rx="10"/>
-          <text class="aapl-t" x="801" y="88" fill="#d9f5ec">$27</text>
-          <text class="aapl-t sm" x="801" y="104" fill="#a7d9c9">กำไร</text>
-          <text class="aapl-t sm" x="801" y="150">≈ $25 คืน</text>
-          <text class="aapl-t sm" x="801" y="164">ผู้ถือหุ้น</text>
-        </svg>
-      </div><figcaption>ทุก $100 → หักต้นทุน $53 เหลือกำไรขั้นต้น $47 → หัก R&amp;D $8 และค่าขาย/บริหาร/ภาษี $12 → เหลือ <strong>กำไรสุทธิ ~$27</strong> (net margin ~26.9%) และเกือบทั้งหมด (~$25 หรือ ~93% ของกำไร) ถูกคืนผู้ถือหุ้นผ่าน buyback $89.3B + ปันผล $15.4B = <strong>$104.7B/ปี</strong> การซื้อหุ้นคืนทำให้จำนวนหุ้นหด กำไรต่อหุ้นโตแม้กำไรรวมนิ่ง</figcaption></figure>
-
-      <h2 id="sec-5">ตลาดกำลังเถียงอะไรกัน</h2>
-      <p>รอบธุรกิจนี้มีสองฝั่งที่เถียงกันด้วยเหตุผลจริง — ไม่ใช่เรื่องราคาหุ้น แต่เรื่อง <em>ความทนทานของเครื่องยนต์</em>:</p>
-      <p><strong>ฝั่งมอง Bull:</strong></p>
-      <ul>
-        <li><strong>Services flywheel ยังเร่ง</strong> — +14% YoY, margin 75.4% ขยาย 3 ปีติด, ทำสถิติ $31B ในไตรมาสเดียว ยิ่งฐานเครื่องโต ท่อยิ่งใหญ่</li>
-        <li><strong>Apple Intelligence เป็น catalyst จริง</strong> — iPhone +22% YoY ใน Q2 FY2026 พร้อม share gain ชี้ว่า AI เริ่มเป็น demand driver ของ upgrade cycle</li>
-        <li><strong>วินัยจัดสรรทุนระดับ A+</strong> — คืน $104.7B/ปี + net cash ~$33B + ROIC ~123% ทุกดอลลาร์ที่ลงไปสร้างมูลค่าคืนสูงมาก</li>
-      </ul>
-      <p><strong>ฝั่งมอง Bear / จุดเปราะ:</strong></p>
-      <ul>
-        <li><strong>ด่านเก็บเงินโดนเพ่งเล็ง</strong> — DMA ยุโรป + antitrust สหรัฐ กดดันส่วนแบ่ง App Store; ดีล Google search $20B+ อยู่ระหว่างคำสั่งศาล ถ้าหายกระทบ Services โดยตรง</li>
-        <li><strong>ฮาร์ดแวร์โตช้า + จีนหด</strong> — iPhone FY2025 โตแค่ +4% (มาจาก mix ราคา ไม่ใช่จำนวนเครื่อง), Greater China −8%/−4% สองปีติด, Wearables หดตัว 2 ปี</li>
-        <li><strong>FCF สะดุด</strong> — FCF FY2025 −9.2% เหลือ ~$98.8B ขณะกำไรโต ~+20% ทำให้ FCF/กำไรสุทธิ เหลือ ~0.88x (อาจชั่วคราวจาก capex US manufacturing — หรือไม่)</li>
-        <li><strong>Apple Intelligence ยังไม่พิสูจน์ monetization</strong> — Personalized Siri ยัง "coming this year" ซึ่งเป็นเสาหลักของเรื่องเล่า upgrade cycle</li>
-      </ul>
-
-      <h2 id="sec-6">แผงมอนิเตอร์ thesis — ตอนนี้ห่างเส้นแดงแค่ไหน</h2>
-      <p>
-        ทั้งหมดย่อเหลือแผงเดียว: สัญญาณชีพ 5 เส้นของธุรกิจนี้ แต่ละเส้นมีจุด "ตอนนี้" และ <strong>เส้นแดง</strong>
-        ที่ถ้าเข็มวิ่งไปแตะเมื่อไหร่ แปลว่าเรื่องเล่ากำลังพัง — เปิดดูใหม่ทุก earnings (~3 เดือน) ใช้เวลาไม่ถึง 10 นาที
-        นี่คือ Kill Conditions ที่กำหนดไว้ก่อน ไม่ใช่หาเหตุผลเข้าข้างทีหลัง:
-      </p>
-      <figure class="ph-fig"><div class="ph-panel aapl-panel"><div class="ph-eyebrow aapl">Thesis Monitor · ระยะห่างจากเส้นแดง</div>
-        <svg viewBox="0 0 840 420" role="img" aria-label="thesis monitor: five business signals and their red lines">
-          <text class="aapl-mono" x="300" y="30" style="text-anchor:start">แดง = เส้นตาย ◄────────► เขียว = ปลอดภัย · ● = ตอนนี้ · ┋ = เส้นแดง</text>
-          <!-- row template: track 300..770 (w470), red 300-457, warn 457-613, safe 613-770 -->
-          <!-- 1 Services growth -->
-          <text class="aapl-t sm" x="30" y="64" style="text-anchor:start">Services growth</text>
-          <text class="aapl-mono" x="30" y="80" style="text-anchor:start">เส้นแดง &lt;10% YoY</text>
-          <rect class="aapl-mtr-track" x="300" y="58" width="470" height="22" rx="11"/>
-          <rect class="aapl-mtr-red" x="300" y="58" width="157" height="22"/>
-          <rect class="aapl-mtr-warn" x="457" y="58" width="156" height="22"/>
-          <rect class="aapl-mtr-safe" x="613" y="58" width="157" height="22"/>
-          <line class="aapl-mtr-redline" x1="457" y1="52" x2="457" y2="86"/>
-          <g class="aapl-mtr-now safe"><line x1="666" y1="50" x2="666" y2="88"/><circle cx="666" cy="69" r="7"/></g>
-          <text class="aapl-t sm aapl-green" x="784" y="73" style="text-anchor:start">+14%</text>
-          <!-- 2 Google deal -->
-          <text class="aapl-t sm" x="30" y="132" style="text-anchor:start">ดีล Google search</text>
-          <text class="aapl-mono" x="30" y="148" style="text-anchor:start">เส้นแดง: ศาลสั่งยุติ</text>
-          <rect class="aapl-mtr-track" x="300" y="126" width="470" height="22" rx="11"/>
-          <rect class="aapl-mtr-red" x="300" y="126" width="157" height="22"/>
-          <rect class="aapl-mtr-warn" x="457" y="126" width="156" height="22"/>
-          <rect class="aapl-mtr-safe" x="613" y="126" width="157" height="22"/>
-          <line class="aapl-mtr-redline" x1="457" y1="120" x2="457" y2="154"/>
-          <g class="aapl-mtr-now warn"><line x1="500" y1="118" x2="500" y2="156"/><circle cx="500" cy="137" r="7"/></g>
-          <text class="aapl-t sm aapl-amber" x="784" y="141" style="text-anchor:start">appeal</text>
-          <!-- 3 FCF/NI -->
-          <text class="aapl-t sm" x="30" y="200" style="text-anchor:start">FCF / กำไรสุทธิ</text>
-          <text class="aapl-mono" x="30" y="216" style="text-anchor:start">เส้นแดง &lt;0.90x</text>
-          <rect class="aapl-mtr-track" x="300" y="194" width="470" height="22" rx="11"/>
-          <rect class="aapl-mtr-red" x="300" y="194" width="157" height="22"/>
-          <rect class="aapl-mtr-warn" x="457" y="194" width="156" height="22"/>
-          <rect class="aapl-mtr-safe" x="613" y="194" width="157" height="22"/>
-          <line class="aapl-mtr-redline" x1="457" y1="188" x2="457" y2="222"/>
-          <g class="aapl-mtr-now bad"><line x1="405" y1="186" x2="405" y2="224"/><circle cx="405" cy="205" r="7"/></g>
-          <text class="aapl-t sm aapl-red" x="784" y="209" style="text-anchor:start">0.88x</text>
-          <!-- 4 Greater China -->
-          <text class="aapl-t sm" x="30" y="268" style="text-anchor:start">Greater China</text>
-          <text class="aapl-mono" x="30" y="284" style="text-anchor:start">เส้นแดง: ร่วง + iPhone ตก</text>
-          <rect class="aapl-mtr-track" x="300" y="262" width="470" height="22" rx="11"/>
-          <rect class="aapl-mtr-red" x="300" y="262" width="157" height="22"/>
-          <rect class="aapl-mtr-warn" x="457" y="262" width="156" height="22"/>
-          <rect class="aapl-mtr-safe" x="613" y="262" width="157" height="22"/>
-          <line class="aapl-mtr-redline" x1="457" y1="256" x2="457" y2="290"/>
-          <g class="aapl-mtr-now warn"><line x1="516" y1="254" x2="516" y2="292"/><circle cx="516" cy="273" r="7"/></g>
-          <text class="aapl-t sm aapl-amber" x="784" y="277" style="text-anchor:start">−4% YoY</text>
-          <!-- 5 Apple Intelligence -->
-          <text class="aapl-t sm" x="30" y="336" style="text-anchor:start">Apple Intelligence</text>
-          <text class="aapl-mono" x="30" y="352" style="text-anchor:start">เส้นแดง: ไม่ deliver FY26</text>
-          <rect class="aapl-mtr-track" x="300" y="330" width="470" height="22" rx="11"/>
-          <rect class="aapl-mtr-red" x="300" y="330" width="157" height="22"/>
-          <rect class="aapl-mtr-warn" x="457" y="330" width="156" height="22"/>
-          <rect class="aapl-mtr-safe" x="613" y="330" width="157" height="22"/>
-          <line class="aapl-mtr-redline" x1="457" y1="324" x2="457" y2="358"/>
-          <g class="aapl-mtr-now warn"><line x1="535" y1="322" x2="535" y2="360"/><circle cx="535" cy="341" r="7"/></g>
-          <text class="aapl-t sm aapl-amber" x="784" y="345" style="text-anchor:start">รอ Siri</text>
-          <text class="aapl-mono" x="420" y="400" style="text-anchor:middle">เข็มแตะแดง 2 เส้นติด = ทบทวน thesis · FCF/กำไร คือเส้นที่ใกล้ที่สุดตอนนี้</text>
-        </svg>
-      </div><figcaption>สัญญาณที่ใกล้เส้นแดงที่สุดตอนนี้คือ <strong>FCF/กำไรสุทธิ 0.88x</strong> (ต่ำกว่าเส้น 0.90x) — ต้องดูงบ Q3 FY2026 (30 ก.ค.) ว่าฟื้นเหนือ 1.0x ไหม ส่วน Services ยังเขียวสบาย เส้นที่ต้องจับตายาวคือ <strong>ดีล Google</strong> กับ <strong>Apple Intelligence</strong> ที่ยังต้องพิสูจน์</figcaption></figure>
-
-      <h2 id="sec-7">สรุป</h2>
-      <p>
-        Apple ไม่ใช่ "บริษัทขายมือถือ" แต่เป็น <strong>เครื่องเก็บค่าเช่า</strong> ที่ใช้ฮาร์ดแวร์เป็นประตูเข้าสู่ ecosystem
-        แล้วเก็บ Services margin 75% จากฐานเครื่องพันล้านเครื่องที่ย้ายค่ายยาก เงินทุก $100 กลายเป็นกำไร ~$27
-        และเกือบทั้งหมดถูกคืนผู้ถือหุ้น — นี่คือคุณภาพธุรกิจระดับที่หายากจริง (ผ่าน Philosophy Check 5/6, ผู้บริหารเกรด B)
-      </p>
-      <p>
-        สิ่งที่ต้องเฝ้าไม่ใช่ยอดขายรายไตรมาส แต่คือ <strong>เส้นแดงบนแผงมอนิเตอร์</strong>: ท่อ Services ยังไหลแรงไหม,
-        ด่านเก็บเงิน (App Store + Google) โดน regulator งัดหรือเปล่า, และ FCF ฟื้นกลับไหม ตราบใดที่ท่อค่าเช่ายังกว้างขึ้น
-        และคูเมือง ecosystem ยังลึก เครื่องยนต์นี้ก็ยังเดินต่อ — ที่เหลือคือรอจังหวะและติดตามเส้นแดงทุกไตรมาส
-      </p>
-
-
-      <!-- RELATED-START -->
-      <div class="related">
-        <div class="related-title">อ่านต่อในจักรวาลเดียวกัน</div>
-        <div class="related-grid">
-          <a class="related-card" href="deep-dive-googl.html">ผ่าธุรกิจ GOOGL — คนจ่ายค่าประตูให้ Apple ปีละหลายหมื่นล้าน</a>
-          <a class="related-card" href="deep-dive-msft.html">ผ่าธุรกิจ MSFT — ecosystem lock-in ฝั่งองค์กร</a>
-          <a class="related-card" href="deep-dive-cost.html">ผ่าธุรกิจ COST — ธุรกิจค่าสมาชิกที่ลูกค้าไม่ยอมยกเลิก</a>
-        </div>
-      </div>
-      <!-- RELATED-END -->
-
-    </div>
-  </main>
-
-  <!-- SITE-FOOTER-START -->
-  <footer class="site-footer">
-    <div class="container footer-grid">
-      <div class="footer-brand">
-        <a href="../index.html" class="site-title">Moatrices</a>
-        <p>บันทึกการเรียนวิเคราะห์หุ้น US เชิงลึก ภาษาไทย — เน้นพื้นฐานธุรกิจ ไม่ใช่ราคา</p>
-      </div>
-      <nav class="footer-nav">
-        <a href="../index.html">หน้าแรก</a>
-        <a href="../articles.html">บทความ</a>
-        <a href="../books.html">Bookshelf</a>
-        <a href="../stocks.html">หุ้น</a>
-        <a href="../tools.html">เครื่องมือ</a>
-        <a href="../about.html">เกี่ยวกับ</a>
-        <a href="/smart-money.html">Smart Money</a>
-      </nav>
-      <div class="footer-follow">
-        <span class="footer-follow-label">ติดตาม</span>
-        <div class="footer-social">
-          <a href="/feed.xml" class="social-btn" aria-label="RSS feed" title="RSS feed"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 11a9 9 0 0 1 9 9"/><path d="M4 4a16 16 0 0 1 16 16"/><circle cx="5" cy="19" r="1"/></svg></a>
-          <a href="mailto:beatp9696@gmail.com" class="social-btn" aria-label="อีเมล" title="อีเมล"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="m3 7 9 6 9-6"/></svg></a>
-        </div>
+      <div class="chapters">
+        <section class="chapter" id="object" data-chapter="0"><div class="copy hero-copy"><p class="eyebrow">APPLE / BUSINESS DEEP DIVE</p><h1>ข้างในความ<br><em>เรียบง่าย</em></h1><p>Apple ขายอะไร มากกว่าอุปกรณ์หนึ่งเครื่อง?<br>เลื่อนจาก MacBook ลงไปถึงอะตอม แล้วกลับมาดูว่าการออกแบบทั้งระบบเปลี่ยนเป็นรายได้ กำไร และคูเมืองได้อย่างไร</p><p class="hero-date">Moatrices · AAPL · ตัดข้อมูล 26 ก.ย. 2026</p><a class="skip-scene" href="#business">เข้าสู่บทวิเคราะห์ ↓</a></div>
+        </section>
+        <section class="chapter" id="inside" data-chapter="1"><div class="copy "><p class="eyebrow">02 / THE EXPERIENCE</p><h2>ลูกค้าซื้อ<br>ผลลัพธ์</h2><p>เครื่องที่ทำงานได้ลื่น แบตเตอรี่ที่พอใช้ และซอฟต์แวร์ที่เข้ากันได้ มีคุณค่าก็ต่อเมื่อช่วยให้ชีวิตง่ายขึ้น ความซับซ้อนภายในจึงต้องแปลเป็นประโยชน์ที่คนยอมจ่าย</p></div>
+        </section>
+        <section class="chapter" id="board" data-chapter="2"><div class="copy "><p class="eyebrow">03 / CO-DESIGN</p><h2>ออกแบบชิ้นส่วน<br>ให้ทำงานร่วมกัน</h2><p>พื้นที่ พลังงาน และความร้อนมีจำกัด การเลือกแผงวงจร แบตเตอรี่ และตัวเครื่องจึงสัมพันธ์กัน มุมมองของบทความนี้คือ ความสามารถในการตัดสินใจข้ามส่วนคือข้อได้เปรียบที่ควรตรวจสอบ</p></div>
+        </section>
+        <section class="chapter" id="silicon" data-chapter="3"><div class="copy "><p class="eyebrow">04 / APPLE SILICON</p><h2>ชิปกับซอฟต์แวร์<br>คิดไปด้วยกัน</h2><p>CPU รับคำสั่ง GPU ช่วยประมวลผลงานขนาน และวงจรเฉพาะทางรับงานบางชนิด M5 Max เป็นตัวอย่างของการออกแบบร่วมกัน ผังสีนี้แสดงหน้าที่ ไม่ใช่ผังชิปจริง</p></div>
+        </section>
+        <section class="chapter" id="circuits" data-chapter="4"><div class="copy "><p class="eyebrow">05 / THE COST OF DESIGN</p><h2>ความได้เปรียบ<br>ต้องลงทุนซ้ำ</h2><p>วงจรเล็ก ๆ รวมกันเป็นระบบขนาดใหญ่ ภาพนี้อธิบายหลักการ ความเห็นของผู้เขียน: การออกแบบชิปเองเปิดทางให้สร้างความต่าง แต่มีต้นทุนวิจัยและความเสี่ยงหากเลือกทิศทางผิด</p></div>
+        </section>
+        <section class="chapter" id="transistor" data-chapter="5"><div class="copy "><p class="eyebrow">06 / PHYSICAL LIMITS</p><h2>เล็กลง<br>ไม่ได้ง่ายขึ้น</h2><p>เกตควบคุมการนำกระแสของทรานซิสเตอร์ แบบจำลองนี้ช่วยให้เห็นหลักการเท่านั้น ความสามารถของชิปยังขึ้นกับการผลิต พลังงาน ความร้อน และต้นทุน ไม่ใช่ชื่อกระบวนการเพียงตัวเดียว</p></div>
+        </section>
+        <section class="chapter" id="atoms" data-chapter="6"><div class="copy "><p class="eyebrow">07 / BACK TO THE BUSINESS</p><h2>เทคโนโลยีมีค่า<br>เมื่อคนเลือกใช้</h2><p>ลูกบอลและเส้นแทนอะตอมกับพันธะ ไม่ใช่รูปร่างจริงของอะตอม จากสเกลเล็กที่สุด กลับมาสู่คำถามใหญ่: Apple เปลี่ยนวิศวกรรมให้เป็นประสบการณ์ที่ลูกค้าอยากใช้ต่อได้แค่ไหน?</p></div>
+        </section>
       </div>
     </div>
-    <div class="container footer-legal">
-      <!-- FOOTER-LEGAL-DEFAULT-START -->
-      <p><strong>คำเตือน:</strong> เนื้อหาทั้งหมดเป็นบันทึกการเรียนและความเห็นส่วนตัว
-         เพื่อการศึกษาเท่านั้น <strong>ไม่ใช่คำแนะนำการลงทุน</strong> ไม่ใช่การชี้นำให้ซื้อหรือขายหลักทรัพย์ใดๆ
-         ตัวเลขอ้างอิงงบที่เผยแพร่ ณ ช่วงเวลาหนึ่งและอาจล้าสมัย การตัดสินใจลงทุนเป็นความรับผิดชอบของผู้อ่านเอง</p>
-      <!-- FOOTER-LEGAL-DEFAULT-END -->
-      <p>© 2026 Moatrices · เผยแพร่ผ่าน GitHub Pages</p>
-    </div>
-  </footer>
-  <!-- SITE-FOOTER-END -->
 
-  <button class="to-top" aria-label="กลับขึ้นด้านบน">↑</button>
-  <script defer src="../app.min.js"></script>
+<section class="essay" id="business">
+<p class="eyebrow">01 / VALUE BEFORE VALUATION</p>
+<h2>Apple ขายความง่าย<br>ที่คนอยากใช้ต่อ</h2>
+<p class="standfirst">คุณค่าของ Apple ไม่ได้อยู่ที่สเปกสูงสุดทุกช่อง แต่อยู่ที่การทำให้อุปกรณ์ ซอฟต์แวร์ และบริการทำงานเป็นประสบการณ์เดียวกัน คำถามทางธุรกิจคือ ลูกค้าให้คุณค่ากับความต่อเนื่องนั้นมากพอที่จะซื้อเครื่องถัดไปและจ่ายค่าบริการเพิ่มหรือไม่</p>
+<div class="dateline"><strong>ขอบเขตข้อมูล · 26 กันยายน 2026</strong><p>ใช้ <b>FY2025</b> สิ้นสุด 27 ก.ย. 2025 เป็นฐานทั้งปี และ <b>Q3 FY2026</b> สิ้นสุด 27 มิ.ย. 2026 เป็นไตรมาสล่าสุดที่ตรวจพบ งบเก้าเดือน FY2026 เริ่ม 28 ก.ย. 2025 ไม่ใช่ ม.ค.–ก.ย. 2026 บทความนี้ไม่ได้ใช้ผลทั้งปี FY2026 และไม่ประมาณไตรมาสที่ยังไม่มีงบ <a class="source" href="https://www.sec.gov/Archives/edgar/data/320193/000032019325000079/aapl-20250927.htm">10-K FY2025 ↗</a> <a class="source" href="https://www.sec.gov/Archives/edgar/data/320193/000032019326000020/aapl-20260627.htm">10-Q Q3 FY2026 ↗</a></p><p>ตัวเลขเป็นดอลลาร์สหรัฐ เว้นแต่ระบุไว้ คำว่า “คำนวณ” หมายถึงผู้เขียนคำนวณจากงบ “สมมติฐาน” คือสิ่งที่ยังไม่พิสูจน์ และ “มุมมอง” คือการตีความเพื่อเข้าใจธุรกิจ ไม่ใช่คำแนะนำซื้อขาย</p></div>
+<div class="reading-tools"><button type="button" id="reading-toggle" aria-pressed="false" hidden>อ่านแบบไม่ใช้ 3D</button><a href="#sources">ดูแหล่งข้อมูล</a></div>
+<nav class="article-toc" aria-label="สารบัญบทความ"><p>เส้นทางการอ่าน</p><ol>
+<li><a href="#object">จาก MacBook ถึงอะตอม</a></li><li><a href="#business">คุณค่าที่ลูกค้าซื้อ</a></li><li><a href="#revenue">รายได้สองแบบในระบบเดียว</a></li><li><a href="#moat">คูเมืองและข้อจำกัด</a></li><li><a href="#earnings">จากกำไรไปถึงเงินสด</a></li><li><a href="#growth">การเติบโตที่ต้องพิสูจน์</a></li><li><a href="#iphone-duo">สำรวจ iPhone Duo</a></li><li><a href="#risks">ความเสี่ยงและมุมมองสองด้าน</a></li><li><a href="#monitor">หลักฐานที่ทำให้เปลี่ยนใจ</a></li><li><a href="#sources">ขอบเขตโมเดลและแหล่งข้อมูล</a></li></ol></nav>
+<p>ลองเริ่มจากงานธรรมดา: อ่านเอกสารบน iPhone แล้วกลับมาทำต่อบน Mac หรือคัดลอกข้อความจากเครื่องหนึ่งไปวางอีกเครื่อง Apple มี Handoff และ Universal Clipboard รองรับงานเหล่านี้ภายใต้เงื่อนไขด้านอุปกรณ์ บัญชี และการเชื่อมต่อ ประโยชน์ไม่ใช่แค่ฟีเจอร์หนึ่งรายการ แต่คือขั้นตอนเล็ก ๆ ที่หายไปจากชีวิตประจำวัน <a class="source" href="https://support.apple.com/en-us/102426">Apple Support: Handoff ↗</a> <a class="source" href="https://support.apple.com/en-hk/102430">Universal Clipboard ↗</a></p>
+<p>สำหรับลูกค้าบางคน ความสะดวก ความคุ้นเคย งานออกแบบ และความมั่นใจในการใช้งานร่วมกันมีค่ามากพอให้จ่ายแพงขึ้น สำหรับอีกกลุ่ม ราคา ความยืดหยุ่น หรือซอฟต์แวร์เฉพาะทางสำคัญกว่า นี่คือเหตุผลที่เราไม่ควรสรุปว่า Apple “ดีที่สุด” สำหรับทุกคน หรือแปลความนิยมของแบรนด์เป็นอำนาจตั้งราคาที่ไร้ขีดจำกัด</p>
+<p>ฉาก MacBook ที่ผ่านมาแสดงแนวคิด <em>การออกแบบร่วมกัน</em>: ถ้าผู้ออกแบบชิปรู้ว่างานชนิดใดต้องทำบ่อย และทีมระบบปฏิบัติการใช้วงจรนั้นได้ดี ประสิทธิภาพที่ลูกค้าได้รับอาจต่างจากการเลือกชิ้นส่วนทีละรายการ แต่ผลลัพธ์ยังต้องวัดจากงานจริง Apple ระบุว่า M5 Pro และ M5 Max รวม CPU, GPU และวงจรเฉพาะทางไว้ในระบบชิปเดียวโดยเชื่อมสองไดเข้าด้วยกัน โมเดลของเราใช้ M5 Max เป็นตัวอย่างเชิงหน้าที่ <a class="source" href="https://www.apple.com/newsroom/2026/03/apple-debuts-m5-pro-and-m5-max-to-supercharge-the-most-demanding-pro-workflows/">Apple: M5 Pro / M5 Max, 3 มี.ค. 2026 ↗</a></p>
+<aside class="model-boundary">ภาพ MacBook และการจัดวางภายในเป็นแบบจำลอง ขนาดบนสเกลมีไว้แสดงลำดับความเล็ก ไม่ใช่การวัดชิ้นส่วนจริง ผังชิป วงจร ทรานซิสเตอร์ และอะตอมไม่ใช่หลักฐานว่า Apple ผลิตหรือจัดวางโครงสร้างจริงตามภาพ</aside>
+</section>
 
-</body>
-</html>
+<section class="essay" id="revenue"><p class="eyebrow">02 / TWO REVENUE STREAMS</p><h2>เครื่องที่ขายวันนี้<br>กับบริการที่ใช้ต่อไป</h2>
+<p>รายได้ฮาร์ดแวร์มาจากการขาย iPhone, Mac, iPad และอุปกรณ์อื่น ส่วน Services รวมหลายธุรกิจ: ค่าสมาชิกบริการดิจิทัล พื้นที่คลาวด์ การดูแลอุปกรณ์ โฆษณา ข้อตกลงให้สิทธิ และบริการชำระเงิน รูปแบบการเก็บเงินจึงต่างกัน ทั้งรายงวด รายธุรกรรม และตามข้อตกลง ไม่ใช่ลูกค้าซื้อเครื่องหนึ่งครั้งแล้ว Apple ได้เงินทุกเดือนโดยอัตโนมัติ <a class="source" href="https://www.sec.gov/Archives/edgar/data/320193/000032019325000079/aapl-20250927.htm">10-K: Business / Services ↗</a></p>
+<p>ฝั่งฮาร์ดแวร์ รายได้ขึ้นกับจำนวนเครื่องที่ขายและส่วนผสมของรุ่นกับราคา รอบเปลี่ยนเครื่องยาวขึ้นอาจกดยอดขายใหม่ได้ แม้ผู้ใช้ยังชอบ Apple อยู่ การที่เครื่องเก่าใช้งานต่อได้นานจึงอาจช่วยรักษาความสัมพันธ์กับลูกค้า แต่ไม่ได้รับประกันรายได้ฮาร์ดแวร์ในปีถัดไป</p>
+<div class="table-wrap" tabindex="0" role="region" aria-label="รายได้แยกหมวด FY2025"><table><caption>รายได้ FY2025 · พันล้านดอลลาร์ · ตัวเลขรายงานปัดเป็นทศนิยม 2 ตำแหน่ง</caption><thead><tr><th scope="col">หมวด</th><th scope="col">รายได้</th><th scope="col">สัดส่วนรวม¹</th></tr></thead><tbody>
+<tr><th scope="row">iPhone</th><td>209.59</td><td>50.4%</td></tr><tr><th scope="row">Mac</th><td>33.71</td><td>8.1%</td></tr><tr><th scope="row">iPad</th><td>28.02</td><td>6.7%</td></tr><tr><th scope="row">Wearables, Home &amp; Accessories</th><td>35.69</td><td>8.6%</td></tr><tr><th scope="row">Services</th><td>109.16</td><td>26.2%</td></tr><tr class="total"><th scope="row">รวม</th><td>416.16</td><td>100%</td></tr></tbody></table></div>
+<p class="caption">¹ คำนวณจากรายได้แต่ละหมวด ÷ 416,161 ล้านดอลลาร์ ไม่ใช่สัดส่วนจำนวนลูกค้าหรือจำนวนเครื่อง <a class="source" href="https://www.sec.gov/Archives/edgar/data/320193/000032019325000079/aapl-20250927.htm">10-K: Products and Services Performance, หน้า 23 ↗</a></p>
+<p>iPhone ยังมีน้ำหนักราวครึ่งหนึ่งของรายได้ จึงเป็นทั้งผลิตภัณฑ์สำคัญและจุดเริ่มต้นของความสัมพันธ์กับบริการอื่น การเติบโตของ Services ช่วยกระจายที่มาของรายได้ แต่ไม่ได้ทำให้ความเสี่ยงจาก iPhone หายไป เพราะบริการจำนวนมากยังอาศัยความน่าสนใจของอุปกรณ์และแพลตฟอร์ม</p>
+<figure class="mix-figure"><p class="eyebrow">FY2025 / SERVICES IN CONTEXT</p><h3>รายได้หนึ่งในสี่<br>กำไรขั้นต้นมากกว่าสองในห้า</h3>
+<div class="mix-controls" hidden><button type="button" data-mix="revenue" aria-pressed="true">ดูรายได้</button><button type="button" data-mix="profit" aria-pressed="false">ดูกำไรขั้นต้น</button></div>
+<div class="mix-bar" role="img" aria-label="รายได้ FY2025: Products 73.8%, Services 26.2%"><span id="products-bar" style="width:73.8%">Products <b>73.8%</b></span><span id="services-bar" style="width:26.2%">Services <b>26.2%</b></span></div>
+<p id="mix-explainer" aria-live="polite">Services สร้างรายได้ 26.2% ของบริษัท แต่คิดเป็น 42.2% ของกำไรขั้นต้นรวม</p>
+<figcaption>คำนวณ: 109,158 ÷ 416,161 = 26.2%; 82,314 ÷ 195,201 = 42.2% ตัวเลขทั้งหมดมาจาก FY2025 กำไรขั้นต้นยังไม่หัก R&amp;D ค่าใช้จ่ายขายและบริหาร หรือภาษี <a class="source" href="https://www.sec.gov/Archives/edgar/data/320193/000032019325000079/aapl-20250927.htm">10-K: Gross Margin, หน้า 24 ↗</a></figcaption></figure>
+<p><strong>Gross margin คืออัตรากำไรขั้นต้น</strong> หรือรายได้หักต้นทุนขาย แล้วหารด้วยรายได้ FY2025 ของ Products อยู่ที่ 36.8% และ Services 75.4% แต่สองตัวนี้ไม่ใช่อัตรากำไรสุทธิของแต่ละธุรกิจ และ Apple ไม่ได้แจกแจงกำไรของ iCloud, App Store หรือข้อตกลงค้นหาเป็นรายธุรกิจในตารางนี้ <a class="source" href="https://www.sec.gov/Archives/edgar/data/320193/000032019325000079/aapl-20250927.htm">10-K: Gross Margin ↗</a></p>
+<p>การเปรียบเทียบยังต้องเข้าใจวิธีลงบัญชี: เมื่อ Apple เป็นตัวแทนขายบริการของบุคคลอื่น เช่น ธุรกรรมบางประเภทบน App Store บริษัทบันทึกเฉพาะค่าคอมมิชชันเป็นรายได้ ไม่ใช่ยอดที่ผู้ใช้จ่ายทั้งหมด ขณะที่ฮาร์ดแวร์ลงรายได้ขายเครื่องพร้อมต้นทุนตัวเครื่อง อัตรากำไรขั้นต้นที่ต่างกันจึงสะท้อนทั้งเศรษฐศาสตร์ธุรกิจและฐานรายได้ที่บันทึก <a class="source" href="https://www.sec.gov/Archives/edgar/data/320193/000032019325000079/aapl-20250927.htm">10-K: Note 2 — Revenue Recognition ↗</a></p>
+<p class="author-view"><b>มุมมองผู้เขียน</b> ระบบนี้อาจหนุนกันได้: อุปกรณ์ที่น่าใช้เพิ่มโอกาสให้คนใช้บริการ และบริการที่มีคุณค่าช่วยให้คนอยากอยู่ต่อ แต่ลูกค้าจะจ่ายต่อเมื่อยังเห็นประโยชน์ ฐานอุปกรณ์ที่ใช้งานอยู่ไม่เท่ากับจำนวนคน ไม่เท่ากับสมาชิกแบบเสียเงิน และไม่ควรถูกคูณด้วยค่าบริการสมมติแล้วเรียกว่า “รายได้ที่แน่นอน”</p>
+</section>
+
+<section class="essay" id="moat"><p class="eyebrow">03 / WHY CUSTOMERS STAY</p><h2>คูเมืองเกิดจาก<br>สิ่งที่เสียไปเมื่อเปลี่ยน</h2>
+<p>คูเมืองในที่นี้หมายถึงความได้เปรียบที่ช่วยให้ธุรกิจรักษาลูกค้าและผลตอบแทนได้ท่ามกลางการแข่งขัน สำหรับ Apple ผมมองว่าต้องประเมินหลายส่วนร่วมกัน ไม่มีส่วนใดพิสูจน์ตัวเองด้วยโลโก้หรือจำนวนผู้ใช้เพียงตัวเดียว</p>
+<div class="moat-grid">
+<section><span>01 / BRAND</span><h3>แบรนด์ลดความลังเล</h3><p>ประสบการณ์ที่ดีในอดีตอาจทำให้ลูกค้าเชื่อมั่นในเครื่องใหม่ ความเสี่ยงคือความผิดพลาดด้านคุณภาพ ความเป็นส่วนตัว หรือบริการหลังการขายสามารถย้อนทำร้ายความคาดหวังที่สูงนั้นได้</p></section>
+<section><span>02 / SWITCHING COST</span><h3>การย้ายมีต้นทุนมากกว่าราคาเครื่อง</h3><p>ลูกค้าอาจต้องย้ายข้อมูล เรียนรู้วิธีใช้ใหม่ เปลี่ยนแอปหรืออุปกรณ์เสริม และปรับงานที่เคยเชื่อมกันอยู่ แต่ต้นทุนนี้ต่างกันมากในแต่ละคน บริการที่ใช้ได้หลายระบบและเครื่องมือย้ายข้อมูลช่วยลดมันได้</p></section>
+<section><span>03 / CO-DESIGN</span><h3>ความต่างจากการออกแบบร่วมกัน</h3><p>การควบคุมชิป ระบบปฏิบัติการ และตัวเครื่องช่วยให้เลือกประนีประนอมได้ทั้งระบบ คู่แข่งยังสร้างประสบการณ์ที่ดีได้ด้วยแนวทางอื่น และ Apple ก็ยังต้องพึ่งโรงงาน เทคโนโลยี และนักพัฒนาภายนอก</p></section>
+<section><span>04 / PRICING</span><h3>ตั้งราคาได้เมื่อประโยชน์มากพอ</h3><p>รุ่นระดับสูงและบริการเพิ่มเติมเปิดพื้นที่ให้ลูกค้าเลือกจ่ายเพิ่ม แต่ถ้าราคาสูงกว่าคุณค่าที่รับรู้ ลูกค้าอาจรอเปลี่ยนเครื่อง เลือกรุ่นเก่า หรือย้ายค่าย อัตรากำไรที่สูงเพียงไตรมาสเดียวจึงไม่ใช่ข้อพิสูจน์</p></section>
+</div>
+<p class="caption">กรอบสี่ส่วนข้างต้นเป็นการวิเคราะห์ของผู้เขียน ไม่ใช่คะแนนที่ Apple รายงาน ฐานข้อเท็จจริงเรื่องรูปแบบธุรกิจ การแข่งขัน และการพึ่งพาคู่ค้า: <a class="source" href="https://www.sec.gov/Archives/edgar/data/320193/000032019325000079/aapl-20250927.htm">10-K: Business / Competition / Risk Factors ↗</a></p>
+<p>คำว่า <em>ecosystem</em> จึงควรแปลอย่างเป็นรูปธรรมว่าอุปกรณ์ แอป บริการ นักพัฒนา และผู้ใช้ที่เชื่อมกัน ประสบการณ์ข้ามเครื่องทำให้การอยู่ต่อมีประโยชน์ ขณะเดียวกัน เงื่อนไขแพลตฟอร์มอาจทำให้ผู้ใช้หรือนักพัฒนามีทางเลือกน้อยลง ประโยชน์ของการเชื่อมกันกับอำนาจในการเก็บค่าธรรมเนียมเป็นคนละเรื่อง และถูกกดดันได้คนละทาง</p>
+</section>
+
+<section class="essay" id="earnings"><p class="eyebrow">04 / FOLLOW THE CASH</p><h2>กำไรดีแค่ไหน<br>ต้องเดินต่อไปถึงเงินสด</h2>
+<p>FY2025 Apple มีรายได้ 416.161 พันล้านดอลลาร์ กำไรขั้นต้น 195.201 พันล้าน และกำไรจากการดำเนินงาน 133.050 พันล้าน หลังหักรายการอื่นและภาษี เหลือกำไรสุทธิ 112.010 พันล้าน <a class="source" href="https://www.sec.gov/Archives/edgar/data/320193/000032019325000079/aapl-20250927.htm">10-K: Statements of Operations, หน้า 29 ↗</a></p>
+<figure class="money-figure"><h3>รายได้ทุก $100 เหลืออะไรบ้าง?</h3><p class="caption">คำนวณจากงบ FY2025 · ตัวเลขแต่ละแถวเป็นส่วนแบ่งของรายได้เดียวกัน</p>
+<div class="money-row"><span>ต้นทุนขาย</span><div style="--amount:53.1"></div><b>$53.1</b></div><div class="money-row"><span>วิจัยและพัฒนา</span><div style="--amount:8.3"></div><b>$8.3</b></div><div class="money-row"><span>ขายและบริหาร</span><div style="--amount:6.6"></div><b>$6.6</b></div><div class="money-row"><span>รายการอื่นสุทธิ + ภาษี</span><div style="--amount:5.1"></div><b>$5.1</b></div><div class="money-row final-row"><span>กำไรสุทธิ</span><div style="--amount:26.9"></div><b>$26.9</b></div>
+<figcaption>Gross margin 46.9% → operating margin 32.0% → net margin 26.9% สองค่าหลังคำนวณจากกำไรแต่ละประเภท ÷ รายได้ กราฟนี้เป็นงบกำไรขาดทุน ไม่ใช่กระแสเงินสด <a class="source" href="https://www.sec.gov/Archives/edgar/data/320193/000032019325000079/aapl-20250927.htm">10-K: Statements of Operations ↗</a></figcaption></figure>
+<p>กำไรสุทธิอาจโตด้วยเหตุผลที่ไม่ได้เกิดซ้ำทั้งหมด เช่น ฐานภาษีปีก่อน FY2025 มีผลต่างค่าใช้จ่ายภาษีที่เกี่ยวกับคำตัดสิน State Aid ลดลง 10.7 พันล้านดอลลาร์เมื่อเทียบปีก่อน จึงควรมองกำไรจากการดำเนินงานประกอบ ไม่ใช้การโตของกำไรสุทธิแทนการโตของธุรกิจทั้งหมด <a class="source" href="https://www.sec.gov/Archives/edgar/data/320193/000032019325000079/aapl-20250927.htm">10-K: Provision for Income Taxes, หน้า 25 ↗</a></p>
+<div class="table-wrap" tabindex="0" role="region" aria-label="กำไรและเงินสด"><table><caption>กำไรและการใช้เงิน · พันล้านดอลลาร์ · งวดเต็มปีกับเก้าเดือนแยกกัน</caption><thead><tr><th scope="col">รายการ</th><th scope="col">FY2025<br>12 เดือน</th><th scope="col">9M FY2025<br>สิ้นสุด 28 มิ.ย. 2025</th><th scope="col">9M FY2026<br>สิ้นสุด 27 มิ.ย. 2026</th></tr></thead><tbody>
+<tr><th scope="row">กำไรสุทธิ</th><td>112.010</td><td>84.544</td><td>101.464</td></tr><tr><th scope="row">เงินสดจากการดำเนินงาน (CFO)</th><td>111.482</td><td>81.754</td><td>116.996</td></tr><tr><th scope="row">ซื้อที่ดิน อาคาร และอุปกรณ์ (capex)</th><td>12.715</td><td>9.473</td><td>6.799</td></tr><tr class="total"><th scope="row">FCF = CFO − capex¹</th><td>98.767</td><td>72.281</td><td>110.197</td></tr><tr><th scope="row">เงินสดซื้อหุ้นคืน</th><td>90.711</td><td>70.579</td><td>62.094</td></tr><tr><th scope="row">ปันผลและเงินเทียบเท่าปันผล</th><td>15.421</td><td>11.559</td><td>11.778</td></tr></tbody></table></div>
+<p class="caption">¹ Free cash flow ในบทความนี้เป็นค่าคำนวณ ไม่ใช่บรรทัด GAAP และไม่ใช่เงินที่แจกจ่ายได้ทั้งหมดโดยไม่มีภาระอื่น เปรียบเทียบการเติบโตระหว่างเก้าเดือนที่ยาวเท่ากัน ไม่เอาเก้าเดือนไปคูณเป็นทั้งปี <a class="source" href="https://www.sec.gov/Archives/edgar/data/320193/000032019325000079/aapl-20250927.htm">10-K: Cash Flows, หน้า 33 ↗</a> <a class="source" href="https://www.sec.gov/Archives/edgar/data/320193/000032019326000020/aapl-20260627.htm">10-Q: Cash Flows, หน้า 5 ↗</a></p>
+<p>เงินสดจากการดำเนินงานเริ่มจากกำไร แล้วปรับรายการที่ไม่ใช้เงินสดและการเปลี่ยนแปลงเงินทุนหมุนเวียน เช่น สินค้าคงเหลือ ลูกหนี้ และเจ้าหนี้ ในเก้าเดือน FY2026 CFO เพิ่มเร็วกว่ากำไรสุทธิ แต่มีทั้งการจ่ายภาษีเงินสดที่ลดลง และการเปลี่ยนแปลงสินทรัพย์กับหนี้สินดำเนินงานร่วมด้วย จึงยังไม่ควรยกการโตของ CFO ทั้งก้อนเป็นอัตราเติบโตปกติในอนาคต <a class="source" href="https://www.sec.gov/Archives/edgar/data/320193/000032019326000020/aapl-20260627.htm">10-Q: Cash Flows ↗</a></p>
+<p>ค่าตอบแทนเป็นหุ้นถูกบวกกลับในงบเงินสด เพราะไม่ได้จ่ายเงินสดแบบเงินเดือน แต่ยังมีต้นทุนต่อผู้ถือหุ้นจากจำนวนหุ้นที่เพิ่มขึ้น การซื้อหุ้นคืนบางส่วนจึงชดเชยการออกหุ้น ไม่ได้ลดจำนวนหุ้นสุทธิเท่ากับยอดซื้อคืนทุกดอลลาร์ เราควรติดตามจำนวนหุ้นถัวเฉลี่ยแบบ diluted ควบคู่กับกำไรต่อหุ้น (EPS) <a class="source" href="https://www.sec.gov/Archives/edgar/data/320193/000032019325000079/aapl-20250927.htm">10-K: Notes 9–11 ↗</a></p>
+<h3>ลงทุนมากกว่าที่เห็นใน capex</h3>
+<p>Apple ใช้ผู้รับจ้างผลิตเป็นส่วนสำคัญของห่วงโซ่อุปทาน การไม่เป็นเจ้าของโรงงานทุกแห่งช่วยลดเงินลงทุนในสินทรัพย์ของตัวเอง แต่ไม่ได้ทำให้ความเสี่ยงด้านกำลังผลิตหายไป ค่า R&amp;D ก็เป็นการลงทุนเพื่ออนาคตแม้ถูกบันทึกเป็นค่าใช้จ่าย: FY2025 อยู่ที่ 34.550 พันล้านดอลลาร์ ขณะที่เก้าเดือน FY2026 อยู่ที่ 34.035 พันล้าน เพิ่มจาก 25.684 พันล้านในงวดเทียบกัน Apple ระบุถึงต้นทุนโครงสร้างพื้นฐาน รวมถึง AI และบุคลากร <a class="source" href="https://www.sec.gov/Archives/edgar/data/320193/000032019325000079/aapl-20250927.htm">10-K: R&D / Manufacturing ↗</a> <a class="source" href="https://www.sec.gov/Archives/edgar/data/320193/000032019326000020/aapl-20260627.htm">10-Q: Operating Expenses, หน้า 17 ↗</a></p>
+<p>สำหรับผู้ถือหุ้น การคืนทุนมีประโยชน์เมื่อธุรกิจยังลงทุนพอ และเงินที่จ่ายไปซื้อหุ้นกลับให้ผลตอบแทนเหมาะกับราคาที่ซื้อ FY2025 เงินสดซื้อหุ้นคืนบวกปันผลเท่ากับ 106.132 พันล้านดอลลาร์ มากกว่า FCF ตามนิยามข้างต้น 7.365 พันล้าน ส่วนต่างต้องพิจารณาร่วมกับเงินสดและหลักทรัพย์ที่มีอยู่ รวมถึงการกู้และชำระหนี้ ไม่ใช่สรุปจาก EPS ว่าการซื้อคืนสร้างมูลค่าเสมอ <span class="calculation">[คำนวณจากงบเงินสด]</span> <a class="source" href="https://www.sec.gov/Archives/edgar/data/320193/000032019325000079/aapl-20250927.htm">10-K: Cash Flows ↗</a></p>
+<h3>ไตรมาสล่าสุด: แยกผลดำเนินงานออกจากรายการช่วย</h3>
+<p>Q3 FY2026 รายได้ 109.417 พันล้านดอลลาร์ เพิ่ม 16% จากงวดเดียวกันปีก่อน iPhone 54.252 พันล้าน และ Services 30.739 พันล้าน ขณะที่ iPad ลดลง 6% เป็นตัวอย่างว่าการเติบโตไม่ได้เกิดเท่ากันทุกผลิตภัณฑ์ <a class="source" href="https://www.apple.com/newsroom/pdfs/fy2026q3/FY26_Q3_Consolidated_Financial_Statements.pdf">งบ Q3 FY2026 หน้า 1 ↗</a></p>
+<div class="evidence-note"><strong>50.1% ≠ อัตราปกติที่ยืนยันแล้ว</strong><p>Gross margin รวม Q3 FY2026 อยู่ที่ 50.1% โดย Apple ระบุว่าการคืนภาษีนำเข้าช่วยราว 2 จุดเปอร์เซ็นต์ การหักแบบหยาบให้ภาพประมาณ 48.1% เป็นเพียง <b>การคำนวณประกอบการอ่านงบ</b> ไม่ใช่งบปรับปรุงที่บริษัทรับรอง และไม่ได้ตัดผลด้านส่วนผสมสินค้า ต้นทุน หรือรายการอื่นทั้งหมด <a class="source" href="https://www.apple.com/newsroom/2026/07/apple-reports-third-quarter-results/">Apple: ผลประกอบการ 30 ก.ค. 2026 ↗</a></p></div>
+</section>
+
+<section class="essay" id="growth"><p class="eyebrow">05 / WHAT HAS TO WORK NEXT</p><h2>เครื่องยนต์เติบโต<br>ต้องมีลูกค้าจ่ายจริง</h2>
+<p>เส้นทางแรกคือรักษาผู้ใช้เดิมและชวนคนใหม่เข้ามา ลูกค้าอาจเปลี่ยนเครื่องเมื่อแบตเตอรี่เสื่อม งานใหม่ต้องใช้พลังมากขึ้น หรือฟีเจอร์คุ้มกับเงินที่จ่าย รุ่นราคาเข้าถึงง่ายกับรุ่นระดับสูงทำหน้าที่ต่างกัน: แบบหนึ่งช่วยขยายฐาน อีกแบบอาจเพิ่มรายได้ต่อเครื่อง แต่ทั้งคู่ต้องวัดผลหลังหักการแย่งยอดขายกันเอง</p>
+<p>เส้นทางที่สองคือบริการที่ลูกค้าใช้มากขึ้น บริการคลาวด์และโฆษณาเป็นแรงขับการเติบโตของ Services ในเก้าเดือน FY2026 ตามคำอธิบายของบริษัท ความต่อเนื่องนี้มีน้ำหนักมากกว่าการสมมติว่าฐานอุปกรณ์ทุกเครื่องจะสร้างรายได้เท่ากัน แต่ Apple ยังไม่ได้เปิดรายได้และกำไรของบริการแต่ละตัวให้คำนวณผลตอบแทนแยกได้ครบ <a class="source" href="https://www.sec.gov/Archives/edgar/data/320193/000032019326000020/aapl-20260627.htm">10-Q: Services, หน้า 15 ↗</a></p>
+<p>เส้นทางที่สามคือความสามารถใหม่ เช่น AI และรูปแบบอุปกรณ์ใหม่ ถ้า AI ทำงานประจำได้ดีขึ้นจริง ก็อาจทำให้อุปกรณ์น่าใช้หรือช่วยกระตุ้นการเปลี่ยนรุ่น แต่การใช้งานบ่อยไม่ได้แปลเป็นกำไรทันที ต้องคิดค่าใช้โมเดล คอมพิวต์ และโครงสร้างพื้นฐานด้วย Apple เองระบุความเสี่ยงจากความพร้อมและต้นทุนของกำลังประมวลผลใน 10-Q <a class="source" href="https://www.sec.gov/Archives/edgar/data/320193/000032019326000020/aapl-20260627.htm">10-Q: Risk Factors — compute capacity ↗</a></p>
+<p class="author-view"><b>สมมติฐานที่ยังต้องพิสูจน์</b> หาก AI ช่วยงานได้เชื่อถือได้ ใช้ได้ในภาษาและพื้นที่ที่ลูกค้าต้องการ และทำให้คนเลือกอุปกรณ์หรือบริการของ Apple เพิ่ม นั่นจึงจะเชื่อมไปถึงธุรกิจได้ การเปิดตัวและการสาธิตยังไม่ใช่หลักฐานของรายได้ส่วนเพิ่ม</p>
+</section>
+
+<section class="duo-story" id="iphone-duo" aria-labelledby="duo-heading">
+<div class="duo-intro"><p class="eyebrow">06 / iPHONE DUO — A BUSINESS TEST</p><h2>กางพื้นที่ใช้สอย<br>แล้วกางตลาดได้ไหม?</h2><p>iPhone Duo ทำให้คำถามเรื่องการเติบโตจับต้องได้ เลื่อนจากเครื่องที่พับอยู่ ไปยังบานพับ จอ ภายใน และชิป แล้วพิจารณาว่าความสามารถใหม่สร้างประโยชน์ที่คุ้มกับราคาเพียงใด</p><p class="caption">Apple ประกาศ Duo วันที่ 9 ก.ย. 2026 ใช้ A20 Pro ราคาเริ่มต้นสหรัฐฯ $1,999 ก่อนภาษีขาย กำหนดพรีออเดอร์ 16 ต.ค. และวางขาย 23 ต.ค. 2026 ดังนั้น ณ วันตัดข้อมูลยังไม่มีผลขายหลังวางจำหน่ายให้พิสูจน์ความสำเร็จ <a class="source" href="https://www.apple.com/newsroom/2026/09/apple-unveils-iphone-duo/">ประกาศ iPhone Duo ↗</a></p><p class="model-boundary">ฉากภายใน บานพับ และชั้นจอเป็นภาพอธิบาย ไม่ใช่ผลแกะเครื่องจริง ค่าความหนา ความเครียด และรูปทรงบางส่วนเป็นสมมติฐาน ชื่อกระบวนการ “2 นาโนเมตร” ไม่ใช่ความยาวทุกชิ้นส่วนในทรานซิสเตอร์</p><a href="#duo-reading">อ่านความหมายทางธุรกิจของทุกฉาก ↓</a></div>
+<div class="duo-scroll-track" id="duo-scroll-track"><div class="duo-embed" id="duo-embed"><p class="duo-loading" role="status">กำลังเตรียมฉาก iPhone Duo…</p><a class="duo-skip" href="#duo-reading">ข้ามภาพไปอ่านต่อ ↓</a></div></div>
+<template id="duo-template"><iframe src="../iphone-duo-lab.html?embed=1&amp;scroll=1&amp;article=1" title="เลื่อนสำรวจ iPhone Duo พร้อมคำอธิบายธุรกิจ"></iframe></template>
+<div class="essay duo-reading" id="duo-reading"><h3>สิ่งที่ภาพกำลังชวนให้คิด</h3><ol class="scene-recap">
+<li><strong>ตัวเครื่อง → งานเดิมต้องยังสะดวก</strong> เมื่อพับอยู่ เครื่องยังต้องใช้ในชีวิตประจำวันได้ ประโยชน์จากจอใหญ่จะมีค่าน้อยลงหากการพกพาหรือการใช้งานพื้นฐานแย่ลง</li>
+<li><strong>กางจอ → พื้นที่ต้องเปลี่ยนเป็นประโยชน์</strong> Apple ระบุจอใน 7.6 นิ้วและจอนอก 5.4 นิ้ว แต่มูลค่าสำหรับลูกค้าขึ้นกับแอปและงานที่ทำได้ดีขึ้น ไม่ใช่ขนาดอย่างเดียว <a class="source" href="https://www.apple.com/iphone-duo/specs/">สเปก Duo ↗</a></li>
+<li><strong>บานพับ → ประสบการณ์มีต้นทุน</strong> กลไกต้องทนและทำงานสม่ำเสมอ ความซับซ้อนอาจเพิ่มต้นทุนผลิตและดูแลหลังขาย โมเดลไม่ได้บอกอัตราของเสียหรืออายุการใช้งานจริง</li>
+<li><strong>ชั้นจอ → ข้อจำกัดทางกายภาพ</strong> แบบจำลองแสดงการไถลของชั้นจอเพื่ออธิบายการลดการยืดหด ตัวเลขในเลนส์คำนวณจากความหนาสมมติ ห้ามใช้ทำนายว่าจอจริงจะทนได้กี่ครั้ง</li>
+<li><strong>ภายใน → ทุกส่วนแย่งพื้นที่เดียวกัน</strong> จอ แบตเตอรี่ และการระบายความร้อนต้องอยู่ร่วมกัน ประโยชน์ของการควบคุมการออกแบบคือเลือกจุดสมดุลได้ แต่ไม่รับประกันว่าต้นทุนจะต่ำกว่าเครื่องทั่วไป</li>
+<li><strong>A20 Pro → ประสิทธิภาพต้องตรงกับงาน</strong> Apple ยืนยันชื่อชิปและระบบระบายความร้อน แต่บล็อกสีในภาพเป็นผังหน้าที่ ไม่ใช่การเปิดเผยตำแหน่งวงจรจริงหรือพื้นที่ไดที่วัดได้ <a class="source" href="https://www.apple.com/newsroom/2026/09/apple-unveils-iphone-duo/">Apple: A20 Pro และระบบความร้อน ↗</a></li>
+<li><strong>กลับมาที่ธุรกิจ → ต้องแยกยอดเพิ่มจากยอดย้าย</strong> ถ้าคนที่เดิมจะซื้อ iPhone รุ่นสูงเปลี่ยนมาซื้อ Duo รายได้ส่วนเพิ่มคือส่วนต่างจากทางเลือกเดิม หักต้นทุนที่เพิ่มขึ้น ไม่ใช่ราคาขาย Duo ทั้งเครื่อง หากแทนการซื้อ iPad ด้วย ต้องมองผลรวมข้ามหมวดอีกชั้นหนึ่ง</li>
+</ol><p class="author-view"><b>มุมมองผู้เขียน</b> Duo เป็นการทดลองขยายสิ่งที่ iPhone ทำได้ ข้อสรุปเชิงธุรกิจต้องรอความต้องการซื้อ ความทนทาน ต้นทุน และการใช้งานจริง หาก Apple ไม่เปิดยอดรุ่นนี้แยก แม้รายได้ iPhone โต ก็ยังบอกไม่ได้ว่า Duo เป็นสาเหตุเพียงอย่างเดียว</p></div>
+</section>
+
+<section class="essay" id="risks"><p class="eyebrow">07 / THE CASE CAN CUT BOTH WAYS</p><h2>ข้อได้เปรียบเดียวกัน<br>มีด้านที่เปราะบาง</h2>
+<h3>แพลตฟอร์มที่เชื่อมกัน กับกติกาที่เปลี่ยนได้</h3>
+<p>การควบคุมประสบการณ์ช่วยให้ Apple ดูแลคุณภาพได้ แต่การควบคุมช่องทางจ่ายเงินและเข้าถึงผู้ใช้ทำให้เกิดข้อพิพาท คณะกรรมาธิการยุโรปวินิจฉัยในวันที่ 23 เม.ย. 2025 ว่า Apple ฝ่าฝืนข้อกำหนด anti-steering ของ DMA ซึ่งเกี่ยวกับการให้นักพัฒนาพาผู้ใช้ไปข้อเสนอภายนอก และปรับ €500 ล้าน นี่เป็นเหตุการณ์ตามวันที่ระบุ ไม่ใช่ข้อสรุปว่ากระบวนการกฎหมายทั้งหมดสิ้นสุดแล้ว <a class="source" href="https://digital-markets-act.ec.europa.eu/commission-finds-apple-and-meta-breach-digital-markets-act-2025-04-23_en">European Commission ↗</a></p>
+<p>ประเด็นที่มีผลต่อธุรกิจระยะยาวอาจไม่ใช่ค่าปรับครั้งเดียว แต่คือสัดส่วนธุรกรรมที่ Apple ยังเก็บค่าธรรมเนียมได้ บริษัทระบุใน 10-Q ว่าช่องทางจำหน่ายและชำระเงินทางเลือกอาจทำให้ได้ค่าคอมมิชชันลดลงหรือไม่ได้เลย ส่วนผลกระทบจริงต้องดูพฤติกรรมผู้ใช้ นักพัฒนา และข้อกำหนดที่บังคับใช้ <a class="source" href="https://www.sec.gov/Archives/edgar/data/320193/000032019326000020/aapl-20260627.htm">10-Q: Risk Factors — alternative distribution and payment ↗</a></p>
+<p>รายได้จากการให้สิทธิและการค้นหาก็มีความเสี่ยงด้านข้อตกลง กระทรวงยุติธรรมสหรัฐฯ ระบุคำสั่งแก้ไขคดี Google Search เมื่อ 2 ก.ย. 2025 ว่าห้ามข้อตกลงจำหน่ายแบบผูกขาดบางประเภท การจำกัดเงื่อนไขสัญญาไม่เท่ากับข้อสรุปว่าเงินที่ Apple ได้จะกลายเป็นศูนย์ บทความนี้จึงไม่ใส่ตัวเลขรายได้ค้นหาปัจจุบันที่ Apple ไม่ได้แจกแจงแยกไว้ในงบที่ใช้ <a class="source" href="https://www.justice.gov/opa/pr/department-justice-wins-significant-remedies-against-google">DOJ: Google Search remedies, 2025 ↗</a></p>
+<h3>ห่วงโซ่อุปทานที่เก่ง กับต้นทุนที่ควบคุมไม่ได้ทั้งหมด</h3>
+<p>การออกแบบเองไม่เท่ากับผลิตเองทุกส่วน Apple เตือนเรื่องข้อจำกัดและต้นทุนที่เพิ่มขึ้นของเซมิคอนดักเตอร์ หน่วยความจำ และสตอเรจ รวมทั้งความเสี่ยงจากภาษีและการค้า การขึ้นราคาอาจชดเชยต้นทุนได้บางส่วน แต่ก็อาจลดความต้องการซื้อ ประเด็นนี้ทดสอบอำนาจตั้งราคาได้ตรงกว่าการดูราคาป้ายเพียงอย่างเดียว <a class="source" href="https://www.sec.gov/Archives/edgar/data/320193/000032019326000020/aapl-20260627.htm">10-Q: Component Supply and Costs / Tariffs ↗</a></p>
+<p>จีนเป็นทั้งตลาดและส่วนหนึ่งของความเสี่ยงด้านการผลิต ใน FY2025 รายได้ Greater China ลด 4% แต่ Q3 FY2026 เพิ่มเป็น 18.816 พันล้านดอลลาร์จาก 15.369 พันล้านในไตรมาสเดียวกันปีก่อน การฟื้นตัวหนึ่งช่วงไม่ควรถูกตีความว่าแรงกดดันการแข่งขันหรือภูมิรัฐศาสตร์หายไปแล้ว <a class="source" href="https://www.sec.gov/Archives/edgar/data/320193/000032019325000079/aapl-20250927.htm">10-K: Geographic Performance ↗</a> <a class="source" href="https://www.apple.com/newsroom/pdfs/fy2026q3/FY26_Q3_Consolidated_Financial_Statements.pdf">งบ Q3 FY2026 หน้า 1 ↗</a></p>
+<h3>นวัตกรรมกับการจัดสรรเงินในช่วงเปลี่ยนผ่าน</h3>
+<p>Apple ประกาศให้ John Ternus รับตำแหน่ง CEO มีผล 1 ก.ย. 2026 และ Tim Cook เป็น executive chairman ความเสี่ยงที่ควรดูไม่ใช่การตัดสินจากบุคลิก แต่คือความต่อเนื่องของคุณภาพสินค้า การบริหารคู่ค้า และวินัยในการลงทุนเมื่อ AI กับผลิตภัณฑ์ใหม่ต้องใช้ทรัพยากรพร้อมกัน <a class="source" href="https://www.apple.com/newsroom/2026/04/tim-cook-to-become-apple-executive-chairman-john-ternus-to-become-apple-ceo/">Apple: การเปลี่ยนผู้นำ ↗</a></p>
+<div class="two-views"><section><p class="eyebrow">มุมมองที่เชื่อมั่น</p><h3>ประสบการณ์ร่วมกันยังมีค่า</h3><p>ถ้าลูกค้ายังเลือกอยู่ต่อ บริการเพิ่มคุณค่า และวิศวกรรมทำให้สินค้าใหม่มีประโยชน์ Apple ก็สามารถสร้างเงินสดจากฐานเดิมพร้อมขยายการใช้งานได้ การเติบโตของรายได้หลายหมวดใน Q3 เป็นหลักฐานสนับสนุนส่วนหนึ่ง</p></section><section><p class="eyebrow">มุมมองที่ระมัดระวัง</p><h3>คุณค่ากับกำไรอาจแยกทาง</h3><p>ลูกค้าอาจยังชอบเครื่อง แต่เปลี่ยนช้าลง ค่าคอมมิชชันอาจถูกกด ต้นทุน AI และชิ้นส่วนอาจเพิ่มเร็วกว่ารายได้ กำไรต่อหุ้นยังดูดีได้จากการซื้อหุ้นคืนหรือรายการชั่วคราว แม้ความสามารถทำกำไรพื้นฐานเริ่มอ่อนลง</p></section></div>
+<p class="caption">ทั้งสองด้านเป็นกรอบตีความของผู้เขียน ไม่ใช่การทำนายหรือมติของตลาด ต้องทดสอบกับหลักฐานหลายงวด</p>
+</section>
+
+<section class="essay" id="monitor"><p class="eyebrow">08 / WHAT WOULD CHANGE OUR MIND</p><h2>ติดตามหลักฐาน<br>แทนการตั้งเส้นแดง</h2>
+<p>มุมมองปัจจุบันของผมคือ Apple มีความได้เปรียบจากการออกแบบทั้งระบบและความสัมพันธ์กับผู้ใช้ แต่คุณภาพธุรกิจต้องได้รับการรักษาด้วยการลงทุน และไม่ได้ทำให้การเติบโตทุกทางเลือกสำเร็จ เกณฑ์ที่ดีจึงควรบอกว่าจะเรียนรู้อะไรจากข้อมูลใหม่ ไม่ใช่กำหนดตัวเลขตัดสินขึ้นมาโดยไม่มีเหตุผล</p>
+<div class="table-wrap" tabindex="0" role="region" aria-label="ตัวชี้วัดและหลักฐานที่จะเปลี่ยนมุมมอง"><table class="monitor-table"><caption>คำถามสำหรับงบและผลิตภัณฑ์รอบต่อไป · กรอบวิเคราะห์ของผู้เขียน</caption><thead><tr><th scope="col">ติดตามอะไร</th><th scope="col">ทำไมจึงสำคัญ</th><th scope="col">หลักฐานที่เปลี่ยนข้อสรุป</th></tr></thead><tbody>
+<tr><th scope="row">รายได้ iPhone / Mac และคำอธิบายส่วนผสมรุ่น</th><td>แยกการซื้อเพิ่มจากการขายรุ่นแพงขึ้น โดยไม่ใช้รายได้แทนจำนวนเครื่อง</td><td>มองดีขึ้นหากเติบโตต่อเนื่องโดยไม่ต้องพึ่งส่วนลดหนัก; ระวังขึ้นหากต้องขึ้นราคาเพื่อชดเชยต้นทุนแต่รายได้และความต้องการอ่อนตัว</td></tr>
+<tr><th scope="row">Services: รายได้และ gross margin</th><td>ดูทั้งมูลค่าบริการกับส่วนที่ Apple เก็บไว้ได้ ไม่ใช้ค่าเฉลี่ยแทนทุกบริการ</td><td>ต้องทบทวนหากบริการยังถูกใช้มาก แต่รายได้หรือกำไรขั้นต้นถูกกดจากกติกาหรือต้นทุนอย่างต่อเนื่อง</td></tr>
+<tr><th scope="row">Gross margin ของ Products และรายการพิเศษ</th><td>ทดสอบอำนาจตั้งราคาหลังแยกภาษีคืน ส่วนผสมสินค้า และค่าเงิน</td><td>ความแข็งแรงที่คงอยู่หลังแรงช่วยชั่วคราวหมดไปหนุนมุมมอง; ตัวเลขตกพร้อมต้นทุนที่ส่งผ่านไม่ได้ทำให้ระวังขึ้น</td></tr>
+<tr><th scope="row">CFO, capex, R&amp;D และเงินทุนหมุนเวียน</th><td>ตรวจว่ากำไรกลายเป็นเงินสดได้ โดยไม่ลดการลงทุนที่จำเป็น</td><td>ต้องลดความเชื่อมั่นหากเงินสดอ่อนลงหลายงวดเพราะเก็บเงินยากหรือสินค้าค้าง ไม่ใช่เพียงจังหวะภาษีและการจ่ายคู่ค้า</td></tr>
+<tr><th scope="row">กำไรสุทธิ, diluted EPS และจำนวนหุ้น</th><td>แยกการเติบโตของธุรกิจจากผลของการซื้อคืน</td><td>EPS โตแต่กำไรดำเนินงานไม่ตาม และเงินคืนผู้ถือหุ้นเบียดการลงทุน เป็นเหตุให้ประเมินคุณภาพใหม่</td></tr>
+<tr><th scope="row">Duo และ AI หลังใช้งานจริง</th><td>หาเหตุผลที่ลูกค้ายอมจ่ายเพิ่ม พร้อมต้นทุนให้บริการและปัญหาคุณภาพ</td><td>การใช้ซ้ำ ประโยชน์ที่วัดได้ และรายได้ส่วนเพิ่มหนุนมุมมอง; ปัญหาความทนทานหรือค่าใช้จ่ายสูงโดยไม่มีรายได้ตามทำให้ลดความคาดหวัง</td></tr>
+<tr><th scope="row">กติกาแพลตฟอร์ม จีน และคู่ค้า</th><td>ตรวจทั้งสิทธิในการเก็บเงินและความสามารถส่งมอบสินค้า</td><td>เงื่อนไขใหม่ที่ลดรายได้จริง หรือข้อจำกัดการผลิตที่ยืดเยื้อ ทำให้ต้องปรับประมาณการ ไม่รอเพียงข่าวเปิดตัวใหม่</td></tr>
+</tbody></table></div>
+<p>ใช้ตัวเลขจาก 10-Q/10-K และประกาศบริษัทเป็นหลัก เทียบกับช่วงเดียวกันปีก่อนและหลายไตรมาสประกอบกัน ถ้าจะใช้ข้อมูลภายนอกเรื่องการย้ายค่าย ส่วนแบ่งตลาด หรือยอดขายรายรุ่น ต้องตรวจวิธีเก็บข้อมูลก่อน Apple ไม่ได้เปิดเผยทุกตัวแปรที่เราต้องการ และการไม่เปิดเผยไม่ใช่หลักฐานว่าตัวแปรนั้นดีหรือแย่</p>
+<p class="closing">สิ่งที่ต้องกลับมาถามจึงเรียบง่ายพอ ๆ กับสินค้าที่ Apple พยายามสร้าง: ประสบการณ์ยังดีขึ้นจนคนอยากเลือกต่อหรือไม่ และเงินที่เหลือหลังจ่ายต้นทุนกับลงทุนเพื่ออนาคตยังสะท้อนคุณค่านั้นหรือเปล่า</p>
+</section>
+
+<section class="essay sources-section" id="sources"><p class="eyebrow">RESEARCH NOTES / 26 SEP 2026</p><h2>สิ่งที่ยืนยันได้<br>และสิ่งที่ภาพไม่ได้บอก</h2>
+<p>ตรวจตัวเลขกับเอกสารปฐมภูมิใหม่ ไม่ใช้ตัวเลขหรือข้อสรุปจากบทความเดิมเป็นหลักฐาน งบประจำปี FY2025 ผ่านการตรวจสอบบัญชี ส่วนงบระหว่างกาล Q3 FY2026 ระบุว่า unaudited การคำนวณใช้ตัวเลขล้านดอลลาร์ก่อนปัดเศษ</p>
+<ul class="source-list"><li><a class="source" href="https://www.sec.gov/Archives/edgar/data/320193/000032019325000079/aapl-20250927.htm">SEC: Form 10-K FY2025 ↗</a> — Business, Risk Factors, หน้า 22–25, งบหน้า 29 และ 33, Revenue Recognition</li><li><a class="source" href="https://www.sec.gov/Archives/edgar/data/320193/000032019326000020/aapl-20260627.htm">SEC: Form 10-Q Q3 FY2026 ↗</a> — งบเก้าเดือน, ผลรายหมวด, gross margin, เงินลงทุน และความเสี่ยงล่าสุด</li><li><a class="source" href="https://www.apple.com/newsroom/pdfs/fy2026q3/FY26_Q3_Consolidated_Financial_Statements.pdf">Apple IR: งบ Q3 FY2026 ↗</a> และ <a class="source" href="https://www.apple.com/newsroom/2026/07/apple-reports-third-quarter-results/">ข่าวผลประกอบการ ↗</a> — ตรวจรายได้ กำไร และผลคืนภาษีนำเข้า</li><li><a class="source" href="https://www.apple.com/newsroom/2026/03/apple-debuts-m5-pro-and-m5-max-to-supercharge-the-most-demanding-pro-workflows/">Apple: M5 Pro / M5 Max ↗</a> — ยืนยันชื่อและหน้าที่หลัก; ไม่ใช่ผังชิปสำหรับโมเดล</li><li><a class="source" href="https://www.apple.com/newsroom/2026/09/apple-unveils-iphone-duo/">Apple: iPhone Duo ↗</a> และ <a class="source" href="https://www.apple.com/iphone-duo/specs/">Technical specifications ↗</a> — วันที่เปิดตัว กำหนดขาย ราคาเริ่มต้นสหรัฐฯ จอ และ A20 Pro</li></ul>
+<h3>ข้อจำกัดที่ยังเหลือ</h3><p>ยังยืนยันไม่ได้จากเอกสารที่ใช้: ต้นทุนและกำไรต่อเครื่องของ Duo, ยอดขายและอัตราซ่อมหลังวางจำหน่าย, ผลกำไรจาก AI แยกต่างหาก, รายได้ค้นหาปัจจุบันที่แจกแจงแยก และอัตราการย้ายค่ายที่วัดสม่ำเสมอครบทุกตลาด จึงไม่ใส่ค่าประมาณเหล่านี้เป็นข้อเท็จจริง</p>
+<p>รูปร่างภายใน MacBook และ Duo ไม่ได้มาจากแบบโรงงาน การแยกชิ้นส่วนและผังหน้าที่มีไว้ช่วยคิดเรื่องการออกแบบร่วมกัน ตั้งแต่ชิปลงไปเป็นแบบจำลองหลักการทั้งหมด สเกลสมมติไม่ได้บอกขนาดเกตจริง ชื่อโหนดการผลิตไม่ได้ใช้แทนความยาวทรานซิสเตอร์ และโมเดลอะตอมไม่ได้แสดงสีหรือขอบเขตจริงของอะตอม</p>
+<p class="caption">บทความเพื่อศึกษาธุรกิจ ไม่มีราคาเป้าหมายหรือคำแนะนำซื้อขาย · ผู้เขียนและภาพอธิบาย: Moatrices · ปรับเนื้อหา 26 ก.ย. 2026</p>
+<a href="#object">กลับสู่ต้นเรื่อง ↑</a>
+</section>
+</article></main><footer class="article-footer"><a href="../index.html">MOATRICES</a><a href="../articles.html">อ่านบทความอื่น →</a></footer><noscript><p class="no-script">JavaScript ปิดอยู่ จึงแสดงบทความและคำอธิบายทุกฉากในรูปแบบอ่านปกติ</p></noscript></body></html>
